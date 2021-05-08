@@ -1,0 +1,33 @@
+html {
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
+	background: transparent !important;
+}
+
+body {
+	background: transparent !important;
+}
+
+#notifications {
+    bottom: 22%;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 550px;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute !important;
+}
+
+#notifications b {
+	color: rgba(255,255,255,0.8);
+}
+
+#black  #212121
+#purple #9c27b0 
+#yellow #d0a01e
+#orange #ff5723
+#green  #21a540
+#bluel  #23afcc
+#blued  #0d47a1
+#bluet  #1da1f2
+#red    #c10015
+#redd   #6e000c

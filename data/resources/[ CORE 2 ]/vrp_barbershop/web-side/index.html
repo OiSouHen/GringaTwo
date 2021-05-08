@@ -1,0 +1,231 @@
+<html>
+	<head>
+		<title>#vrp</title>
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<img id="cursorPointer" src="assets/cursor.png">
+		<div class="openBarbershop">
+
+			<div class="tab">
+				<a href="#" class="visage active" data-link="visage">Primário</a>
+				<a href="#" class="pilosite" data-link="pilosite">Secundário</a>
+			</div>
+
+			<form id="formBarbershop">
+				<div class="block visage active">
+					<div class="group" style="padding-top: 0;">						
+						<div class="input">
+							<div class="label">Cor da Pele</div>
+							<div class="label-value" data-legend="45"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="skinColor" class="skinColor" min="0" max="45">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor dos Olhos</div>
+							<div class="label-value" data-legend="31"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="eyesColor" class="eyesColor" min="0" max="31">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="group" style="padding-bottom: 0;">
+						<div class="input">
+							<div class="label">Acne</div>
+							<div class="label-value" data-legend="23"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="-1" type="range" id="complexionModel" class="complexionModel" min="-1" max="11">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Manchas</div>
+							<div class="label-value" data-legend="12"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="12" type="range" id="blemishesModel" class="blemishesModel" min="-1" max="23">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Sardas</div>
+							<div class="label-value" data-legend="17"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="frecklesModel" class="frecklesModel" min="-1" max="17">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Envelhecimento</div>
+							<div class="label-value" data-legend="15"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="15" type="range" id="ageingModel" class="ageingModel" min="-1" max="14">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="block pilosite">
+					<div class="group" style="padding-top: 0;">
+						<div class="input">
+							<div class="label">Cabelo</div>
+							<div class="label-value" data-legend="77"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="hairModel" class="hairModel" min="0" max="77">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor do Cabelo</div>
+							<div class="label-value" data-legend="60"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="firstHairColor" class="firstHairColor" min="0" max="60">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Reflexo do Cabelo</div>
+							<div class="label-value" data-legend="60"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="secondHairColor" class="secondHairColor" min="0" max="60">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="group">
+						<div class="input">
+							<div class="label">Maquiagem</div>
+							<div class="label-value" data-legend="71"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="makeupModel" class="makeupModel" min="-1" max="71">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>						
+					</div>
+
+					<div class="group">
+						<div class="input">
+							<div class="label">Batom</div>
+							<div class="label-value" data-legend="10"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="-1" type="range" id="lipstickModel" class="lipstickModel" min="-1" max="9">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor do Batom</div>
+							<div class="label-value" data-legend="63"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="lipstickColor" class="lipstickColor" min="0" max="63">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="group">
+						<div class="input">
+							<div class="label">Sobrancelha</div>
+							<div class="label-value" data-legend="34"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="eyebrowsModel" class="eyebrowsModel" min="0" max="34">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor da Sobrancelha</div>
+							<div class="label-value" data-legend="54"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="eyebrowsColor" class="eyebrowsColor" min="0" max="54">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="group">
+						<div class="input">
+							<div class="label">Barba</div>
+							<div class="label-value" data-legend="28"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="-1" type="range" id="beardModel" class="beardModel" min="-1" max="28">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor da Barba</div>
+							<div class="label-value" data-legend="54"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="beardColor" class="beardColor" min="0" max="63">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="group" style="padding-bottom: 0px;">
+						<div class="input">
+							<div class="label">Blush</div>
+							<div class="label-value" data-legend="32"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="-1" type="range" id="blushModel" class="blushModel" min="-1" max="32">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+
+						<div class="input">
+							<div class="label">Cor do Blush</div>
+							<div class="label-value" data-legend="63"></div>
+							<div class="type-range">
+								<a href="#" class="arrow arrow-left">&nbsp;</a>
+								<input value="0" type="range" id="blushColor" class="blushColor" min="0" max="63" step="1">
+								<a href="#" class="arrow arrow-right">&nbsp;</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="submit">S  A  L  V  A  R</button>
+			</form>
+		</div>
+
+		<div class="popup confirmation">
+			<p>Deseja salvar a aparência atual?</p>
+			<div class="buttons">
+				<div class="button yes">S I M</div>
+				<div class="button no">N Ã O</div>
+			</div>
+		</div>
+
+		<script src="front.js" type="text/javascript"></script>
+		<script src="script.js" type="text/javascript"></script>
+	</body>
+</html>

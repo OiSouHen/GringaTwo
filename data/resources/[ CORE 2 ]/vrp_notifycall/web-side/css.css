@@ -1,0 +1,92 @@
+
+::-webkit-scrollbar { background: transparent; width: 0; }
+::selection { background: transparent; color: #fff; }
+::-moz-selection { background: transparent; color: #fff; }
+
+* {
+	color: white;
+	font-size: 13px;
+	-webkit-user-select: none;
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+.body {
+	right: 0;
+	top: 120px;
+	height: 77%;
+	width: 335px;
+	overflow: hidden;
+	position: absolute;
+}
+
+.notification {
+	float: left;
+	width: 330px;
+	padding: 15px;
+	margin-bottom: 10px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background: rgba(75,100,160,0.8);
+	border-left: 5px solid rgba(45,60,90,0.8);
+}
+
+.content {
+	float: left;
+	width: 260px;
+}
+
+.buttons {
+	float: left;
+	width: 30px;
+}
+
+.content-line {
+	float: left;
+	margin-top: 6px;
+	min-width: 250px;
+	max-width: 250px;
+	padding: 4px 0 0 5px;
+}
+
+.chamados {
+	float: left;
+	width: 30px;
+	height: 30px;
+	margin: 5px 0;
+	text-align: center;
+}
+
+.chamados svg {
+	font-size: 22px;
+}
+
+.code {
+	float: left;
+	color: #ffffff;
+	font-size: 11px;
+	padding: 5px 10px;
+	margin-right: 10px;
+	border-radius: 4px;
+	background: rgba(154,36,58,0.9);
+}
+
+.titulo {
+	float: left;
+	color: #ffffff;
+	max-width: 250px;
+	overflow: hidden;
+	padding: 4px 0 5px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.texto {
+	float: left;
+	color: #333;
+	margin-top: 14px;
+	min-width: 270px;
+	max-width: 270px;
+	background: #fff;
+	line-height: 16px;
+	padding: 8px 10px;
+}

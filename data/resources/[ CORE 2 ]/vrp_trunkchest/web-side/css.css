@@ -1,0 +1,183 @@
+::-webkit-scrollbar { display: none; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+body {
+	padding: 0;
+	margin: 0;
+	color: #fff;
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+* {
+	overflow: hidden;
+	box-sizing: border-box;
+	user-select: none;
+}
+
+.inventory {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	height: 100vh;
+	width: 100vw;
+
+	background: rgba(0,0,0,0.5);
+}
+
+.innerInventory {
+	display: flex;
+	flex-direction: column;
+}
+
+.sections {
+	height: 415px;
+	display: flex;
+}
+
+.invLeft, .invRight {
+	overflow-y: scroll;
+	display: grid;
+	grid-template-columns: 1fr 1fr  1fr 1fr 1fr;
+	column-gap: 5px;
+	row-gap: 5px;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+
+	/* width: 110px;
+	height: 135px; */
+    width: 112px;
+    height: 132px;
+    background: rgba(0, 0, 0, 0.25);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.populated {
+	background-size: 90% !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}
+
+.populated:hover, .hoverControl {
+	background-color: #1f1f1fb9 !important;
+}
+
+.item .top {
+	display: flex;
+	justify-content: space-between;
+	font-size: .65rem;
+	color: #8c8c8c;
+}
+
+.itemAmount {
+	margin: 10px 10px 0 0;
+}
+
+.itemWeight {
+	margin: 10px 0 0 10px;
+}
+
+.item .itemname {
+	margin-top: auto;
+	align-self: center;
+
+	width: 100%;
+	color: #d0d0d0;
+	padding: 7px 10px;
+
+	letter-spacing: 1px;
+	font-size: .64rem;
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+
+	text-shadow: 1px 1px #000;
+	background-image: url('https://cdn.discordapp.com/attachments/734975009914880048/793610856738717726/bottom.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.invMiddle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.invMiddle div {
+	font-size: .75rem;
+	text-align: center;
+
+	border: 1px solid rgba(255,255,255,0.12);
+	background: rgba(0, 0, 0, 0.80);
+    opacity: 0.5;
+	letter-spacing: 1px;
+
+	width: 70%;
+	margin-top: 12px;
+	padding: 16px 4px;
+}
+
+.invMiddle input {
+	font-size: .75rem;
+	letter-spacing: 1px;
+	border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0, 0, 0, 0.80);
+    opacity: 0.5;
+	padding: 16px 4px;
+}
+
+.invMiddle input, .invMiddle input::placeholder {
+	text-align: center;
+	appearance: none;
+	outline: none;
+	border-radius: 0;
+	width: 70%;
+	color: #FFF;
+}
+
+.myInfos {
+	align-self: flex-start;
+	padding: 0 0 25px 16px;
+}
+
+.infosContent {
+	padding-top: 12px;
+	font-size: .70rem;
+	color: #b3b3b3;
+}
+
+.infosContent span {
+	letter-spacing: 1px;
+	margin-right: 18px;
+}
+
+.myInfos b {
+	font-size: 1.5rem;
+	padding-bottom: 15px;
+}
+
+.myInfos i {
+	color: #b3b3b3;
+	font-weight: 300;
+}
+
+.myInfos s {
+	color: #f0f0f0;
+	text-decoration: none;
+}
+
+.slotNumber {
+	width: 24px;
+	height: 24px;
+	padding: 6px 0 0;
+	font-size: 0.6rem;
+	text-align: center;
+	color: rgba(19,22,28,1.0);
+	background: rgba(255,255,255,0.75);
+}
