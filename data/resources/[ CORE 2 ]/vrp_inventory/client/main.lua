@@ -157,9 +157,9 @@ Citizen.CreateThread(function()
 		for k,v in pairs(droplist) do
 			local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
             local distance = #(coords - vector3(v.x,v.y,cdz))
-            if distance <= 15 then
+            if distance <= 4 then
                timeDistance = 4
-               DrawMarker(20,v.x,v.y,cdz+0.30,0,0,0,0,0.0,130.0,0.6,0.8,0.50,0, 129, 254,100,0,0,0,1)
+               DrawMarker(28, v.x, v.y, cdz+0.1, 0, 0, 0, 0, 0.3, 100.0, 0.05, 0.05, 0.05, 0, 100, 254, 100, 0, 0, 0, 1)
 			end
         end
 

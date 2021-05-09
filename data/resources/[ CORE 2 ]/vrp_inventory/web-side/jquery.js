@@ -179,8 +179,8 @@ const updateDrag = () => {
 				$(this).children(".top").children(".itemAmount").html(newSlotAmount + "x");
 				$(this).children(".top").children(".itemWeight").html(newSlotWeight.toFixed(2));
 
-				if (amount == itemAmount) {
-					ui.draggable.replaceWith(`<div class="item empty" data-slot="${ui.draggable.data('slot')}"></div>`);
+				if(amount == itemAmount) {
+					ui.draggable.replaceWith(`<div class="item empty" data-slot="${ui.draggable.data("slot")}"></div>`);
 				} else {
 					let newMovedAmount = itemAmount - amount;
 					let newMovedWeight = newMovedAmount * parseFloat(ui.draggable.data("peso"));
@@ -309,14 +309,13 @@ const updateMochila = () => {
 		$(".myInfos").html(`
 			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
 			<div class="infosContent">
-				<span><s>Nº:</s> ${data.infos[4]}</span>
-				<span><s>RG:</s> ${data.infos[5]}</span>
-				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
-				<span><s>COINS:</s> ${formatarNumero(data.infos[3])}</span>
+				<span><s>N°:</s> ${data.infos[4]}</span>
+				<span><s>RG:</s> ${data.infos[5]}</span>
+				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
+				<span><s>COINS:</s> ${formatarNumero(data.infos[3])}</span>
 				<span>${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}</span>
 			</div>
 		`);
-
 
 		weightLeft = data.peso;
 		maxWeightLeft = data.maxpeso;
@@ -334,9 +333,9 @@ const updateMochila = () => {
 				const v = data.inventario[slot];
 				const item = `<div class="item populated" style="background-image: url('http://45.224.128.146/inventory/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
 					<div class="top">
-					<div class="itemWeight"></div>
-					<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
-				</div>
+						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
+					</div>
 					<div class="itemname">${v.name}</div>
 				</div>`;
 
@@ -354,8 +353,8 @@ const updateMochila = () => {
 				const v = nameList2[x - 1];
 				const item = `<div class="item populated" style="background-image: url('http://45.224.128.146/inventory/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-id="${v.id}" data-grid="${v.grid}" data-amount="${v.amount}" data-peso="${v.peso}" data-slot="${slot}">
 					<div class="top">
-						<div class="itemWeight"></div>
-						<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 					<div class="itemname">${v.name}</div>
 				</div>`;
@@ -371,15 +370,50 @@ const updateMochila = () => {
 	});
 }
 
-const formatarNumero = n => {
+const formatarNumero = (n) => {
 	var n = n.toString();
 	var r = '';
 	var x = 0;
 
-	for (var i = n.length; i > 0; i--) {
+	for (var i = n.length; i > 0; i--){
 		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? '.' : '');
 		x = x == 2 ? 0 : x + 1;
 	}
 
 	return r.split('').reverse().join('');
 }
+
+function somenteNumeros(e){
+	var charCode = e.charCode ? e.charCode : e.keyCode;
+	if (charCode != 8 && charCode != 9){
+		var max = 9;
+		var num = $(".amount").val();
+
+		if ((charCode < 48 || charCode > 57)||(num.length >= max)){
+			return false;
+		}
+	}
+}
+
+$(document).ready(function() {
+    var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        vKey = 86,
+        cKey = 67;
+
+    $(document).keydown(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+    });
+
+    $(".amount").keydown(function(e) {
+        if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+    });
+    
+    $(document).keydown(function(e) {
+        if (ctrlDown && (e.keyCode == cKey)) console.log("Document catch Ctrl+C");
+        if (ctrlDown && (e.keyCode == vKey)) console.log("Document catch Ctrl+V");
+    });
+});

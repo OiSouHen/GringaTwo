@@ -7,7 +7,6 @@ local Tools = module("vrp","lib/Tools")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 local idgens = Tools.newIDGenerator() 
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1559,6 +1558,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						if exp < 25 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,25)
+								TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+								vCLIENT.closeInventory(source)
 							end
 						else
 							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
@@ -1570,6 +1571,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						if exp >= 25 and exp < 50 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,50)
+								TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+								vCLIENT.closeInventory(source)
 							end
 						else
 							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
@@ -1581,6 +1584,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						if exp >= 50 and exp < 75 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,75)
+								TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+								vCLIENT.closeInventory(source)
 							end
 						else
 							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
@@ -1592,6 +1597,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						if exp >= 75 and exp < 100 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,100)
+								TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+								vCLIENT.closeInventory(source)
 							end
 						else
 							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
@@ -2070,12 +2077,12 @@ AddEventHandler("vrp_inventory:dropItem",function(itemName,amount,bole)
 	    		if vRP.tryGetInventoryItem(user_id,itemName,parseInt(amount)) then
 	    			TriggerEvent("itemdrop:Create",itemName,parseInt(amount),source,durability)
 					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
-					--vCLIENT.closeInventory(source)
+					vCLIENT.closeInventory(source)
 				end
 			else
 				TriggerEvent("itemdrop:Create",itemName,parseInt(amount),source)
-					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
-				--vCLIENT.closeInventory(source)
+				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+				vCLIENT.closeInventory(source)
 			end
 			
 		end
@@ -2134,7 +2141,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
             vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
             local newamount = droplist[id].count - amount
             vCLIENT.dropItem(source,droplist[id].item,newamount)
-            --vCLIENT.closeInventory(source)
+            vCLIENT.closeInventory(source)
 
             vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
             droplist[id] = nil
@@ -2143,7 +2150,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
             return
         else
 			TriggerClientEvent("itemdrop:Remove",-1,id)
-			--vCLIENT.closeInventory(source)
+			vCLIENT.closeInventory(source)
 			vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
 			vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
 			droplist[id] = nil
@@ -2156,7 +2163,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 
     local nplayer = vRPclient.nearestPlayer(source,5)
     if nplayer then
-        TriggerClientEvent("vga_inventory:Update",nplayer,"updateMochila")
+        TriggerClientEvent("vrp_inventory:Update",nplayer,"updateMochila")
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
