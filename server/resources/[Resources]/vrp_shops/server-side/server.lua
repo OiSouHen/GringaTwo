@@ -18,38 +18,57 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["postit"] = 20,
-			["energetic"] = 50,
-			["hamburger"] = 30,
-			["emptybottle"] = 40,
-			["cigarette"] = 20,
-			["skate"] = 750,
-			["lighter"] = 600,
-			["chocolate"] = 10,
-			["sandwich"] = 18,
-			["absolut"] = 40,
-			["chandon"] = 45,
-			["dewars"] = 25,
-			["hennessy"] = 30,
-			["backpackp"] = 5000,
-			["backpackm"] = 10000,
-			["backpackg"] = 15000,
-			["backpackx"] = 20000,
-			["divingsuit"] = 5000
+			["chocolate"] = 180,
+			["cola"] = 400,
+			["coffee"] = 150,
+			["water"] = 600
+--			["dildo"] = 420,
+--			["postit"] = 15,
+--			["energetic"] = 50,
+--			["skate"] = 750,
+--			["lighter"] = 600,
+--			["absolut"] = 40,
+--			["chandon"] = 45,
+--			["dewars"] = 25,
+--			["hennessy"] = 30,
+--			["backpackp"] = 5000,
+--			["backpackm"] = 10000,
+--			["backpackg"] = 15000,
+--			["backpackx"] = 20000,
+--			["divingsuit"] = 5000,
 		}
 	},
-	["pharmacyStore"] = {
+	["backpackStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["backpackp"] = 1500,
+			["backpackm"] = 2000,
+			["backpackg"] = 2700,
+			["backpackx"] = 3100
+		}
+	},
+	["hospitalpharmacyStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["perm"] = "Paramedic",
 		["list"] = {
-			["gauze"] = 500,
-			["bandage"] = 650,
-			["analgesic"] = 50,
-			["warfarin"] = 2000,
-			["sinkalmy"] = 1000,
-			["ritmoneury"] = 1750,
-			["adrenaline"] = 4650
+			["gauze"] = 100,
+			["bandage"] = 300,
+			["analgesic"] = 100,
+			["warfarin"] = 1500,
+			["sinkalmy"] = 150,
+			["ritmoneury"] = 250,
+			["adrenaline"] = 500
+		}
+	},
+	["normalpharmacyStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["gauze"] = 300,
+			["bandage"] = 500,
+			["warfarin"] = 3500,
 		}
 	},
 	["foodGrill"] = {
@@ -58,12 +77,9 @@ local shops = {
 		["list"] = {
 			["tacos"] = 28,
 			["hamburger"] = 25,
-			["hotdog"] = 18,
 			["soda"] = 18,
 			["cola"] = 18,
 			["chocolate"] = 10,
-			["sandwich"] = 18,
-			["fries"] = 10,
 			["absolut"] = 40,
 			["chandon"] = 45,
 			["dewars"] = 25,
@@ -71,50 +87,88 @@ local shops = {
 			["hennessy"] = 30
 		}
 	},
+	["weedStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["cigarette"] = 100,
+			["lighter"] = 250,
+			["silk"] = 100
+		}
+	},
+	["tireStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["tires"] = 130
+		}
+	},
+	["toolStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["bucket"] = 600,
+			["toolbox"] = 15000
+		}
+	},
+	["goldminerStore"] = {
+		["mode"] = "Sell",
+		["type"] = "Cash",
+		["list"] = {
+			["ametista2"] = 600,
+			["bronze2"] = 1000,
+			["esmeralda2"] = 600,
+			["ferro2"] = 1600,
+			["goldbar"] = 2500,
+			["rubi2"] = 300,
+			["safira2"] = 500,
+			["topazio2"] = 400
+		}
+	},
 	["ammunationStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["GADGET_PARACHUTE"] = 1000,
-			["WEAPON_KNIFE"] = 4000,
-			["WEAPON_HATCHET"] = 4000,
-			["WEAPON_BAT"] = 4000,
-			["WEAPON_BATTLEAXE"] = 4000,
-			["WEAPON_BOTTLE"] = 4000,
-			["WEAPON_CROWBAR"] = 4000,
-			["WEAPON_DAGGER"] = 4000,
-			["WEAPON_GOLFCLUB"] = 4000,
-			["WEAPON_HAMMER"] = 4000,
-			["WEAPON_MACHETE"] = 4000,
-			["WEAPON_POOLCUE"] = 4000,
-			["WEAPON_STONE_HATCHET"] = 4000,
-			["WEAPON_SWITCHBLADE"] = 4000,
-			["WEAPON_WRENCH"] = 4000,
-			["WEAPON_KNUCKLE"] = 4000
+			["WEAPON_HATCHET"] = 2300,
+			["WEAPON_BAT"] = 1200,
+			["WEAPON_DAGGER"] = 820,
+			["WEAPON_SWITCHBLADE"] = 380,
+			["WEAPON_KNUCKLE"] = 240,
+			["WEAPON_KNIFE"] = 160
+--			["GADGET_PARACHUTE"] = 15000,
+--			["WEAPON_BATTLEAXE"] = 4000,
+--			["WEAPON_BOTTLE"] = 4000,
+--			["WEAPON_CROWBAR"] = 4000,
+--			["WEAPON_GOLFCLUB"] = 4000,
+--			["WEAPON_HAMMER"] = 4000,
+--			["WEAPON_MACHETE"] = 4000,
+--			["WEAPON_POOLCUE"] = 4000,
+--			["WEAPON_STONE_HATCHET"] = 4000,
+--			["WEAPON_WRENCH"] = 4000,
 		}
 	},
 	["premiumStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Premium",
 		["list"] = {
-			["premium01"] = 15,
-			["premium02"] = 25,
-			["premium03"] = 35,
-			["premium04"] = 45,
-			["premiumplate"] = 25,
-			["premiumname"] = 25,
-			["premiumgarage"] = 25,
-			["bonusDelivery"] = 2,
-			["bonusPostOp"] = 2
+			["premium01"] = 10,
+			["premium02"] = 20,
+			["premium03"] = 30,
+			["premium04"] = 40
+--			["premiumplate"] = 25,
+--			["premiumname"] = 25,
+--			["premiumgarage"] = 25,
+--			["bonusDelivery"] = 5,
+--			["bonusPostOp"] = 5
 		}
 	},
 	["fishingSell"] = {
 		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["shrimp"] = 50,
-			["octopus"] = 45,
-			["carp"] = 40
+			["shrimp"] = 95,
+			["octopus"] = 360,
+			["carp"] = 210
 		}
 	},
 	["recyclingSell"] = {
@@ -129,7 +183,6 @@ local shops = {
 			["eletronics"] = 20,
 			["emptybottle"] = 20,
 			["lighter"] = 300,
-			["bucket"] = 100,
 			["divingsuit"] = 2500,
 			["teddy"] = 250,
 			["fishingrod"] = 2500,
@@ -159,8 +212,8 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["bait"] = 10,
-			["fishingrod"] = 5000
+			["fishingrod"] = 2800,
+			["bait"] = 15
 		}
 	},
 	["registryStore"] = {
@@ -170,15 +223,15 @@ local shops = {
 			["identity"] = 600
 		}
 	},
-	["digitalDen"] = {
+	["cellphoneStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["radio"] = 4000,
-			["cellphone"] = 2000,
-			["binoculars"] = 1000,
-			["camera"] = 2000,
-			["vape"] = 30000
+			["radio"] = 3200,
+			["cellphone"] = 2500
+--			["binoculars"] = 600,
+--			["camera"] = 3100,
+--			["vape"] = 1700
 		}
 	},
 	["megaMallStore"] = {
@@ -189,17 +242,12 @@ local shops = {
 			["energetic"] = 50,
 			["hamburger"] = 30,
 			["emptybottle"] = 40,
-			["cigarette"] = 20,
-			["lighter"] = 600,
 			["chocolate"] = 10,
-			["sandwich"] = 18,
 			["cola"] = 18,
 			["teddy"] = 500,
 			["rose"] = 50,
-			["bucket"] = 200,
 			["compost"] = 10,
 			["cannabisseed"] = 10,
-			["silk"] = 3,
 			["coffee"] = 18,
 			["plastic"] = 80,
 			["glass"] = 80,
@@ -218,7 +266,6 @@ local shops = {
 			["energetic"] = 50,
 			["cola"] = 18,
 			["soda"] = 18,
-			["fries"] = 10,
 			["absolut"] = 40,
 			["chandon"] = 45,
 			["dewars"] = 25,
@@ -259,13 +306,6 @@ local shops = {
 		["type"] = "Cash",
 		["list"] = {
 			["hamburger"] = 25
-		}
-	},
-	["hotdogMachine"] = {
-		["mode"] = "Buy",
-		["type"] = "Cash",
-		["list"] = {
-			["hotdog"] = 18
 		}
 	},
 	["waterMachine"] = {
