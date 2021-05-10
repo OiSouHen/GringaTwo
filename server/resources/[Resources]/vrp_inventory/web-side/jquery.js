@@ -307,12 +307,7 @@ const updateDrag = () => {
 const updateMochila = () => {
 	$.post("http://vrp_inventory/requestMochila", JSON.stringify({}), (data) => {
 		$(".myInfos").html(`
-			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
 			<div class="infosContent">
-				<span><s>N°:</s> ${data.infos[4]}</span>
-				<span><s>RG:</s> ${data.infos[5]}</span>
-				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
-				<span><s>COINS:</s> ${formatarNumero(data.infos[3])}</span>
 				<span>${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}</span>
 			</div>
 		`);
