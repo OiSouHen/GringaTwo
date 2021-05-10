@@ -235,6 +235,7 @@ Citizen.CreateThread(function()
 							if inLaps >= runners[inSelected]["laps"] then
 								PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
 								vSERVER.finishRaces()
+								SetWaypointOff()
 								inRunners = false
 							else
 								inCheckpoint = 1
@@ -254,13 +255,15 @@ Citizen.CreateThread(function()
 						timeDistance = 4
 						DrawMarker(23,v["init"][1],v["init"][2],v["init"][3]-0.95,0,0,0,0,0,0,10.5,10.5,1.5,42,137,255,100,0,0,0,0)
 
-						if IsControlJustPressed(1,38) and distance <= 5 then
+						if IsControlJustPressed(1,38) and distance <= 5 and vSERVER.checkConsume() then
 							inSelected = parseInt(k)
 							inRunners = true
 							inCheckpoint = 1
 							inTimers = 0
 							inLaps = 1
 
+							TriggerEvent("Notify","sucesso","Você iníciou uma corrida ilegal e a Policia foi acionada.",5000)
+							TriggerEvent("vrp_sound:source","quite",0.5)
 							SetNewWaypoint(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2])
 						end
 					end
@@ -269,6 +272,9 @@ Citizen.CreateThread(function()
 		else
 			if inRunners then
 				inRunners = false
+				SetWaypointOff()
+				TriggerEvent("Notify","negado","Você saiu da sua corrida atual.",5000)
+				TriggerEvent("vrp_sound:source","when",0.5)
 			end
 		end
 
