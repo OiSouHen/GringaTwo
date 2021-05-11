@@ -158,11 +158,6 @@ AddEventHandler("vrp_player:salary",function()
 			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
 		end
 
-		if vRP.hasPermission(parseInt(user_id),"Taxi") then
-			vRP.setSalary(parseInt(user_id),500)
-			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
-		end
-
 		if vRP.hasPermission(parseInt(user_id),"Paramedic") then
 			vRP.setSalary(parseInt(user_id),6000)
 			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
@@ -186,59 +181,58 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CALL
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("call",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if not vCLIENT.getHandcuff(source) then
--- 			local service = vRP.prompt(source,"911: Polícia     |     112: Paramédico     |     443: Mecanico","")
--- 			if service == "" or (parseInt(service) ~= 911 and parseInt(service) ~= 112 and parseInt(service) ~= 443) then
--- 				return
--- 			end
+RegisterCommand("call",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if not vCLIENT.getHandcuff(source) then
+			local service = vRP.prompt(source,"911: Polícia     |     112: Paramédico     |     443: Mecânico","")
+			if service == "" or (parseInt(service) ~= 911 and parseInt(service) ~= 112 and parseInt(service) ~= 443) then
+				return
+			end
 
--- 			local description = vRP.prompt(source,"Descrição do ocorrido:","")
--- 			if description == "" then
--- 				return
--- 			end
+			local description = vRP.prompt(source,"Descrição do ocorrido:","")
+			if description == "" then
+				return
+			end
 
--- 			local players = {}
--- 			local answered = false
--- 			if parseInt(service) == 911 then
--- 				players = vRP.numPermission("Police")
--- 			elseif parseInt(service) == 112 then
--- 				players = vRP.numPermission("Paramedic")
--- 			elseif parseInt(service) == 443 then
--- 				players = vRP.numPermission("Mechanic")
--- 			end
+			local players = {}
+			local answered = false
+			if parseInt(service) == 911 then
+				players = vRP.numPermission("Police")
+			elseif parseInt(service) == 112 then
+				players = vRP.numPermission("Paramedic")
+			elseif parseInt(service) == 443 then
+				players = vRP.numPermission("Mechanic")
+			end
 
--- 			TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso, aguarde no local.",5000)
+			TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso, aguarde no local.",5000)
 
--- 			local x,y,z = vRPclient.getPositions(source)
--- 			local identity = vRP.getUserIdentity(user_id)
+			local x,y,z = vRPclient.getPositions(source)
+			local identity = vRP.getUserIdentity(user_id)
 
--- 			for k,v in pairs(players) do
--- 				local nuser_id = vRP.getUserId(v)
--- 				local identitys = vRP.getUserIdentity(nuser_id)
--- 				if v and v ~= source then
--- 					async(function()
--- 						TriggerClientEvent("chatMessage",v,identity.name.." "..identity.name2,{107,182,84},description)
--- 						local request = vRP.request(v,"Aceitar o chamado de <b>"..identity.name.."</b>?",30)
--- 						if request then
--- 							TriggerClientEvent("NotifyPush",v,{ code = 20, title = "Chamado", x = x, y = y, z = z, name = identity.name.." "..identity.name2, phone = identity.phone, rgba = {69,115,41} })
--- 							if not answered then
--- 								answered = true
--- 								vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
--- 								TriggerClientEvent("Notify",source,"importante","Chamado atendido por <b>"..identitys.name.." "..identitys.name2.."</b>, aguarde no local.",10000)
--- 							else
--- 								TriggerClientEvent("Notify",v,"negado","Chamado já foi atendido por outra pessoa.",5000)
--- 								vRPclient.playSound(v,"CHECKPOINT_MISSED","HUD_MINI_GAME_SOUNDSET")
--- 							end
--- 						end
--- 					end)
--- 				end
--- 			end
--- 		end
--- 	end
--- end)
+			for k,v in pairs(players) do
+				local nuser_id = vRP.getUserId(v)
+				local identitys = vRP.getUserIdentity(nuser_id)
+				if v and v ~= source then
+					async(function()
+						TriggerClientEvent("NotifyPush",v,{ code = 20, title = "Chamado", x = x, y = y, z = z, name = identity.name.." "..identity.name2, phone = identity.phone, rgba = {69,115,41} })
+						local request = vRP.request(v,"Aceitar o chamado de <b>"..identity.name.." "..identity.name2.."</b>?",30)
+						if request then
+							if not answered then
+								answered = true
+								vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
+								TriggerClientEvent("Notify",source,"importante","Chamado atendido por <b>"..identitys.name.." "..identitys.name2.."</b>, aguarde no local.",10000)
+							else
+								TriggerClientEvent("Notify",v,"negado","Chamado já foi atendido por outra pessoa.",5000)
+								vRPclient.playSound(v,"CHECKPOINT_MISSED","HUD_MINI_GAME_SOUNDSET")
+							end
+						end
+					end)
+				end
+			end
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PR
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -389,7 +383,7 @@ RegisterCommand("service",function(source,args,rawCommand)
 					elseif vRP.hasPermission(user_id,"waitPolice") then
 						vRP.insertPermission(source,"Police")
 						TriggerClientEvent("vrp_tencode:StatusService",source,true)
-						TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
+						TriggerEvent("vrp_blipsystem:serviceEnter",source,"Police",77)
 						TriggerClientEvent("Notify",source,"importante","Você entrou em serviço.",5000)
 						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
 					end
@@ -403,9 +397,25 @@ RegisterCommand("service",function(source,args,rawCommand)
 						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Paramedic", newpermiss = "waitParamedic" })
 					elseif vRP.hasPermission(user_id,"waitParamedic") then
 						vRP.insertPermission(source,"Paramedic")
-						TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedico",83)
+						TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedic",83)
 						TriggerClientEvent("Notify",source,"importante","Você entrou em serviço.",5000)
 						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitParamedic", newpermiss = "Paramedic" })
+					end
+				end
+
+				if service == "Mechanic" then
+					if vRP.hasPermission(user_id,"Mechanic") then
+						vRP.removePermission(source,"Mechanic")
+						TriggerEvent("vrp_blipsystem:serviceExit",source)
+						TriggerClientEvent("vrp_tencode:StatusService",source,false)
+						TriggerClientEvent("Notify",source,"importante","Você saiu de serviço.",5000)
+						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Mechanic", newpermiss = "waitMechanic" })
+					elseif vRP.hasPermission(user_id,"waitMechanic") then
+						vRP.insertPermission(source,"Mechanic")
+						TriggerClientEvent("vrp_tencode:StatusService",source,true)
+						TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mechanic",77)
+						TriggerClientEvent("Notify",source,"importante","Você entrou em serviço.",5000)
+						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitMechanic", newpermiss = "Mechanic" })
 					end
 				end
 			else
@@ -1057,7 +1067,7 @@ RegisterCommand("add",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if parseInt(args[2]) > 0 then
-			if args[1] == "Policia" then
+			if args[1] == "Police" then
 				if vRP.hasPermission(user_id,"PolMaster") then
 					vRP.execute("vRP/cle_group",{ user_id = parseInt(args[2]) })
 					vRP.execute("vRP/add_group",{ user_id = parseInt(args[2]), permiss = tostring("waitPolice") })
@@ -1066,20 +1076,20 @@ RegisterCommand("add",function(source,args,rawCommand)
 				end
 			end
 
-			if args[1] == "Mecanico" then
-				if vRP.hasPermission(user_id,"MecMaster") then
-					vRP.execute("vRP/cle_group",{ user_id = parseInt(args[2]) })
-					vRP.execute("vRP/add_group",{ user_id = parseInt(args[2]), permiss = tostring("Mechanic") })
-					vRP.insertPermission(parseInt(args[2]),tostring("Mechanic"))
-					TriggerClientEvent("Notify",source,"sucesso","Passaporte <b>"..vRP.format(parseInt(args[2])).."</b> adicionado com sucesso.",5000)
-				end
-			end
-
-			if args[1] == "Paramedico" then
+			if args[1] == "Paramedic" then
 				if vRP.hasPermission(user_id,"ParMaster") then
 					vRP.execute("vRP/cle_group",{ user_id = parseInt(args[2]) })
 					vRP.execute("vRP/add_group",{ user_id = parseInt(args[2]), permiss = tostring("waitParamedic") })
 					vRP.insertPermission(parseInt(args[2]),tostring("waitParamedic"))
+					TriggerClientEvent("Notify",source,"sucesso","Passaporte <b>"..vRP.format(parseInt(args[2])).."</b> adicionado com sucesso.",5000)
+				end
+			end
+
+			if args[1] == "Mechanic" then
+				if vRP.hasPermission(user_id,"MecMaster") then
+					vRP.execute("vRP/cle_group",{ user_id = parseInt(args[2]) })
+					vRP.execute("vRP/add_group",{ user_id = parseInt(args[2]), permiss = tostring("waitMechanic") })
+					vRP.insertPermission(parseInt(args[2]),tostring("waitMechanic"))
 					TriggerClientEvent("Notify",source,"sucesso","Passaporte <b>"..vRP.format(parseInt(args[2])).."</b> adicionado com sucesso.",5000)
 				end
 			end
@@ -1143,7 +1153,7 @@ RegisterCommand("onduty",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Mechanic") or vRP.hasPermission(user_id,"Taxi") then
+			if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Mechanic") then
 				local onDuty = ""
 				local service = {}
 
@@ -1153,8 +1163,6 @@ RegisterCommand("onduty",function(source,args,rawCommand)
 					service = vRP.numPermission("Paramedic")
 				elseif vRP.hasPermission(user_id,"Mechanic") then
 					service = vRP.numPermission("Mechanic")
-				elseif vRP.hasPermission(user_id,"Taxi") then
-					service = vRP.numPermission("Taxi")
 				end
 
 				for k,v in pairs(service) do
