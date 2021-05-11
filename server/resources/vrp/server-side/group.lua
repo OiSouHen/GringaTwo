@@ -51,15 +51,12 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source,first_spawn)
 	if vRP.hasPermission(user_id,"Police") then
 		permissions[tostring(source)] = "Police"
 		TriggerClientEvent("vrp_tencode:StatusService",source,true)
-		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
+		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Police",77)
 	elseif vRP.hasPermission(user_id,"Paramedic") then
 		permissions[tostring(source)] = "Paramedic"
-		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedico",83)
+		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedic",83)
 	elseif vRP.hasPermission(user_id,"Mechanic") then
 		permissions[tostring(source)] = "Mechanic"
-		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mecanico",51)
-	elseif vRP.hasPermission(user_id,"Taxi") then
-		permissions[tostring(source)] = "Taxi"
-		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mecanico",70)
+		TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mechanic",51)
 	end
 end)
