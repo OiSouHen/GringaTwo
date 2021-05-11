@@ -163,13 +163,8 @@ const formatarNumero = (n) => {
 const requestShop = () => {
 	$.post("http://vrp_shops/requestShop",JSON.stringify({ shop: selectShop }),(data) => {
 		$(".myInfos").html(`
-			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
 			<div class="infosContent">
-				<span><s>TELEFONE:</s> ${data.infos[4]}</span>
-				<span><s>RG:</s> ${data.infos[5]}</span>
-				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
-				<span><s>COINS:</s> ${formatarNumero(data.infos[3])}</span>
-				<span><s>PESO:</s> ${(data.weight).toFixed(2)} / ${(data.maxweight).toFixed(2)}</span>
+				<span>${(data.weight).toFixed(2)} / ${(data.maxweight).toFixed(2)}</span>
 			</div>
 		`);
 
@@ -227,10 +222,33 @@ function somenteNumeros(e){
 	var charCode = e.charCode ? e.charCode : e.keyCode;
 	if (charCode != 8 && charCode != 9){
 		var max = 9;
-		var num = parseInt($(".amount").val());
+		var num = $(".amount").val();
 
 		if ((charCode < 48 || charCode > 57)||(num.length >= max)){
 			return false;
 		}
 	}
 }
+
+$(document).ready(function() {
+    var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        vKey = 86,
+        cKey = 67;
+
+    $(document).keydown(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+    });
+
+    $(".amount").keydown(function(e) {
+        if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+    });
+    
+    $(document).keydown(function(e) {
+        if (ctrlDown && (e.keyCode == cKey)) console.log("Document catch Ctrl+C");
+        if (ctrlDown && (e.keyCode == vKey)) console.log("Document catch Ctrl+V");
+    });
+});
