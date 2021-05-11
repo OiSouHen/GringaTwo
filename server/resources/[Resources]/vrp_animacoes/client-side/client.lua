@@ -523,7 +523,7 @@ local animacoes = {
 	["soprador"] = { dict = "amb@code_human_wander_gardener_leaf_blower@base" , anim = "static" , prop = "prop_leaf_blower_01" , flag = 49 , mao = 28422 },
 	["soprador2"] = { dict = "amb@code_human_wander_gardener_leaf_blower@idle_a" , anim = "idle_a" , prop = "prop_leaf_blower_01" , flag = 49 , mao = 28422 },
 	["soprador3"] = { dict = "amb@code_human_wander_gardener_leaf_blower@idle_a" , anim = "idle_b" , prop = "prop_leaf_blower_01" , flag = 49 , mao = 28422 },
-	--["tragar"] = { anim = "WORLD_HUMAN_DRUG_DEALER" },
+	["tragar"] = { anim = "WORLD_HUMAN_DRUG_DEALER" },
 	["trotar"] = { dict = "amb@world_human_jog_standing@male@fitidle_a" , anim = "idle_a" , andar = false , loop = true },
 	["esquentar"] = { anim = "WORLD_HUMAN_STAND_FIRE" },
 	["tablet"] = { dict = "amb@code_human_in_bus_passenger_idles@female@tablet@base" , anim = "base" , prop = "prop_cs_tablet" , flag = 50 , mao = 28422 },
@@ -539,7 +539,7 @@ local animacoes = {
 	["pano2"] = { dict = "timetable@floyd@clean_kitchen@base" , anim = "base" , prop = "prop_rag_01" , flag = 49 , mao = 28422 , extra = function()
 		local vehicle = vRP.getNearVehicle(7)
 		if vehicle then
-			TriggerEvent("Progress",10000,"Limpando...")
+			TriggerEvent("Progress",10000)
 			SetTimeout(10000,function()
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
@@ -549,7 +549,7 @@ local animacoes = {
 	["pano"] = { dict = "timetable@maid@cleaning_window@base" , anim = "base" , prop = "prop_rag_01" , flag = 49 , mao = 28422 , extra = function()
 		local vehicle = vRP.getNearVehicle(7)
 		if vehicle then
-			TriggerEvent("Progress",10000,"Limpando...")
+			TriggerEvent("Progress",10000)
 			SetTimeout(10000,function()
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
@@ -772,5 +772,4 @@ AddEventHandler("vrp_hospital:macas",function()
 		TriggerEvent("Notify","sucesso","Tratamento completo.",5000)
 		TriggerEvent("cancelando",false)
 		ClearPedBloodDamage(ped)
-		ClearPedTasks(ped)
 end)
