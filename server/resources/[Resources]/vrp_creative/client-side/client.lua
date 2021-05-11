@@ -449,6 +449,7 @@ end)
 -- THREADGLOBAL - 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
+	AddTextEntry("FE_THDR_GTAO","Cidade Gringa")
 	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
 	SetAudioFlag("PoliceScannerDisabled",true)
 
@@ -696,10 +697,9 @@ Citizen.CreateThread(function()
 		Wait(10000)
 	end
 end)
----------------------------------------
---NPC NAO DROPAR ARMA
----------------------------------------------
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NPC NAO DROPAR ARMA
+-----------------------------------------------------------------------------------------------------------------------------------------
 function SetWeaponDrops()
     local handle, ped = FindFirstPed()
     local finished = false
@@ -719,6 +719,169 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
         SetWeaponDrops()
     end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PEDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local pedlist = {
+	-- 1 Lixeiro, 2 Reciclagem
+	{ -340.5,-1567.96,25.23,60.9,0x062547E7,"cs_floyd","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ -417.01,-1687.39,19.03,81.04,0x062547E7,"cs_floyd","amb@prop_human_parking_meter@female@idle_a","idle_a_female" },
+	{ -420.64,-1690.72,19.03,254.45,0x062547E7,"cs_floyd","amb@prop_human_parking_meter@female@idle_a","idle_a_female" },
+
+	-- 4 Minerador
+	{ 1078.69,-1954.9,31.03,105.61,0xD7DA9E99,"s_m_y_construct_01","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ 1075.95,-1978.71,31.48,143.1,0xC5FEFADE,"s_m_y_construct_02","amb@prop_human_parking_meter@female@idle_a","idle_a_female" },
+	{ 1082.45,-1997.86,31.23,19.94,0xC5FEFADE,"s_m_y_construct_02","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ 287.65,2843.45,44.71,77.11,0xC5FEFADE,"s_m_y_construct_02","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	
+	-- 2 Hospital
+	{ -781.99,-1202.19,51.15,51.32,0xB353629E,"s_m_m_paramedic_01","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ -827.69,-1257.27,6.59,132.87,0xB353629E,"s_m_m_paramedic_01","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ -815.37,-1236.62,7.34,22.49,0xAB594AB6,"s_f_y_scrubs_01","amb@prop_human_parking_meter@female@idle_a","idle_a_female" },
+	
+	-- 1 Restaurant
+	{ 1598.9,6457.99,25.32,247.46,0xAB594AB6,"s_f_y_scrubs_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }
+ }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADPEDLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+local localPeds = {}
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		local ped = PlayerPedId()
+		local x,y,z = table.unpack(GetEntityCoords(ped))
+
+		for k,v in pairs(pedlist) do
+			local distance = GetDistanceBetweenCoords(x,y,z,v[1],v[2],v[3],true)
+			if distance <= 55 then
+				if localPeds[k] == nil then
+					RequestModel(GetHashKey(v[6]))
+					while not HasModelLoaded(GetHashKey(v[6])) do
+						RequestModel(GetHashKey(v[6]))
+						Citizen.Wait(10)
+					end
+
+					localPeds[k] = CreatePed(4,v[5],v[1],v[2],v[3]-1,v[4],false,true)
+					SetEntityInvincible(localPeds[k],true)
+					FreezeEntityPosition(localPeds[k],true)
+					SetBlockingOfNonTemporaryEvents(localPeds[k],true)
+
+					if v[7] ~= nil then
+						RequestAnimDict(v[7])
+						while not HasAnimDictLoaded(v[7]) do
+							RequestAnimDict(v[7])
+							Citizen.Wait(10)
+						end
+
+						TaskPlayAnim(localPeds[k],v[7],v[8],8.0,0.0,-1,1,0,0,0,0)
+					end
+				end
+			else
+				if localPeds[k] then
+					DeleteEntity(localPeds[k])
+					localPeds[k] = nil
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- FREE PEDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local freepedlist = {
+	{ 24.51,-1347.27,29.5,261.02,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Vanilla
+	{ 2557.15,380.71,108.63,350.7,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Posto North Avenida
+	{ 1164.73,-322.66,69.21,99.48,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Barragen
+	{ -706.16,-913.63,19.22,89.09,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Waze News
+	{ -46.7,-1757.85,29.43,49.43,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto dos Ballas
+	{ 372.56,326.44,103.57,260.89,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Banco Central
+	{ -3242.23,999.97,12.84,352.58,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Deck
+	{ 1727.86,6415.3,35.04,238.52,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Tunel Palleto
+	{ 549.14,2671.29,42.16,92.83,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Animal Ark
+	{ 1960.04,3740.11,32.35,300.19,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do North Avenue
+	{ 2677.9,3279.42,55.25,322.63,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Desmanche
+	{ 1698.06,4922.92,42.07,315.58,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Fazenda
+	{ -1820.16,794.29,138.09,130.71,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Posto Canyon Drive
+	{ 1392.74,3606.39,34.99,184.36,0x917ED459,"mp_m_weed_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja abandonada no North
+	{ -2966.35,391.02,15.05,93.07,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Banco pra cima da Praia
+	{ -3039.01,584.45,7.91,14.95,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na Praia Afastada
+	{ 1134.16,-982.44,46.42,279.52,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Depois da Ponte da DP Praça
+	{ 1165.89,2710.82,38.16,177.46,0xB1BB9B59,"s_m_y_prisoner_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prisão
+	{ -1486.21,-377.97,40.17,136.67,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Centro
+	{ -1221.94,-908.37,12.33,33.74,0xC79F6928,"a_f_y_beach_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Pier Príncipal
+	{ 991.91,-2175.43,29.98,182.48,0x4163A158,"s_m_y_factory_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Fábrica de carnes
+	{ 991.23,-2183.83,30.68,94.63,0x4163A158,"s_m_y_factory_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Matadouro da fábrica de carnes
+	{ 962.0,-2109.92,31.95,84.02,0x14D7B4E0,"s_m_m_dockwork_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Pegar veículo fábrica de carnes
+	{ 970.27,-2181.42,29.98,165.58,0xFCFA9E1E,"a_c_cow","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Vaca
+	{ 982.85,-2183.34,30.67,265.12,0xB11BAB56,"a_c_pig","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Porco
+    { 73.99,-1393.05,29.38,265.06,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Vanilla
+	{ -709.02,-151.54,37.42,123.5,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prefeitura
+	{ -165.09,-303.19,39.74,251.93,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- No Rockford Plaza
+	{ 427.06,-806.23,29.5,85.88,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Antiga Polícia
+	{ -823.15,-1072.28,11.33,205.58,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Waze News
+	{ -1193.92,-767.02 ,17.32,209.75,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Bahamas
+	{ -1448.76,-237.87,49.82,47.44,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Cemitério
+	{ 5.97,6511.48,31.88,44.83,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Em Paleto Bay
+	{ 1695.36,4822.95,42.07,98.0,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Sentido North
+	{ 127.0,-224.2,54.56,71.23,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Avenida do Banco Central
+	{ 612.95,2762.66,42.09,266.26,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Ao lado do Animal ARK
+	{ 1196.64,2711.63,38.23,178.79,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prisão
+	{ -3169.4,1043.13,20.87,64.8,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Pra cima da Praia
+	{ -1102.35,2711.72,19.11,215.38,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Rota 68
+    { 1208.58,-3115.36,5.55,267.65,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na zona do porto
+	{ 1199.03,-3121.63,5.55,300.76,0x441405EC,"s_m_y_xmech_02","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na zona do porto
+	{ 1986.48,3789.67,32.19,295.75,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- No norte
+    { 1203.78,2647.17,37.81,47.87,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Rota 69
+    { -86.31,31.57,71.96,76.27,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de Eletrônicos
+    { -623.09,-229.22,38.06,200.48,0x36DF2D5D,"a_f_y_bevhills_04","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Joalheria
+	{ 318.23,-1078.4,29.48,5.53,0xDF8B1301,"cs_patricia","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Do lado da Praça
+    { -1170.73,-1570.53,4.67,123.18,0x0DE9A30A,"s_m_m_ammucountry","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de Maconha na Praia
+	{ -56.4,-1098.57,26.43,14.28,0x9B557274,"s_m_y_devinsec_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de carros normais
+	{ -54.15,67.33,71.97,79.09,0x9B557274,"s_m_y_devinsec_01","anim@heists@heist_corona@single_team","single_team_loop_boss" },
+	{ 1590.09,6456.14,26.02,159.26,0xD2B27EC1,"mp_f_meth_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }
+ }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADPEDLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+local localFreePeds = {}
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		local ped = PlayerPedId()
+		local x,y,z = table.unpack(GetEntityCoords(ped))
+
+		for k,v in pairs(freepedlist) do
+			local distance = GetDistanceBetweenCoords(x,y,z,v[1],v[2],v[3],true)
+			if distance <= 55 then
+				if localFreePeds[k] == nil then
+					RequestModel(GetHashKey(v[6]))
+					while not HasModelLoaded(GetHashKey(v[6])) do
+						RequestModel(GetHashKey(v[6]))
+						Citizen.Wait(10)
+					end
+
+					localFreePeds[k] = CreatePed(4,v[5],v[1],v[2],v[3]-1,v[4],false,true)
+
+					if v[7] ~= nil then
+						RequestAnimDict(v[7])
+						while not HasAnimDictLoaded(v[7]) do
+							RequestAnimDict(v[7])
+							Citizen.Wait(10)
+						end
+
+						TaskPlayAnim(localFreePeds[k],v[7],v[8],8.0,0.0,-1,1,0,0,0,0)
+					end
+				end
+			else
+				if localFreePeds[k] then
+					DeleteEntity(localFreePeds[k])
+					localFreePeds[k] = nil
+				end
+			end
+		end
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Rich Presence
