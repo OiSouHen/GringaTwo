@@ -741,11 +741,14 @@ RegisterCommand("lixeiro",function(source,args,rawCommand)
 		local inService = vCLIENT.getGarbageStatus(source)
 		if inService then
 			vCLIENT.stopGarbageman(source)
+			TriggerClientEvent("Notify",source,"job-garbageman3","<div style='opacity: 0.7;'><i>Aviso de Trabalho</i></div>Você encerrou o seu turno de <b>Lixeiro</b>.",5000)
+			TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
 		else
 			vCLIENT.startGarbageman(source)
 			TriggerClientEvent("vrp_garbageman:insertBlips",source,saveList)
 			TriggerClientEvent("vrp_garbageman:updateGarbageList",source,saveList)
-			TriggerClientEvent("Notify",source,"sucesso","Você iniciou o emprego de <b>Lixeiro</b>.",3000)
+			TriggerClientEvent("Notify",source,"job-garbageman2","<div style='opacity: 0.7;'><i>Aviso de Trabalho</i></div>Você iniciou o seu turno de <b>Lixeiro</b> com sucesso.",5000)
+			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
 		end
 	end
 end)
@@ -757,9 +760,11 @@ function cnVRP.paymentMethod(garbageId)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"negado","A sua Mochila está cheia.",5000)
+			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
 			return
 		end
-
+		
 		local random = math.random(100)
 		if parseInt(random) >= 81 then
 			vRP.giveInventoryItem(user_id,"plastic",math.random(8),true)
@@ -775,6 +780,7 @@ function cnVRP.paymentMethod(garbageId)
 
 		vRP.upgradeStress(user_id,1)
 		saveList[parseInt(garbageId)] = nil
+		TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
 		TriggerClientEvent("vrp_garbageman:updateGarbageList",-1,saveList)
 		TriggerClientEvent("vrp_garbageman:removeGarbageBlips",-1,parseInt(garbageId))
 	end
