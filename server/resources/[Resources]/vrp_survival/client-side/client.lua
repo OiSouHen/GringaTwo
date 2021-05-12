@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
 					end
 				else
 					timeDistance = 4
-					drawTxt("Seu tempo acabou, digite ~g~/gg~w~ para ir ao cemitério",4,0.5,0.93,0.50,255,255,255,120)
+					drawTxt("Seu tempo acabou, digite ~g~/gg~w~",4,0.5,0.93,0.50,255,255,255,120)
 					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
@@ -209,12 +209,14 @@ function cnVRP.startCure()
 
 	if cure then
 		repeat
-			Citizen.Wait(1000)
+			Citizen.Wait(5000)
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped)+1)
 			end
 		until GetEntityHealth(ped) >= 200 or GetEntityHealth(ped) <= 101
-			TriggerEvent("Notify","sucesso","Tratamento concluído.",3000)
+			TriggerEvent("Notify","life-hospital3","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>O seu tratamento foi concluído com sucesso.",5000)
+			TriggerEvent("vrp_sound:source","quite",0.5)
+			ClearPedTasks(ped)
 			cure = false
 			blockControls = false
 	end

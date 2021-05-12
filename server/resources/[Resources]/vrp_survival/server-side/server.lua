@@ -131,7 +131,7 @@ RegisterCommand("re",function(source,args,rawCommand)
 			local nplayer = vRPclient.nearestPlayer(source,2)
 			if nplayer then
 				if vCLIENT.deadPlayer(nplayer) then
-					TriggerClientEvent("Progress",source,10000,"Retirando...")
+					TriggerClientEvent("Progress",source,10000,"Revivendo...")
 					TriggerClientEvent("cancelando",source,true)
 					vRPclient._playAnim(source,false,{"mini@cpr@char_a@cpr_str","cpr_pumpchest"},true)
 					SetTimeout(10000,function()
@@ -154,6 +154,7 @@ function cnVRP.ResetPedToHospital()
 	if user_id then
 		if vCLIENT.deadPlayer(source) then
 			vCLIENT.finishDeath(source)
+			vRP.downgradeStress(user_id,100)
 			TriggerClientEvent("resetHandcuff",source)
 			TriggerClientEvent("resetBleeding",source)
 			TriggerClientEvent("resetDiagnostic",source)
