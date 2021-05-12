@@ -14,22 +14,17 @@ vSERVER = Tunnel.getInterface("vrp_checkin")
 -- CHECKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local checkIn = {
-	{ 307.62,-595.36,44.13,"Santos" }
+	{ 1146.81,-1542.73,35.39,"Fiacre" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BEDSIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local bedsIn = {
-	["Santos"] = {
-		{ 307.72,-581.74,44.21 },
-		{ 311.06,-582.96,44.21 },
-		{ 314.47,-584.2,44.21 },
-		{ 317.68,-585.36,44.21 },
-		{ 322.62,-587.16,44.21 },
-		{ 324.27,-582.8,44.21 },
-		{ 319.42,-581.03,44.21 },
-		{ 313.93,-579.04,44.21 },
-		{ 309.36,-577.37,44.21 }
+	["Fiacre"] = {
+		{ 1136.13,-1585.39,36.29 },
+		{ 1140.24,-1585.38,36.29 },
+		{ 1144.46,-1585.38,36.29 },
+		{ 1148.84,-1585.37,36.29 }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -43,9 +38,9 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			for _,v in pairs(checkIn) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 3 then
+				if distance <= 1.5 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3]-1,"~g~E~w~   ATENDIMENTO")
+					DrawText3D(v[1],v[2],v[3]-1,"~g~E~w~ PARA ATENDIMENTO")
 					if distance <= 1.5 and IsControlJustPressed(1,38) and vSERVER.checkServices() and GetEntityHealth(ped) < 200 then
 						local checkBusy = 0
 						local checkSelected = v[4]
@@ -79,7 +74,8 @@ Citizen.CreateThread(function()
 						end
 
 						if checkBusy >= #bedsIn[checkSelected] then
-							TriggerEvent("Notify","importante","Todas as macas estão ocupadas, aguarde.",5000)
+							TriggerEvent("Notify","life-hospital2","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>Todas as macas estão ocupadas no momento, aguarde um pouco.",5000)
+							TriggerEvent("vrp_sound:source","juntos",0.5)
 						end
 					end
 				end
@@ -96,13 +92,13 @@ function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
 	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYERS

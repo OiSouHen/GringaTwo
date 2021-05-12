@@ -14,8 +14,9 @@ Tunnel.bindInterface("vrp_checkin",cnVRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cnVRP.checkServices()
 	local amountMedics = vRP.numPermission("Paramedic")
-	if parseInt(#amountMedics) > 2 then
-		TriggerClientEvent("Notify",source,"aviso","Existem paramédicos em serviço.",5000)
+	if parseInt(#amountMedics) > 1 then
+		TriggerClientEvent("Notify",source,"life-hospital2","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>Você não pode fazer um autoatendimento porque existem médicos em serviço.",5000)
+		TriggerClientEvent("vrp_sound:source",source,"when",0.5)
 		return false
 	end
 	return true
@@ -31,15 +32,16 @@ function cnVRP.paymentCheckin()
 			return true
 		end
 
-		local value = 400
+		local value = 500
 		if GetEntityHealth(GetPlayerPed(source)) <= 101 then
-			value = value + 3000
+			value = value + 1000
 		end
 
 		if vRP.tryGetInventoryItem(user_id,"dollars",parseInt(value)) then
 			return true
 		else
-			TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente na sua mochila.",5000)
+			TriggerClientEvent("Notify",source,"life-hospital1","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>O autoatendimento custa <b>$"..value.."</b> dólares, e você não tem isso em suas mãos.",5000)
+			TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
 		end
 	end
 	return false
