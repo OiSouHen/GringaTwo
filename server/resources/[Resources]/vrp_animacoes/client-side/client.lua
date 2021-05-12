@@ -578,6 +578,29 @@ local animacoes = {
 			end
 		end
 	end },
+	-- ["bong"] = {dict = "anim@safehouse@bong" , anim = "bong_stage1" , prop = "prop_bong_01" , flag = 50 , hand = 60309 , extra = function() 
+	-- 	if not IsPedInAnyVehicle(PlayerPedId()) then
+	-- 		TriggerEvent('cancelando',true)
+	-- 		TriggerEvent("progress",9000,"fumando")
+	-- 		TriggerEvent("vrp_sound:source",'bong',0.5)
+	-- 		SetTimeout(8700,function()
+	-- 			vRP._DeletarObjeto()
+	-- 			ShakeGameplayCam('SMALL_EXPLOSION_SHAKE',0.5)
+	-- 		end)
+	-- 		SetTimeout(9000,function()
+	-- 			tvRP.loadAnimSet("MOVE_M@DRUNK@VERYDRUNK")
+	-- 			SetTimecycleModifier("REDMIST_blend")
+	-- 			ShakeGameplayCam("FAMILY5_DRUG_TRIP_SHAKE",1.0)
+	-- 			StartScreenEffect("DMT_flight",30000,false)
+	-- 			Wait(30000)
+	-- 			TriggerEvent('cancelando',false)
+	-- 			SetTimecycleModifier("")
+	-- 			SetTransitionTimecycleModifier("")
+	-- 			StopGameplayCamShaking()
+	-- 			ResetPedMovementClipset(PlayerPedId())
+	-- 		end)
+	-- 	end
+	-- end},
 	["crossarms"] = { dict = "random@street_race", anim = "_car_b_lookout" , andar = true , loop = true },
 	["crossarms2"] = { dict = "anim@amb@nightclub@peds@", anim = "rcmme_amanda1_stand_loop_cop" , andar = true , loop = true },
 	["wait"] = { dict = "random@shop_tattoo", anim = "_idle_a" , andar = true , loop = true },
@@ -604,6 +627,7 @@ local animacoes = {
 	["airplane"] = { dict = "missfbi1", anim = "ledge_loop" , andar = true , loop = true },
 	["cough"] = { dict = "timetable@gardener@smoking_joint", anim = "idle_cough" , andar = true , loop = true },
 	["stretch"] = { dict = "mini@triathlon", anim = "idle_f" , andar = true , loop = true },
+	["depressiva"] = { dict = "move_m@confident", anim = "idle_f" , andar = true , loop = true },
 	["punching"] = { dict = "rcmextreme2", anim = "loop_punching" , andar = true , loop = true },
 	["mindcontrol"] = { dict = "rcmbarry", anim = "bar_1_attack_idle_aln" , andar = true , loop = true },
 	["clown"] = { dict = "rcm_barry2", anim = "clown_idle_0" , andar = false , loop = true },
@@ -769,7 +793,9 @@ AddEventHandler("vrp_hospital:macas",function()
 		SetEntityHealth(ped,GetEntityHealth(ped)+1)
 		Citizen.Wait(1000)
 	until GetEntityHealth(ped) >= 200
-		TriggerEvent("Notify","sucesso","Tratamento completo.",5000)
+		TriggerEvent("Notify","life-hospital3","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>O seu tratamento foi concluído com sucesso.",5000)
+		TriggerEvent("vrp_sound:source","quite",0.5)
 		TriggerEvent("cancelando",false)
+		ClearPedTasks(ped)
 		ClearPedBloodDamage(ped)
 end)
