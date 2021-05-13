@@ -25,7 +25,7 @@ local itemFooding = false
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemList = {
-	[1] = { "tacos","hamburger","hotdog","soda","cola","chocolate","sandwich","fries","absolut","chandon","dewars","donut","hennessy" }
+	[1] = { "tacos","hamburger","soda","cola","chocolate","absolut","chandon","dewars","donut","hennessy" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
