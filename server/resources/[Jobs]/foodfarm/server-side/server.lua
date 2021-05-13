@@ -16,7 +16,9 @@ vCLIENT = Tunnel.getInterface("foodfarm")
 RegisterCommand("avalanches",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vCLIENT.toggleService(source)
+		if vRP.hasPermission(user_id,"Avalanches") then
+			vCLIENT.toggleService(source)
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -26,15 +28,28 @@ function cnVRP.paymentMethod(status)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if not status then
-			vRP.giveInventoryItem(user_id,"water",1,true)
-			vRP.giveInventoryItem(user_id,"hamburger",1,true)
-			vRP.giveInventoryItem(user_id,"donuts",1,true)
-		else
-			vRP.giveInventoryItem(user_id,"water",1,true)
-			vRP.giveInventoryItem(user_id,"hamburger",1,true)
-			vRP.giveInventoryItem(user_id,"donuts",1,true)
+
+		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"damage-item","<div style='opacity: 0.7;'><i>Aviso sobre sua Mochila</i></div>Você não tem mais espaço em sua Mochila.",5000)
+			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+			return
 		end
---		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
+
+		if not status then
+			vRP.giveInventoryItem(user_id,"bread",2,true)
+			vRP.giveInventoryItem(user_id,"alface",1,true)
+			vRP.giveInventoryItem(user_id,"burguer",1,true)
+			vRP.giveInventoryItem(user_id,"queijo",1,true)
+			vRP.giveInventoryItem(user_id,"tomate",1,true)
+			TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
+		else
+			vRP.giveInventoryItem(user_id,"bread",2,true)
+			vRP.giveInventoryItem(user_id,"alface",1,true)
+			vRP.giveInventoryItem(user_id,"burguer",1,true)
+			vRP.giveInventoryItem(user_id,"queijo",1,true)
+			vRP.giveInventoryItem(user_id,"tomate",1,true)
+			TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
+		end
+
 	end
 end
