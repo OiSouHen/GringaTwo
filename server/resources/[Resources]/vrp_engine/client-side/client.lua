@@ -15,51 +15,50 @@ vSERVER = Tunnel.getInterface("vrp_engine")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local lastFuel = 0
 local isPrice = 0
-local isGallons = 0
 local isFuel = false
 local vehFuels = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHCLASS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehClass = {
-	[0] = 0.7,
-	[1] = 0.7,
-	[2] = 0.7,
-	[3] = 0.7,
-	[4] = 0.7,
-	[5] = 0.7,
-	[6] = 0.7,
-	[7] = 0.7,
-	[8] = 0.7,
-	[9] = 0.7,
-	[10] = 0.7,
-	[11] = 0.7,
-	[12] = 0.7,
-	[13] = 0.0,
-	[14] = 0.0,
-	[15] = 0.0,
-	[16] = 0.0,
-	[17] = 0.4,
-	[18] = 0.4,
-	[19] = 0.7,
-	[20] = 0.7,
-	[21] = 0.0
+	[0] = 0.8,
+	[1] = 0.8,
+	[2] = 0.8,
+	[3] = 0.8,
+	[4] = 0.8,
+	[5] = 0.8,
+	[6] = 0.8,
+	[7] = 0.8,
+	[8] = 0.8,
+	[9] = 0.8,
+	[10] = 0.8,
+	[11] = 0.8,
+	[12] = 0.8,
+	[13] = 0.1,
+	[14] = 0.1,
+	[15] = 0.1,
+	[16] = 0.1,
+	[17] = 0.5,
+	[18] = 0.5,
+	[19] = 0.8,
+	[20] = 0.8,
+	[21] = 0.1
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehFuel = {
-	[1.0] = 1.0,
-	[0.9] = 0.9,
-	[0.8] = 0.8,
-	[0.7] = 0.7,
-	[0.6] = 0.6,
-	[0.5] = 0.5,
-	[0.4] = 0.4,
-	[0.3] = 0.3,
-	[0.2] = 0.2,
-	[0.1] = 0.1,
-	[0.0] = 0.0
+	[1.0] = 1.1,
+	[0.9] = 0.1,
+	[0.8] = 0.9,
+	[0.7] = 0.8,
+	[0.6] = 0.7,
+	[0.5] = 0.6,
+	[0.4] = 0.5,
+	[0.3] = 0.4,
+	[0.2] = 0.3,
+	[0.1] = 0.2,
+	[0.0] = 0.1
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUELLOCS
@@ -92,38 +91,6 @@ local fuelLocs = {
 	{ 25,-724.56,-935.97,19.22,17.0 },
 	{ 26,-525.26,-1211.19,18.19,15.0 },
 	{ 27,-70.96,-1762.21,29.54,15.0 }
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- GALLONLOCS
------------------------------------------------------------------------------------------------------------------------------------------
-local gallonLocs = {
-	{ 1,289.2,-1266.97,29.45 },
-	{ 2,818.1,-1040.89,26.76 },
-	{ 3,1211.25,-1389.01,35.38 },
-	{ 4,1167.33,-321.39,69.29 },
-	{ 5,642.1,260.4,103.3 },
-	{ 6,2559.24,373.79,108.63 },
-	{ 7,166.94,-1553.39,29.27 },
-	{ 8,-342.46,-1474.93,30.75 },
-	{ 9,1773.39,3324.06,41.45 },
-	{ 10,46.5,2789.15,57.88 },
-	{ 11,265.85,2598.39,44.83 },
-	{ 12,1039.28,2664.31,39.56 },
-	{ 13,1202.17,2654.35,37.86 },
-	{ 14,2545.25,2591.9,37.96 },
-	{ 15,2674.11,3266.88,55.25 },
-	{ 16,2001.6,3779.76,32.19 },
-	{ 17,1697.24,4918.08,42.08 },
-	{ 18,1706.18,6425.62,32.77 },
-	{ 19,162.19,6636.62,31.56 },
-	{ 20,-91.67,6392.23,31.49 },
-	{ 21,-2544.09,2316.02,33.22 },
-	{ 22,-1818.7,796.85,138.14 },
-	{ 23,-1428.03,-268.34,46.23 },
-	{ 24,-2073.23,-327.3,13.32 },
-	{ 25,-727.27,-907.79,19.02 },
-	{ 26,-531.47,-1221.17,18.46 },
-	{ 27,-51.62,-1759.11,29.44 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FLOOR
@@ -163,7 +130,7 @@ Citizen.CreateThread(function()
 					local coords = GetEntityCoords(ped)
 					local coordsVeh = GetEntityCoords(vehicle)
 					local distance = #(coords - vector3(coordsVeh.x,coordsVeh.y,coordsVeh.z))
-					if distance <= 3.5 then
+					if distance <= 2 then
 						timeDistance = 4
 
 						if not isFuel then
@@ -237,14 +204,13 @@ Citizen.CreateThread(function()
 
 								if not isFuel then
 									if vehFuel >= 100.0 then
-										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~p~TANQUE CHEIO")
+										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~w~TANQUE CHEIO")
 									else
 										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   ABASTECER")
 									end
 								else
 									if vehFuel >= 0.0 then
 										isPrice = isPrice + 0.075
-										isGallons = isGallons + 0.02
 										SetVehicleFuelLevel(vehicle,vehFuel+0.02)
 										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   CANCELAR")
 										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%   ~w~PREÇO: ~y~$"..parseInt(isPrice))
@@ -263,7 +229,6 @@ Citizen.CreateThread(function()
 											StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 											RemoveAnimDict("timetable@gardener@filling_can")
 											isFuel = false
-											isGallons = 0
 											isPrice = 0
 										end
 									end
@@ -280,7 +245,6 @@ Citizen.CreateThread(function()
 										StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 										RemoveAnimDict("timetable@gardener@filling_can")
 										isFuel = false
-										isGallons = 0
 										isPrice = 0
 									else
 										if vehFuel < 100.0 then
@@ -305,23 +269,9 @@ Citizen.CreateThread(function()
 								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 								RemoveAnimDict("timetable@gardener@filling_can")
 								isFuel = false
-								isGallons = 0
 								isPrice = 0
 							end
 
-						end
-					end
-				end
-
-				for k,v in pairs(gallonLocs) do
-					local distance = #(coords - vector3(v[2],v[3],v[4]))
-					if distance <= 3.5 then
-						timeDistance = 4
-						DrawMarker(21,v[2],v[3],v[4]-0.5,0,0,0,0,180.0,130.0,0.6,0.8,0.5,240,200,80,50,0,0,0,1)
-						if distance <= 1.1 then
-							if IsControlJustPressed(1,38) then
-								vSERVER.gallonBuying()
-							end
 						end
 					end
 				end
@@ -378,16 +328,15 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function text3D(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text))/370
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOADANIM

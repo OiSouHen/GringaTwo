@@ -29,26 +29,6 @@ function cnVRP.paymentFuel(price)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GALLONBUYING
------------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.gallonBuying()
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		local request = vRP.request(source,"Deseja comprar um <b>Galão</b> por <b>$250</b>?",30)
-		if request then
-			if vRP.paymentBank(user_id,250) then
-				vRP.giveInventoryItem(user_id,"WEAPON_PETROLCAN",1)
-				vRP.giveInventoryItem(user_id,"WEAPON_PETROLCAN_AMMO",4500)
-				return true
-			else
-				TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente.",5000)
-			end
-		end
-		return false
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- TRYFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_engine:tryFuel")
