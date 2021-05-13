@@ -18,24 +18,10 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["chocolate"] = 180,
-			["cola"] = 400,
-			["coffee"] = 150,
+			["chocolate"] = 350,
+			["cola"] = 500,
+			["coffee"] = 700,
 			["water"] = 600
---			["dildo"] = 420,
---			["postit"] = 15,
---			["energetic"] = 50,
---			["skate"] = 750,
---			["lighter"] = 600,
---			["absolut"] = 40,
---			["chandon"] = 45,
---			["dewars"] = 25,
---			["hennessy"] = 30,
---			["backpackp"] = 5000,
---			["backpackm"] = 10000,
---			["backpackg"] = 15000,
---			["backpackx"] = 20000,
---			["divingsuit"] = 5000,
 		}
 	},
 	["backpackStore"] = {
@@ -75,16 +61,7 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["tacos"] = 28,
-			["hamburger"] = 25,
-			["soda"] = 18,
-			["cola"] = 18,
-			["chocolate"] = 10,
-			["absolut"] = 40,
-			["chandon"] = 45,
-			["dewars"] = 25,
-			["donut"] = 10,
-			["hennessy"] = 30
+			["tacos"] = 100
 		}
 	},
 	["weedStore"] = {
@@ -240,15 +217,10 @@ local shops = {
 		["list"] = {
 			["postit"] = 20,
 			["energetic"] = 50,
-			["hamburger"] = 30,
-			["emptybottle"] = 40,
-			["chocolate"] = 10,
-			["cola"] = 18,
 			["teddy"] = 500,
 			["rose"] = 50,
 			["compost"] = 10,
 			["cannabisseed"] = 10,
-			["coffee"] = 18,
 			["plastic"] = 80,
 			["glass"] = 80,
 			["rubber"] = 80,
@@ -264,8 +236,8 @@ local shops = {
 		["type"] = "Cash",
 		["list"] = {
 			["energetic"] = 50,
-			["cola"] = 18,
-			["soda"] = 18,
+			["cola"] = 500,
+			["soda"] = 500,
 			["absolut"] = 40,
 			["chandon"] = 45,
 			["dewars"] = 25,
@@ -276,43 +248,42 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["coffee"] = 18
+			["coffee"] = 700
 		}
 	},
 	["sodaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["soda"] = 18
+			["soda"] = 500
 		}
 	},
 	["colaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["cola"] = 18
+			["cola"] = 500
 		}
 	},
 	["donutMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["donut"] = 9,
-			["chocolate"] = 9
+			["donut"] = 350
 		}
 	},
 	["burgerMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["hamburger"] = 25
+			["hamburger"] = 2500
 		}
 	},
 	["waterMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["water"] = 40
+			["water"] = 600
 		}
 	},
 	["policeStore"] = {
@@ -344,6 +315,14 @@ local shops = {
 			["meth"] = 500,
 			["lean"] = 500,
 			["ecstasy"] = 500
+		}
+	},
+	["badfoodSelling"] = {
+		["mode"] = "Sell",
+		["type"] = "Consume",
+		["item"] = "dollars",
+		["list"] = {
+			["comida-estragada"] = 25
 		}
 	}
 }

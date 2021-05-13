@@ -148,7 +148,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.5 then
 					timeDistance = 4
---					DrawText3D(v[1],v[2],v[3],"MENTALIZE ~g~E~w~ PARA ABRIR")
+--					DrawText3D(v[1],v[2],v[3],"~g~E~w~  PARA ABRIR")
 					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
 						CalculateTimeToDisplay6()
 						if parseInt(hour) >= 06 and parseInt(hour) <= 23 then
@@ -159,6 +159,7 @@ Citizen.CreateThread(function()
 					else
 						TriggerEvent("Notify","shop-time","<div style='opacity: 0.7;'><i>Mensagem do Estabelecimento</i></div>Esse estabelecimento funciona apenas das <b>6h</b> até as <b>23h</b>.",10000)
 						TriggerEvent("vrp_sound:source","sharp",0.5)
+						Wait(10000)
 						end
 					end
 				end
@@ -174,13 +175,13 @@ function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PROPSHOPS
@@ -200,6 +201,33 @@ RegisterCommand("comprar",function(source,args)
 	local coords = GetEntityCoords(ped)
 
 	for k,v in pairs(propShops) do
+		if DoesObjectOfTypeExistAtCoords(coords,0.7,GetHashKey(v[1]),true) then
+			SetNuiFocus(true,true)
+			SendNUIMessage({ action = "showNUI", name = tostring(v[2]), type = vSERVER.getShopType(v[2]) })
+			vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PROPBADFOODSHOPS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local propBadfoodShops = {
+	{ "p_dumpster_t","badfoodSelling" },
+	{ "prop_cs_dumpster_01a","badfoodSelling" },
+	{ "prop_dumpster_01a","badfoodSelling" },
+	{ "prop_dumpster_02a","badfoodSelling" },
+	{ "prop_dumpster_02b","badfoodSelling" },
+	{ "prop_dumpster_3a","badfoodSelling" },
+	{ "prop_dumpster_4a","badfoodSelling" },
+	{ "prop_dumpster_4b","badfoodSelling" }
+}
+
+RegisterCommand("lixeira",function(source,args)
+	local sleep = 500
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
+
+	for k,v in pairs(propBadfoodShops) do
 		if DoesObjectOfTypeExistAtCoords(coords,0.7,GetHashKey(v[1]),true) then
 			SetNuiFocus(true,true)
 			SendNUIMessage({ action = "showNUI", name = tostring(v[2]), type = vSERVER.getShopType(v[2]) })
