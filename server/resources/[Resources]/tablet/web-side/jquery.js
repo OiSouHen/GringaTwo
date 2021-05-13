@@ -321,7 +321,7 @@ const commandsPage = () => {
 const aboutPage = () => {
 	selectPage = "about";
 	
-	$.post("http://vrp_inventory/requestMochila", JSON.stringify({}), (data) => {
+	$.post("http://inventory/requestMochila", JSON.stringify({}), (data) => {
 
 	$('#content').html(`
 		<div id='titleContent'>SUAS INFORMAÇÕES</div>

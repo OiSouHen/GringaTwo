@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
 						for Key,Value in ipairs(GetTouchedPlayers()) do
 							if not Tackled[Value] then
 								Tackled[Value] = true
-								TriggerServerEvent("vrp_inventory:Cancel")
+								TriggerServerEvent("inventory:Cancel")
 								TriggerServerEvent("vrp_tackle:Update",GetPlayerServerId(Value),ForwardVector.x,ForwardVector.y,ForwardVector.z,GetPlayerName(PlayerId()))
 							end
 						end
@@ -31,7 +31,7 @@ end)
 RegisterNetEvent("vrp_tackle:Player")
 AddEventHandler("vrp_tackle:Player",function(ForwardVectorX,ForwardVectorY,ForwardVectorZ,Tackler)
 	SetPedToRagdollWithFall(PlayerPedId(),3000,3000,0,ForwardVectorX,ForwardVectorY,ForwardVectorZ,10.0,0.0,0.0,0.0,0.0,0.0,0.0)
-	TriggerServerEvent("vrp_inventory:Cancel")
+	TriggerServerEvent("inventory:Cancel")
 end)
 
 function GetPlayers()

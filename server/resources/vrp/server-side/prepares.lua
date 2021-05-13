@@ -64,7 +64,7 @@ vRP.prepare("vRP/rem_allpermissions","DELETE FROM vrp_homes WHERE home = @home")
 vRP.prepare("vRP/upd_vaulthomes","UPDATE vrp_homes SET vault = vault + @vault WHERE home = @home AND owner = 1")
 vRP.prepare("vRP/transfer_homes","UPDATE vrp_homes SET user_id = @nuser_id WHERE user_id = @user_id AND home = @home")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE vRP_GARAGES
+-- PREPARE GARAGES
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/get_vehicle","SELECT * FROM vrp_vehicles WHERE user_id = @user_id")
 vRP.prepare("vRP/get_vehicle_plate","SELECT * FROM vrp_vehicles WHERE plate = @plate")

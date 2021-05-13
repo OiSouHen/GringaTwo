@@ -119,7 +119,7 @@ function cRP.stopPrison()
 end
 
 function cRP.stopPrison2()
-    TriggerEvent("vrp_hud:toggleHood",false)
+    TriggerEvent("hud:toggleHood",false)
     prison = false
     intransport = false
     if DoesBlipExist(blips) then
@@ -240,7 +240,7 @@ function cRP.startPrisonLocomove()
     TriggerEvent("Notify","aviso","Voce sera transferido da delegacia para o presidio por este motivo voce sera encapuzado.",7000)
     intransport = true
     Wait(7000)
-    TriggerEvent("vrp_hud:toggleHood",true)
+    TriggerEvent("hud:toggleHood",true)
     local ped = PlayerPedId()
     --DoScreenFadeOut(1000)
     disableAction()
@@ -348,7 +348,7 @@ function cRP.startPrisonLocomove()
             DeleteEntity(seguranca_spw_16)
             vRP.teleport(1677.72, 2509.68, 45.57)
             cRP.startPrison()
-            TriggerEvent("vrp_hud:toggleHood",false)
+            TriggerEvent("hud:toggleHood",false)
             vSERVER.saveItems()
 
             break

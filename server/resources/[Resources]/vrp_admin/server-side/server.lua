@@ -59,7 +59,7 @@ RegisterCommand('skin',function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Owner") then
 		TriggerClientEvent("skinmenu",args[1],args[2])
-		TriggerClientEvent("Notify",source,"admin-skin","<div style='opacity: 0.7;'><i>Mensagem do Céu</i></div>Você colocou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
+		TriggerClientEvent("Notify",source,"verde","Você colocou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
 		TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
     end
 end)
@@ -108,8 +108,8 @@ RegisterCommand("addcar",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") and args[1] and args[2] then
 			vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[1]), vehicle = args[2], plate = vRP.generatePlateNumber(), phone = vRP.getPhone(args[1]), work = tostring(false) })
-			TriggerClientEvent("Notify",args[1],"admin-addcar","<div style='opacity: 0.7;'><i>Mensagem da Concessionária</i></div>Você recebeu o veículo <b>"..args[2].."</b> em sua garagem.",10000)
-			TriggerClientEvent("Notify",source,"admin-addcar","<div style='opacity: 0.7;'><i>Mensagem da Concessionária</i></div>Você adicionou o veiculo <b>"..args[2].."</b> na garagem de ID <b>"..args[1].."</b>.",10000)
+			TriggerClientEvent("Notify",args[1],"verde","Você recebeu o veículo <b>"..args[2].."</b> em sua garagem.",10000)
+			TriggerClientEvent("Notify",source,"amarelo","Você adicionou o veiculo <b>"..args[2].."</b> na garagem de ID <b>"..args[1].."</b>.",10000)
 		end
 	end
 end)
@@ -121,7 +121,7 @@ RegisterCommand("capuz",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") and args[1] then
-			TriggerClientEvent("vrp_hud:toggleHood",source,args[1])
+			TriggerClientEvent("hud:toggleHood",source,args[1])
 		end
 	end
 end)
@@ -205,8 +205,8 @@ RegisterCommand("diamonds",function(source,args,rawCommand)
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
 				vRP.addGmsId(args[1],args[2])
-				TriggerClientEvent("Notify",args[1],"user-diamonds","<div style='opacity: 0.7;'><i>Mensagem do Céu</i></div><b>"..identity.name.."</b> você recebeu <b>"..args[2].." Diamantes</b> na sua conta bancária.",10000)
-				TriggerClientEvent("Notify",source,"admin-diamonds","<div style='opacity: 0.7;'><i>Mensagem do Céu</i></div>Você entregou <b>"..args[2].." Diamantes</b> para <b>"..identity.name.." "..identity.name2.."</b> ID "..args[1]..".",15000)
+				TriggerClientEvent("Notify",args[1],"verde","<b>"..identity.name.."</b> você recebeu <b>"..args[2].." Diamantes</b> na sua conta bancária.",10000)
+				TriggerClientEvent("Notify",source,"verde","Você entregou <b>"..args[2].." Diamantes</b> para <b>"..identity.name.." "..identity.name2.."</b> ID "..args[1]..".",15000)
 			end
 		end
 	end
@@ -357,7 +357,7 @@ RegisterCommand("delnpcs",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			vCLIENT.deleteNpcs(source)
-			TriggerClientEvent("Notify",source,"admin-delnpc","<div style='opacity: 0.7;'><i>Mensagem do Céu</i></div>Você deletou todos os Npcs próximos com sucesso.",5000)
+			TriggerClientEvent("Notify",source,"verde","Você deletou todos os Npcs próximos com sucesso.",5000)
 			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
 		end
 	end
@@ -370,7 +370,7 @@ RegisterCommand("tuning",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			TriggerClientEvent("vrp_admin:vehicleTuning",source)
-			TriggerClientEvent("Notify",source,"car-success","<div style='opacity: 0.7;'><i>Mensagem da Mecânica</i></div>Você realizou melhorias no carro com sucesso.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Você realizou melhorias no carro com sucesso.",5000)
 			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
 		end
 	end
@@ -402,8 +402,8 @@ RegisterCommand("fix",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Admin") then
 			local vehicle,vehNet = vRPclient.vehList(source,11)
 			if vehicle then
-				TriggerClientEvent("vrp_inventory:repairVehicle",-1,vehNet,true)
-				TriggerClientEvent("Notify",source,"car-success","<div style='opacity: 0.7;'><i>Mensagem da Mecânica</i></div>Você arrumou o carro com sucesso.",5000)
+				TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
+				TriggerClientEvent("Notify",source,"verde","Você arrumou o carro com sucesso.",5000)
 				TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
 --				TriggerClientEvent("hudActived",source,false)
 			end
@@ -419,7 +419,7 @@ RegisterCommand("limparea",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Owner") then
 			local x,y,z = vRPclient.getPositions(source)
 			TriggerClientEvent("syncarea",-1,x,y,z,100)
-			TriggerClientEvent("Notify",source,"admin-cleararea","<div style='opacity: 0.7;'><i>Mensagem do Céu</i></div>Você limpou toda a área próxima à você com sucesso.",5000)
+			TriggerClientEvent("Notify",source,"verde","Você limpou toda a área próxima à você com sucesso.",5000)
 			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
 		end
 	end
@@ -498,7 +498,7 @@ RegisterCommand("announce",function(source,args,rawCommand)
 			if message == "" then
 				return
 			end
-			TriggerClientEvent("Notify",-1,"admin-announce","<div style='opacity: 0.7;'><i>Anúncio</i></div>"..message,60000)
+			TriggerClientEvent("Notify",-1,"roxo",message,60000)
 			TriggerClientEvent("vrp_sound:source",-1,"heya",0.5)
 		end
 	end
@@ -514,7 +514,7 @@ RegisterCommand("terremoto",function(source,args,rawCommand)
 			if message == "" then
 				return
 			end
-			TriggerClientEvent("Notify",-1,"admin-terremoto","<div style='opacity: 0.7;'><i>Aviso de Desastre Natural</i></div>"..message,60000)
+			TriggerClientEvent("Notify",-1,"roxo",message,60000)
 			TriggerClientEvent("vrp_sound:source",-1,"frenzy",0.5)
 		end
 	end

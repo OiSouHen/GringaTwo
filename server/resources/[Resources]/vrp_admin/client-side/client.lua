@@ -455,10 +455,10 @@ Citizen.CreateThread( function()
             if IsControlJustReleased(0, 38) then
                 if inFreeze then
                     inFreeze = false
-                    TriggerEvent("Notify","aviso","Freeze ON.",5000)
+                    TriggerEvent("Notify","amarelo","Freeze ON.",5000)
                 else
                     inFreeze = true
-                    TriggerEvent("Notify","aviso","Freeze OFF.",5000)
+                    TriggerEvent("Notify","amarelo","Freeze OFF.",5000)
                 end
             end
         else

@@ -302,7 +302,7 @@ RegisterCommand("keybindCancel",function(source,args)
 	if not IsPauseMenuActive() then
 		local ped = PlayerPedId()
 		if GetEntityHealth(ped) > 101 and not celular and not cancelando then
-			TriggerServerEvent("vrp_inventory:Cancel")
+			TriggerServerEvent("inventory:Cancel")
 		end
 	end
 end)
@@ -385,15 +385,15 @@ RegisterCommand("keybind",function(source,args)
 		local ped = PlayerPedId()
 		if not celular and GetEntityHealth(ped) > 101 then
 			if args[1] == "1" then
-				TriggerServerEvent("vrp_inventory:useItem","1",1)
+				TriggerServerEvent("inventory:useItem","1",1)
 			elseif args[1] == "2" then
-				TriggerServerEvent("vrp_inventory:useItem","2",1)
+				TriggerServerEvent("inventory:useItem","2",1)
 			elseif args[1] == "3" then
-				TriggerServerEvent("vrp_inventory:useItem","3",1)
+				TriggerServerEvent("inventory:useItem","3",1)
 			elseif args[1] == "4" then
-				TriggerServerEvent("vrp_inventory:useItem","4",1)
+				TriggerServerEvent("inventory:useItem","4",1)
 			elseif args[1] == "5" then
-				TriggerServerEvent("vrp_inventory:useItem","5",1)
+				TriggerServerEvent("inventory:useItem","5",1)
 			elseif args[1] == "f1" and not IsPedInAnyVehicle(ped) then
 				if IsEntityPlayingAnim(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",3) then
 					StopAnimTask(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",2.0)
@@ -480,7 +480,7 @@ end)
 RegisterCommand("lockVehicle",function(source,args)
 	local ped = PlayerPedId()
 	if not celular and GetEntityHealth(ped) > 101 then
-		TriggerServerEvent("vrp_garages:lockVehicle")
+		TriggerServerEvent("garages:lockVehicle")
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -40,7 +40,7 @@ Citizen.CreateThread(function()
 				SetEntityInvincible(ped,true)
 
 				TriggerEvent("radio:outServers")
-				TriggerServerEvent("vrp_inventory:Cancel")
+				TriggerServerEvent("inventory:Cancel")
 			else
 				if deathtimer > 0 then
 					timeDistance = 4
@@ -249,7 +249,7 @@ function cnVRP.SetPedInBed()
 			vRP.playAnim(false,{"dead","dead_a"},true)
 
 			SetTimeout(7000,function()
-				TriggerServerEvent("vrp_inventory:Cancel")
+				TriggerServerEvent("inventory:Cancel")
 			end)
 		end
 	end

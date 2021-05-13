@@ -94,7 +94,7 @@ RegisterCommand("resgate",function(source,args,rawCommand)
 	if nplayer then
 		local user_idn = vRP.getUserId(nplayer)
 		if vCLIENT.getVehiclePed(nplayer) then
-			TriggerClientEvent("vrp_hud:toggleHood",nplayer,false)
+			TriggerClientEvent("hud:toggleHood",nplayer,false)
 			vRP.execute("vRP/resgate_prison",{ user_id = parseInt(user_idn) })
 			vCLIENT.stopPrison2(nplayer)
 		end

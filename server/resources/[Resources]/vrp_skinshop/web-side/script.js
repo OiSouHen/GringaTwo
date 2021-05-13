@@ -1,11 +1,27 @@
-QBClothing = {}
+cReative = {}
 
 var selectedTab = ".characterTab"
 var lastCategory = "character"
 var selectedCam = null;
-var canChange = true;
 
 var clothingCategorys = [];
+
+const skinData = {
+	pants: { defaultItem: 0, defaultTexture: 0 },
+	arms: { defaultItem: 0, defaultTexture: 0 },
+	tshirt: { defaultItem: 1, defaultTexture: 0 },
+	torso: { defaultItem: 0, defaultTexture: 0 },
+	vest: { defaultItem: 0, defaultTexture: 0 },
+	shoes: { defaultItem: 1, defaultTexture: 0 },
+	mask: { defaultItem: 0, defaultTexture: 0 },
+	hat: { defaultItem: -1, defaultTexture: 0 },
+	glass: { defaultItem: 0, defaultTexture: 0 },
+	ear: { defaultItem: -1, defaultTexture: 0 },
+	watch: { defaultItem: -1, defaultTexture: 0 },
+	bracelet: { defaultItem: -1, defaultTexture: 0 },
+	accessory: { defaultItem: 0, defaultTexture: 0 },
+	decals: { defaultItem: 0, defaultTexture: 0 }
+}
 
 $(document).on('click', '.clothing-menu-header-btn', function(e){
 	var category = $(this).data('category');
@@ -20,9 +36,9 @@ $(document).on('click', '.clothing-menu-header-btn', function(e){
 	$(".clothing-menu-"+category+"-container").css({"display": "block"});
 })
 
-QBClothing.ResetItemTexture = function(obj, category) {
+cReative.ResetItemTexture = function(obj, category) {
 	var itemTexture = $(obj).parent().parent().find('[data-type="texture"]');
-	var defaultTextureValue = clothingCategorys[category].defaultTexture;
+	var defaultTextureValue = skinData[category].defaultTexture;
 	$(itemTexture).val(defaultTextureValue);
 
 	$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
@@ -41,40 +57,27 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
 	var inputVal = $(inputElem).val();
 	var newValue = parseFloat(inputVal) + 1;
 
-	if (canChange) {
-		if (clothingCategory == "hair") {
-			$(inputElem).val(newValue);
-			$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-				clothingType: clothingCategory,
-				articleNumber: newValue,
-				type: buttonType,
-			}));
-			if (buttonType == "item") {
-				QBClothing.ResetItemTexture(this, clothingCategory);
-			}
-		} else {
-			if (buttonType == "item") {
-				var buttonMax = $(this).parent().find('[data-headertype="item-header"]').data('maxItem');
-				if (clothingCategory == "accessory" && newValue == 13) {
-					$(inputElem).val(14);
-					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-						clothingType: clothingCategory,
-						articleNumber: 14,
-						type: buttonType,
-					}));
-				} else {
-					if (newValue <= parseInt(buttonMax)) {
-						$(inputElem).val(newValue);
-						$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-							clothingType: clothingCategory,
-							articleNumber: newValue,
-							type: buttonType,
-						}));
-					}
-				}
-				QBClothing.ResetItemTexture(this, clothingCategory);
+	if (clothingCategory == "hair") {
+		$(inputElem).val(newValue);
+		$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+			clothingType: clothingCategory,
+			articleNumber: newValue,
+			type: buttonType,
+		}));
+		if (buttonType == "item") {
+			cReative.ResetItemTexture(this, clothingCategory);
+		}
+	} else {
+		if (buttonType == "item") {
+			var buttonMax = $(this).parent().find('[data-headertype="item-header"]').data('maxItem');
+			if (clothingCategory == "accessory" && newValue == 13) {
+				$(inputElem).val(14);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: 14,
+					type: buttonType,
+				}));
 			} else {
-				var buttonMax = $(this).parent().find('[data-headertype="texture-header"]').data('maxTexture');
 				if (newValue <= parseInt(buttonMax)) {
 					$(inputElem).val(newValue);
 					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
@@ -83,6 +86,17 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
 						type: buttonType,
 					}));
 				}
+			}
+			cReative.ResetItemTexture(this, clothingCategory);
+		} else {
+			var buttonMax = $(this).parent().find('[data-headertype="texture-header"]').data('maxTexture');
+			if (newValue <= parseInt(buttonMax)) {
+				$(inputElem).val(newValue);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: newValue,
+					type: buttonType,
+				}));
 			}
 		}
 	}
@@ -97,43 +111,41 @@ $(document).on('click', '.clothing-menu-option-item-left', function(e){
 	var inputVal = $(inputElem).val();
 	var newValue = parseFloat(inputVal) - 1;
 
-	if (canChange) {
-		if (buttonType == "item") {
-			if (newValue >= clothingCategorys[clothingCategory].defaultItem) {
-				if (clothingCategory == "accessory" && newValue == 13) {
-					$(inputElem).val(12);
-					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-						clothingType: clothingCategory,
-						articleNumber: 12,
-						type: buttonType,
-					}));
-				} else {
-					$(inputElem).val(newValue);
-					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-						clothingType: clothingCategory,
-						articleNumber: newValue,
-						type: buttonType,
-					}));
-				}
+	if (buttonType == "item") {
+		if (newValue >= skinData[clothingCategory].defaultItem) {
+			if (clothingCategory == "accessory" && newValue == 13) {
+				$(inputElem).val(12);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: 12,
+					type: buttonType,
+				}));
+			} else {
+				$(inputElem).val(newValue);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: newValue,
+					type: buttonType,
+				}));
 			}
-			QBClothing.ResetItemTexture(this, clothingCategory);
-		} else {
-			if (newValue >= clothingCategorys[clothingCategory].defaultTexture) {
-				if (clothingCategory == "accessory" && newValue == 13) {
-					$(inputElem).val(12);
-					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-						clothingType: clothingCategory,
-						articleNumber: 12,
-						type: buttonType,
-					}));
-				} else {
-					$(inputElem).val(newValue);
-					$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
-						clothingType: clothingCategory,
-						articleNumber: newValue,
-						type: buttonType,
-					}));
-				}
+		}
+		cReative.ResetItemTexture(this, clothingCategory);
+	} else {
+		if (newValue >= skinData[clothingCategory].defaultTexture) {
+			if (clothingCategory == "accessory" && newValue == 13) {
+				$(inputElem).val(12);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: 12,
+					type: buttonType,
+				}));
+			} else {
+				$(inputElem).val(newValue);
+				$.post('http://vrp_skinshop/updateSkin', JSON.stringify({
+					clothingType: clothingCategory,
+					articleNumber: newValue,
+					type: buttonType,
+				}));
 			}
 		}
 	}
@@ -215,41 +227,33 @@ $(document).on('click', '.clothing-menu-header-camera-btn', function(e){
 $(document).on('keydown', function() {
 	switch(event.keyCode) {
         case 68: // D
-        $.post('http://vrp_skinshop/rotateRight');
-        break;
+			$.post('http://vrp_skinshop/rotateRight');
+			break;
         case 65: // A
-        $.post('http://vrp_skinshop/rotateLeft');
-        break;
+			$.post('http://vrp_skinshop/rotateLeft');
+			break;
         case 38: // UP
-        ChangeUp();
-        break;
+			ChangeUp();
+			break;
         case 40: // DOWN
-        ChangeDown();
-        break;
+			ChangeDown();
+			break;
     }
 });
-
-QBClothing.ToggleChange = function(bool) {
-	canChange = bool;
-}
 
 $(document).ready(function(){
 	window.addEventListener('message', function(event) {
 		switch(event.data.action) {
 			case "open":
-			QBClothing.Open(event.data);
+				cReative.Open(event.data);
 			break;
+
 			case "close":
-			QBClothing.Close();
+				cReative.Close();
 			break;
+
 			case "updateMax":
-			QBClothing.SetMaxValues(event.data.maxValues);
-			break;
-			case "toggleChange":
-			QBClothing.ToggleChange(event.data.allow);
-			break;
-			case "ResetValues":
-			QBClothing.ResetValues();
+				cReative.SetMaxValues(event.data.maxValues);
 			break;
 		}
 	})
@@ -257,17 +261,17 @@ $(document).ready(function(){
 
 $(document).on('click', "#save-menu", function(e){
 	e.preventDefault();
-	QBClothing.Close();
+	cReative.Close();
 	$.post('http://vrp_skinshop/saveClothing');
 });
 
 $(document).on('click', "#cancel-menu", function(e){
 	e.preventDefault();
-	QBClothing.Close();
+	cReative.Close();
 	$.post('http://vrp_skinshop/resetOutfit');
 });
 
-QBClothing.SetCurrentValues = function(clothingValues) {
+cReative.SetCurrentValues = function(clothingValues) {
 	$.each(clothingValues, function(i, item){
 		var itemCats = $(".clothing-menu-container").find('[data-type="'+i+'"]');
 		var input = $(itemCats).find('input[data-type="item"]');
@@ -278,18 +282,17 @@ QBClothing.SetCurrentValues = function(clothingValues) {
 	});
 }
 
-QBClothing.Open = function(data) {
+cReative.Open = function(data) {
 	clothingCategorys = data.currentClothing;
+	$(".clothing-menu-character-container").css("display","none");
+	$(".clothing-menu-clothing-container").css("display","none");
+	$(".clothing-menu-accessoires-container").css("display","none");
 
-	$(".change-camera-buttons").fadeIn(150);
+	$(".clothing-menu-container").css("display","block");
 
-	$(".clothing-menu-character-container").css("display", "none");
-	$(".clothing-menu-clothing-container").css("display", "none");
-	$(".clothing-menu-accessoires-container").css("display", "none");
-	$(".clothing-menu-container").css({"display":"block"}).animate({right: 0,}, 200);
-	QBClothing.SetMaxValues(data.maxValues);
+	cReative.SetMaxValues(data.maxValues);
 	$(".clothing-menu-header").html("");
-	QBClothing.SetCurrentValues(data.currentClothing);
+	cReative.SetCurrentValues(data.currentClothing);
 	$.each(data.menus, function(i, menu){
 		if (menu.selected) {
 			$(".clothing-menu-header").append('<div class="clothing-menu-header-btn '+menu.menu+'Tab selected" data-category="'+menu.menu+'"><p>'+menu.label+'</p></div>')
@@ -307,25 +310,18 @@ QBClothing.Open = function(data) {
 	$(".clothing-menu-header-btn").css("width", menuWidth + "%");
 }
 
-QBClothing.Close = function() {
-	$.post('http://vrp_skinshop/close');
-	$(".change-camera-buttons").fadeOut(150);
-	$(".clothing-menu-character-container").css("display", "none");
-	$(".clothing-menu-clothing-container").css("display", "none");
-	$(".clothing-menu-accessoires-container").css("display", "none");
-	$(".clothing-menu-header").html("");
+cReative.Close = function() {
+	$.post("http://vrp_skinshop/close");
+	$(".clothing-menu-container").css("display","none");
 
 	$(selectedCam).removeClass('selected-cam');
 	$(selectedTab).removeClass("selected");
 	selectedCam = null;
 	selectedTab = null;
 	lastCategory = null;
-	$(".clothing-menu-container").css({"display":"block"}).animate({right: "-25vw",}, 200, function(){
-		$(".clothing-menu-container").css({"display":"none"});
-	});
 }
 
-QBClothing.SetMaxValues = function(maxValues) {
+cReative.SetMaxValues = function(maxValues) {
 	$.each(maxValues, function(i, cat){
 		if (cat.type == "character") {
 			var containers = $(".clothing-menu-character-container").find('[data-type="'+i+'"]');
@@ -335,8 +331,8 @@ QBClothing.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		} else if (cat.type == "hair") {
 			var containers = $(".clothing-menu-clothing-container").find('[data-type="'+i+'"]');
 			var itemMax = $(containers).find('[data-headertype="item-header"]');
@@ -345,8 +341,8 @@ QBClothing.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		} else if (cat.type == "accessoires") {
 			var containers = $(".clothing-menu-accessoires-container").find('[data-type="'+i+'"]');
 			var itemMax = $(containers).find('[data-headertype="item-header"]');
@@ -355,20 +351,9 @@ QBClothing.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		}
-	})
-}
-
-QBClothing.ResetValues = function() {
-	$.each(clothingCategorys, function(i, cat){
-		var itemCats = $(".clothing-menu-container").find('[data-type="'+i+'"]');
-		var input = $(itemCats).find('input[data-type="item"]');
-		var texture = $(itemCats).find('input[data-type="texture"]');
-		
-		$(input).val(cat.defaultItem);
-		$(texture).val(cat.defaultTexture);
 	})
 }
 

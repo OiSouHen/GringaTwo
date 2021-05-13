@@ -48,7 +48,7 @@ function cnVRP.messageMedia(message,page)
 					table.insert(twitter,{ text = text })
 					TriggerClientEvent("tablet:updateMedia", -1, page, text, false )
 				end
-				TriggerClientEvent("Notify",-1,"twitter","<div style='opacity: 0.7;'><i>Nova publicação no Twitter</i></div><b>@"..identity.name..""..identity.name2.."</b> públicou um novo tweet.",3000)
+				TriggerClientEvent("Notify",-1,"rosa","<b>@"..identity.name..""..identity.name2.."</b> públicou um novo Tweet.",1000)
 				TriggerClientEvent("vrp_sound:source",source,"softtick",0.5)
 			elseif page == "Anonimo" then
 				table.insert(anonimo,{ text = text })
