@@ -610,7 +610,7 @@ function startthreadservice()
 								vehicleNet = 0
 								inService = false
 								vSERVER.paymentMethod()
-								TriggerServerEvent("vrp_garages:DeleteVehicle",VehToNet(vehicle),GetVehicleNumberPlateText(vehicle))
+								TriggerServerEvent("garages:DeleteVehicle",VehToNet(vehicle),GetVehicleNumberPlateText(vehicle))
 							end
 						end
 					end
