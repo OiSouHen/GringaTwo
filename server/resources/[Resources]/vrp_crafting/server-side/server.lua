@@ -355,6 +355,43 @@ local craftList = {
 				}
 			}
 		}
+	},
+	["avalanchesCrafting"] = {
+		["perm"] = "Avalanches",
+		["list"] = {
+			["hamburger"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["bread"] = 2,
+					["alface"] = 1,
+					["burguer"] = 1,
+					["queijo"] = 1,
+					["tomate"] = 1
+				}
+			},
+			["water"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["dollars"] = 250
+				}
+			},
+			["soda"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["dollars"] = 250
+				}
+			},
+			["cola"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["dollars"] = 250
+				}
+			}
+		}
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------

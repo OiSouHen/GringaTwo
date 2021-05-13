@@ -66,7 +66,8 @@ local craftList = {
     { -883.07,-436.57,39.6,"fueltechCrafting","TROCA DE PEÇAS" },
 	{ 48.52,-1594.3,29.6,"boateCrafting","TROCA BOATE" },
     { 1275.74,-1710.31,54.76,"mafiaCrafting","TROCA ILEGAL" },
-    { -351.56,-107.99,38.7,"mecanicoCrafting","TROCA ILEGAL" }
+    { -351.56,-107.99,38.7,"mecanicoCrafting","TROCA ILEGAL" },
+    { 1593.14,6455.61,26.02,"avalanchesCrafting","AVALANCHES" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
@@ -81,9 +82,9 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(craftList) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1.5 then
+				if distance <= 1 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~   ABRIR "..v[5].."")
+--					DrawText3D(v[1],v[2],v[3],"~g~E~w~   ABRIR "..v[5].."")
 					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
 						SetNuiFocus(true,true)
 						TransitionToBlurred(1000)
