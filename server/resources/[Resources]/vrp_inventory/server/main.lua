@@ -207,6 +207,9 @@ local weapon_ammos = {
 -- END SHOTGUN
 
 -- START OTHERS
+    ["WEAPON_RPG_AMMO"] = {
+		"WEAPON_RPG"
+	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		"WEAPON_PETROLCAN"
 	}
@@ -1168,7 +1171,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeThirst(user_id,25)
+									vRP.upgradeThirst(user_id,100)
 									vRP.giveInventoryItem(user_id,"emptybottle",1)
 								end
 							end
@@ -1239,8 +1242,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeStress(user_id,4)
-									vRP.upgradeThirst(user_id,25)
+									vRP.upgradeStress(user_id,5)
+									vRP.upgradeThirst(user_id,35)
 									vRPclient.downHealth(source,10)
 									vRP.giveInventoryItem(user_id,"emptybottle",1)
 								end
@@ -1264,7 +1267,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeThirst(user_id,20)
+									vRP.upgradeThirst(user_id,100)
 								end
 							end
 							Citizen.Wait(0)
@@ -1286,7 +1289,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeThirst(user_id,20)
+									vRP.upgradeThirst(user_id,100)
 								end
 							end
 							Citizen.Wait(0)
@@ -1381,9 +1384,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeStress(user_id,2)
-									vRP.upgradeThirst(user_id,20)
-									TriggerClientEvent("setEnergetic",source,30,1.15)
+									vRP.downgradeStress(user_id,50)
+--									TriggerClientEvent("setEnergetic",source,30,1.15)
 								end
 							end
 							Citizen.Wait(0)
@@ -1405,95 +1407,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,30)
-								end
-							end
-							Citizen.Wait(0)
-						until active[user_id] == nil
-					end
-
-					if itemName == "hotdog" then
-						active[user_id] = 10
-						vRPclient.stopActived(source)
-						vCLIENT.closeInventory(source)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
-						vRPclient._createObjects(source,"amb@code_human_wander_eating_donut@male@idle_a","idle_c","prop_cs_hotdog_01",49,28422)
-
-						repeat
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
-
-								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,20)
-								end
-							end
-							Citizen.Wait(0)
-						until active[user_id] == nil
-					end
-
-					if itemName == "sandwich" then
-						active[user_id] = 10
-						vRPclient.stopActived(source)
-						vCLIENT.closeInventory(source)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
-						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_sandwich_01",49,18905,0.13,0.05,0.02,-50.0,16.0,60.0)
-
-						repeat
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
-
-								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,20)
-								end
-							end
-							Citizen.Wait(0)
-						until active[user_id] == nil
-					end
-
-					if itemName == "tacos" then
-						active[user_id] = 10
-						vRPclient.stopActived(source)
-						vCLIENT.closeInventory(source)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
-						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_taco_01",49,18905,0.16,0.06,0.02,-50.0,220.0,60.0)
-
-						repeat
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
-
-								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,30)
-								end
-							end
-							Citizen.Wait(0)
-						until active[user_id] == nil
-					end
-
-					if itemName == "fries" then
-						active[user_id] = 10
-						vRPclient.stopActived(source)
-						vCLIENT.closeInventory(source)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
-						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_food_bs_chips",49,18905,0.10,0.0,0.08,150.0,320.0,160.0)
-
-						repeat
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
-
-								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,20)
+									vRP.upgradeHunger(user_id,100)
 								end
 							end
 							Citizen.Wait(0)
@@ -1515,8 +1429,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,10)
-									vRP.downgradeStress(user_id,10)
+									vRP.downgradeStress(user_id,50)
 								end
 							end
 							Citizen.Wait(0)
@@ -1538,8 +1451,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.downgradeStress(user_id,8)
-									vRP.upgradeHunger(user_id,10)
+									vRP.downgradeStress(user_id,50)
 								end
 							end
 							Citizen.Wait(0)
@@ -1899,7 +1811,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 
 				if vRP.itemTypeList(itemName) == "equip" then
 					local pistols =     {"WEAPON_PISTOL_MK2", "WEAPON_COMBATPISTOL", "WEAPON_SKSPISTOL", "WEAPON_PISTOL","WEAPON_APPISTOL","WEAPON_PISTOL50","WEAPON_SNSPISTOL","WEAPON_SNSPISTOL_MK2","WEAPON_HEAVYPISTOL","WEAPON_VINTAGEPISTOL","WEAPON_FLAREGUN","WEAPON_MARKMANPISTOL","WEAPON_REVOLVER","WEAPON_REVOLVER_MK2","WEAPON_DOUBLEACTION","WEAPON_CERAMICPISTOL","WEAPON_NAVYREVOLVER","WEAPON_GADGETPISTOL","WEAPON_RAYPISTOL"}
-					local submachine =  {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG"}
+					local submachine =  {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG","WEAPON_RPG"}
 					local shotgun =     {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
 					local rifles =      {"WEAPON_ASSAULTRIFLE", "WEAPON_ASSAULTRIFLE_MK2", "WEAPON_CARBINERIFLE","WEAPON_CARBINERIFLE_MK2","WEAPON_ADVANCEDRIFLE", "WEAPON_SPECIALCARBINE","WEAPON_SPECIALCARBINE_MK2","WEAPON_BULLUPRIFLE","WEAPON_BULLUPRIFLE_MK2","WEAPON_COMPACTRFILE","WEAPON_MILITARYRIFLE"}
 					local weaponsList = vRPclient.getWeapons(source)

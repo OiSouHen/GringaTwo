@@ -684,6 +684,9 @@ local weapon_ammos = {
 -- END SHOTGUN
 
 -- START OTHERS
+    ["WEAPON_RPG_AMMO"] = {
+		"WEAPON_RPG"
+	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		"WEAPON_PETROLCAN"
 	}
