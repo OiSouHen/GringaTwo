@@ -1360,13 +1360,16 @@ end
 -- NOSTORE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local noStore = {
-	["water"] = true,
-	["coffee"] = true,
-	["hamburger"] = true,
 	["cola"] = true,
-	["donut"] = true,
-	["hotdog"] = true,
-	["dirtywater"] = true
+	["soda"] = true,
+	["coffee"] = true,
+	["water"] = true,
+	["dirtywater"] = true,
+	["emptybottle"] = true,
+	["hamburger"] = true,
+	["tacos"] = true,
+	["chocolate"] = true,
+	["donut"] = true
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POPULATESLOT
