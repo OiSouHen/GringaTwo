@@ -136,6 +136,3 @@ vRP.prepare("vRP/addChest","INSERT INTO vrp_chests (permiss,name,x,y,z,weight) V
 vRP.prepare("vRP/get_ConceStock","SELECT * FROM vrp_benefactor")
 vRP.prepare("vRP/update_ConceStock","UPDATE vrp_benefactor SET estoque = @estoque WHERE vehicle = @vehicle")
 vRP.prepare("vRP/insert_ConceStock","INSERT INTO vrp_benefactor (estoque,vehicle) VALUES (@estoque,@vehicle)")
-
-
-

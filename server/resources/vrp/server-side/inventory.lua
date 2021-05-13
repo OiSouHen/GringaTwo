@@ -260,11 +260,132 @@ local itemlist = {
 		type = "use",
 		weight = 1.50
 	},
+	["alface"] = {
+		index = "alface",
+		name = "Alface",
+		type = "use",
+		weight = 0.20
+	},
+	["bacon"] = {
+		index = "bacon",
+		name = "Bacon",
+		type = "use",
+		weight = 0.20
+	},
+	["bread"] = {
+		index = "bread",
+		name = "Pão",
+		type = "use",
+		weight = 0.20
+	},
+	["burguer"] = {
+		index = "burguer",
+		name = "Hamburguer",
+		type = "use",
+		weight = 0.20
+	},
+	["milk"] = {
+		index = "milk",
+		name = "Leite",
+		type = "use",
+		weight = 0.20
+	},
+	["onion"] = {
+		index = "onion",
+		name = "Cebola",
+		type = "use",
+		weight = 0.20
+	},
+	["ovos"] = {
+		index = "ovos",
+		name = "Ovos",
+		type = "use",
+		weight = 0.20
+	},
+	["presunto"] = {
+		index = "presunto",
+		name = "Presunto",
+		type = "use",
+		weight = 0.20
+	},
+	["queijo"] = {
+		index = "queijo",
+		name = "Queijo",
+		type = "use",
+		weight = 0.20
+	},
+	["tomate"] = {
+		index = "tomate",
+		name = "Tomare",
+		type = "use",
+		weight = 0.20
+	},
+	["emptybottle"] = {
+		index = "emptybottle",
+		name = "Garrafa vazia",
+		type = "use",
+		subtype = "comida",
+		transform = "emptybottle",
+		durability = 1500,
+		weight = 0.10
+	},
+-- SUBTYPE COMIDA
+-- subtype = "comida",
+-- transform = "comida-estragada",
+-- durability = 1500,
+    ["cola"] = {
+		index = "cola",
+		name = "Coca Cola",
+		type = "use",
+		subtype = "comida",
+		transform = "badcola",
+		durability = 1500,
+		weight = 0.50
+	},
+	["badcola"] = {
+		index = "badcola",
+		name = "Cola Cola vencida",
+		type = "use",
+		weight = 0.50
+	},
+    ["soda"] = {
+		index = "soda",
+		name = "Soda",
+		type = "use",
+		subtype = "comida",
+		transform = "badsoda",
+		durability = 1500,
+		weight = 0.50
+	},
+	["badsoda"] = {
+		index = "badsoda",
+		name = "Soda vencida",
+		type = "use",
+		weight = 0.50
+	},
+	["coffee"] = {
+		index = "coffee",
+		name = "Café",
+		type = "use",
+		subtype = "comida",
+		transform = "badcoffee",
+		durability = 1500,
+		weight = 0.20
+	},
+	["badcoffee"] = {
+		index = "badcoffee",
+		name = "Café vencido",
+		type = "use",
+		weight = 0.20
+	},
 	["water"] = {
 		index = "water",
 		name = "Água",
 		type = "use",
-		weight = 0.80
+		subtype = "comida",
+		transform = "dirtywater",
+		durability = 1500,
+		weight = 0.50
 	},
 	["dirtywater"] = {
 		index = "dirtywater",
@@ -272,85 +393,71 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
-	["emptybottle"] = {
-		index = "emptybottle",
-		name = "Garrafa Vazia",
-		type = "use",
-		weight = 0.10
-	},
-	["coffee"] = {
-		index = "coffee",
-		name = "Café",
-		type = "use",
-		weight = 0.20
-	},
-	["cola"] = {
-		index = "cola",
-		name = "Coca Cola",
-		type = "use",
-		weight = 0.15
-	},
-	-- ["tacos"] = {
-	-- 	index = "tacos",
-	-- 	name = "Tacos",
-	-- 	type = "use",
-	-- 	weight = 0.35
-	-- },
-	["tacos"] = {
-		index = "tacos",
-		name = "Tacos",
-		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
-		weight = 0.5
-	},
-	 ["comida-estragada"] = { -- ESSE ITEM É ESTACAVEL, ELE PODE TER MAIS DE UM NO INVENTARIO
-		index = "comida-estragada",
-		name = "comida-estragada",
-		type = "use",
-		weight = 0.35
-	},
-	["fries"] = {
-		index = "fries",
-		name = "Batata Frita",
-		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
-		weight = 0.20
-	},
-	["soda"] = {
-		index = "soda",
-		name = "Soda",
-		type = "use",
-		weight = 0.10
-	},
 	["hamburger"] = {
 		index = "hamburger",
 		name = "Hamburger",
 		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
+		subtype = "comida",
+		transform = "badhamburger",
+		durability = 1500,
 		weight = 0.30
 	},
-	["hotdog"] = {
-		index = "hotdog",
-		name = "Cachorro Quente",
+	["badhamburger"] = {
+		index = "badhamburger",
+		name = "Hamburger vencido",
 		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
-		weight = 0.40
+		weight = 0.30
+	},
+	["tacos"] = {
+		index = "tacos",
+		name = "Taco",
+		type = "use",
+		subtype = "comida",
+		transform = "badtacos",
+		durability = 1500,
+		weight = 0.20
+	},
+	["badtacos"] = {
+		index = "badtacos",
+		name = "Taco vencido",
+		type = "use",
+		weight = 0.20
+	},
+	["chocolate"] = {
+		index = "chocolate",
+		name = "Chocolate",
+		type = "use",
+		subtype = "comida",
+		transform = "badchocolate",
+		durability = 1500,
+		weight = 0.10
+	},
+	["badchocolate"] = {
+		index = "badchocolate",
+		name = "Chocolate vencido",
+		type = "use",
+		weight = 0.10
 	},
 	["donut"] = {
 		index = "donut",
-		name = "Rosquinha",
+		name = "Donut",
 		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
+		subtype = "comida",
+		transform = "baddonut",
+		durability = 1500,
+		weight = 0.20
+	},
+	["baddonut"] = {
+		index = "baddonut",
+		name = "Donut vencido",
+		type = "use",
+		weight = 0.20
+	},
+-- END SUBTYPE COMIDA
+    ["molho"] = {
+		index = "molho",
+		name = "Molho de Tacos",
+		type = "use",
 		weight = 0.20
 	},
 	["plate"] = {
@@ -544,24 +651,6 @@ local itemlist = {
 		name = "Cartão Azul",
 		type = "use",
 		weight = 0.50
-	},
-	["chocolate"] = {
-		index = "chocolate",
-		name = "Chocolate",
-		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
-		weight = 0.10
-	},
-	["sandwich"] = {
-		index = "sandwich",
-		name = "Sanduiche",
-		type = "use",
-		subtype = "comida", -- SUBTYPE DEVE SER ESPECIFICADO, MAS NAO DIFERE QUAL SEJA. 
-		transform = "comida-estragada", -- ITEM QUE ELE IRA VIRAR AO VENCER
-		durability = 60, -- TEMPO EM SEGUNDOS ATÉ VENCER (1 HORA)
-		weight = 0.15
 	},
 	["rose"] = {
 		index = "rose",
@@ -1097,6 +1186,18 @@ local itemlist = {
 		name = "Pistola de Raios",
 		type = "equip",
 		weight = 1.00
+	},
+	["WEAPON_RPG"] = {
+		index = "rpg",
+		name = "RPG-7",
+		type = "equip",
+		weight = 3.00
+	},
+	["WEAPON_RPG_AMMO"] = {
+		index = "rpgammo",
+		name = "M. RPG-7",
+		type = "recharge",
+		weight = 0.50
 	},
  -- END OTHERS
 

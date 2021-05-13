@@ -29,9 +29,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(90000)
+		Citizen.Wait(75000)
 		for k,v in pairs(vRP.users) do
-			vRP.downgradeThirst(v,1)
+			vRP.downgradeThirst(v,2)
 			vRP.downgradeHunger(v,1)
 		end
 	end
