@@ -77,7 +77,7 @@ local locateShops = {
 	{ -3173.2,1039.67,20.87 }, -- Pra cima da Praia
 	{ -1107.46,2709.39,19.11 }, -- Rota 68
 	{ 380.26,-1608.79,29.3 }, -- Polícia
-	{ -825.09,-1237.85,7.34 } -- Hospital
+	{ 1143.47,-1552.01,35.39 } -- Hospital
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
@@ -117,13 +117,13 @@ function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text)) / 400
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RESETOUTFIT
