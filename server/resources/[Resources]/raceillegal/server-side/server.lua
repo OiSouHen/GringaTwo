@@ -51,7 +51,8 @@ function cRP.finishRaces()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.giveInventoryItem(user_id,"dollars2",math.random(2500,5000))
+	local identity = vRP.getUserIdentity(user_id)
+		vRP.giveInventoryItem(user_id,"dollars2",math.random(3500,7000),true)
 		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
 	end
 end
