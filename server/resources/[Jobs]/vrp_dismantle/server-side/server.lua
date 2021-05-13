@@ -11,7 +11,7 @@ vRPclient = Tunnel.getInterface("vRP")
 cnVRP = {}
 Tunnel.bindInterface("vrp_dismantle",cnVRP)
 vCLIENT = Tunnel.getInterface("vrp_dismantle")
-vRPRAGE = Tunnel.getInterface("vrp_garages")
+vRPRAGE = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
