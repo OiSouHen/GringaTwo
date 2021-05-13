@@ -80,27 +80,16 @@ end
 -- NOSTORE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local noStore = {
+	["cola"] = true,
+	["soda"] = true,
+	["coffee"] = true,
 	["water"] = true,
 	["dirtywater"] = true,
-	["coffee"] = true,
+	["emptybottle"] = true,
 	["hamburger"] = true,
-	["cola"] = true,
 	["tacos"] = true,
-	["fries"] = true,
-	["soda"] = true,
-	["hotdog"] = true,
-	["sandwich"] = true,
 	["chocolate"] = true,
-	["donut"] = true,
-	["ritmoneury"] = true,
-	["sinkalmy"] = true,
-	["dollars"] = true,
-	["dollars2"] = true,
-	["absolut"] = true,
-	["chandon"] = true,
-	["dewars"] = true,
-	["hennessy"] = true,
-	["identity"] = true
+	["donut"] = true
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOREVEHS
