@@ -86,7 +86,7 @@ Citizen.CreateThread(function()
 
 						Citizen.Wait(20000)
 
-						TriggerServerEvent("vrp_doors:doorsStatistics",20,false)
+						TriggerServerEvent("doors:doorsStatistics",20,false)
 						TriggerServerEvent("tryDeleteEntity",ObjToNet(bomb))
 						AddExplosion(v[1],v[2],v[3],2,100.0,true,false,true)
 						vSERVER.jewelryUpdateStatus(true)

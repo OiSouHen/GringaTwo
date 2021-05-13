@@ -92,7 +92,7 @@ Citizen.CreateThread(function()
 			if jewelryTimer <= 0 then
 				jewelryDrawer = {}
 				cnVRP.jewelryUpdateStatus(false)
-				TriggerEvent("vrp_doors:doorsStatistics",17,true)
+				TriggerEvent("doors:doorsStatistics",17,true)
 			end
 		end
 
