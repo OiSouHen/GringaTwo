@@ -348,15 +348,13 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 		vRP.user_sources[user_id] = source
 
 		if model ~= nil then
-			TriggerClientEvent("Notify",source,"importante","Seja bem-vindo<b></b>.<br>A cidade foi desenvolvida pensando especialmente em voce, desenvolva sua historia e nao esqueca que deixamos separado para voce um agrado em seu banco.",15000)
 			vRP.user_tables[user_id].weaps = {}
 			vRP.user_tables[user_id].inventorys = {}
 			vRP.user_tables[user_id].skin = GetHashKey(model)
-			--vRP.user_tables[user_id].inventorys["1"] = { item = "cellphone", amount = 1 }
-			vRP.user_tables[user_id].inventorys["2"] = { item = "identity", amount = 1 }
-			vRP.user_tables[user_id].inventorys["3"] = { item = "water", amount = 2 }
-			vRP.user_tables[user_id].inventorys["4"] = { item = "sandwich", amount = 2 }
-			vRP.user_tables[user_id].inventorys["5"] = { item = "dollars", amount = 20000 }
+			vRP.user_tables[user_id].inventorys["1"] = { item = "identity", amount = 1 }
+			vRP.user_tables[user_id].inventorys["2"] = { item = "dollars", amount = 4500 }
+			vRP.user_tables[user_id].inventorys["4"] = { item = "hamburger", amount = 1 }
+			vRP.user_tables[user_id].inventorys["5"] = { item = "water", amount = 1 }
 		end
 
 		local identity = vRP.getUserIdentity(user_id)
