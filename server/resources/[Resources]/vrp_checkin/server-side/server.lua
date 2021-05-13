@@ -17,6 +17,7 @@ function cnVRP.checkServices()
 	if parseInt(#amountMedics) > 1 then
 		TriggerClientEvent("Notify",source,"life-hospital2","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>Você não pode fazer um autoatendimento porque existem médicos em serviço.",5000)
 		TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+		Wait(5000)
 		return false
 	end
 	return true
@@ -42,6 +43,7 @@ function cnVRP.paymentCheckin()
 		else
 			TriggerClientEvent("Notify",source,"life-hospital1","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>O autoatendimento custa <b>$"..value.."</b> dólares, e você não tem isso em suas mãos.",5000)
 			TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
+			Wait(5000)
 		end
 	end
 	return false

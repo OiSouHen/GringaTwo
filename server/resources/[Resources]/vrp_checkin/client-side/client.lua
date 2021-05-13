@@ -76,6 +76,7 @@ Citizen.CreateThread(function()
 						if checkBusy >= #bedsIn[checkSelected] then
 							TriggerEvent("Notify","life-hospital2","<div style='opacity: 0.7;'><i>Aviso do Hospital</i></div>Todas as macas estão ocupadas no momento, aguarde um pouco.",5000)
 							TriggerEvent("vrp_sound:source","juntos",0.5)
+							Wait(5000)
 						end
 					end
 				end
