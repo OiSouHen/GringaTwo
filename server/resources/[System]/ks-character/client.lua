@@ -186,8 +186,6 @@ local currentCharacterMode = {
 	makeupModel = -1 
 }
 
-
-
 function TriggerCreateCharacter(pedModelHash)
 	TriggerCamController(-1)
 	isInCharacterMode = true
