@@ -709,7 +709,30 @@ function garbageMakeList(status)
 		[687] = { 341.59,-2034.05,22.21,132.57 },
 		[688] = { 339.88,-1974.03,24.28,140.99 },
 		[689] = { 374.97,-1984.43,24.15,27.28 },
-		[690] = { 372.38,-1983.26,24.61,338.05 }
+		[690] = { 372.38,-1983.26,24.61,338.05 },
+		[691] = { 97.4,-1524.04,29.37,131.29 },
+		[692] = { 121.48,-1540.91,29.33,115.2 },
+		[693] = { 141.04,-1581.14,29.33,325.58 },
+		[694] = { 139.22,-1579.67,29.34,331.33 },
+		[695] = { -22.3,-1533.54,30.22,135.83 },
+		[696] = { -12.48,-1541.72,29.58,127.11 },
+		[697] = { -9.75,-1529.45,29.82,48.09 },
+		[698] = { -9.15,-1528.12,29.83,321.04 },
+		[699] = { -10.41,-1564.11,29.3,235.06 },
+		[700] = { 117.57,-1463.15,29.3,78.34 },
+		[701] = { 128.36,-1486.13,29.15,134.02 },
+		[702] = { 129.8,-1487.37,29.14,124.88 },
+		[703] = { 177.8,-1518.53,29.15,227.97 },
+		[704] = { 179.25,-1516.94,29.15,236.74 },
+		[705] = { 127.2,-1512.6,29.26,49.62 },
+		[706] = { 132.89,-1520.31,29.15,230.92 },
+		[707] = { 130.92,-1522.57,29.15,239.91 },
+		[708] = { 129.77,-1523.91,29.15,197.21 },
+		[709] = { 139.9,-1590.76,29.45,55.38 },
+		[710] = { 138.63,-1592.5,29.42,40.91 },
+		[711] = { 132.7,-1599.03,29.44,120.41 },
+		[712] = { 159.75,-1653.53,29.3,217.34 },
+		[713] = { 157.99,-1654.72,29.3,210.76 }
 	}
 
 	saveList = garbageList
@@ -727,7 +750,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(120*60000)
 		garbageMakeList(true)
-		Citizen.Wait(1000)
+		Citizen.Wait(5000)
 		TriggerClientEvent("vrp_garbageman:insertBlips",-1,saveList)
 		TriggerClientEvent("vrp_garbageman:updateGarbageList",-1,saveList)
 	end
@@ -741,14 +764,12 @@ RegisterCommand("lixeiro",function(source,args,rawCommand)
 		local inService = vCLIENT.getGarbageStatus(source)
 		if inService then
 			vCLIENT.stopGarbageman(source)
-			TriggerClientEvent("Notify",source,"job-garbageman3","<div style='opacity: 0.7;'><i>Aviso de Trabalho</i></div>Você encerrou o seu turno de <b>Lixeiro</b>.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
+			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi finalizado.",5000)
 		else
 			vCLIENT.startGarbageman(source)
 			TriggerClientEvent("vrp_garbageman:insertBlips",source,saveList)
 			TriggerClientEvent("vrp_garbageman:updateGarbageList",source,saveList)
-			TriggerClientEvent("Notify",source,"job-garbageman2","<div style='opacity: 0.7;'><i>Aviso de Trabalho</i></div>Você iniciou o seu turno de <b>Lixeiro</b> com sucesso.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
+			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi iniciado.",5000)
 		end
 	end
 end)
@@ -760,8 +781,7 @@ function cnVRP.paymentMethod(garbageId)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			TriggerClientEvent("Notify",source,"negado","A sua Mochila está cheia.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
 			return
 		end
 		
@@ -778,9 +798,8 @@ function cnVRP.paymentMethod(garbageId)
 			vRP.giveInventoryItem(user_id,"copper",math.random(5),true)
 		end
 
-		vRP.upgradeStress(user_id,1)
+		vRP.upgradeStress(user_id,2)
 		saveList[parseInt(garbageId)] = nil
-		TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
 		TriggerClientEvent("vrp_garbageman:updateGarbageList",-1,saveList)
 		TriggerClientEvent("vrp_garbageman:removeGarbageBlips",-1,parseInt(garbageId))
 	end

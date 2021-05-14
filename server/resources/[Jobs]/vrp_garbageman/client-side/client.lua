@@ -32,9 +32,9 @@ function startthreadgarbage()
 
 					for k,v in pairs(garbageList) do
 						local distance = #(coords - vector3(v[1],v[2],v[3]))
-						if distance <= 30 then
+						if distance <= 15 then
 							timeDistance = 4
-							DrawMarker(21,v[1],v[2],v[3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
+--							DrawMarker(21,v[1],v[2],v[3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
 							if distance <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 and GetEntityModel(GetPlayersLastVehicle()) == vehModel then
 								timeSeconds = 2
 								TriggerEvent("cancelando",true)
@@ -113,7 +113,7 @@ AddEventHandler("vrp_garbageman:insertBlips",function(statusList)
 		Citizen.Wait(1000)
 
 		for k,v in pairs(statusList) do
-			blips[k] = AddBlipForRadius(v[1],v[2],v[3],10.0)
+			blips[k] = AddBlipForRadius(v[1],v[2],v[3],5.0)
 			SetBlipAlpha(blips[k],255)
 			SetBlipColour(blips[k],57)
 		end

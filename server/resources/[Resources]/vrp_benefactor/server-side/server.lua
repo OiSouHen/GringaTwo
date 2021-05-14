@@ -11,7 +11,7 @@ vRPclient = Tunnel.getInterface("vRP")
 cnVRP = {}
 Tunnel.bindInterface("vrp_benefactor",cnVRP)
 vCLIENT = Tunnel.getInterface("vrp_benefactor")
-vPLAYER = Tunnel.getInterface("vrp_player")
+vPLAYER = Tunnel.getInterface("player")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------

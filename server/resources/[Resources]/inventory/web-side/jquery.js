@@ -290,7 +290,6 @@ const updateDrag = () => {
 			var amounts = $(this).attr("data-amount");
 			var name = $(this).attr("data-name-key");
 			var weight = $(this).attr("data-peso");
-			var subtype = $(this).attr("data-subtype");
 			var myLeg = "center top-155";
 
 			$(this).tooltip({
@@ -360,14 +359,16 @@ const updateMochila = () => {
 
 			if (data.inventario[slot] !== undefined) {
 				const v = data.inventario[slot];
-				const maxDurability = 1500 * v["durability"];
-				const newDurability = (maxDurability - v["durability"]) / maxDurability;
-				const actualPercent = newDurability * 1500;
+				//const maxDurability = 1500 * v["durability"];
+				//const newDurability = (maxDurability - v["durability"]) / maxDurability;
+				//const actualPercent = newDurability * 1500;
 				
-				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-desc="${v.desc}" data-slot="${slot}">
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
+					
 					<div class="itemname">${v.name}</div>
 				</div>`;
+				
+				//<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
 
 				$(".invLeft").append(item);
 			} else {
@@ -381,11 +382,8 @@ const updateMochila = () => {
 
 			if (nameList2[x - 1] !== undefined) {
 				const v = nameList2[x - 1];
-				const item = `<div class="item populated" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-id="${v.id}" data-grid="${v.grid}" data-amount="${v.amount}" data-peso="${v.peso}" data-slot="${slot}">
-					<div class="top">
-						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
-						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
-					</div>
+				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-id="${v.id}" data-grid="${v.grid}" data-amount="${v.amount}" data-peso="${v.peso}" data-slot="${slot}">
+				
 					<div class="itemname">${v.name}</div>
 				</div>`;
 

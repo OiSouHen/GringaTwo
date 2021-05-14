@@ -37,7 +37,6 @@ Vue.component('message', {
       let s = "<span>" + (str.replace(/\^([0-9])/g, (str, color) => `</span><span class="color-${color}">`)) + "</span>";
 
       const styleDict = {
-        '*': 'font-weight: bold;',
         '_': 'text-decoration: underline;',
         '~': 'text-decoration: line-through;',
         '=': 'text-decoration: underline line-through;',

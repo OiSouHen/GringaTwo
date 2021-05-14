@@ -302,21 +302,21 @@ Citizen.CreateThread(function()
 
 		if health > 101 then
 			if hunger >= 0 and hunger <= 15 then
-				SetFlash(0,0,500,1000,500)
+				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
 			elseif hunger <= 5 then
-				SetFlash(0,0,500,1000,500)
+				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
 				SetEntityHealth(ped,health-1)
 			end
 
 			if thirst >= 0 and thirst <= 15 then
-				SetFlash(0,0,500,1000,500)
+				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 			elseif thirst <= 5 then
-				SetFlash(0,0,500,1000,500)
+				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 				SetEntityHealth(ped,health-1)
 			end
 		end
 
-		Citizen.Wait(5000)
+		Citizen.Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -329,17 +329,14 @@ Citizen.CreateThread(function()
 
 		if health > 101 then
 			if stress >= 80 then
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.3)
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.2)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
 				if parseInt(math.random(3)) >= 3 and not IsPedInAnyVehicle(ped) then
 					SetPedToRagdoll(ped,5000,5000,0,0,0,0)
-					TriggerServerEvent("inventory:Cancel")
 				end
 			elseif stress >= 60 and stress <= 79 then
 				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.1)
-				if parseInt(math.random(3)) >= 3 and not IsPedInAnyVehicle(ped) then
-					SetPedToRagdoll(ped,3000,3000,0,0,0,0)
-					TriggerServerEvent("inventory:Cancel")
-				end
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
 			end
 		end
 

@@ -226,7 +226,7 @@ function cnVRP.chestClose()
 		local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,7)
 		if vehicle then
 			if not vRPclient.inVehicle(source) then
-				TriggerClientEvent("vrp_player:syncDoors",-1,vehNet,"5")
+				TriggerClientEvent("player:syncDoors",-1,vehNet,"5")
 			end
 
 			if chestOpen[user_id] then
@@ -264,7 +264,7 @@ RegisterCommand("bau",function(source,args,rawCommand)
                     RemoveAllPedWeapons(source, true)
                     vCLIENT.trunkOpen(source)
                     if not vRPclient.inVehicle(source) then
-                        TriggerClientEvent("vrp_player:syncDoors",-1,vehNet,"5")
+                        TriggerClientEvent("player:syncDoors",-1,vehNet,"5")
                     end
                 end
             end

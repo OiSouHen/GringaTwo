@@ -70,12 +70,12 @@ Citizen.CreateThread(function()
 			end
 
 			if bleeding >= 4 then
-				TriggerEvent("Notify","negado","Você está sangrando.",3000)
+				TriggerEvent("Notify","blood","Sangramento encontrado.",2000)
 				TriggerServerEvent("vrp_dna:dropDna",255,0,0)
 			end
 		end
 
-		Citizen.Wait(10000)
+		Citizen.Wait(20000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

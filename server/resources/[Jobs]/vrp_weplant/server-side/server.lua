@@ -152,10 +152,10 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	TriggerClientEvent("vrp_weplants:tableUpdate",source,wePlants)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_ADMIN:KICKALL
+-- admin:KICKALL
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("vrp_admin:KickAll")
-AddEventHandler("vrp_admin:KickAll",function()
+RegisterServerEvent("admin:KickAll")
+AddEventHandler("admin:KickAll",function()
 	SaveResourceFile("logsystem","weplants.json",json.encode(wePlants),-1)
 	SaveResourceFile("logsystem","wecounts.json",json.encode(weCounts),-1)
 end)

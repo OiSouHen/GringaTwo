@@ -250,15 +250,51 @@ local itemlist = {
 	},
 	["delivery"] = {
 		index = "delivery",
-		name = "Pacote",
+		name = "Caixa cheia",
 		type = "use",
-		weight = 1.20
+		weight = 1.00
+	},
+	["emptybox"] = {
+		index = "emptybox",
+		name = "Caixa vazia",
+		type = "use",
+		weight = 0.20
 	},
 	["paperbag"] = {
 		index = "paperbag",
 		name = "Saco de Papel",
 		type = "use",
-		weight = 1.50
+		weight = 0.50
+	},
+	["battery"] = {
+		index = "battery",
+		name = "Bateria",
+		type = "use",
+		weight = 0.20
+	},
+	["brokenbottle"] = {
+		index = "brokenbottle",
+		name = "Garrafa de vidro",
+		type = "use",
+		weight = 0.50
+	},
+	["elastic"] = {
+		index = "elastic",
+		name = "Elásticos",
+		type = "use",
+		weight = 0.10
+	},
+	["emptycan"] = {
+		index = "emptycan",
+		name = "Latinha",
+		type = "use",
+		weight = 0.20
+	},
+	["littlebottle"] = {
+		index = "littlebottle",
+		name = "Garrafinha",
+		type = "use",
+		weight = 0.10
 	},
 	["alface"] = {
 		index = "alface",
@@ -316,7 +352,7 @@ local itemlist = {
 	},
 	["tomate"] = {
 		index = "tomate",
-		name = "Tomare",
+		name = "Tomate",
 		type = "use",
 		weight = 0.20
 	},
@@ -408,21 +444,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.30
 	},
-	["tacos"] = {
-		index = "tacos",
-		name = "Taco",
-		type = "use",
-		subtype = "comida",
-		transform = "badtacos",
-		durability = 1500,
-		weight = 0.20
-	},
-	["badtacos"] = {
-		index = "badtacos",
-		name = "Taco vencido",
-		type = "use",
-		weight = 0.20
-	},
 	["chocolate"] = {
 		index = "chocolate",
 		name = "Chocolate",
@@ -454,12 +475,6 @@ local itemlist = {
 		weight = 0.20
 	},
 -- END SUBTYPE COMIDA
-    ["molho"] = {
-		index = "molho",
-		name = "Molho de Tacos",
-		type = "use",
-		weight = 0.20
-	},
 	["plate"] = {
 		index = "plate",
 		name = "Placa",
@@ -530,31 +545,31 @@ local itemlist = {
 		index = "plastic",
 		name = "Plástico",
 		type = "use",
-		weight = 0.50
+		weight = 0.10
 	},
 	["glass"] = {
 		index = "glass",
 		name = "Vidro",
 		type = "use",
-		weight = 1.00
+		weight = 0.20
 	},
 	["rubber"] = {
 		index = "rubber",
 		name = "Borracha",
 		type = "use",
-		weight = 0.50
+		weight = 0.20
 	},
 	["aluminum"] = {
 		index = "aluminum",
 		name = "Alúminio",
 		type = "use",
-		weight = 2.50
+		weight = 0.30
 	},
 	["copper"] = {
 		index = "copper",
 		name = "Cobre",
 		type = "use",
-		weight = 3.00
+		weight = 0.50
 	},
 	["eletronics"] = {
 		index = "eletronics",

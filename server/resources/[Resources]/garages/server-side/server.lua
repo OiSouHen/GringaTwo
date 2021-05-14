@@ -87,7 +87,6 @@ local garages = {
 	[36] = { ["name"] = "Garbageman", ["payment"] = true, ["public"] = true },
 	[37] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[38] = { ["name"] = "Prison", ["payment"] = true, ["perm"] = "Police" },
-	[39] = { ["name"] = "Tacos", ["payment"] = true, ["public"] = true },
 	[40] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
 	[41] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
 	[42] = { ["name"] = "Taxi", ["payment"] = true, ["public"] = true },
@@ -408,9 +407,6 @@ local workgarage = {
 	},
 	["Garbageman"] = {
 		"trash"
-	},
-	["Tacos"] = {
-		"taco"
 	},
 	["Tow"] = {
 		"flatbed"

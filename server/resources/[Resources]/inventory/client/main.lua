@@ -110,7 +110,7 @@ RegisterNUICallback("pickupItem",function(data)
 	if data.amount > 0 then
 		TriggerServerEvent("itemdrop:Pickup",data.id,data.target,data.amount)
 	else
-		TriggerEvent("Notify", "negado", "Não é possível pegar um valor negativo.")
+		TriggerEvent("Notify","vermelho","Não é possível pegar um valor negativo.")
 	end
 end)
 

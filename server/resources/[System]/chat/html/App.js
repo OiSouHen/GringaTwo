@@ -23,7 +23,7 @@ window.APP = {
     window.removeEventListener('message', this.listener);
   },
   mounted() {
-    post('http://chat/loaded',JSON.stringify({}));
+    post('http://chat/loaded');
     this.listener = window.addEventListener('message', (event) => {
       const item = event.data || event.detail;
       if (this[item.type]) {

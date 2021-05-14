@@ -289,7 +289,7 @@ Citizen.CreateThread(function()
 							inTimers = 0
 							inLaps = 1
 
-							TriggerEvent("Notify","sucesso","Você iníciou uma corrida ilegal e a Policia foi acionada.",5000)
+							TriggerEvent("Notify","verde","Você iníciou uma corrida ilegal e a policia foi acionada.",5000)
 							TriggerEvent("vrp_sound:source","quite",0.5)
 							SetNewWaypoint(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2])
 						end
@@ -300,8 +300,6 @@ Citizen.CreateThread(function()
 			if inRunners then
 				inRunners = false
 				SetWaypointOff()
-				TriggerEvent("Notify","negado","Você saiu da sua corrida atual.",5000)
-				TriggerEvent("vrp_sound:source","when",0.5)
 			end
 		end
 

@@ -37,8 +37,8 @@ function cRP.checkConsume()
 				end
 				return true
 			else
-				TriggerClientEvent("Notify",source,"negado","Você precisa de um <b>Ticket de Corrida</b> para começar uma corrida.",5000)
-				TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+				TriggerClientEvent("Notify",source,"amarelo","Você precisa de um <b>Ticket de Corrida</b> para correr.",5000)
+				Wait(5000)
 			end
 		end
 		return false

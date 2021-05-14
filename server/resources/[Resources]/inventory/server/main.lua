@@ -14,8 +14,8 @@ func = {}
 Tunnel.bindInterface("inventory",func)
 vCLIENT = Tunnel.getInterface("inventory")
 vRPRAGE = Tunnel.getInterface("garages")
-vSURVIVAL = Tunnel.getInterface("vrp_survival")
-vPLAYER = Tunnel.getInterface("vrp_player")
+vSURVIVAL = Tunnel.getInterface("survival")
+vPLAYER = Tunnel.getInterface("player")
 vWEPLANTS = Tunnel.getInterface("vrp_weplants")
 vWEPLANTSS = Tunnel.getInterface("vrp_weplants")
 vHOMES = Tunnel.getInterface("vrp_homes")
@@ -286,10 +286,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					-- vCLIENT.removeWeaponInHand(source)
 					if itemName == "bandage" then
 						if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 200 then
-							active[user_id] = 40
+							active[user_id] = 10
 							vCLIENT.closeInventory(source)
 							vCLIENT.blockButtons(source,true)
-							TriggerClientEvent("Progress",source,40000,"Utilizando...")
+							TriggerClientEvent("Progress",source,10000,"Utilizando...")
 							vRPclient._playAnim(source,true,{"amb@world_human_clipboard@male@idle_a","idle_c"},true)
 
 							repeat
@@ -306,16 +306,16 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								Citizen.Wait(0)
 							until active[user_id] == nil
 						else
-							TriggerClientEvent("Notify",source,"aviso","Você não pode utilizar de vida cheia ou nocauteado.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
 						end
 					end
 
 					if itemName == "analgesic" then
 						if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 200 then
-							active[user_id] = 6
+							active[user_id] = 5
 							vCLIENT.closeInventory(source)
 							vCLIENT.blockButtons(source,true)
-							TriggerClientEvent("Progress",source,6000,"Utilizando...")
+							TriggerClientEvent("Progress",source,5000,"Utilizando...")
 							vRPclient._playAnim(source,true,{"mp_suicide","pill"},true)
 
 							repeat
@@ -332,7 +332,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								Citizen.Wait(0)
 							until active[user_id] == nil
 						else
-							TriggerClientEvent("Notify",source,"aviso","Você não pode utilizar de vida cheia ou nocauteado.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
 						end
 					end
 
@@ -354,13 +354,13 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								Citizen.Wait(0)
 							until active[user_id] == nil
 						else
-							TriggerClientEvent("Notify",source,"aviso","Você não tem uma seda.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não tem uma seda.",5000)
 						end
 					end
 
 					if itemName == "joint" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
-							TriggerClientEvent("Notify",source,"aviso","Você não tem um isqueiro.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
 							return
 						end
 						
@@ -460,7 +460,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 					if itemName == "cigarette" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
-							TriggerClientEvent("Notify",source,"aviso","Você não tem um isqueiro.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
 							return
 						end
 
@@ -549,14 +549,14 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								Citizen.Wait(0)
 							until active[user_id] == nil
 						else
-							TriggerClientEvent("Notify",source,"aviso","Você não pode utilizar de vida cheia ou nocauteado.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
 						end
 					end
 
 					if itemName == "premiumgarage" then
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 						    vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
-						    TriggerClientEvent("Notify",source,"negado","Voce adicionou uma vaga na garagem.",5000)
+						    TriggerClientEvent("Notify",source,"vermelho","Voce adicionou uma vaga na garagem.",5000)
 						end
 					end
 
@@ -657,7 +657,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if nplayer then
 							local identity = vRP.getUserIdentity(user_id)
 							if identity then
-								TriggerClientEvent("Notify",nplayer,"importante","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
+								TriggerClientEvent("Notify",nplayer,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
 							end
 						end
 					end
@@ -670,19 +670,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 							vRP.setBonusDelivery(user_id,1)
-							TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Delivery</b> aumentou.",5000)
-						end
-					end
-
-					if itemName == "bonusPostOp" then
-						local myBonus = vRP.bonusPostOp(user_id)
-						if parseInt(myBonus) >= 100 then
-							return
-						end
-
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-							vRP.setbonusPostOp(user_id,1)
-							TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Entregador</b> aumentou.",5000)
+							TriggerClientEvent("Notify",source,"amarelo","O nível de experiência no <b>Delivery</b> aumentou.",5000)
 						end
 					end
 
@@ -727,9 +715,9 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 											local check = vPLAYER.gsrCheck(nplayer)
 											if parseInt(check) > 0 then
-												TriggerClientEvent("Notify",source,"sucesso","Resultado positivo.",5000)
+												TriggerClientEvent("Notify",source,"verde","Resultado positivo.",5000)
 											else
-												TriggerClientEvent("Notify",source,"negado","Resultado negativo.",3000)
+												TriggerClientEvent("Notify",source,"vermelho","Resultado negativo.",3000)
 											end
 										end
 									end
@@ -792,7 +780,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 												weedStr = "Alto"
 											end
 
-											TriggerClientEvent("Notify",source,"importante","<b>Químicos:</b> "..chemStr.."<br><b>Álcool:</b> "..alcoholStr.."<br><b>Drogas:</b> "..weedStr,8000)
+											TriggerClientEvent("Notify",source,"default","<b>Químicos:</b> "..chemStr.."<br><b>Álcool:</b> "..alcoholStr.."<br><b>Drogas:</b> "..weedStr,10000)
 										end
 									end
 									Citizen.Wait(0)
@@ -872,9 +860,9 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                 if taskResult then
                                     vRP.upgradeStress(user_id,2)
                                     TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-                                    TriggerClientEvent("Notify",source,"aviso","Carro arrumado com sucesso.",7000)
+                                    TriggerClientEvent("Notify",source,"verde","Carro arrumado com sucesso.",5000)
                                 else
-                                    TriggerClientEvent("Notify",source,"aviso","Voce falhou.",7000)
+                                    TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
                                 end
 
                                 vRPclient._stopAnim(source,false)
@@ -895,10 +883,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
-									vRP.upgradeStress(user_id,4)
+									vRP.upgradeStress(user_id,5)
 									local iddoroubado = vRP.getVehiclePlate(vehPlate)
 									if iddoroubado and math.random(100) >= 50 then
-										TriggerClientEvent("Notify",source,"aviso","O alarme do seu veículo <b>"..vRP.vehicleName(vehName).."</b> foi acionado.",7000)
+										TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> disparou o alarme.",5000)
 									end
 									if math.random(100) >= 20 then
 										TriggerEvent("setPlateEveryone",vehPlate)
@@ -915,7 +903,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										end
 									end
 								else
-									TriggerClientEvent("Notify",source,"aviso","Voce falhou, tente novamente.",7000)
+									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente travou.",5000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
@@ -937,7 +925,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeStress(user_id,4)
 									local iddoroubado = vRP.getVehiclePlate(vehPlate)
 									if iddoroubado then
-										TriggerClientEvent("Notify",source,"aviso","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi roubado.",7000)
+										TriggerClientEvent("Notify",source,"verde","<b>"..vRP.vehicleName(vehName).."</b> foi roubado.",5000)
 									end
 									if math.random(100) >= 50 then
 										TriggerEvent("setPlateEveryone",vehPlate)
@@ -954,7 +942,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										end
 									end
 								else
-									TriggerClientEvent("Notify",source,"aviso","Voce falhou.",7000)
+									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
@@ -981,7 +969,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerEvent("vrp:homes:ApplyTime",homeName)
 								
 								else
-									TriggerClientEvent("Notify",source,"aviso","Voce falhou.",7000)
+									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
@@ -1027,7 +1015,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									if x ~= nil and y ~= nil and z ~= nil then
 										for k,v in pairs(registerTimers) do
 											if v[1] == x and v[2] == y and v[3] == z then
-												TriggerClientEvent("Notify",source,"importante","Aguarde "..vRP.getTimers(parseInt(v[4]*10))..".",5000)
+												TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(v[4]*10))..".",5000)
 											end
 											Citizen.Wait(1)
 										end
@@ -1157,11 +1145,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "water" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 						vRPclient._createObjects(source,"mp_player_intdrink","loop_bottle","prop_ld_flow_bottle",49,60309,0.0,0.0,0.02,0.0,0.0,130.0)
 
 						repeat
@@ -1253,11 +1241,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "cola" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 						vRPclient._createObjects(source,"mp_player_intdrink","loop_bottle","prop_ecola_can",49,60309,0.0,0.0,0.04,0.0,0.0,130.0)
 
 						repeat
@@ -1275,11 +1263,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "soda" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 						vRPclient._createObjects(source,"mp_player_intdrink","loop_bottle","ng_proc_sodacan_01b",49,60309,0.0,0.0,-0.04,0.0,0.0,130.0)
 
 						repeat
@@ -1315,11 +1303,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                     if vRP.tryGetInventoryItem(user_id,"bait",rand,true) then
                                         vRP.giveInventoryItem(user_id,fishs[rand],rand,true)
                                     else
-                                        TriggerClientEvent("Notify",source,"aviso","Você precisa de <b>"..vRP.format(rand).."x "..vRP.itemNameList("bait").."</b>.",5000)
+                                        TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(rand).."x "..vRP.itemNameList("bait").."</b>.",5000)
                                         vRPclient._removeObjects(source,"one")
                                     end
                                 else
-                                    TriggerClientEvent("Notify",source,"negado","Mochila cheia.",5000)
+                                    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
                                     vRPclient._removeObjects(source,"one")
                                 end
                             end
@@ -1393,11 +1381,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "hamburger" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_cs_burger_01",49,60309)
 
 						repeat
@@ -1474,7 +1462,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 							end
 						else
-							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
+							vCLIENT.closeInventory(source)
 						end
 					end
 
@@ -1487,7 +1476,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 							end
 						else
-							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
+							vCLIENT.closeInventory(source)
 						end
 					end
 
@@ -1500,7 +1490,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 							end
 						else
-							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
+							vCLIENT.closeInventory(source)
 						end
 					end
 
@@ -1513,7 +1504,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 							end
 						else
-							TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
+							vCLIENT.closeInventory(source)
 						end
 					end
 
@@ -1541,7 +1533,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                             Citizen.Wait(0)
                         until active[user_id] == nil
                         else
-                          TriggerClientEvent("Notify",source,"negado","Voce nao possui todos os itens.",6000)
+                          TriggerClientEvent("Notify",source,"vermelho","Você não possúi todos os itens.",5000)
 						end
 					end
 
@@ -1586,7 +1578,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 							local plateUserId = vRP.getVehiclePlate(vehPlate)
 							if plateUserId then
-								TriggerClientEvent("Notify",source,"negado","A placa escolhida já está sendo usada por outro veículo.",5000)
+								TriggerClientEvent("Notify",source,"vermelho","A placa escolhida já está sendo usada por outro veículo.",5000)
 								return
 							end
 
@@ -1600,7 +1592,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								TriggerClientEvent("Notify",source,"importante","O nome da definição para placas deve conter no máximo 8 caracteres e podem ser usados números e letras minúsculas.",5000)
 							end
 						else
-							TriggerClientEvent("Notify",source,"negado","Modelo de veículo não encontrado em sua garagem.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Modelo de veículo não encontrado em sua garagem.",5000)
 						end
 					end
 
@@ -1641,7 +1633,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                     TriggerClientEvent("Notify",source,"sucesso","Placa do veiculo clonada.",7000)
                                 end
                             else
-                                TriggerClientEvent("Notify",source,"negado","Voce falhou.",7000)
+                                TriggerClientEvent("Notify",source,"vermelho","Voce falhou.",7000)
                             end
                                 vRPclient._stopAnim(source,false)
                                 active[user_id] = nil
@@ -1668,7 +1660,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                             vCLIENT.blockButtons(source,false)
 
                                             if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-                                                TriggerClientEvent("vrp_admin:vehicleTuning",source)
+                                                TriggerClientEvent("admin:vehicleTuning",source)
                                             end
                                         end
                                         Citizen.Wait(0)
@@ -1708,7 +1700,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										TriggerClientEvent("vrp_sound:source",nplayer,"cuff",0.5)
 										vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
 									else
-										TriggerClientEvent("Notify",source,"importante","O cidadao resistiu de ser algemado.",5000)
+										TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser algemado.",5000)
 									end
 									active[user_id] = nil
 								end
@@ -1730,7 +1722,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							if not taskResult then
 								TriggerClientEvent("vrp_rope:toggleRope",source,nplayer)
 							else
-								TriggerClientEvent("Notify",source,"importante","O cidadao resistiu de ser carregado.",5000)
+								TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser carregado.",5000)
 							end
 						end
 						
@@ -1802,7 +1794,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
 									vRP.removePermission(vRP.getUserSource(nuser_id),"Police")
 									vRP.execute("vRP/upd_group",{ user_id = nuser_id, permiss = "Police", newpermiss = "waitPolice" })
-									TriggerClientEvent("Notify",source,"importante","Todas as comunicações da polícia foram retiradas.",5000)
+									TriggerClientEvent("Notify",source,"verde","Todas as comunicações da polícia foram retiradas.",5000)
 								end
 							end
 						end
@@ -1819,7 +1811,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if has_value(pistols, weaponName) then
 						for k,v in pairs(weaponsList) do
 							if has_value(pistols, k) then
-								TriggerClientEvent("Notify", source, "negado", "Você já possui uma arma desse tipo equipada.")
+								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>pistola</b> equipada.",5000)
 								return
 							end
 						end
@@ -1827,7 +1819,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if has_value(submachine, weaponName) then
 						for k,v in pairs(weaponsList) do
 							if has_value(submachine, k) then
-								TriggerClientEvent("Notify", source, "negado", "Você já possui uma arma desse tipo equipada.")
+								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>submachine</b> equipada.",5000)
 								return
 							end
 						end
@@ -1835,7 +1827,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if has_value(shotgun, weaponName) then
 						for k,v in pairs(weaponsList) do
 							if has_value(shotgun, k) then
-								TriggerClientEvent("Notify", source, "negado", "Você já possui uma arma desse tipo equipada.")
+								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>shotgun</b> equipada.",5000)
 								return
 							end
 						end
@@ -1843,7 +1835,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if has_value(rifles, weaponName) then
 						for k,v in pairs(weaponsList) do
 							if has_value(rifles, k) then
-								TriggerClientEvent("Notify", source, "negado", "Você já possui uma arma desse tipo equipada.")
+								TriggerClientEvent("Notify",source,"amarelo","Você já possui um <b>rifle</b> equipada.",5000)
 								return
 							end
 						end
@@ -1904,7 +1896,7 @@ RegisterCommand("garmas",function(source,args,rawCommand)
             end
             vRPclient.updateWeapons(source)
 
-            TriggerClientEvent("Notify",source,"sucesso","Armamento guardado.",5000)
+            TriggerClientEvent("Notify",source,"verde","O seu armamento foi todo guardado.",5000)
         end
     end
 end)
@@ -1941,7 +1933,7 @@ AddEventHandler("inventory:sendItem",function(itemName,amount)
 						if vRP.computeInvWeight(nuser_id) + vRP.itemWeightList(itemName) * parseInt(amount) <= vRP.getBackpack(nuser_id) then
 							if vRP.itemSubTypeList(itemName) then
 								if vRP.getInventoryItemAmount(nuser_id,itemName) > 0 then
-									TriggerClientEvent("Notify",source,"negado","O jogador já possui esse tipo de item.",5000)
+									TriggerClientEvent("Notify",source,"vermelho","O cidadão já possúi um item do mesmo.",5000)
 								else
 									local durability = vRP.getInventoryItemDurability(user_id,itemName)
 									if vRP.tryGetInventoryItem(user_id,itemName,amount,true) then
@@ -2069,7 +2061,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 			idgens:free(id)
         end
     else
-        TriggerClientEvent("Notify",source,"negado","Sua <b>Mochila</b> Cheia.",5000)
+        TriggerClientEvent("Notify",source,"vermelho","Sua <b>Mochila</b> Cheia.",5000)
         end
     end
 
