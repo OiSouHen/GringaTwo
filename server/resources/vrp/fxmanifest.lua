@@ -17,15 +17,8 @@ client_scripts {
 
 files {
 	"loading/index.html",	
-    'loading/assets/js/ui.js',
-	'loading/assets/img/background.jpg',
-	'loading/assets/img/dlgames.png',
-	'loading/assets/img/lsrp.png',
-    'loading/assets/fonts/BebasNeue.otf',
-    'loading/assets/fonts/BebasNeue.ttf',
-	'loading/assets/css/style.css',
-    'loading/index.js',
-    'loading/musi.mp3',
+    'loading/script.js',
+    'loading/style.css',
 	"web-side/*",
 	"lib/Tunnel.lua",
 	"lib/Proxy.lua",
