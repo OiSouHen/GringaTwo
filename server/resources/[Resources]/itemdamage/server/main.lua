@@ -40,10 +40,10 @@ function damage.damageItem()
 						if vRP.tryGetInventoryItem(user_id,item,itemAmmount) then
 							if percentage >= 70 then
 								TriggerClientEvent("Notify",source,"damage-item","<div style='opacity: 0.7;'><i>Aviso sobre sua Mochila</i></div><b>"..itemName.."</b> acabou de cair de sua mochila.",10000)
-								TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
+								TriggerClientEvent("sound:source",source,"juntos",0.5)
 							else
 								TriggerClientEvent("Notify",source,"damage-item","<div style='opacity: 0.7;'><i>Aviso sobre sua Mochila</i></div><b>"..itemName.."</b> acabou de cair de sua mochila.",10000)
-								TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
+								TriggerClientEvent("sound:source",source,"juntos",0.5)
 							end
 							percentage = 0
 							return true
@@ -56,7 +56,7 @@ function damage.damageItem()
 				if vRP.tryGetInventoryItem(user_id,item,itemAmmount) then
 					vRP.giveInventoryItem(user_id,damageItem,itemAmmount)
 					TriggerClientEvent("Notify",source,"damage-water","<div style='opacity: 0.7;'><i>Aviso sobre sua Mochila</i></div>Você entrou na água e acabou perdendo <b>"..itemName.."</b>.",10000)
---					TriggerClientEvent("vrp_sound:source",source,"juntos",0.5)
+--					TriggerClientEvent("sound:source",source,"juntos",0.5)
 					return true
 				end
 			end

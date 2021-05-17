@@ -18,12 +18,14 @@ local inSelected = 0
 local inCheckpoint = 0
 local inLaps = 1
 local inTimers = 0
+local raceTimers = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local runners = {
 	[1] = {
 		["laps"] = 1,
+		["raceTimers"] = 140,
 		["init"] = { 2679.43,3443.93,55.81 },
 		["coords"] = {
 			{ 2750.48,3414.08,55.77 },
@@ -45,6 +47,7 @@ local runners = {
 	},
 	[2] = {
 		["laps"] = 1,
+		["raceTimers"] = 190,
 		["init"] = { -566.72,-2117.39,5.98 },
 		["coords"] = {
 			{ -566.24,-2065.5,6.25 },
@@ -72,6 +75,7 @@ local runners = {
 	},
 	[3] = {
 		["laps"] = 1,
+		["raceTimers"] = 260,
 		["init"] = { 1679.4,-1564.53,112.57 },
 		["coords"] = {
 			{ 1628.26,-1574.17,102.08 },
@@ -100,6 +104,7 @@ local runners = {
 	},
 	[4] = {
 		["laps"] = 1,
+		["raceTimers"] = 130,
 		["init"] = { -1732.07,-727.34,10.4 },
 		["coords"] = {
 			{ -1687.25,-725.7,10.13 },
@@ -117,6 +122,7 @@ local runners = {
 	},
 	[5] = {
 		["laps"] = 1,
+		["raceTimers"] = 190,
 		["init"] = { -1367.59,15.04,53.38 },
 		["coords"] = {
 			{ -1364.17,-49.72,51.24 },
@@ -140,6 +146,7 @@ local runners = {
 	},
 	[6] = {
 		["laps"] = 1,
+		["raceTimers"] = 250,
 		["init"] = { 636.43,649.9,128.9 },
 		["coords"] = {
 			{ 977.0,515.89,105.31 },
@@ -169,6 +176,7 @@ local runners = {
 	},
 	[7] = {
 		["laps"] = 1,
+		["raceTimers"] = 140,
 		["init"] = { 364.86,-543.57,28.75 },
 		["coords"] = {
 			{ 533.25,-414.31,31.14 },
@@ -191,6 +199,7 @@ local runners = {
 	},
 	[8] = {
 		["laps"] = 1,
+		["raceTimers"] = 140,
 		["init"] = { 247.31,-1513.38,29.10 },
 		["coords"] = {
 			{ 204.64,-1573.6,28.75 },
@@ -210,6 +219,7 @@ local runners = {
 	},
 	[9] = {
 		["laps"] = 1,
+		["raceTimers"] = 190,
 		["init"] = { -324.69,-1098.09,23.03 },
 		["coords"] = {
 			{ -242.21,-1141.21,22.74 },
@@ -250,7 +260,7 @@ Citizen.CreateThread(function()
 			if inRunners then
 				timeDistance = 4
 
-				dwText("~b~VOLTAS:~w~ "..inLaps.."          ~b~CHECKPOINT:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"].."          ~b~TEMPO:~w~ "..inTimers,0.94)
+				dwText("~b~VOLTAS:~w~ "..inLaps.."          ~b~CHECKPOINTS:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"].."          ~b~TEMPO RESTANTE:~w~ "..raceTime,100)
 
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then
@@ -288,18 +298,12 @@ Citizen.CreateThread(function()
 							inCheckpoint = 1
 							inTimers = 0
 							inLaps = 1
-
+							raceTime = parseInt(runners[inSelected]["raceTimers"])
 							TriggerEvent("Notify","verde","Você iníciou uma corrida ilegal e a policia foi acionada.",5000)
-							TriggerEvent("vrp_sound:source","quite",0.5)
 							SetNewWaypoint(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2])
 						end
 					end
 				end
-			end
-		else
-			if inRunners then
-				inRunners = false
-				SetWaypointOff()
 			end
 		end
 
@@ -318,6 +322,33 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADRACETIME
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if inRunners then
+			if raceTime > 0 then
+				raceTime = raceTime - 1
+
+				if (raceTime <= 0 or not IsPedInAnyVehicle(PlayerPedId())) then
+					TriggerServerEvent("raceTime:explosivePlayers")
+
+
+					raceTime = 0
+					SetWaypointOff()
+					inRunners = false
+
+					Citizen.Wait(3000)
+
+					AddExplosion(GetEntityCoords(GetPlayersLastVehicle()),2,1.0,true,true,true)
+				end
+			end
+		end
+
+		Citizen.Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

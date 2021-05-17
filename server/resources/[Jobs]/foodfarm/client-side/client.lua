@@ -57,11 +57,11 @@ function cnVRP.toggleService()
 		inService = true
 		makeBlipMarked()
 		TriggerEvent("Notify","sucesso","Você começou a trabalhar de <b>Motorista de Ônibus</b>.",5000)
-		TriggerEvent("vrp_sound:source","quite",0.5)
+		TriggerEvent("sound:source","quite",0.5)
 	else
 		inService = false
 		TriggerEvent("Notify","aviso","Você parou de trabalhar de <b>Motorista de Ônibus</b>.",5000)
-		TriggerEvent("vrp_sound:source","juntos",0.5)
+		TriggerEvent("sound:source","juntos",0.5)
 		if DoesBlipExist(blip) then
 			RemoveBlip(blip)
 			blip = nil

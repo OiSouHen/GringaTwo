@@ -571,7 +571,7 @@ local animacoes = {
 
 				TriggerEvent("resetBleeding")
 				TriggerEvent("resetDiagnostic")
-				TriggerEvent("vrp_hospital:macas")
+				TriggerEvent("hospital:macas")
 
 				SetEntityCoords(ped,x2,y2,z2+v[2])
 				SetEntityHeading(ped,GetEntityHeading(object)+v[3]-180.0)
@@ -582,7 +582,7 @@ local animacoes = {
 	-- 	if not IsPedInAnyVehicle(PlayerPedId()) then
 	-- 		TriggerEvent('cancelando',true)
 	-- 		TriggerEvent("progress",9000,"fumando")
-	-- 		TriggerEvent("vrp_sound:source",'bong',0.5)
+	-- 		TriggerEvent("sound:source",'bong',0.5)
 	-- 		SetTimeout(8700,function()
 	-- 			vRP._DeletarObjeto()
 	-- 			ShakeGameplayCam('SMALL_EXPLOSION_SHAKE',0.5)
@@ -782,10 +782,10 @@ function HandleZoom(cam)
 	SetCamFov(cam,current_fov+(fov-current_fov)*0.05)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HOSPITAL:MACAS
+-- hospital:MACAS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_hospital:macas")
-AddEventHandler("vrp_hospital:macas",function()
+RegisterNetEvent("hospital:macas")
+AddEventHandler("hospital:macas",function()
 	local ped = PlayerPedId()
 	TriggerEvent("cancelando",true)
 	

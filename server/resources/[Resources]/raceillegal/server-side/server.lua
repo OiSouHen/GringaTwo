@@ -14,7 +14,7 @@ Tunnel.bindInterface("raceillegal",cRP)
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemList = {
-	{ item = "raceticket" }
+	{ item = "credential" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKCONSUME
@@ -26,19 +26,18 @@ function cRP.checkConsume()
 		for k,v in pairs(itemList) do
 			if vRP.tryGetInventoryItem(user_id,v.item,parseInt(1)) then
 
-				if v.item == "raceticket" then
+				if v.item == "credential" then
 				    local x,y,z = vRPclient.getPositions(source)
 					local copAmount = vRP.numPermission("Police")
 					for k,v in pairs(copAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Está acontecendo uma corrida ilegal aqui.", code = 20, title = "Denúncia de Corrida Ilegal", x = x, y = y, z = z, rgba = {41,76,119} })
+							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 20, title = "Denúncia de Corrida Ilegal", x = x, y = y, z = z, rgba = {41,76,119} })
 						end)
 					end
 				end
 				return true
 			else
-				TriggerClientEvent("Notify",source,"amarelo","Você precisa de um <b>Ticket de Corrida</b> para correr.",5000)
-				Wait(5000)
+				TriggerClientEvent("Notify",source,"amarelo","Você precisa de uma <b>Credencial</b> para correr.",5000)
 			end
 		end
 		return false
@@ -52,7 +51,15 @@ function cRP.finishRaces()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 	local identity = vRP.getUserIdentity(user_id)
+		vRP.wantedTimer(user_id,300)
 		vRP.giveInventoryItem(user_id,"dollars2",math.random(3500,7000),true)
-		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RACEILLEGAL:EXPLOSIVEPLAYERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("raceillegal:explosivePlayers")
+AddEventHandler("raceillegal:explosivePlayers",function()
+	local source = source
+	TriggerEvent("blipsystem:serviceExit",source)
+end)

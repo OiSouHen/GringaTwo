@@ -51,7 +51,6 @@ $(document).ready(function(){
 			} else {
 				$("#displayHud").fadeOut(500);
 			}
-
 			return
 		}
 
@@ -76,9 +75,9 @@ $(document).ready(function(){
 		}
 
 		if (event["data"]["talking"] == true){
-			$("#voice").css("background","#333 url(images/micOn.png)");
+			$("#voice").css("background","#333 url(micOn.png)");
 		} else {
-			$("#voice").css("background","#222 url(images/micOff.png)");
+			$("#voice").css("background","#222 url(micOff.png)");
 
 			if (event["data"]["voice"] == 1){
 				$(".voiceDisplay").css("stroke-dashoffset","66");

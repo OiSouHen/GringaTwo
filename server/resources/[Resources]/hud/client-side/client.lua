@@ -124,7 +124,7 @@ RegisterCommand("hud",function(source,args)
 	showHud = not showHud
 	SendNUIMessage({ hud = showHud })
 	updateDisplayHud(PlayerPedId())
-	TriggerEvent("vrp_prison:switchHud",showHud)
+	TriggerEvent("jail:switchHud",showHud)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOVIE
@@ -240,9 +240,9 @@ Citizen.CreateThread(function()
                     beltLock = not beltLock
 
                     if not beltLock then
-                        TriggerEvent("vrp_sound:source","unbelt",0.5)
+                        TriggerEvent("sound:source","unbelt",0.5)
                     else
-                        TriggerEvent("vrp_sound:source","belt",0.5)
+                        TriggerEvent("sound:source","belt",0.5)
                     end
                 end
             end
@@ -271,8 +271,8 @@ end)
 -- SYNCTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local homeInterior = false
-RegisterNetEvent("vrp_homes:Hours")
-AddEventHandler("vrp_homes:Hours",function(status)
+RegisterNetEvent("homes:Hours")
+AddEventHandler("homes:Hours",function(status)
 	homeInterior = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -303,16 +303,18 @@ Citizen.CreateThread(function()
 		if health > 101 then
 			if hunger >= 0 and hunger <= 15 then
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
+				SetEntityHealth(ped,health-1)
 			elseif hunger <= 5 then
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
-				SetEntityHealth(ped,health-1)
+				SetEntityHealth(ped,health-2)
 			end
 
 			if thirst >= 0 and thirst <= 15 then
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
+				SetEntityHealth(ped,health-1)
 			elseif thirst <= 5 then
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
-				SetEntityHealth(ped,health-1)
+				SetEntityHealth(ped,health-2)
 			end
 		end
 
@@ -332,10 +334,12 @@ Citizen.CreateThread(function()
 				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.2)
 				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
 				if parseInt(math.random(3)) >= 3 and not IsPedInAnyVehicle(ped) then
+					SetEntityHealth(ped,health-2)
 					SetPedToRagdoll(ped,5000,5000,0,0,0,0)
 				end
 			elseif stress >= 60 and stress <= 79 then
 				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.1)
+				SetEntityHealth(ped,health-1)
 				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
 			end
 		end

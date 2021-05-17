@@ -32,7 +32,7 @@ function L1s.buyTattoos(data)
 --				TriggerClientEvent("Notify",_source,"sucesso","Você gastou <b>$"..tattooListPrice[data.tattooType].." dólares</b> em tatuagem.",5000)
 				L1c.refreshNUITattoos(_source)
 			else
-				TriggerClientEvent("Notify",_source,"negado","Você não tem dinheiro suficiente para fazer tatuagem.",5000)
+				TriggerClientEvent("Notify",_source,"vermelho","Dólars insuficientes.",5000)
 			end
 		end
 	end

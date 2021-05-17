@@ -207,7 +207,7 @@ local shops = {
 			["aluminum"] = 120,
 			["copper"] = 120,
 			["paperbag"] = 50,
-			["raceticket"] = 500,
+			["credential"] = 500,
 			["firecracker"] = 1000
 		}
 	},

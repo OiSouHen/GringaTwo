@@ -161,14 +161,13 @@ const updateDrag = () => {
 	
 	$(".populated").tooltip({
 		create: function(event,ui){
-			const amounts = $(this).attr("data-amount");
 			const name = $(this).attr("data-name-key");
-			const weight = $(this).attr("data-peso");
+			const amount = $(this).attr("data-amount");
 			const recipe = $(this).attr("data-list");
 			var myLeg = "center top-155";
 
 			$(this).tooltip({
-				content: `<item>${name}</item><br><legenda><b>3x</b> por <b>${recipe}</b></legenda>`,
+				content: `<item>${name}</item><br><legenda><font color="#858ba6">${recipe}.</font></legenda>`,
 				position: { my: myLeg, at: "center" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
@@ -189,6 +188,18 @@ const formatarNumero = (n) => {
 
 	return r.split("").reverse().join("");
 };
+/* --------------------------------------------------- */
+function somenteNumeros(e){
+    var charCode = e.charCode ? e.charCode : e.keyCode;
+    if (charCode != 8 && charCode != 9){
+        var max = 9;
+        var num = $(".amount").val();
+
+        if ((charCode < 48 || charCode > 57)||(num.length >= max)){
+            return false;
+        }
+    }
+}
 /* --------------------------------------------------- */
 const requestCrafting = () => {
 	const mySlots = 50;
@@ -235,11 +246,11 @@ const requestCrafting = () => {
 				let list = "";
 
 				for (let i in v.list){
-					list = `<b>${list}${v.list[i].amount}x ${v.list[i].name}</b>, `;
+					list = `${list}${v.list[i].amount}x ${v.list[i].name}, `;
 				}
 
 				list = list.substring(0,list.length - 2);
-				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}"">
+				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-list="${list}" data-slot="${slot}"">
 				<div class="top">
 					<div class="itemWeight">Peso:</div>
 					<div class="itemAmount">${v.weight.toFixed(2)}</div>
@@ -256,18 +267,6 @@ const requestCrafting = () => {
 		}
 		updateDrag();
 	});
-}
-
-function somenteNumeros(e){
-    var charCode = e.charCode ? e.charCode : e.keyCode;
-    if (charCode != 8 && charCode != 9){
-        var max = 9;
-        var num = $(".amount").val();
-
-        if ((charCode < 48 || charCode > 57)||(num.length >= max)){
-            return false;
-        }
-    }
 }
 
 $(document).ready(function() {

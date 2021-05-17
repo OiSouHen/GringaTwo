@@ -77,7 +77,7 @@ function cnVRP.doorsStatistics(doorNumber,doorStatus)
 	TriggerClientEvent("doors:doorsUpdate",-1,doors)
 
 	if doors[parseInt(doorNumber)].sound then
-		TriggerClientEvent("vrp_sound:source",source,"doorlock",0.1)
+		TriggerClientEvent("sound:source",source,"doorlock",0.1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

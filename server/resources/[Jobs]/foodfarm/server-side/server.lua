@@ -31,7 +31,7 @@ function cnVRP.paymentMethod(status)
 
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
 			TriggerClientEvent("Notify",source,"damage-item","<div style='opacity: 0.7;'><i>Aviso sobre sua Mochila</i></div>Você não tem mais espaço em sua Mochila.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+			TriggerClientEvent("sound:source",source,"when",0.5)
 			return
 		end
 
@@ -41,14 +41,14 @@ function cnVRP.paymentMethod(status)
 			vRP.giveInventoryItem(user_id,"burguer",1,true)
 			vRP.giveInventoryItem(user_id,"queijo",1,true)
 			vRP.giveInventoryItem(user_id,"tomate",1,true)
-			TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
+			TriggerClientEvent("sound:source",source,"takeThis",0.5)
 		else
 			vRP.giveInventoryItem(user_id,"bread",2,true)
 			vRP.giveInventoryItem(user_id,"alface",1,true)
 			vRP.giveInventoryItem(user_id,"burguer",1,true)
 			vRP.giveInventoryItem(user_id,"queijo",1,true)
 			vRP.giveInventoryItem(user_id,"tomate",1,true)
-			TriggerClientEvent("vrp_sound:source",source,"takeThis",0.5)
+			TriggerClientEvent("sound:source",source,"takeThis",0.5)
 		end
 
 	end

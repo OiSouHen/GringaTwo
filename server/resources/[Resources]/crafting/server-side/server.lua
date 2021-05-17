@@ -431,6 +431,43 @@ local craftList = {
 				}
 			}
 		}
+	},
+	["costuraCrafting"] = {
+		["list"] = {
+			["credential"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["dollars2"] = 250
+				}
+			},
+			["lockpick"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 5,
+					["plastic"] = 4,
+					["rubber"] = 4,
+					["glass"] = 4,
+					["copper"] = 5
+				}
+			},
+			["normalbackpack"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["tecido"] = 25
+				}
+			},
+			["tecido"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["cotton"] = 15,
+					["rubber"] = 5
+				}
+			}
+		}
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------

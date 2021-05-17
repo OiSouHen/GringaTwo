@@ -16,10 +16,10 @@ vCLIENT = Tunnel.getInterface("inventory")
 vRPRAGE = Tunnel.getInterface("garages")
 vSURVIVAL = Tunnel.getInterface("survival")
 vPLAYER = Tunnel.getInterface("player")
-vWEPLANTS = Tunnel.getInterface("vrp_weplants")
-vWEPLANTSS = Tunnel.getInterface("vrp_weplants")
-vHOMES = Tunnel.getInterface("vrp_homes")
-vTASKBAR = Tunnel.getInterface("vrp_taskbar")
+vWEPLANTS = Tunnel.getInterface("weplants")
+vWEPLANTSS = Tunnel.getInterface("weplants")
+vHOMES = Tunnel.getInterface("homes")
+vTASKBAR = Tunnel.getInterface("taskbar")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -451,6 +451,28 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 									vRP.chemicalTimer(user_id,2)
 									vRPclient.setArmour(source,20)
+									TriggerClientEvent("setMeth",source)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "dildo" then
+						active[user_id] = 15
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._playAnim(source,true,{"anim@amb@nightclub@peds@","missfbi3_party_snort_coke_b_male3"},true)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vRPclient._stopAnim(source)
+								vCLIENT.blockButtons(source,false)
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.chemicalTimer(user_id,2)
 									TriggerClientEvent("setMeth",source)
 								end
 							end
@@ -1449,57 +1471,29 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "postit" then
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 							vCLIENT.closeInventory(source)
-							TriggerClientEvent("vrp_notepad:createNotepad",source)
+							TriggerClientEvent("notepad:createNotepad",source)
 						end
 					end
 
-					if itemName == "backpackp" then
+					if itemName == "normalbackpack" then
 						local exp = vRP.getBackpack(user_id)
-						if exp < 25 then
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.setBackpack(user_id,25)
-								TriggerClientEvent("inventory:Update",source,"updateMochila")
-								vCLIENT.closeInventory(source)
-							end
-						else
-							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
-							vCLIENT.closeInventory(source)
-						end
-					end
-
-					if itemName == "backpackm" then
-						local exp = vRP.getBackpack(user_id)
-						if exp >= 25 and exp < 50 then
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.setBackpack(user_id,50)
-								TriggerClientEvent("inventory:Update",source,"updateMochila")
-								vCLIENT.closeInventory(source)
-							end
-						else
-							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
-							vCLIENT.closeInventory(source)
-						end
-					end
-
-					if itemName == "backpackg" then
-						local exp = vRP.getBackpack(user_id)
-						if exp >= 50 and exp < 75 then
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.setBackpack(user_id,75)
-								TriggerClientEvent("inventory:Update",source,"updateMochila")
-								vCLIENT.closeInventory(source)
-							end
-						else
-							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
-							vCLIENT.closeInventory(source)
-						end
-					end
-
-					if itemName == "backpackx" then
-						local exp = vRP.getBackpack(user_id)
-						if exp >= 75 and exp < 100 then
+						if exp <= 50 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,100)
+								TriggerClientEvent("inventory:Update",source,"updateMochila")
+								vCLIENT.closeInventory(source)
+							end
+						else
+							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
+							vCLIENT.closeInventory(source)
+						end
+					end
+
+					if itemName == "premiumbackpack" then
+						local exp = vRP.getBackpack(user_id)
+						if exp >= 50 and exp <= 100 then
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+								vRP.setBackpack(user_id,150)
 								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								vCLIENT.closeInventory(source)
 							end
@@ -1689,15 +1683,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if vPLAYER.getHandcuff(nplayer) then
 									vPLAYER.toggleHandcuff(nplayer)
 									vRPclient._stopAnim(nplayer,false)
-									TriggerClientEvent("vrp_sound:source",source,"uncuff",0.5)
-									TriggerClientEvent("vrp_sound:source",nplayer,"uncuff",0.5)
+									TriggerClientEvent("sound:source",source,"uncuff",0.5)
+									TriggerClientEvent("sound:source",nplayer,"uncuff",0.5)
 								else
 									active[user_id] = 30
 									local taskResult = vTASKBAR.taskHandcuff(nplayer)
 									if not taskResult then
 										vPLAYER.toggleHandcuff(nplayer)
-										TriggerClientEvent("vrp_sound:source",source,"cuff",0.5)
-										TriggerClientEvent("vrp_sound:source",nplayer,"cuff",0.5)
+										TriggerClientEvent("sound:source",source,"cuff",0.5)
+										TriggerClientEvent("sound:source",nplayer,"cuff",0.5)
 										vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
 									else
 										TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser algemado.",5000)
@@ -1720,7 +1714,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if nplayer and not vRPclient.inVehicle(source) then
 							local taskResult = vTASKBAR.taskHandcuff(nplayer)
 							if not taskResult then
-								TriggerClientEvent("vrp_rope:toggleRope",source,nplayer)
+								TriggerClientEvent("rope:toggleRope",source,nplayer)
 							else
 								TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser carregado.",5000)
 							end
@@ -1729,7 +1723,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "c4" then
-						TriggerClientEvent("vrp_cashmachine:machineRobbery",source)
+						TriggerClientEvent("cashmachine:machineRobbery",source)
 					end
 
 					if itemName == "premium01" then
@@ -1791,7 +1785,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							if nuser_id then
 								if vRP.hasPermission(nuser_id,"Police") then
 									TriggerClientEvent("radio:outServers",nplayer)
-									TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
+									TriggerEvent("blipsystem:serviceExit",nplayer)
 									vRP.removePermission(vRP.getUserSource(nuser_id),"Police")
 									vRP.execute("vRP/upd_group",{ user_id = nuser_id, permiss = "Police", newpermiss = "waitPolice" })
 									TriggerClientEvent("Notify",source,"verde","Todas as comunicações da polícia foram retiradas.",5000)

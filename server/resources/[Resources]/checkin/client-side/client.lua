@@ -104,7 +104,7 @@ function DrawText3D(x,y,z,text)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
 	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYERS

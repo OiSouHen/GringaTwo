@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Easytime</title>
+        <title>#creative</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/stylesheet.css">
         <link rel="stylesheet" href="css/weather-icons.min.css"/>
@@ -12,12 +12,8 @@
         <div id="easytime">
             <div id="easytime-card" class="card shadow">
                 <div id="easytime-card-body" class="card-body">
-                    <div id="easytime-clouds">
-
-                    </div>
-                    <div id="easytime-stars">
-                        
-                    </div>
+                    <div id="easytime-clouds"></div>
+                    <div id="easytime-stars"></div>
                     <div id="easytime-card-sun">
                         <img id="easytime-sun" src="images/sun.svg" class="img-fluid">
                     </div>
@@ -27,9 +23,7 @@
                 </div>
                 <div id="easytime-menu" class="card-footer text-muted">
                     <div class="row">
-                        <div id="easytime-menu-time" class="col text-center h3">
-                            08:00
-                        </div>
+                        <div id="easytime-menu-time" class="col text-center h3">08:00</div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -137,11 +131,7 @@
                             <hr>
                             <div class="d-inline custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="easytime-freeze">
-                                <label id="easytime-freeze-label" class="custom-control-label" for="easytime-freeze">Freeze time</label>
-                            </div>
-                            <div class="d-inline custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="easytime-24hr">
-                                <label id="easytime-24hr-label" class="custom-control-label" for="easytime-24hr">24 hr</label>
+                                <label id="easytime-freeze-label" class="custom-control-label" for="easytime-freeze">Congelar</label>
                             </div>
                             <div class="d-inline custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="easytime-blackout">
@@ -149,11 +139,16 @@
                             </div>
                             <div class="d-inline custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="easytime-dynamic">
-                                <label id="easytime-dynamic" class="custom-control-label" for="easytime-dynamic">Dynamic weather</label>
+                                <label id="easytime-dynamic" class="custom-control-label" for="easytime-dynamic">Dinâmico</label>
                             </div>
+							<div class="d-inline custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="easytime-24hr">
+                                <label id="easytime-24hr-label" class="custom-control-label" for="easytime-24hr">24h</label>
+                            </div>
+							<br><br>
                             <div class="btn-group" role="group">
-                                <button id="easytime-button-change" type="button" class="btn btn-sm btn-success">Change</button>
-                                <button id="easytime-button-close" type="button" class="btn btn-sm btn-secondary">Close</button>
+                                <button id="easytime-button-change" type="button" class="btn btn-sm btn-success">Confirmar</button>
+                                <button id="easytime-button-close" type="button" class="btn btn-sm btn-secondary">Fechar</button>
                               </div>
                         </div>
                     </div>

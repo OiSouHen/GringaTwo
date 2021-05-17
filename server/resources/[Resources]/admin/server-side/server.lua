@@ -5,15 +5,15 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
-vBARBER = Tunnel.getInterface("vrp_barbershop")
-vTATTOOS = Tunnel.getInterface("l1_tattoos")
+vBARBER = Tunnel.getInterface("barbershop")
+vTATTOOS = Tunnel.getInterface("tattoos")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cnVRP = {}
 Tunnel.bindInterface("admin",cnVRP)
 vCLIENT = Tunnel.getInterface("admin")
-vHOMES = Tunnel.getInterface("vrp_homes")
+vHOMES = Tunnel.getInterface("homes")
 
 local screenshotOptions = {
 	encoding = 'png',
@@ -60,7 +60,7 @@ RegisterCommand('skin',function(source,args,rawCommand)
 	if vRP.hasPermission(user_id,"Owner") then
 		TriggerClientEvent("skinmenu",args[1],args[2])
 		TriggerClientEvent("Notify",source,"verde","Você colocou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
-		TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
+		TriggerClientEvent("sound:source",source,"quite",0.5)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ function cnVRP.enablaNoclip()
 		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			vRPclient.noClip(source)
 --			TriggerClientEvent("noclipeffect",source) -- NOCLIP EFFECT
---			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+--			TriggerClientEvent("sound:source",source,"when",0.5)
 		end
 	end
 end
@@ -358,7 +358,7 @@ RegisterCommand("delnpcs",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Owner") then
 			vCLIENT.deleteNpcs(source)
 			TriggerClientEvent("Notify",source,"verde","Você deletou todos os Npcs próximos com sucesso.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
+			TriggerClientEvent("sound:source",source,"quite",0.5)
 		end
 	end
 end)
@@ -371,7 +371,7 @@ RegisterCommand("tuning",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Owner") then
 			TriggerClientEvent("admin:vehicleTuning",source)
 			TriggerClientEvent("Notify",source,"amarelo","Você realizou melhorias no carro com sucesso.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
+			TriggerClientEvent("sound:source",source,"quite",0.5)
 		end
 	end
 end)
@@ -404,7 +404,7 @@ RegisterCommand("fix",function(source,args,rawCommand)
 			if vehicle then
 				TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
 				TriggerClientEvent("Notify",source,"verde","Você arrumou o carro com sucesso.",5000)
-				TriggerClientEvent("vrp_sound:source",source,"quite",0.5)
+				TriggerClientEvent("sound:source",source,"quite",0.5)
 --				TriggerClientEvent("hudActived",source,false)
 			end
 		end
@@ -420,7 +420,7 @@ RegisterCommand("limparea",function(source,args,rawCommand)
 			local x,y,z = vRPclient.getPositions(source)
 			TriggerClientEvent("syncarea",-1,x,y,z,100)
 			TriggerClientEvent("Notify",source,"verde","Você limpou toda a área próxima à você com sucesso.",5000)
-			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+			TriggerClientEvent("sound:source",source,"when",0.5)
 		end
 	end
 end)
@@ -437,7 +437,7 @@ end)
 -- 				quantidade = parseInt(quantidade) + 1
 -- 			end
 -- 			TriggerClientEvent("Notify",source,"importante","<b>Players Conectados:</b> "..quantidade,5000)
--- 			TriggerClientEvent("vrp_sound:source",source,"when",0.5)
+-- 			TriggerClientEvent("sound:source",source,"when",0.5)
 -- 		end
 -- 	end
 -- end)
@@ -499,7 +499,7 @@ RegisterCommand("announce",function(source,args,rawCommand)
 				return
 			end
 			TriggerClientEvent("Notify",-1,"roxo",message,60000)
-			TriggerClientEvent("vrp_sound:source",-1,"heya",0.5)
+			TriggerClientEvent("sound:source",-1,"heya",0.5)
 		end
 	end
 end)
@@ -515,7 +515,7 @@ RegisterCommand("terremoto",function(source,args,rawCommand)
 				return
 			end
 			TriggerClientEvent("Notify",-1,"roxo",message,60000)
-			TriggerClientEvent("vrp_sound:source",-1,"frenzy",0.5)
+			TriggerClientEvent("sound:source",-1,"frenzy",0.5)
 		end
 	end
 end)
@@ -532,33 +532,4 @@ RegisterCommand("itemall",function(source,args,rawCommand)
 			end
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- BVIDA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('bvida',function(source,rawCommand)
-    local user_id = vRP.getUserId(source)
-        vRPclient._setCustomization(source,vRPclient.getCustomization(source))
-        vRP.removeCloak(source)
-    local player = vRP.getUserSource(user_id)
-    if player then
-        local value = vRP.getUData(user_id, "currentCharacterMode")
-        if value ~= "" then
-            local custom = json.decode(value) or {}            
-            TriggerClientEvent("vrp_barbershop:setCustomization", player, custom)
-        end
-    end
-    local Tattodata = vRP.getUData(user_id,"vRP:tattoos:L1")
-    if Tattodata then
-        TriggerClientEvent("l1_tattoos:setTattoos",source,json.decode(Tattodata))
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- FIRE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('fogo', function(source)
-    local user_id = vRP.getUserId(source)
-    if vRP.hasPermission(user_id,"Owner") then
-        TriggerClientEvent('fire',source)
-    end
 end)

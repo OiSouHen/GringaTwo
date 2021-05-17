@@ -39,6 +39,6 @@ function cnVRP.paymentMethod()
 		local value = math.random(payments[race][1],payments[race][2])
 
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
-		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
+		TriggerClientEvent("sound:source",source,"coin",0.5)
 	end
 end

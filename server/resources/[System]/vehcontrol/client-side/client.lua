@@ -306,10 +306,10 @@ Citizen.CreateThread(function()
 					if not IsPauseMenuActive() then
 						if IsDisabledControlJustReleased(0,85) then
 							if IsVehicleSirenOn(veh) then
-								TriggerEvent("vrp_sound:source","sirenOffline",0.5)
+								TriggerEvent("sound:source","sirenOffline",0.5)
 								SetVehicleSiren(veh,false)
 							else
-								TriggerEvent("vrp_sound:source","sirenOnline",0.5)
+								TriggerEvent("sound:source","sirenOnline",0.5)
 								Citizen.Wait(150)
 								SetVehicleSiren(veh,true)
 								count_bcast_timer = delay_bcast_timer
