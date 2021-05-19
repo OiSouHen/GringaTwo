@@ -122,7 +122,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.5 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~  ABRIR")
+					DrawText3D(v[1],v[2],v[3],"~g~E~w~ COMPRAR")
 					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
 						SetNuiFocus(true,true)
 						TransitionToBlurred(1000)
@@ -141,13 +141,13 @@ function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PROPSHOPS

@@ -7,11 +7,12 @@ $(document).ready(function () {
 		switch (event.data.action) {
 			case "showMenu":
 				updateChest();
-				$(".inventory").css("display", "flex")
+				$(".inventory").css("display", "flex");
 				break;
 
 			case "hideMenu":
-				$(".inventory").css("display", "none")
+				$(".inventory").css("display", "none");
+				$(".ui-tooltip").hide();
 				break;
 
 			case "updateMochila":
@@ -138,20 +139,58 @@ const updateDrag = () => {
 			}
 		}
 	});
+	
+	$(".populated").tooltip({
+		create: function(event,ui){
+			var serial = $(this).attr("data-serial");
+			var economy = $(this).attr("data-economy");
+			var desc = $(this).attr("data-desc");
+			var amounts = $(this).attr("data-amount");
+			var name = $(this).attr("data-name-key");
+			var weight = $(this).attr("data-peso");
+			var tipo = $(this).attr("data-tipo");
+			var unity = $(this).attr("data-unity");
+			var myLeg = "center top-196";
+
+			if (desc !== "undefined"){
+				myLeg = "center top-219";
+			}
+
+			$(this).tooltip({
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
+				position: { my: myLeg, at: "center" },
+				show: { duration: 10 },
+				hide: { duration: 10 }
+			})
+		}
+	});
+}
+
+const colorPicker = (percent) => {
+	var colorPercent = "#2e6e4c";
+
+	if (percent >= 100)
+		colorPercent = "rgba(255,255,255,0)";
+
+	if (percent >= 51 && percent <= 75)
+		colorPercent = "#fcc458";
+
+	if (percent >= 26 && percent <= 50)
+		colorPercent = "#fc8a58";
+
+	if (percent <= 25)
+		colorPercent = "#fc5858";
+
+	return colorPercent;
 }
 
 const updateChest = () => {
-	$.post("http://trunkchest/requestMochila", JSON.stringify({}), (data) => {
-		$(".myInfos").html(`
-			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
-			<div class="infosContent">
-				<span><s>TELEFONE:</s> ${data.infos[4]}</span>
-				<span><s>RG:</s> ${data.infos[5]}</span>
-				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
-				<span>${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}</span>
-				<span>${(data.peso2).toFixed(2)} / ${(data.maxpeso2).toFixed(2)}</span>
-			</div>
-		`);
+	$.post("http://trunkchest/requestMochila",JSON.stringify({}),(data) => {
+		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
+		$("#weightTextRight").html(`${(data["peso2"]).toFixed(2)}   /   ${(data["maxpeso2"]).toFixed(2)}`);
+
+		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);
+		$("#weightBarRight").html(`<div id="weightContent" style="width: ${data["peso2"] / data["maxpeso2"] * 100}%"></div>`);
 
 		const nameList2 = data.inventario2.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
@@ -161,15 +200,29 @@ const updateChest = () => {
 		for (let x = 1; x <= mySlots; x++) {
 			const slot = x.toString();
 
-			if (data.inventario[slot] !== undefined) {
-				const v = data.inventario[slot];
-				const item = `<div class="item populated" style="background-image: url('http://191.96.78.51/imagens/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
-				<div class="top">
-				<div class="itemWeight"></div>
-				<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
-			</div>
-				<div class="itemname">${v.name}</div>
-			</div>`;
+			if (data["inventario"][slot] !== undefined){
+				const v = data["inventario"][slot];
+				let actualPercent
+				if (v["days"]) {
+					const maxDurability = 86400 * v["days"];
+					const newDurability = (maxDurability - v["durability"]) / maxDurability;
+					actualPercent = newDurability * 100;
+				} else {
+					actualPercent = v["durability"] * 100;
+					if (actualPercent < 5.0) {
+						actualPercent = 5.0
+					}
+				}
+				
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
+					</div>
+
+					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="nameItem">${v.name}</div>
+				</div>`;
 
 				$(".invLeft").append(item);
 			} else {
@@ -184,13 +237,15 @@ const updateChest = () => {
 
 			if (nameList2[x - 1] !== undefined) {
 				const v = nameList2[x - 1];
-				const item = `<div class="item populated" style="background-image: url('http://191.96.78.51/imagens/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
-				<div class="top">
-				<div class="itemWeight"></div>
-				<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
-			</div>
-				<div class="itemname">${v.name}</div>
-			</div>`;
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
+					</div>
+
+					<div class="invisibledurability"></div>
+					<div class="nameItem">${v.name}</div>
+				</div>`;
 
 				$(".invRight").append(item);
 			} else {

@@ -1,20 +1,21 @@
-$(document).ready(function(){
-	window.addEventListener("message",function(event){
-		switch(event.data.action){
-			case "showMenu":
-				updateVault();
-				$("#body").fadeIn(100);
-			break;
-
-			case "hideMenu":
-				$("#body").fadeOut(100);
-			break;
-
-			case "updateVault":
-				updateVault();
-			break;
-		}
-	});
+	$(document).ready(function(){
+		window.addEventListener("message",function(event){
+			switch(event.data.action){
+				case "showMenu":
+					updateVault();
+					$(".inventory").css("display","flex");
+				break;
+	
+				case "hideMenu":
+					$(".inventory").css("display","none");
+					$(".ui-tooltip").hide();
+				break;
+	
+				case "updateVault":
+					updateVault();
+				break;
+			}
+		});
 
 	document.onkeyup = function(data){
 		if (data.which == 27){
@@ -137,6 +138,30 @@ const updateDrag = () => {
 			}
 		}
 	});
+
+	$(".populated").tooltip({
+		create: function(event,ui){
+			var economy = $(this).attr("data-economy");
+			var desc = $(this).attr("data-description");
+			var amounts = $(this).attr("data-amount");
+			var name = $(this).attr("data-name-key");
+			var weight = $(this).attr("data-peso");
+			var type = $(this).attr("data-type");
+			var max = $(this).attr("data-max");
+			var myLeg = "center top-196";
+
+			if (desc !== "undefined"){
+				myLeg = "center top-219";
+			}
+
+			$(this).tooltip({
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>Tipo: <r>Usável</r> <s>|</s> Quantidade: <r>${max !== "undefined" ? max:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Maximo: <r>S/L</r></legenda>`,
+				position: { my: myLeg, at: "center" },
+				show: { duration: 10 },
+				hide: { duration: 10 }
+			})
+		}
+	});
 }
 
 const formatarNumero = (n) => {
@@ -157,24 +182,11 @@ const updateVault = () => {
 	const inSlots = 100;
 
 	$.post("http://homes/requestVault",JSON.stringify({}),(data) => {
-		$("#myInfos").html(`
-			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
-			<div id="myInfosContent">
-				<span><s>TELEFONE:</s> ${data.infos[2]}</span>
-				<span><s>RG:</s> ${data.infos[3]}</span>
-				<span><s>PESO:</s> ${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}</span>
-				<span><s>BAÚ:</s> ${(data.peso2).toFixed(2)} / ${(data.maxpeso2).toFixed(2)}</span>
-			</div>
-		`);
+		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
+		$("#weightTextRight").html(`${(data["peso2"]).toFixed(2)}   /   ${(data["maxpeso2"]).toFixed(2)}`);
 
-		$("#invweight").html(`
-			<div id="myWeight">
-				<div id="myWeightContent" style="width: ${parseInt(data.peso/data.maxpeso*100)}%"></div>
-			</div>
-			<div id="chestWeight">
-				<div id="chestWeightContent" style="width: ${parseInt(data.peso2/data.maxpeso2*100)}%"></div>
-			</div>
-		`);
+		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);
+		$("#weightBarRight").html(`<div id="weightContent" style="width: ${data["peso2"] / data["maxpeso2"] * 100}%"></div>`);
 
 		const nameList2 = data.inventario2.sort((a,b) => (a.name > b.name) ? 1: -1);
 
@@ -186,12 +198,13 @@ const updateVault = () => {
 
 			if (data.inventario[slot] !== undefined) {
 				const v = data.inventario[slot];
-				const item = `<div class="item populated" style="background-image: url('http://177.54.152.216/imagens/${v.index}.png');" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
-					<div id="peso">${(v.peso*v.amount).toFixed(2)}</div>
-					<div id="quantity">${formatarNumero(v.amount)}x</div>
-					<div id="itemname">${v.name}</div>
+				const item = `<div class="item populated" title="" data-max="${formatarNumero(v["amount"])}" data-type="${v["type"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight"></div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
+					</div>
 
-					${v.durability !== undefined ? `<div id="durability"><div id="durability2" style="width: ${v.durability*10}%"></div></div>`:`<div id="nonebility"></div>`}
+					<div class="nameItem">${v.name}</div>
 				</div>`;
 
 				document.getElementById("invleft").innerHTML = `${document.getElementById("invleft").innerHTML} ${item}`;
@@ -207,17 +220,19 @@ const updateVault = () => {
 
 			if (nameList2[x-1] !== undefined) {
 				const v = nameList2[x-1];
-				const item = `<div class="item2 populated" style="background-image: url('http://177.54.152.216/imagens/${v.index}.png');" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
-					<div id="peso">${(v.peso*v.amount).toFixed(2)}</div>
-					<div id="quantity">${formatarNumero(v.amount)}x</div>
-					<div id="itemname">${v.name}</div>
 
-					${v.durability !== undefined ? `<div id="durability"><div id="durability2" style="width: ${v.durability*10}%"></div></div>`:`<div id="nonebility"></div>`}
+				const item = `<div class="item populated" title="" data-max="${formatarNumero(v["amount"])}" data-type="${v["type"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight"></div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
+					</div>
+
+					<div class="nameItem">${v.name}</div>
 				</div>`;
 
 				document.getElementById("invright").innerHTML = `${document.getElementById("invright").innerHTML} ${item}`;
 			} else {
-				const item = `<div class="item2 empty" data-slot="${slot}"></div>`;
+				const item = `<div class="item empty" data-slot="${slot}"></div>`;
 
 				document.getElementById("invright").innerHTML = `${document.getElementById("invright").innerHTML} ${item}`;
 			}

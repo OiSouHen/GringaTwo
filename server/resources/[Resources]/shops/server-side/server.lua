@@ -18,26 +18,47 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["postit"] = 20,
-			["energetic"] = 50,
-			["hamburger"] = 30,
-			["emptybottle"] = 40,
-			["cigarette"] = 20,
-			["skate"] = 750,
-			["lighter"] = 600,
-			["chocolate"] = 10,
-			["sandwich"] = 18,
-			["absolut"] = 40,
-			["chandon"] = 45,
-			["dewars"] = 25,
-			["hennessy"] = 30,
-			["backpackp"] = 5000,
-			["backpackm"] = 10000,
-			["backpackg"] = 15000,
-			["backpackx"] = 20000,
-			["divingsuit"] = 5000
+		    ["absolut"] = 215,
+			["postit"] = 10,
+			["coffee"] = 320,
+			["chandon"] = 215,
+			["chocolate"] = 315,
+			["cigarette"] = 75,
+			["cola"] = 515,
+			["dewars"] = 215,
+			["energetic"] = 315,
+			["emptybottle"] = 650,
+			["hamburger"] = 1600,
+			["hennessy"] = 215,
+			["lighter"] = 175,
+			["sandwich"] = 1300,
+			["soda"] = 515
 		}
 	},
+--	["departamentStore"] = {
+--		["mode"] = "Buy",
+--		["type"] = "Cash",
+--		["list"] = {
+--			["postit"] = 20,
+--			["energetic"] = 50,
+--			["hamburger"] = 30,
+--			["emptybottle"] = 40,
+--			["cigarette"] = 20,
+--			["skate"] = 750,
+--			["lighter"] = 600,
+--			["chocolate"] = 10,
+--			["sandwich"] = 18,
+--			["absolut"] = 40,
+--			["chandon"] = 45,
+--			["dewars"] = 25,
+--			["hennessy"] = 30,
+--			["backpackp"] = 5000,
+--			["backpackm"] = 10000,
+--			["backpackg"] = 15000,
+--			["backpackx"] = 20000,
+--			["divingsuit"] = 5000
+--		}
+--	},
 	["pharmacyStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
@@ -207,7 +228,7 @@ local shops = {
 			["aluminum"] = 120,
 			["copper"] = 120,
 			["paperbag"] = 50,
-			["credential"] = 500,
+			["raceticket"] = 500,
 			["firecracker"] = 1000
 		}
 	},
@@ -337,7 +358,7 @@ function cnVRP.requestShop(name)
 	if user_id then
 		local inventoryShop = {}
 		for k,v in pairs(shops[name]["list"]) do
-			table.insert(inventoryShop,{ price = parseInt(v), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k) })
+			table.insert(inventoryShop,{ price = parseInt(v), name = vRP.itemNameList(k), desc = vRP.itemDescList(k), tipo = vRP.itemTipoList(k), unity = vRP.itemUnityList(k), economy = vRP.itemEconomyList(k), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k) })
 		end
 
 		local inventoryUser = {}
@@ -350,9 +371,31 @@ function cnVRP.requestShop(name)
 
 					v.durability = advDecode[v.item]
 				end
+				if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
+				v.desc = vRP.itemDescList(v.item)
+				v.tipo = vRP.itemTipoList(v.item)
+				v.unity = vRP.itemUnityList(v.item)
+				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)
 				v.index = vRP.itemIndexList(v.item)
 				v.key = v.item

@@ -59,9 +59,32 @@ function cnVRP.Mochila()
 
 						v.durability = advDecode[v.item]
 					end
+					
+					if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 					v.amount = parseInt(v.amount)
 					v.name = vRP.itemNameList(v.item)
+					v.desc = vRP.itemDescList(v.item)
+					v.tipo = vRP.itemTipoList(v.item)
+					v.unity = vRP.itemUnityList(v.item)
+					v.economy = vRP.itemEconomyList(v.item)
 					v.peso = vRP.itemWeightList(v.item)
 					v.index = vRP.itemIndexList(v.item)
 					v.key = v.item
@@ -186,13 +209,15 @@ function cnVRP.storeItem(itemName,slot,amount)
 		if user_id then
 			if storeVehs[vehNames[parseInt(user_id)]] then
 				if not storeVehs[vehNames[parseInt(user_id)]][itemName] then
-					TriggerClientEvent("Notify",source,"importante","Você não pode armazenar este item em veículos.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Você não pode guardar este item.",3000)
+					vCLIENT.trunkClose(source)
 					return
 				end
 			end
 
 			if noStore[itemName] or vRP.itemSubTypeList(itemName) then
-				TriggerClientEvent("Notify",source,"importante","Você não pode armazenar este item em veículos.",5000)
+				TriggerClientEvent("Notify",source,"vermelho","Você não pode guardar este item.",3000)
+				vCLIENT.trunkClose(source)
 				return
 			end
 

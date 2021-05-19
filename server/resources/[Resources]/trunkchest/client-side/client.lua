@@ -23,8 +23,8 @@ RegisterNUICallback("invClose",function(data,cb)
 	vSERVER.chestClose()
 	SetNuiFocus(false,false)
 	TransitionFromBlurred(1000)
-  SendNUIMessage({ action = "hideMenu" })
-  cb("ok")
+	SendNUIMessage({ action = "hideMenu" })
+	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRUNK
@@ -33,6 +33,15 @@ function cnVRP.trunkOpen()
 	TransitionToBlurred(1000)
 	SetNuiFocus(true,true)
 	SendNUIMessage({ action = "showMenu" })
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CLOSETRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cnVRP.trunkClose()
+	vSERVER.chestClose()
+	TransitionFromBlurred(1000)
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "hideMenu" })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM

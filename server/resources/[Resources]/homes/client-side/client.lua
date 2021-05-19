@@ -76,9 +76,9 @@ RegisterNUICallback("requestVault",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TRANCAR
+-- PORTA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("trancar",function(source,args)
+RegisterCommand("porta",function(source,args)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(homesList) do
@@ -89,9 +89,9 @@ RegisterCommand("trancar",function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ENTER
+-- ENTRAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("enter",function(source,args)
+RegisterCommand("entrar",function(source,args)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(homesList) do
@@ -102,7 +102,7 @@ RegisterCommand("enter",function(source,args)
 			houseOpen = tostring(k)
 			vSERVER.setNetwork(tostring(k))
 			vSERVER.applyHouseOpen(tostring(k))
-			TriggerEvent("sound:source","enterhouse",0.7)
+			TriggerEvent("sound:source","enterhouse",0.5)
 			Citizen.Wait(1000)
 
 			if v[1] == "Hotel" then
@@ -179,7 +179,7 @@ RegisterCommand("invadir",function(source,args)
 			houseOpen = tostring(k)
 			vSERVER.setNetwork(tostring(k))
 			vSERVER.applyHouseOpen(tostring(k))
-			TriggerEvent("sound:source","enterhouse",0.7)
+			TriggerEvent("sound:source","enterhouse",0.5)
 			Citizen.Wait(1000)
 
 			if v[1] == "Hotel" then
@@ -253,14 +253,14 @@ RegisterCommand("casas",function(source,args)
 	casas = not casas
 
 	if casas then
-		TriggerEvent("Notify","sucesso","Adicionado a marcação das residências.",3000)
+		TriggerEvent("Notify","amarelo","Adicionado a marcação das residências.",3000)
 		for k,v in pairs(homesList) do
 			blips[k] = AddBlipForRadius(v[5],v[6],v[7],5.0)
 			SetBlipAlpha(blips[k],255)
 			SetBlipColour(blips[k],75)
 		end
 	else
-		TriggerEvent("Notify","sucesso","Removido a marcação das residências.",3000)
+		TriggerEvent("Notify","amarelo","Removido a marcação das residências.",3000)
 		for k,v in pairs(blips) do
 			if DoesBlipExist(v) then
 				RemoveBlip(v)
@@ -561,7 +561,7 @@ function cRP.enterHomesTheft(homeName)
 		houseOpen = tostring(homeName)
 		vSERVER.setNetwork(tostring(homeName))
 		vSERVER.applyHouseOpen(tostring(homeName))
-		TriggerEvent("sound:source","enterhouse",0.7)
+		TriggerEvent("sound:source","enterhouse",0.5)
 
 		Citizen.Wait(1000)
 
@@ -619,7 +619,7 @@ Citizen.CreateThread(function()
 						local distance = #(coords - vector3(theftHomesX+v[1],theftHomesY+v[2],1502.0))
 						if distance <= 2.0 then
 							timeDistance = 1
-							DrawText3Ds(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~   VASCULHAR")
+							DrawText3Ds(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~  VASCULHAR")
 							if distance <= 0.9 and IsControlJustPressed(1,38) then
 								TriggerEvent("cancelando",true)
 
@@ -691,7 +691,7 @@ Citizen.CreateThread(function()
 							if vSERVER.checkIntPermissions(tostring(houseOpen)) then
 								SetNuiFocus(true,true)
 								SendNUIMessage({ action = "showMenu" })
-								TriggerEvent("sound:source","zipper",0.2)
+								TriggerEvent("sound:source","zipper",0.5)
 							end
 						end
 					end
@@ -708,11 +708,11 @@ function DrawText3Ds(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text))/450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end
