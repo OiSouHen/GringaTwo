@@ -1,55 +1,48 @@
-﻿$(document).ready(function () {
-	window.addEventListener("message", function (event) {
-		switch (event.data.action) {
+﻿$(document).ready(function(){
+	window.addEventListener("message",function(event){
+		switch(event["data"]["action"]){
 			case "showMenu":
 				updateMochila();
-				$(".inventory").css("display", "flex")
-				break;
+				$(".inventory").css("display","flex");
+			break;
 
 			case "hideMenu":
-				$(".inventory").css("display", "none")
+				$(".inventory").css("display","none");
 				$(".ui-tooltip").hide();
-				break;
+			break;
 
 			case "updateMochila":
 				updateMochila();
-				break;
+			break;
 		}
 	});
 
 	document.onkeyup = data => {
-		const key = data.key;
-		if (key === "Escape") {
-			$.post("http://inventory/invClose", JSON.stringify({}));
+		if (data["key"] === "Escape"){
+			$.post("http://inventory/invClose");
 		}
 	};
-	$('body').mousedown(e => {
-		if (e.button == 1) return false;
-	});
 });
 
-let weightLeft = 0;
-let maxWeightLeft = 0;
-
 const updateDrag = () => {
-	$('.populated').draggable({
-		helper: 'clone'
+	$(".populated").draggable({
+		helper: "clone"
 	});
 
-	$('.empty').droppable({
-		hoverClass: 'hoverControl',
-		drop: function (event, ui) {
-			if (ui.draggable.parent()[0] == undefined) return;
+	$(".empty").droppable({
+		hoverClass: "hoverControl",
+		drop: function(event,ui){
+			if(ui.draggable.parent()[0] == undefined) return;
 
-            const shiftPressed = event.shiftKey;
+			const shiftPressed = event.shiftKey;
 			const origin = ui.draggable.parent()[0].className;
 			if (origin === undefined) return;
 			const tInv = $(this).parent()[0].className;
 
-			if (origin === "invRight" && tInv === "invRight") return;
-
-			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
-			const target = $(this).data('slot');
+			if(origin === "invRight" && tInv === "invRight") return;
+			
+			itemData = { key: ui.draggable.data("item-key"), slot: ui.draggable.data("slot") };
+			const target = $(this).data("slot");
 
 			if (itemData.key === undefined || target === undefined) return;
 
@@ -71,129 +64,112 @@ const updateDrag = () => {
 			let clone1 = ui.draggable.clone();
 			let slot2 = $(this).data("slot"); 
 
-			if (amount == itemAmount) {
+			if(amount == itemAmount) {
 				let clone2 = $(this).clone();
 				let slot1 = ui.draggable.data("slot");
 
 				$(this).replaceWith(clone1);
 				ui.draggable.replaceWith(clone2);
-
+				
 				$(clone1).data("slot", slot2);
 				$(clone2).data("slot", slot1);
 			} else {
 				let newAmountOldItem = itemAmount - amount;
-			  //let weight = parseFloat(ui.draggable.children(".top").children(".itemWeight").html()); ORIGINAL NOSSO
 				let weight = parseFloat(ui.draggable.data("peso"));
-				let weightPerItem = (weight / itemAmount).toFixed(2);
-				let newWeightClone1 = (amount * weightPerItem).toFixed(2);
-				let newWeightOldItem = (newAmountOldItem * weightPerItem).toFixed(2);
+				let newWeightClone1 = (amount*weight).toFixed(2);
+				let newWeightOldItem = (newAmountOldItem*weight).toFixed(2);
 
-				ui.draggable.data("amount", newAmountOldItem);
+				ui.draggable.data("amount",newAmountOldItem);
 
-				clone1.data("amount", amount);
+				clone1.data("amount",amount);
 
 				$(this).replaceWith(clone1);
-				$(clone1).data("slot", slot2);
+				$(clone1).data("slot",slot2);
 
-				ui.draggable.children(".top").children(".itemAmount").html(ui.draggable.data("amount") + "x");
+				ui.draggable.children(".top").children(".itemAmount").html(formatarNumero(ui.draggable.data("amount")) + "x");
 				ui.draggable.children(".top").children(".itemWeight").html(newWeightOldItem);
-
-				$(clone1).children(".top").children(".itemAmount").html(clone1.data("amount") + "x");
+				
+				$(clone1).children(".top").children(".itemAmount").html(formatarNumero(clone1.data("amount")) + "x");
 				$(clone1).children(".top").children(".itemWeight").html(newWeightClone1);
 			}
 
-			let futureWeightLeft = weightLeft;
-
-			if (origin === "invLeft" && tInv === "invRight") {
-				futureWeightLeft = futureWeightLeft - (parseFloat(ui.draggable.data('peso')) * amount);
-			} else if (origin === "invRight" && tInv === "invLeft") {
-				futureWeightLeft = futureWeightLeft + (parseFloat(ui.draggable.data('peso')) * amount);
-			}
-
-			weightLeft = futureWeightLeft;
 			updateDrag();
 
-			if (origin === "invLeft" && tInv === "invLeft") {
-				$.post("http://inventory/updateSlot", JSON.stringify({
+			if (origin === "invLeft" && tInv === "invLeft"){
+				$.post("http://inventory/updateSlot",JSON.stringify({
 					item: itemData.key,
 					slot: itemData.slot,
 					target: target,
 					amount: parseInt(amount)
 				}));
-			} else if (origin === "invRight" && tInv === "invLeft") {
+			} else if (origin === "invRight" && tInv === "invLeft"){
 				const id = ui.draggable.data("id");
-				const grid = ui.draggable.data("grid");				
-				$.post("http://inventory/pickupItem", JSON.stringify({
+				$.post("http://inventory/pickupItem",JSON.stringify({
 					id: id,
 					target: target,
 					amount: parseInt(amount)
 				}));
-			} else if (origin === "invLeft" && tInv === "invRight") {
-				$.post("http://inventory/dropItem", JSON.stringify({
+			} else if (origin === "invLeft" && tInv === "invRight"){
+				$.post("http://inventory/dropItem",JSON.stringify({
 					item: itemData.key,
 					slot: itemData.slot,
 					amount: parseInt(amount)
 				}));
 			}
 
-			$('.amount').val("");
+			$(".amount").val("");
 		}
 	});
 
-	$('.populated').droppable({
-		hoverClass: 'hoverControl',
-		drop: function (event, ui) {
-			if (ui.draggable.parent()[0] == undefined) return;
+	$(".populated").droppable({
+		hoverClass: "hoverControl",
+		drop: function(event,ui){
+			if(ui.draggable.parent()[0] == undefined) return;
 
+			const shiftPressed = event.shiftKey;
 			const origin = ui.draggable.parent()[0].className;
 			if (origin === undefined) return;
 			const tInv = $(this).parent()[0].className;
 
-			if (origin === "invRight" && tInv === "invRight") return;
+			if(origin === "invRight" && tInv === "invRight") return;
 
-			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
-			const target = $(this).data('slot');
+			itemData = { key: ui.draggable.data("item-key"), slot: ui.draggable.data("slot") };
+			const target = $(this).data("slot");
 
 			if (itemData.key === undefined || target === undefined) return;
 
 			let amount = 0;
-			let itemAmount = parseInt(ui.draggable.data('amount'));
+			let itemAmount = parseInt(ui.draggable.data("amount"));
 
-			if ($(".amount").val() == "" | parseInt($(".amount").val()) == 0)
+			if (shiftPressed)
 				amount = itemAmount;
+			else if($(".amount").val() == "" | parseInt($(".amount").val()) <= 0)
+				amount = 1;
 			else
 				amount = parseInt($(".amount").val());
 
-			if (amount > itemAmount)
+			if(amount > itemAmount)
 				amount = itemAmount;
 
-			$('.populated, .empty, .use').off("draggable droppable");
+			$(".populated, .empty, .use").off("draggable droppable");
 
-			let futureWeightLeft = weightLeft;
+			if(ui.draggable.data("item-key") == $(this).data("item-key")){
+				let newSlotAmount = amount + parseInt($(this).data("amount"));
+				let newSlotWeight = ui.draggable.data("peso") * newSlotAmount;
 
-			if (ui.draggable.data('item-key') == $(this).data('item-key')) {
-				let newSlotAmount = amount + parseInt($(this).data('amount'));
-				let newSlotWeight = parseFloat(ui.draggable.children(".top").children(".itemWeight").html()) + parseFloat($(this).children(".top").children(".itemWeight").html());
-
-				$(this).data('amount', newSlotAmount);
-				$(this).children(".top").children(".itemAmount").html(newSlotAmount + "x");
+				$(this).data("amount",newSlotAmount);
+				$(this).children(".top").children(".itemAmount").html(formatarNumero(newSlotAmount) + "x");
 				$(this).children(".top").children(".itemWeight").html(newSlotWeight.toFixed(2));
 
 				if(amount == itemAmount) {
 					ui.draggable.replaceWith(`<div class="item empty" data-slot="${ui.draggable.data("slot")}"></div>`);
 				} else {
 					let newMovedAmount = itemAmount - amount;
-					let newMovedWeight = newMovedAmount * parseFloat(ui.draggable.data("peso"));
+					let newMovedWeight = parseFloat(ui.draggable.data("peso")) * newMovedAmount;
 
-					ui.draggable.data('amount', newMovedAmount);
-					ui.draggable.children(".top").children(".itemAmount").html(newMovedAmount + "x");
+					ui.draggable.data("amount",newMovedAmount);
+					ui.draggable.children(".top").children(".itemAmount").html(formatarNumero(newMovedAmount) + "x");
 					ui.draggable.children(".top").children(".itemWeight").html(newMovedWeight.toFixed(2));
-				}
-
-				if (origin === "invLeft" && tInv === "invRight") {
-					futureWeightLeft = futureWeightLeft - (parseFloat(ui.draggable.data('peso')) * amount);
-				} else if (origin === "invRight" && tInv === "invLeft") {
-					futureWeightLeft = futureWeightLeft + (parseFloat(ui.draggable.data('peso')) * amount);
 				}
 			} else {
 				if (origin === "invRight" && tInv === "invLeft") return;
@@ -204,106 +180,87 @@ const updateDrag = () => {
 				let slot1 = ui.draggable.data("slot");
 				let slot2 = $(this).data("slot");
 
-				if (origin === "invLeft" && tInv === "invRight") {
-					futureWeightLeft = futureWeightLeft - parseFloat(ui.draggable.data('amount')) + parseFloat($(this).data('amount'));
-				}
-
 				ui.draggable.replaceWith(clone2);
 				$(this).replaceWith(clone1);
 
-				$(clone1).data("slot", slot2);
-				$(clone2).data("slot", slot1);
+				$(clone1).data("slot",slot2);
+				$(clone2).data("slot",slot1);
 			}
 
 			updateDrag();
 
 			if (origin === "invLeft" && tInv === "invLeft") {
-				$.post("http://inventory/updateSlot", JSON.stringify({
+				$.post("http://inventory/updateSlot",JSON.stringify({
 					item: itemData.key,
 					slot: itemData.slot,
 					target: target,
 					amount: parseInt(amount)
 				}));
-			} else if (origin === "invRight" && tInv === "invLeft") {
+			} else if (origin === "invRight" && tInv === "invLeft"){
 				const id = ui.draggable.data("id");
-				const grid = ui.draggable.data("grid");
-				$.post("http://inventory/pickupItem", JSON.stringify({
+				$.post("http://inventory/pickupItem",JSON.stringify({
 					id: id,
 					target: target,
 					amount: parseInt(amount)
 				}));
-			} else if (origin === "invLeft" && tInv === "invRight") {
-				$.post("http://inventory/dropItem", JSON.stringify({
+			} else if (origin === "invLeft" && tInv === "invRight"){
+				$.post("http://inventory/dropItem",JSON.stringify({
 					item: itemData.key,
 					slot: itemData.slot,
 					amount: parseInt(amount)
 				}));
 			}
 
-			$('.amount').val("");
+			$(".amount").val("");
 		}
 	});
 
-	$('.use').droppable({
-		hoverClass: 'hoverControl',
-		drop: function (event, ui) {
+	$(".use").droppable({
+		hoverClass: "hoverControl",
+		drop: function(event,ui){
+			if(ui.draggable.parent()[0] == undefined) return;
+
+			const shiftPressed = event.shiftKey;
 			const origin = ui.draggable.parent()[0].className;
 			if (origin === undefined || origin === "invRight") return;
-			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
+			itemData = { key: ui.draggable.data("item-key"), slot: ui.draggable.data("slot") };
 
 			if (itemData.key === undefined) return;
 
-			$.post("http://inventory/useItem", JSON.stringify({
-				item: itemData.key,
+			let amount = $(".amount").val();
+			if (shiftPressed) amount = ui.draggable.data("amount");
+
+			$.post("http://inventory/useItem",JSON.stringify({
 				slot: itemData.slot,
-				amount: parseInt(parseInt($(".amount").val()))
+				amount: parseInt(amount)
 			}));
 
-			$('.amount').val("");
+			$(".amount").val("");
 		}
 	});
 
 	$(".populated").on("auxclick", e => {
-		e.preventDefault();
-		if (e.which === 3) {
-			const item = e.target;
+		if (e["which"] === 3) {
+			const item = e["target"];
 			const shiftPressed = event.shiftKey;
 			const origin = $(item).parent()[0].className;
 			if (origin === undefined || origin === "invRight") return;
 
-			itemData = { key: $(item).data('item-key'), slot: $(item).data('slot') };
+			itemData = { key: $(item).data("item-key"), slot: $(item).data("slot") };
 
 			if (itemData.key === undefined) return;
 
-			let amount = 1
+			let amount = $(".amount").val();
+			if (shiftPressed) amount = $(item).data("amount");
 
-			$.post("http://inventory/useItem", JSON.stringify({
-				item: itemData.key,
+			$.post("http://inventory/useItem",JSON.stringify({
 				slot: itemData.slot,
-				amount: amount
+				amount: parseInt(amount)
 			}));
 		}
 	});
 	
-	$(".populated").tooltip({
-		create: function(event,ui){
-			var amounts = $(this).attr("data-amount");
-			var name = $(this).attr("data-name-key");
-			var weight = $(this).attr("data-peso");
-			var myLeg = "center top-155";
-
-			$(this).tooltip({
-				content: `<item>${name}</item><br><legenda>Quantidade: <r>${formatarNumero(amounts)}</r> <s>|</s> Peso: <r>${(weight * amounts).toFixed(2)}</r></legenda>`,
-				
-				position: { my: myLeg, at: "center" },
-				show: { duration: 10 },
-				hide: { duration: 10 }
-			})
-		}
-	});
-}
-
-		$('.send').droppable({
+	$('.send').droppable({
 		hoverClass: 'hoverControl',
 		drop: function (event, ui) {
 			const origin = ui.draggable.parent()[0].className;
@@ -322,69 +279,119 @@ const updateDrag = () => {
 		}
 	});
 
-const colorPicker = (durability) => {
-	var colorDurability = "#2e6e4c";
+	$(".populated").tooltip({
+		create: function(event,ui){
+			var serial = $(this).attr("data-serial");
+			var economy = $(this).attr("data-economy");
+			var desc = $(this).attr("data-desc");
+			var amounts = $(this).attr("data-amount");
+			var name = $(this).attr("data-name-key");
+			var weight = $(this).attr("data-peso");
+			var type = $(this).attr("data-type");
+			var max = $(this).attr("data-max");
+			var myLeg = "center top-196";
 
-	if (durability >= 1500)
-		colorDurability = "rgba(255,255,255,0)";
+			if (desc !== "undefined"){
+				myLeg = "center top-219";
+			}
 
-	if (durability >= 500 && durability <= 1000)
-		colorDurability = "#fcc458";
+			$(this).tooltip({
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+type+"</r>"} <s>|</s> Máximo: <r>${max !== "undefined" ? max:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
+				position: { my: myLeg, at: "center" },
+				show: { duration: 10 },
+				hide: { duration: 10 }
+			})
+		}
+	});
+}
 
-	if (durability >= 150 && durability <= 450)
-		colorDurability = "#fc8a58";
+const colorPicker = (percent) => {
+	var colorPercent = "#2e6e4c";
 
-	if (durability <= 50)
-		colorDurability = "#fc5858";
+	if (percent >= 100)
+		colorPercent = "rgba(255,255,255,0)";
 
-	return colorDurability;
+	if (percent >= 51 && percent <= 75)
+		colorPercent = "#fcc458";
+
+	if (percent >= 26 && percent <= 50)
+		colorPercent = "#fc8a58";
+
+	if (percent <= 25)
+		colorPercent = "#fc5858";
+
+	return colorPercent;
 }
 
 const updateMochila = () => {
-	$.post("http://inventory/requestMochila", JSON.stringify({}), (data) => {
-		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
+	$.post("http://inventory/requestMochila",JSON.stringify({}),(data) => {
+  		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
 
 		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);
 
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
-		weightLeft = data.peso;
-		maxWeightLeft = data.maxpeso;
+		const nameList2 = data["drop"].sort((a,b) => (a["name"] > b["name"]) ? 1:-1);
 
-		const nameList2 = data.drop.sort((a, b) => (a.name > b.name) ? 1 : -1);
-
-		for (let x = 1; x <= 100; x++) {
+		for (let x = 1; x <= data["maxpeso"]; x++){
 			const slot = x.toString();
 
-			if (data.inventario[slot] !== undefined) {
-				const v = data.inventario[slot];
-				//const maxDurability = 1500 * v["durability"];
-				//const newDurability = (maxDurability - v["durability"]) / maxDurability;
-				//const actualPercent = newDurability * 1500;
+			if (data["inventario"][slot] !== undefined){
+				const v = data["inventario"][slot];
+				let actualPercent
+				if (v["days"]) {
+					const maxDurability = 86400 * v["days"];
+					const newDurability = (maxDurability - v["durability"]) / maxDurability;
+					actualPercent = newDurability * 100;
+				} else {
+					actualPercent = v["durability"] * 100;
+					if (actualPercent < 5.0) {
+						actualPercent = 5.0
+					}
+				}
 				
-				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}">
-					
-					<div class="itemname">${v.name}</div>
+
+				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight">${(v["peso"] * v["amount"]).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>
+					</div>
+
+					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="nameItem">${v["name"]}</div>
 				</div>`;
-				
-				//<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
 
 				$(".invLeft").append(item);
 			} else {
 				const item = `<div class="item empty" data-slot="${slot}"></div>`;
+
 				$(".invLeft").append(item);
 			}
 		}
 
-		for (let x = 1; x <= 100; x++) {
+		for (let x = 1; x <= 20; x++){
 			const slot = x.toString();
 
-			if (nameList2[x - 1] !== undefined) {
+			if (nameList2[x - 1] !== undefined){
 				const v = nameList2[x - 1];
-				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-id="${v.id}" data-grid="${v.grid}" data-amount="${v.amount}" data-peso="${v.peso}" data-slot="${slot}">
-				
-					<div class="itemname">${v.name}</div>
+				let actualPercent
+				if (v["days"]) {
+					const maxDurability = 86400 * v["days"];
+					const newDurability = (maxDurability - v["durability"]) / maxDurability;
+					actualPercent = newDurability * 100;
+				} else {
+					actualPercent = v["durability"] * 100;
+				}
+
+				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+					<div class="top">
+						<div class="itemWeight">${(v["peso"] * v["amount"]).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>
+					</div>
+
+					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 
 				$(".invRight").append(item);
@@ -397,7 +404,7 @@ const updateMochila = () => {
 		updateDrag();
 	});
 }
-
+/* ----------FORMATARNUMERO---------- */
 const formatarNumero = (n) => {
 	var n = n.toString();
 	var r = '';

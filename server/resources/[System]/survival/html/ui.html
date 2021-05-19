@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<title>DEV Jhonn#4106</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="container">
+		<div id="fainting">
+			<div class="container_">
+				<img src="https://i.imgur.com/pJASRUd.png" class="img" alt="IMGDESMAIO">
+				<div class="informations">
+					<h1 class="fainting_title">VOCÊ <span class="fainting_title1">DESMAIOU!</span></h1>
+					<span id="clock" class="clock">15:00</span>
+					<button class="botao" onclick="abrirModal()">DESISTIR IMEDIATAMENTE</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="popup" id="popup-1">
+			<div class="overlay"></div>
+			<div class="content">
+				<div class="title">
+					<p class="warning">&#9888;</p>
+					<p class="subtitle">Deseja realmente desistir <br> imediatamente?</p>
+				</div>
+				<button type="button" class="btn" onclick="fecharModal()">Cancelar</button>
+				<button type="button" class="btn btn-warning" onclick="simAceita()">OK</button>
+			</div>
+		</div>
+
+		<div id="Death">
+			<div class="container__">
+				<img src="https://i.imgur.com/bG6ooSg.png" class="img" alt="IMGMORTE">
+				<div class="informationss">
+					<h1 class="fainting_title">VOCÊ <span class="fainting_title1">MORREU!</span></h1>
+					<span id="clock" class="clock">00:00</span>
+					<span class="aviso">TEMPO ESGOTADO</span>
+					<button id="DeathB" class="DeathB">RENASCER NOVAMENTE</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js.js" type="text/javascript"></script>
+</body>
+
+</html>

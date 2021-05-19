@@ -88,6 +88,8 @@ local collect = {
 function cnVRP.toggleService()
 	if inService then
 		inService = false
+		TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi finalizado.",2000)
+		
 		if DoesBlipExist(collectBlip) then
 			RemoveBlip(collectBlip)
 			collectBlip = nil
@@ -108,7 +110,7 @@ function cnVRP.toggleService()
 		end
 		collectBlipMarked()
 		deliverBlipMarked()
-		TriggerEvent("Notify","sucesso","Você iniciou o emprego de <b>Lenhador</b>.",3000)
+		TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi iniciado.",2000)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

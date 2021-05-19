@@ -94,9 +94,28 @@ function func.Mochila()
 
 						v.durability = advDecode[v.item]
 					end
+					if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 					v.amount = parseInt(v.amount)
 					v.name = vRP.itemNameList(v.item)
+					v.desc = vRP.itemDescList(v.item)			  
 					v.peso = vRP.itemWeightList(v.item)
 					v.index = vRP.itemIndexList(v.item)
 					v.key = v.item
@@ -2035,33 +2054,60 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
     else
     if vRP.computeInvWeight(user_id) + vRP.itemWeightList(tostring(droplist[id].item)) * parseInt(droplist[id].count) <= vRP.getBackpack(user_id) then
         if droplist[id].count - amount >= 1 then 
-            TriggerClientEvent("itemdrop:Remove",-1,id)
-            vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
-            local newamount = droplist[id].count - amount
-            vCLIENT.dropItem(source,droplist[id].item,newamount)
-            vCLIENT.closeInventory(source)
+			if vRP.itemSubTypeList(droplist[id].item) then
+				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
+					TriggerClientEvent("Notify",source,"negado","Você já possui esse tipo de item.",5000)
+					TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+					return
+				else
+					TriggerClientEvent("itemdrop:Remove",-1,id)
+					vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
+					local newamount = droplist[id].count - amount
+					vCLIENT.dropItem(source,droplist[id].item,newamount)
+					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+					droplist[id] = nil
+					idgens:free(id)
+				end
+			else
+				TriggerClientEvent("itemdrop:Remove",-1,id)
+				vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
+				local newamount = droplist[id].count - amount
+				vCLIENT.dropItem(source,droplist[id].item,newamount)
 
-            vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
-            droplist[id] = nil
-            idgens:free(id)
-
+				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+				droplist[id] = nil
+				idgens:free(id)
+			end
             return
         else
-			TriggerClientEvent("itemdrop:Remove",-1,id)
-			vCLIENT.closeInventory(source)
-			vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
-			vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
-			droplist[id] = nil
-			idgens:free(id)
+			if vRP.itemSubTypeList(droplist[id].item) then
+				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
+					TriggerClientEvent("Notify",source,"negado","Você já possui esse tipo de item.",5000)
+					TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+					return
+				else
+					TriggerClientEvent("itemdrop:Remove",-1,id)
+					vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
+					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+					droplist[id] = nil
+					idgens:free(id)
+				end
+			else
+				TriggerClientEvent("itemdrop:Remove",-1,id)
+				vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
+				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+				droplist[id] = nil
+				idgens:free(id)
+			end
         end
     else
-        TriggerClientEvent("Notify",source,"vermelho","Sua <b>Mochila</b> Cheia.",5000)
+        TriggerClientEvent("Notify",source,"negado","Sua <b>Mochila</b> Cheia.",5000)
         end
     end
 
     local nplayer = vRPclient.nearestPlayer(source,5)
     if nplayer then
-        TriggerClientEvent("inventory:Update",nplayer,"updateMochila")
+        TriggerClientEvent("vga_inventory:Update",nplayer,"updateMochila")
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -63,7 +63,7 @@ function cnVRP.collectMethod()
 	if user_id then
 		if vRP.computeInvWeight(user_id) + vRP.itemWeightList(tostring(consumeItem)) * parseInt(collect[source]) <= vRP.getBackpack(user_id) then
 			vRPclient.stopActived(source)
-			TriggerClientEvent("Progress",source,3000,"Coletando...")
+			TriggerClientEvent("Progress",source,5000,"Coletando...")
 			TriggerClientEvent("cancelando",source,true)
 			vRP.giveInventoryItem(user_id,tostring(consumeItem),parseInt(collect[source]))
 			vRPclient._playAnim(source,false,{"melee@hatchet@streamed_core","plyr_front_takedown_b"},true)
@@ -93,7 +93,7 @@ function cnVRP.paymentMethod()
 
 			return true
 		else
-			TriggerClientEvent("Notify",source,"aviso","Você precisa de <b>"..vRP.format(parseInt(amount[source])).."x "..vRP.itemNameList(consumeItem).."</b>.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(parseInt(amount[source])).."x "..vRP.itemNameList(consumeItem).."</b>.",5000)
 		end
 
 		return false

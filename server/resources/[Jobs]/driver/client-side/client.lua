@@ -88,12 +88,10 @@ function cnVRP.toggleService()
 		startthreadtimeseconds()
 		inService = true
 		makeBlipMarked()
-		TriggerEvent("Notify","sucesso","Você começou a trabalhar de <b>Motorista de Ônibus</b>.",5000)
-		TriggerEvent("sound:source","quite",0.5)
+		TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi iniciado.",2000)
 	else
 		inService = false
-		TriggerEvent("Notify","aviso","Você parou de trabalhar de <b>Motorista de Ônibus</b>.",5000)
-		TriggerEvent("sound:source","juntos",0.5)
+		TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi finalizado.",2000)
 		if DoesBlipExist(blip) then
 			RemoveBlip(blip)
 			blip = nil

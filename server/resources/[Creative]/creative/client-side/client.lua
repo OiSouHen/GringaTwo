@@ -97,15 +97,15 @@ local blips = {
 	{ 733.7,-1088.73,21.37,315,11,"Mecânica",0.4 },
 	{ -222.94,-1509.0,31.41,357,18,"Bicicletário",0.4 },
 	{ 1851.99,2595.64,45.69,357,18,"Bicicletário",0.4 },
-	{ 2679.43,3443.93,55.81,164,4,"Corrida ilegal",0.4 },
-	{ -566.72,-2117.39,5.98,164,4,"Corrida ilegal",0.4 },
-	{ 1679.4,-1564.53,112.57,164,4,"Corrida ilegal",0.4 },
-	{ -1732.07,-727.34,10.4,164,4,"Corrida ilegal",0.4 },
-	{ -1367.59,15.04,53.38,164,4,"Corrida ilegal",0.4 },
-	{ 636.43,649.9,128.9,164,4,"Corrida ilegal",0.4 },
-	{ 364.86,-543.57,28.75,164,4,"Corrida ilegal",0.4 },
-	{ 247.31,-1513.38,29.10,164,4,"Corrida ilegal",0.4 },
-	{ -324.69,-1098.09,23.03,164,4,"Corrida ilegal",0.4 },
+	{ 2679.43,3443.93,55.81,164,4,"Circuitos",0.4 },
+	{ -566.72,-2117.39,5.98,164,4,"Circuitos",0.4 },
+	{ 1679.4,-1564.53,112.57,164,4,"Circuitos",0.4 },
+	{ -1732.07,-727.34,10.4,164,4,"Circuitos",0.4 },
+	{ -1367.59,15.04,53.38,164,4,"Circuitos",0.4 },
+	{ 636.43,649.9,128.9,164,4,"Circuitos",0.4 },
+	{ 364.86,-543.57,28.75,164,4,"Circuitos",0.4 },
+	{ 247.31,-1513.38,29.10,164,4,"Circuitos",0.4 },
+	{ -324.69,-1098.09,23.03,164,4,"Circuitos",0.4 },
 	{ 265.05,-1262.65,29.3,361,4,"Posto de Gasolina",0.4 },
 	{ 819.02,-1027.96,26.41,361,4,"Posto de Gasolina",0.4 },
 	{ 1208.61,-1402.43,35.23,361,4,"Posto de Gasolina",0.4 },
@@ -156,10 +156,9 @@ local blips = {
 	{ 29.29,-1770.35,29.61,357,14,"Garagem",0.4 },
 	{ 101.22,-1073.68,29.38,357,14,"Garagem",0.4 },
 	{ -281.25,-888.64,31.32,357,14,"Garagem",0.4 },
-	{ 717.74,-966.32,30.4,89,31,"Central de Costura",0.4 },
+	{ 717.74,-966.32,30.4,176,34,"Trocas",0.4 },
+	{ 406.04,6526.17,27.75,214,31,"Colheita",0.4 },
 	{ 361.08,-1584.91,29.3,60,4,"Departamento Policial",0.4 },
-	{ 1851.45,3686.71,34.26,60,4,"Departamento Policial",0.4 },
-	{ -448.18,6011.68,31.71,60,4,"Departamento Policial",0.4 },
 	{ 25.68,-1346.6,29.5,52,36,"Loja de Departamento",0.4 },
 	{ 2556.47,382.05,108.63,52,36,"Loja de Departamento",0.4 },
 	{ 1163.55,-323.02,69.21,52,36,"Loja de Departamento",0.4 },
@@ -180,7 +179,7 @@ local blips = {
 	{ 1166.0,2709.45,38.16,52,36,"Loja de Departamento",0.4 },
 	{ -1487.21,-378.99,40.17,52,36,"Loja de Departamento",0.4 },
 	{ -1222.76,-907.21,12.33,52,36,"Loja de Departamento",0.4 },
-	{ 1588.17,6455.71,26.02,269,63,"Avalanches",0.5 }, -- Avalanches
+	{ 1588.17,6455.71,26.02,269,63,"Restaurante",0.5 }, -- Avalanches
 	{ 1692.62,3759.50,34.70,76,6,"Loja de Armas",0.4 },
 	{ 252.89,-49.25,69.94,76,6,"Loja de Armas",0.4 },
 	{ 843.28,-1034.02,28.19,76,6,"Loja de Armas",0.4 },
@@ -200,8 +199,8 @@ local blips = {
 	{ -2962.60,482.17,15.70,207,46,"Banco",0.4 },
 	{ -112.81,6469.91,31.62,207,46,"Banco",0.4 },
 	{ 1175.74,2706.80,38.09,207,46,"Banco",0.4 },
-	{ -51.82,-1111.38,26.44,225,4,"Concessionaria",0.4 },
-	{ 471.99,-1114.81,29.4,225,22,"Concessionaria Premium",0.4 },
+	{ -51.82,-1111.38,26.44,225,4,"Benefactor",0.4 },
+	{ 471.99,-1114.81,29.4,225,22,"Premium Benefactor",0.4 },
 	{ 1322.64,-1651.97,52.27,75,4,"Tatuagens",0.4 },
     { -1153.67,-1425.68,4.95,75,4,"Tatuagens",0.4 },
     { 322.13,180.46,103.58,75,4,"Tatuagens",0.4 },
@@ -234,15 +233,15 @@ local blips = {
 	{ 1966.36,3975.86,31.51,266,4,"Embarcações",0.4 },
 	{ -776.72,-1495.02,2.29,266,4,"Embarcações",0.4 },
 	{ -893.97,5687.78,3.29,266,4,"Embarcações",0.4 },
-	{ 468.11,-585.95,28.5,513,4,"Motorista",0.4 },
+	{ 458.37,-598.98,28.5,513,4,"Motorista",0.4 },
 	{ 359.24,269.91,103.06,67,4,"Transportador",0.4 },
-	{ -837.97,5406.55,34.59,285,4,"Lenhador",0.4 },
---	{ 961.09,-2109.96,31.95,410,4,"Caminhão de Peixes",0.4 },
+	{ -558.29,5362.55,70.22,285,4,"Lenhador",0.4 },
+	{ 961.09,-2109.96,31.95,410,4,"Caminhão Peixes",0.4 }, -- rem
 	{ -1188.27,2727.94,2.4,68,26,"Área de Pesca",0.4 },
-	{ 961.18,-2185.41,30.49,478,22,"Fábrica de Carnes",0.5 },
+	{ 961.18,-2185.41,30.49,478,22,"Fábrica de Carnes",0.5 }, -- rem
 	{ 2940.85,2797.66,40.78,485,16,"Mineradora",0.6 },
-	{ 1083.01,-1975.1,31.48,478,16,"Fábrica de Minérios",0.4 },
-	{ 286.79,2843.75,44.71,485,16,"Loja de Minérios",0.6 },
+	{ 1083.01,-1975.1,31.48,478,16,"Fábrica de Minérios",0.4 }, -- rem
+	{ 286.79,2843.75,44.71,485,16,"Loja de Minérios",0.6 }, -- rem
 	{ 132.6,-1305.06,29.2,93,4,"Bar",0.4 },
 	{ -565.14,271.56,83.02,93,4,"Bar",0.4 },
 	{ 83.7,-1543.71,29.47,318,4,"Lixeiro",0.4 },
@@ -252,12 +251,8 @@ local blips = {
 	{ -935.68,-378.77,38.97,351,4,"Escritório",0.4 },
 	{ 320.03,-1075.96,29.48,403,3,"Farmácia",0.4 },
 	{ 237.81,-413.08,48.12,498,8,"Cartório",0.4 },
-	{ 46.66,-1749.79,29.64,78,11,"Mega Mall",0.4 }, --remover
-	{ -419.17,-1689.88,19.85,467,11,"Centro de Reciclagem",0.4 },
-	{ -89.91,29.04,71.95,459,11,"Loja de Celular",0.4 },
-	{ 408.17,-1635.57,29.3,515,4,"Reboque",0.4 },
-	{ 1706.07,4791.75,41.98,515,4,"Reboque",0.4 },
-	{ -439.03,-2796.89,7.3,478,4,"Entregador",0.4 }
+	{ 46.66,-1749.79,29.64,78,11,"Mega Mall",0.4 },
+	{ -419.17,-1689.88,19.85,467,11,"Reciclagem",0.4 }
 }
 
 Citizen.CreateThread(function()
@@ -878,8 +873,11 @@ end)
 -- PEDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedlist = {
-	{ 78.04,-1536.51,29.47,137.53,0x062547E7,"cs_floyd","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro 1
-	{ 84.2,-1552.04,29.6,50.8,0x062547E7,"cs_floyd","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro
+	{ 406.04,6526.17,27.75,82.26,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Colheita
+	{ -555.2,5364.38,70.43,70.08,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lenhador
+	{ 453.68,-600.56,28.6,262.54,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Motorista
+	{ 78.04,-1536.51,29.47,137.53,0xEE75A00F,"s_m_y_garbage","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro 1
+	{ 84.2,-1552.04,29.6,50.8,0xEE75A00F,"s_m_y_garbage","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro
 	{ 354.72,269.84,103.02,337.89,0xD768B228,"s_m_m_security_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Transportador
 	{ 1078.69,-1954.9,31.03,105.61,0xD7DA9E99,"s_m_y_construct_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Minerador
 	{ 1075.95,-1978.71,31.48,143.1,0xC5FEFADE,"s_m_y_construct_02","amb@prop_human_parking_meter@female@idle_a","idle_a_female" }, -- Minerador

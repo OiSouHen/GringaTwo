@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 350
+				deathtimer = 1
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 					vRP.playAnim(false,{"dead","dead_a"},true)
@@ -45,6 +45,7 @@ Citizen.CreateThread(function()
 				if deathtimer > 0 then
 					timeDistance = 4
 					SetEntityHealth(ped,101)
+					TriggerEvent("hudActived",false)
 					drawTxt("Você ainda tem ~r~"..deathtimer.."~w~ segundos de vida",4,0.5,0.93,0.50,255,255,255,120)
 
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
@@ -81,6 +82,7 @@ end)
 RegisterCommand("gg",function(source,args,rawCommand)
 	if deathtimer <= 0 then
 		vSERVER.ResetPedToHospital()
+		TriggerEvent("hudActived",true)
 	else
 		TriggerEvent("Notify","importante","Aguarde, você ainda tem <b>"..deathtimer.."</b> segundos de vida.",5000)
 		TriggerEvent("sound:source","pristine",0.5)
@@ -106,6 +108,7 @@ function cnVRP.finishDeath()
 	local ped = PlayerPedId()
 	if GetEntityHealth(ped) <= 101 then
 		deadPlayer = false
+		TriggerEvent("hudActived",true)
 		ClearPedBloodDamage(ped)
 		SetEntityHealth(ped,200)
 		SetEntityInvincible(ped,false)
@@ -132,7 +135,8 @@ end
 function cnVRP.revivePlayer(health)
 	SetEntityHealth(PlayerPedId(),health)
 	SetEntityInvincible(PlayerPedId(),false)
-
+	TriggerEvent("hudActived",true)
+	
 	if deadPlayer then
 		deadPlayer = false
 		ClearPedTasks(PlayerPedId())

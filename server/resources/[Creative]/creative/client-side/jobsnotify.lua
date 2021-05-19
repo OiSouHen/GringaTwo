@@ -17,6 +17,30 @@ local localidades = {
                 TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
+    },
+	[3] = { -- Motorista
+        notifycoord = {453.68,-600.56,28.6},
+        header = function()
+            if IsControlJustPressed(1,38) then 
+                TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",5000)
+            end
+        end
+    },
+	[4] = { -- Lenhador
+        notifycoord = {-555.2,5364.38,70.43},
+        header = function()
+            if IsControlJustPressed(1,38) then 
+                TriggerEvent("Notify","amarelo","Dê <b>/lenhador</b> para iniciar ou finalizar o serviço.",5000)
+            end
+        end
+    },
+	[5] = { -- Colheita
+        notifycoord = {406.04,6526.17,27.75},
+        header = function()
+            if IsControlJustPressed(1,38) then 
+                TriggerEvent("Notify","amarelo","Dê <b>/colheita</b> para iniciar ou finalizar o serviço.",5000)
+            end
+        end
     }
 } 
 -----------------------------------------------------------------------------------------------------------------------------------------

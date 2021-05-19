@@ -210,7 +210,7 @@ RegisterNUICallback("requestMochila",function(data,cb)
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
 		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
-			table.insert(dropItems,{ name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
+			table.insert(dropItems,{ name = v.name, desc = v.desc, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, id = k })
 		end
 	end
 

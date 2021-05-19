@@ -1,0 +1,222 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  background: transparent;
+}
+
+@font-face {
+  font-family: 'Edo';
+  src: url('font/edosz.ttf');
+}
+
+.container {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#fainting {
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: none;
+}
+
+#fainting .container_ {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#Death {
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: none;
+}
+
+#Death .container__ {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Imagem */
+.img {
+  width: 120px;
+}
+
+/* Você */
+.fainting_title {
+  font-size: 7vw;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Desmaiou / Morreu */
+.fainting_title1 {
+  font-size: 7vw;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(235, 48, 89);
+}
+.informationss .aviso {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  position: absolute;
+  top: 125%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Tempo */
+.clock {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 22px;
+  color: rgb(235, 48, 89);
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 200px;
+  padding: 4px;
+}
+
+/* Botão */
+#fainting .container_ .botao {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 250px;
+  text-transform: uppercase;
+  width: 300px;
+  text-align: center;
+  padding: 3px;
+  background: rgb(235, 48, 89);
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border: none;
+}
+
+/* Botão da Morte */
+.DeathB {
+  border: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 250px;
+  text-transform: uppercase;
+  width: 300px;
+  text-align: center;
+  padding: 3px;
+  background: rgb(235, 48, 89);
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Morte DIV */
+#Death {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  color: white;
+  border-radius: 2vw;
+  display: none;
+}
+
+.popup .overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  display: none;
+}
+
+.popup .content {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #fff;
+  width: 50%;
+  max-width: 350px;
+  height: 130px;
+  border-radius: 5px;
+  z-index: 2;
+  text-align: right;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.popup .btn {
+  position: relative;
+  top: 10%;
+  outline: none !important;
+}
+
+.popup .title {
+  position: relative;
+  font-size: 16px;
+  top: -5%;
+  text-align: left;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.popup.active .overlay {
+  display: block;
+}
+
+.popup.active .content {
+  transition: all 300ms ease-in-out;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.popup .warning {
+  float: left;
+  color: red;
+}
+
+.hello {
+  float: right;
+}
+
+.subtitle {
+  padding-left: 20px;
+}
