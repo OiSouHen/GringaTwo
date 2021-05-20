@@ -44,7 +44,8 @@ vRP.prepare("vRP/upd_group","UPDATE vrp_permissions SET permiss = @newpermiss WH
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRIORITY
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_premium","UPDATE vrp_infos SET premium = @premium, chars = @chars, predays = @predays, priority = @priority WHERE steam = @steam")
+vRP.prepare("vRP/set_morechars","UPDATE vrp_infos SET chars = chars + 1 WHERE steam = @steam")
+vRP.prepare("vRP/set_premium","UPDATE vrp_infos SET premium = @premium, predays = @predays, priority = @priority WHERE steam = @steam")
 vRP.prepare("vRP/update_priority","UPDATE vrp_infos SET premium = 0, predays = 0, priority = 0 WHERE steam = @steam")
 vRP.prepare("vRP/update_premium","UPDATE vrp_infos SET predays = predays + @predays WHERE steam = @steam")
 -----------------------------------------------------------------------------------------------------------------------------------------

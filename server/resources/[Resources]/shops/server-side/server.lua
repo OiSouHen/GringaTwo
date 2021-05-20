@@ -35,42 +35,48 @@ local shops = {
 			["soda"] = 515
 		}
 	},
---	["departamentStore"] = {
---		["mode"] = "Buy",
---		["type"] = "Cash",
---		["list"] = {
---			["postit"] = 20,
---			["energetic"] = 50,
---			["hamburger"] = 30,
---			["emptybottle"] = 40,
---			["cigarette"] = 20,
---			["skate"] = 750,
---			["lighter"] = 600,
---			["chocolate"] = 10,
---			["sandwich"] = 18,
---			["absolut"] = 40,
---			["chandon"] = 45,
---			["dewars"] = 25,
---			["hennessy"] = 30,
---			["backpackp"] = 5000,
---			["backpackm"] = 10000,
---			["backpackg"] = 15000,
---			["backpackx"] = 20000,
---			["divingsuit"] = 5000
---		}
---	},
-	["pharmacyStore"] = {
+	["ammunationStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["WEAPON_BAT"] = 975,
+			["WEAPON_MACHETE"] = 975,
+			["WEAPON_FLASHLIGHT"] = 675,
+			["WEAPON_HATCHET"] = 975,
+			["WEAPON_BATTLEAXE"] = 975,
+			["WEAPON_STONE_HATCHET"] = 975,
+			["WEAPON_HAMMER"] = 725,
+			["GADGET_PARACHUTE"] = 475,
+			["WEAPON_KNUCKLE"] = 975,
+			["WEAPON_GOLFCLUB"] = 975,
+			["WEAPON_POOLCUE"] = 975
+		}
+	},
+	["normalpharmacyStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["adrenaline"] = 975,
+			["analgesic"] = 105,
+			["bandage"] = 225,
+			["gauze"] = 175,
+			["warfarin"] = 525,
+			["ritmoneury"] = 475,
+			["sinkalmy"] = 325
+		}
+	},
+	["hospitalpharmacyStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["perm"] = "Paramedic",
 		["list"] = {
-			["gauze"] = 500,
-			["bandage"] = 650,
-			["analgesic"] = 50,
-			["warfarin"] = 2000,
-			["sinkalmy"] = 1000,
-			["ritmoneury"] = 1750,
-			["adrenaline"] = 4650
+			["adrenaline"] = 675,
+			["analgesic"] = 55,
+			["bandage"] = 105,
+			["gauze"] = 105,
+			["warfarin"] = 225,
+			["ritmoneury"] = 275,
+			["sinkalmy"] = 120
 		}
 	},
 	["foodGrill"] = {
@@ -92,28 +98,6 @@ local shops = {
 			["hennessy"] = 30
 		}
 	},
-	["ammunationStore"] = {
-		["mode"] = "Buy",
-		["type"] = "Cash",
-		["list"] = {
-			["GADGET_PARACHUTE"] = 1000,
-			["WEAPON_KNIFE"] = 4000,
-			["WEAPON_HATCHET"] = 4000,
-			["WEAPON_BAT"] = 4000,
-			["WEAPON_BATTLEAXE"] = 4000,
-			["WEAPON_BOTTLE"] = 4000,
-			["WEAPON_CROWBAR"] = 4000,
-			["WEAPON_DAGGER"] = 4000,
-			["WEAPON_GOLFCLUB"] = 4000,
-			["WEAPON_HAMMER"] = 4000,
-			["WEAPON_MACHETE"] = 4000,
-			["WEAPON_POOLCUE"] = 4000,
-			["WEAPON_STONE_HATCHET"] = 4000,
-			["WEAPON_SWITCHBLADE"] = 4000,
-			["WEAPON_WRENCH"] = 4000,
-			["WEAPON_KNUCKLE"] = 4000
-		}
-	},
 	["premiumStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Premium",
@@ -125,8 +109,7 @@ local shops = {
 			["premiumplate"] = 25,
 			["premiumname"] = 25,
 			["premiumgarage"] = 25,
-			["bonusDelivery"] = 2,
-			["bonusPostOp"] = 2
+			["premiumpersonagem"] = 25
 		}
 	},
 	["fishingSell"] = {

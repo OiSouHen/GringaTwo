@@ -76,8 +76,6 @@ local shopList = {
 	{ 1166.0,2709.45,38.16,"departamentStore" }, -- Perto da Prisão
 	{ -1487.21,-378.99,40.17,"departamentStore" }, -- Perto do Centro
 	{ -1222.76,-907.21,12.33,"departamentStore" }, -- Perto do Pier Príncipal
-	{ 75.4,-1393.01,29.38,"backpackStore" }, -- Perto do Vanilla
-	{ -1172.09,-1571.89,4.67, "weedStore" } , -- Loja de Maconha na Praia
 	{ 1692.62,3759.50,34.70,"ammunationStore" },
 	{ 252.89,-49.25,69.94,"ammunationStore" },
 	{ 843.28,-1034.02,28.19,"ammunationStore" },
@@ -92,7 +90,8 @@ local shopList = {
 	{ -1082.22,-247.54,37.77,"premiumStore" },
 	{ -1563.58,-975.38,13.02,"fishingStore" },
 	{ -1591.95,-1005.87,13.03,"fishingSell" },
-	{ 306.74,-601.9,43.29,"pharmacyStore" },
+	{ 325.6,-1074.38,29.48,"normalpharmacyStore" },
+	{ 306.74,-601.9,43.29,"hospitalpharmacyStore" },
 	{ 229.39,-369.77,-98.78,"registryStore" },
 	{ 46.66,-1749.79,29.64,"megaMallStore" },
 	{ -428.56,-1728.33,19.79,"recyclingSell" },

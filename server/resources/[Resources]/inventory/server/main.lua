@@ -1582,15 +1582,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "premiumplate" then
 						vCLIENT.closeInventory(source)
 
-						local vehModel = vRP.prompt(source,"Nome de spawn do veiculo:","")
+						local vehModel = vRP.prompt(source,"Nome de Spawn do veículo:","")
 						if vehModel == "" then
 							return
 						end
 
 						local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehModel) })
 						if vehicle[1] then
-							local vehPlate = vRP.prompt(source,"NOVA PLACA:","")
-							if vehPlate == "" or string.upper(vehPlate) == "CNVRP - RP" then
+							local vehPlate = vRP.prompt(source,"Nova placa do veículo:","")
+							if vehPlate == "" or string.upper(vehPlate) == "GRINGA-NRP" then
 								return
 							end
 
@@ -1619,12 +1619,12 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						vCLIENT.closeInventory(source)
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 
-						local newName = vRP.prompt(source,"Primeiro Nome (NOVO):","")
+						local newName = vRP.prompt(source,"O seu novo Primeiro nome:","")
 						if newName == "" then
 							return
 						end
 
-						local newLastName = vRP.prompt(source,"Sobre Nome (NOVO):","")
+						local newLastName = vRP.prompt(source,"O seu novo Sobrenome:","")
 						if newLastName == "" then
 							return
 						end
@@ -1755,7 +1755,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 3, priority = 20 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 3, priority = 15 })
 								else
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 3 })
 								end
@@ -1768,7 +1768,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 7, priority = 30 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 7, priority = 30 })
 								else
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 7 })
 								end
@@ -1781,7 +1781,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 15, priority = 40 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 15, priority = 45 })
 								else
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 15 })
 								end
@@ -1794,9 +1794,20 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 30, priority = 50 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 30, priority = 60 })
 								else
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 30 })
+								end
+							end
+						end
+	                end
+					
+					if itemName == "premiumpersonagem" then
+						local identity = vRP.getUserIdentity(user_id)
+						if identity then
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+								if not vRP.getPremium(user_id) then
+									vRP.execute("vRP/set_morechars",{ steam = identity.steam })
 								end
 							end
 						end

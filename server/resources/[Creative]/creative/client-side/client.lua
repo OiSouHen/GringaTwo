@@ -249,7 +249,8 @@ local blips = {
 	{ -117.29,-604.52,36.29,351,4,"Escritório",0.4 },
 	{ -826.9,-699.89,28.06,351,4,"Escritório",0.4 },
 	{ -935.68,-378.77,38.97,351,4,"Escritório",0.4 },
-	{ 320.03,-1075.96,29.48,403,3,"Farmácia",0.4 },
+--	{ 320.03,-1075.96,29.48,403,3,"Farmácia",0.4 },
+	{ 325.6,-1074.38,29.48,403,3,"Farmácia",0.4 },
 	{ 237.81,-413.08,48.12,498,8,"Cartório",0.4 },
 	{ 46.66,-1749.79,29.64,78,11,"Mega Mall",0.4 },
 	{ -419.17,-1689.88,19.85,467,11,"Reciclagem",0.4 }
@@ -873,6 +874,7 @@ end)
 -- PEDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedlist = {
+	{ 325.6,-1074.38,29.48,1.61,0xB353629E,"s_m_m_paramedic_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Farmácia
 	{ 406.04,6526.17,27.75,82.26,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Colheita
 	{ -555.2,5364.38,70.43,70.08,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lenhador
 	{ 453.68,-600.56,28.6,262.54,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Motorista

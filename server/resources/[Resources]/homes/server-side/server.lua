@@ -553,7 +553,7 @@ local homes = {
 	["Middle063"] = { "Middle",800000,3,400,1328.55,-536.05,72.45 },
 	["Middle064"] = { "Middle",800000,3,400,1348.42,-546.81,73.9 },
 	["Middle065"] = { "Middle",800000,3,400,1373.31,-555.8,74.69 },
-	["Middle066"] = { "Middle",800000,3,400,1389.1,-569.46,74.5 },
+	["Middle066"] = { "Middle",800000,3,400,1388.59,-569.66,74.5 },
 	["Middle067"] = { "Middle",800000,3,400,1386.27,-593.42,74.49 },
 	["Middle068"] = { "Middle",800000,3,400,1367.24,-606.62,74.72 },
 	["Middle069"] = { "Middle",800000,3,400,1341.31,-597.26,74.71 },
@@ -816,7 +816,7 @@ local homesTheft = {
 	["Middle063"] = { 1328.55,-536.05,72.45 },
 	["Middle064"] = { 1348.42,-546.81,73.9 },
 	["Middle065"] = { 1373.31,-555.8,74.69 },
-	["Middle066"] = { 1389.1,-569.46,74.5 },
+	["Middle066"] = { 1388.59,-569.66,74.5 },
 	["Middle067"] = { 1386.27,-593.42,74.49 },
 	["Middle068"] = { 1367.24,-606.62,74.72 },
 	["Middle069"] = { 1341.31,-597.26,74.71 },
@@ -1114,11 +1114,11 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	vCLIENT.updateHomesTheft(source,homesTheft)
 end)
 
-Citizen.CreateThread(function()
-	Citizen.Wait(1000)
-	vCLIENT.updateHomes(-1,homes)
-	vCLIENT.updateHomesTheft(-1,homesTheft)
-end)
+--Citizen.CreateThread(function()
+--	Citizen.Wait(1000)
+--	vCLIENT.updateHomes(-1,homes)
+--	vCLIENT.updateHomesTheft(-1,homesTheft)
+--end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1554,7 +1554,7 @@ function cRP.checkHomeTheft(homeName)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) <= 4 then
+		if parseInt(#copAmount) <= 2 then
 			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
 			return false
 		end
@@ -1882,7 +1882,7 @@ function cRP.paymentTheft(mobile)
 			local copAmount = vRP.numPermission("Police")
 			for k,v in pairs(copAmount) do
 				async(function()
-					TriggerClientEvent("NotifyPush",v,{ code = 90, title = "Roubo a Residência", x = x, y = y, z = z, criminal = "Alarme de segurança", rgba = {160,108,15} })
+					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S"), code = 'QTH', title = "Roubo a Residência", x = x, y = y, z = z, criminal = "Alarme de segurança", rgba = {160,108,15} })
 				end)
 			end
 		end

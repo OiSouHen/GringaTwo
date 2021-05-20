@@ -254,7 +254,7 @@ Citizen.CreateThread(function()
                 local distance = #(coords - vector3(v[1], v[2], v[3]))
                 if distance <= 2.5 then
                     timeDistance = 4
-                    DrawText3D(v[1], v[2], v[3], "~g~E~w~   BARBEARIA")
+                    DrawText3D(v[1], v[2], v[3], "~g~E~w~  SALÃO")
                     if IsControlJustPressed(1, 38) and vSERVER.checkOpen() then
                         displayBarbershop(true)
                         SetEntityHeading(ped, 332.21)
@@ -268,17 +268,17 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x, y, z, text)
-    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
-    SetTextFont(4)
-    SetTextScale(0.35, 0.35)
-    SetTextColour(255, 255, 255, 100)
-    SetTextEntry("STRING")
-    SetTextCentre(1)
-    AddTextComponentString(text)
-    DrawText(_x, _y)
-    local factor = (string.len(text)) / 400
-    DrawRect(_x, _y + 0.0125, 0.01 + factor, 0.03, 0, 0, 0, 100)
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
+	SetTextFont(4)
+	SetTextScale(0.35,0.35)
+	SetTextColour(176,180,193,150)
+	SetTextEntry("STRING")
+	SetTextCentre(1)
+	AddTextComponentString(text)
+	DrawText(_x,_y)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCAREA

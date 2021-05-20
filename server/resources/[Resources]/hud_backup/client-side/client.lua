@@ -278,20 +278,20 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		SetWeatherTypeNow("CLEAR")
-		SetWeatherTypePersist("CLEAR")
-		SetWeatherTypeNowPersist("CLEAR")
-
-		if homeInterior then
-			NetworkOverrideClockTime(00,00,00)
-		else
-			NetworkOverrideClockTime(hours,minutes,00)
-		end
-		Citizen.Wait(0)
-	end
-end)
+--Citizen.CreateThread(function()
+--	while true do
+--		SetWeatherTypeNow("CLEAR")
+--		SetWeatherTypePersist("CLEAR")
+--		SetWeatherTypeNowPersist("CLEAR")
+--
+--		if homeInterior then
+--			NetworkOverrideClockTime(00,00,00)
+--		else
+--			NetworkOverrideClockTime(hours,minutes,00)
+--		end
+--		Citizen.Wait(0)
+--	end
+--end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHREDUCE
 -----------------------------------------------------------------------------------------------------------------------------------------
