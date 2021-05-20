@@ -57,7 +57,7 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 										end
 									end
 
-									vRP.wantedTimer(user_id,60)
+									vRP.wantedTimer(user_id,600) -- old is 60 need try
 									-- vRPclient.updateWeapons(nplayer)
 									opened[user_id] = parseInt(nuser_id)
 									vCLIENT.openInspect(source)

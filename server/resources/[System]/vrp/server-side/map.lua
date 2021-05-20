@@ -40,7 +40,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.wantedReturn(user_id)
 	if wanted[user_id] ~= nil then
-		TriggerClientEvent("Notify",vRP.getUserSource(user_id),"importante","Aguarde "..vRP.getTimers(wanted[user_id])..".",5000)
+		TriggerClientEvent("Notify",vRP.getUserSource(user_id),"azul","Aguarde "..vRP.getTimers(wanted[user_id])..".",5000)
 		return true
 	else
 		return false
@@ -51,7 +51,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.reposeReturn(user_id)
 	if repose[user_id] ~= nil then
-		TriggerClientEvent("Notify",vRP.getUserSource(user_id),"importante","Aguarde "..vRP.getTimers(repose[user_id])..".",5000)
+		TriggerClientEvent("Notify",vRP.getUserSource(user_id),"azul","Aguarde "..vRP.getTimers(repose[user_id])..".",5000)
 		return true
 	else
 		return false
@@ -85,7 +85,7 @@ RegisterCommand("procurado",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if wanted[user_id] ~= nil then
-			TriggerClientEvent("Notify",source,"importante","Aguarde "..vRP.getTimers(wanted[user_id])..".",8000)
+			TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(wanted[user_id])..".",5000)
 		end
 	end
 end)
@@ -96,7 +96,7 @@ RegisterCommand("repouso",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if repose[user_id] ~= nil then
-			TriggerClientEvent("Notify",source,"importante","Aguarde "..vRP.getTimers(repose[user_id])..".",5000)
+			TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(repose[user_id])..".",5000)
 		end
 	end
 end)
@@ -124,13 +124,13 @@ function vRP.getTimers(seconds)
 	seconds = seconds - minutes * 60
 
 	if days > 0 then
-		return string.format("<b>%d Days</b>, <b>%d Hours</b>, <b>%d Minutes</b> and <b>%d Seconds</b>",days,hours,minutes,seconds)
+		return string.format("<b>%d Dias</b>, <b>%d Horas</b>, <b>%d Minutos</b> e <b>%d Segundos</b>",days,hours,minutes,seconds)
 	elseif hours > 0 then
-		return string.format("<b>%d Hours</b>, <b>%d Minutes</b> and <b>%d Seconds</b>",hours,minutes,seconds)
+		return string.format("<b>%d Horas</b>, <b>%d Minutos</b> e <b>%d Segundos</b>",hours,minutes,seconds)
 	elseif minutes > 0 then
-		return string.format("<b>%d Minutes</b> and <b>%d Seconds</b>",minutes,seconds)
+		return string.format("<b>%d Minutos</b> e <b>%d Segundos</b>",minutes,seconds)
 	elseif seconds > 0 then
-		return string.format("<b>%d Seconds</b>",seconds)
+		return string.format("<b>%d Segundos</b>",seconds)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -149,8 +149,8 @@ function vRP.getTimersMinimal(seconds)
 	elseif hours > 0 then
 		return string.format("<b>%d H</b>, <b>%d M</b>",hours,minutes)
 	elseif minutes > 0 then
-		return string.format("<b>%d Minutes</b>",minutes)
+		return string.format("<b>%d Minutos</b>",minutes)
 	elseif seconds > 0 then
-		return string.format("<b>%d Seconds</b>",seconds)
+		return string.format("<b>%d Segundos</b>",seconds)
 	end
 end

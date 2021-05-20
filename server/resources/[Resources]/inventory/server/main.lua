@@ -1046,7 +1046,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											vRP.giveInventoryItem(user_id,"dollars2",math.random(4,6),true)
 
 											if math.random(100) >= 75 then
-												vRP.wantedTimer(user_id,15)
+												vRP.wantedTimer(user_id,30) -- old is 15 need try
 												local copAmount = vRP.numPermission("Police")
 												for k,v in pairs(copAmount) do
 													async(function()

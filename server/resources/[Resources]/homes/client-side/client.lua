@@ -617,10 +617,10 @@ Citizen.CreateThread(function()
 				for k,v in pairs(theftLocal) do
 					if not theftPlayers[k] then
 						local distance = #(coords - vector3(theftHomesX+v[1],theftHomesY+v[2],1502.0))
-						if distance <= 2.0 then
+						if distance <= 1.5 then
 							timeDistance = 1
 							DrawText3Ds(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~  VASCULHAR")
-							if distance <= 0.9 and IsControlJustPressed(1,38) then
+							if distance <= 0.8 and IsControlJustPressed(1,38) then
 								TriggerEvent("cancelando",true)
 
 								if k == "LOCKER" then
@@ -660,7 +660,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.5 then
 					timeDistance = 1
-					DrawText3Ds(v[1],v[2],v[3],"~g~E~w~   "..v[5])
+					DrawText3Ds(v[1],v[2],v[3],"~g~E~w~  "..v[5])
 
 					if IsControlJustPressed(1,38) then
 						if v[4] == "exit" then

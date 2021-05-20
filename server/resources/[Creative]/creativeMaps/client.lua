@@ -4,7 +4,6 @@
 local pdl = GetInteriorAtCoords(440.84, -983.14, 30.69)
 LoadInterior(pdl)
 
-
 local bennys = GetInteriorAtCoords(-210.29,-1321.87,30.89)
 LoadInterior(bennys)
 
@@ -147,11 +146,11 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-    -- SetMapZoomDataLevel(0, 0.96, 0.9, 0.08, 0.0, 0.0)
-    -- SetMapZoomDataLevel(1, 1.6, 0.9, 0.08, 0.0, 0.0)
-    -- SetMapZoomDataLevel(2, 8.6, 0.9, 0.08, 0.0, 0.0)
-    -- SetMapZoomDataLevel(3, 12.3, 0.9, 0.08, 0.0, 0.0)
-    -- SetMapZoomDataLevel(4, 22.3, 0.9, 0.08, 0.0, 0.0)
+    SetMapZoomDataLevel(0, 0.96, 0.9, 0.08, 0.0, 0.0)
+    SetMapZoomDataLevel(1, 1.6, 0.9, 0.08, 0.0, 0.0)
+    SetMapZoomDataLevel(2, 8.6, 0.9, 0.08, 0.0, 0.0)
+    SetMapZoomDataLevel(3, 12.3, 0.9, 0.08, 0.0, 0.0)
+    SetMapZoomDataLevel(4, 22.3, 0.9, 0.08, 0.0, 0.0)
 
-    -- SetRadarZoom(1200)
+    SetRadarZoom(1200)
 end)

@@ -45,18 +45,18 @@ AddEventHandler("vRP:playerLeave",function(user_id,source)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLAYERSPAWN - NEED TRY
+-- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source,first_spawn)
 	if vRP.hasPermission(user_id,"Police") then
-		permissions[tostring(source)] = "waitPolice"
+		permissions[tostring(source)] = "Police"
 		TriggerClientEvent("tencode:StatusService",source,true)
-		TriggerEvent("blipsystem:serviceEnter",source,"Police",77)
+		TriggerEvent("blipsystem:serviceEnter",source,"Policial",77)
 	elseif vRP.hasPermission(user_id,"Paramedic") then
-		permissions[tostring(source)] = "waitParamedic"
-		TriggerEvent("blipsystem:serviceEnter",source,"Paramedic",83)
-	elseif vRP.hasPermission(user_id,"Mechanic") then
-		permissions[tostring(source)] = "waitMechanic"
-		TriggerEvent("blipsystem:serviceEnter",source,"Mechanic",51)
+		permissions[tostring(source)] = "Paramedic"
+		TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
+	elseif vRP.hasPermission(user_id,"Paramedic") then
+		permissions[tostring(source)] = "Mechanic"
+		TriggerEvent("blipsystem:serviceEnter",source,"Mecânico",51)
 	end
 end)

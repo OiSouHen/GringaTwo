@@ -64,7 +64,7 @@ function cnVRP.withdrawMoney(vehPlate,vehNet)
 			end
 		else
 			if stockadePlates[vehPlate] > 0 then
-				vRP.wantedTimer(user_id,30)
+				vRP.wantedTimer(user_id,600) -- old is 30, need try
 				vCLIENT.freezePlayers(source,true)
 				TriggerClientEvent("cancelando",source,true)
 				stockadePlates[vehPlate] = stockadePlates[vehPlate] - 1

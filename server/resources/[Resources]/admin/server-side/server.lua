@@ -55,12 +55,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('skin',function(source,args,rawCommand)
+RegisterCommand("skin",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Owner") then
+	if vRP.hasPermission(user_id,"Admin") then
 		TriggerClientEvent("skinmenu",args[1],args[2])
 		TriggerClientEvent("Notify",source,"verde","Você colocou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
-		TriggerClientEvent("sound:source",source,"quite",0.5)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -84,7 +83,7 @@ RegisterCommand("debug",function(source,args,rawCommand)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") then
+		if vRP.hasPermission(user_id,"Admin") then
 			TriggerClientEvent("ToggleDebug",source)
 		end
 	end
@@ -120,7 +119,7 @@ RegisterCommand("capuz",function(source,args,rawCommand)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") and args[1] then
+		if vRP.hasPermission(user_id,"Admin") and args[1] then
 			TriggerClientEvent("hud:toggleHood",source,args[1])
 		end
 	end
@@ -132,10 +131,9 @@ function cnVRP.enablaNoclip()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Admin") then
 			vRPclient.noClip(source)
 --			TriggerClientEvent("noclipeffect",source) -- NOCLIP EFFECT
---			TriggerClientEvent("sound:source",source,"when",0.5)
 		end
 	end
 end
@@ -263,7 +261,7 @@ end)
 RegisterCommand("group",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") then
 			if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.insertPermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/add_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
@@ -277,7 +275,7 @@ end)
 RegisterCommand("ungroup",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") then
 			if vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.removePermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
@@ -357,8 +355,7 @@ RegisterCommand("delnpcs",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			vCLIENT.deleteNpcs(source)
-			TriggerClientEvent("Notify",source,"verde","Você deletou todos os Npcs próximos com sucesso.",5000)
-			TriggerClientEvent("sound:source",source,"quite",0.5)
+			TriggerClientEvent("Notify",source,"verde","Você deletou os NPCs próximos.",5000)
 		end
 	end
 end)
@@ -370,8 +367,7 @@ RegisterCommand("tuning",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			TriggerClientEvent("admin:vehicleTuning",source)
-			TriggerClientEvent("Notify",source,"amarelo","Você realizou melhorias no carro com sucesso.",5000)
-			TriggerClientEvent("sound:source",source,"quite",0.5)
+			TriggerClientEvent("Notify",source,"amarelo","Você realizou melhorias no veículo.",5000)
 		end
 	end
 end)
@@ -403,61 +399,28 @@ RegisterCommand("fix",function(source,args,rawCommand)
 			local vehicle,vehNet = vRPclient.vehList(source,11)
 			if vehicle then
 				TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-				TriggerClientEvent("Notify",source,"verde","Você arrumou o carro com sucesso.",5000)
-				TriggerClientEvent("sound:source",source,"quite",0.5)
---				TriggerClientEvent("hudActived",source,false)
+				TriggerClientEvent("Notify",source,"verde","Você arrumou o veículo.",5000)
 			end
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LIMPAREA
+-- CLEANAREA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("limparea",function(source,args,rawCommand)
+RegisterCommand("cleanarea",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			local x,y,z = vRPclient.getPositions(source)
 			TriggerClientEvent("syncarea",-1,x,y,z,100)
-			TriggerClientEvent("Notify",source,"verde","Você limpou toda a área próxima à você com sucesso.",5000)
-			TriggerClientEvent("sound:source",source,"when",0.5)
+			TriggerClientEvent("Notify",source,"verde","Você limpou toda a área próxima.",5000)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLAYERS
+-- PON ONLINES
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("players",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRP.hasPermission(user_id,"Admin") then
--- 			local quantidade = 0
--- 			local users = vRP.getUsers()
--- 			for k,v in pairs(users) do
--- 				quantidade = parseInt(quantidade) + 1
--- 			end
--- 			TriggerClientEvent("Notify",source,"importante","<b>Players Conectados:</b> "..quantidade,5000)
--- 			TriggerClientEvent("sound:source",source,"when",0.5)
--- 		end
--- 	end
--- end)
------------------------------------------------------------------------------------------------------------------------------------------
--- CPLAYERS
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("cplayers",function(source,args,rawCommand)
--- 	if source == 0 then
--- 		local quantidade = 0
--- 		local users = vRP.getUsers()
--- 		for k,v in pairs(users) do
--- 			quantidade = parseInt(quantidade) + 1
--- 		end
--- 		print("Players Conectados: "..quantidade)
--- 	end
--- end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PON
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('onlines',function(source,args,rawCommand)
+RegisterCommand("onlines",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Admin") then
 		local users = vRP.getUsers()
@@ -493,7 +456,7 @@ end
 RegisterCommand("announce",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") then
 			local message = vRP.prompt(source,"Mensagem:","")
 			if message == "" then
 				return

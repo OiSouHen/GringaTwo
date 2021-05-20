@@ -23,18 +23,18 @@ function cnVRP.startMachine()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) <= 3 then
-			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
+		if parseInt(#copAmount) <= 2 then
+			TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
 			return false
 		elseif parseInt(machineGlobal) > 0 then
-			TriggerClientEvent("Notify",source,"aviso","Aguarde "..vRP.getTimers(parseInt(machineGlobal)),5000)
+			TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(machineGlobal)),5000)
 			return false
 		else
 			if not machineStart then
 				machineStart = true
 				machineGlobal = 1200
 				vRP.upgradeStress(user_id,10)
-				vRP.wantedTimer(parseInt(user_id),300)
+				vRP.wantedTimer(parseInt(user_id),600)
 				vRP.removeInventoryItem(user_id,"c4",1)
 				return true
 			end

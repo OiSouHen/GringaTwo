@@ -215,7 +215,7 @@ function cnVRP.checkVehlist()
 						return true,vehicle
 					end
 				else
-					TriggerClientEvent("Notify",source,"negado","Este veículo é protegido pela seguradora.",1000)
+					TriggerClientEvent("Notify",source,"vermelho","Este veículo é protegido pela seguradora.",1000)
 				end
 			end
 		end
