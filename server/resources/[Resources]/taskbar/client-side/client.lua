@@ -150,6 +150,22 @@ function cnVRP.taskFishing()
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- TASKTOOLBOX
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cnVRP.taskToolbox()
+	local finished = taskBar(20000,math.random(6,12))
+	if finished then
+		local finished = taskBar(1100,math.random(6,10))
+		if finished then
+			local finished = taskBar(800,math.random(6,8))
+			if finished then
+				return true
+			end
+		end
+	end
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cnVRP.taskHandcuff()

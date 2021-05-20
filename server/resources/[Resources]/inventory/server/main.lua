@@ -898,13 +898,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                 vRPclient.stopActived(source)
                                 vCLIENT.closeInventory(source)
                                 vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
-                                vRP.createDurability(itemName)
+                                -- vRP.createDurability(itemName)
 
-                                local taskResult = vTASKBAR.taskThree(source)
+                                local taskResult = vTASKBAR.taskToolbox(source)
                                 if taskResult then
-                                    vRP.upgradeStress(user_id,2)
-                                    TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-                                    TriggerClientEvent("Notify",source,"verde","Carro arrumado com sucesso.",5000)
+									vRP.upgradeStress(user_id,5)
+									if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+										TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
+										TriggerClientEvent("Notify",source,"verde","Arrumado com sucesso.",5000)
+									end
                                 else
                                     TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
                                 end
@@ -947,7 +949,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										end
 									end
 								else
-									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente travou.",5000)
+									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
@@ -1707,17 +1709,17 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRPclient._stopAnim(nplayer,false)
 									TriggerClientEvent("sound:source",source,"uncuff",0.5)
 									TriggerClientEvent("sound:source",nplayer,"uncuff",0.5)
-								else
-									active[user_id] = 30
-									local taskResult = vTASKBAR.taskHandcuff(nplayer)
-									if not taskResult then
-										vPLAYER.toggleHandcuff(nplayer)
-										TriggerClientEvent("sound:source",source,"cuff",0.5)
-										TriggerClientEvent("sound:source",nplayer,"cuff",0.5)
-										vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
-									else
-										TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser algemado.",5000)
-									end
+								-- else
+								-- 	active[user_id] = 30
+								-- 	local taskResult = vTASKBAR.taskHandcuff(nplayer)
+								-- 	if not taskResult then
+								-- 		vPLAYER.toggleHandcuff(nplayer)
+								-- 		TriggerClientEvent("sound:source",source,"cuff",0.5)
+								-- 		TriggerClientEvent("sound:source",nplayer,"cuff",0.5)
+								-- 		vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
+								-- 	else
+								-- 		TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser algemado.",5000)
+								--	end
 									active[user_id] = nil
 								end
 							end
@@ -1734,12 +1736,12 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "rope" then
 						local nplayer = vRPclient.nearestPlayer(source,2)
 						if nplayer and not vRPclient.inVehicle(source) then
-							local taskResult = vTASKBAR.taskHandcuff(nplayer)
-							if not taskResult then
+							-- local taskResult = vTASKBAR.taskHandcuff(nplayer)
+							-- if not taskResult then
 								TriggerClientEvent("rope:toggleRope",source,nplayer)
-							else
-								TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser carregado.",5000)
-							end
+							-- else
+							-- 	TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser carregado.",5000)
+							--end
 						end
 						
 					end

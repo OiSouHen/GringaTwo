@@ -97,18 +97,16 @@ Citizen.CreateThread(function()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			local x,y,z = table.unpack(GetEntityCoords(ped))
-			--print(json.encode(chestCoords))
 			for k,v in pairs(chestCoords) do
 				local distance = #(coords - vector3(parseInt(v.x),parseInt(v.y),parseInt(v.z)))
 				if distance <= 2 then
 					timeDistance = 4
-					--DrawText3Ds(v.x,v.y,v.z,"~g~E~w~   ABRIR")
-					drawTxt("~g~E~w~   ABRIR",4,0.5,0.93,0.50,255,255,255,180)
+					DrawText3Ds(v.x,v.y,v.z,"~g~E~w~  BAÚ")
 					if IsControlJustPressed(1,38) and vSERVER.checkIntPermissions(v.chestname) and distance <= 2 then
 						SetNuiFocus(true,true)
 						SendNUIMessage({ action = "showMenu" })
 						TransitionToBlurred(1000)
-						TriggerEvent("sound:source","zipper",0.2)
+						TriggerEvent("sound:source","zipper",0.5)
 					end
 				end
 			end
@@ -130,22 +128,11 @@ function DrawText3Ds(x,y,z,text)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text)) / 400
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
-
-function drawTxt(text,font,x,y,scale,r,g,b,a)
-	SetTextFont(font)
-	SetTextScale(scale,scale)
-	SetTextColour(r,g,b,a)
-	SetTextOutline()
-	SetTextCentre(1)
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawText(x,y)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end

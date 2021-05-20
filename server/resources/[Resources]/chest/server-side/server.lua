@@ -110,6 +110,10 @@ function cnVRP.openChest()
 
 					v.amount = parseInt(v.amount)
 					v.name = vRP.itemNameList(v.item)
+					v.desc = vRP.itemDescList(v.item)
+					v.tipo = vRP.itemTipoList(v.item)
+					v.unity = vRP.itemUnityList(v.item)
+					v.economy = vRP.itemEconomyList(v.item)
 					v.peso = vRP.itemWeightList(v.item)
 					v.index = vRP.itemIndexList(v.item)
 					v.key = v.item
