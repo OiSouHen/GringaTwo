@@ -48,7 +48,7 @@ function cnVRP.Mochila()
 				local sdata = json.decode(data) or {}
 				if data and sdata ~= nil then
 					for k,v in pairs(sdata) do
-						table.insert(myvehicle,{ amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+						table.insert(myvehicle,{economy = vRP.itemEconomyList(k),unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), desc = vRP.itemDescList(k), amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
 					end
 				end
 

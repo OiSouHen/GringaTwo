@@ -141,13 +141,14 @@ const updateDrag = () => {
 
 	$(".populated").tooltip({
 		create: function(event,ui){
+			var serial = $(this).attr("data-serial");
 			var economy = $(this).attr("data-economy");
-			var desc = $(this).attr("data-description");
+			var desc = $(this).attr("data-desc");
 			var amounts = $(this).attr("data-amount");
 			var name = $(this).attr("data-name-key");
 			var weight = $(this).attr("data-peso");
-			var type = $(this).attr("data-type");
-			var max = $(this).attr("data-max");
+			var tipo = $(this).attr("data-tipo");
+			var unity = $(this).attr("data-unity");
 			var myLeg = "center top-196";
 
 			if (desc !== "undefined"){
@@ -155,13 +156,31 @@ const updateDrag = () => {
 			}
 
 			$(this).tooltip({
-				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>Tipo: <r>Usável</r> <s>|</s> Quantidade: <r>${max !== "undefined" ? max:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Maximo: <r>S/L</r></legenda>`,
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
 				position: { my: myLeg, at: "center" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
 			})
 		}
 	});
+}
+
+const colorPicker = (percent) => {
+	var colorPercent = "#2e6e4c";
+
+	if (percent >= 100)
+		colorPercent = "rgba(255,255,255,0)";
+
+	if (percent >= 51 && percent <= 75)
+		colorPercent = "#fcc458";
+
+	if (percent >= 26 && percent <= 50)
+		colorPercent = "#fc8a58";
+
+	if (percent <= 25)
+		colorPercent = "#fc5858";
+
+	return colorPercent;
 }
 
 const formatarNumero = (n) => {
@@ -196,14 +215,27 @@ const updateVault = () => {
 		for (let x=1; x <= mySlots; x++) {
 			const slot = x.toString();
 
-			if (data.inventario[slot] !== undefined) {
-				const v = data.inventario[slot];
-				const item = `<div class="item populated" title="" data-max="${formatarNumero(v["amount"])}" data-type="${v["type"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+			if (data["inventario"][slot] !== undefined){
+				const v = data["inventario"][slot];
+				let actualPercent
+				if (v["days"]) {
+					const maxDurability = 86400 * v["days"];
+					const newDurability = (maxDurability - v["durability"]) / maxDurability;
+					actualPercent = newDurability * 100;
+				} else {
+					actualPercent = v["durability"] * 100;
+					if (actualPercent < 5.0) {
+						actualPercent = 5.0
+					}
+				}
+				
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">
-						<div class="itemWeight"></div>
-						<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
+                    <div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v.name}</div>
 				</div>`;
 
@@ -218,15 +250,24 @@ const updateVault = () => {
 		for (let x=1; x <= inSlots; x++) {
 			const slot = x.toString();
 
-			if (nameList2[x-1] !== undefined) {
-				const v = nameList2[x-1];
+			if (nameList2[x - 1] !== undefined){
+				const v = nameList2[x - 1];
+				let actualPercent
+				if (v["days"]) {
+					const maxDurability = 86400 * v["days"];
+					const newDurability = (maxDurability - v["durability"]) / maxDurability;
+					actualPercent = newDurability * 100;
+				} else {
+					actualPercent = v["durability"] * 100;
+				}
 
-				const item = `<div class="item populated" title="" data-max="${formatarNumero(v["amount"])}" data-type="${v["type"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-max="${formatarNumero(v["amount"])}" data-tipo="${v["tipo"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">
-						<div class="itemWeight"></div>
-						<div class="itemAmount">${formatarNumero(v.amount)}x   |   ${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
+					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v.name}</div>
 				</div>`;
 

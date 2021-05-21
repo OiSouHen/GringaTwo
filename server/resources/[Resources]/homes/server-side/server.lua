@@ -1114,11 +1114,11 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	vCLIENT.updateHomesTheft(source,homesTheft)
 end)
 
---Citizen.CreateThread(function()
---	Citizen.Wait(1000)
---	vCLIENT.updateHomes(-1,homes)
---	vCLIENT.updateHomesTheft(-1,homesTheft)
---end)
+Citizen.CreateThread(function()
+	Citizen.Wait(1000)
+	vCLIENT.updateHomes(-1,homes)
+	vCLIENT.updateHomesTheft(-1,homesTheft)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1321,7 +1321,7 @@ function cRP.openChest(homeName)
 		local result = json.decode(data) or {}
 		if data then
 			for k,v in pairs(result) do
-				table.insert(hmInventory,{ amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+				table.insert(hmInventory,{economy = vRP.itemEconomyList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), desc = vRP.itemDescList(k), amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
 			end
 		end
 
@@ -1334,9 +1334,31 @@ function cRP.openChest(homeName)
 
 					v.durability = advDecode[v.item]
 				end
+				if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
+				v.desc = vRP.itemDescList(v.item)
+				v.tipo = vRP.itemTipoList(v.item)
+				v.unity = vRP.itemUnityList(v.item)
+				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)
 				v.index = vRP.itemIndexList(v.item)
 				v.key = v.item

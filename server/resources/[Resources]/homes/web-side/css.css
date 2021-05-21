@@ -12,8 +12,10 @@ body {
 	font-family: "Roboto",Arial,Helvetica,sans-serif;
 }
 
-* { overflow: hidden; user-select: none; 
-    box-sizing: border-box; 
+* {
+	overflow: hidden;
+	user-select: none;
+	box-sizing: border-box;
 }
     
 .inventory {
@@ -38,11 +40,12 @@ body {
 }
 
 #invleft, #invright { 
-    gap: 3px; 
-    display: grid; 
-    overflow-y: scroll; 
-    padding-right: 3px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+	row-gap: 3px;
+	display: grid;
+	column-gap: 3px;
+	overflow-y: scroll;
+	padding-right: 3px;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .item { 
@@ -80,10 +83,11 @@ body {
 }
 
 .item .nameItem { 
-	margin-top: auto;
 	align-self: center;
+
 	width: 100%;
 	color: #d0d0d0;
+
 	padding: 8px 10px;
 	font-size: .68rem;
 	text-align: center;
@@ -91,6 +95,7 @@ body {
 	letter-spacing: 1px;
 	text-overflow: ellipsis;
 	text-transform: uppercase;
+
 	background: rgba(71,79,106,0.5);
 }
 
@@ -100,6 +105,7 @@ body {
 	margin-top: auto;
 	background: #2e6e4c;
 }
+
 .invMiddle {
 	display: flex;
 	align-items: center;
@@ -131,6 +137,7 @@ input::placeholder {
 #weight { 
 	max-width: 1338px;
 }
+
 #weightTextLeft {
 	float: left;
 	color: #9c9c9c;
@@ -143,18 +150,18 @@ input::placeholder {
 	margin-bottom: 15px;
 	letter-spacing: 1px;
 }
+
 #weightBarLeft {
 	float: left;
 	min-height: 10px;
 	max-height: 10px;
 	min-width: 596px;
 	max-width: 596px;
-				   
 	margin-bottom: 5px;
 	border-radius: 4px;
 	background: #3f455c;
-					  
 }
+
 #weightTextRight {
 	float: right;
 	color: #9c9c9c;
@@ -167,6 +174,7 @@ input::placeholder {
 	margin-bottom: 15px;
 	letter-spacing: 1px;
 }
+
 #weightBarRight {
 	float: right;
 	min-height: 10px;
@@ -177,6 +185,7 @@ input::placeholder {
 	margin-bottom: 5px;
 	background: #3f455c;
 }
+
 #weightContent {
 	float: left;
 	min-height: 10px;
@@ -186,6 +195,7 @@ input::placeholder {
 	background: #737ea0;
 	transition: all 0.9s;
 }
+
 .ui-helper-hidden-accessible { 
     display: none; 
 }

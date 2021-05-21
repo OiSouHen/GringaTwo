@@ -747,7 +747,7 @@ function cnVRP.checkPolice(robberyId,coords)
 		if vRP.tryGetInventoryItem(user_id,vars[robberyId].required,1,true) then
 			for k,v in pairs(amountCops) do
 				async(function()
-					TriggerClientEvent("NotifyPush",v,{ code = 31, time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Me ajuda esta tento um roubo a "..vars[robberyId].name.."!", title = "Roubo a "..vars[robberyId].name, x = coords.x, y = coords.y, z = coords.z, rgba = {0,150,90} })
+					TriggerClientEvent("NotifyPush",v,{ code = 31, time = os.date("%H:%M:%S - %d/%m/%Y"), title = "Roubo a "..vars[robberyId].name, x = coords.x, y = coords.y, z = coords.z, rgba = {0,150,90} })
 				end)
 			end
 

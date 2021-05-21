@@ -326,10 +326,10 @@ RegisterCommand("seatbelt",function(source,args)
 	if IsPedInAnyVehicle(ped) then
 		if not IsPedOnAnyBike(ped) then
 			if beltLock == 1 then
-				TriggerEvent("vrp_sound:source","unbelt",0.5)
+				TriggerEvent("sound:source","unbelt",0.5)
 				beltLock = 0
 			else
-				TriggerEvent("vrp_sound:source","belt",0.5)
+				TriggerEvent("sound:source","belt",0.5)
 				beltLock = 1
 			end
 		end

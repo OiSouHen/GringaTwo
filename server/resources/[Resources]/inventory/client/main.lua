@@ -209,8 +209,11 @@ RegisterNUICallback("requestMochila",function(data,cb)
 	local dropItems = {}
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
+		print("A")
 		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
-			table.insert(dropItems,{ name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
+			print("B")
+			print(v.desc)
+			table.insert(dropItems,{economy = v.economy, unity = v.unity, tipo = v.tipo, desc = v.desc, name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
 		end
 	end
 
@@ -278,6 +281,28 @@ function func.plateApply(plate)
         SetVehicleNumberPlateText(vehicle,plate)
         FreezeEntityPosition(vehicle,false)
     end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TYRES - CHECK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.checkBurstTyres(index)
+    if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			local tires_burst = false
+			for i=0,8 do
+				local burst = IsVehicleTyreBurst(v,i,false)
+				if burst then tires_burst = true return end
+			end
+
+			if not tires_burst then
+				return true
+			else
+				-- TriggerEvent("Notify","vermelho","Você precisa arrumar os pneus primeiro.")
+				return false
+			end
+		end
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REPAIRVEHICLE

@@ -493,7 +493,7 @@ function cnVRP.shotsFired()
 					local comAmount = vRP.numPermission("Police")
 					for k,v in pairs(comAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Ei esta tendo troca de tiro aqui perto de minha casa!", code = 10, title = "Confronto em andamento", x = x, y = y, z = z, criminal = "Disparos de arma de fogo", rgba = {105,52,136} })
+							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 10, title = "Confronto em andamento", x = x, y = y, z = z, criminal = "Disparos de arma de fogo", rgba = {105,52,136} })
 						end)
 					end
 				end

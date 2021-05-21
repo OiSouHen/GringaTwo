@@ -894,25 +894,29 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                         if not vRPclient.inVehicle(source) then
                             local vehicle,vehNet = vRPclient.vehList(source,11)
                             if vehicle then
-                                active[user_id] = 30
-                                vRPclient.stopActived(source)
-                                vCLIENT.closeInventory(source)
-                                vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
-                                -- vRP.createDurability(itemName)
+								if vCLIENT.checkBurstTyres(source,vehNet) then
+									active[user_id] = 30
+									vRPclient.stopActived(source)
+									vCLIENT.closeInventory(source)
+									vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
+									-- vRP.createDurability(itemName)
 
-                                local taskResult = vTASKBAR.taskToolbox(source)
-                                if taskResult then
-									vRP.upgradeStress(user_id,5)
-									if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-										TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-										TriggerClientEvent("Notify",source,"verde","Arrumado com sucesso.",5000)
+									local taskResult = vTASKBAR.taskToolbox(source)
+									if taskResult then
+										vRP.upgradeStress(user_id,5)
+										if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+											TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
+											TriggerClientEvent("Notify",source,"verde","Arrumado com sucesso.",5000)
+										end
+									else
+										TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
 									end
-                                else
-                                    TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
-                                end
 
-                                vRPclient._stopAnim(source,false)
-                                active[user_id] = nil
+									vRPclient._stopAnim(source,false)
+									active[user_id] = nil
+								else
+									TriggerClientEvent("Notify",source,"vermelho","Você precisa arrumar os pneus primeiro.",5000)
+								end
                             end
                         end
                     end
@@ -2037,7 +2041,7 @@ RegisterServerEvent("itemdrop:Create")
 AddEventHandler("itemdrop:Create",function(item,count,source,durability)
     local id = idgens:gen()
     local x,y,z = vRPclient.getPositions(source)
-    droplist[id] = { item = item, count = count, x = x, y = y, z = z, name = vRP.itemNameList(item), durability = durability,  index = vRP.itemIndexList(item), desc = vRP.itemDescList(item), peso = vRP.itemWeightList(item) }
+    droplist[id] = { item = item, count = count, x = x, y = y, z = z, economy = vRP.itemEconomyList(item),tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability,  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
@@ -2049,7 +2053,13 @@ end)
 RegisterServerEvent("vrp_itemdrop:Create")
 AddEventHandler("vrp_itemdrop:Create",function(item,count,x,y,z,source)
     local id = idgens:gen()
-    droplist[id] = { item = item, count = count, x = x, y = y, z = z, name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), desc = vRP.itemDescList(item), peso = vRP.itemWeightList(item) }
+					-- v.desc = vRP.itemDescList(v.item)
+					-- v.tipo = vRP.itemTipoList(v.item)
+					-- v.unity = vRP.itemUnityList(v.item)
+					-- v.economy = vRP.itemEconomyList(v.item)
+
+					-- tipo = vRP.itemTipoList(item), economy = vRP.itemEconomyList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item)
+    droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	local nplayer = vRPclient.nearestPlayer(source,5)
 	if nplayer then

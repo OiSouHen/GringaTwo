@@ -55,7 +55,7 @@ function cnVRP.checkAmount()
 					local copAmount = vRP.numPermission("Police")
 					for k,v in pairs(copAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Me ajuda um cara acabou de tentar me vender "..v.item.."!", code = 20, title = "Denúncia de Venda de Drogas", x = x, y = y, z = z, rgba = {41,76,119} })
+							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 20, title = "Denúncia de Venda de Drogas", x = x, y = y, z = z, rgba = {41,76,119} })
 						end)
 					end
 				end

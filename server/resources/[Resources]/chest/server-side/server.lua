@@ -53,6 +53,16 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		end
 	end
 end)
+
+-- Citizen.CreateThread(function()
+-- 	Citizen.Wait(2000)
+-- 	local rows = vRP.query("vRP/get_alltable")
+--     if #rows > 0 then
+-- 		for k,v in pairs(rows) do
+-- 			vCLIENT.insertTable(-1,rows[k].name, { rows[k].x,rows[k].y,rows[k].z } )
+-- 		end
+-- 	end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINTPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -127,7 +137,7 @@ function cnVRP.openChest()
 			local sdata = json.decode(data) or {}
 			if data then
 				for k,v in pairs(sdata) do
-					table.insert(mychestopen,{ amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+					table.insert(mychestopen,{desc = vRP.itemDescList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), economy = vRP.itemEconomyList(k),amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
 				end
 			end
 			local consult = vRP.query("vRP/getExistChest",{ name = mychestname })

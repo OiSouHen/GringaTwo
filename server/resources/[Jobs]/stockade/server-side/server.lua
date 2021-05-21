@@ -54,7 +54,7 @@ function cnVRP.withdrawMoney(vehPlate,vehNet)
 						local copAmount = vRP.numPermission("Police")
 						for k,v in pairs(copAmount) do
 							async(function()
-								TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Me ajuda esta tento um roubo a carro forte nesta area escuto muitos tiros socorrooooo!", code = 31, title = "Roubo ao Carro Forte", x = x, y = y, z = z, rgba = {105,52,136} })
+								TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Roubo ao Carro Forte", x = x, y = y, z = z, rgba = {105,52,136} })
 							end)
 						end
 					end

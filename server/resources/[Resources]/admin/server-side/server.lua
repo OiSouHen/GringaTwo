@@ -115,7 +115,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CAPUZ
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("capuz",function(source,args,rawCommand)
+RegisterCommand("hood",function(source,args,rawCommand)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -203,8 +203,7 @@ RegisterCommand("diamonds",function(source,args,rawCommand)
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
 				vRP.addGmsId(args[1],args[2])
-				TriggerClientEvent("Notify",args[1],"verde","<b>"..identity.name.."</b> você recebeu <b>"..args[2].." Diamantes</b> na sua conta bancária.",10000)
-				TriggerClientEvent("Notify",source,"verde","Você entregou <b>"..args[2].." Diamantes</b> para <b>"..identity.name.." "..identity.name2.."</b> ID "..args[1]..".",15000)
+				TriggerClientEvent("Notify",source,"amarelo","Entregado <b>"..args[2].." Diamantes</b> para ["..args[1].."]<b>"..identity.name.."</b>.",5000)
 			end
 		end
 	end
