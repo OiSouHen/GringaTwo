@@ -7129,25 +7129,7 @@ function (t, e) {
 					staticClass: "puce"
 				},
 				[t._v(t._s(e.puce))]) : t._e()])
-			}), t._v(" "), n("div", {
-				staticClass: "btn_menu_ctn"
-			},
-			[n("button", {
-				staticClass: "btn_menu",
-				class: {
-					select: t.AppsHome.length === t.currentSelect
-				},
-				style: {
-					backgroundImage: "url(/html/static/img/icons_app/menu.png)"
-				},
-				on: {
-					click: function (e) {
-						return t.openApp({
-							routeName: "menu"
-						})
-					}
-				}
-			})])], 2)], 1)
+			}), t._v(" "),], 2)], 1)
 		},
 		staticRenderFns: [function () {
 			var t = this,

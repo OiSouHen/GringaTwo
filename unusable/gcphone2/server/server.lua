@@ -156,29 +156,6 @@ function _internalAddMessage(transmitter,receiver,message,owner)
     return MySQL.Sync.fetchAll(Query2,{ ['@id'] = id })[1]
 end
 
-local firstmessage = {}
-local secondmessage = {}
-local etapaecstasy = {}
-local etapafueltech = {}
-local etapalean = {}
-local etapailegal = {}
-
--- RegisterServerEvent('gcPhone:auto-messageilegal')
--- AddEventHandler('gcPhone:auto-messageilegal',function(numero)
-	-- local source = source
-	-- local sourcePlayer = tonumber(source)
-	-- local myPhone = "000-000"
-	-- local otherIdentifier = getIdentifierByPhoneNumber(numero)
-	-- if not firstmessage[source] then
-		-- local mensagem = "Salve ta afim de saber sobre oq?\n 1 - Loc carro do ilegal\n 2 - farm ilegal"
-		-- if otherIdentifier ~= nil and vRP.getUserSource(otherIdentifier) ~= nil then
-			-- local tomess = _internalAddMessage(myPhone,numero,mensagem,0)
-			-- TriggerClientEvent("gcPhone:receiveMessage",tonumber(vRP.getUserSource(otherIdentifier)),tomess)
-			-- firstmessage[source] = true
-		-- end
-	-- end
--- end)
-
 function addMessage(source,identifier,phone_number,message)
 	local sourcePlayer = tonumber(source)
 	local myPhone = getNumberPhone(identifier)
@@ -240,9 +217,9 @@ function addMessage(source,identifier,phone_number,message)
 							end
 						elseif etapafueltech[source] then
 							if message == '1' then
-								mensagem = 'Loc: 3725.43, 4525.73 primeira etapa do cocaina, ta na mao'
+								mensagem = 'Loc: 3725.43, 4525.73 primeira etapa do fueltech, ta na mao'
 							elseif message == '2' then
-								mensagem = 'Loc: 342.75,-2078.35  segunda etapa do cocaina, ta ae'
+								mensagem = 'Loc: -830.41, -420.58 segunda etapa do fueltech, ta ae'
 							end
 						elseif etapalean[source] then
 							if message == '1' then
@@ -283,7 +260,6 @@ function addMessage(source,identifier,phone_number,message)
 		end
 	end
 end
-
 
 function setReadMessageNumber(identifier, num)
 	local mePhoneNumber = getNumberPhone(identifier)

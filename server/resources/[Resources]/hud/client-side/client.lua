@@ -159,7 +159,7 @@ RegisterCommand("movie",function(source,args)
 	SendNUIMessage({ movie = showMovie })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:TOGGLEHOOD
+-- HUD:TOGGLEHOOD
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:toggleHood")
 AddEventHandler("hud:toggleHood",function()
@@ -174,21 +174,21 @@ AddEventHandler("hud:toggleHood",function()
 	SendNUIMessage({ hood = showHood })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:HARDNESS
+-- HUD:HARDNESS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:plateHardness")
 AddEventHandler("hud:plateHardness",function(vehPlate,status)
 	hardness[vehPlate] = parseInt(status)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:ALLHARDNESS
+-- HUD:ALLHARDNESS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:allHardness")
 AddEventHandler("hud:allHardness",function(vehHardness)
 	hardness = vehHardness
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:REMOVEHOOD
+-- HUD:REMOVEHOOD
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:removeHood")
 AddEventHandler("hud:removeHood",function()
@@ -231,14 +231,14 @@ AddEventHandler("hudActived",function(status)
 	SendNUIMessage({ hud = showHud })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:VOICEMODE
+-- HUD:VOICEMODE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:VoiceMode")
 AddEventHandler("hud:VoiceMode",function(status)
 	voice = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:RADIODISPLAY
+-- HUD:RADIODISPLAY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:RadioDisplay")
 AddEventHandler("hud:RadioDisplay",function(number)
@@ -340,7 +340,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("seatbelt","Colocar/Retirar o cinto.","keyboard","x")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HUD:SYNCTIMERS
+-- HUD:SYNCTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hud:syncTimers")
 AddEventHandler("hud:syncTimers",function(timer)
@@ -348,10 +348,10 @@ AddEventHandler("hud:syncTimers",function(timer)
 	clockMinutes = parseInt(timer[1])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_HOMES:HOURS
+-- HOMES:HOURS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_homes:Hours")
-AddEventHandler("vrp_homes:Hours",function(status)
+RegisterNetEvent("homes:Hours")
+AddEventHandler("homes:Hours",function(status)
 	homeInterior = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

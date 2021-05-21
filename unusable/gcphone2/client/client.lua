@@ -79,10 +79,10 @@ RegisterNetEvent("gcPhone:activePhone")
 AddEventHandler("gcPhone:activePhone",function()
 	if phoneActive then
 		phoneActive = false
-		TriggerEvent("Notify","importante","Desativado o modo avião.",5000)
+		TriggerEvent("Notify","vermelho","Desativado o modo avião.",5000)
 	else
 		phoneActive = true
-		TriggerEvent("Notify","importante","Ativado o modo avião.",5000)
+		TriggerEvent("Notify","verde","Ativado o modo avião.",5000)
 	end
 end)
 
@@ -172,7 +172,7 @@ AddEventHandler("gcPhone:waitingCall",function(infoCall,initiator)
         end
     
         if not initiator and phoneActive then
-            TriggerEvent("Notify","importante","Chamada recebida.",10000)
+            TriggerEvent("Notify","default","Chamada recebida.",10000)
         end
     
         if initiator then
@@ -183,7 +183,7 @@ AddEventHandler("gcPhone:waitingCall",function(infoCall,initiator)
 
 RegisterNetEvent("gcPhone:acceptCall")
 AddEventHandler("gcPhone:acceptCall",function(infoCall,initiator)
-	exports.tokovoip_script:addPlayerToRadio(infoCall.id + 1200)
+	exports.tokovoip:addPlayerToRadio(infoCall.id + 1200)
 	TokoVoipID = infoCall.id + 1200
 
 	PhonePlayCall()
@@ -193,7 +193,7 @@ end)
 RegisterNetEvent("gcPhone:rejectCall")
 AddEventHandler("gcPhone:rejectCall",function(infoCall)
 	Citizen.InvokeNative(0xE036A705F989E049)
-	exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
+	exports.tokovoip:removePlayerFromRadio(TokoVoipID)
 	TokoVoipID = nil
 
 	PhonePlayText()
@@ -254,7 +254,7 @@ RegisterNUICallback('ignoreCall',function(data,cb)
 end)
 
 RegisterNUICallback('notififyUseRTC',function(use,cb)
-	exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
+	exports.tokovoip:removePlayerFromRadio(TokoVoipID)
 	TokoVoipID = nil
 	cb()
 end)

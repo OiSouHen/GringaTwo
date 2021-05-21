@@ -1,25 +1,9 @@
 ﻿{
-	"reseau": "",
+	"reseau": "GRINGA",
 	"warningMessageCount": 500,
-	"themeColor": "#f5414d",
+	"themeColor": "#262a38",
 	"colors": [
-		"#f5414d",
-		"#EC407A",
-		"#AB47BC",
-		"#7E57C2",
-		"#5C6BC0",
-		"#42A5F5",
-		"#29B6F6",
-		"#26C6DA",
-		"#26A69A",
-		"#66BB6A",
-		"#9CCC65",
-		"#D4E157",
-		"#FFCA28",
-		"#FFA726",
-		"#FF7043",
-		"#8D6E63",
-		"#78909C"
+		"#262a38"
 	],
 	"useFormatNumberFrance": true,
 	"useWebRTCVocal": false,
@@ -35,12 +19,12 @@
 	"fileUploadService_Url": "https://wew.wtf/upload.php",
 	"fileUploadService_Field": "files[]",
 	"background": {
-		"Creative": "background.jpg",
+		"padrão": "fundo.png",
 		"Customizado": "URL"
 	},
 	"background_default": {
-		"label": "Creative",
-		"value": "background.jpg"
+		"label": "padrão",
+		"value": "fundo.png"
 	},
 	"coque": {
 		"Padrão": "background.png"
@@ -85,14 +69,14 @@
 	"defaultContacts": [],
 	"apps": [{
 		"name": "Mobilphone",
-		"pt_BR__name": "Telefone",
+		"pt_BR__name": " ",
 		"icons": "/html/static/img/icons_app/call.png",
 		"routeName": "appels",
 		"inHomePage": true
 	},
 	{
 		"name": "Messages",
-		"pt_BR__name": "Whatsapp",
+		"pt_BR__name": " ",
 		"icons": "/html/static/img/icons_app/sms.png",
 		"routeName": "messages",
 		"inHomePage": true,
@@ -100,20 +84,21 @@
 	},
 	{
 		"name": "Contacts",
-		"pt_BR__name": "Contatos",
+		"pt_BR__name": " ",
 		"icons": "/html/static/img/icons_app/contacts.png",
 		"routeName": "contacts",
 		"inHomePage": true
 	},
 	{
 		"name": "Settings",
-		"pt_BR__name": "Config",
+		"pt_BR__name": " ",
 		"icons": "/html/static/img/icons_app/settings.png",
-		"routeName": "parametre"
+		"routeName": "parametre",
+		"inHomePage": true
 	},
 	{
 		"name": "Dark Chat",
-		"pt_BR__name": "Deep Web",
+		"pt_BR__name": " ",
 		"icons": "/html/static/img/icons_app/tchat.png",
 		"routeName": "tchat",
 		"inHomePage": true
