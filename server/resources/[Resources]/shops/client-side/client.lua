@@ -157,7 +157,7 @@ local propShops = {
 	{ "prop_vend_soda_01","colaMachine" },
 	{ "v_ret_247_donuts","donutMachine" },
 	{ "prop_burgerstand_01","burgerMachine" },
-	{ "prop_hotdogstand_01","hotdogMachine" },
+--	{ "prop_hotdogstand_01","hotdogMachine" },
 	{ "prop_vend_water_01","waterMachine" }
 }
 

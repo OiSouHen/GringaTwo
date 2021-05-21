@@ -363,26 +363,22 @@ Citizen.CreateThread(function()
 		if GetEntityHealth(ped) > 101 then
 			if hunger >= 10 and hunger <= 20 then
 				ApplyDamageToPed(ped,1,false)
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
 			elseif hunger <= 9 then
 				ApplyDamageToPed(ped,2,false)
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.10)
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
 			end
 
 			if thirst >= 10 and thirst <= 20 then
 				ApplyDamageToPed(ped,1,false)
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 			elseif thirst <= 9 then
 				ApplyDamageToPed(ped,2,false)
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.10)
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 			end
 		end
 
-		Citizen.Wait(5000)
+		Citizen.Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -395,25 +391,19 @@ Citizen.CreateThread(function()
 		local health = GetEntityHealth(ped)
 
 		if health > 101 then
-			if stress >= 99 then
+			if stress >= 80 then
 				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.75)
 				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+				if parseInt(math.random(3)) >= 3 and not IsPedInAnyVehicle(ped) then
+					SetPedToRagdoll(ped,5000,5000,0,0,0,0)
+				end
 				ApplyDamageToPed(ped,2,false)
-			elseif stress >= 80 and stress <= 98 then
-				timeDistance = 5000
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.50)
-				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
-				ApplyDamageToPed(ped,1,false)
-			elseif stress >= 60 and stress <= 79 then
-				timeDistance = 7500
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.25)
-				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
-				ApplyDamageToPed(ped,1,false)
-			elseif stress >= 40 and stress <= 59 then
 				timeDistance = 10000
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
+			elseif stress >= 60 and stress <= 79 then
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.35)
 				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
 				ApplyDamageToPed(ped,1,false)
+				timeDistance = 10000
 			end
 		end
 

@@ -79,6 +79,20 @@ local shops = {
 			["sinkalmy"] = 120
 		}
 	},
+	["premiumStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Premium",
+		["list"] = {
+			["premium01"] = 15,
+			["premium02"] = 25,
+			["premium03"] = 35,
+			["premium04"] = 45,
+			["premiumplate"] = 25,
+			["premiumname"] = 25,
+			["premiumgarage"] = 25,
+			["premiumpersonagem"] = 25
+		}
+	},
 	["foodGrill"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
@@ -96,20 +110,6 @@ local shops = {
 			["dewars"] = 25,
 			["donut"] = 10,
 			["hennessy"] = 30
-		}
-	},
-	["premiumStore"] = {
-		["mode"] = "Buy",
-		["type"] = "Premium",
-		["list"] = {
-			["premium01"] = 15,
-			["premium02"] = 25,
-			["premium03"] = 35,
-			["premium04"] = 45,
-			["premiumplate"] = 25,
-			["premiumname"] = 25,
-			["premiumgarage"] = 25,
-			["premiumpersonagem"] = 25
 		}
 	},
 	["fishingSell"] = {
@@ -233,21 +233,21 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["coffee"] = 18
+			["coffee"] = 320
 		}
 	},
 	["sodaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["soda"] = 18
+			["soda"] = 515
 		}
 	},
 	["colaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["cola"] = 18
+			["cola"] = 515
 		}
 	},
 	["donutMachine"] = {
@@ -262,21 +262,21 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["hamburger"] = 25
+			["hamburger"] = 1600
 		}
 	},
 	["hotdogMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["hotdog"] = 18
+			["hotdog"] = 1200
 		}
 	},
 	["waterMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["water"] = 40
+			["water"] = 1000
 		}
 	},
 	["policeStore"] = {
