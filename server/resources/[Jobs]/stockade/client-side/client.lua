@@ -32,7 +32,7 @@ Citizen.CreateThread(function()
 				if distance <= 2.5 and blockStockades[plate] == nil then
 					timeDistance = 4
 					DrawText3D(coords.x,coords.y,coords.z+1,"~g~E~w~   ROUBAR")
-					if IsControlJustPressed(1,38) and distance <= 1.0 and vSERVER.checkPolice(plate) then
+					if IsControlJustPressed(1,38) and distance <= 1.5 and vSERVER.checkPolice(plate) then
 						SetEntityHeading(ped,GetEntityHeading(vehicle))
 						vSERVER.withdrawMoney(plate,VehToNet(vehicle))
 					end

@@ -1,12 +1,15 @@
-fx_version "bodacious"
-game "gta5"
+fx_version "adamant"
+games {"gta5"}
 
-dependencies {
-	"vrp",
-	"GHMattiMySQL"
+description "vRP ghmattimysql (JS) db driver bridge"
+
+dependencies{
+    "vrp",
+    "ghmattimysql"
 }
 
-server_scripts {
-	"@vrp/lib/utils.lua",
-	"init.lua"
+-- server scripts
+server_scripts{
+    "@vrp/lib/utils.lua",
+    "init.lua"
 }

@@ -1,0 +1,30 @@
+<CodeWalkerProject>
+  <Name>New CodeWalker Project</Name>
+  <Version value="1" />
+  <YmapFilenames>
+    <Item>apa_distlodlights_small002.ymap</Item>
+    <Item>cs1_occl_15.ymap</Item>
+    <Item>diner.ymap</Item>
+    <Item>diner_props.ymap</Item>
+    <Item>gabz_diner_milo_.ymap</Item>
+    <Item>hei_cs1_09.ymap</Item>
+    <Item>hei_cs1_09_critical_0.ymap</Item>
+    <Item>hei_cs1_09_long_0.ymap</Item>
+    <Item>hei_cs1_09_long_1.ymap</Item>
+    <Item>hei_cs1_09_long_2.ymap</Item>
+    <Item>hei_cs1_09_long_3.ymap</Item>
+    <Item>hei_cs1_09_strm_0.ymap</Item>
+    <Item>hei_cs1_09_strm_1.ymap</Item>
+    <Item>hei_cs1_09_strm_2.ymap</Item>
+    <Item>hei_cs2_11_strm_0.ymap</Item>
+    <Item>hei_cs2_11_long_0.ymap</Item>
+    <Item>hei_cs1_01_strm_1.ymap</Item>
+  </YmapFilenames>
+  <YtypFilenames />
+  <YbnFilenames />
+  <YndFilenames />
+  <YnvFilenames />
+  <TrainsFilenames />
+  <ScenarioFilenames />
+  <AudioRelFilenames />
+</CodeWalkerProject>

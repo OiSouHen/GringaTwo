@@ -1,6 +1,10 @@
 vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE steam = @steam")
 vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM vrp_users WHERE steam = @steam and deleted = 0")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PREPARE RACES
+-----------------------------------------------------------------------------------------------------------------------------------------
+vRP.prepare("vRP/insert_winrace","INSERT INTO vrp_races(user_id,vehicle,raceid,points) VALUES(@user_id,@vehicle,@raceid,@points)")
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/get_vrp_users","SELECT * FROM vrp_users WHERE id = @id")

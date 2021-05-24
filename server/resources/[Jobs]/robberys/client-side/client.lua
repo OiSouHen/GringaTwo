@@ -40,7 +40,7 @@ Citizen.CreateThread(function()
 							end
 						end
 					else
-						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE ~b~"..robberyTimer.."~w~ SEGUNDOS",370)
+						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE ~y~"..robberyTimer.."~w~ SEGUNDOS",370)
 					end
 				end
 			end

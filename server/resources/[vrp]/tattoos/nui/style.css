@@ -1,0 +1,211 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#all-cont {
+    display: none;
+}
+#container-types {
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    width: 35%;
+    height: 100%;
+    transform: perspective(150vw) rotateY(15deg);
+    text-align: center;
+    background: linear-gradient(to left, rgba(0,0,0,0.0), rgba(0,0,0,0.85));
+}
+
+#tattoos-types {
+    padding: 1vw;
+    color: white;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+#tattoos-types .boxed-types {
+    cursor: pointer;
+    font-size: 1vw;
+    margin: 0.5vw;
+    margin-left: 2.5vw;
+    float: left;
+    padding: 0.75vw;
+    border-radius: 0.5vw;
+    width: 80%;
+    background: linear-gradient(to right, rgba(0,0,0,0.05), rgba(0,0,0,0.15));
+    transition: all 0.5s;
+}
+
+#tattoos-types .boxed-types:hover {
+    transform: scale(1.1);
+}
+
+#container-types h1 {
+    font-size: 2vw;
+    font-weight: 300;
+    color: white;
+}
+
+#container {
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    width: 35%;
+    height: 100%;
+    right: 0%;
+    top: 0%;
+    transform: perspective(150vw) rotateY(-15deg);
+    text-align: center;
+    background: linear-gradient(to right, rgba(0,0,0,0.0), rgba(0,0,0,0.85));
+}
+
+#container h1 {
+    font-size: 2vw;
+    font-weight: 300;
+    color: white;
+}
+
+#container .sa {
+    position: absolute;
+    margin: 1.75vw;
+    text-align: left;
+}
+#container i {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 1.5vw;
+    color: white;
+    transition: all 0.3s;
+}
+
+#container i:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    transform: scale(1.05)
+}
+
+.tattoos {
+    display: none;
+    padding: 1vw;
+    color: white;
+    height: 80%;
+    overflow-y: scroll;
+}
+.tattoos .box {
+    cursor: pointer;
+    font-size: 0.9vw;
+    margin: 1vw;
+    float: left;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    width: 7.5vw;
+    background: linear-gradient(to right, rgba(0,0,0,0.05), rgba(0,0,0,0.15));
+    transition: all 0.5s;
+}
+.selected {
+    transform: scale(1.1) !important;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(0,0,0,0.25)) !important;
+}
+.tattoos .box:hover {
+    transform: scale(1.1);
+}
+.tattoos .box img {
+    width: 7vw;
+    height: 7vw;
+    margin: 0.25vw;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5vw;
+}
+
+.dolar {
+    color: aquamarine
+}
+.buy {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%,50%);
+    
+}
+.options {
+    float: left;
+    overflow: hidden;
+    border: 0.1vw solid rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.2);
+    border-radius: 100vw;
+    padding: 1vw;
+    margin: 0.5vw;
+    font-size: 1vw;
+    transition: all 0.3s;
+}
+
+.options:hover {
+    transform: scale(1.05);
+}
+.options a {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 1vw;
+}
+button {
+    outline: none;
+}
+
+.options button {
+    font-weight: 200;
+    font-size: 1vw;
+    color: white;
+    border-radius: 100vw;
+    background: none;
+    transition: all 0.3s;
+    border: none;
+    padding-right: 0.4vw;
+    padding-left: 0.4vw;
+    cursor: pointer;
+}
+
+.options button:hover {
+    transform: scale(1.05);
+}
+.options button:active {
+    background: rgba(0,0,0,0.35);
+    transform: scale(1.05);
+}
+
+.tobuy {
+    cursor: pointer;
+    float: left;
+    font-weight: 200;
+    font-size: 1vw;
+    padding: 1vw;
+    color: white;
+    border-radius: 100vw;
+    margin: 0.5vw;
+    background: none;
+    transition: all 0.3s;
+    border: none;
+    border: 0.1vw solid rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.2);
+}
+
+.tobuy:hover {
+    transform: scale(1.05);
+}
+.tobuy:active {
+    background: rgba(0,0,0,0.35);
+    transform: scale(1.05);
+}
+
+
+::-webkit-scrollbar {
+	width: 0.2vw;
+	height: 1vw;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(111,111,185,0.7) !important;
+}
+.box.true {
+    box-shadow: 0 0 0.1vw 0.1vw rgba(255, 255, 255, 0.5);
+}
