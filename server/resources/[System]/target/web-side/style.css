@@ -1,0 +1,35 @@
+.target-wrapper {
+	top: 62.5%;
+	left: 59%;
+	width: 300px;
+	height: 300px;
+	display: none;
+	position: absolute;
+	transform: translate(-50%,-50%);
+}
+
+.target-eye {
+	top: 50%;
+	left: 50%;
+	display: none;
+	color: #d6d9df;
+	font-size: 2.1vh;
+	position: absolute;
+	transform: translate(-50%,-50%);
+}
+
+.target-label-wrapper {
+	float: left;
+	color: #d6d9df;
+	letter-spacing: 1px;
+	text-shadow: 1px 1px #333;
+}
+
+.target-label {
+	list-style: none;
+	font-size: 1.2vh;
+	user-select: none;
+	white-space: nowrap;
+	text-transform: uppercase;
+	font-family: "Roboto",Arial,Helvetica,sans-serif;
+}

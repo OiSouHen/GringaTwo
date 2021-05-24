@@ -1,53 +1,105 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local tackleSystem = 0
+local anim = "dive_run_fwd_-45_loop"
+local dict = "swimming@first_person@diving"
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSYSTEM
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
-		if IsPedJumping(ped) then
-			timeDistance = 4
-			if IsControlJustReleased(1,51) then
-				if not IsPedInAnyVehicle(ped) then
-					local ForwardVector = GetEntityForwardVector(ped)
-					local Tackled = {}
+		if (IsPedRunning(ped) or IsPedSprinting(ped)) and tackleSystem <= 0 and not IsPedSwimming(ped) then
+			timeDistance = 0
 
-					SetPedToRagdollWithFall(ped,1000,1000,0,ForwardVector,1.0,0.0,0.0,0.0,0.0,0.0,0.0)
+			if IsControlJustPressed(1,38) then
+				local userStatus = nearestPlayers()
+				if userStatus then
+					TriggerServerEvent("tackle:Update",GetPlayerServerId(userStatus))
+					tackleSystem = 3
 
-					while IsPedRagdoll(ped) do
-						for Key,Value in ipairs(GetTouchedPlayers()) do
-							if not Tackled[Value] then
-								Tackled[Value] = true
-								TriggerServerEvent("inventory:Cancel")
-								TriggerServerEvent("tackle:Update",GetPlayerServerId(Value),ForwardVector.x,ForwardVector.y,ForwardVector.z,GetPlayerName(PlayerId()))
-							end
+					if not IsPedRagdoll(ped) then
+						RequestAnimDict(dict)
+						while not HasAnimDictLoaded(dict) do
+							Citizen.Wait(1)
 						end
-						Citizen.Wait(1)
+
+						if IsEntityPlayingAnim(ped,dict,anim,3) then
+							ClearPedSecondaryTask(ped)
+						else
+							TaskPlayAnim(ped,dict,anim,8.0,-8,-1,49,0,0,0,0)
+
+							local tackleSeconds = 3
+							while tackleSeconds > 0 do
+								Citizen.Wait(100)
+								tackleSeconds = tackleSeconds - 1
+							end
+
+							ClearPedSecondaryTask(ped)
+							SetPedToRagdoll(ped,1000,1000,0,0,0,0)
+						end
 					end
 				end
 			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TACKLE:PLAYER
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("tackle:Player")
-AddEventHandler("tackle:Player",function(ForwardVectorX,ForwardVectorY,ForwardVectorZ,Tackler)
-	SetPedToRagdollWithFall(PlayerPedId(),3000,3000,0,ForwardVectorX,ForwardVectorY,ForwardVectorZ,10.0,0.0,0.0,0.0,0.0,0.0,0.0)
+AddEventHandler("tackle:Player",function()
+	SetPedToRagdoll(PlayerPedId(),5000,5000,0,0,0,0)
 	TriggerServerEvent("inventory:Cancel")
+	tackleSystem = 3
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADTIMERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if tackleSystem > 0 then
+			tackleSystem = tackleSystem - 1
+		end
 
-function GetPlayers()
-	local players = {}
-	for k,v in ipairs(GetActivePlayers()) do
-		table.insert(players,v)
+		Citizen.Wait(1000)
 	end
-	return players
-end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NEARESTPLAYERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function nearestPlayers()
+	local ped = PlayerPedId()
+	local nearestPlayer = false
+	local listPlayers = GetPlayers()
+	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,1.25,0.0)
 
-function GetTouchedPlayers()
-	local players = {}
-	for k,v in ipairs(GetPlayers()) do
-		if IsEntityTouchingEntity(PlayerPedId(),GetPlayerPed(v)) then
-			table.insert(players,v)
+	for _,v in ipairs(listPlayers) do
+		local uPlayer = GetPlayerPed(v)
+		if uPlayer ~= ped and not IsPedInAnyVehicle(uPlayer) then
+			local uCoords = GetEntityCoords(uPlayer)
+			local distance = #(coords - uCoords)
+			if distance <= 1.25 then
+				nearestPlayer = v
+			end
 		end
 	end
-	return players
+
+	return nearestPlayer
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETPLAYERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function GetPlayers()
+	local pedList = {}
+
+	for k,v in ipairs(GetActivePlayers()) do
+		table.insert(pedList,v)
+	end
+
+	return pedList
 end

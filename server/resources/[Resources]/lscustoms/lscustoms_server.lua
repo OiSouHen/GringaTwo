@@ -16,6 +16,17 @@ function emP.checkWanted()
 	end
 end
 
+function emP.checkPermission()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		return vRP.hasPermission(user_id,"Mechanic")
+	else
+		TriggerClientEvent("Notify",source,"negado","Apenas mecânicos podem tunar veículos.",5000)
+			 
+	end
+end
+
 local tbl = {
 	[1] = { locked = false, player = nil },
 	[2] = { locked = false, player = nil },

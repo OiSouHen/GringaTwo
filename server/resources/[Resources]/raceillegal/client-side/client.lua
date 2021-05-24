@@ -265,8 +265,12 @@ Citizen.CreateThread(function()
 
 			if inRunners then
 				timeDistance = 4
-
-				dwText("~w~VOLTAS: "..inLaps.."          CHECKPOINTS: "..inCheckpoint.." / "..#runners[inSelected]["coords"].."          TEMPO RESTANTE: "..raceTime,100)
+				
+				
+				dwText("~y~CHECKPOINTS:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"],0.65)
+				dwText("~y~TOTAL DE VOLTAS:~w~ "..inLaps.." / "..runners[inSelected]["laps"],0.68)
+				dwText("~y~TEMPO RESTANTE:~w~ "..inTimers,0.71)
+		--		dwText("~b~Autor do Circuito:~w~ "..runners[inSelected]["author"],0.74)
 
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then
@@ -341,14 +345,11 @@ Citizen.CreateThread(function()
 
 				if (raceTime <= 0 or not IsPedInAnyVehicle(PlayerPedId())) then
 					TriggerServerEvent("raceTime:explosivePlayers")
-
-
 					raceTime = 0
 					SetWaypointOff()
 					inRunners = false
 
 					Citizen.Wait(3000)
-
 					AddExplosion(GetEntityCoords(GetPlayersLastVehicle()),2,1.0,true,true,true)
 				end
 			end
@@ -358,6 +359,25 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- makeBlips
+-----------------------------------------------------------------------------------------------------------------------------------------
+function inCheckpoint()
+	if DoesBlipExist(CheckBlip) then
+		RemoveBlip(CheckBlip)
+		CheckBlip = nil
+	end
+
+	CheckBlip = AddBlipForCoord(runners[inSelected]["coords"][Checkpoint][1],runners[inSelected]["coords"][Checkpoint][2],runners[inSelected]["coords"][Checkpoint][3])
+	SetBlipSprite(CheckBlip,12)
+	SetBlipAsShortRange(CheckBlip,true)
+	SetBlipScale(CheckBlip,0.9)
+	SetBlipColour(CheckBlip,5)
+	SetBlipRoute(CheckBlip,true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Checkpoint")
+	EndTextCommandSetBlipName(CheckBlip)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- DWTEXT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function dwText(text,height)
@@ -365,8 +385,7 @@ function dwText(text,height)
 	SetTextScale(0.50,0.50)
 	SetTextColour(255,255,255,180)
 	SetTextOutline()
-	SetTextCentre(1)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
-	DrawText(0.5,1,height)
+	DrawText(.015,height)
 end

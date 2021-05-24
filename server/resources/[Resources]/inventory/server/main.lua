@@ -597,7 +597,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "premiumgarage" then
+					if itemName == "newgarage" then
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 						    vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
 						    TriggerClientEvent("Notify",source,"vermelho","Voce adicionou uma vaga na garagem.",5000)
@@ -1503,25 +1503,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "normalbackpack" then
+					if itemName == "backpack" then
 						local exp = vRP.getBackpack(user_id)
 						if exp <= 50 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,100)
-								TriggerClientEvent("inventory:Update",source,"updateMochila")
-								vCLIENT.closeInventory(source)
-							end
-						else
-							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
-							vCLIENT.closeInventory(source)
-						end
-					end
-
-					if itemName == "premiumbackpack" then
-						local exp = vRP.getBackpack(user_id)
-						if exp >= 50 and exp <= 100 then
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.setBackpack(user_id,150)
 								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								vCLIENT.closeInventory(source)
 							end
@@ -1619,7 +1605,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					
-					if itemName == "premiumname" then
+					if itemName == "namechange" then
 						vCLIENT.closeInventory(source)
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 
@@ -1806,7 +1792,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 	                end
 					
-					if itemName == "premiumpersonagem" then
+					if itemName == "newchars" then
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
@@ -1997,7 +1983,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SENDITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-
 RegisterNetEvent("inventory:dropItem")
 AddEventHandler("inventory:dropItem",function(itemName,amount,bole)
 	local source = source
@@ -2084,6 +2069,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
 					TriggerClientEvent("Notify",source,"negado","Você já possui esse tipo de item.",5000)
 					TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+					vCLIENT.closeInventory(source)
 					return
 				else
 					TriggerClientEvent("itemdrop:Remove",-1,id)
@@ -2096,6 +2082,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				end
 			else
 				TriggerClientEvent("itemdrop:Remove",-1,id)
+				vCLIENT.closeInventory(source)
 				vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
 				local newamount = droplist[id].count - amount
 				vCLIENT.dropItem(source,droplist[id].item,newamount)
@@ -2108,8 +2095,9 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
         else
 			if vRP.itemSubTypeList(droplist[id].item) then
 				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
-					TriggerClientEvent("Notify",source,"negado","Você já possui esse tipo de item.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Você já possui esse tipo de item.",5000)
 					TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
+					vCLIENT.closeInventory(source)
 					return
 				else
 					TriggerClientEvent("itemdrop:Remove",-1,id)
@@ -2127,13 +2115,14 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 			end
         end
     else
-        TriggerClientEvent("Notify",source,"negado","Sua <b>Mochila</b> Cheia.",5000)
+        TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",3000)
+		vCLIENT.closeInventory(source)
         end
     end
 
     local nplayer = vRPclient.nearestPlayer(source,5)
     if nplayer then
-        TriggerClientEvent("vga_inventory:Update",nplayer,"updateMochila")
+        TriggerClientEvent("inventory:Update",nplayer,"updateMochila")
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

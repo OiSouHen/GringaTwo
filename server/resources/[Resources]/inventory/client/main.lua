@@ -47,7 +47,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("invClose",function(data,cb)
 	SetNuiFocus(false,false)
-	TransitionFromBlurred(1000)
 	SetCursorLocation(0.5,0.5)
 	SendNUIMessage({ action = "hideMenu" })
 end)
@@ -56,7 +55,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function func.closeInventory()
 	SetNuiFocus(false,false)
-	TransitionFromBlurred(1000)
 	SetCursorLocation(0.5,0.5)
 	SendNUIMessage({ action = "hideMenu" })
 end
@@ -72,8 +70,6 @@ end)
 RegisterCommand("inventory:moc",function(source,args)
 	if not IsPlayerFreeAiming(PlayerPedId()) and GetEntityHealth(PlayerPedId()) > 101 then
 		SetNuiFocus(true,true)
-		TransitionToBlurred(1000)
-
 		SetCursorLocation(0.5,0.5)
 		SendNUIMessage({ action = "showMenu" })
 	end
@@ -159,7 +155,8 @@ Citizen.CreateThread(function()
             local distance = #(coords - vector3(v.x,v.y,cdz))
             if distance <= 4 then
                timeDistance = 4
-               DrawMarker(28, v.x, v.y, cdz+0.1, 0, 0, 0, 0, 0.3, 100.0, 0.05, 0.05, 0.05, 0, 100, 254, 100, 0, 0, 0, 1)
+			   DrawMarker(23,v.x,v.y,cdz + 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
+			   DrawMarker(21,v.x,v.y,cdz + 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
 			end
         end
 
@@ -209,10 +206,10 @@ RegisterNUICallback("requestMochila",function(data,cb)
 	local dropItems = {}
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
-		print("A")
+--		print("A")
 		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
-			print("B")
-			print(v.desc)
+--			print("B")
+--			print(v.desc)
 			table.insert(dropItems,{economy = v.economy, unity = v.unity, tipo = v.tipo, desc = v.desc, name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
 		end
 	end
@@ -392,7 +389,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,245,true)
 			DisableControlAction(1,257,true)
 			DisableControlAction(1,288,true)
-			-- DisableControlAction(1,37,true)
+		  --DisableControlAction(1,37,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
 		Citizen.Wait(timeDistance)

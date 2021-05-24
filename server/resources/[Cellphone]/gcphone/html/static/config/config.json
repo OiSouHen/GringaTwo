@@ -1,8 +1,26 @@
 ﻿{
-	"reseau": "GRINGA",
+	"reseau": "",
 	"warningMessageCount": 500,
-	"themeColor": "#30636f",
-	"colors": ["30636f"],
+	"themeColor": "#f5414d",
+	"colors": [
+		"#f5414d",
+		"#EC407A",
+		"#AB47BC",
+		"#7E57C2",
+		"#5C6BC0",
+		"#42A5F5",
+		"#29B6F6",
+		"#26C6DA",
+		"#26A69A",
+		"#66BB6A",
+		"#9CCC65",
+		"#D4E157",
+		"#FFCA28",
+		"#FFA726",
+		"#FF7043",
+		"#8D6E63",
+		"#78909C"
+	],
 	"useFormatNumberFrance": true,
 	"useWebRTCVocal": false,
 	"RTCConfig": {
@@ -69,23 +87,20 @@
 		"name": "Mobilphone",
 		"pt_BR__name": "Telefone",
 		"icons": "/html/static/img/icons_app/call.png",
-		"routeName": "appels",
-		"inHomePage": true
+		"routeName": "appels"
 	},
 	{
 		"name": "Messages",
 		"pt_BR__name": "Whatsapp",
 		"icons": "/html/static/img/icons_app/sms.png",
 		"routeName": "messages",
-		"inHomePage": true,
 		"puceRef": "nbMessagesUnread"
 	},
 	{
 		"name": "Contacts",
 		"pt_BR__name": "Contatos",
 		"icons": "/html/static/img/icons_app/contacts.png",
-		"routeName": "contacts",
-		"inHomePage": true
+		"routeName": "contacts"
 	},
 	{
 		"name": "Settings",
@@ -97,8 +112,7 @@
 		"name": "Dark Chat",
 		"pt_BR__name": "Deep Web",
 		"icons": "/html/static/img/icons_app/tchat.png",
-		"routeName": "tchat",
-		"inHomePage": true
+		"routeName": "tchat"
 	}],
 	"language": {
 		"pt_BR": {

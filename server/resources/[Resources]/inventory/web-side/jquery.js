@@ -350,7 +350,6 @@ const updateMochila = () => {
 						actualPercent = 5.0
 					}
 				}
-				
 
 				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">

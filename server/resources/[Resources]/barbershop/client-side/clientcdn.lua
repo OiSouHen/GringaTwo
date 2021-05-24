@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp", "lib/Tunnel")
-local Proxy = module("vrp", "lib/Proxy")
+local Tunnel = module("vrp","lib/Tunnel")
+local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
@@ -240,30 +240,42 @@ local locations = {{-813.37, -183.85, 37.57}, {138.13, -1706.46, 29.3}, {-1280.9
                    {1930.54, 3732.06, 32.85}, {1214.2, -473.18, 66.21}, {-33.61, -154.52, 57.08},
                    {-276.65, 6226.76, 31.7}}
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(locations) do
+		table.insert(innerTable,{ v[1],v[2],v[3],2.5,"E","Barbearia","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    SetNuiFocus(false, false)
+	SetNuiFocus(false,false)
 
-    while true do
-        local timeDistance = 500
-        local ped = PlayerPedId()
-        if not IsPedInAnyVehicle(ped) then
-            local coords = GetEntityCoords(ped)
-            for k, v in pairs(locations) do
-                local distance = #(coords - vector3(v[1], v[2], v[3]))
-                if distance <= 2.5 then
-                    timeDistance = 4
-                    DrawText3D(v[1], v[2], v[3], "~g~E~w~  SALÃO")
-                    if IsControlJustPressed(1, 38) and vSERVER.checkOpen() then
-                        displayBarbershop(true)
-                        SetEntityHeading(ped, 332.21)
-                    end
-                end
-            end
-        end
-        Citizen.Wait(timeDistance)
-    end
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+
+			for k,v in pairs(locations) do
+				local distance = #(coords - vector3(v[1],v[2],v[3]))
+				if distance <= 2.5 then
+					timeDistance = 4
+
+					if IsControlJustPressed(1,38) and vSERVER.checkShares() then
+						displayBarbershop(true)
+					end
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D

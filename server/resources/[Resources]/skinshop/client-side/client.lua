@@ -80,6 +80,17 @@ local locateShops = {
 	{ 1143.47,-1552.01,35.39 } -- Hospital
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(locateShops) do
+		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Loja de Roupas","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -95,7 +106,6 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 3 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~  PARA ABRIR")
 					if IsControlJustPressed(0,38) and vSERVER.checkOpen() then
 						customCamLocation = nil
 						openMenu({
@@ -110,21 +120,6 @@ Citizen.CreateThread(function()
 		Citizen.Wait(timeDistance)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RESETOUTFIT
 -----------------------------------------------------------------------------------------------------------------------------------------

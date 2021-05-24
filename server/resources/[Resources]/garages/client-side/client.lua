@@ -1387,7 +1387,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 15 then
 					timeDistance = 4
-					DrawMarker(23, v[1],v[2],v[3] - 0.97, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 0.5, 50, 107, 147, 160, 0, 0, 0, 1)
+					DrawMarker(23,v[1],v[2],v[3] - 0.95,0.0,0.0,0.0,0.0,0.0,0.0,1.75,1.75,0.0,42,137,255,100,0,0,0,0)
 					if distance <= 1.5 then
 						if IsControlJustPressed(1,38) then
 							vSERVER.returnHouses(v[4],k)

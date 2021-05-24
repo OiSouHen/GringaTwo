@@ -15,7 +15,6 @@ vSERVER = Tunnel.getInterface("crafting")
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("close",function(data)
 	SetNuiFocus(false,false)
-	TransitionFromBlurred(1000)
 	SendNUIMessage({ action = "hideNUI" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -72,6 +71,17 @@ local craftList = {
 	{ 714.07,-962.09,30.4,"costuraCrafting","Costura" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(craftList) do
+		table.insert(innerTable,{ v[1],v[2],v[3],1.25,"E","Loja de Criação","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -82,34 +92,20 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
+			
 			for k,v in pairs(craftList) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1 then
+				if distance <= 1.25 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~  TROCAR")
+					
 					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
 						SetNuiFocus(true,true)
-						TransitionToBlurred(1000)
 						SendNUIMessage({ action = "showNUI", name = tostring(v[4]) })
 					end
 				end
 			end
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
-end

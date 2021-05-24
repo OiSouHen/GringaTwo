@@ -33,7 +33,6 @@ Citizen.CreateThread(function()
 
 					if not startRobbery then
 						if distance <= 2 then
-							DrawText3D(v.x,v.y,v.z-0.4,"~g~E~w~   ROUBAR",400)
 							if distance <= 1 and IsControlJustPressed(1,38) and vSERVER.checkPolice(k,coords) then
 								robberyId = k
 								startRobbery = true
@@ -41,7 +40,7 @@ Citizen.CreateThread(function()
 							end
 						end
 					else
-						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE  ~b~"..robberyTimer.."~w~  SEGUNDOS",370)
+						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE ~b~"..robberyTimer.."~w~ SEGUNDOS",370)
 					end
 				end
 			end
@@ -93,4 +92,17 @@ function DrawText3D(x,y,z,text,height)
 	DrawText(_x,_y)
 	local factor = (string.len(text)) / height
 	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INPUTROBBERYS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cnVRP.inputRobberys(robberyTables)
+	robberys = robberyTables
+
+	local innerTable = {}
+	for k,v in pairs(robberys) do
+		table.insert(innerTable,{ v["coords"][1],v["coords"][2],v["coords"][3],1,"E",v["name"],"Pressione para iniciar o roubo" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
 end

@@ -109,186 +109,189 @@ local mattecolors = {
 
 LSC_Config = {}
 LSC_Config.prices = {}
+
 LSC_Config.prices = {
+
+
 	windowtint = {
-		{ name = "Pure Black", tint = 1, price = 2000 },
-		{ name = "Darksmoke", tint = 2, price = 2000 },
-		{ name = "Lightsmoke", tint = 3, price = 2000 },
-		{ name = "Limo", tint = 4, price = 2000 },
-		{ name = "Green", tint = 5, price = 2000 }
+		{ name = "Pure Black", tint = 1, price = 1750 },
+		{ name = "Darksmoke", tint = 2, price = 1750 },
+		{ name = "Lightsmoke", tint = 3, price = 1750 },
+		{ name = "Limo", tint = 4, price = 1750 },
+		{ name = "Green", tint = 5, price = 1750 }
 	},
 	chrome = {
 		colors = {
 			{ name = "Chrome", colorindex = 120 }
 		},
-		price = 1000
+		price = 3750
 	},
 	classic = {
 		colors = colors,
-		price = 500
+		price = 1500
 	},
 	matte = {
 		colors = mattecolors,
-		price = 500
+		price = 1500
 	},
 	metallic = {
 		colors = colors,
-		price = 500
+		price = 1500
 	},
 	metal = {
 		colors = metalcolors,
-		price = 500
+		price = 1500
 	},
 	chrome2 = {
 		colors = {
 			{ name = "Chrome", colorindex = 120 }
 		},
-		price = 1000
+		price = 3750
 	},
 	classic2 = {
 		colors = colors,
-		price = 500
+		price = 1500
 	},
 	matte2 = {
 		colors = mattecolors,
-		price = 500
+		price = 1500
 	},
 	metallic2 = {
 		colors = colors,
-		price = 500
+		price = 1500
 	},
 	metal2 = {
 		colors = metalcolors,
-		price = 500
+		price = 1500
 	},
 	neonlayout = {
-		{ name = "Front,Back and Sides", price = 2000 }
+		{ name = "Front,Back and Sides", price = 1750 }
 	},
 	neoncolor = {
-		{ name = "White", neon = {255,255,255}, price = 500 },
-		{ name = "Blue", neon = {0,0,255}, price = 500 },
-		{ name = "Electric Blue", neon = {0,150,255}, price = 500 },
-		{ name = "Mint Green", neon = {50,255,155}, price = 500 },
-		{ name = "Lime Green", neon = {0,255,0}, price = 500 },
-		{ name = "Yellow", neon = {255,255,0}, price = 500 },
-		{ name = "Golden Shower", neon = {204,204,0}, price = 500 },
-		{ name = "Orange", neon = {255,128,0}, price = 500 },
-		{ name = "Red", neon = {255,0,0}, price = 500 },
-		{ name = "Pony Pink", neon = {255,102,255}, price = 500 },
-		{ name = "Hot Pink",neon = {255,0,255}, price = 500 },
-		{ name = "Purple", neon = {153,0,153}, price = 500 },
-		{ name = "Brown", neon = {139,69,19}, price = 500 }
+		{ name = "White", neon = {255,255,255}, price = 1500 },
+		{ name = "Blue", neon = {0,0,255}, price = 1500 },
+		{ name = "Electric Blue", neon = {0,150,255}, price = 1500 },
+		{ name = "Mint Green", neon = {50,255,155}, price = 1500 },
+		{ name = "Lime Green", neon = {0,255,0}, price = 1500 },
+		{ name = "Yellow", neon = {255,255,0}, price = 1500 },
+		{ name = "Golden Shower", neon = {204,204,0}, price = 1500 },
+		{ name = "Orange", neon = {255,128,0}, price = 1500 },
+		{ name = "Red", neon = {255,0,0}, price = 1500 },
+		{ name = "Pony Pink", neon = {255,102,255}, price = 1500 },
+		{ name = "Hot Pink",neon = {255,0,255}, price = 1500 },
+		{ name = "Purple", neon = {153,0,153}, price = 1500 },
+		{ name = "Brown", neon = {139,69,19}, price = 1500 }
 	},
 	xenoncolor = {
-		{ name = "White", xenon = 0, price = 1000 },
-		{ name = "Blue", xenon = 1, price = 1000 },
-		{ name = "Electric Blue", xenon = 2, price = 1000 },
-		{ name = "Mint Green", xenon = 3, price = 1000 },
-		{ name = "Lime Green", xenon = 4, price = 1000 },
-		{ name = "Yellow", xenon = 5, price = 1000 },
-		{ name = "Golden Shower", xenon = 6, price = 1000 },
-		{ name = "Orange", xenon = 7, price = 1000 },
-		{ name = "Red", xenon = 8, price = 1000 },
-		{ name = "Pony Pink", xenon = 9, price = 1000 },
-		{ name = "Hot Pink",xenon = 10, price = 1000 },
-		{ name = "Purple", xenon = 11, price = 1000 },
-		{ name = "Blacklight", xenon = 12, price = 1000 }
+		{ name = "White", xenon = 0, price = 1500 },
+		{ name = "Blue", xenon = 1, price = 1500 },
+		{ name = "Electric Blue", xenon = 2, price = 1500 },
+		{ name = "Mint Green", xenon = 3, price = 1500 },
+		{ name = "Lime Green", xenon = 4, price = 1500 },
+		{ name = "Yellow", xenon = 5, price = 1500 },
+		{ name = "Golden Shower", xenon = 6, price = 1500 },
+		{ name = "Orange", xenon = 7, price = 1500 },
+		{ name = "Red", xenon = 8, price = 1500 },
+		{ name = "Pony Pink", xenon = 9, price = 1500 },
+		{ name = "Hot Pink",xenon = 10, price = 1500 },
+		{ name = "Purple", xenon = 11, price = 1500 },
+		{ name = "Blacklight", xenon = 12, price = 1500 }
 	},
 	plates = {
-		{ name = "Blue on White 1", plateindex = 0, price = 500 },
-		{ name = "Blue On White 2", plateindex = 3, price = 500 },
-		{ name = "Blue On White 3", plateindex = 4, price = 500 },
-		{ name = "Yellow on Blue", plateindex = 2, price = 500 },
-		{ name = "Yellow on Black", plateindex = 1, price = 500 }
+		{ name = "Blue on White 1", plateindex = 0, price = 1500 },
+		{ name = "Blue On White 2", plateindex = 3, price = 1500 },
+		{ name = "Blue On White 3", plateindex = 4, price = 1500 },
+		{ name = "Yellow on Blue", plateindex = 2, price = 1500 },
+		{ name = "Yellow on Black", plateindex = 1, price = 1500 }
 	},
 	wheelaccessories = {
-		{ name = "Stock Tires", price = 500 },
-		{ name = "Custom Tires", price = 500 },
-		{ name = "White Tire Smoke", smokecolor = {254,254,254}, price = 500 },
-		{ name = "Black Tire Smoke", smokecolor = {1,1,1}, price = 500 },
-		{ name = "BLue Tire Smoke", smokecolor = {0,150,255}, price = 500 },
-		{ name = "Yellow Tire Smoke", smokecolor = {255,255,50}, price = 500 },
-		{ name = "Orange Tire Smoke", smokecolor = {255,153,51}, price = 500 },
-		{ name = "Red Tire Smoke", smokecolor = {255,10,10}, price = 500 },
-		{ name = "Green Tire Smoke", smokecolor = {10,255,10}, price = 500 },
-		{ name = "Purple Tire Smoke", smokecolor = {153,10,153}, price = 500 },
-		{ name = "Pink Tire Smoke", smokecolor = {255,102,178}, price = 500 },
-		{ name = "Gray Tire Smoke",smokecolor = {128,128,128}, price = 500 }
+		{ name = "Stock Tires", price = 1500 },
+		{ name = "Custom Tires", price = 1500 },
+		{ name = "White Tire Smoke", smokecolor = {254,254,254}, price = 1500 },
+		{ name = "Black Tire Smoke", smokecolor = {1,1,1}, price = 1500 },
+		{ name = "BLue Tire Smoke", smokecolor = {0,150,255}, price = 1500 },
+		{ name = "Yellow Tire Smoke", smokecolor = {255,255,50}, price = 1500 },
+		{ name = "Orange Tire Smoke", smokecolor = {255,153,51}, price = 1500 },
+		{ name = "Red Tire Smoke", smokecolor = {255,10,10}, price = 1500 },
+		{ name = "Green Tire Smoke", smokecolor = {10,255,10}, price = 1500 },
+		{ name = "Purple Tire Smoke", smokecolor = {153,10,153}, price = 1500 },
+		{ name = "Pink Tire Smoke", smokecolor = {255,102,178}, price = 1500 },
+		{ name = "Gray Tire Smoke",smokecolor = {128,128,128}, price = 1500 }
 	},
 	wheelcolor = {
 		colors = colors,
 		price = 500
 	},
 	frontwheel = {
-		{ name = "Stock", wtype = 6, mod = -1, price = 1000 },
-		{ name = "Speedway", wtype = 6, mod = 0, price = 1000 },
-		{ name = "Streetspecial", wtype = 6, mod = 1, price = 1000 },
-		{ name = "Racer", wtype = 6, mod = 2, price = 1000 },
-		{ name = "Trackstar", wtype = 6, mod = 3, price = 1000 },
-		{ name = "Overlord", wtype = 6, mod = 4, price = 1000 },
-		{ name = "Trident", wtype = 6, mod = 5, price = 1000 },
-		{ name = "Triplethreat", wtype = 6, mod = 6, price = 1000 },
-		{ name = "Stilleto", wtype = 6, mod = 7, price = 1000 },
-		{ name = "Wires", wtype = 6, mod = 8, price = 1000 },
-		{ name = "Bobber", wtype = 6, mod = 9, price = 1000 },
-		{ name = "Solidus", wtype = 6, mod = 10, price = 1000 },
-		{ name = "Iceshield", wtype = 6, mod = 11, price = 1000 },
-		{ name = "Loops", wtype = 6, mod = 12, price = 1000 }
+		{ name = "Stock", wtype = 6, mod = -1, price = 1750 },
+		{ name = "Speedway", wtype = 6, mod = 0, price = 1750 },
+		{ name = "Streetspecial", wtype = 6, mod = 1, price = 1750 },
+		{ name = "Racer", wtype = 6, mod = 2, price = 1750 },
+		{ name = "Trackstar", wtype = 6, mod = 3, price = 1750 },
+		{ name = "Overlord", wtype = 6, mod = 4, price = 1750 },
+		{ name = "Trident", wtype = 6, mod = 5, price = 1750 },
+		{ name = "Triplethreat", wtype = 6, mod = 6, price = 1750 },
+		{ name = "Stilleto", wtype = 6, mod = 7, price = 1750 },
+		{ name = "Wires", wtype = 6, mod = 8, price = 1750 },
+		{ name = "Bobber", wtype = 6, mod = 9, price = 1750 },
+		{ name = "Solidus", wtype = 6, mod = 10, price = 1750 },
+		{ name = "Iceshield", wtype = 6, mod = 11, price = 1750 },
+		{ name = "Loops", wtype = 6, mod = 12, price = 1750 }
 	},
 	backwheel = {
-		{ name = "Stock", wtype = 6, mod = -1, price = 1000 },
-		{ name = "Speedway", wtype = 6, mod = 0, price = 1000 },
-		{ name = "Streetspecial", wtype = 6, mod = 1, price = 1000 },
-		{ name = "Racer", wtype = 6, mod = 2, price = 1000 },
-		{ name = "Trackstar", wtype = 6, mod = 3, price = 1000 },
-		{ name = "Overlord", wtype = 6, mod = 4, price = 1000 },
-		{ name = "Trident", wtype = 6, mod = 5, price = 1000 },
-		{ name = "Triplethreat", wtype = 6, mod = 6, price = 1000 },
-		{ name = "Stilleto", wtype = 6, mod = 7, price = 1000 },
-		{ name = "Wires", wtype = 6, mod = 8, price = 1000 },
-		{ name = "Bobber", wtype = 6, mod = 9, price = 1000 },
-		{ name = "Solidus", wtype = 6, mod = 10, price = 1000 },
-		{ name = "Iceshield", wtype = 6, mod = 11, price = 1000 },
-		{ name = "Loops", wtype = 6, mod = 12, price = 1000 }
+		{ name = "Stock", wtype = 6, mod = -1, price = 1750 },
+		{ name = "Speedway", wtype = 6, mod = 0, price = 1750 },
+		{ name = "Streetspecial", wtype = 6, mod = 1, price = 1750 },
+		{ name = "Racer", wtype = 6, mod = 2, price = 1750 },
+		{ name = "Trackstar", wtype = 6, mod = 3, price = 1750 },
+		{ name = "Overlord", wtype = 6, mod = 4, price = 1750 },
+		{ name = "Trident", wtype = 6, mod = 5, price = 1750 },
+		{ name = "Triplethreat", wtype = 6, mod = 6, price = 1750 },
+		{ name = "Stilleto", wtype = 6, mod = 7, price = 1750 },
+		{ name = "Wires", wtype = 6, mod = 8, price = 1750 },
+		{ name = "Bobber", wtype = 6, mod = 9, price = 1750 },
+		{ name = "Solidus", wtype = 6, mod = 10, price = 1750 },
+		{ name = "Iceshield", wtype = 6, mod = 11, price = 1750 },
+		{ name = "Loops", wtype = 6, mod = 12, price = 1750 }
 	},
 	sportwheels = {
-		{ name = "Stock", wtype = 0, mod = -1, price = 1000 },
-		{ name = "Inferno", wtype = 0, mod = 0, price = 1000 },
-		{ name = "Deepfive", wtype = 0, mod = 1, price = 1000 },
-		{ name = "Lozspeed", wtype = 0, mod = 2, price = 1000 },
-		{ name = "Diamondcut", wtype = 0, mod = 3, price = 1000 },
-		{ name = "Chrono", wtype = 0, mod = 4, price = 1000 },
-		{ name = "Feroccirr", wtype = 0, mod = 5, price = 1000 },
-		{ name = "Fiftynine", wtype = 0, mod = 6, price = 1000 },
-		{ name = "Mercie", wtype = 0, mod = 7, price = 1000 },
-		{ name = "Syntheticz", wtype = 0, mod = 8, price = 1000 },
-		{ name = "Organictyped", wtype = 0, mod = 9, price = 1000 },
-		{ name = "Endov1", wtype = 0, mod = 10, price = 1000 },
-		{ name = "Duper7", wtype = 0, mod = 11, price = 1000 },
-		{ name = "Uzer", wtype = 0, mod = 12, price = 1000 },
-		{ name = "Groundride", wtype = 0, mod = 13, price = 1000 },
-		{ name = "Spacer", wtype = 0, mod = 14, price = 1000 },
-		{ name = "Venum", wtype = 0, mod = 15, price = 1000 },
-		{ name = "Cosmo", wtype = 0, mod = 16, price = 1000 },
-		{ name = "Dashvip", wtype = 0, mod = 17, price = 1000 },
-		{ name = "Icekid", wtype = 0, mod = 18, price = 1000 },
-		{ name = "Ruffeld", wtype = 0, mod = 19, price = 1000 },
-		{ name = "Wangenmaster", wtype = 0, mod = 20, price = 1000 },
-		{ name = "Superfive", wtype = 0, mod = 21, price = 1000 },
-		{ name = "Endov2", wtype = 0, mod = 22, price = 1000 },
-		{ name = "Slitsix", wtype = 0, mod = 23, price = 1000 }
+		{ name = "Stock", wtype = 0, mod = -1, price = 1750 },
+		{ name = "Inferno", wtype = 0, mod = 0, price = 1750 },
+		{ name = "Deepfive", wtype = 0, mod = 1, price = 1750 },
+		{ name = "Lozspeed", wtype = 0, mod = 2, price = 1750 },
+		{ name = "Diamondcut", wtype = 0, mod = 3, price = 1750 },
+		{ name = "Chrono", wtype = 0, mod = 4, price = 1750 },
+		{ name = "Feroccirr", wtype = 0, mod = 5, price = 1750 },
+		{ name = "Fiftynine", wtype = 0, mod = 6, price = 1750 },
+		{ name = "Mercie", wtype = 0, mod = 7, price = 1750 },
+		{ name = "Syntheticz", wtype = 0, mod = 8, price = 1750 },
+		{ name = "Organictyped", wtype = 0, mod = 9, price = 1750 },
+		{ name = "Endov1", wtype = 0, mod = 10, price = 1750 },
+		{ name = "Duper7", wtype = 0, mod = 11, price = 1750 },
+		{ name = "Uzer", wtype = 0, mod = 12, price = 1750 },
+		{ name = "Groundride", wtype = 0, mod = 13, price = 1750 },
+		{ name = "Spacer", wtype = 0, mod = 14, price = 1750 },
+		{ name = "Venum", wtype = 0, mod = 15, price = 1750 },
+		{ name = "Cosmo", wtype = 0, mod = 16, price = 1750 },
+		{ name = "Dashvip", wtype = 0, mod = 17, price = 1750 },
+		{ name = "Icekid", wtype = 0, mod = 18, price = 1750 },
+		{ name = "Ruffeld", wtype = 0, mod = 19, price = 1750 },
+		{ name = "Wangenmaster", wtype = 0, mod = 20, price = 1750 },
+		{ name = "Superfive", wtype = 0, mod = 21, price = 1750 },
+		{ name = "Endov2", wtype = 0, mod = 22, price = 1750 },
+		{ name = "Slitsix", wtype = 0, mod = 23, price = 1750 }
 	},
 	importwheels = {
-		{ name = "Stock", wtype = 0, mod = -1, price = 1000 },
-		{ name = "Cosmo", wtype = 0, mod = 50, price = 2000 },
-		{ name = "Supermesh", wtype = 0, mod = 51, price = 2000 },
-		{ name = "Outsider", wtype = 0, mod = 52, price = 2000 },
-		{ name = "Rollas", wtype = 0, mod = 53, price = 2000 },
-		{ name = "Driffmeister", wtype = 0, mod = 54, price = 2000 },
-		{ name = "Slicer", wtype = 0, mod = 55, price = 2000 },
-		{ name = "Elquatro", wtype = 0, mod = 56, price = 2000 },
-		{ name = "Dubbed", wtype = 0, mod = 57, price = 2000 },
-		{ name = "Fivestar", wtype = 0, mod = 58, price = 2000 },
+		{ name = "Stock", wtype = 0, mod = -1, price = 1750 },
+		{ name = "Cosmo", wtype = 0, mod = 50, price = 2750 },
+		{ name = "Supermesh", wtype = 0, mod = 51, price = 2750 },
+		{ name = "Outsider", wtype = 0, mod = 52, price = 2750 },
+		{ name = "Rollas", wtype = 0, mod = 53, price = 2750 },
+		{ name = "Driffmeister", wtype = 0, mod = 54, price = 2750 },
+		{ name = "Slicer", wtype = 0, mod = 55, price = 2750 },
+		{ name = "Elquatro", wtype = 0, mod = 56, price = 2750 },
+		{ name = "Dubbed", wtype = 0, mod = 57, price = 2750 },
+		{ name = "Bippu", wtype = 0, mod = 58, price = 2750 },
 		{ name = "Slideways", wtype = 0, mod = 59, price = 2000 },
 		{ name = "Apex", wtype = 0, mod = 60, price = 2000 },
 		{ name = "Stancedeg", wtype = 0, mod = 61, price = 2000 },
@@ -315,232 +318,232 @@ LSC_Config.prices = {
 		{ name = "Empowered", wtype = 0, mod = 82, price = 2000 }
 	},
 	suvwheels = {
-		{ name = "Stock", wtype = 3, mod = -1, price = 1000 },
-		{ name = "Enercy", wtype = 3, mod = 0, price = 1000 },
-		{ name = "Benefactor", wtype = 3, mod = 1, price = 1000 },
-		{ name = "Cosmo", wtype = 3, mod = 2, price = 1000 },
-		{ name = "Bippu", wtype = 3, mod = 3, price = 1000 },
-		{ name = "Royalsix", wtype = 3, mod = 4, price = 1000 },
-		{ name = "Fagorme", wtype = 3, mod = 5, price = 1000 },
-		{ name = "Deluxe", wtype = 3, mod = 6, price = 1000 },
-		{ name = "Icedout", wtype = 3, mod = 7, price = 1000 },
-		{ name = "Cognscenti", wtype = 3, mod = 8, price = 1000 },
-		{ name = "Lozspeedten", wtype = 3, mod = 9, price = 1000 },
-		{ name = "Supernova", wtype = 3, mod = 10, price = 1000 },
-		{ name = "Obeyrs", wtype = 3, mod = 11, price = 1000 },
-		{ name = "Lozspeedballer", wtype = 3, mod = 12, price = 1000 },
-		{ name = "Extra vaganzo", wtype = 3, mod = 13, price = 1000 },
-		{ name = "Splitsix", wtype = 3, mod = 14, price = 1000 },
-		{ name = "Empowered", wtype = 3, mod = 15, price = 1000 },
-		{ name = "Sunrise", wtype = 3, mod = 16, price = 1000 },
-		{ name = "Dashvip", wtype = 3, mod = 17, price = 1000 },
-		{ name = "Cutter", wtype = 3, mod = 18, price = 1000 }
+		{ name = "Stock", wtype = 3, mod = -1, price = 1750 },
+		{ name = "Enercy", wtype = 3, mod = 0, price = 1750 },
+		{ name = "Benefactor", wtype = 3, mod = 1, price = 1750 },
+		{ name = "Cosmo", wtype = 3, mod = 2, price = 1750 },
+		{ name = "Bippu", wtype = 3, mod = 3, price = 1750 },
+		{ name = "Royalsix", wtype = 3, mod = 4, price = 1750 },
+		{ name = "Fagorme", wtype = 3, mod = 5, price = 1750 },
+		{ name = "Deluxe", wtype = 3, mod = 6, price = 1750 },
+		{ name = "Icedout", wtype = 3, mod = 7, price = 1750 },
+		{ name = "Cognscenti", wtype = 3, mod = 8, price = 1750 },
+		{ name = "Lozspeedten", wtype = 3, mod = 9, price = 1750 },
+		{ name = "Supernova", wtype = 3, mod = 10, price = 1750 },
+		{ name = "Obeyrs", wtype = 3, mod = 11, price = 1750 },
+		{ name = "Lozspeedballer", wtype = 3, mod = 12, price = 1750 },
+		{ name = "Extra vaganzo", wtype = 3, mod = 13, price = 1750 },
+		{ name = "Splitsix", wtype = 3, mod = 14, price = 1750 },
+		{ name = "Empowered", wtype = 3, mod = 15, price = 1750 },
+		{ name = "Sunrise", wtype = 3, mod = 16, price = 1750 },
+		{ name = "Dashvip", wtype = 3, mod = 17, price = 1750 },
+		{ name = "Cutter", wtype = 3, mod = 18, price = 1750 }
 	},
 	offroadwheels = {
-		{ name = "Stock", wtype = 4, mod = -1, price = 1000 },
-		{ name = "Raider", wtype = 4, mod = 0, price = 1000 },
-		{ name = "Mudslinger", wtype = 4, modtype = 23, wtype = 4, mod = 1, price = 1000 },
-		{ name = "Nevis", wtype = 4, mod = 2, price = 1000 },
-		{ name = "Cairngorm", wtype = 4, mod = 3, price = 1000 },
-		{ name = "Amazon", wtype = 4, mod = 4, price = 1000 },
-		{ name = "Challenger", wtype = 4, mod = 5, price = 1000 },
-		{ name = "Dunebasher", wtype = 4, mod = 6, price = 1000 },
-		{ name = "Fivestar", wtype = 4, mod = 7, price = 1000 },
-		{ name = "Rockcrawler", wtype = 4, mod = 8, price = 1000 },
-		{ name = "Milspecsteelie", wtype = 4, mod = 9, price = 1000 },
+		{ name = "Stock", wtype = 4, mod = -1, price = 1750 },
+		{ name = "Raider", wtype = 4, mod = 0, price = 1750 },
+		{ name = "Mudslinger", wtype = 4, modtype = 23, mod = 1, price = 1750 },
+		{ name = "Nevis", wtype = 4, mod = 2, price = 1750 },
+		{ name = "Cairngorm", wtype = 4, mod = 3, price = 1750 },
+		{ name = "Amazon", wtype = 4, mod = 4, price = 1750 },
+		{ name = "Challenger", wtype = 4, mod = 5, price = 1750 },
+		{ name = "Dunebasher", wtype = 4, mod = 6, price = 1750 },
+		{ name = "Fivestar", wtype = 4, mod = 7, price = 1750 },
+		{ name = "Rockcrawler", wtype = 4, mod = 8, price = 1750 },
+		{ name = "Milspecsteelie", wtype = 4, mod = 9, price = 1750 },
 	},
 	tunerwheels = {
-		{ name = "Stock", wtype = 5, mod = -1, price = 1000 },
-		{ name = "Cosmo", wtype = 5, mod = 0, price = 1000 },
-		{ name = "Supermesh", wtype = 5, mod = 1, price = 1000 },
-		{ name = "Outsider", wtype = 5, mod = 2, price = 1000 },
-		{ name = "Rollas", wtype = 5, mod = 3, price = 1000 },
-		{ name = "Driffmeister", wtype = 5, mod = 4, price = 1000 },
-		{ name = "Slicer", wtype = 5, mod = 5, price = 1000 },
-		{ name = "Elquatro", wtype = 5, mod = 6, price = 1000 },
-		{ name = "Dubbed", wtype = 5, mod = 7, price = 1000 },
-		{ name = "Fivestar", wtype = 5, mod = 8, price = 1000 },
-		{ name = "Slideways", wtype = 5, mod = 9, price = 1000 },
-		{ name = "Apex", wtype = 5, mod = 10, price = 1000 },
-		{ name = "Stancedeg", wtype = 5, mod = 11, price = 1000 },
-		{ name = "Countersteer", wtype = 5, mod = 12, price = 1000 },
-		{ name = "Endov1", wtype = 5, mod = 13, price = 1000 },
-		{ name = "Endov2dish", wtype = 5, mod = 14, price = 1000 },
-		{ name = "Guppez", wtype = 5, mod = 15, price = 1000 },
-		{ name = "Chokadori", wtype = 5, mod = 16, price = 1000 },
-		{ name = "Chicane", wtype = 5, mod = 17, price = 1000 },
-		{ name = "Saisoku", wtype = 5, mod = 18, price = 1000 },
-		{ name = "Dishedeight", wtype = 5, mod = 19, price = 1000 },
-		{ name = "Fujiwara", wtype = 5, mod = 20, price = 1000 },
-		{ name = "Zokusha", wtype = 5, mod = 21, price = 1000 },
-		{ name = "Battlevill", wtype = 5, mod = 22, price = 1000 },
-		{ name = "Rallymaster", wtype = 5, mod = 23, price = 1000 }
+		{ name = "Stock", wtype = 5, mod = -1, price = 1750 },
+		{ name = "Cosmo", wtype = 5, mod = 0, price = 1750 },
+		{ name = "Supermesh", wtype = 5, mod = 1, price = 1750 },
+		{ name = "Outsider", wtype = 5, mod = 2, price = 1750 },
+		{ name = "Rollas", wtype = 5, mod = 3, price = 1750 },
+		{ name = "Driffmeister", wtype = 5, mod = 4, price = 1750 },
+		{ name = "Slicer", wtype = 5, mod = 5, price = 1750 },
+		{ name = "Elquatro", wtype = 5, mod = 6, price = 1750 },
+		{ name = "Dubbed", wtype = 5, mod = 7, price = 1750 },
+		{ name = "Fivestar", wtype = 5, mod = 8, price = 1750 },
+		{ name = "Slideways", wtype = 5, mod = 9, price = 1750 },
+		{ name = "Apex", wtype = 5, mod = 10, price = 1750 },
+		{ name = "Stancedeg", wtype = 5, mod = 11, price = 1750 },
+		{ name = "Countersteer", wtype = 5, mod = 12, price = 1750 },
+		{ name = "Endov1", wtype = 5, mod = 13, price = 1750 },
+		{ name = "Endov2dish", wtype = 5, mod = 14, price = 1750 },
+		{ name = "Guppez", wtype = 5, mod = 15, price = 1750 },
+		{ name = "Chokadori", wtype = 5, mod = 16, price = 1750 },
+		{ name = "Chicane", wtype = 5, mod = 17, price = 1750 },
+		{ name = "Saisoku", wtype = 5, mod = 18, price = 1750 },
+		{ name = "Dishedeight", wtype = 5, mod = 19, price = 1750 },
+		{ name = "Fujiwara", wtype = 5, mod = 20, price = 1750 },
+		{ name = "Zokusha", wtype = 5, mod = 21, price = 1750 },
+		{ name = "Battlevill", wtype = 5, mod = 22, price = 1750 },
+		{ name = "Rallymaster", wtype = 5, mod = 23, price = 1750 }
 	},
 	highendwheels = {
-		{ name = "Stock", wtype = 7, mod = -1, price = 1000 },
-		{ name = "Shadow", wtype = 7, mod = 0, price = 1000 },
-		{ name = "Hyper", wtype = 7, mod = 1, price = 1000 },
-		{ name = "Blade", wtype = 7, mod = 2, price = 1000 },
-		{ name = "Diamond", wtype = 7, mod = 3, price = 1000 },
-		{ name = "Supagee", wtype = 7, mod = 4, price = 1000 },
-		{ name = "Chromaticz", wtype = 7, mod = 5, price = 1000 },
-		{ name = "Merciechlip", wtype = 7, mod = 6, price = 1000 },
-		{ name = "Obeyrs", wtype = 7, mod = 7, price = 1000 },
-		{ name = "Gtchrome", wtype = 7, mod = 8, price = 1000 },
-		{ name = "Cheetahr", wtype = 7, mod = 9, price = 1000 },
-		{ name = "Solar", wtype = 7, mod = 10, price = 1000 },
-		{ name = "Splitten", wtype = 7, mod = 11, price = 1000 },
-		{ name = "Dashvip", wtype = 7, mod = 12, price = 1000 },
-		{ name = "Lozspeedten", wtype = 7, mod = 13, price = 1000 },
-		{ name = "Carboninferno", wtype = 7, mod = 14, price = 1000 },
-		{ name = "Carbonshadow", wtype = 7, mod = 15, price = 1000 },
-		{ name = "Carbonz", wtype = 7, mod = 16, price = 1000 },
-		{ name = "Carbonsolar", wtype = 7, mod = 17, price = 1000 },
-		{ name = "Carboncheetahr", wtype = 7, mod = 18, price = 1000 },
-		{ name = "Carbonsracer", wtype = 7, mod = 19, price = 1000 }
+		{ name = "Stock", wtype = 7, mod = -1, price = 1750 },
+		{ name = "Shadow", wtype = 7, mod = 0, price = 1750 },
+		{ name = "Hyper", wtype = 7, mod = 1, price = 1750 },
+		{ name = "Blade", wtype = 7, mod = 2, price = 1750 },
+		{ name = "Diamond", wtype = 7, mod = 3, price = 1750 },
+		{ name = "Supagee", wtype = 7, mod = 4, price = 1750 },
+		{ name = "Chromaticz", wtype = 7, mod = 5, price = 1750 },
+		{ name = "Merciechlip", wtype = 7, mod = 6, price = 1750 },
+		{ name = "Obeyrs", wtype = 7, mod = 7, price = 1750 },
+		{ name = "Gtchrome", wtype = 7, mod = 8, price = 1750 },
+		{ name = "Cheetahr", wtype = 7, mod = 9, price = 1750 },
+		{ name = "Solar", wtype = 7, mod = 10, price = 1750 },
+		{ name = "Splitten", wtype = 7, mod = 11, price = 1750 },
+		{ name = "Dashvip", wtype = 7, mod = 12, price = 1750 },
+		{ name = "Lozspeedten", wtype = 7, mod = 13, price = 1750 },
+		{ name = "Carboninferno", wtype = 7, mod = 14, price = 1750 },
+		{ name = "Carbonshadow", wtype = 7, mod = 15, price = 1750 },
+		{ name = "Carbonz", wtype = 7, mod = 16, price = 1750 },
+		{ name = "Carbonsolar", wtype = 7, mod = 17, price = 1750 },
+		{ name = "Carboncheetahr", wtype = 7, mod = 18, price = 1750 },
+		{ name = "Carbonsracer", wtype = 7, mod = 19, price = 1750 }
 	},
 	lowriderwheels = {
-		{ name = "Stock", wtype = 2, mod = -1, price = 1000 },
-		{ name = "Flare", wtype = 2, mod = 0, price = 1000 },
-		{ name = "Wired", wtype = 2, mod = 1, price = 1000 },
-		{ name = "Triplegolds", wtype = 2, mod = 2, price = 1000 },
-		{ name = "Bigworm", wtype = 2, mod = 3, price = 1000 },
-		{ name = "Sevenfives", wtype = 2, mod = 4, price = 1000 },
-		{ name = "Splitsix", wtype = 2, mod = 5, price = 1000 },
-		{ name = "Freshmesh", wtype = 2, mod = 6, price = 1000 },
-		{ name = "Leadsled", wtype = 2, mod = 7, price = 1000 },
-		{ name = "Turbine", wtype = 2, mod = 8, price = 1000 },
-		{ name = "Superfin", wtype = 2, mod = 9, price = 1000 },
-		{ name = "Classicrod", wtype = 2, mod = 10, price = 1000 },
-		{ name = "Dollar", wtype = 2, mod = 11, price = 1000 },
-		{ name = "Dukes", wtype = 2, mod = 12, price = 1000 },
-		{ name = "Lowfive", wtype = 2, mod = 13, price = 1000 },
-		{ name = "Gooch", wtype = 2, mod = 14, price = 1000 }
+		{ name = "Stock", wtype = 2, mod = -1, price = 1750 },
+		{ name = "Flare", wtype = 2, mod = 0, price = 1750 },
+		{ name = "Wired", wtype = 2, mod = 1, price = 1750 },
+		{ name = "Triplegolds", wtype = 2, mod = 2, price = 1750 },
+		{ name = "Bigworm", wtype = 2, mod = 3, price = 1750 },
+		{ name = "Sevenfives", wtype = 2, mod = 4, price = 1750 },
+		{ name = "Splitsix", wtype = 2, mod = 5, price = 1750 },
+		{ name = "Freshmesh", wtype = 2, mod = 6, price = 1750 },
+		{ name = "Leadsled", wtype = 2, mod = 7, price = 1750 },
+		{ name = "Turbine", wtype = 2, mod = 8, price = 1750 },
+		{ name = "Superfin", wtype = 2, mod = 9, price = 1750 },
+		{ name = "Classicrod", wtype = 2, mod = 10, price = 1750 },
+		{ name = "Dollar", wtype = 2, mod = 11, price = 1750 },
+		{ name = "Dukes", wtype = 2, mod = 12, price = 1750 },
+		{ name = "Lowfive", wtype = 2, mod = 13, price = 1750 },
+		{ name = "Gooch", wtype = 2, mod = 14, price = 1750 }
 	},
 	musclewheels = {
-		{ name = "Stock", wtype = 1, mod = -1, price = 1000 },
-		{ name = "Classicfive", wtype = 1, mod = 0, price = 1000 },
-		{ name = "Dukes", wtype = 1, mod = 1, price = 1000 },
-		{ name = "Musclefreak", wtype = 1, mod = 2, price = 1000 },
-		{ name = "Kracka", wtype = 1, mod = 3, price = 1000 },
-		{ name = "Azrea", wtype = 1, mod = 4, price = 1000 },
-		{ name = "Mecha", wtype = 1, mod = 5, price = 1000 },
-		{ name = "Blacktop", wtype = 1, mod = 6, price = 1000 },
-		{ name = "Dragspl", wtype = 1, mod = 7, price = 1000 },
-		{ name = "Revolver", wtype = 1, mod = 8, price = 1000 },
-		{ name = "Classicrod", wtype = 1, mod = 9, price = 1000 },
-		{ name = "Spooner", wtype = 1, mod = 10, price = 1000 },
-		{ name = "Fivestar", wtype = 1, mod = 11, price = 1000 },
-		{ name = "Oldschool", wtype = 1, mod = 12, price = 1000 },
-		{ name = "Eljefe", wtype = 1, mod = 13, price = 1000 },
-		{ name = "Dodman", wtype = 1, mod = 14, price = 1000 },
-		{ name = "Sixgun", wtype = 1, mod = 15, price = 1000 },
-		{ name = "Mercenary", wtype = 1, mod = 16, price = 1000 }
+		{ name = "Stock", wtype = 1, mod = -1, price = 1750 },
+		{ name = "Classicfive", wtype = 1, mod = 0, price = 1750 },
+		{ name = "Dukes", wtype = 1, mod = 1, price = 1750 },
+		{ name = "Musclefreak", wtype = 1, mod = 2, price = 1750 },
+		{ name = "Kracka", wtype = 1, mod = 3, price = 1750 },
+		{ name = "Azrea", wtype = 1, mod = 4, price = 1750 },
+		{ name = "Mecha", wtype = 1, mod = 5, price = 1750 },
+		{ name = "Blacktop", wtype = 1, mod = 6, price = 1750 },
+		{ name = "Dragspl", wtype = 1, mod = 7, price = 1750 },
+		{ name = "Revolver", wtype = 1, mod = 8, price = 1750 },
+		{ name = "Classicrod", wtype = 1, mod = 9, price = 1750 },
+		{ name = "Spooner", wtype = 1, mod = 10, price = 1750 },
+		{ name = "Fivestar", wtype = 1, mod = 11, price = 1750 },
+		{ name = "Oldschool", wtype = 1, mod = 12, price = 1750 },
+		{ name = "Eljefe", wtype = 1, mod = 13, price = 1750 },
+		{ name = "Dodman", wtype = 1, mod = 14, price = 1750 },
+		{ name = "Sixgun", wtype = 1, mod = 15, price = 1750 },
+		{ name = "Mercenary", wtype = 1, mod = 16, price = 1750 }
 	},
 	trim = {
 		colors = colors,
-		price = 500
+		price = 1500
 	},
 	mods = {
 		[48] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[46] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[45] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[44] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[43] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[42] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[41] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[40] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[39] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[38] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[37] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[36] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[35] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[34] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[33] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[32] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[31] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[30] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[29] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[28] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[27] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[26] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[25] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[22] = {
-			{ name = "Stock", mod = 0, price = 1000 },
-			{ name = "Xenon", mod = 1, price = 2000 }
+			{ name = "Stock", mod = 0, price = 1500 },
+			{ name = "Xenon", mod = 1, price = 4500 }
 		},
 		[18] = {
-			{ name = "None", mod = 0, price = 20000 },
-			{ name = "Turbo", mod = 1, price = 20000 }
+			{ name = "None", mod = 0, price = 2500 },
+			{ name = "Turbo", mod = 1, price = 7500 }
 		},
 		[16] = {
 			{ name = "Blindagem 20%", modtype = 16, mod = 0, price = 30000 },
@@ -556,48 +559,48 @@ LSC_Config.prices = {
 			{ name = "Race Suspension", mod = 3, price = 80000 }
 		},
 		[14] = {
-			{ name = "Truck Horn", mod = 0, price = 1000 },
-			{ name = "Police Horn", mod = 1, price = 1000 },
-			{ name = "Clown Horn", mod = 2, price = 1000 },
-			{ name = "Musical Horn 1", mod = 3, price = 1000 },
-			{ name = "Musical Horn 2", mod = 4, price = 1000 },
-			{ name = "Musical Horn 3", mod = 5, price = 1000 },
-			{ name = "Musical Horn 4", mod = 6, price = 1000 },
-			{ name = "Musical Horn 5", mod = 7, price = 1000 },
-			{ name = "Sad Trombone", mod = 8, price = 1000 },
-			{ name = "Classical Horn 1", mod = 9, price = 1000 },
-			{ name = "Classical Horn 2", mod = 10, price = 1000 },
-			{ name = "Classical Horn 3", mod = 11, price = 1000 },
-			{ name = "Classical Horn 4", mod = 12, price = 1000 },
-			{ name = "Classical Horn 5", mod = 13, price = 1000 },
-			{ name = "Classical Horn 6", mod = 14, price = 1000 },
-			{ name = "Classical Horn 7", mod = 15, price = 1000 },
-			{ name = "Scale Do", mod = 16, price = 1000 },
-			{ name = "Scale Re", mod = 17, price = 1000 },
-			{ name = "Scale Mi", mod = 18, price = 1000 },
-			{ name = "Scale Fa", mod = 19, price = 1000 },
-			{ name = "Scale Sol", mod = 20, price = 1000 },
-			{ name = "Scale La", mod = 21, price = 1000 },
-			{ name = "Scale Ti", mod = 22, price = 1000 },
-			{ name = "Scale Do (High)", mod = 23, price = 1000 },
-			{ name = "Jazz Horn 1", mod = 24, price = 1000 },
-			{ name = "Jazz Horn 2", mod = 25, price = 1000 },
-			{ name = "Jazz Horn 3", mod = 26, price = 1000 },
-			{ name = "Jazz Horn Loop", mod = 27, price = 1000 },
-			{ name = "Star Spangled Banner 1", mod = 28, price = 1000 },
-			{ name = "Star Spangled Banner 2", mod = 29, price = 1000 },
-			{ name = "Star Spangled Banner 3", mod = 30, price = 1000 },
-			{ name = "Star Spangled Banner 4", mod = 31, price = 1000 },
-			{ name = "Classical Horn Loop 1", mod = 32, price = 1000 },
-			{ name = "Classical Horn 8", mod = 33, price = 1000 },
-			{ name = "Classical Horn Loop 2", mod = 34, price = 1000 },
-			{ name = "Halloween Loop 1", mod = 38, price = 1000 },
-			{ name = "Halloween Loop 2", mod = 40, price = 1000 },
-			{ name = "San Andreas Loop", mod = 42, price = 1000 },
-			{ name = "Liberty City Loop", mod = 44, price = 1000 },
-			{ name = "Festive Loop 1", mod = 46, price = 1000 },
-			{ name = "Festive Loop 2", mod = 47, price = 1000 },
-			{ name = "Festive Loop 3", mod = 48, price = 1000 }
+			{ name = "Truck Horn", mod = 0, price = 1750 },
+			{ name = "Police Horn", mod = 1, price = 1750 },
+			{ name = "Clown Horn", mod = 2, price = 1750 },
+			{ name = "Musical Horn 1", mod = 3, price = 1750 },
+			{ name = "Musical Horn 2", mod = 4, price = 1750 },
+			{ name = "Musical Horn 3", mod = 5, price = 1750 },
+			{ name = "Musical Horn 4", mod = 6, price = 1750 },
+			{ name = "Musical Horn 5", mod = 7, price = 1750 },
+			{ name = "Sad Trombone", mod = 8, price = 1750 },
+			{ name = "Classical Horn 1", mod = 9, price = 1750 },
+			{ name = "Classical Horn 2", mod = 10, price = 1750 },
+			{ name = "Classical Horn 3", mod = 11, price = 1750 },
+			{ name = "Classical Horn 4", mod = 12, price = 1750 },
+			{ name = "Classical Horn 5", mod = 13, price = 1750 },
+			{ name = "Classical Horn 6", mod = 14, price = 1750 },
+			{ name = "Classical Horn 7", mod = 15, price = 1750 },
+			{ name = "Scale Do", mod = 16, price = 1750 },
+			{ name = "Scale Re", mod = 17, price = 1750 },
+			{ name = "Scale Mi", mod = 18, price = 1750 },
+			{ name = "Scale Fa", mod = 19, price = 1750 },
+			{ name = "Scale Sol", mod = 20, price = 1750 },
+			{ name = "Scale La", mod = 21, price = 1750 },
+			{ name = "Scale Ti", mod = 22, price = 1750 },
+			{ name = "Scale Do High", mod = 23, price = 1750 },
+			{ name = "Jazz Horn 1", mod = 24, price = 1750 },
+			{ name = "Jazz Horn 2", mod = 25, price = 1750 },
+			{ name = "Jazz Horn 3", mod = 26, price = 1750 },
+			{ name = "Jazz Horn Loop", mod = 27, price = 1750 },
+			{ name = "Star Spangled Banner 1", mod = 28, price = 1750 },
+			{ name = "Star Spangled Banner 2", mod = 29, price = 1750 },
+			{ name = "Star Spangled Banner 3", mod = 30, price = 1750 },
+			{ name = "Star Spangled Banner 4", mod = 31, price = 1750 },
+			{ name = "Classical Horn Loop 1", mod = 32, price = 1750 },
+			{ name = "Classical Horn 8", mod = 33, price = 1750 },
+			{ name = "Classical Horn Loop 2", mod = 34, price = 1750 },
+			{ name = "Halloween Loop 1", mod = 38, price = 1750 },
+			{ name = "Halloween Loop 2", mod = 40, price = 1750 },
+			{ name = "San Andreas Loop", mod = 42, price = 1750 },
+			{ name = "Liberty City Loop", mod = 44, price = 1750 },
+			{ name = "Festive Loop 1", mod = 46, price = 1750 },
+			{ name = "Festive Loop 2", mod = 47, price = 1750 },
+			{ name = "Festive Loop 3", mod = 48, price = 1750 }
 		},
 		[13] = {
 			{ name = "Street Transmission", mod = 0, price = 20000 },
@@ -610,49 +613,50 @@ LSC_Config.prices = {
 			{ name = "Race Brakes", mod = 2, price = 60000 }
 		},
 		[11] = {
+					  
 			{ name = "Lowered Engine", mod = 0, price = 20000 },
 			{ name = "Street Engine", mod = 1, price = 40000 },
 			{ name = "Sports Engine", mod = 2, price = 60000 },
 			{ name = "Race Engine", mod = 3, price = 80000 }
 		},
 		[10] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[8] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[7] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[6] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[5] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[4] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[3] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[2] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[1] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		},
 		[0] = {
-			startprice = 1000,
+			startprice = 1750,
 			increaseby = 0
 		}
 	}

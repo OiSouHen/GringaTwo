@@ -3,11 +3,11 @@ $(document).ready(function(){
 	window.addEventListener("message",function(event){
 		switch(event.data.action){
 			case "openSystem":
-				$("#mainPage").fadeIn(100);
+				$("#divCode").fadeIn(100);
 			break;
 
 			case "closeSystem":
-				$("#mainPage").fadeOut(100);
+				$("#divCode").fadeOut(100);
 			break;
 		};
 	});

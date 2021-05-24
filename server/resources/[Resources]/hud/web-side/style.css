@@ -6,13 +6,13 @@ html,body {
 }
 
 #displayLogo {
-	top: 50px;
-	right: 50px;
+	top: 75px;
+	right: 75px;
 	width: 101px;
 	height: 78px;
 	opacity: 0.5;
 	position: absolute !important;
-	background: url("logo.png") no-repeat;
+	background: url("images/logo.png") no-repeat;
 }
 
 #displayHud {
@@ -216,7 +216,7 @@ svg {
 }
 
 .stressDisplay {
-	stroke: #9274a3;
+	stroke: #c45895;
 	stroke-width: 4;
 	margin-left: 5px;
 	fill: transparent;

@@ -518,22 +518,6 @@ local function DriveOutOfGarage(pos)
 	end)
 end
 
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
-
 local function tableContains(t,val)
 	for k,v in pairs(t) do
 		if v == val then
@@ -556,21 +540,21 @@ Citizen.CreateThread(function()
 					for k,v in pairs(garages) do
 						outside = v.inside
 						local distance = #(coords - vector3(outside.x,outside.y,outside.z))
-						if distance <= 5 then
+						if distance <= 15 then
 							timeDistance = 4
+							
 							if not v.locked then
-								if IsControlJustPressed(1,201) then
-									if emP.checkWanted() then
+								--if IsControlJustPressed(1,38) then -- E
+								if IsControlJustPressed(1,201) then -- Enter
+									if emP.checkWanted() and emP.checkPermission() then
 										inside = true
 										currentpos = v
 										currentgarage = k
 										DriveInGarage()
 									end
 								else
-									DrawText3D(outside.x,outside.y,outside.z,"~g~ENTER~w~   PERMA ENTRAR      ")
+								DrawMarker(23,outside["x"],outside["y"],outside["z"],0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
 								end
-							else
-								DrawText3D(outside.x,outside.y,outside.z,"OCUPADO NO MOMENTO      ")
 							end
 						end
 					end
@@ -1139,6 +1123,7 @@ function CanPurchase(price,canpurchase)
 		end
 		return true
 	else
+--	TriggerEvent("Notify","vermelho","Você não tem <b>$"..price.."</b> Dólares no banco.",5000)
 		return false
 	end
 end

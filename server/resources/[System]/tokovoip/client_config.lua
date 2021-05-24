@@ -17,10 +17,10 @@ TokoVoipConfig = {
 	radioClickMaxChannel = 1050,
 
 	plugin_data = {
-		TSChannel = "Jogando",
-		TSPassword = "1234", -- TeamSpeak channel password (can be empty)
+		TSChannel = "Conectado LSRP",
+		TSPassword = "46564863", -- TeamSpeak channel password (can be empty)
 		TSChannelWait = "Aguardando",
-		TSServer = "eu.teaspeak.ovh:1394", -- TeamSpeak server address to be displayed on blocking screen
+		TSServer = "lsrp.ts3pro.top", -- TeamSpeak server address to be displayed on blocking screen
 		TSChannelSupport = "",
 		TSDownload = "", 
 		TSChannelWhitelist = { 

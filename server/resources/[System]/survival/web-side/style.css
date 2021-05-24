@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+#deathDiv {
+	width: 100%;
+	display: none;
+	bottom: 100px;
+	position: fixed;
+}
+
+#deathText {
+	width: 800px;
+	margin: 0 auto;
+	font-size: 20px;
+	text-align: center;
+	text-shadow: 1px 1px #000;
+	color: rgba(255,255,255,0.9);
+	font-family: "Jura",sans-serif;
+}
+
+#deathText color {
+	color: #92ac29;
+}
+
+#deathText color2 {
+	color: #bd962e;
+}
+
+#deathText i {
+	font-size: 13px;
+	font-style: normal;
+	letter-spacing: 2px;
+}

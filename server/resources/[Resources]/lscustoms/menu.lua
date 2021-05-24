@@ -20,7 +20,7 @@ function Menu.new(title,header,x,y,width,height,font)
 			font = font,
 			pcontrol = false,
 			text_color = { r = 255, g = 255, b = 255, a = 255 },
-			bg_color = { r = 0, g = 0, b = 0, a = 125 },
+			bg_color = { r = 0, g = 0, b = 0, a = 155 },
 			stext_color = { r = 0, g = 0, b = 0, a = 255 },
 			sbg_color = { r = 255, g = 255, b = 255, a = 200 },
 			menu_name = true,
@@ -30,7 +30,7 @@ function Menu.new(title,header,x,y,width,height,font)
 				menu_left = 174,
 				menu_right = 175,
 				menu_select = 201,
-				menu_back = 177,
+				menu_back = 177
 			}
 		}
 	}
@@ -41,7 +41,7 @@ function Menu:showNotification(txt)
 	self.notification = nil
 	Citizen.CreateThread(function()
 		while self.notification ~= nil do
-			Citizen.Wait(10)
+			Citizen.Wait(1)
 		end
 		self.notification = txt
 		Citizen.Wait(1250)
@@ -84,11 +84,11 @@ function drawInfo(text,font,x,y,width,height,scale,r,g,b,a)
 	SetTextWrap(x - width/2.2,x+ width/2.2)
 	l = GetLineCount(text,x - width/2.2, y - height/2.8)
 	local lx,ly = x,y
-	DrawRect(lx,  ly + 0.0025,width,height,0,0,0,180)
+	DrawRect(lx,  ly + 0.0025,width,height,38,42,56,200)
 	ly = ly+(scale/10)/2 + 0.011
 	if l >1 then
 		for i = 1,l do
-			DrawRect(lx,ly,width,(scale/10)/2,0,0,0,180)
+			DrawRect(lx,ly,width,(scale/10)/2,38,42,56,200)
 			ly = ly+(scale/10)/2
 		end
 	end
@@ -122,7 +122,7 @@ function Menu:config(t)
 end
 
 function Menu:Open(name)
-	if name ~=nil then
+	if name ~= nil then
 		if self.name ~= name then
 			self.currentmenu = self[name]
 		else
@@ -137,24 +137,27 @@ function Menu:Open(name)
 	if not self.config.pcontrol then
 		SetPlayerControl(PlayerId(),false,260)
 	end
+
 	Citizen.CreateThread(function()
 		if not HasStreamedTextureDictLoaded("commonmenu") then
 			RequestStreamedTextureDict("commonmenu")
 			while not HasStreamedTextureDictLoaded("commonmenu") do
-				Citizen.Wait(10)
+				Citizen.Wait(1)
 			end
 		end
+
 		if not HasStreamedTextureDictLoaded("commonmenutu") then
 			RequestStreamedTextureDict("commonmenutu")
 			while not HasStreamedTextureDictLoaded("commonmenutu") do
-				Citizen.Wait(10)
+				Citizen.Wait(1)
 			end
 		end
+
 		if self.title_sprite then
 			if not HasStreamedTextureDictLoaded(self.title_sprite) then
 				RequestStreamedTextureDict(self.title_sprite)
 				while not HasStreamedTextureDictLoaded(self.title_sprite) do
-					Citizen.Wait(10)
+					Citizen.Wait(1)
 				end
 			end
 		end
@@ -342,7 +345,7 @@ function Menu:draw()
 			drawRightMenuText(menu.selected..'/'..tablelength(menu.buttons),cfg.font,0,x + (width/2.1),ty,scale,cfg.text_color.r,cfg.text_color.g,cfg.text_color.b,cfg.text_color.a)
 			DrawRect(x,  y, width, height,cfg.bg_color.r,cfg.bg_color.g,cfg.bg_color.b,255)
 			y = y + height
-			ty = y - height/2.8
+			ty = y - height / 2.8
 			for i,btn in pairs(buttons) do
 				if i >= menu.from and i <= menu.to then
 					if menu.selected == i then

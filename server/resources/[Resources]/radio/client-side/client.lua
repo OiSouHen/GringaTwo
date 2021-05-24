@@ -77,7 +77,7 @@ AddEventHandler("radio:outServers",function()
 
 		myFrequency = 0
 		activeRadio = false
-		TriggerEvent("vrp_hud:RadioDisplay",0)
+		TriggerEvent("hud:RadioDisplay",0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

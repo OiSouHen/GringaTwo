@@ -27,10 +27,11 @@ Citizen.CreateThread(function()
 			if not deadPlayer then
 				timeDistance = 100
 				deadPlayer = true
+				SendNUIMessage({ death = true })
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 1
+				deathtimer = 10
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 					vRP.playAnim(false,{"dead","dead_a"},true)
@@ -46,14 +47,16 @@ Citizen.CreateThread(function()
 					timeDistance = 4
 					SetEntityHealth(ped,101)
 					TriggerEvent("hudActived",false)
-					drawTxt("Você ainda tem ~r~"..deathtimer.."~w~ segundos de vida",4,0.5,0.93,0.50,255,255,255,120)
+					drawTxt("NOCAUTEADO, AGUARDE ~y~"..deathtimer.."~w~ SEGUNDOS",4,0.5,0.93,0.50,255,255,255,200)
+					--SendNUIMessage({ deathtext = "NOCAUTEADO, AGUARDE <color>"..deathtimer.." SEGUNDOS</color>" })
 
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
 					end
 				else
 					timeDistance = 4
-					drawTxt("Seu tempo acabou, digite ~g~/gg~w~",4,0.5,0.93,0.50,255,255,255,120)
+					drawTxt("DIGITE ~g~/GG~w~ E DESISTA IMEDIATAMENTE",4,0.5,0.93,0.50,255,255,255,200)
+					--SendNUIMessage({ deathtext = "DIGITE <color>/GG</color> E DESISTA IMEDIATAMENTE" })
 					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
