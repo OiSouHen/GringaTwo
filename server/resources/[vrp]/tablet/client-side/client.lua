@@ -23,8 +23,6 @@ RegisterCommand("tablet",function(source,args)
 	if GetEntityHealth(PlayerPedId()) > 101 then
 		SetNuiFocus(true,true)
 		SetCursorLocation(0.5,0.5)
-		TriggerScreenblurFadeIn(1000)
---	    TriggerEvent("hudActived",false)
 		SendNUIMessage({ action = "openSystem" })
 	else
 		return
@@ -37,7 +35,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TABLET
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("tablet","Abrir o tablet","keyboard","f9")
+RegisterKeyMapping("tablet","Abrir o tablet","keyboard","f11")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -45,8 +43,6 @@ RegisterNUICallback("closeSystem",function(data)
 	vRP.removeObjects("one")
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
-	TriggerScreenblurFadeOut(1000)
---	TriggerEvent("hudActived",true)
 	SendNUIMessage({ action = "closeSystem" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

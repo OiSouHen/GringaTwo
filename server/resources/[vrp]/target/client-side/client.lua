@@ -365,20 +365,30 @@ Citizen.CreateThread(function()
 	AddTargetModel({ 0x5244247D },{
 		options = {
 			{
-				event = "shops:pharmacyStore1",
+				event = "shops:normalpharmacyStore",
 				label = "Pharmacy Store",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
-
 	
-	AddTargetModel({ 0xFCDC910A },{
+	AddTargetModel({ -1286380898 },{
 		options = {
 			{
-				event = "shops:pharmacyStore",
-				label = "Pharmacy Store",
+				event = "shops:hospitalpharmacyStore",
+				label = "Hospital Pharmacy Store",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+	
+	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{
+		options = {
+			{
+				event = "atm:openATM",
+				label = "Caixa Eletrônico",
 				tunnel = "client"
 			}
 		},
@@ -410,10 +420,10 @@ Citizen.CreateThread(function()
 	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
 		options = {
 			{
-				event = "inventory:verifyObjects",
+--				event = "inventory:verifyObjects",
+				event = "inventory:garbageVerify",
 				label = "Vasculhar Lixeira",
-				tunnel = "police",
-				service = "Lixeiro"
+				tunnel = "client"
 			}
 		},
 		distance = 0.75

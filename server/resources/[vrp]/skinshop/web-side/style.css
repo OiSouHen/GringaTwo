@@ -135,7 +135,7 @@
 .clothing-menu-option-item-left {
 	left: 0;
 	bottom: 0;
-	width: 30px;
+	width: 50px;
 	height: 30px;
 	color: #9b9a9a;
 	text-align: center;
@@ -153,7 +153,7 @@
 .clothing-menu-option-item-right {
 	right: 0;
 	bottom: 0;
-	width: 30px;
+	width: 50px;
 	height: 30px;
 	color: #9b9a9a;
 	text-align: center;
@@ -169,20 +169,20 @@
 }
 
 .item-number {
-    position: absolute;
-    width: 44px;
-    height: 42px;
-    top: 31px;
-    left: 35px;
-    border: 0;
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: 0.1vh;
-    color: #515151;
-    outline: none;
-    background: #878686;
-    transition: all 0.1s linear;
-    border-radius: 4px;
+	position: absolute;
+	width: 43px;
+	height: 42px;
+	top: 31px;
+	left: 60px;
+	border: 0;
+	text-align: center;
+	font-size: 12px;
+	letter-spacing: 0.1vh;
+	color: #515151;
+	outline: none;
+	background: #878686;
+	transition: all 0.1s linear;
+	border-radius: 4px;
 }
 
 .item-number:focus {
@@ -191,7 +191,7 @@
 
 .clothing-menu-option-item-header {
 	position: absolute;
-	bottom: 7vh;
+	bottom: 5vh;
 	text-transform: uppercase;
 	font-size: 11px;
 	letter-spacing: 1px;
@@ -204,7 +204,7 @@
 
 .clothing-menu-option-buttons {
 	position: absolute;
-	bottom: 4px;
+	bottom: 12px;
 	width: 100%;
 	height: 41px;
 }

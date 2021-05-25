@@ -45,14 +45,14 @@ function cnVRP.sacarValor(valor)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if parseInt(valor) > 5000 then
-			TriggerClientEvent("Notify",source,"importante","O valor máximo de uma retirada é <b>$5.000</b> dólares.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Limite de saque máximo atingido.",5000)
 			return vRP.getBank(user_id)
 		end
 
 		if parseInt(valor) > 0 then
 			if atmTimers[user_id] then
 				if atmTimers[user_id][1] > 0 and atmTimers[user_id][2] >= 5000 then
-					TriggerClientEvent("Notify",source,"importante","Aguarde "..vRP.getTimers(parseInt(atmTimers[user_id][1])).."</b>.",5000)
+					TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(atmTimers[user_id][1])).."</b>.",5000)
 					return vRP.getBank(user_id)
 				end
 
@@ -60,16 +60,16 @@ function cnVRP.sacarValor(valor)
 					if vRP.withdrawCash(user_id,parseInt(valor)) then
 						atmTimers[user_id][2] = atmTimers[user_id][2] +  parseInt(valor)
 					else
-						TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente na sua conta bancária.",5000)
+						TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
 					end
 				else
-					TriggerClientEvent("Notify",source,"aviso","Você atingiu o limite de retiradas.",5000)
+					TriggerClientEvent("Notify",source,"amarelo","Você atingiu o limite de retiradas.",5000)
 				end
 			else
 				if vRP.withdrawCash(user_id,parseInt(valor)) then
 					atmTimers[user_id] = { 600,parseInt(valor) }
 				else
-					TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente na sua conta bancária.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
 				end
 			end
 		end
@@ -92,7 +92,7 @@ function cnVRP.transferirValor(valor,target)
 				TriggerClientEvent("itensNotify",nSource,{ "+","dollars",vRP.format(valor),"Dólares" })
 			end
 		else
-			TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente na sua conta bancária.",3000)
+			TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
 		end
 
 		return vRP.getBank(user_id)

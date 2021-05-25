@@ -94,92 +94,79 @@ end
 -- BLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blips = {
-	{ 733.7,-1088.73,21.37,315,11,"Mecânica",0.4 },
-	{ -222.94,-1509.0,31.41,357,18,"Bicicletário",0.4 },
-	{ 1851.99,2595.64,45.69,357,18,"Bicicletário",0.4 },
-	{ 2679.43,3443.93,55.81,164,4,"Circuitos",0.4 },
-	{ -566.72,-2117.39,5.98,164,4,"Circuitos",0.4 },
-	{ 1679.4,-1564.53,112.57,164,4,"Circuitos",0.4 },
-	{ -1732.07,-727.34,10.4,164,4,"Circuitos",0.4 },
-	{ -1367.59,15.04,53.38,164,4,"Circuitos",0.4 },
-	{ 636.43,649.9,128.9,164,4,"Circuitos",0.4 },
-	{ 364.86,-543.57,28.75,164,4,"Circuitos",0.4 },
-	{ 247.31,-1513.38,29.10,164,4,"Circuitos",0.4 },
-	{ -324.69,-1098.09,23.03,164,4,"Circuitos",0.4 },
-	{ 265.05,-1262.65,29.3,361,4,"Posto de Gasolina",0.4 },
-	{ 819.02,-1027.96,26.41,361,4,"Posto de Gasolina",0.4 },
-	{ 1208.61,-1402.43,35.23,361,4,"Posto de Gasolina",0.4 },
-	{ 1181.48,-330.26,69.32,361,4,"Posto de Gasolina",0.4 },
-	{ 621.01,268.68,103.09,361,4,"Posto de Gasolina",0.4 },
-	{ 2581.09,361.79,108.47,361,4,"Posto de Gasolina",0.4 },
-	{ 175.08,-1562.12,29.27,361,4,"Posto de Gasolina",0.4 },
-	{ -319.76,-1471.63,30.55,361,4,"Posto de Gasolina",0.4 },
-	{ 1782.33,3328.46,41.26,361,4,"Posto de Gasolina",0.4 },
-	{ 49.42,2778.8,58.05,361,4,"Posto de Gasolina",0.4 },
-	{ 264.09,2606.56,44.99,361,4,"Posto de Gasolina",0.4 },
-	{ 1039.38,2671.28,39.56,361,4,"Posto de Gasolina",0.4 },
-	{ 1207.4,2659.93,37.9,361,4,"Posto de Gasolina",0.4 },
-	{ 2539.19,2594.47,37.95,361,4,"Posto de Gasolina",0.4 },
-	{ 2679.95,3264.18,55.25,361,4,"Posto de Gasolina",0.4 },
-	{ 2005.03,3774.43,32.41,361,4,"Posto de Gasolina",0.4 },
-	{ 1687.07,4929.53,42.08,361,4,"Posto de Gasolina",0.4 },
-	{ 1701.53,6415.99,32.77,361,4,"Posto de Gasolina",0.4 },
-	{ 180.1,6602.88,31.87,361,4,"Posto de Gasolina",0.4 },
-	{ -94.46,6419.59,31.48,361,4,"Posto de Gasolina",0.4 },
-	{ -2555.17,2334.23,33.08,361,4,"Posto de Gasolina",0.4 },
-	{ -1800.09,803.54,138.72,361,4,"Posto de Gasolina",0.4 },
-	{ -1437.0,-276.8,46.21,361,4,"Posto de Gasolina",0.4 },
-	{ -2096.3,-320.17,13.17,361,4,"Posto de Gasolina",0.4 },
-	{ -724.56,-935.97,19.22,361,4,"Posto de Gasolina",0.4 },
-	{ -525.26,-1211.19,18.19,361,4,"Posto de Gasolina",0.4 },
-	{ -70.96,-1762.21,29.54,361,4,"Posto de Gasolina",0.4 },
-    { 1147.31,-1535.03,35.39,80,35,"Hospital",0.5 },
-	{ 55.43,-876.19,30.66,357,14,"Garagem",0.4 },
-	{ 44.38,-842.49,31.14,357,14,"Garagem",0.4 },
-	{ 317.25,2623.14,44.46,357,14,"Garagem",0.4 },
-	{ -773.34,5598.15,33.60,357,14,"Garagem",0.4 },
-	{ 275.23,-345.54,45.17,357,14,"Garagem",0.4 },
-	{ 596.40,90.65,93.12,357,14,"Garagem",0.4 },
-	{ -340.76,265.97,85.67,357,14,"Garagem",0.4 },
-	{ -2030.01,-465.97,11.60,357,14,"Garagem",0.4 },
-	{ -1184.92,-1510.00,4.64,357,14,"Garagem",0.4 },
-	{ -73.44,-2004.99,18.27,357,14,"Garagem",0.4 },
-	{ 214.02,-808.44,31.01,357,14,"Garagem",0.4 },
-	{ -348.88,-874.02,31.31,357,14,"Garagem",0.4 },
-	{ 67.74,12.27,69.21,357,14,"Garagem",0.4 },
-	{ 361.90,297.81,103.88,357,14,"Garagem",0.4 },
-	{ 1035.89,-763.89,57.99,357,14,"Garagem",0.4 },
-	{ -796.63,-2022.77,9.16,357,14,"Garagem",0.4 },
-	{ 453.27,-1146.76,29.52,357,14,"Garagem",0.4 },
-	{ 528.66,-146.3,58.38,357,14,"Garagem",0.4 },
-	{ -1159.48,-739.32,19.89,357,14,"Garagem",0.4 },
-	{ 29.29,-1770.35,29.61,357,14,"Garagem",0.4 },
-	{ 101.22,-1073.68,29.38,357,14,"Garagem",0.4 },
-	{ -281.25,-888.64,31.32,357,14,"Garagem",0.4 },
-	{ 717.74,-966.32,30.4,176,34,"Trocas",0.4 },
-	{ 406.04,6526.17,27.75,214,31,"Colheita",0.4 },
-	{ 361.08,-1584.91,29.3,60,4,"Departamento Policial",0.4 },
-	{ 25.68,-1346.6,29.5,52,36,"Loja de Departamento",0.4 },
-	{ 2556.47,382.05,108.63,52,36,"Loja de Departamento",0.4 },
-	{ 1163.55,-323.02,69.21,52,36,"Loja de Departamento",0.4 },
-	{ -707.31,-913.75,19.22,52,36,"Loja de Departamento",0.4 },
-	{ -47.72,-1757.23,29.43,52,36,"Loja de Departamento",0.4 },
-	{ 373.89,326.86,103.57,52,36,"Loja de Departamento",0.4 },
-	{ -3242.95,1001.28,12.84,52,36,"Loja de Departamento",0.4 },
-	{ 1729.3,6415.48,35.04,52,36,"Loja de Departamento",0.4 },
-	{ 548.0,2670.35,42.16,52,36,"Loja de Departamento",0.4 },
-	{ 1960.69,3741.34,32.35,52,36,"Loja de Departamento",0.4 },
-	{ 2677.92,3280.85,55.25,52,36,"Loja de Departamento",0.4 },
-	{ 1698.5,4924.09,42.07,52,36,"Loja de Departamento",0.4 },
-	{ -1820.82,793.21,138.12,52,36,"Loja de Departamento",0.4 },
-	{ 1393.21,3605.26,34.99,52,36,"Loja de Departamento",0.4 },
-	{ -2967.78,390.92,15.05,52,36,"Loja de Departamento",0.4 },
-	{ -3040.14,585.44,7.91,52,36,"Loja de Departamento",0.4 },
-	{ 1135.56,-982.24,46.42,52,36,"Loja de Departamento",0.4 },
-	{ 1166.0,2709.45,38.16,52,36,"Loja de Departamento",0.4 },
-	{ -1487.21,-378.99,40.17,52,36,"Loja de Departamento",0.4 },
-	{ -1222.76,-907.21,12.33,52,36,"Loja de Departamento",0.4 },
-	{ 1588.17,6455.71,26.02,269,63,"Restaurante",0.5 }, -- Avalanches
+	{ 265.05,-1262.65,29.3,361,62,"Posto de Gasolina",0.4 },
+	{ 819.02,-1027.96,26.41,361,62,"Posto de Gasolina",0.4 },
+	{ 1208.61,-1402.43,35.23,361,62,"Posto de Gasolina",0.4 },
+	{ 1181.48,-330.26,69.32,361,62,"Posto de Gasolina",0.4 },
+	{ 621.01,268.68,103.09,361,62,"Posto de Gasolina",0.4 },
+	{ 2581.09,361.79,108.47,361,62,"Posto de Gasolina",0.4 },
+	{ 175.08,-1562.12,29.27,361,62,"Posto de Gasolina",0.4 },
+	{ -319.76,-1471.63,30.55,361,62,"Posto de Gasolina",0.4 },
+	{ 49.42,2778.8,58.05,361,62,"Posto de Gasolina",0.4 },
+	{ 264.09,2606.56,44.99,361,62,"Posto de Gasolina",0.4 },
+	{ 1039.38,2671.28,39.56,361,62,"Posto de Gasolina",0.4 },
+	{ 1207.4,2659.93,37.9,361,62,"Posto de Gasolina",0.4 },
+	{ 2539.19,2594.47,37.95,361,62,"Posto de Gasolina",0.4 },
+	{ 2679.95,3264.18,55.25,361,62,"Posto de Gasolina",0.4 },
+	{ 2005.03,3774.43,32.41,361,62,"Posto de Gasolina",0.4 },
+	{ 1687.07,4929.53,42.08,361,62,"Posto de Gasolina",0.4 },
+	{ 1701.53,6415.99,32.77,361,62,"Posto de Gasolina",0.4 },
+	{ 180.1,6602.88,31.87,361,62,"Posto de Gasolina",0.4 },
+	{ -94.46,6419.59,31.48,361,62,"Posto de Gasolina",0.4 },
+	{ -2555.17,2334.23,33.08,361,62,"Posto de Gasolina",0.4 },
+	{ -1800.09,803.54,138.72,361,62,"Posto de Gasolina",0.4 },
+	{ -1437.0,-276.8,46.21,361,62,"Posto de Gasolina",0.4 },
+	{ -2096.3,-320.17,13.17,361,62,"Posto de Gasolina",0.4 },
+	{ -724.56,-935.97,19.22,361,62,"Posto de Gasolina",0.4 },
+	{ -525.26,-1211.19,18.19,361,62,"Posto de Gasolina",0.4 },
+	{ -70.96,-1762.21,29.54,361,62,"Posto de Gasolina",0.4 },
+	{ 1776.7,3330.56,41.32,361,62,"Posto de Gasolina",0.4 },
+	{ -1112.4,-2884.08,13.93,361,62,"Posto de Gasolina",0.4 },
+	{ 1148.78,-1532.84,35.39,80,38,"Hospital",0.5 },
+--	{ 280.38,-584.45,43.29,80,38,"Hospital",0.5 },
+--	{ 1839.43,3672.86,34.27,80,38,"Hospital",0.5 },
+--	{ -247.42,6331.39,32.42,80,38,"Hospital",0.5 },
+	{ 55.43,-876.19,30.66,357,65,"Garagem",0.6 },
+	{ 598.04,2741.27,42.07,357,65,"Garagem",0.6 },
+	{ -136.36,6357.03,31.49,357,65,"Garagem",0.6 },
+	{ 275.23,-345.54,45.17,357,65,"Garagem",0.6 },
+	{ 596.40,90.65,93.12,357,65,"Garagem",0.6 },
+	{ -340.76,265.97,85.67,357,65,"Garagem",0.6 },
+	{ -2030.01,-465.97,11.60,357,65,"Garagem",0.6 },
+	{ -1184.92,-1510.00,4.64,357,65,"Garagem",0.6 },
+	{ 214.02,-808.44,31.01,357,65,"Garagem",0.6 },
+	{ -348.88,-874.02,31.31,357,65,"Garagem",0.6 },
+	{ 67.74,12.27,69.21,357,65,"Garagem",0.6 },
+	{ 361.90,297.81,103.88,357,65,"Garagem",0.6 },
+	{ 1035.89,-763.89,57.99,357,65,"Garagem",0.6 },
+	{ -796.63,-2022.77,9.16,357,65,"Garagem",0.6 },
+	{ 453.27,-1146.76,29.52,357,65,"Garagem",0.6 },
+	{ 528.66,-146.3,58.38,357,65,"Garagem",0.6 },
+	{ -1159.48,-739.32,19.89,357,65,"Garagem",0.6 },
+	{ 101.22,-1073.68,29.38,357,65,"Garagem",0.6 },
+	{ 426.57,-981.71,30.7,60,29,"Departamento Policial",0.6 },
+	{ 1851.45,3686.71,34.26,60,29,"Departamento Policial",0.6 },
+	{ -448.18,6011.68,31.71,60,29,"Departamento Policial",0.6 },
+	{ 25.68,-1346.6,29.5,52,36,"Loja de Departamento",0.5 },
+	{ 2556.47,382.05,108.63,52,36,"Loja de Departamento",0.5 },
+	{ 1163.55,-323.02,69.21,52,36,"Loja de Departamento",0.5 },
+	{ -707.31,-913.75,19.22,52,36,"Loja de Departamento",0.5 },
+	{ -47.72,-1757.23,29.43,52,36,"Loja de Departamento",0.5 },
+	{ 373.89,326.86,103.57,52,36,"Loja de Departamento",0.5 },
+	{ -3242.95,1001.28,12.84,52,36,"Loja de Departamento",0.5 },
+	{ 1729.3,6415.48,35.04,52,36,"Loja de Departamento",0.5 },
+	{ 548.0,2670.35,42.16,52,36,"Loja de Departamento",0.5 },
+	{ 1960.69,3741.34,32.35,52,36,"Loja de Departamento",0.5 },
+	{ 2677.92,3280.85,55.25,52,36,"Loja de Departamento",0.5 },
+	{ 1698.5,4924.09,42.07,52,36,"Loja de Departamento",0.5 },
+	{ -1820.82,793.21,138.12,52,36,"Loja de Departamento",0.5 },
+	{ 1393.21,3605.26,34.99,52,36,"Loja de Departamento",0.5 },
+	{ -2967.78,390.92,15.05,52,36,"Loja de Departamento",0.5 },
+	{ -3040.14,585.44,7.91,52,36,"Loja de Departamento",0.5 },
+	{ 1135.56,-982.24,46.42,52,36,"Loja de Departamento",0.5 },
+	{ 1166.0,2709.45,38.16,52,36,"Loja de Departamento",0.5 },
+	{ -1487.21,-378.99,40.17,52,36,"Loja de Departamento",0.5 },
+	{ -1222.76,-907.21,12.33,52,36,"Loja de Departamento",0.5 },
 	{ 1692.62,3759.50,34.70,76,6,"Loja de Armas",0.4 },
 	{ 252.89,-49.25,69.94,76,6,"Loja de Armas",0.4 },
 	{ 843.28,-1034.02,28.19,76,6,"Loja de Armas",0.4 },
@@ -191,69 +178,78 @@ local blips = {
 	{ -3172.68,1087.10,20.83,76,6,"Loja de Armas",0.4 },
 	{ 21.32,-1106.44,29.79,76,6,"Loja de Armas",0.4 },
 	{ 811.19,-2157.67,29.61,76,6,"Loja de Armas",0.4 },
-	{ 235.26,216.78,106.29,207,46,"Banco",0.4 },
-	{ -1213.44,-331.02,37.78,207,46,"Banco",0.4 },
-	{ -351.59,-49.68,49.04,207,46,"Banco",0.4 },
-	{ 313.47,-278.81,54.17,207,46,"Banco",0.4 },
-	{ 149.35,-1040.53,29.37,207,46,"Banco",0.4 },
-	{ -2962.60,482.17,15.70,207,46,"Banco",0.4 },
-	{ -112.81,6469.91,31.62,207,46,"Banco",0.4 },
-	{ 1175.74,2706.80,38.09,207,46,"Banco",0.4 },
-	{ -51.82,-1111.38,26.44,225,4,"Benefactor",0.4 },
-	{ 471.99,-1114.81,29.4,225,22,"Premium Benefactor",0.4 },
-	{ 1322.64,-1651.97,52.27,75,4,"Tatuagens",0.4 },
-    { -1153.67,-1425.68,4.95,75,4,"Tatuagens",0.4 },
-    { 322.13,180.46,103.58,75,4,"Tatuagens",0.4 },
-    { -3170.07,1075.05,20.82,75,4,"Tatuagens",0.4 },
-    { 1864.63,3747.73,33.03,75,4,"Tatuagens",0.4 },
-    { -293.71,6200.04,31.48,75,4,"Tatuagens",0.4 },
-	{ -815.12,-184.15,37.57,71,4,"Barbearia",0.4 },
-	{ 138.13,-1706.46,29.3,71,4,"Barbearia",0.4 },
-	{ -1280.92,-1117.07,7.0,71,4,"Barbearia",0.4 },
-	{ 1930.54,3732.06,32.85,71,4,"Barbearia",0.4 },
-	{ 1214.2,-473.18,66.21,71,4,"Barbearia",0.4 },
-	{ -33.61,-154.52,57.08,71,4,"Barbearia",0.4 },
-	{ -276.65,6226.76,31.7,71,4,"Barbearia",0.4 },
-	{ 75.35,-1392.92,29.38,366,4,"Loja de Roupas",0.4 },
-	{ -710.15,-152.36,37.42,366,4,"Loja de Roupas",0.4 },
-	{ -163.73,-303.62,39.74,366,4,"Loja de Roupas",0.4 },
-	{ -822.38,-1073.52,11.33,366,4,"Loja de Roupas",0.4 },
-	{ -1193.13,-767.93,17.32,366,4,"Loja de Roupas",0.4 },
-	{ -1449.83,-237.01,49.82,366,4,"Loja de Roupas",0.4 },
-	{ 4.83,6512.44,31.88,366,4,"Loja de Roupas",0.4 },
-	{ 1693.95,4822.78,42.07,366,4,"Loja de Roupas",0.4 },
-	{ 125.82,-223.82,54.56,366,4,"Loja de Roupas",0.4 },
-	{ 614.2,2762.83,42.09,366,4,"Loja de Roupas",0.4 },
-	{ 1196.72,2710.26,38.23,366,4,"Loja de Roupas",0.4 },
-	{ -3170.53,1043.68,20.87,366,4,"Loja de Roupas",0.4 },
-	{ -1101.42,2710.63,19.11,366,4,"Loja de Roupas",0.4 },
-	{ 425.6,-806.25,29.5,366,4,"Loja de Roupas",0.4 },
-	{ -622.23,-231.08,38.06,617,3,"Joalheria",0.4 },
-	{ -1728.06,-1050.69,1.71,266,4,"Embarcações",0.4 },
-	{ 1966.36,3975.86,31.51,266,4,"Embarcações",0.4 },
-	{ -776.72,-1495.02,2.29,266,4,"Embarcações",0.4 },
-	{ -893.97,5687.78,3.29,266,4,"Embarcações",0.4 },
-	{ 458.37,-598.98,28.5,513,4,"Motorista",0.4 },
-	{ 359.24,269.91,103.06,67,4,"Transportador",0.4 },
-	{ -558.29,5362.55,70.22,285,4,"Lenhador",0.4 },
-	{ 961.09,-2109.96,31.95,410,4,"Caminhão Peixes",0.4 }, -- rem
-	{ -1188.27,2727.94,2.4,68,26,"Área de Pesca",0.4 },
-	{ 961.18,-2185.41,30.49,478,22,"Fábrica de Carnes",0.5 }, -- rem
-	{ 2940.85,2797.66,40.78,485,16,"Mineradora",0.6 },
-	{ 1083.01,-1975.1,31.48,478,16,"Fábrica de Minérios",0.4 }, -- rem
-	{ 286.79,2843.75,44.71,485,16,"Loja de Minérios",0.6 }, -- rem
-	{ 132.6,-1305.06,29.2,93,4,"Bar",0.4 },
-	{ -565.14,271.56,83.02,93,4,"Bar",0.4 },
-	{ 83.7,-1543.71,29.47,318,4,"Lixeiro",0.4 },
-	{ 4.58,-705.95,45.98,351,4,"Escritório",0.4 },
-	{ -117.29,-604.52,36.29,351,4,"Escritório",0.4 },
-	{ -826.9,-699.89,28.06,351,4,"Escritório",0.4 },
-	{ -935.68,-378.77,38.97,351,4,"Escritório",0.4 },
---	{ 320.03,-1075.96,29.48,403,3,"Farmácia",0.4 },
-	{ 325.6,-1074.38,29.48,403,3,"Farmácia",0.4 },
-	{ 237.81,-413.08,48.12,498,8,"Cartório",0.4 },
-	{ 46.66,-1749.79,29.64,78,11,"Mega Mall",0.4 },
-	{ -419.17,-1689.88,19.85,467,11,"Reciclagem",0.4 }
+	{ -815.12,-184.15,37.57,71,62,"Barbearia",0.5 },
+	{ 138.13,-1706.46,29.3,71,62,"Barbearia",0.5 },
+	{ -1280.92,-1117.07,7.0,71,62,"Barbearia",0.5 },
+	{ 1930.54,3732.06,32.85,71,62,"Barbearia",0.5 },
+	{ 1214.2,-473.18,66.21,71,62,"Barbearia",0.5 },
+	{ -33.61,-154.52,57.08,71,62,"Barbearia",0.5 },
+	{ -276.65,6226.76,31.7,71,62,"Barbearia",0.5 },
+	{ 75.35,-1392.92,29.38,366,62,"Loja de Roupas",0.5 },
+	{ -710.15,-152.36,37.42,366,62,"Loja de Roupas",0.5 },
+	{ -163.73,-303.62,39.74,366,62,"Loja de Roupas",0.5 },
+	{ -822.38,-1073.52,11.33,366,62,"Loja de Roupas",0.5 },
+	{ -1193.13,-767.93,17.32,366,62,"Loja de Roupas",0.5 },
+	{ -1449.83,-237.01,49.82,366,62,"Loja de Roupas",0.5 },
+	{ 4.83,6512.44,31.88,366,62,"Loja de Roupas",0.5 },
+	{ 1693.95,4822.78,42.07,366,62,"Loja de Roupas",0.5 },
+	{ 125.82,-223.82,54.56,366,62,"Loja de Roupas",0.5 },
+	{ 614.2,2762.83,42.09,366,62,"Loja de Roupas",0.5 },
+	{ 1196.72,2710.26,38.23,366,62,"Loja de Roupas",0.5 },
+	{ -3170.53,1043.68,20.87,366,62,"Loja de Roupas",0.5 },
+	{ -1101.42,2710.63,19.11,366,62,"Loja de Roupas",0.5 },
+	{ 425.6,-806.25,29.5,366,62,"Loja de Roupas",0.5 },
+	{ -1082.22,-247.54,37.77,439,73,"Life Invader",0.6 },
+	{ -1728.06,-1050.69,1.71,266,62,"Embarcações",0.5 },
+	{ 1966.36,3975.86,31.51,266,62,"Embarcações",0.5 },
+	{ -776.72,-1495.02,2.29,266,62,"Embarcações",0.5 },
+	{ -893.97,5687.78,3.29,266,62,"Embarcações",0.5 },
+	{ 452.99,-607.74,28.59,513,62,"Motorista",0.5 },
+	{ 356.42,274.61,103.14,67,62,"Transportador",0.5 },
+	{ -840.21,5399.25,34.61,285,62,"Lenhador",0.5 },
+	{ 132.6,-1305.06,29.2,93,62,"Bar",0.5 },
+	{ -565.14,271.56,83.02,93,62,"Bar",0.5 },
+	{ -172.21,6385.85,31.49,403,5,"Farmácia",0.7 },
+	{ 1690.07,3581.68,35.62,403,5,"Farmácia",0.7 },
+	{ 326.47,-1074.43,29.48,403,5,"Farmácia",0.7 },
+	{ 114.45,-4.89,67.82,403,5,"Farmácia",0.7 },
+	{ 46.66,-1749.79,29.64,78,11,"Mercado Central",0.5 },
+	{ 2747.28,3473.04,55.67,78,11,"Mercado Central",0.5 },
+	{ 67.67,-1568.61,29.59,318,62,"Lixeiro",0.6 },
+	{ 169.42,-1633.88,29.28,106,62,"Bishops",0.5 },
+	{ -428.56,-1728.33,19.79,467,11,"Reciclagem",0.6 },
+	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
+	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
+	{ -191.61,-1154.2,23.05,357,9,"Impound",0.6 },
+	{ 1738.32,3685.84,34.50,357,9,"Impound",0.6 },
+	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
+	{ -1178.37,-2845.97,13.93,402,26,"Mecânica",0.7 },
+	{ 1144.38,-770.17,57.58,402,26,"Mecânica",0.7 },
+	{ -1425.48,-436.4,35.79,402,26,"Mecânica",0.7 },
+	{ -206.22,-1303.12,31.27,402,26,"Mecânica",0.7 },
+	{ -359.81,-133.38,38.67,402,26,"Mecânica",0.7 },
+	{ 717.04,-1087.21,22.34,402,26,"Mecânica",0.7 },
+	{ -1144.02,-1989.42,13.16,402,26,"Mecânica",0.7 },
+	{ 1178.0,2657.85,37.98,402,26,"Mecânica",0.7 },
+	{ 116.38,6620.89,31.88,402,26,"Mecânica",0.7 },
+	{ -49.34,-1041.79,28.21,402,26,"Mecânica",0.7 },
+	{ -594.85,2090.27,131.6,617,62,"Minerador",0.6 },
+	{ 1322.93,-1652.29,52.27,75,13,"Loja de Tatuagem",0.5 },
+	{ -1154.42,-1425.9,4.95,75,13,"Loja de Tatuagem",0.5 },
+	{ 322.84,180.16,103.58,75,13,"Loja de Tatuagem",0.5 },
+	{ -3169.62,1075.8,20.83,75,13,"Loja de Tatuagem",0.5 },
+	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
+	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
+--	{ 2768.92,1391.1,24.53,597,62,"Mergulhador",0.7 },
+	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
+	{ 1239.91,-3257.19,7.09,67,62,"Caminhoneiro",0.5 },
+	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
+	{ -73.46,-1119.38,25.8,225,62,"Benefactor",0.4 },
+	{ 895.36,-179.36,74.7,198,62,"Taxista",0.5 },
+	{ -680.9,5832.41,17.32,141,62,"Caçador",0.7 },
+	{ -773.55,298.51,85.71,475,31,"Eclipse Towers",0.5 },
+--	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
+	{ -1816.72,-1193.76,14.31,68,62,"Pescador",0.5 }
 }
 
 Citizen.CreateThread(function()
@@ -756,67 +752,77 @@ end)
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 local teleport = {
-	{ 338.65,-583.87,74.17,330.34,-601.22,43.29,"DESCER" },  ----hospital parte do heli
-	{ 330.34,-601.22,43.29,338.65,-583.87,74.17,"SUBIR" },
+	{ 330.19,-601.21,43.29,343.65,-581.77,28.8 },
+	{ 343.65,-581.77,28.8,330.19,-601.21,43.29 },
 
-	{ 332.26,-595.6,43.29,359.55,-584.95,28.82,"DESCER" },  ---- hospital subir da rua pro hp
-	{ 359.55,-584.95,28.82,332.26,-595.6,43.29,"SUBIR" },
+	{ 327.16,-603.53,43.29,338.97,-583.85,74.16 },
+	{ 338.97,-583.85,74.16,327.16,-603.53,43.29 },
 
-	{ 253.96,225.2,101.88,252.3,220.23,101.69,"ENTRAR" },
-	{ 252.3,220.23,101.69,253.96,225.2,101.88,"SAIR" },
+	{ 936.02,47.21,81.1,1089.62,205.88,-49.0 },
+	{ 1089.62,205.88,-49.0,936.02,47.21,81.1 },
 
-	{ 4.58,-705.95,45.98,-139.85,-627.0,168.83,"ENTRAR" },
-	{ -139.85,-627.0,168.83,4.58,-705.95,45.98,"SAIR" },
+	{ 1139.42,234.62,-50.45,965.03,58.41,112.56 },
+	{ 965.03,58.41,112.56,1139.42,234.62,-50.45 },
 
-	{ -117.29,-604.52,36.29,-74.48,-820.8,243.39,"ENTRAR" },
-	{ -74.48,-820.8,243.39,-117.29,-604.52,36.29,"SAIR" },
+	{ -1370.26,-503.09,33.16,-1369.63,-471.99,84.45 },
+	{ -1369.63,-471.99,84.45,-1370.26,-503.09,33.16 },
 
-	{ -826.9,-699.89,28.06,-1575.14,-569.15,108.53,"ENTRAR" },
-	{ -1575.14,-569.15,108.53,-826.9,-699.89,28.06,"SAIR" },
+	{ -1581.11,-558.64,34.95,-1560.71,-569.28,114.44 },
+	{ -1560.71,-569.28,114.44,-1581.11,-558.64,34.95 },
 
-	{ -935.68,-378.77,38.97,-1386.84,-478.56,72.05,"ENTRAR" },
-	{ -1386.84,-478.56,72.05,-935.68,-378.77,38.97,"SAIR" },
+	{ -66.98,-802.54,44.23,-74.98,-824.33,321.29 },
+	{ -74.98,-824.33,321.29,-66.98,-802.54,44.23 },
 
-	{ -741.07,5593.13,41.66,446.19,5568.79,781.19,"SUBIR" },
-	{ 446.19,5568.79,781.19,-741.07,5593.13,41.66,"DESCER" },
+	{ 4.58,-705.95,45.98,-139.85,-627.0,168.83 },
+	{ -139.85,-627.0,168.83,4.58,-705.95,45.98 },
 
-	{ -740.78,5597.04,41.66,446.37,5575.02,781.19,"SUBIR" },
-	{ 446.37,5575.02,781.19,-740.78,5597.04,41.66,"DESCER" },
+	{ -117.29,-604.52,36.29,-74.48,-820.8,243.39 },
+	{ -74.48,-820.8,243.39,-117.29,-604.52,36.29 },
 
-	{ 40.69,3715.73,39.68,28.1,3711.62,13.6,"ENTRAR" }, -- META
-	{ 28.1,3711.62,13.6,40.69,3715.73,39.68,"SAIR" },
+	{ -826.9,-699.89,28.06,-1575.14,-569.15,108.53 },
+	{ -1575.14,-569.15,108.53,-826.9,-699.89,28.06 },
 
-	{ 241.14,-1378.93,33.75,275.8,-1361.48,24.54,"ENTRAR" },
-	{ 275.8,-1361.48,24.54,241.14,-1378.93,33.75,"SAIR" },
+	{ -935.68,-378.77,38.97,-1386.84,-478.56,72.05 },
+	{ -1386.84,-478.56,72.05,-935.68,-378.77,38.97 },
 
-	{ 232.89,-411.39,48.12,224.63,-360.7,-98.78,"ENTRAR" },
-	{ 224.63,-360.7,-98.78,232.89,-411.39,48.12,"SAIR" },
+	{ -741.07,5593.13,41.66,446.19,5568.79,781.19 },
+	{ 446.19,5568.79,781.19,-741.07,5593.13,41.66 },
 
-	{ 234.33,-387.57,-98.78,244.34,-429.14,-98.78,"ENTRAR" },
-	{ 244.34,-429.14,-98.78,234.33,-387.57,-98.78,"SAIR" }
+	{ -740.78,5597.04,41.66,446.37,5575.02,781.19 },
+	{ 446.37,5575.02,781.19,-740.78,5597.04,41.66 }
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(teleport) do
+		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Porta de Acesso","Pressione para acessar" })
+	end
 
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADTELEPORT
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
-			for k,v in pairs(teleport) do
+			for _,v in pairs(teleport) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~   "..v[7])
+
 					if IsControlJustPressed(1,38) then
-						DoScreenFadeOut(1000)
-						Citizen.Wait(2000)
-						SetEntityCoords(ped,v[4],v[5],v[6])
-						Citizen.Wait(1000)
-						DoScreenFadeIn(1000)
+						SetEntityCoords(ped,v[4],v[5],v[6],1,0,0,0)
 					end
 				end
 			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -869,166 +875,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
         SetWeaponDrops()
     end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PEDS
------------------------------------------------------------------------------------------------------------------------------------------
-local pedlist = {
-	{ 325.6,-1074.38,29.48,1.61,0xB353629E,"s_m_m_paramedic_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Farmácia
-	{ 406.04,6526.17,27.75,82.26,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Colheita
-	{ -555.2,5364.38,70.43,70.08,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lenhador
-	{ 453.68,-600.56,28.6,262.54,0x62018559,"s_m_y_airworker","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Motorista
-	{ 78.04,-1536.51,29.47,137.53,0xEE75A00F,"s_m_y_garbage","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro 1
-	{ 84.2,-1552.04,29.6,50.8,0xEE75A00F,"s_m_y_garbage","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Lixeiro
-	{ 354.72,269.84,103.02,337.89,0xD768B228,"s_m_m_security_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Transportador
-	{ 1078.69,-1954.9,31.03,105.61,0xD7DA9E99,"s_m_y_construct_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Minerador
-	{ 1075.95,-1978.71,31.48,143.1,0xC5FEFADE,"s_m_y_construct_02","amb@prop_human_parking_meter@female@idle_a","idle_a_female" }, -- Minerador
-	{ 1082.45,-1997.86,31.23,19.94,0xC5FEFADE,"s_m_y_construct_02","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Minerador
-	{ 287.65,2843.45,44.71,77.11,0xC5FEFADE,"s_m_y_construct_02","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Minerador
-	{ 1163.26,-1483.47,34.85,88.64,0xAB594AB6,"s_f_y_scrubs_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Hospital
-	{ 1598.9,6457.99,25.32,247.46,0xAB594AB6,"s_f_y_scrubs_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Restaurant
-	{ 714.02,-961.53,30.4,183.57,0xD7DA9E99,"s_m_y_construct_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Costura
-	{ -223.42,-1508.51,31.37,229.18,0x2D0EFCEB,"u_m_y_cyclist_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Bike
-	{ 1851.99,2595.64,45.69,268.29,0x2D0EFCEB,"u_m_y_cyclist_01","anim@heists@heist_corona@single_team","single_team_loop_boss" } -- Bike
- }
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADPEDLIST
------------------------------------------------------------------------------------------------------------------------------------------
-local localPeds = {}
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(1000)
-		local ped = PlayerPedId()
-		local x,y,z = table.unpack(GetEntityCoords(ped))
-
-		for k,v in pairs(pedlist) do
-			local distance = GetDistanceBetweenCoords(x,y,z,v[1],v[2],v[3],true)
-			if distance <= 60 then
-				if localPeds[k] == nil then
-					RequestModel(GetHashKey(v[6]))
-					while not HasModelLoaded(GetHashKey(v[6])) do
-						RequestModel(GetHashKey(v[6]))
-						Citizen.Wait(10)
-					end
-
-					localPeds[k] = CreatePed(4,v[5],v[1],v[2],v[3]-1,v[4],false,true)
-					SetEntityInvincible(localPeds[k],true)
-					FreezeEntityPosition(localPeds[k],true)
-					SetBlockingOfNonTemporaryEvents(localPeds[k],true)
-
-					if v[7] ~= nil then
-						RequestAnimDict(v[7])
-						while not HasAnimDictLoaded(v[7]) do
-							RequestAnimDict(v[7])
-							Citizen.Wait(10)
-						end
-
-						TaskPlayAnim(localPeds[k],v[7],v[8],8.0,0.0,-1,1,0,0,0,0)
-					end
-				end
-			else
-				if localPeds[k] then
-					DeleteEntity(localPeds[k])
-					localPeds[k] = nil
-				end
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- FREE PEDS
------------------------------------------------------------------------------------------------------------------------------------------
-local freepedlist = {
-	{ 24.51,-1347.27,29.5,261.02,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Vanilla
-	{ 2557.15,380.71,108.63,350.7,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Posto North Avenida
-	{ 1164.73,-322.66,69.21,99.48,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Barragen
-	{ -706.16,-913.63,19.22,89.09,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Waze News
-	{ -46.7,-1757.85,29.43,49.43,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto dos Ballas
-	{ 372.56,326.44,103.57,260.89,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Banco Central
-	{ -3242.23,999.97,12.84,352.58,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Deck
-	{ 1727.86,6415.3,35.04,238.52,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Tunel Palleto
-	{ 549.14,2671.29,42.16,92.83,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Animal Ark
-	{ 1960.04,3740.11,32.35,300.19,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do North Avenue
-	{ 2677.9,3279.42,55.25,322.63,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Desmanche
-	{ 1698.06,4922.92,42.07,315.58,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Fazenda
-	{ -1820.16,794.29,138.09,130.71,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Posto Canyon Drive
-	{ 1392.74,3606.39,34.99,184.36,0x917ED459,"mp_m_weed_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja abandonada no North
-	{ -2966.35,391.02,15.05,93.07,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Banco pra cima da Praia
-	{ -3039.01,584.45,7.91,14.95,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na Praia Afastada
-	{ 1134.16,-982.44,46.42,279.52,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Depois da Ponte da DP Praça
-	{ 1165.89,2710.82,38.16,177.46,0xB1BB9B59,"s_m_y_prisoner_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prisão
-	{ -1486.21,-377.97,40.17,136.67,0xD15D7E71,"a_m_m_ktown_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Centro
-	{ -1221.94,-908.37,12.33,33.74,0xC79F6928,"a_f_y_beach_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Pier Príncipal
-	{ 991.91,-2175.43,29.98,182.48,0x4163A158,"s_m_y_factory_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Fábrica de carnes
-	{ 991.23,-2183.83,30.68,94.63,0x4163A158,"s_m_y_factory_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Matadouro fábrica
-	{ 962.0,-2109.92,31.95,84.02,0x14D7B4E0,"s_m_m_dockwork_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Veículo fábrica
-	{ 970.27,-2181.42,29.98,165.58,0xFCFA9E1E,"a_c_cow","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Vaca
-	{ 982.85,-2183.34,30.67,265.12,0xB11BAB56,"a_c_pig","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Porco
-    { 73.99,-1393.05,29.38,265.06,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Vanilla
-	{ -709.02,-151.54,37.42,123.5,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prefeitura
-	{ -165.09,-303.19,39.74,251.93,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- No Rockford Plaza
-	{ 427.06,-806.23,29.5,85.88,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Antiga Polícia
-	{ -823.15,-1072.28,11.33,205.58,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Waze News
-	{ -1193.92,-767.02 ,17.32,209.75,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Bahamas
-	{ -1448.76,-237.87,49.82,47.44,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto do Cemitério
-	{ 5.97,6511.48,31.88,44.83,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Em Paleto Bay
-	{ 1695.36,4822.95,42.07,98.0,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Sentido North
-	{ 127.0,-224.2,54.56,71.23,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Avenida do Banco Central
-	{ 612.95,2762.66,42.09,266.26,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Ao lado do Animal ARK
-	{ 1196.64,2711.63,38.23,178.79,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Perto da Prisão
-	{ -3169.4,1043.13,20.87,64.8,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Pra cima da Praia
-	{ -1102.35,2711.72,19.11,215.38,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Rota 68
-    { 1208.58,-3115.36,5.55,267.65,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na zona do porto
-	{ 1199.03,-3121.63,5.55,300.76,0x441405EC,"s_m_y_xmech_02","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Na zona do porto
-	{ 1986.48,3789.67,32.19,295.75,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- No norte
-    { 1203.78,2647.17,37.81,47.87,0x441405EC,"s_m_y_xmech_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Rota 69
-    { -86.31,31.57,71.96,76.27,0x445AC854,"a_f_y_bevhills_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de Eletrônicos
-    { -623.09,-229.22,38.06,200.48,0x36DF2D5D,"a_f_y_bevhills_04","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Joalheria
-	{ 318.23,-1078.4,29.48,5.53,0xDF8B1301,"cs_patricia","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Do lado da Praça
-    { -1170.73,-1570.53,4.67,123.18,0x0DE9A30A,"s_m_m_ammucountry","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de Maconha
-	{ -56.4,-1098.57,26.43,14.28,0x9B557274,"s_m_y_devinsec_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }, -- Loja de carros normais
-	{ -54.15,67.33,71.97,79.09,0x9B557274,"s_m_y_devinsec_01","anim@heists@heist_corona@single_team","single_team_loop_boss" }
- }
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADPEDLIST
------------------------------------------------------------------------------------------------------------------------------------------
-local localFreePeds = {}
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(1000)
-		local ped = PlayerPedId()
-		local x,y,z = table.unpack(GetEntityCoords(ped))
-
-		for k,v in pairs(freepedlist) do
-			local distance = GetDistanceBetweenCoords(x,y,z,v[1],v[2],v[3],true)
-			if distance <= 60 then
-				if localFreePeds[k] == nil then
-					RequestModel(GetHashKey(v[6]))
-					while not HasModelLoaded(GetHashKey(v[6])) do
-						RequestModel(GetHashKey(v[6]))
-						Citizen.Wait(10)
-					end
-
-					localFreePeds[k] = CreatePed(4,v[5],v[1],v[2],v[3]-1,v[4],false,true)
-
-					if v[7] ~= nil then
-						RequestAnimDict(v[7])
-						while not HasAnimDictLoaded(v[7]) do
-							RequestAnimDict(v[7])
-							Citizen.Wait(10)
-						end
-
-						TaskPlayAnim(localFreePeds[k],v[7],v[8],8.0,0.0,-1,1,0,0,0,0)
-					end
-				end
-			else
-				if localFreePeds[k] then
-					DeleteEntity(localFreePeds[k])
-					localFreePeds[k] = nil
-				end
-			end
-		end
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Rich Presence

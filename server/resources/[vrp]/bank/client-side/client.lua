@@ -20,8 +20,19 @@ local localidades = {
 	{ -111.97,6469.19,31.62 },
 	{ 1175.05,2706.90,38.09 },
 	{ -351.02,-49.97,49.04 },
-	{ 314.13,-279.09,54.17 },
+	{ 314.13,-279.09,54.17 }
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(localidades) do
+		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Banco Fleeca","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENSHOP
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -35,10 +46,9 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(localidades) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 2 then
+				if distance <= 1.5 then
 					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~   ABRIR")
-					if IsControlJustPressed(1,38) --[[ and vSERVER.requestWanted()]] then				
+					if IsControlJustPressed(1,38) then				
 						SetNuiFocus(true,true)
 						SendNUIMessage({ action = "showMenu" })
 					end

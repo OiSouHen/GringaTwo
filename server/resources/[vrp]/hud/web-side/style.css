@@ -12,7 +12,7 @@ html,body {
 	height: 78px;
 	opacity: 0.5;
 	position: absolute !important;
-	background: url("images/logo.png") no-repeat;
+	background: url("logo.png") no-repeat;
 }
 
 #displayHud {

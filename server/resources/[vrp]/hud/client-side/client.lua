@@ -35,6 +35,7 @@ local beltVelocity = 0
 local clockHours = 12
 local clockMinutes = 0
 local timeDate = GetGameTimer()
+local weatherSync = "CLEAR"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -62,11 +63,15 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		SetWeatherTypeNowPersist("CLEAR")
-
 		if homeInterior then
+			SetWeatherTypeNow("CLEAR")
+			SetWeatherTypePersist("CLEAR")
+			SetWeatherTypeNowPersist("CLEAR")
 			NetworkOverrideClockTime(00,00,00)
 		else
+			SetWeatherTypeNow(weatherSync)
+			SetWeatherTypePersist(weatherSync)
+			SetWeatherTypeNowPersist(weatherSync)
 			NetworkOverrideClockTime(clockHours,clockMinutes,00)
 		end
 
@@ -346,6 +351,7 @@ RegisterNetEvent("hud:syncTimers")
 AddEventHandler("hud:syncTimers",function(timer)
 	clockHours = parseInt(timer[2])
 	clockMinutes = parseInt(timer[1])
+	weatherSync = timer[3]
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HOMES:HOURS

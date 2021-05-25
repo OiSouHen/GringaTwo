@@ -19,7 +19,7 @@ local shops = {
 		["type"] = "Cash",
 		["list"] = {
 		    ["absolut"] = 215,
-			["postit"] = 10,
+			["notepad"] = 10,
 			["coffee"] = 320,
 			["chandon"] = 215,
 			["chocolate"] = 315,
@@ -155,7 +155,7 @@ local shops = {
 			["ominitrix"] = 350,
 			["bracelet"] = 500,
 			["dildo"] = 250,
-			["postit"] = 10,
+			["notepad"] = 10,
 			["dollars2"] = 40
 		}
 	},
@@ -189,7 +189,7 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["postit"] = 20,
+			["notepad"] = 20,
 			["energetic"] = 50,
 			["hamburger"] = 30,
 			["emptybottle"] = 40,

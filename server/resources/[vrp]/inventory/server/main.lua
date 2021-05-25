@@ -46,6 +46,39 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GARBAGEPAYMENTMETHOD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.garbagePaymentMethod(garbageId)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"negado","Mochila <b>Cheia</b>.",3000)
+			return
+		end
+
+		local random = math.random(100)
+		if parseInt(random) >= 81 then
+			vRP.giveInventoryItem(user_id,"plastic",math.random(1),true)
+			table.insert(registerTimers,{ 10 })
+		elseif parseInt(random) >= 61 and parseInt(random) <= 80 then
+			vRP.giveInventoryItem(user_id,"glass",math.random(1),true)
+			table.insert(registerTimers,{ 10 })
+		elseif parseInt(random) >= 41 and parseInt(random) <= 60 then
+			vRP.giveInventoryItem(user_id,"rubber",math.random(1),true)
+			table.insert(registerTimers,{ 10 })
+		elseif parseInt(random) >= 26 and parseInt(random) <= 40 then
+			vRP.giveInventoryItem(user_id,"aluminum",math.random(1),true)
+			table.insert(registerTimers,{ 10 })
+		elseif parseInt(random) >= 10 and parseInt(random) <= 25 then
+			vRP.giveInventoryItem(user_id,"copper",math.random(1),true)
+			table.insert(registerTimers,{ 10 })
+		end
+
+		vRP.upgradeStress(user_id,1)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- FIRECRACKER
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -901,7 +934,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
 									-- vRP.createDurability(itemName)
 
-									local taskResult = vTASKBAR.taskToolbox(source)
+									local taskResult = vTASKBAR.taskMechanic(source)
 									if taskResult then
 										vRP.upgradeStress(user_id,5)
 										if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
