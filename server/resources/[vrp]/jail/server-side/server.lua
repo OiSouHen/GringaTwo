@@ -15,8 +15,8 @@ vPLAYER = Tunnel.getInterface("player")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local records = ""
-local fines = ""
+local records = "https://discord.com/api/webhooks/846950724294541314/l3kropvVEes1O5jnxtEq0uNUUC_Re27mSREOQYPah68vkesECsoSPJpLdHuPeovQaGbd"
+local fines = "https://discord.com/api/webhooks/846950724294541314/l3kropvVEes1O5jnxtEq0uNUUC_Re27mSREOQYPah68vkesECsoSPJpLdHuPeovQaGbd"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ RegisterCommand("prender",function(source,args,rawCommand)
 			local identity = vRP.getUserIdentity(parseInt(nuser_id))
 			local identity2 = vRP.getUserIdentity(parseInt(user_id))
 			if identity then
-				TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> enviado para a prisão <b>"..parseInt(services).." serviços</b>.",5000)
+				TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> preso(a) por <b>"..parseInt(services).." serviços</b>.",5000)
 				vRP.createWeebHook(records,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nSERVICES: "..parseInt(services).."\nCRIMES: "..crimes.."\nBY: "..identity2.name.." "..identity2.name2.."```")
 			end
 
@@ -81,7 +81,7 @@ RegisterCommand("rprender",function(source,args,rawCommand)
 
 			local identity = vRP.getUserIdentity(parseInt(nuser_id))
 			if identity then
-				TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> teve sua pena reduzida em <b>"..parseInt(services).."</b> serviços</b>.",5000)
+				TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> teve sua pena reduzida em <b>"..parseInt(services).." serviços</b>.",5000)
 			end
 		end
 	end
@@ -101,6 +101,50 @@ RegisterCommand("resgate",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECK-KEY
+-----------------------------------------------------------------------------------------------------------------------------------------
+function CNVcore.checkKey()
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        if vRP.wantedReturn(user_id) then
+            return false
+        end
+
+        if vRP.tryGetInventoryItem(user_id,"key",1) then
+            vCLIENT.stopPrison(source)
+            vRP.execute("vRP/resgate_prison",{ user_id = parseInt(user_id) })
+            return true
+        end
+        return false
+    end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GIVE-KEY
+-----------------------------------------------------------------------------------------------------------------------------------------
+	function CNVcore.giveKey()
+		local source = source
+		local user_id = vRP.getUserId(source)
+		if user_id then
+			if vRP.giveInventoryItem(user_id,"key",1,true) then
+				return true
+			end
+			return false
+		end
+	end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STARTRACE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function CNVcore.callPolice()
+	local copAmount = vRP.numPermission("Police")
+	for k,v in pairs(copAmount) do
+		async(function()
+			TriggerClientEvent("Notify",v,"amarelo","Encontramos um fugitivo do presídio.",5000)
+		end)
+	end
+	return parseInt(race)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- REDUCEPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
 function CNVcore.reducePrison()
@@ -119,7 +163,7 @@ function CNVcore.reducePrison()
 			end
 		else
 			vCLIENT.startPrison(source,parseInt(consult[1].locate))
-			TriggerClientEvent("Notify",source,"amarelo","Você ainda tem <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
+			TriggerClientEvent("Notify",source,"azul","Você ainda tem <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
 		end
 	end
 end
@@ -165,7 +209,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	if parseInt(consult[1].prison) <= 0 then
 		return
 	else
-		TriggerClientEvent("Notify",source,"importante","Você ainda tem que cumprir <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
+		TriggerClientEvent("Notify",source,"azul","Você ainda tem que cumprir <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
 		vCLIENT.startPrison(source,parseInt(2))
 		vRPclient.teleport(source,1677.72,2509.68,45.57)
 	end
