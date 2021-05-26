@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("robberys",cnVRP)
+cRP = {}
+Tunnel.bindInterface("robberys",cRP)
 vSERVER = Tunnel.getInterface("robberys")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -26,13 +26,15 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
+
 			for k,v in pairs(vars) do
 				local distance = #(coords - vector3(v.x,v.y,v.z))
 				if distance <= v.distance then
 					timeDistance = 4
 
 					if not startRobbery then
-						if distance <= 2 then
+						if distance <= 1 then
+							DrawText3D(v.x,v.y,v.z-0.4,"~g~E~w~  ROUBAR",400)
 							if distance <= 1 and IsControlJustPressed(1,38) and vSERVER.checkPolice(k,coords) then
 								robberyId = k
 								startRobbery = true
@@ -40,7 +42,7 @@ Citizen.CreateThread(function()
 							end
 						end
 					else
-						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE ~y~"..robberyTimer.."~w~ SEGUNDOS",370)
+						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE  "..robberyTimer.."  SEGUNDOS",370)
 					end
 				end
 			end
@@ -75,7 +77,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEVARS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateVars(status)
+function cRP.updateVars(status)
 	vars = status
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -85,24 +87,11 @@ function DrawText3D(x,y,z,text,height)
 	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
 	SetTextFont(4)
 	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
+	SetTextColour(176,180,193,150)
 	SetTextEntry("STRING")
 	SetTextCentre(1)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
-	local factor = (string.len(text)) / height
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- INPUTROBBERYS
------------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.inputRobberys(robberyTables)
-	robberys = robberyTables
-
-	local innerTable = {}
-	for k,v in pairs(robberys) do
-		table.insert(innerTable,{ v["coords"][1],v["coords"][2],v["coords"][3],1,"E",v["name"],"Pressione para iniciar o roubo" })
-	end
-
-	TriggerEvent("hoverfy:insertTable",innerTable)
+	local factor = (string.len(text))/height
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
 end

@@ -1396,11 +1396,11 @@ local itemlist = {
 		index = "goldbar",
 		name = "Barra de Ouro",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "875",
 		type = "use",
-		weight = 10.00
+		weight = 0.25
 	},
 	["binoculars"] = {
 		index = "binoculars",
