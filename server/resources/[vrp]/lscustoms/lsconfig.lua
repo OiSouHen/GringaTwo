@@ -111,8 +111,6 @@ LSC_Config = {}
 LSC_Config.prices = {}
 
 LSC_Config.prices = {
-
-
 	windowtint = {
 		{ name = "Pure Black", tint = 1, price = 1750 },
 		{ name = "Darksmoke", tint = 2, price = 1750 },

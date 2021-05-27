@@ -1,26 +1,24 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-emP = Tunnel.getInterface("lscustoms")
+cRP = Tunnel.getInterface("lscustoms")
 
 local inside = false
 local currentpos = nil
 local currentgarage = 0
 
 local garages = {
-	[1] = { locked = false, camera = { x = -330.94, y = -135.47, z = 39.01, heading = 102.21 }, driveout = { x = -350.37, y = -136.7, z = 38.29, heading = 70.22 }, drivein = { x = -350.65, y = -136.55, z = 38.29, heading = 249.53 }, outside = { x = -362.79, y = -132.40, z = 38.25, heading = 71.18 }, inside = { x = -337.38, y = -136.92, z = 38.57, heading = 269.45 }},
-	[2] = { locked = false, camera = { x = 737.09, y = -1085.72, z = 22.16, heading = 114.86 }, driveout = { x = 725.46, y = -1088.82, z = 21.45, heading = 89.39 }, drivein = { x = 726.15, y = -1088.76, z = 22.16, heading = 270.28 }, outside = { x = 716.54, y = -1088.75, z = 21.65, heading = 89.24 }, inside = { x = 733.69, y = -1088.74, z = 21.73, heading = 270.52 }},
-	[3] = { locked = false, camera = { x = -1154.90, y = -2011.43, z = 13.18, heading = 95.49 }, driveout = { x = -1150.37, y = -1995.84, z = 12.46, heading = 313.59 }, drivein = { x = -1150.26, y = -1995.64, z = 12.46, heading = 136.85 }, outside = { x = -1140.35, y = -1985.89, z = 12.45, heading = 314.40 }, inside = { x = -1155.07, y = -2006.61, z = 12.46, heading = 162.58 }},
-	[4] = { locked = false, camera = { x = 1177.98, y = 2636.05, z = 37.75, heading = 37.08 }, driveout = { x = 1175.00, y = 2642.17, z = 37.04, heading = 0.75 }, drivein = { x = 1174.70, y = 2643.76, z = 37.04, heading = 178.11 }, outside = { x = 1175.56, y = 2652.81, z = 37.94, heading = 351.57 }, inside = { x = 1174.82, y = 2637.80, z = 37.04, heading = 181.19 }},
-	[5] = { locked = false, camera = { x = 105.82, y = 6627.56, z = 31.78, heading = 266.69 }, driveout = { x = 112.32, y = 6625.14, z = 31.07, heading = 224.64 }, drivein = { x = 112.73, y = 6624.64, z = 31.07, heading = 44.26 }, outside = { x = 118.49, y = 6618.89, z = 31.13, heading = 224.70 }, inside = { x = 108.84, y = 6628.44, z = 31.07, heading = 45.50 }},
-	[6] = { locked = false, camera = { x = -215.51, y = -1329.13, z = 30.89, heading = 329.09 }, driveout = { x = -205.93, y = -1316.64, z = 30.17, heading = 356.49 }, drivein = { x = -205.62, y = -1314.99, z = 30.24, heading = 179.39 }, outside = { x = -205.59, y = -1304.08, z = 30.61, heading = 359.79 }, inside = { x = -212.36, y = -1325.48, z = 30.17, heading = 141.10 } }
+	[1] = { locked = false, drivein = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }, outside = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }, inside = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }},
+	[2] = { locked = false, drivein = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }, outside = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }, inside = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }},
+	[3] = { locked = false, drivein = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }, outside = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }, inside = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }},
+	[4] = { locked = false, drivein = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }, outside = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }, inside = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }},
+	[5] = { locked = false, drivein = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }, outside = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }, inside = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }},
+	[6] = { locked = false, drivein = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }, outside = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }, inside = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }},
+	[7] = { locked = false, drivein = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 }, outside = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 }, inside = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 } }
 }
 
 local Menu = SetMenu()
 local myveh = {}
-
-local gameplaycam = nil
-local cam = nil
 
 local function f(n)
 	return (n+0.00001)
@@ -69,16 +67,6 @@ local function AddMod(mod,parent,header,name,info,stock)
 			end
 		end
 	end
-end
-
-local function SetupInsideCam()
-	local coords = currentpos.camera
-	cam = CreateCam("DEFAULT_SCRIPTED_CAMERA",true,2)
-	SetCamCoord(cam,coords.x,coords.y,coords.z+1.0)
-	coords = currentpos.inside
-	PointCamAtCoord(cam,coords.x,coords.y,coords.z)
-	SetCamActive(cam,true)
-	RenderScriptCams(1,0,cam,0,0)
 end
 
 local function DriveInGarage()
@@ -451,8 +439,6 @@ local function DriveInGarage()
 			SetEntityInvincible(veh,true)
 			SetVehRadioStation(veh,255)
 
-			gameplaycam = GetRenderingCam()
-			SetupInsideCam()
 			Citizen.Wait(50)
 
 			TaskVehicleDriveToCoordLongrange(ped,veh,pos.inside.x,pos.inside.y,pos.inside.z,7.0,16777216,1.0)
@@ -469,13 +455,6 @@ local function DriveInGarage()
 			end
 
 			Citizen.Wait(100)
-			SetCamCoord(cam,GetGameplayCamCoords())
-			SetCamRot(cam,GetGameplayCamRot(2),2)
-			RenderScriptCams(1,1,0,0,0)
-			RenderScriptCams(0,1,1000,0,0)
-			SetCamActive(gameplaycam,true)
-			EnableGameplayCam(true)
-			SetCamActive(cam,false)
 
 			if (GetVehicleBodyHealth(veh) <= 999 or GetVehicleEngineHealth(veh) <= 999) then
 				LSCMenu:Open("main")
@@ -495,23 +474,13 @@ local function DriveOutOfGarage(pos)
 	Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		local veh = GetVehiclePedIsUsing(ped)
-
-		pos = currentpos
-		--TaskVehicleDriveToCoord(ped,veh,pos.outside.x,pos.outside.y,pos.outside.z,f(5),f(0.1),GetEntityModel(veh),16777216,f(0.1),true)
-
-		pos = currentpos.inside
 		TriggerServerEvent("LSC:finished",myveh)
-
 		FreezeEntityPosition(veh,false)
 		SetVehicleDoorsLocked(veh,0)
-		--SetEntityCoords(veh,pos.x+0.0001,pos.y+0.0001,pos.z+0.0001,1,0,0,1)
-		SetEntityHeading(veh,pos.heading)
 		SetVehicleOnGroundProperly(veh)
-
 		SetEntityInvincible(veh,false)
 		SetVehicleLights(veh,0)
 		inside = false
-
 		TriggerServerEvent('lockGarage',false,currentgarage)
 		SetPlayerControl(PlayerId(),true)
 		currentgarage = 0
@@ -543,17 +512,16 @@ Citizen.CreateThread(function()
 						if distance <= 15 then
 							timeDistance = 4
 							
+							DrawMarker(23,outside["x"],outside["y"],outside["z"] - 0.55,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
+							
 							if not v.locked then
-								if IsControlJustPressed(1,38) then -- E
-								--if IsControlJustPressed(1,201) then -- Enter
-									if emP.checkPermission() then
+								if distance <= 2.5 and IsControlJustPressed(1,38) then
+									if cRP.checkPermission() then
 										inside = true
 										currentpos = v
 										currentgarage = k
 										DriveInGarage()
 									end
-								else
-								DrawMarker(23,outside["x"],outside["y"],outside["z"],0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
 								end
 							end
 						end
@@ -809,63 +777,6 @@ AddEventHandler("LSC:buttonSelected",function(name,button,canpurchase)
 	CheckPurchases(m)
 end)
 
-local function PointCamAtBone(bone,ox,oy,oz)
-	SetIbuttons({
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right" },
-		{ GetControlInstructionalButton(1,0,0),"Livre"}
-	 },0)
-	SetCamActive(cam,true)
-	local veh = myveh.vehicle
-	local b = GetEntityBoneIndexByName(veh,bone)
-	local bx,by,bz = table.unpack(GetWorldPositionOfEntityBone(veh,b))
-	local ox2,oy2,oz2 = table.unpack(GetOffsetFromEntityGivenWorldCoords(veh,bx,by,bz))
-	local x,y,z = table.unpack(GetOffsetFromEntityInWorldCoords(veh,ox2+f(ox),oy2+f(oy),oz2+f(oz)))
-	SetCamCoord(cam,x,y,z)
-	PointCamAtCoord(cam,GetOffsetFromEntityInWorldCoords(veh,0,oy2,oz2))
-	RenderScriptCams(1,1,1000,0,0)
-end
-
-local function MoveVehCam(pos,x,y,z)
-	SetIbuttons({
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back,0),"Back" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select,0),"Select" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up,0),"Up" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down,0),"Down" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left,0),"Left" },
-		{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right,0),"Right" },
-		{ GetControlInstructionalButton(1,0, 0),"Livre"}
-	 },0)
-	SetCamActive(cam,true)
-	local veh = myveh.vehicle
-	local vx,vy,vz = table.unpack(GetEntityCoords(veh))
-	local d = GetModelDimensions(GetEntityModel(veh))
-	local length,width,height = d.y*-2,d.x*-2,d.z*-2
-	local ox,oy,oz
-	if pos == 'front' then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,f(x),(length/2)+f(y),f(z)))
-	elseif pos == "front-top" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,f(x),(length/2)+f(y),(height)+f(z)))
-	elseif pos == "back" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,f(x),-(length/2)+f(y),f(z)))
-	elseif pos == "back-top" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,f(x),-(length/2)+f(y),(height/2)+f(z)))
-	elseif pos == "left" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,-(width/2)+f(x),f(y),f(z)))
-	elseif pos == "right" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,(width/2)+f(x),f(y),f(z)))
-	elseif pos == "middle" then
-		ox,oy,oz= table.unpack(GetOffsetFromEntityInWorldCoords(veh,f(x),f(y),(height/2)+f(z)))
-	end
-	SetCamCoord(cam,ox,oy,oz)
-	PointCamAtCoord(cam,GetOffsetFromEntityInWorldCoords(veh,0,0,f(0)))
-	RenderScriptCams(1,1,1000,0,0)
-end
-
 function LSCMenu:OnMenuChange(last,current)
 	UnfakeVeh()
 	if last == "main" then
@@ -882,27 +793,17 @@ function LSCMenu:OnMenuChange(last,current)
 	elseif c == "Engine Tunes" then
 	elseif c == "exhausts" then
 	elseif c == "hood" then
-		MoveVehCam('front-top',-0.5,1.3,1.0)
 	elseif c == "headlights" then
-		MoveVehCam('front',-0.6,1.3,0.6)
 	elseif c == "license" or c == "plate holder" then
-		MoveVehCam('back',0,-1,0.2)
 	elseif c == "vanity plates" then
-		MoveVehCam('front',-0.3,0.8,0.3)
 	elseif c == "roof" then
 	elseif c == "fenders" then
-		MoveVehCam('left',-1.8,-1.3,0.7)
 	elseif c == "grille" then
 	elseif c == "skirts" then
-		MoveVehCam('left',-1.8,-1.3,0.7)
 	elseif c == "spoiler" then
-		MoveVehCam('back',0.5,-1.6,1.3)
 	elseif c == "back wheel" then
-		PointCamAtBone("wheel_lr",-1.4,0,0.3)
 	elseif c == "front wheel" or c == "wheel accessories" or  c == "wheel color" or c == "sport" or c == "muscle" or c == "lowrider" or c == "highend" or c == "import" or c == "suv" or c == "offroad" or c == "tuner" then
-		PointCamAtBone("wheel_lf",-1.4,0,0.3)
 	elseif c == "neon color" then
-		PointCamAtBone("neon_l",-2.0,2.0,0.4)
 	elseif c == "shifter leavers" or c == "trim design" or c == "ornaments" or c == "dashboard" or c == "dials" or c == "seats" or c =="steering wheels" then
 		SetFollowVehicleCamViewMode(4)
 	elseif c == "doors" and last.name:lower() == "interior" then
@@ -913,22 +814,6 @@ function LSCMenu:OnMenuChange(last,current)
 	elseif c == "speakers" or  c == "engine block" or c == "air filter" or c == "strut brace" or c == "cam cover" then
 		SetVehicleDoorOpen(myveh.vehicle,5,0,0)
 		SetVehicleDoorOpen(myveh.vehicle,4,0,0)
-	elseif IsCamActive(cam) then
-		SetCamCoord(cam,GetGameplayCamCoords())
-		SetCamRot(cam, GetGameplayCamRot(2),2)
-		RenderScriptCams(1,1,0,0,0)
-		RenderScriptCams(0,1,1000,0,0)
-		SetCamActive(gameplaycam,true)
-		EnableGameplayCam(true)
-		SetCamActive(cam,false)
-		SetIbuttons({
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back,0),"Back" },
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select,0),"Select" },
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up,0),"Up" },
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down,0),"Down" },
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left,0),"Left" },
-			{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right,0),"Right" }
-		},0)
 	else
 		SetVehicleDoorShut(myveh.vehicle,0,0)
 		SetVehicleDoorShut(myveh.vehicle,1,0)
@@ -1216,33 +1101,3 @@ function DrawIbuttons()
 		DrawScaleformMovie(Ibuttons,0.5,0.5,1.0,1.0,255,255,255,255)
 	end
 end
-
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		if LSCMenu:isVisible() then
-			DrawIbuttons()
-			timeDistance = 4
-			if IsDisabledControlJustPressed(1,0) or IsControlJustPressed(1,0) then
-				if cam and IsCamActive(cam) then
-					SetCamCoord(cam,GetGameplayCamCoords())
-					SetCamRot(cam,GetGameplayCamRot(2), 2)
-					RenderScriptCams(1,1,0,0,0)
-					RenderScriptCams(0,1,1000,0,0)
-					SetCamActive(gameplaycam,true)
-					EnableGameplayCam(true)
-					SetCamActive(cam,false)
-					SetIbuttons({
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Voltar" },
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Selecionar" },
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Cima" },
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Baixo" },
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Esquerda" },
-						{ GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Direita" }
-					},0)
-				end
-			end
-		end
-		Citizen.Wait(timeDistance)
-	end
-end)

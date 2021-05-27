@@ -1052,15 +1052,15 @@ local itemlist = {
 		type = "use",
 		weight = 0.25
 	},
-	["tecido"] = {
-		index = "tecido",
+	["fabric"] = {
+		index = "fabric",
 		name = "Tecido",
 		desc = "",
-		tipo = "Material",
+		tipo = "Comum",
 		unity = "Não",
-		economy = "45",
+		economy = "75",
 		type = "use",
-		weight = 0.05
+		weight = 0.050
 	},
 	["plastic"] = {
 		index = "plastic",
@@ -2360,6 +2360,16 @@ local itemlist = {
 		economy = "S/E",
 		type = "use",
 		weight = 0.15
+	},
+	["ketchup"] = {
+		index = "ketchup",
+		name = "Ketchup",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "15",
+		type = "use",
+		weight = 0.25
 	},
 	["orangejuice"] = {
 		index = "orangejuice",

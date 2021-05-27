@@ -61,7 +61,7 @@ Citizen.CreateThread(function()
 			local distance = #(coords - vector3(dX,dY,dZ))
 			if distance <= 2.5 then
 				timeDistance = 4
-				DrawText3D(dX,dY,dZ,"~g~E~w~   DELETAR CHARACTER")
+				DrawText3D(dX,dY,dZ,"~y~E~w~  DELETAR PERSONAGEM")
 				DrawMarker(23,dX,dY,dZ-0.98,0,0,0,0,0,0,5.0,5.0,1.0,255,0,0,25,0,0,0,0)
 				if IsControlJustPressed(1,38) then
 					vSERVER.deleteChar()
@@ -1280,19 +1280,18 @@ end)
 -- CRUISER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("cr",function(source,args)
-	if exports["chat"]:statusChat() then
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			local veh = GetVehiclePedIsUsing(ped)
 			if GetPedInVehicleSeat(veh,-1) == ped and not IsEntityInAir(veh) then
 				local speed = GetEntitySpeed(veh) * 2.236936
 
-				if speed >= 10 then
+				if speed >= 0 then
 					if args[1] == nil then
 						SetEntityMaxSpeed(veh,GetVehicleEstimatedMaxSpeed(veh))
 						TriggerEvent("Notify","amarelo","Controle de cruzeiro desativado.",3000)
 					else
-						if parseInt(args[1]) > 10 then
+						if parseInt(args[1]) > 0 then
 							SetEntityMaxSpeed(veh,0.45*args[1])
 							TriggerEvent("Notify","verde","Controle de cruzeiro ativado.",3000)
 						end
@@ -1300,7 +1299,6 @@ RegisterCommand("cr",function(source,args)
 				end
 			end
 		end
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISTANCESERVICE

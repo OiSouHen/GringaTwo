@@ -1,4 +1,4 @@
-body,td,th { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #666; cursor: default; vertical-align: baseline; outline: 0; line-height: 1; margin: 0; padding: 0; word-wrap: break-word; } 
+body,td,th { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #666; cursor: default; vertical-align: baseline; outline: 0; line-height: 1; margin: 0; padding: 0; word-wrap: break-word; }
 a,a:link,a:visited,a:active,a:hover { font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #666; text-decoration: none; }
 div,span,applet,object,iframe,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr { border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; margin:0; padding:0; }
 :focus { outline:0; }
@@ -6,17 +6,18 @@ img { border:none; }
 ::-webkit-scrollbar { width: 0; }
 ::selection { background: transparent; color: #666; }
 ::-moz-selection { background: transparent; color: #666; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { -webkit-appearance: none; }
 /* ---------------------------------------------------------------------------------------------------------------- */
 #mainPage {
 	top: 50%;
 	left: 50%;
 	width: 1200px;
-	height: 600px;
+	height: 700px;
 	display: none;
 	overflow: auto;
 	position: absolute;
 	border: 7px solid #111;
-	border-radius: 15px;
 	transform: translate(-50%,-50%);
 	background: #ccc url("images/background.png") no-repeat;
 }
@@ -29,9 +30,9 @@ img { border:none; }
 /* ---------------------------------------------------------------------------------------------------------------- */
 #mainMenu {
 	float: left;
-	width: 1200px;
+	width: 1140px;
 	padding: 0 30px;
-	background: #111111;
+	background: #1a1a1a;
 }
 
 #mainMenu li {
@@ -76,8 +77,7 @@ img { border:none; }
 #content {
 	float: left;
 	width: 1140px;
-	/*height: 460px;*/
-	height: 340px;
+	height: 460px;
 	margin: 30px;
 	overflow: auto;
 }
@@ -99,7 +99,7 @@ img { border:none; }
 	width: 1110px;
 	margin: 0 15px;
 	font-size: 13px;
-	line-height: 22px;
+	line-height: 25px;
 }
 
 #divContent {
@@ -109,107 +109,15 @@ img { border:none; }
 }
 
 s {
-	color: #407ca9;
+	color: #a94987;
 	text-decoration: none;
-}
-/* ---------------------------------------------------------------------------------------------------------------- */
-#penalTitle01 {
-	float: left;
-	width: 330px;
-	font-size: 20px;
-	font-weight: 700;
-	letter-spacing: 1px;
-	margin-bottom: 15px;
-	padding: 5px 0 10px 15px;
-	text-transform: uppercase;
-	border-bottom: 1px dotted #999;
-}
-
-#penalTitle02 {
-	float: left;
-	width: 140px;
-	font-size: 20px;
-	font-weight: 700;
-	text-align: center;
-	letter-spacing: 1px;
-	margin-bottom: 15px;
-	padding: 5px 0 10px;
-	text-transform: uppercase;
-	border-bottom: 1px dotted #999;
-}
-
-#penalTitle03 {
-	float: left;
-	width: 130px;
-	font-size: 20px;
-	font-weight: 700;
-	text-align: center;
-	letter-spacing: 1px;
-	margin-bottom: 15px;
-	padding: 5px 0 10px;
-	text-transform: uppercase;
-	border-bottom: 1px dotted #999;
-}
-
-#penalTitle04 {
-	float: left;
-	width: 510px;
-	font-size: 20px;
-	font-weight: 700;
-	letter-spacing: 1px;
-	margin-bottom: 15px;
-	padding: 5px 0 10px 15px;
-	text-transform: uppercase;
-	border-bottom: 1px dotted #999;
-}
-
-#penalContent01 {
-	float: left;
-	width: 330px;
-	padding: 12px 0 12px 15px;
-	margin-bottom: 2px;
-	border-top-left-radius: 3px;
-	border-bottom-left-radius: 3px;
-}
-
-#penalContent02 {
-	float: left;
-	width: 140px;
-	text-align: center;
-	padding: 12px 0 12px;
-	margin-bottom: 2px;
-}
-
-#penalContent03 {
-	float: left;
-	width: 130px;
-	text-align: center;
-	padding: 12px 0 12px;
-	margin-bottom: 2px;
-}
-
-#penalContent04 {
-	float: left;
-	width: 510px;
-	padding: 12px 0 12px 15px;
-	margin-bottom: 2px;
-	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px;
-}
-
-.white {
-	background: rgba(255,255,255,0.1);
-}
-
-.black {
-	background: rgba(100,100,100,0.1);
 }
 /* ---------------------------------------------------------------------------------------------------------------- */
 #pageDiv {
 	float: left;
-	width: 355px;
+	width: 365px;
+	line-height: 25px;
 	padding: 0 0 0 15px;
-	line-height: 22px;
 }
 /* ---------------------------------------------------------------------------------------------------------------- */
 #socialLeft {
@@ -317,4 +225,260 @@ s {
 	float: left;
 	width: 10px;
 	height: 52px;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+#raceBar {
+	width: 1140px;
+	padding: 0 30px;
+	background: #222;
+	margin-top: -30px;
+	margin-left: -30px;
+	position: absolute;
+}
+
+#raceBar li {
+	float: left;
+	color: #999;
+	font-weight: 700;
+	padding: 15px 20px;
+	letter-spacing: 0.7px;
+	list-style-type: none;
+	text-shadow: 0 0 rgba(0,0,0,0.5);
+}
+
+#raceBar li:hover {
+	color: #ccc;
+	background: #444;
+}
+
+#raceBar li.active {
+	color: #ccc;
+	background: #666;
+}
+
+#raceContent {
+	float: left;
+	width: 1140px;
+	margin-top: 42px;
+	max-height: 418px;
+	min-height: 418px;
+	overflow-y: scroll;
+}
+
+#raceLine {
+	float: left;
+	width: 1140px;
+	margin-bottom: 3px;
+	border-radius: 3px;
+	background: rgba(100,100,100,0.1);
+}
+
+#raceLine:nth-child(2n) {
+	float: left;
+	width: 1140px;
+	margin-bottom: 3px;
+	border-radius: 3px;
+	background: rgba(255,255,255,0.1);
+}
+
+#raceLine:last-child {
+	margin-bottom: 0px;
+}
+
+#raceLine:hover {
+	background: rgba(240,203,88,0.5);
+}
+
+.racePosition {
+	float: left;
+	width: 20px;
+	padding: 14px 15px 13px;
+	text-align: right;
+}
+
+.raceName {
+	float: left;
+	width: 200px;
+	font-weight: 700;
+	padding: 14px 15px 13px 5px;
+}
+
+.raceName img {
+	margin-top: -4px;
+	margin-left: 10px;
+	position: absolute;
+}
+
+.raceVehicle {
+	float: left;
+	width: 200px;
+	padding: 14px 15px 13px;
+}
+
+.racePoints {
+	float: left;
+	width: 200px;
+	padding: 14px 15px 13px;
+}
+
+.raceDate {
+	float: left;
+	width: 200px;
+	padding: 14px 15px 13px;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+#titleVehicles {
+	float: left;
+	width: 1125px;
+	font-size: 20px;
+	font-weight: 700;
+	margin-top: -46px;
+	letter-spacing: 1px;
+	margin-bottom: 15px;
+	padding: 5px 0 10px 15px;
+	text-transform: uppercase;
+	position: absolute !important;
+	border-bottom: 1px dotted #999;
+}
+
+#contentVehicles {
+	float: left;
+	width: 1140px;
+	margin-top: 88px;
+	max-height: 372px;
+	min-height: 372px;
+	overflow-y: scroll;
+}
+
+#typeSearch {
+	top: 263px;
+	right: 35px;
+	color: #999999;
+	font-size: 13px;
+	position: absolute;
+}
+
+#typeSearch span {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	padding: 5px 10px;
+	color: #666;
+}
+
+#pageVehicles {
+	row-gap: 6px;
+	display: grid;
+	column-gap: 6px;
+	min-width: 1140px;
+	max-width: 1140px;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#pageVehicles span {
+	width: 250px;
+	padding: 15px;
+	background: #fff;
+	line-height: 21px;
+	border-radius: 3px;
+	border-bottom: 1px solid rgba(0,0,0,0.35);
+}
+
+#pageVehicles left {
+	float: left;
+	width: 161px;
+	padding-top: 2px;
+}
+
+#pageVehicles right {
+	float: left;
+	width: 89px;
+}
+
+#benefactorBuy {
+	float: left;
+	width: 89px;
+	color: #f4bcc6;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+	margin-bottom: 3px;
+	background: #d04963;
+}
+
+#benefactorBuy:hover {
+	background: #a63f53;
+	transition: all 0.9s;
+}
+
+#benefactorSell {
+	float: left;
+	width: 89px;
+	color: #ccc6f7;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+	background: #685bc1;
+}
+
+#benefactorSell:hover {
+	background: #504692;
+	transition: all 0.9s;
+}
+
+#benefactorTax {
+	float: left;
+	width: 89px;
+	color: #caeba3;
+	margin-top: 3px;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+	background: #71a732;
+}
+
+#benefactorTax:hover {
+	background: #577c2a;
+	transition: all 0.9s;
+}
+
+#benefactorRental {
+	float: left;
+	width: 89px;
+	color: #dacdf7;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+	margin-bottom: 3px;
+	background: #6a48b8;
+}
+
+#benefactorRental:hover {
+	background: #51368c;
+	transition: all 0.9s;
+}
+
+#benefactorDrive {
+	float: left;
+	width: 89px;
+	color: #f0d396;
+	margin-top: 3px;
+	background: #bf9334;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+}
+
+#benefactorDrive:hover {
+	background: #917028;
+	transition: all 0.9s;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+#alertPage {
+	float: left;
+	width: 1098px;
+	color: #252d1b;
+	padding: 15px 20px;
+	background: #77905a;
+	margin-bottom: 15px;
+	border: 1px solid #466126;
 }

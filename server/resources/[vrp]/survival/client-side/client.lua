@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 10
+				deathtimer = 500
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 					vRP.playAnim(false,{"dead","dead_a"},true)
@@ -48,7 +48,6 @@ Citizen.CreateThread(function()
 					SetEntityHealth(ped,101)
 					TriggerEvent("hudActived",false)
 					drawTxt("NOCAUTEADO, AGUARDE ~y~"..deathtimer.."~w~ SEGUNDOS",4,0.5,0.93,0.50,255,255,255,200)
-					--SendNUIMessage({ deathtext = "NOCAUTEADO, AGUARDE <color>"..deathtimer.." SEGUNDOS</color>" })
 
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
@@ -56,7 +55,6 @@ Citizen.CreateThread(function()
 				else
 					timeDistance = 4
 					drawTxt("DIGITE ~g~/GG~w~ E DESISTA IMEDIATAMENTE",4,0.5,0.93,0.50,255,255,255,200)
-					--SendNUIMessage({ deathtext = "DIGITE <color>/GG</color> E DESISTA IMEDIATAMENTE" })
 					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
@@ -87,8 +85,7 @@ RegisterCommand("gg",function(source,args,rawCommand)
 		vSERVER.ResetPedToHospital()
 		TriggerEvent("hudActived",true)
 	else
-		TriggerEvent("Notify","importante","Aguarde, você ainda tem <b>"..deathtimer.."</b> segundos de vida.",5000)
-		TriggerEvent("sound:source","pristine",0.5)
+		TriggerEvent("Notify","azul","Você ainda tem <b>"..deathtimer.." segundos</b> de vida.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -221,7 +218,7 @@ function cnVRP.startCure()
 				SetEntityHealth(ped,GetEntityHealth(ped)+1)
 			end
 		until GetEntityHealth(ped) >= 200 or GetEntityHealth(ped) <= 101
-		TriggerEvent("Notify","verde","Tratamento concluído.",5000)
+		TriggerEvent("Notify","verde","Tratamento concluído.",3000)
 			ClearPedTasks(ped)
 			cure = false
 			blockControls = false

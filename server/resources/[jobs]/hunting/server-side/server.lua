@@ -1,36 +1,43 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-emP = {}
-Tunnel.bindInterface("emp_cacador",emP)
+cnVRP = {}
+Tunnel.bindInterface("hunting",cnVRP)
+
+local collect = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNÇÕES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local quantidade = {}
-function emP.Quantidade()
-    local source = source
-    if quantidade[source] == nil then
-        quantidade[source] = math.random(3)
-    end
-end
-
-function emP.checkPayment(item)
-    emP.Quantidade()
-    local source = source
-    local user_id = vRP.getUserId(source)
-    if user_id then
-        if vRP.getToken(user_id) > 0 then
-            TriggerClientEvent("Notify",source,"importante","Não estamos contratando pessoas com <b>Ficha Criminal</b>, caso queira trabalhar<br>conosco procure as autoridades e efetue a limpeza da mesma.",10000)
-            return false
-        end
-
-        if vRP.getInventoryWeight(user_id)+vRP.getItemWeight(item)*parseInt(quantidade[source]) <= vRP.getInventoryMaxWeight(user_id) then
-            vRP.giveInventoryItem(user_id,item,parseInt(quantidade[source]))
-            if math.random(100) >= 98 then
-                vRP.giveInventoryItem(user_id,"etiqueta",1)
-            end
-            quantidade[source] = nil
-            return true
-        end
-    end
+function cnVRP.animalPayment()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			Wait(1)
+		else
+			vRPclient.stopActived(source)
+			
+			local random = math.random(100)
+			if parseInt(random) >= 76 then
+				vRP.giveInventoryItem(user_id,"orange",math.random(3),true)
+			elseif parseInt(random) >= 66 and parseInt(random) <= 75 then
+				vRP.giveInventoryItem(user_id,"strawberry",math.random(3),true)
+			elseif parseInt(random) >= 56 and parseInt(random) <= 65 then
+				vRP.giveInventoryItem(user_id,"grape",math.random(3),true)
+			elseif parseInt(random) >= 46 and parseInt(random) <= 55 then
+				vRP.giveInventoryItem(user_id,"tange",math.random(3),true)
+			elseif parseInt(random) >= 36 and parseInt(random) <= 45 then
+				vRP.giveInventoryItem(user_id,"banana",math.random(3),true)
+			elseif parseInt(random) >= 26 and parseInt(random) <= 35 then
+				vRP.giveInventoryItem(user_id,"passion",math.random(3),true)
+			elseif parseInt(random) >= 1 and parseInt(random) <= 25 then
+				vRP.giveInventoryItem(user_id,"tomato",math.random(4),true)
+			end
+			
+			collect[source] = nil
+			return true
+		end
+		return false
+	end
 end

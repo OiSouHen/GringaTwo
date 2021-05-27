@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("crafting",cnVRP)
+cRP = {}
+Tunnel.bindInterface("crafting",cRP)
 vCLIENT = Tunnel.getInterface("crafting")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CRAFTLIST
@@ -393,13 +393,13 @@ local craftList = {
 			}
 		}
 	},
-	["garbagemanCrafting"] = {
+	["lixeiroShop"] = {
 		["list"] = {
 			["aluminum"] = {
 				["amount"] = 3,
 				["destroy"] = true,
 				["require"] = {
-					["emptycan"] = 1
+					["metalcan"] = 1
 				}
 			},
 			["rubber"] = {
@@ -420,19 +420,19 @@ local craftList = {
 				["amount"] = 3,
 				["destroy"] = true,
 				["require"] = {
-					["littlebottle"] = 1
+					["plasticbottle"] = 1
 				}
 			},
 			["glass"] = {
 				["amount"] = 3,
 				["destroy"] = true,
 				["require"] = {
-					["brokenbottle"] = 1
+					["glassbottle"] = 1
 				}
 			}
 		}
 	},
-	["costuraCrafting"] = {
+	["dressMaker"] = {
 		["list"] = {
 			["credential"] = {
 				["amount"] = 1,
@@ -452,19 +452,78 @@ local craftList = {
 					["copper"] = 5
 				}
 			},
-			["normalbackpack"] = {
+			["backpack"] = {
 				["amount"] = 1,
 				["destroy"] = true,
 				["require"] = {
-					["tecido"] = 25
+					["fabric"] = 25
 				}
 			},
-			["tecido"] = {
+			["fabric"] = {
 				["amount"] = 1,
 				["destroy"] = true,
 				["require"] = {
-					["cotton"] = 15,
 					["rubber"] = 5
+				}
+			}
+		}
+	},
+	["foodMarket"] = {
+		["list"] = {
+			["ketchup"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["emptybottle"] = 1,
+					["tomato"] = 6
+				}
+			},
+			["bananajuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["banana"] = 9
+				}
+			},
+			["orangejuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["orange"] = 9
+				}
+			},
+			["passionjuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["passion"] = 9
+				}
+			},
+			["strawberryjuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["strawberry"] = 9
+				}
+			},
+			["tangejuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["tange"] = 9
+				}
+			},
+			["grapejuice"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["water"] = 1,
+					["grape"] = 9
 				}
 			}
 		}
@@ -473,7 +532,7 @@ local craftList = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTPERM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.requestPerm(craftType)
+function cRP.requestPerm(craftType)
 	local source = source
 	local user_id = vRP.getUserId(source)
 
@@ -494,7 +553,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTCRAFTING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.requestCrafting(craftType)
+function cRP.requestCrafting(craftType)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
@@ -506,7 +565,7 @@ function cnVRP.requestCrafting(craftType)
 				table.insert(craftList,{ name = vRP.itemNameList(k), amount = v })
 			end
 
-			table.insert(inventoryShop,{ name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k), list = craftList })
+			table.insert(inventoryShop,{ name = vRP.itemNameList(k), amount = parseInt(v.amount), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k), list = craftList })
 		end
 
 		local inventoryUser = {}
@@ -537,7 +596,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTIONCRAFTING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.functionCrafting(shopItem,shopType,shopAmount,slot)
+function cRP.functionCrafting(shopItem,shopType,shopAmount,slot)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -587,7 +646,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTIONDESTROY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.functionDestroy(shopItem,shopType,shopAmount,slot)
+function cRP.functionDestroy(shopItem,shopType,shopAmount,slot)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

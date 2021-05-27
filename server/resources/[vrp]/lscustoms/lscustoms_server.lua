@@ -2,10 +2,10 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
-emP = {}
-Tunnel.bindInterface("lscustoms",emP)
+cRP = {}
+Tunnel.bindInterface("lscustoms",cRP)
 
-function emP.checkPermission()
+function cRP.checkPermission()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -21,7 +21,8 @@ local tbl = {
 	[3] = { locked = false, player = nil },
 	[4] = { locked = false, player = nil },
 	[5] = { locked = false, player = nil },
-	[6] = { locked = false, player = nil }
+	[6] = { locked = false, player = nil },
+	[7] = { locked = false, player = nil }
 }
 
 RegisterServerEvent("lockGarage")

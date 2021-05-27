@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("engine",cnVRP)
+cRP = {}
+Tunnel.bindInterface("engine",cRP)
 vSERVER = Tunnel.getInterface("engine")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -21,36 +21,34 @@ local vehFuels = {}
 -- VEHCLASS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehClass = {
-	[0] = 0.8,
-	[1] = 0.8,
-	[2] = 0.8,
-	[3] = 0.8,
-	[4] = 0.8,
-	[5] = 0.8,
-	[6] = 0.8,
-	[7] = 0.8,
-	[8] = 0.8,
-	[9] = 0.8,
-	[10] = 0.8,
-	[11] = 0.8,
-	[12] = 0.8,
-	[13] = 0.1,
-	[14] = 0.1,
-	[15] = 0.1,
-	[16] = 0.1,
-	[17] = 0.5,
-	[18] = 0.5,
-	[19] = 0.8,
-	[20] = 0.8,
-	[21] = 0.1
+	[0] = 1.0,
+	[1] = 1.0,
+	[2] = 1.0,
+	[3] = 1.0,
+	[4] = 1.0,
+	[5] = 1.0,
+	[6] = 1.0,
+	[7] = 1.0,
+	[8] = 1.0,
+	[9] = 1.0,
+	[10] = 1.0,
+	[11] = 1.0,
+	[12] = 1.0,
+	[13] = 0.0,
+	[14] = 0.0,
+	[15] = 1.0,
+	[16] = 1.0,
+	[17] = 1.0,
+	[18] = 1.0,
+	[19] = 1.0,
+	[20] = 1.0,
+	[21] = 0.0
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehFuel = {
-	[1.5] = 1.5,
-	[1.5] = 1.5,
-	[1.5] = 1.5,
+	[1.0] = 1.0,
 	[0.9] = 0.9,
 	[0.8] = 0.8,
 	[0.7] = 0.7,
@@ -58,7 +56,9 @@ local vehFuel = {
 	[0.5] = 0.5,
 	[0.4] = 0.4,
 	[0.3] = 0.3,
-	[0.2] = 0.2
+	[0.2] = 0.2,
+	[0.1] = 0.1,
+	[0.0] = 0.0
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUELLOCS
@@ -67,12 +67,12 @@ local fuelLocs = {
 	{ 1,265.05,-1262.65,29.3,15.0 },
 	{ 2,819.14,-1028.65,26.41,15.0 },
 	{ 3,1208.61,-1402.43,35.23,15.0 },
-	{ 4,1181.48,-330.26,69.32,15.0 },
+	{ 4,1181.48,-330.26,69.32,10.0 },
 	{ 5,621.01,268.68,103.09,15.0 },
 	{ 6,2581.09,361.79,108.47,17.0 },
 	{ 7,175.08,-1562.12,29.27,15.0 },
 	{ 8,-319.76,-1471.63,30.55,17.0 },
-	{ 9,1782.33,3328.46,41.26,10.0 },
+	{ 9,1778.52,3326.35,41.35,10.0 },
 	{ 10,49.42,2778.8,58.05,15.0 },
 	{ 11,264.09,2606.56,44.99,15.0 },
 	{ 12,1039.38,2671.28,39.56,15.0 },
@@ -90,14 +90,15 @@ local fuelLocs = {
 	{ 24,-2096.3,-320.17,13.17,17.0 },
 	{ 25,-724.56,-935.97,19.22,17.0 },
 	{ 26,-525.26,-1211.19,18.19,15.0 },
-	{ 27,-70.96,-1762.21,29.54,15.0 }
+	{ 27,-70.96,-1762.21,29.54,15.0 },
+	{ 28,-1112.4,-2884.08,13.93,15.0 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FLOOR
 -----------------------------------------------------------------------------------------------------------------------------------------
 function floor(num)
-	local mult = 10^1
-	return math.floor(num*mult+0.5) / mult
+	local mult = 10 ^ 1
+	return math.floor(num * mult + 0.5) / mult
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREDCONSUMEFUEL
@@ -107,11 +108,15 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			local vehicle = GetVehiclePedIsUsing(ped)
-			local speed = GetEntitySpeed(vehicle) * 2.236936
-			if IsVehicleEngineOn(vehicle) and GetPedInVehicleSeat(vehicle,-1) == ped and speed >= 5 and GetVehicleFuelLevel(vehicle) >= 2 then
-				TriggerServerEvent("engine:tryFuel",VehToNet(vehicle),GetVehicleFuelLevel(vehicle) - (vehFuel[floor(GetVehicleCurrentRpm(vehicle))] or 1.0) * (vehClass[GetVehicleClass(vehicle)] or 1.0) / 10)
+			if NetworkGetEntityIsNetworked(vehicle) then
+				local speed = GetEntitySpeed(vehicle) * 2.236936
+				if IsVehicleEngineOn(vehicle) and GetPedInVehicleSeat(vehicle,-1) == ped and GetVehicleFuelLevel(vehicle) >= 5 and speed > 5 then
+					local vehNet = NetworkGetNetworkIdFromEntity(vehicle)
+					TriggerServerEvent("engine:tryFuel",VehToNet(vehicle),GetVehicleFuelLevel(vehicle) - (vehFuel[floor(GetVehicleCurrentRpm(vehicle))] or 1.0) * (vehClass[GetVehicleClass(vehicle)] or 1.0) / 10)
+				end
 			end
 		end
+
 		Citizen.Wait(1000)
 	end
 end)
@@ -135,19 +140,19 @@ Citizen.CreateThread(function()
 
 						if not isFuel then
 							if vehFuel >= 100.0 then
-								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~p~TANQUE CHEIO")
+								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~w~TANQUE CHEIO")
 							elseif GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100 <= 0 then
-								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~b~GALÃO VAZIO")
+								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~w~GALÃO VAZIO")
 							else
-								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   ABASTECER")
+								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~  ABASTECER")
 							end
 						else
 							if vehFuel >= 0.0 and GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100 > 0 then
 								SetPedAmmo(ped,883325847,math.floor(GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100))
 
 								SetVehicleFuelLevel(vehicle,vehFuel+0.03)
-								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   CANCELAR")
-								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%   ~w~GALÃO: ~y~"..parseInt(GetAmmoInPedWeapon(ped,883325847) / 4500 * 100).."%")
+								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~r~E~w~  CANCELAR")
+								text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%  ~w~GALÃO: ~y~"..parseInt(GetAmmoInPedWeapon(ped,883325847) / 4500 * 100).."%")
 
 								if not IsEntityPlayingAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3) then
 									TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
@@ -206,14 +211,14 @@ Citizen.CreateThread(function()
 									if vehFuel >= 100.0 then
 										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~w~TANQUE CHEIO")
 									else
-										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   ABASTECER")
+										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~  ABASTECER")
 									end
 								else
 									if vehFuel >= 0.0 then
-										isPrice = isPrice + 0.075
+										isPrice = isPrice + 0.05
 										SetVehicleFuelLevel(vehicle,vehFuel+0.02)
-										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~   CANCELAR")
-										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%   ~w~PREÇO: ~y~$"..parseInt(isPrice))
+										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+1,"~g~E~w~  CANCELAR")
+										text3D(coordsVeh.x,coordsVeh.y,coordsVeh.z+0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%  ~w~PREÇO: ~y~$"..parseInt(isPrice))
 
 										if not IsEntityPlayingAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3) then
 											TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
@@ -278,16 +283,18 @@ Citizen.CreateThread(function()
 			end
 
 			if isFuel then
+				DisableControlAction(1,18,true)
 				DisableControlAction(1,22,true)
 				DisableControlAction(1,23,true)
 				DisableControlAction(1,24,true)
 				DisableControlAction(1,29,true)
 				DisableControlAction(1,30,true)
 				DisableControlAction(1,31,true)
-				DisableControlAction(1,44,true)
 				DisableControlAction(1,140,true)
-				DisableControlAction(1,311,true)
-				DisableControlAction(1,323,true)
+				DisableControlAction(1,142,true)
+				DisableControlAction(1,143,true)
+				DisableControlAction(1,257,true)
+				DisableControlAction(1,263,true)
 			end
 		end
 
@@ -327,16 +334,20 @@ end)
 -- TEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function text3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.04,50,55,67,150)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = (string.len(text) + 4) / 170 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOADANIM
@@ -344,7 +355,6 @@ end
 function loadAnim(dict)
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
-		RequestAnimDict(dict)
-		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 end

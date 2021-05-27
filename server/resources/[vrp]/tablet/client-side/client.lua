@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("tablet",cnVRP)
+cRP = {}
+Tunnel.bindInterface("tablet",cRP)
 vSERVER = Tunnel.getInterface("tablet")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
@@ -20,16 +20,18 @@ end)
 -- TABLET
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tablet",function(source,args)
-	if GetEntityHealth(PlayerPedId()) > 101 then
-		SetNuiFocus(true,true)
-		SetCursorLocation(0.5,0.5)
-		SendNUIMessage({ action = "openSystem" })
-	else
-		return
-	end
-	
-	if not IsPedInAnyVehicle(PlayerPedId()) and GetEntityHealth(PlayerPedId()) > 101 then
-		vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
+	if not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
+		local ped = PlayerPedId()
+		if not IsEntityInWater(ped) and GetEntityHealth(ped) > 101 then
+			SetNuiFocus(true,true)
+			SetCursorLocation(0.5,0.5)
+			SendNUIMessage({ action = "openSystem" })
+
+			if not IsPedInAnyVehicle(PlayerPedId()) then
+				vRP.removeObjects()
+				vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
+			end
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -40,11 +42,18 @@ RegisterKeyMapping("tablet","Abrir o tablet","keyboard","f11")
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeSystem",function(data)
-	vRP.removeObjects("one")
+	vRP.removeObjects()
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
 	SendNUIMessage({ action = "closeSystem" })
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REQUESTRANKING
+-----------------------------------------------------------------------------------------------------------------------------------------
+--RegisterNUICallback("requestRanking",function(data,cb)
+--	cb(vSERVER.requestRanking(data["raceId"]))
+--	local result = vSERVER.requestRanking(data.raceId)
+--end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTMEDIA
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +68,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("messageMedia",function(data,cb)
 	vSERVER.messageMedia(data.message,data.page)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TABLET:UPDATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("tablet:Update")
+AddEventHandler("tablet:Update",function(action)
+	SendNUIMessage({ action = action })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEMEDIA

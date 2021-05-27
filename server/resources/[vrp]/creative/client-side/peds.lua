@@ -313,12 +313,6 @@ local pedList = {
 		model = { 0xC79F6928,"a_f_y_beach_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Colheita
-		distance = 30,
-		coords = { 406.08,6526.17,27.75,87.88 },
-		model = { 0x94562DD7,"a_m_m_farmer_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Motorista
 		distance = 30,
 		coords = { 452.97,-607.75,28.59,266.46 },
@@ -329,6 +323,18 @@ local pedList = {
 		distance = 50,
 		coords = { 81.82,-1554.86,29.6,51.03 },
 		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Colheita
+		distance = 30,
+		coords = { 406.08,6526.17,27.75,87.88 },
+		model = { 0x94562DD7,"a_m_m_farmer_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Bishops
+		distance = 50,
+		coords = { 169.51,-1634.03,29.3,35.9 },
+		model = { 0x94562DD7,"a_m_m_farmer_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Loja de Roupas

@@ -439,16 +439,16 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
---	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
---		options = {
---			{
---				event = "hunting:animalCutting",
---				label = "Esfolar",
---				tunnel = "client"
---			}
---		},
---		distance = 1.50
---	})
+	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
+		options = {
+			{
+				event = "hunting:animalCutting",
+				label = "Esfolar",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
 
 	AddTargetModel({ -205311355 },{
 		options = {

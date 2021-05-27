@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("crafting",cnVRP)
+cRP = {}
+Tunnel.bindInterface("crafting",cRP)
 vSERVER = Tunnel.getInterface("crafting")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSE
@@ -53,22 +53,30 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATECRAFTING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateCrafting(action)
+function cRP.updateCrafting(action)
 	SendNUIMessage({ action = action })
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CRAFTING:UPDATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("crafting:Update")
+AddEventHandler("crafting:Update",function(action)
+	SendNUIMessage({ action = action })
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CRAFTLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local craftList = {
-    { 68.88,-1570.04,29.6,"generalCrafting","General" },
-    { 2662.41,3468.25,55.95,"ilegalCrafting","Ilegal" },
-    { -883.07,-436.57,39.6,"fueltechCrafting","Fueltech" },
-	{ 48.52,-1594.3,29.6,"boateCrafting","Boate" },
-    { 1275.74,-1710.31,54.76,"mafiaCrafting","Mafia" },
-    { -351.56,-107.99,38.7,"mecanicoCrafting","Mecânico" },
-    { 1593.14,6455.61,26.02,"avalanchesCrafting","Avalanches" },
-	{ 84.17,-1552.07,29.6,"garbagemanCrafting","Lixeiro" },
-	{ 714.07,-962.09,30.4,"costuraCrafting","Costura" }
+    { 68.88,-1570.04,29.6,"generalCrafting"},
+    { 2662.41,3468.25,55.95,"ilegalCrafting" },
+    { -883.07,-436.57,39.6,"fueltechCrafting" },
+	{ 48.52,-1594.3,29.6,"boateCrafting" },
+    { 1275.74,-1710.31,54.76,"mafiaCrafting" },
+    { -351.56,-107.99,38.7,"mecanicoCrafting" },
+    { 1593.14,6455.61,26.02,"avalanchesCrafting" },
+	{ 84.17,-1552.07,29.6,"lixeiroShop" },
+	{ 713.89,-961.52,30.4,"dressMaker" },
+	{ 169.56,-1634.05,29.28,"foodMarket" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHOVERFY
@@ -92,12 +100,12 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
-			
+
 			for k,v in pairs(craftList) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.25 then
 					timeDistance = 4
-					
+
 					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
 						SetNuiFocus(true,true)
 						SendNUIMessage({ action = "showNUI", name = tostring(v[4]) })
@@ -105,7 +113,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		
+
 		Citizen.Wait(timeDistance)
 	end
 end)

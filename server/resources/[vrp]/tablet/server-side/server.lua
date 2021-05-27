@@ -7,52 +7,52 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("tablet",cnVRP)
+cRP = {}
+Tunnel.bindInterface("tablet",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local twitter = {}
-local anonimo = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTTWITTER
+-- REQUESTRACES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.requestMedia(media)
+--vRP.execute("vRP/show_winrace", { raceid = id } )
+
+--function cRP.requestRanking(raceId)
+--	local result = MySQL.Sync.fetchAll("SELECT * FROM vrp_races WHERE raceid = @raceId",{ ['@raceId'] = raceId })
+--	local result = vRP.execute("vRP/show_winrace", { id = raceId, raceid = raceId } )
+--	if result then
+--		return result.raceId
+--	end
+--	return nil
+--end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REQUESTMEDIA
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.requestMedia(media)
 	if media == "Twitter" then
 		return twitter
-	elseif media == "Anonimo" then
-		return anonimo
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTTWITTER
+-- MESSAGEMEDIA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.messageMedia(message,page)
+function cRP.messageMedia(message,page)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local text = ""
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			if page == "Anonimo" then
-				text = "<b>Anônimo</b> <i>("..os.date("%H")..":"..os.date("%M")..")</i><b>:</b> "..message
-			else
+			if page == "Twitter" then
 				text = "<i><b>"..identity.name.." "..identity.name2.."</b> - "..os.date("%H")..":"..os.date("%M")..":</i><br>"..message
 			end
 
 			if page == "Twitter" then
-				if vRP.getPremium(user_id) then
-					table.insert(twitter,{ text = text, back = true })
-					TriggerClientEvent("tablet:updateMedia", -1, page, text, true )
-				else
-					table.insert(twitter,{ text = text })
-					TriggerClientEvent("tablet:updateMedia", -1, page, text, false )
-				end
+				table.insert(twitter,{ text = text })
+				TriggerClientEvent("tablet:updateMedia", -1, page, text, false)
 				TriggerClientEvent("Notify",-1,"rosa","<b>@"..identity.name..""..identity.name2.."</b> públicou um novo Tweet.",1000)
-				TriggerClientEvent("sound:source",source,"softtick",0.5)
-			elseif page == "Anonimo" then
-				table.insert(anonimo,{ text = text })
-				TriggerClientEvent("tablet:updateMedia", -1, page, text, false )
+--				TriggerClientEvent("sound:source",source,"softtick",0.5)
 			end
 		end
 	end
@@ -62,10 +62,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	local twitterFile = LoadResourceFile("logsystem","twitter.json")
-	local anonimoFile = LoadResourceFile("logsystem","anonimo.json")
 
 	twitter = json.decode(twitterFile)
-	anonimo = json.decode(anonimoFile)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADMIN:KICKALL

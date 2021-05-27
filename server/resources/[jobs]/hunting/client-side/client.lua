@@ -227,7 +227,7 @@ AddEventHandler("hunting:animalCutting",function()
 
 			if distance <= 1.5 then
 				if IsPedDeadOrDying(animalHunting[k]) and not IsPedAPlayer(animalHunting[k]) then
-					if vSERVER.checkSwitchblade() and GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_UNARMED") then
+					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_KNIFE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
 						local targetEntity = animalHunting[k]
 						animalHunting[k] = nil

@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("engine",cnVRP)
+cRP = {}
+Tunnel.bindInterface("engine",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -16,14 +16,14 @@ local vehFuels = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentFuel(price)
+function cRP.paymentFuel(price)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.paymentBank(user_id,parseInt(price)) then
 			return true
 		else
-			TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente.",5000)
+			TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
 		end
 		return false
 	end

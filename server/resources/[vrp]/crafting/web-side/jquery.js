@@ -260,7 +260,7 @@ const requestCrafting = () => {
 				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}" data-desc="${v["desc"]}">
 					<div class="top">
 						<div class="itemWeight">${v.weight.toFixed(2)}</div>
-						<div class="itemAmount">x</div>
+						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
 					<div class="invisibledurability"></div>

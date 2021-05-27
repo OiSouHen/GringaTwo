@@ -20,7 +20,6 @@ local hardness = {}
 local showHud = false
 local talking = false
 local showMovie = false
-local direction = "Norte"
 local radioDisplay = ""
 local homeInterior = false
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -32,10 +31,10 @@ local beltVelocity = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOCKVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local clockHours = 12
+local clockHours = 18
 local clockMinutes = 0
 local timeDate = GetGameTimer()
-local weatherSync = "CLEAR"
+local weatherSync = "EXTRASUNNY"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,9 +63,9 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		if homeInterior then
-			SetWeatherTypeNow("CLEAR")
-			SetWeatherTypePersist("CLEAR")
-			SetWeatherTypeNowPersist("CLEAR")
+			SetWeatherTypeNow("EXTRASUNNY")
+			SetWeatherTypePersist("EXTRASUNNY")
+			SetWeatherTypeNowPersist("EXTRASUNNY")
 			NetworkOverrideClockTime(00,00,00)
 		else
 			SetWeatherTypeNow(weatherSync)
@@ -110,39 +109,41 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEDISPLAYHUD
 -----------------------------------------------------------------------------------------------------------------------------------------
+local streetLast = 0
+local flexDirection = "Norte"
 function updateDisplayHud()
 	local ped = PlayerPedId()
 	local armour = GetPedArmour(ped)
 	local coords = GetEntityCoords(ped)
-	local health = GetEntityHealth(ped) - 100
 	local heading = GetEntityHeading(ped)
+	local health = GetEntityHealth(ped) - 100
 	local oxigen = GetPlayerUnderwaterTimeRemaining(PlayerId())
-	local street = GetStreetNameFromHashKey(GetStreetNameAtCoord(coords["x"],coords["y"],coords["z"]))
-	
+	local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(coords["x"],coords["y"],coords["z"]))
+
 	if heading >= 315 or heading < 45 then
-		direction = "Norte"
+		flexDirection = "Norte"
 	elseif heading >= 45 and heading < 135 then
-		direction = "Oeste"
-	elseif heading >=135 and heading < 225 then
-		direction = "Sul"
+		flexDirection = "Oeste"
+	elseif heading >= 135 and heading < 225 then
+		flexDirection = "Sul"
 	elseif heading >= 225 and heading < 315 then
-		direction = "Leste"
+		flexDirection = "Leste"
 	end
 
 	if IsPedInAnyVehicle(ped) then
-		local veh = GetVehiclePedIsUsing(ped)
-		local plate = GetVehicleNumberPlateText(veh)
-		local speed = GetEntitySpeed(veh) * 3.605936
-		local fuel = GetVehicleFuelLevel(veh)
+		local vehicle = GetVehiclePedIsUsing(ped)
+		local fuel = GetVehicleFuelLevel(vehicle)
+		local plate = GetVehicleNumberPlateText(vehicle)
+		local speed = GetEntitySpeed(vehicle) * 2.236936
 
 		local showBelt = true
-		if IsPedOnAnyBike(ped) or IsPedInAnyHeli(ped) or IsPedInAnyPlane(ped) then
+		if GetVehicleClass(vehicle) == 8 and (GetVehicleClass(vehicle) >= 13 and GetVehicleClass(vehicle) <= 16) and GetVehicleClass(vehicle) == 21 then
 			showBelt = false
 		end
 
-		SendNUIMessage({ vehicle = true, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = street, direction = direction, radio = radioDisplay, hours = clockHours, minutes = clockMinutes, voice = voice, oxigen = oxigen, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock, hardness = (hardness[plate] or 0) })
+		SendNUIMessage({ vehicle = true, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock, hardness = (hardness[plate] or 0) })
 	else
-		SendNUIMessage({ vehicle = false, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = street, direction = direction, radio = radioDisplay, hours = clockHours, minutes = clockMinutes, voice = voice, oxigen = oxigen })
+		SendNUIMessage({ vehicle = false, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -171,9 +172,9 @@ AddEventHandler("hud:toggleHood",function()
 	showHood = not showHood
 
 	if showHood then
-		SetPedComponentVariation(PlayerPedId(),1,69,0,2)
+		SetPedComponentVariation(PlayerPedId(),1,69,0,1)
 	else
-		SetPedComponentVariation(PlayerPedId(),1,0,0,2)
+		SetPedComponentVariation(PlayerPedId(),1,0,0,1)
 	end
 
 	SendNUIMessage({ hood = showHood })
@@ -200,7 +201,7 @@ AddEventHandler("hud:removeHood",function()
 	if showHood then
 		showHood = false
 		SendNUIMessage({ hood = showHood })
-		SetPedComponentVariation(PlayerPedId(),1,0,0,2)
+		SetPedComponentVariation(PlayerPedId(),1,0,0,1)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -216,6 +217,14 @@ end)
 RegisterNetEvent("statusThirst")
 AddEventHandler("statusThirst",function(number)
 	thirst = parseInt(number)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STATUSFOOD
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("statusFoods")
+AddEventHandler("statusFoods",function(statusThirst,statusHunger)
+	thirst = parseInt(statusThirst)
+	hunger = parseInt(statusHunger)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STATUSSTRESS
@@ -250,17 +259,7 @@ AddEventHandler("hud:RadioDisplay",function(number)
 	if parseInt(number) <= 0 then
 		radioDisplay = ""
 	else
-		if parseInt(number) == 911 then
-			radioDisplay = "Policia"
-		elseif parseInt(number) == 912 then
-			radioDisplay = "Policia"
-		elseif parseInt(number) == 112 then
-			radioDisplay = "Paramédico"
-		elseif parseInt(number) == 704 then
-			radioDisplay = "Reboque"
-		else
-			radioDisplay = parseInt(number).."Mhz"
-		end
+		radioDisplay = parseInt(number).."Mhz <s>:</s>"
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -285,13 +284,13 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			if not IsPedOnAnyBike(ped) and not IsPedInAnyHeli(ped) and not IsPedInAnyPlane(ped) then
-				local veh = GetVehiclePedIsUsing(ped)
-				if GetPedInVehicleSeat(veh,-1) == ped then
+				local vehicle = GetVehiclePedIsUsing(ped)
+				if GetPedInVehicleSeat(vehicle,-1) == ped then
 					timeDistance = 4
 
-					local speed = GetEntitySpeed(veh) * 2.236936
+					local speed = GetEntitySpeed(vehicle) * 2.236936
 					if speed ~= beltSpeed then
-						local plate = GetVehicleNumberPlateText(veh)
+						local plate = GetVehicleNumberPlateText(vehicle)
 
 						if ((beltSpeed - speed) >= 60 and beltLock == 0) or ((beltSpeed - speed) >= 90 and beltLock == 1 and hardness[plate] == nil) then
 							local fowardVeh = fowardPed(ped)
@@ -305,7 +304,7 @@ Citizen.CreateThread(function()
 							SetPedToRagdoll(ped,5000,5000,0,0,0,0)
 						end
 
-						beltVelocity = GetEntityVelocity(veh)
+						beltVelocity = GetEntityVelocity(vehicle)
 						beltSpeed = speed
 					end
 				end
@@ -359,6 +358,13 @@ end)
 RegisterNetEvent("homes:Hours")
 AddEventHandler("homes:Hours",function(status)
 	homeInterior = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:PLAYERREJOIN
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vRP:playerRejoin")
+AddEventHandler("vRP:playerRejoin",function()
+	homeInterior = false
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHREDUCE
