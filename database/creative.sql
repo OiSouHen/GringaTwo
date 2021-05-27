@@ -195,6 +195,16 @@ CREATE TABLE `vrp_player_houses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 CHECKSUM=1;
 
+DROP TABLE IF EXISTS `vrp_races`;
+CREATE TABLE `vrp_races` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `vehicle` varchar(250) NOT NULL,
+  `raceid` int(11) NOT NULL DEFAULT 0,
+  `points` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Sobre: Tabela aonde é definido o estoque dos veiculos\r\nColunas: \r\n• vehicle = Nome de Spawn do Veiculo;\r\n• estoque = Quantidade disponivel em estoque (-1 para estoque infinito);\r\n';
+
 DROP TABLE IF EXISTS `vrp_salary`;
 CREATE TABLE `vrp_salary` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

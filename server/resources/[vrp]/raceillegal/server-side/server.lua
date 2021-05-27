@@ -62,15 +62,21 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINISHRACES
 -----------------------------------------------------------------------------------------------------------------------------------------
---function cRP.finishRacesDatabase()
---	local source = source
---	local user_id = vRP.getUserId(source)
---	if user_id then
---	local identity = vRP.getUserIdentity(user_id)
---	    Wait(1000)
---		vRP.execute("vRP/insert_winrace", {user_id = user_id, vehicle = Selected, raceid = Selected, points = SoftPoints} )
---	end
---end
+function cRP.finishRacesDatabase(Selected,SoftPoints)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        local identity = vRP.getUserIdentity(user_id)
+        local _,_,_,vname = vRPclient.vehList(source,7)
+        Wait(5000)
+        local rows = vRP.query("vRP/get_winrace",{ user_id = user_id , raceid = Selected })
+        if #rows > 0 then
+            vRP.execute("vRP/update_winrace", { user_id = user_id, vehicle = vname, raceid = Selected, points = SoftPoints} )
+		else
+            vRP.execute("vRP/insert_winrace", { user_id = user_id, vehicle = vname, raceid = Selected, points = SoftPoints} )
+        end
+    end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RACEILLEGAL:EXPLOSIVEPLAYERS
 -----------------------------------------------------------------------------------------------------------------------------------------

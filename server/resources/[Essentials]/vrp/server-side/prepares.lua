@@ -3,6 +3,8 @@ vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank F
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE RACES
 -----------------------------------------------------------------------------------------------------------------------------------------
+vRP.prepare("vRP/get_winrace","SELECT user_id,raceid FROM vrp_races WHERE user_id = @user_id and raceid = @raceid")
+vRP.prepare("vRP/update_winrace","UPDATE vrp_races SET vehicle = @vehicle, points = @points WHERE user_id = @user_id and raceid = @raceid")
 vRP.prepare("vRP/insert_winrace","INSERT INTO vrp_races(user_id,vehicle,raceid,points) VALUES(@user_id,@vehicle,@raceid,@points)")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE USERS

@@ -273,7 +273,7 @@ Citizen.CreateThread(function()
 				dwText("~y~CHECKPOINTS:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"],0.65)
 				dwText("~y~TOTAL DE VOLTAS:~w~ "..inLaps.." / "..runners[inSelected]["laps"],0.68)
 				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime.." / "..runners[inSelected]["raceTimers"],0.71)
-			    --dwText("~y~PONTUAÇÃO:~w~ "..SoftPoints,0.74)
+--			    dwText("~y~PONTUAÇÃO:~w~ "..SoftPoints,0.74)
 
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then
@@ -284,8 +284,10 @@ Citizen.CreateThread(function()
 						if inCheckpoint >= #runners[inSelected]["coords"] then
 							if inLaps >= runners[inSelected]["laps"] then
 								PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
+								
 								vSERVER.finishRaces()
-								--vSERVER.finishRacesDatabase(Selected,SoftPoints / 10,vRP.vehicleName())
+								vSERVER.finishRacesDatabase(inSelected,SoftPoints / 10)
+								
 								SoftPoints = 0
 								Points = 0
 								cleanBlips()
