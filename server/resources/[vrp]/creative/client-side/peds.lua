@@ -198,9 +198,15 @@ local pedList = {
 		model = { 0x2F8845A3,"ig_barry" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
+--	{ -- Pharmacy Store
+--		distance = 30,
+--		coords = { -171.53,6386.55,31.49,133.23 },
+--		model = { 0x5244247D,"u_m_y_baygor" },
+--		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+--	},
 	{ -- Pharmacy Store
 		distance = 30,
-		coords = { -171.53,6386.55,31.49,133.23 },
+		coords = { -172.73,6381.34,31.48,228.06 },
 		model = { 0x5244247D,"u_m_y_baygor" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
@@ -243,7 +249,7 @@ local pedList = {
 	{ -- Recycling Sell
 		distance = 15,
 		coords = { -428.54,-1728.29,19.78,70.87 },
-		model = { 0xEE75A00F,"s_m_y_garbage" },
+		model = { 0x62018559,"s_m_y_airworker" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Bar
@@ -264,7 +270,7 @@ local pedList = {
 		model = { 0xC314F727,"cs_gurk" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Oxy Store
+	{ -- Oxy Store DESCONHECIDO
 		distance = 30,
 		coords = { -1636.74,-1092.17,13.08,320.32 },
 		model = { 0x689C2A80,"a_f_y_epsilon_01" },
@@ -273,7 +279,8 @@ local pedList = {
 	{ -- Moto Club
 		distance = 12,
 		coords = { 987.46,-95.61,74.85,226.78 },
-		model = { 0x6CCFE08A,"ig_clay" },
+--		model = { 0x6CCFE08A,"ig_clay" },
+        model = { 0xE11A9FB4,"ig_josef" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Transportador
@@ -320,7 +327,7 @@ local pedList = {
 	},
 	{ -- Lixeiro
 		distance = 50,
-		coords = { 82.98,-1553.55,29.59,51.03 },
+		coords = { 81.82,-1554.86,29.6,51.03 },
 		model = { 0xEE75A00F,"s_m_y_garbage" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},

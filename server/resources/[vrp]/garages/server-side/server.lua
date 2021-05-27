@@ -79,21 +79,19 @@ local garages = {
 	[28] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
 	[29] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
 	[30] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
-	[31] = { ["name"] = "Benefactor", ["payment"] = true, ["public"] = true },
 	[32] = { ["name"] = "Transporter", ["payment"] = true, ["public"] = true },
 	[33] = { ["name"] = "Lumberman", ["payment"] = true, ["public"] = true },
 	[34] = { ["name"] = "Fisherman", ["payment"] = true, ["public"] = true },
 	[35] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
 	[36] = { ["name"] = "Garbageman", ["payment"] = true, ["public"] = true },
-	[37] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+--	[37] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[38] = { ["name"] = "Prison", ["payment"] = true, ["perm"] = "Police" },
 	[40] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
 	[41] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
-	[42] = { ["name"] = "Taxi", ["payment"] = true, ["public"] = true },
+--	[42] = { ["name"] = "Taxi", ["payment"] = true, ["public"] = true },
 	[43] = { ["name"] = "TheLost", ["payment"] = true, ["perm"] = "TheLost" },
-	[44] = { ["name"] = "PostOp", ["payment"] = true, ["public"] = true },
-	[45] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
-	[46] = { ["name"] = "Ilegal", ["payment"] = true, ["public"] = true },
+--	[44] = { ["name"] = "PostOp", ["payment"] = true, ["public"] = true },
+--	[46] = { ["name"] = "Ilegal", ["payment"] = true, ["public"] = true },
 	[501] = { ["name"] = "Middle001", ["payment"] = false, ["perm"] = false },
 	[502] = { ["name"] = "Middle002", ["payment"] = false, ["perm"] = false },
 	[503] = { ["name"] = "Middle003", ["payment"] = false, ["perm"] = false },
@@ -353,12 +351,11 @@ local garages = {
 	[757] = { ["name"] = "Middle257", ["payment"] = false, ["perm"] = false },
 	[758] = { ["name"] = "Middle258", ["payment"] = false, ["perm"] = false },
 	[759] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[760] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
-	[761] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+--	[760] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+--	[761] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[762] = { ["name"] = "Goldminer", ["payment"] = true, ["public"] = true },
 	[763] = { ["name"] = "Avalanches", ["payment"] = true, ["perm"] = "Avalanches" },
-	[764] = { ["name"] = "Bicicletario", ["payment"] = true, ["perm"] = false },
-	[765] = { ["name"] = "Bicicletario", ["payment"] = true, ["perm"] = false }
+	[764] = { ["name"] = "Kart", ["payment"] = true, ["perm"] = false }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GARAGES
@@ -428,10 +425,8 @@ local workgarage = {
 	["Avalanches"] = {
 		"burrito2"
 	},
-	["Bicicletario"] = {
-		"bmx",
-		"scorcher",
-		"tribike2"
+	["Kart"] = {
+		"burrito2"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------

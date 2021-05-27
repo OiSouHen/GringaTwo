@@ -626,8 +626,16 @@ Citizen.CreateThread(function()
 		RemoveVehiclesFromGeneratorsInArea(-4.02 - 5.0,-1533.7 - 5.0,29.63 - 5.0,-4.02 + 5.0,-1533.7 + 5.0,29.63 + 5.0)
 		RemoveVehiclesFromGeneratorsInArea(100.79 - 5.0,-1605.9 - 5.0,29.52 - 5.0,100.79 + 5.0,-1605.9 + 5.0,29.52 + 5.0)
 		RemoveVehiclesFromGeneratorsInArea(43.77 - 5.0,-1288.61 - 5.0,29.15 - 5.0,43.77 + 5.0,-1288.61 + 5.0,29.15 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(326.7 - 5.0,-1473.25 - 5.0,29.8 - 5.0,326.7 + 5.0,-1473.25 + 5.0,29.8 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(366.15 - 5.0,-1453.25 - 5.0,29.44 - 5.0,366.15 + 5.0,-1453.25 + 5.0,29.44 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(403.49 - 5.0,-1425.3 - 5.0,29.46 - 5.0,403.49 + 5.0,-1425.3 + 5.0,29.46 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(296.23 - 5.0,-607.61 - 5.0,43.34 - 5.0,296.23 + 5.0,-607.61 + 5.0,43.34 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(394.52 - 5.0,-570.99 - 5.0,28.69 - 5.0,394.52 + 5.0,-570.99 + 5.0,28.69 + 5.0)
+		RemoveVehiclesFromGeneratorsInArea(459.25 - 10.0,-604.23 - 10.0,28.5 - 10.0,459.25 + 10.0,-604.23 + 10.0,28.5 + 10.0)
 
-		------ agachar
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- AGACHAR
+-----------------------------------------------------------------------------------------------------------------------------------------
 		local ped = PlayerPedId()
         DisableControlAction(0,36,true)
         if not IsPedInAnyVehicle(ped) then

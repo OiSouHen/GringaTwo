@@ -384,6 +384,50 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 	
+	AddTargetModel({ -429715051 },{
+		options = {
+			{
+				event = "shops:megaMallStore",
+				label = "Mega Mall Store",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+	
+	AddTargetModel({ 1644266841 },{
+		options = {
+			{
+				event = "shops:recyclingSell",
+				label = "Recycling Sell",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+	
+	AddTargetModel({ 2014052797,-518348876 },{
+		options = {
+			{
+				event = "shops:barsStore",
+				label = "Bar Store",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+	
+	AddTargetModel({ -1022036185 },{
+		options = {
+			{
+				event = "shops:jewelryStore",
+				label = "Jewelry Sell",
+				tunnel = "client"
+			}
+		},
+		distance = 2.00
+	})
+	
 	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{
 		options = {
 			{
@@ -395,16 +439,16 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
-		options = {
-			{
-				event = "hunting:animalCutting",
-				label = "Esfolar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
+--	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
+--		options = {
+--			{
+--				event = "hunting:animalCutting",
+--				label = "Esfolar",
+--				tunnel = "client"
+--			}
+--		},
+--		distance = 1.50
+--	})
 
 	AddTargetModel({ -205311355 },{
 		options = {
@@ -417,29 +461,29 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
-		options = {
-			{
+--	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
+--		options = {
+--			{
 --				event = "inventory:verifyObjects",
-				event = "inventory:garbageVerify",
-				label = "Vasculhar Lixeira",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75
-	})
+--				event = "inventory:garbageVerify",
+--				label = "Vasculhar Lixeira",
+--				tunnel = "client"
+--			}
+--		},
+--		distance = 0.75
+--	})
 
-	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{
-		options = {
-			{
-				event = "inventory:verifyObjects",
-				label = "Vasculhar Caixa",
-				tunnel = "police",
-				service = "Jornaleiro"
-			}
-		},
-		distance = 0.75
-	})
+--	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{
+--		options = {
+--			{
+--				event = "inventory:verifyObjects",
+--				label = "Vasculhar Caixa",
+--				tunnel = "police",
+--				service = "Jornaleiro"
+--			}
+--		},
+--		distance = 0.75
+--	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDICMENU

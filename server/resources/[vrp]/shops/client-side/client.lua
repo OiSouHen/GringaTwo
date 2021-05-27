@@ -86,6 +86,34 @@ AddEventHandler("shops:hospitalpharmacyStore",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:MEGAMALL
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:megaMallStore",function()
+		SendNUIMessage({ action = "showNUI", name = tostring("megaMallStore"), type = vSERVER.getShopType("megaMallStore") })
+		SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:RECYCLINGSELL
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:recyclingSell",function()
+		SendNUIMessage({ action = "showNUI", name = tostring("recyclingSell"), type = vSERVER.getShopType("recyclingSell") })
+		SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:BARSSTORE
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:barsStore",function()
+		SendNUIMessage({ action = "showNUI", name = tostring("barsStore"), type = vSERVER.getShopType("barsStore") })
+		SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:JEWELRYSTORE
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:jewelryStore",function()
+		SendNUIMessage({ action = "showNUI", name = tostring("jewelryStore"), type = vSERVER.getShopType("jewelryStore") })
+		SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:COFFEEMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:coffeeMachine",function()

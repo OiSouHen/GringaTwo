@@ -269,8 +269,6 @@ function vRP.rejoinServer(source)
 		end
 	end
 end
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEARINVENTORY - NEED TRY MOCHILAS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -353,8 +351,6 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 			vRP.user_tables[user_id].skin = GetHashKey(model)
 			vRP.user_tables[user_id].inventorys["1"] = { item = "identity", amount = 1 }
 			vRP.user_tables[user_id].inventorys["2"] = { item = "dollars", amount = 500 }
-			vRP.user_tables[user_id].inventorys["4"] = { item = "hamburger", amount = 1 }
-			vRP.user_tables[user_id].inventorys["5"] = { item = "water", amount = 1 }
 		end
 
 		local identity = vRP.getUserIdentity(user_id)

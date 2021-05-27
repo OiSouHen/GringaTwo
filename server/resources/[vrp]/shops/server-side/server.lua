@@ -93,23 +93,17 @@ local shops = {
 			["premiumpersonagem"] = 25
 		}
 	},
-	["foodGrill"] = {
-		["mode"] = "Buy",
+	["jewelryStore"] = {
+		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["tacos"] = 28,
-			["hamburger"] = 25,
-			["hotdog"] = 18,
-			["soda"] = 18,
-			["cola"] = 18,
-			["chocolate"] = 10,
-			["sandwich"] = 18,
-			["fries"] = 10,
-			["absolut"] = 40,
-			["chandon"] = 45,
-			["dewars"] = 25,
-			["donut"] = 10,
-			["hennessy"] = 30
+			["ametista"] = 22,
+			["diamante"] = 26,
+			["esmeralda"] = 30,
+			["rubi"] = 22,
+			["safira"] = 20,
+			["turquesa"] = 20,
+			["ambar"] = 20
 		}
 	},
 	["fishingSell"] = {
@@ -215,14 +209,13 @@ local shops = {
 			["firecracker"] = 1000
 		}
 	},
-	["comedyBar"] = {
+	["barsStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
 			["energetic"] = 50,
 			["cola"] = 18,
 			["soda"] = 18,
-			["fries"] = 10,
 			["absolut"] = 40,
 			["chandon"] = 45,
 			["dewars"] = 25,

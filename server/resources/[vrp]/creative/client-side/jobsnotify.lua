@@ -3,7 +3,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local localidades = {
     [1] = { -- Lixeiro
-        notifycoord = {78.04,-1536.51,29.47},
+	    name = "Lixeiro",
+        notifycoord = {81.82,-1554.86,29.6},
         header = function()
             if IsControlJustPressed(1,38) then 
                 TriggerEvent("Notify","amarelo","Dê <b>/lixeiro</b> para iniciar ou finalizar o serviço.",5000)
@@ -11,7 +12,8 @@ local localidades = {
         end
     },
 	[2] = { -- Transportador
-        notifycoord = {354.72,269.84,103.02},
+		name = "Transportador",
+        notifycoord = {354.14,270.56,103.02},
         header = function()
             if IsControlJustPressed(1,38) then 
                 TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",5000)
@@ -19,7 +21,8 @@ local localidades = {
         end
     },
 	[3] = { -- Motorista
-        notifycoord = {453.68,-600.56,28.6},
+		name = "Motorista",
+        notifycoord = {452.97,-607.75,28.59},
         header = function()
             if IsControlJustPressed(1,38) then 
                 TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",5000)
@@ -27,6 +30,7 @@ local localidades = {
         end
     },
 	[4] = { -- Lenhador
+		name = "Lenhador",
         notifycoord = {-555.2,5364.38,70.43},
         header = function()
             if IsControlJustPressed(1,38) then 
@@ -35,6 +39,7 @@ local localidades = {
         end
     },
 	[5] = { -- Colheita
+		name = "Colheita",
         notifycoord = {406.04,6526.17,27.75},
         header = function()
             if IsControlJustPressed(1,38) then 
@@ -67,7 +72,7 @@ end)
 Citizen.CreateThread(function()
 	local innerTable = {}
 	for k,v in pairs(localidades) do
-		table.insert(innerTable,{ v.notifycoord[1],v.notifycoord[2],v.notifycoord[3],2,"E","Trabalhar","Pressione para conversar" })
+		table.insert(innerTable,{ v.notifycoord[1],v.notifycoord[2],v.notifycoord[3],2,"E",v["name"],"Pressione para conversar" })
 	end
 
 	TriggerEvent("hoverfy:insertTable",innerTable)
