@@ -53,25 +53,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	SetNuiFocus(false,false)
-
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			local distance = #(coords - open)
-			if distance <= 2.1 then
-				timeDistance = 4
-				DrawText3D(open.x,open.y,open.z,"~g~E~w~   ABRIR")
-				if IsControlJustPressed(1,38) then
-					SetNuiFocus(true,true)
-					SendNUIMessage({ action = "show" })
-				end
-			end
-		end
-		Citizen.Wait(timeDistance)
+AddEventHandler("benefactor:openBenefactor",function()
+	local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		SetNuiFocus(true,true)
+		SendNUIMessage({ action = "show" })
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +69,7 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
 		local distance = #(coords - zone)
-		if distance <= 32.1 then
+		if distance <= 30 then
 			if not inside then
 				inside = true
 				spawnVehicles()
@@ -94,7 +80,6 @@ Citizen.CreateThread(function()
 				despawnVehicles()
 			end
 		end
-		
 
 		Citizen.Wait(500)
 	end
@@ -162,21 +147,6 @@ function despawnVehicles()
 		end
 	end
 	vehIds = {}
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 400
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSEAPP

@@ -17,7 +17,7 @@ local blipHunting = {}
 local inHunting = false
 local animalHunting = {}
 local huntCoords = { -672.76,5837.39,17.32 }
-local animalHahs = { "a_c_deer","a_c_coyote","a_c_mtlion","a_c_pig","a_c_panther","a_c_boar" }
+local animalHahs = { "a_c_deer","a_c_coyote","a_c_mtlion","a_c_pig","a_c_panther","a_c_boar","a_c_cormorant" }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ANIMALCOORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -173,14 +173,14 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(huntCoords[1],huntCoords[2],huntCoords[3]))
 
-			if distance <= 2 then
+			if distance <= 1 then
 				timeDistance = 4
 
-				if inHunting then
-					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~   FINALIZAR")
-				else
-					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~   INICIAR")
-				end
+--				if inHunting then
+--					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
+--				else
+--					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  INICIAR")
+--				end
 
 				if IsControlJustPressed(1,38) and distance <= 1 then
 					for k,v in pairs(blipHunting) do
@@ -196,6 +196,8 @@ Citizen.CreateThread(function()
 							animalHunting[k] = nil
 						end
 					end
+					
+					TriggerEvent("Notify","amarelo","O serviço de <b>Caçador</b> foi iniciado, agora abra o seu GPS e confira todas as suas caças disponíveis atualmente.",10000)
 
 					if inHunting then
 						inHunting = false
@@ -214,6 +216,17 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(huntCoords) do
+		table.insert(innerTable,{ huntCoords[1],huntCoords[2],huntCoords[3],1,"E","Caçador","Pressione para iniciar/finalizar" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- HUNTING:ANIMALCUTING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("hunting:animalCutting")
@@ -225,7 +238,7 @@ AddEventHandler("hunting:animalCutting",function()
 			local deerCoords = GetEntityCoords(animalHunting[k])
 			local distance = #(coords - deerCoords)
 
-			if distance <= 1.5 then
+			if distance <= 2 then
 				if IsPedDeadOrDying(animalHunting[k]) and not IsPedAPlayer(animalHunting[k]) then
 					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_KNIFE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
@@ -238,8 +251,9 @@ AddEventHandler("hunting:animalCutting",function()
 						vRP.playAnim(false,{"amb@medic@standing@kneel@base","base"},true)
 						TriggerEvent("player:blockCommands",true)
 						TriggerEvent("cancelando",true)
-
-						Citizen.Wait(15000)
+						
+						TriggerEvent("Progress",60000,"Esfolando...")
+						Citizen.Wait(60000)
 
 						TriggerEvent("player:blockCommands",false)
 						TriggerEvent("cancelando",false)
@@ -304,7 +318,7 @@ function blipAnimal(i)
 	SetBlipScale(blipHunting[i],0.8)
 	SetBlipAsShortRange(blipHunting[i],true)
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Cervo")
+	AddTextComponentString("Animal")
 	EndTextCommandSetBlipName(blipHunting[i])
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

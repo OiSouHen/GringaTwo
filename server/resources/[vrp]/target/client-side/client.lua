@@ -439,7 +439,7 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
+	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324,1457690978 },{
 		options = {
 			{
 				event = "hunting:animalCutting",
@@ -456,6 +456,17 @@ Citizen.CreateThread(function()
 				event = "tryDeleteObject",
 				label = "Remover Barreira",
 				tunnel = "objects"
+			}
+		},
+		distance = 1.50
+	})
+	
+	AddTargetModel({ 829413118 },{
+		options = {
+			{
+				event = "benefactor:openBenefactor",
+				label = "Open Benefactor",
+				tunnel = "client"
 			}
 		},
 		distance = 1.50
@@ -569,7 +580,7 @@ local adminMenu = {
 -- PLAYERTARGETENABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetEnable()
-	print(playerActive)
+--	print(playerActive)
 	if playerActive then
 		if success or IsPedArmed(PlayerPedId(),6) or IsPedInAnyVehicle(PlayerPedId()) then
 			return

@@ -13,8 +13,8 @@ vSERVER = Tunnel.getInterface("engine")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local lastFuel = 0
 local isPrice = 0
+local lastFuel = 0
 local isFuel = false
 local vehFuels = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -358,3 +358,89 @@ function loadAnim(dict)
 		Citizen.Wait(1)
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VTUNING
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("engine:vehTuning")
+AddEventHandler("engine:vehTuning",function()
+	local ped = PlayerPedId()
+	local vehicle = GetVehiclePedIsUsing(ped)
+	if vehicle and NetworkGetEntityIsNetworked(vehicle) then
+		local motor = GetVehicleMod(vehicle,11)
+		local freio = GetVehicleMod(vehicle,12)
+		local transmissao = GetVehicleMod(vehicle,13)
+		local suspensao = GetVehicleMod(vehicle,15)
+		local blindagem = GetVehicleMod(vehicle,16)
+		local body = GetVehicleBodyHealth(vehicle)
+		local engine = GetVehicleEngineHealth(vehicle)
+		local fuel = GetVehicleFuelLevel(vehicle)
+
+		if motor == -1 then
+			motor = "Desativado"
+		elseif motor == 0 then
+			motor = "Nível 1 / "..GetNumVehicleMods(vehicle,11)
+		elseif motor == 1 then
+			motor = "Nível 2 / "..GetNumVehicleMods(vehicle,11)
+		elseif motor == 2 then
+			motor = "Nível 3 / "..GetNumVehicleMods(vehicle,11)
+		elseif motor == 3 then
+			motor = "Nível 4 / "..GetNumVehicleMods(vehicle,11)
+		elseif motor == 4 then
+			motor = "Nível 5 / "..GetNumVehicleMods(vehicle,11)
+		end
+
+		if freio == -1 then
+			freio = "Desativado"
+		elseif freio == 0 then
+			freio = "Nível 1 / "..GetNumVehicleMods(vehicle,12)
+		elseif freio == 1 then
+			freio = "Nível 2 / "..GetNumVehicleMods(vehicle,12)
+		elseif freio == 2 then
+			freio = "Nível 3 / "..GetNumVehicleMods(vehicle,12)
+		end
+
+		if transmissao == -1 then
+			transmissao = "Desativado"
+		elseif transmissao == 0 then
+			transmissao = "Nível 1 / "..GetNumVehicleMods(vehicle,13)
+		elseif transmissao == 1 then
+			transmissao = "Nível 2 / "..GetNumVehicleMods(vehicle,13)
+		elseif transmissao == 2 then
+			transmissao = "Nível 3 / "..GetNumVehicleMods(vehicle,13)
+		elseif transmissao == 3 then
+			transmissao = "Nível 4 / "..GetNumVehicleMods(vehicle,13)
+		end
+
+		if suspensao == -1 then
+			suspensao = "Desativado"
+		elseif suspensao == 0 then
+			suspensao = "Nível 1 / "..GetNumVehicleMods(vehicle,15)
+		elseif suspensao == 1 then
+			suspensao = "Nível 2 / "..GetNumVehicleMods(vehicle,15)
+		elseif suspensao == 2 then
+			suspensao = "Nível 3 / "..GetNumVehicleMods(vehicle,15)
+		elseif suspensao == 3 then
+			suspensao = "Nível 4 / "..GetNumVehicleMods(vehicle,15)
+		elseif suspensao == 4 then
+			suspensao = "Nível 5 / "..GetNumVehicleMods(vehicle,15)
+		end
+
+		if blindagem == -1 then
+			blindagem = "Desativado"
+		elseif blindagem == 0 then
+			blindagem = "Nível 1 / "..GetNumVehicleMods(vehicle,16)
+		elseif blindagem == 1 then
+			blindagem = "Nível 2 / "..GetNumVehicleMods(vehicle,16)
+		elseif blindagem == 2 then
+			blindagem = "Nível 3 / "..GetNumVehicleMods(vehicle,16)
+		elseif blindagem == 3 then
+			blindagem = "Nível 4 / "..GetNumVehicleMods(vehicle,16)
+		elseif blindagem == 4 then
+			blindagem = "Nível 5 / "..GetNumVehicleMods(vehicle,16)
+		end
+
+--		TriggerEvent("Notify","default","<br><line>----------------------------------------</line><br>",10000)
+		
+		TriggerEvent("Notify","default","<b>Motor:</b> "..motor.."<br><b>Freio:</b> "..freio.."<br><b>Transmissão:</b> "..transmissao.."<br><b>Suspensão:</b> "..suspensao.."<br><b>Blindagem:</b> "..blindagem.."<br><b>Lataria:</b> "..parseInt(body/10).."%<br><b>Motor:</b> "..parseInt(engine/10).."%<br><b>Gasolina:</b> "..parseInt(fuel).."%",10000)
+	end
+end)

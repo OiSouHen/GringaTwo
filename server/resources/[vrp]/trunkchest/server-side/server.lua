@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("trunkchest",cnVRP)
+cRP = {}
+Tunnel.bindInterface("trunkchest",cRP)
 vCLIENT = Tunnel.getInterface("trunkchest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -18,10 +18,46 @@ local vehChest = {}
 local vehNames = {}
 local vehWeight = {}
 local chestOpen = {}
+
+RegisterNetEvent("trunkchest:openTrunk")
+AddEventHandler("trunkchest:openTrunk",function()
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        local vehicle,vehNet,vehPlate,vehName,vehLock,vehBlock,vehHealth = vRPclient.vehList(source,7)
+        if vehicle then
+            for k,v in pairs(chestOpen) do
+                if v == vehPlate then
+                    return
+                end
+            end
+
+            if not vehLock then
+                if vehBlock then
+                    return
+                end
+
+                if vehHealth < 100 then
+                    return
+                end
+
+                local plateUserId = vRP.getVehiclePlate(vehPlate)
+                if plateUserId then
+                    chestOpen[user_id] = vehPlate
+                    vCLIENT.trunkOpen(source)
+
+                    if not vRPclient.inVehicle(source) then
+                        TriggerClientEvent("vrp_player:syncDoors",-1,vehNet,"5")
+                    end
+                end
+            end
+        end
+    end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.Mochila()
+function cRP.Mochila()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
@@ -202,7 +238,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOREITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.storeItem(itemName,slot,amount)
+function cRP.storeItem(itemName,slot,amount)
 	if itemName then
 		local source = source
 		local user_id = vRP.getUserId(source)
@@ -230,7 +266,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.takeItem(itemName,slot,amount)
+function cRP.takeItem(itemName,slot,amount)
 	if itemName then
 		local source = source
 		local user_id = vRP.getUserId(source)
@@ -244,7 +280,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.chestClose()
+function cRP.chestClose()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -263,7 +299,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("bau",function(source,args,rawCommand)
+RegisterNetEvent("trunkchest:openTrunk")
+AddEventHandler("trunkchest:openTrunk",function()
+local source = source
     local user_id = vRP.getUserId(source)
     if user_id then
         local vehicle,vehNet,vehPlate,vehName,vehLock,vehBlock,vehHealth = vRPclient.vehList(source,7)

@@ -8,11 +8,26 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("player",cnVRP)
+cRP = {}
+Tunnel.bindInterface("player",cRP)
 vCLIENT = Tunnel.getInterface("player")
 vTASKBAR = Tunnel.getInterface("taskbar")
 vSKINSHOP = Tunnel.getInterface("skinshop")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHMENU:DOORS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vehmenu:doors")
+AddEventHandler("vehmenu:doors",function(doors)
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+            local vehicle,vehNet = vRPclient.vehList(source,7)
+            if vehicle then
+                TriggerClientEvent("player:syncDoors",-1,vehNet,doors)
+            end
+        end
+    end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLOR
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -110,31 +125,31 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DOORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("doors",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			local vehicle,vehNet = vRPclient.vehList(source,7)
-			if vehicle then
-				TriggerClientEvent("player:syncDoors",-1,vehNet,args[1])
-			end
-		end
-	end
-end)
+-- RegisterCommand("doors",function(source,args,rawCommand)
+-- 	local user_id = vRP.getUserId(source)
+-- 	if user_id then
+-- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+-- 			local vehicle,vehNet = vRPclient.vehList(source,7)
+-- 			if vehicle then
+-- 				TriggerClientEvent("player:syncDoors",-1,vehNet,args[1])
+-- 			end
+-- 		end
+-- 	end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WINS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("wins",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			local vehicle,vehNet = vRPclient.vehList(source,7)
-			if vehicle then
-				TriggerClientEvent("player:syncWins",-1,vehNet,args[1])
-			end
-		end
-	end
-end)
+-- RegisterCommand("wins",function(source,args,rawCommand)
+-- 	local user_id = vRP.getUserId(source)
+-- 	if user_id then
+-- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+-- 			local vehicle,vehNet = vRPclient.vehList(source,7)
+-- 			if vehicle then
+-- 				TriggerClientEvent("player:syncWins",-1,vehNet,args[1])
+-- 			end
+-- 		end
+-- 	end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -167,7 +182,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELETECHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.deleteChar()
+function cRP.deleteChar()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -428,7 +443,7 @@ end)
 -- CUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
 local poCuff = {}
-function cnVRP.cuffToggle()
+function cRP.cuffToggle()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -479,7 +494,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOTSFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.shotsFired()
+function cRP.shotsFired()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -504,7 +519,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CARRY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.carryToggle()
+function cRP.carryToggle()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -1113,14 +1128,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRUNKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("trunkin",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			TriggerClientEvent("player:EnterTrunk",source)
-		end
-	end
-end)
+-- RegisterCommand("trunkin",function(source,args,rawCommand)
+-- 	local user_id = vRP.getUserId(source)
+-- 	if user_id then
+-- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+-- 			TriggerClientEvent("player:EnterTrunk",source)
+-- 		end
+-- 	end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1138,14 +1153,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEAT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("p",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			TriggerClientEvent("player:SeatPlayer",source,args[1])
-		end
-	end
-end)
+-- RegisterCommand("p",function(source,args,rawCommand)
+-- 	local user_id = vRP.getUserId(source)
+-- 	if user_id then
+-- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+-- 			TriggerClientEvent("player:SeatPlayer",source,args[1])
+-- 		end
+-- 	end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ONDUTY
 -----------------------------------------------------------------------------------------------------------------------------------------

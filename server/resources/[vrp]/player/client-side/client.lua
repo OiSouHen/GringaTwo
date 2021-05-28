@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("player",cnVRP)
+cRP = {}
+Tunnel.bindInterface("player",cRP)
 vSERVER = Tunnel.getInterface("player")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLOCKCOMMANDS
@@ -136,7 +136,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DIVING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.setDiving()
+function cRP.setDiving()
 	local ped = PlayerPedId()
 	if IsPedSwimming(ped) then
 		if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
@@ -153,18 +153,19 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
 			local veh = GetVehiclePedIsUsing(ped)
 			if GetPedInVehicleSeat(veh,0) == ped then
-				timeDistance = 4
 				if not GetIsTaskActive(ped,164) and GetIsTaskActive(ped,165) then
 					SetPedIntoVehicle(ped,veh,0)
+					SetPedConfigFlag(ped,184,true)
+					SetVehicleCloseDoorDeferedAction(veh,0)
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
+
+		Citizen.Wait(100)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -354,6 +355,48 @@ AddEventHandler("player:syncHoodOptions",function(vehIndex,options)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DELETEVEHICLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:deleteVehicle")
+AddEventHandler("player:deleteVehicle",function(vehIndex,vehPlate)
+	if NetworkDoesNetworkIdExist(vehIndex) then
+		local v = NetToEnt(vehIndex)
+		if DoesEntityExist(v) and GetVehicleNumberPlateText(v) == vehPlate then
+			SetEntityAsMissionEntity(v,false,false)
+			DeleteEntity(v)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DELETEOBJECT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:deleteObject")
+AddEventHandler("player:deleteObject",function(entIndex)
+	if NetworkDoesNetworkIdExist(entIndex) then
+		local v = NetToEnt(entIndex)
+		if DoesEntityExist(v) then
+			SetEntityAsMissionEntity(v,false,false)
+			DeleteEntity(v)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCDOORSOPTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:syncDoorsOptions")
+AddEventHandler("player:syncDoorsOptions",function(vehIndex,options)
+	if NetworkDoesNetworkIdExist(vehIndex) then
+		local v = NetToEnt(vehIndex)
+		if DoesEntityExist(v) then
+			if options == "open" then
+				SetVehicleDoorOpen(v,5,0,0)
+			elseif options == "close" then
+				SetVehicleDoorShut(v,5,0)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCWINS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("player:syncWins")
@@ -372,13 +415,100 @@ AddEventHandler("player:syncWins",function(vehIndex,status)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ENTERTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+local inTrunk = false
+RegisterNetEvent("player:EnterTrunk")
+AddEventHandler("player:EnterTrunk",function()
+    local ped = PlayerPedId()
+
+    if not inTrunk then
+        local vehicle = vRP.vehList(11)
+        if DoesEntityExist(vehicle) then
+            local trunk = GetEntityBoneIndexByName(vehicle,"boot")
+            if trunk ~= -1 then
+                local coords = GetEntityCoords(ped)
+                local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
+                local distance = #(coords - coordsEnt)
+                if distance <= 3.0 then
+                    timeDistance = 4
+                    if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
+                        SetCarBootOpen(vehicle)
+                        SetEntityVisible(ped,false,false)
+                        Citizen.Wait(750)
+                        AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
+                        inTrunk = true
+                        Citizen.Wait(500)
+                        SetVehicleDoorShut(vehicle,5)
+                    end
+                end
+            end
+        end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+    while true do
+        local timeDistance = 500
+
+        if inTrunk then
+            local ped = PlayerPedId()
+            local vehicle = GetEntityAttachedTo(ped)
+            if DoesEntityExist(vehicle) then
+                timeDistance = 4
+
+                DisableControlAction(1,73,true)
+                DisableControlAction(1,29,true)
+                DisableControlAction(1,47,true)
+                DisableControlAction(1,187,true)
+                DisableControlAction(1,189,true)
+                DisableControlAction(1,190,true)
+                DisableControlAction(1,188,true)
+                DisableControlAction(1,311,true)
+                DisableControlAction(1,245,true)
+                DisableControlAction(1,257,true)
+                DisableControlAction(1,167,true)
+                DisableControlAction(1,140,true)
+                DisableControlAction(1,141,true)
+                DisableControlAction(1,142,true)
+                DisableControlAction(1,137,true)
+                DisableControlAction(1,37,true)
+                DisablePlayerFiring(ped,true)
+
+                if IsEntityVisible(ped) then
+                    SetEntityVisible(ped,false,false)
+                end
+
+                if IsControlJustPressed(1,38) then
+                    SetCarBootOpen(vehicle)
+                    Citizen.Wait(750)
+                    inTrunk = false
+                    DetachEntity(ped,false,false)
+                    SetEntityVisible(ped,true,false)
+                    SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
+                    Citizen.Wait(500)
+                    SetVehicleDoorShut(vehicle,5)
+                end
+            else
+                inTrunk = false
+                DetachEntity(ped,false,false)
+                SetEntityVisible(ped,true,false)
+                SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
+            end
+        end
+        Citizen.Wait(timeDistance)
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCDOORS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("player:syncDoors")
-AddEventHandler("player:syncDoors",function(vehIndex,door)
-	if NetworkDoesNetworkIdExist(vehIndex) then
-		local v = NetToEnt(vehIndex)
-		if DoesEntityExist(v) and GetVehicleDoorsLockedForPlayer(v,PlayerId()) ~= 1 then
+AddEventHandler("player:syncDoors",function(index,door)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
 			if door == "1" then
 				if GetVehicleDoorAngleRatio(v,0) == 0 then
 					SetVehicleDoorOpen(v,0,0,0)
@@ -405,15 +535,27 @@ AddEventHandler("player:syncDoors",function(vehIndex,door)
 				end
 			elseif door == "5" then
 				if GetVehicleDoorAngleRatio(v,5) == 0 then
-					SetVehicleDoorOpen(v,5,0,0)
+					SetVehicleDoorOpen(v,5,0,1)
 				else
-					SetVehicleDoorShut(v,5,0)
+					SetVehicleDoorShut(v,5,1)
 				end
 			elseif door == "6" then
 				if GetVehicleDoorAngleRatio(v,4) == 0 then
-					SetVehicleDoorOpen(v,4,0,0)
+					SetVehicleDoorOpen(v,4,0,1)
 				else
-					SetVehicleDoorShut(v,4,0)
+					SetVehicleDoorShut(v,4,1)
+				end
+			elseif door == nil then
+				if GetVehicleDoorAngleRatio(v,0) == 0 and GetVehicleDoorAngleRatio(v,1) == 0 then
+					SetVehicleDoorOpen(v,0,0,0)
+					SetVehicleDoorOpen(v,1,0,0)
+					SetVehicleDoorOpen(v,2,0,0)
+					SetVehicleDoorOpen(v,3,0,0)
+				else
+					SetVehicleDoorShut(v,0,0)
+					SetVehicleDoorShut(v,1,0)
+					SetVehicleDoorShut(v,2,0)
+					SetVehicleDoorShut(v,3,0)
 				end
 			end
 		end
@@ -425,109 +567,14 @@ end)
 RegisterCommand("fps",function(source,args)
 	if args[1] == "on" then
 		SetTimecycleModifier("cinema")
-	else
+		TriggerEvent("Notify","amarelo","Gráficos otimizados.",3000)
+	elseif args[1] == "off" then
 		ClearTimecycleModifier()
+		TriggerEvent("Notify","vermelho","Gráficos normalizados.",3000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CUFF
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindcuff",function(source,args)
-	vSERVER.cuffToggle()
-end)
-RegisterKeyMapping("keybindcuff","Algemar o Cidadao","keyboard","g")
------------------------------------------------------------------------------------------------------------------------------------------
--- CARRY
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindcarry",function(source,args)
-	vSERVER.carryToggle()
-end)
-RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
------------------------------------------------------------------------------------------------------------------------------------------
--- VTUNING
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("vtuning",function(source,args)
-	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
-	if IsEntityAVehicle(vehicle) then
-		local motor = GetVehicleMod(vehicle,11)
-		local freio = GetVehicleMod(vehicle,12)
-		local transmissao = GetVehicleMod(vehicle,13)
-		local suspensao = GetVehicleMod(vehicle,15)
-		local blindagem = GetVehicleMod(vehicle,16)
-		local body = GetVehicleBodyHealth(vehicle)
-		local engine = GetVehicleEngineHealth(vehicle)
-		local fuel = GetVehicleFuelLevel(vehicle)
-
-		if motor == -1 then
-			motor = "Disabled"
-		elseif motor == 0 then
-			motor = "Nível 1 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 1 then
-			motor = "Nível 2 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 2 then
-			motor = "Nível 3 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 3 then
-			motor = "Nível 4 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 4 then
-			motor = "Nível 5 / "..GetNumVehicleMods(vehicle,11)
-		end
-
-		if freio == -1 then
-			freio = "Disabled"
-		elseif freio == 0 then
-			freio = "Nível 1 / "..GetNumVehicleMods(vehicle,12)
-		elseif freio == 1 then
-			freio = "Nível 2 / "..GetNumVehicleMods(vehicle,12)
-		elseif freio == 2 then
-			freio = "Nível 3 / "..GetNumVehicleMods(vehicle,12)
-		end
-
-		if transmissao == -1 then
-			transmissao = "Disabled"
-		elseif transmissao == 0 then
-			transmissao = "Nível 1 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 1 then
-			transmissao = "Nível 2 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 2 then
-			transmissao = "Nível 3 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 3 then
-			transmissao = "Nível 4 / "..GetNumVehicleMods(vehicle,13)
-		end
-
-		if suspensao == -1 then
-			suspensao = "Disabled"
-		elseif suspensao == 0 then
-			suspensao = "Nível 1 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 1 then
-			suspensao = "Nível 2 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 2 then
-			suspensao = "Nível 3 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 3 then
-			suspensao = "Nível 4 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 4 then
-			suspensao = "Nível 5 / "..GetNumVehicleMods(vehicle,15)
-		end
-
-		if blindagem == -1 then
-			blindagem = "Disabled"
-		elseif blindagem == 0 then
-			blindagem = "Nível 1 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 1 then
-			blindagem = "Nível 2 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 2 then
-			blindagem = "Nível 3 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 3 then
-			blindagem = "Nível 4 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 4 then
-			blindagem = "Nível 5 / "..GetNumVehicleMods(vehicle,16)
-		end
-
-		TriggerEvent("Notify","default","<b>Motor:</b> "..motor.."<br><b>Freio:</b> "..freio.."<br><b>Transmissão:</b> "..transmissao.."<br><b>Suspensão:</b> "..suspensao.."<br><b>Blindagem:</b> "..blindagem.."<br><b>Lataria:</b> "..parseInt(body/10).."%<br><b>Motor:</b> "..parseInt(engine/10).."%<br><b>Gasolina:</b> "..parseInt(fuel).."%",10000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SEAT
+-- SEATPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("player:seatPlayer")
 AddEventHandler("player:seatPlayer",function(vehIndex)
@@ -550,11 +597,10 @@ end)
 -- TOGGLEHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
 local handcuff = false
-function cnVRP.toggleHandcuff()
+function cRP.toggleHandcuff()
 	if not handcuff then
 		handcuff = true
 		TriggerEvent("radio:outServers")
-		exports["smartphone"]:closeSmartphone()
 	else
 		handcuff = false
 		vRP.stopAnim(false)
@@ -563,7 +609,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.removeHandcuff()
+function cRP.removeHandcuff()
 	if handcuff then
 		handcuff = false
 		vRP.stopAnim(false)
@@ -572,7 +618,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getHandcuff()
+function cRP.getHandcuff()
 	return handcuff
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -596,9 +642,23 @@ AddEventHandler("resetHandcuff",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CUFF
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("keybindcuff",function(source,args)
+	vSERVER.cuffToggle()
+end)
+RegisterKeyMapping("keybindcuff","Algemar o Cidadao","keyboard","g")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CARRY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("keybindcarry",function(source,args)
+	vSERVER.carryToggle()
+end)
+RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- MOVEMENTCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.movementClip(dict)
+function cRP.movementClip(dict)
 	RequestAnimSet(dict)
 	while not HasAnimSetLoaded(dict) do
 		Citizen.Wait(1)
@@ -670,12 +730,80 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOTDISTANCE
+-----------------------------------------------------------------------------------------------------------------------------------------
+local losSantos = PolyZone:Create({
+	vector2(-2153.08,-3131.33),
+	vector2(-1581.58,-2092.38),
+	vector2(-3271.05,275.85),
+	vector2(-3460.83,967.42),
+	vector2(-3202.39,1555.39),
+	vector2(-1642.50,993.32),
+	vector2(312.95,1054.66),
+	vector2(1313.70,341.94),
+	vector2(1739.01,-1280.58),
+	vector2(1427.42,-3440.38),
+	vector2(-737.90,-3773.97)
+},{ name="santos" })
+
+local sandyShores = PolyZone:Create({
+	vector2(-375.38,2910.14),
+	vector2(307.66,3664.47),
+	vector2(2329.64,4128.52),
+	vector2(2349.93,4578.50),
+	vector2(1680.57,4462.48),
+	vector2(1570.01,4961.27),
+	vector2(1967.55,5203.67),
+	vector2(2387.14,5273.98),
+	vector2(2735.26,4392.21),
+	vector2(2512.33,3711.16),
+	vector2(1681.79,3387.82),
+	vector2(258.85,2920.16)
+},{ name="sandy" })
+
+local paletoBay = PolyZone:Create({
+	vector2(-529.40,5755.14),
+	vector2(-234.39,5978.46),
+	vector2(278.16,6381.84),
+	vector2(672.67,6434.39),
+	vector2(699.56,6877.77),
+	vector2(256.59,7058.49),
+	vector2(17.64,7054.53),
+	vector2(-489.45,6449.50),
+	vector2(-717.59,6030.94)
+},{ name="paleto" })
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSHOTSFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
 local coolTimers = 0
 local residual = false
 local policeService = false
 local sprayTimers = GetGameTimer()
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSHOT
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if IsPedArmed(ped,6) and GetGameTimer() >= (sprayTimers + 60000) and GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_MUSKET") then
+			timeDistance = 4
+
+			if IsPedShooting(ped) then
+				sprayTimers = GetGameTimer()
+				residual = true
+				coolTimers = 3
+
+				local coords = GetEntityCoords(ped)
+				if (losSantos:isPointInside(coords) or sandyShores:isPointInside(coords) or paletoBay:isPointInside(coords)) and not policeService then
+					vSERVER.shotsFired()
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDISABLECTRL
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -737,13 +865,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GSRCHECK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.gsrCheck()
+function cRP.gsrCheck()
 	return residual
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKSOAP
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkSoap()
+function cRP.checkSoap()
 	local ped = PlayerPedId()
 	if IsEntityInWater(ped) and residual then
 		return true
@@ -752,7 +880,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEANRESIDUAL
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.cleanResidual()
+function cRP.cleanResidual()
 	residual = false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -761,7 +889,7 @@ end
 local uCarry = nil
 local iCarry = false
 local sCarry = false
-function cnVRP.toggleCarry(source)
+function cRP.toggleCarry(source)
 	uCarry = source
 	iCarry = not iCarry
 
@@ -779,7 +907,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.removeVehicle()
+function cRP.removeVehicle()
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		if iCarry then
@@ -805,7 +933,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.putVehicle(vehIndex)
+function cRP.putVehicle(vehIndex)
 	if NetworkDoesNetworkIdExist(vehIndex) then
 		local v = NetToEnt(vehIndex)
 		if DoesEntityExist(v) then
@@ -834,55 +962,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LIVERY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleLivery(number)
+function cRP.toggleLivery(number)
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		SetVehicleLivery(GetVehiclePedIsUsing(ped),number)
 	end
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- TRUNKABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local inTrunk = false
-local trunkPlate = ""
------------------------------------------------------------------------------------------------------------------------------------------
--- PLAYER:ENTERTRUNK
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("player:enterTrunk")
-AddEventHandler("player:enterTrunk",function()
-	local ped = PlayerPedId()
-
-	if not IsPedInAnyVehicle(ped) then
-		if not inTrunk then
-			local vehicle,vehNet,vehPlate = vRP.vehList(10)
-			if DoesEntityExist(vehicle) and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-				if vSERVER.insertTrunk(vehPlate) then
-					local trunk = GetEntityBoneIndexByName(vehicle,"boot")
-					local speed = GetEntitySpeed(vehicle) * 2.236936
-					if trunk ~= -1 and speed <= 3 then
-						local coords = GetEntityCoords(ped)
-						local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
-						local distance = #(coords - coordsEnt)
-						if distance <= 3.0 then
-							timeDistance = 4
-							if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-								trunkPlate = vehPlate
-								SetCarBootOpen(vehicle)
-								SetEntityVisible(ped,false,false)
-								Citizen.Wait(750)
-								AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
-								Citizen.Wait(500)
-								SetVehicleDoorShut(vehicle,5)
-								blockCommands = true
-								inTrunk = true
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLACKWEAPONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -909,31 +994,6 @@ local blackWeapons = {
 	"WEAPON_KNUCKLE"
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSHOT
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if IsPedArmed(ped,6) and GetGameTimer() >= (sprayTimers + 60000) and GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_MUSKET") then
-			timeDistance = 4
-
-			if IsPedShooting(ped) then
-				sprayTimers = GetGameTimer()
-				residual = true
-				coolTimers = 3
-
-				local coords = GetEntityCoords(ped)
-				if not policeService then
-					vSERVER.shotsFired()
-				end
-			end
-		end
-
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- SHOTDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local shotDistance = {
@@ -942,7 +1002,7 @@ local shotDistance = {
 	{ -137.4,6228.4,31.2,1000 }
 }
 
-function cnVRP.shotDistance(x,y,z)
+function cRP.shotDistance(x,y,z)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(shotDistance) do
@@ -959,7 +1019,7 @@ end
 local uCarry = nil
 local iCarry = false
 local sCarry = false
-function cnVRP.toggleCarry(source)
+function cRP.toggleCarry(source)
 	uCarry = source
 	iCarry = not iCarry
 
@@ -977,7 +1037,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.removeVehicle()
+function cRP.removeVehicle()
 	local ped = PlayerPedId()
 	if IsPedSittingInAnyVehicle(ped) then
 		iCarry = false
@@ -988,7 +1048,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EXTRAS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.extraVehicle(data)
+function cRP.extraVehicle(data)
 	local vehicle = vRP.getNearVehicle(11)
 	if data == "1" then
 		if DoesExtraExist(vehicle,1) then
@@ -1083,7 +1143,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.putVehicle(seat)
+function cRP.putVehicle(seat)
 	local veh = vRP.getNearVehicle(11)
 	if IsEntityAVehicle(veh) then
 		if parseInt(seat) <= 1 or seat == nil then
@@ -1202,81 +1262,6 @@ function loadAnimDict(dict)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LIVERY
------------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleLivery(number)
-	local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped) then
-		SetVehicleLivery(GetVehiclePedIsUsing(ped),number)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- PLAYER:CHECKTRUNK
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("player:checkTrunk")
-AddEventHandler("player:checkTrunk",function()
-	if inTrunk then
-		local ped = PlayerPedId()
-		local vehicle = GetEntityAttachedTo(ped)
-		if DoesEntityExist(vehicle) then
-			vSERVER.removeTrunk(trunkPlate)
-			SetCarBootOpen(vehicle)
-			Citizen.Wait(750)
-			inTrunk = false
-			blockCommands = false
-			DetachEntity(ped,false,false)
-			SetEntityVisible(ped,true,false)
-			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
-			Citizen.Wait(500)
-			SetVehicleDoorShut(vehicle,5)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADINTRUNK
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-
-		if inTrunk then
-			local ped = PlayerPedId()
-			local vehicle = GetEntityAttachedTo(ped)
-			if DoesEntityExist(vehicle) then
-				timeDistance = 4
-
-				DisablePlayerFiring(ped,true)
-
-				if IsEntityVisible(ped) then
-					SetEntityVisible(ped,false,false)
-				end
-
-				if IsControlJustPressed(1,38) then
-					vSERVER.removeTrunk(trunkPlate)
-					SetCarBootOpen(vehicle)
-					Citizen.Wait(750)
-					inTrunk = false
-					blockCommands = false
-					DetachEntity(ped,false,false)
-					SetEntityVisible(ped,true,false)
-					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
-					Citizen.Wait(500)
-					SetVehicleDoorShut(vehicle,5)
-				end
-			else
-				inTrunk = false
-				blockCommands = false
-				DetachEntity(ped,false,false)
-				vSERVER.removeTrunk(trunkPlate)
-				SetEntityVisible(ped,true,false)
-				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
-			end
-		end
-
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- CRUISER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("cr",function(source,args)
@@ -1311,7 +1296,7 @@ local disService = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISTANCESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.distanceService()
+function cRP.distanceService()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(disService) do
@@ -1325,7 +1310,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.weColors(number)
+function cRP.weColors(number)
 	local ped = PlayerPedId()
 	local weapon = GetSelectedPedWeapon(ped)
 	SetPedWeaponTintIndex(ped,weapon,parseInt(number))
@@ -1380,7 +1365,7 @@ local wLux = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WELUX
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.weLux()
+function cRP.weLux()
 	local ped = PlayerPedId()
 	for k,v in pairs(wLux) do
 		if GetSelectedPedWeapon(ped) == GetHashKey(k) then
@@ -1439,6 +1424,95 @@ AddEventHandler("player:serviceCamera",function(num)
 				SetCamCoord(camSelect,cameras[num][1],cameras[num][2],cameras[num][3])
 				SetCamRot(camSelect,-20.0,0.0,cameras[num][4])
 				RenderScriptCams(true,false,0,1,0)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GAMEEVENTTRIGGERED
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("gameEventTriggered",function(name,args)
+	if name == "CEventNetworkEntityDamage" then
+		if (GetEntityHealth(args[1]) <= 101 and PlayerPedId() == args[2] and IsPedAPlayer(args[1])) then
+			local index = NetworkGetPlayerIndexFromPed(args[1])
+			local source = GetPlayerServerId(index)
+			TriggerServerEvent("player:deathLogs",source)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TOGGLEEXTRAS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:toggleExtras")
+AddEventHandler("player:toggleExtras",function(index,extra)
+	if NetworkDoesNetworkIdExist(index) then
+		local vehicle = NetToEnt(index)
+		if DoesEntityExist(vehicle) then
+			local engine = GetVehicleEngineHealth(vehicle)
+			local body = GetVehicleBodyHealth(vehicle)
+			local fuel = GetVehicleFuelLevel(vehicle)
+			local vehWindows = {}
+			local vehTyres = {}
+			local vehDoors = {}
+
+			for i = 0,7 do
+				local tyre_state = 2
+				if IsVehicleTyreBurst(vehicle,i,true) then
+					tyre_state = 1
+				elseif IsVehicleTyreBurst(vehicle,i,false) then
+					tyre_state = 0
+				end
+				vehTyres[i] = tyre_state
+			end
+
+			for i = 0,5 do
+				vehDoors[i] = IsVehicleDoorDamaged(vehicle,i)
+			end
+
+			for i = 0,5 do
+				vehWindows[i] = IsVehicleWindowIntact(vehicle,i)
+			end
+
+			if extra == "on" then
+				for i = 0,12 do
+					if DoesExtraExist(vehicle,i) then
+						SetVehicleExtra(vehicle,i,false)
+					end
+				end
+			elseif extra == "off" then
+				for i = 0,12 do
+					if DoesExtraExist(vehicle,i) then
+						SetVehicleExtra(vehicle,i,true)
+					end
+				end
+			else
+				if IsVehicleExtraTurnedOn(vehicle,parseInt(extra)) then
+					SetVehicleExtra(vehicle,parseInt(extra),true)
+				else
+					SetVehicleExtra(vehicle,parseInt(extra),false)
+				end
+			end
+
+			SetVehicleEngineHealth(vehicle,engine)
+			SetVehicleBodyHealth(vehicle,body)
+			SetVehicleFuelLevel(vehicle,fuel)
+
+			for k,v in pairs(vehTyres) do
+				if v < 2 then
+					SetVehicleTyreBurst(vehicle,k,(v == 1),1000.0)
+				end
+			end
+
+			for k,v in pairs(vehWindows) do
+				if not v then
+					SmashVehicleWindow(vehicle,k)
+				end
+			end
+
+			for k,v in pairs(vehDoors) do
+				if v then
+					SetVehicleDoorBroken(vehicle,k,v)
+				end
 			end
 		end
 	end
