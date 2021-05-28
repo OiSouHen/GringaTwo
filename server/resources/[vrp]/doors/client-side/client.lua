@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("doors",cnVRP)
+cRP = {}
+Tunnel.bindInterface("doors",cRP)
 vSERVER = Tunnel.getInterface("doors")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -48,9 +48,9 @@ Citizen.CreateThread(function()
 							timeDistance = 1
 							if v.text then
 								if v.lock then
-									DrawText3D(v.x,v.y,v.z,"~r~Fechada~w~")
+									DrawText3D(v.x,v.y,v.z,"~r~FECHADA~w~")
 								else
-									DrawText3D(v.x,v.y,v.z,"~g~Aberta~w~")
+									DrawText3D(v.x,v.y,v.z,"~g~ABERTA~w~")
 								end
 							end
 

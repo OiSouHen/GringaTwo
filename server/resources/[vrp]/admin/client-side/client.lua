@@ -7,36 +7,32 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("admin",cnVRP)
+cRP = {}
+Tunnel.bindInterface("admin",cRP)
 vSERVER = Tunnel.getInterface("admin")
------------------------------------------------------------------------------------------------------------------------------------------
--- DISCORD
------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORTWAY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.vehicleHash(vehicle)
+function cRP.vehicleHash(vehicle)
 	print(GetEntityModel(vehicle))
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ILHA
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-  while true do
-    Citizen.Wait(0)
-      SetRadarAsExteriorThisFrame()
-      SetRadarAsInteriorThisFrame("h4_fake_islandx",vec(4700.0,-5145.0),0,0)
-  end
-end)
+--Citizen.CreateThread(function()
+--  while true do
+--    Citizen.Wait(0)
+--      SetRadarAsExteriorThisFrame()
+--      SetRadarAsInteriorThisFrame("h4_fake_islandx",vec(4700.0,-5145.0),0,0)
+--  end
+--end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORTWAY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.teleportWay()
+function cRP.teleportWay()
 	local ped = PlayerPedId()
-	local veh = GetVehiclePedIsUsing(ped)
 	if IsPedInAnyVehicle(ped) then
-		ped = veh
+		ped = GetVehiclePedIsUsing(ped)
     end
 
 	local waypointBlip = GetFirstBlipInfoId(8)
@@ -47,12 +43,13 @@ function cnVRP.teleportWay()
 	local groundCheckHeights = { 0.0,50.0,100.0,150.0,200.0,250.0,300.0,350.0,400.0,450.0,500.0,550.0,600.0,650.0,700.0,750.0,800.0,850.0,900.0,950.0,1000.0,1050.0,1100.0 }
 
 	for i,height in ipairs(groundCheckHeights) do
-		SetEntityCoordsNoOffset(ped,x,y,height,0,0,1)
+		SetEntityCoordsNoOffset(ped,x,y,height,1,0,0)
 
 		RequestCollisionAtCoord(x,y,z)
 		while not HasCollisionLoadedAroundEntity(ped) do
-			Citizen.Wait(10)
+			Citizen.Wait(1)
 		end
+
 		Citizen.Wait(20)
 
 		ground,z = GetGroundZFor_3dCoord(x,y,height)
@@ -70,21 +67,20 @@ function cnVRP.teleportWay()
 
 	RequestCollisionAtCoord(x,y,z)
 	while not HasCollisionLoadedAroundEntity(ped) do
-		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 
-	SetEntityCoordsNoOffset(ped,x,y,z,0,0,1)
+	SetEntityCoordsNoOffset(ped,x,y,z,1,0,0)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LIMBO
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.teleportLimbo()
+function cRP.teleportLimbo()
 	local ped = PlayerPedId()
-	local x,y,z = table.unpack(GetEntityCoords(ped))
-	local _,vector = GetNthClosestVehicleNode(x,y,z,math.random(5,10),0,0,0)
-	local x2,y2,z2 = table.unpack(vector)
+	local coords = GetEntityCoords(ped)
+	local _,xCoords = GetNthClosestVehicleNode(coords["x"],coords["y"],coords["z"],1,0,0,0)
 
-	SetEntityCoordsNoOffset(ped,x2,y2,z2+5,0,0,1)
+	SetEntityCoordsNoOffset(ped,xCoords["x"],xCoords["y"],xCoords["z"],1,0,0)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHELETRIC
@@ -225,7 +221,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELETENPCS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.deleteNpcs()
+function cRP.deleteNpcs()
 	local handle,ped = FindFirstPed()
 	local finished = false
 	repeat
@@ -254,8 +250,9 @@ RegisterKeyMapping("nc","Admin: Noclip","keyboard","o")
 RegisterNetEvent("admin:vehicleTuning")
 AddEventHandler("admin:vehicleTuning",function()
 	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
-	if IsEntityAVehicle(vehicle) then
+	if IsPedInAnyVehicle(ped) then
+		local vehicle = GetVehiclePedIsUsing(ped)
+
 		SetVehicleModKit(vehicle,0)
 		SetVehicleMod(vehicle,11,GetNumVehicleMods(vehicle,11)-1,false)
 		SetVehicleMod(vehicle,12,GetNumVehicleMods(vehicle,12)-1,false)
@@ -452,14 +449,6 @@ Citizen.CreateThread( function()
     end
 end)
 end
--- Citizen.CreateThread(function()
--- 	while true do
--- 		if IsControlJustPressed(1,38) then
--- 			vSERVER.buttonTxt()
--- 		end
--- 		Citizen.Wait(1)
--- 	end
--- end)
 
 --[ FUNÇÕES ]-----------------------------------------------------------------------------------------------------------------
 function drawTxtS(x,y ,width,height,scale, text, r,g,b,a)

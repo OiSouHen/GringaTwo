@@ -296,7 +296,18 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 
-	AddTargetModel({ 992069095,1114264700 },{
+	AddTargetModel({ 992069095 },{
+		options = {
+			{
+				event = "shops:colaMachine",
+				label = "Máquina de Refrigerante",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
+	})
+	
+	AddTargetModel({ 1114264700 },{
 		options = {
 			{
 				event = "shops:sodaMachine",

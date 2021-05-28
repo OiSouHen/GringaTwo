@@ -26,29 +26,16 @@ Citizen.CreateThread(function()
 
 		if noclip then
 			timeDistance = 4
+			local speed = 1.0
 			local ped = PlayerPedId()
 			local x,y,z = table.unpack(GetEntityCoords(ped))
 			local dx,dy,dz = tvRP.getCamDirection()
-			local speed = 1.0
 
 			SetEntityVelocity(ped,0.0001,0.0001,0.0001)
 
-			if IsControlPressed(0,21) then
+			if IsControlPressed(1,21) then
 				speed = 5.0
 			end
-
-			if IsControlPressed(0,22) then
-                speed = 30.0
-			end
-			
-			if IsControlPressed(0,19) then
-                speed = 100.0
-			end
-
-			if IsControlPressed(0,210) then
-                speed = 0.2
-			end
-			
 
 			if IsControlPressed(1,32) then
 				x = x + speed * dx
@@ -63,16 +50,35 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlPressed(1,10) then
-				z = z + 1
+				z = z + 0.5
 			end
 
 			if IsControlPressed(1,11) then
-				z = z - 1
+				z = z - 0.5
 			end
 
-			SetEntityCoordsNoOffset(ped,x,y,z,true,true,true)
+			SetEntityCoordsNoOffset(ped,x,y,z,1,0,0)
 		end
 
 		Citizen.Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETCAMDIRECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getCamDirection()
+	local ped = PlayerPedId()
+	local pitch = GetGameplayCamRelativePitch()
+	local heading = GetGameplayCamRelativeHeading() + GetEntityHeading(ped)
+	local x = -math.sin(heading * math.pi / 180.0)
+	local y = math.cos(heading * math.pi / 180.0)
+	local z = math.sin(pitch * math.pi / 180.0)
+	local len = math.sqrt(x*x + y*y + z*z)
+	if len ~= 0 then
+		x = x / len
+		y = y / len
+		z = z / len
+	end
+
+	return x,y,z
+end

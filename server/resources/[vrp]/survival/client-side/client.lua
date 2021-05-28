@@ -14,7 +14,7 @@ vSERVER = Tunnel.getInterface("survival")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local deadPlayer = false
-local deathtimer = 50
+local deathtimer = 600
 local blockControls = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTH
@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 500
+				deathtimer = 600
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 					vRP.playAnim(false,{"dead","dead_a"},true)
@@ -47,14 +47,15 @@ Citizen.CreateThread(function()
 					timeDistance = 4
 					SetEntityHealth(ped,101)
 					TriggerEvent("hudActived",false)
-					drawTxt("NOCAUTEADO, AGUARDE ~y~"..deathtimer.."~w~ SEGUNDOS",4,0.5,0.93,0.50,255,255,255,200)
+					drawTxt("NOCAUTEADO, AGUARDE ~y~"..deathtimer.."~w~ SEGUNDOS",4,0.5,0.90,0.50,255,255,255,200)
+					drawTxt("DIGITE ~y~/GG~w~ E DESISTA IMEDIATAMENTE",4,0.5,0.93,0.50,255,255,255,200)
 
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
 					end
 				else
 					timeDistance = 4
-					drawTxt("DIGITE ~g~/GG~w~ E DESISTA IMEDIATAMENTE",4,0.5,0.93,0.50,255,255,255,200)
+					drawTxt("SEU TEMPO ACABOU, DIGITE ~y~/GG~w~",4,0.5,0.93,0.50,255,255,255,200)
 					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
@@ -81,11 +82,11 @@ end)
 -- GG
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source,args,rawCommand)
-	if deathtimer <= 0 then
+	if deathtimer <= 600 then
 		vSERVER.ResetPedToHospital()
 		TriggerEvent("hudActived",true)
-	else
-		TriggerEvent("Notify","azul","Você ainda tem <b>"..deathtimer.." segundos</b> de vida.",5000)
+--	else
+--		TriggerEvent("Notify","azul","Você ainda tem <b>"..deathtimer.." segundos</b> de vida.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

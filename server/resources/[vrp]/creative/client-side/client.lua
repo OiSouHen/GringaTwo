@@ -891,13 +891,15 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-        SetDiscordAppId(745078205140041738)
-        SetDiscordRichPresenceAsset('logo')
-        SetDiscordRichPresenceAssetText('rolepley')
-        SetDiscordRichPresenceAssetSmall('ON-Arts')
-        SetDiscordRichPresenceAssetSmallText('A Identidade visual da sua Cidade!')
-        SetDiscordRichPresenceAction(0, "Jogar", "https://discord.gg/7yKkShSVCC")
-        SetDiscordRichPresenceAction(1, "discord", "https://discord.gg/7yKkShSVCC")
+
+		SetDiscordAppId(494493006418673703)
+		SetDiscordRichPresenceAsset("logotive")
+		SetRichPresence("Creative Roleplay")
+
+        SetDiscordRichPresenceAssetText("RolePlay")
+        SetDiscordRichPresenceAssetSmall("ON-Arts")
+        SetDiscordRichPresenceAssetSmallText("A Identidade visual da sua Cidade!")
+        SetDiscordRichPresenceAction(1, "DISCORD", "https://discord.gg/4j8ZR6QKdk")
         Citizen.Wait(60000)
     end
 end)

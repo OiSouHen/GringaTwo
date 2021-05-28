@@ -159,23 +159,23 @@ AddEventHandler("player:salary",function()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.getPremium(parseInt(user_id)) then
-			vRP.setSalary(parseInt(user_id),1000)
-			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
+			vRP.setSalary(parseInt(user_id),875)
+			TriggerClientEvent("Notify",source,"sucesso","Você recebeu <b>$875 dólares</b> de benefício.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Police") then
-			vRP.setSalary(parseInt(user_id),5000)
-			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
+			vRP.setSalary(parseInt(user_id),1655)
+			TriggerClientEvent("Notify",source,"sucesso","Você recebeu <b>$1655 dólares</b> de salário.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Mechanic") then
-			vRP.setSalary(parseInt(user_id),3000)
-			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
+			vRP.setSalary(parseInt(user_id),1125)
+			TriggerClientEvent("Notify",source,"sucesso","Você recebeu <b>$1125 dólares</b> de salário.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Paramedic") then
-			vRP.setSalary(parseInt(user_id),6000)
-			TriggerClientEvent("Notify",source,"sucesso","Voce recebeu seu salario.",5000)
+			vRP.setSalary(parseInt(user_id),1845)
+			TriggerClientEvent("Notify",source,"sucesso","Você recebeu <b>$1845 dólares</b> de salário.",5000)
 		end
 	end
 end)

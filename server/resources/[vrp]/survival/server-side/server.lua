@@ -163,8 +163,8 @@ function cnVRP.ResetPedToHospital()
 			if clear then
 				vRPclient._clearWeapons(source)
 				Wait(2000)
-				vRPclient.teleport(source,-1728.8,-193.09,58.56)
-				Wait(1000)
+				vRPclient.teleport(source,-1041.25,-2744.99,21.35)
+--				Wait(1000)
 --				vCLIENT.SetPedInBed(source)
 			end
 		end

@@ -22,7 +22,7 @@ local anim_ids = Tools.newIDGenerator()
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.teleport(x,y,z)
-	SetEntityCoords(PlayerPedId(),x+0.0001,y+0.0001,z+0.0001,1,0,0,1)
+	SetEntityCoords(PlayerPedId(),x + 0.0001,y + 0.0001,z + 0.0001,1,0,0,0)
 	vRPserver._updatePositions(x,y,z)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -92,12 +92,9 @@ function tvRP.nearestPlayersBlips()
 			local oped = GetPlayerPed(player)
 			local coords = GetEntityCoords(oped)
 			local coordsPed = GetEntityCoords(PlayerPedId())
-			local healt = GetEntityHealth(oped)
-			local armour = GetPedArmour(oped)
-
 			local distance = #(coords - coordsPed)
 			if distance <= 5 then
-				r[GetPlayerServerId(player)] = { v,coords.x,coords.y,coords.z,healt,armour }
+				r[GetPlayerServerId(player)] = { v,coords.x,coords.y,coords.z }
 			end
 		end
 	end

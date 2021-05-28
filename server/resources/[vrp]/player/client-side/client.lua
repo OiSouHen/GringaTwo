@@ -61,7 +61,7 @@ Citizen.CreateThread(function()
 			local distance = #(coords - vector3(dX,dY,dZ))
 			if distance <= 2.5 then
 				timeDistance = 4
-				DrawText3D(dX,dY,dZ,"~y~E~w~  DELETAR PERSONAGEM")
+				DrawText3D(dX,dY,dZ,"~r~E~w~  COMETER SUICÍDIO")
 				DrawMarker(23,dX,dY,dZ-0.98,0,0,0,0,0,0,5.0,5.0,1.0,255,0,0,25,0,0,0,0)
 				if IsControlJustPressed(1,38) then
 					vSERVER.deleteChar()
@@ -75,16 +75,20 @@ end)
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
