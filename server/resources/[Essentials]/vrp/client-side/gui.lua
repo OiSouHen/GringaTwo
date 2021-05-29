@@ -100,7 +100,8 @@ function tvRP.loadAnimSet(dict)
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
 		RequestAnimDict(dict)
-		Citizen.Wait(10)
+--		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +112,8 @@ local animName = nil
 local animActived = false
 function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,pos5)
 	if DoesEntityExist(object) then
-		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
+--		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
+		TriggerServerEvent("tryDeleteEntity",NetworkGetNetworkIdFromEntity(object))
 		object = nil
 	end
 
@@ -121,7 +123,8 @@ function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,p
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
 		RequestModel(mHash)
-		Citizen.Wait(10)
+--		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 
 	if anim ~= "" then
@@ -206,7 +209,8 @@ function tvRP.removeObjects(status)
 	TriggerEvent("camera")
 	TriggerEvent("binoculos")
 	if DoesEntityExist(object) then
-		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
+--		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
+		TriggerServerEvent("tryDeleteEntity",NetworkGetNetworkIdFromEntity(object))
 		object = nil
 	end
 end
@@ -253,9 +257,9 @@ Citizen.CreateThread(function()
 			nn,blocked,coords,coords = GetRaycastResult(ray)
 
 			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Pitch",camPitch)
-			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Heading",camHeading*-1.0+1.0)
+			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Heading",camHeading * -1.0 + 1.0)
 			Citizen.InvokeNative(0xB0A6CFD2C69C1088,ped,"isBlocked",blocked)
-			Citizen.InvokeNative(0xB0A6CFD2C69C1088,ped,"isFirstPerson",Citizen.InvokeNative(0xEE778F8C7E1142E2,Citizen.InvokeNative(0x19CAFA3C87F7C2FF))==4)
+			Citizen.InvokeNative(0xB0A6CFD2C69C1088,ped,"isFirstPerson",Citizen.InvokeNative(0xEE778F8C7E1142E2,Citizen.InvokeNative(0x19CAFA3C87F7C2FF)) == 4)
 		end
 
 		Citizen.Wait(timeDistance)
@@ -301,7 +305,7 @@ end)
 RegisterCommand("keybindCancel",function(source,args)
 	if not IsPauseMenuActive() then
 		local ped = PlayerPedId()
-		if GetEntityHealth(ped) > 101 and not celular and not cancelando then
+		if GetEntityHealth(ped) > 101 and not celular and not cancelando and not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
 			TriggerServerEvent("inventory:Cancel")
 		end
 	end
@@ -334,7 +338,8 @@ RegisterCommand("keybindPoint",function(source,args)
 			if not point then
 				tvRP.stopActived()
 				SetPedCurrentWeaponVisible(ped,0,1,1,1)
-				SetPedConfigFlag(ped,36,1)
+--				SetPedConfigFlag(ped,36,1)
+				SetPedConfigFlag(ped,36,0)
 				TaskMoveNetwork(ped,"task_mp_pointing",0.5,0,"anim@mp_point",24)
 				point = true
 			else
