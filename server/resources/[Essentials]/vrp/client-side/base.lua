@@ -187,13 +187,18 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 500
-		local ped = PlayerPedId()
+						   
 		if animActived then
 			timeDistance = 4
-			DisableControlAction(1,16,true)
-			DisableControlAction(1,17,true)
+			DisableControlAction(1,18,true)
 			DisableControlAction(1,24,true)
 			DisableControlAction(1,25,true)
+			DisableControlAction(1,257,true)
+			DisableControlAction(1,263,true)
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,142,true)
+			DisableControlAction(1,143,true)
+			DisablePlayerFiring(PlayerPedId(),true)
 		end
 
 		Citizen.Wait(timeDistance)
