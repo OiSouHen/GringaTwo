@@ -176,11 +176,9 @@ Citizen.CreateThread(function()
 			if distance <= 1 then
 				timeDistance = 4
 
---				if inHunting then
---					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
---				else
---					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  INICIAR")
---				end
+				if inHunting then
+					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
+				end
 
 				if IsControlJustPressed(1,38) and distance <= 1 then
 					for k,v in pairs(blipHunting) do
@@ -240,7 +238,7 @@ AddEventHandler("hunting:animalCutting",function()
 
 			if distance <= 2 then
 				if IsPedDeadOrDying(animalHunting[k]) and not IsPedAPlayer(animalHunting[k]) then
-					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_KNIFE") then
+					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_SWITCHBLADE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
 						local targetEntity = animalHunting[k]
 						animalHunting[k] = nil
