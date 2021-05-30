@@ -22,6 +22,24 @@ local internHouses = {}
 local theftOpen = false
 local theftLocker = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADENTER
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+    while true do
+        local timeDistance = 500
+        local ped = PlayerPedId()
+        local coords = GetEntityCoords(ped)
+        for k,v in pairs(homesList) do
+            local distance = #(coords - vector3(v[5],v[6],v[7]))
+            if distance <= 1.5 then
+                timeDistance = 5
+                DrawText3Ds(v[5],v[6],v[7],"~w~/ENTRAR    |    /PORTA")
+            end
+        end
+        Citizen.Wait(timeDistance)
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("chestClose",function(data)
@@ -102,7 +120,7 @@ RegisterCommand("entrar",function(source,args)
 			houseOpen = tostring(k)
 			vSERVER.setNetwork(tostring(k))
 			vSERVER.applyHouseOpen(tostring(k))
-			TriggerEvent("sound:source","enterhouse",0.5)
+			TriggerEvent("sounds:source","enterhouse",0.7)
 			Citizen.Wait(1000)
 
 			if v[1] == "Hotel" then
@@ -129,7 +147,7 @@ RegisterCommand("entrar",function(source,args)
 				table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
 			end
 
-			TriggerEvent("homes:Hours",true)
+			TriggerEvent("vrp_homes:Hours",true)
 			FreezeEntityPosition(ped,true)
 			SetEntityInvincible(ped,true)
 			Citizen.Wait(3000)
@@ -163,57 +181,6 @@ Citizen.CreateThread(function()
 			houseNetwork = vSERVER.getNetwork(tostring(houseOpen))
 		end
 		Citizen.Wait(1000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- INVADE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("invadir",function(source,args)
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(homesList) do
-		local distance = #(coords - vector3(v[5],v[6],v[7]))
-		if distance <= 1.5 and vSERVER.checkPolice() then
-			removeObjectHomes()
-			DoScreenFadeOut(1000)
-			houseOpen = tostring(k)
-			vSERVER.setNetwork(tostring(k))
-			vSERVER.applyHouseOpen(tostring(k))
-			TriggerEvent("sound:source","enterhouse",0.5)
-			Citizen.Wait(1000)
-
-			if v[1] == "Hotel" then
-				createHotel(ped,v[5],v[6],1500.0)
-			end
-
-			if v[1] == "Middle" then
-				createMiddle(ped,v[5],v[6],1500.0)
-			end
-
-			SetTimecycleModifier("AmbientPUSH")
-
-			Citizen.Wait(1000)
-
-			if v[1] == "Hotel" then
-				SetEntityCoords(ped,v[5]-1.65,v[6]-4.02,1501.0)
-				table.insert(internHouses,{ v[5]-1.65,v[6]-4.02,1501.0,"exit","SAIR" })
-				table.insert(internHouses,{ v[5]-1.73,v[6]+0.96,1500.7,"vault","ABRIR" })
-			end
-
-			if v[1] == "Middle" then
-				SetEntityCoords(ped,v[5]+3.63,v[6]-15.43,1502.0)
-				table.insert(internHouses,{ v[5]+3.63,v[6]-15.43,1502.3,"exit","SAIR" })
-				table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
-			end
-
-			TriggerEvent("homes:Hours",true)
-			FreezeEntityPosition(ped,true)
-			SetEntityInvincible(ped,true)
-			Citizen.Wait(3000)
-			FreezeEntityPosition(ped,false)
-			SetEntityInvincible(ped,false)
-			DoScreenFadeIn(1000)
-		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -561,7 +528,7 @@ function cRP.enterHomesTheft(homeName)
 		houseOpen = tostring(homeName)
 		vSERVER.setNetwork(tostring(homeName))
 		vSERVER.applyHouseOpen(tostring(homeName))
-		TriggerEvent("sound:source","enterhouse",0.5)
+		TriggerEvent("sounds:source","enterhouse",0.7)
 
 		Citizen.Wait(1000)
 
@@ -665,7 +632,7 @@ Citizen.CreateThread(function()
 					if IsControlJustPressed(1,38) then
 						if v[4] == "exit" then
 							vSERVER.removeNetwork(tostring(houseOpen))
-							TriggerEvent("sound:source","outhouse",0.5)
+							TriggerEvent("sounds:source","outhouse",0.5)
 							DoScreenFadeOut(1000)
 							Citizen.Wait(1000)
 
@@ -691,7 +658,7 @@ Citizen.CreateThread(function()
 							if vSERVER.checkIntPermissions(tostring(houseOpen)) then
 								SetNuiFocus(true,true)
 								SendNUIMessage({ action = "showMenu" })
-								TriggerEvent("sound:source","zipper",0.5)
+								TriggerEvent("sounds:source","chest",0.7)
 							end
 						end
 					end
@@ -705,14 +672,18 @@ end)
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3Ds(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
