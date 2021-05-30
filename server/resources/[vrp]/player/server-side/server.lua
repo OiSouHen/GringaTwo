@@ -29,6 +29,21 @@ AddEventHandler("vehmenu:doors",function(doors)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:WINSFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:winsFunctions")
+AddEventHandler("player:winsFunctions",function(winsFunctions)
+ 	local user_id = vRP.getUserId(source)
+ 	if user_id then
+ 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+ 			local vehicle,vehNet = vRPclient.vehList(source,7)
+ 			if vehicle then
+ 				TriggerClientEvent("player:syncWins",-1,vehNet,winsFunctions)
+ 			end
+ 		end
+ 	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLOR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("wecolor",function(source,args,rawCommand)

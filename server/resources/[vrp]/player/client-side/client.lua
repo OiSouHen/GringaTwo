@@ -419,6 +419,54 @@ AddEventHandler("player:syncWins",function(vehIndex,status)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCDOORS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:syncDoors")
+AddEventHandler("player:syncDoors",function(vehIndex,door)
+	if NetworkDoesNetworkIdExist(vehIndex) then
+		local v = NetToEnt(vehIndex)
+		if DoesEntityExist(v) and GetVehicleDoorsLockedForPlayer(v,PlayerId()) ~= 1 then
+			if door == "1" then
+				if GetVehicleDoorAngleRatio(v,0) == 0 then
+					SetVehicleDoorOpen(v,0,0,0)
+				else
+					SetVehicleDoorShut(v,0,0)
+				end
+			elseif door == "2" then
+				if GetVehicleDoorAngleRatio(v,1) == 0 then
+					SetVehicleDoorOpen(v,1,0,0)
+				else
+					SetVehicleDoorShut(v,1,0)
+				end
+			elseif door == "3" then
+				if GetVehicleDoorAngleRatio(v,2) == 0 then
+					SetVehicleDoorOpen(v,2,0,0)
+				else
+					SetVehicleDoorShut(v,2,0)
+				end
+			elseif door == "4" then
+				if GetVehicleDoorAngleRatio(v,3) == 0 then
+					SetVehicleDoorOpen(v,3,0,0)
+				else
+					SetVehicleDoorShut(v,3,0)
+				end
+			elseif door == "5" then
+				if GetVehicleDoorAngleRatio(v,5) == 0 then
+					SetVehicleDoorOpen(v,5,0,0)
+				else
+					SetVehicleDoorShut(v,5,0)
+				end
+			elseif door == "6" then
+				if GetVehicleDoorAngleRatio(v,4) == 0 then
+					SetVehicleDoorOpen(v,4,0,0)
+				else
+					SetVehicleDoorShut(v,4,0)
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- ENTERTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inTrunk = false
@@ -504,66 +552,6 @@ Citizen.CreateThread(function()
         end
         Citizen.Wait(timeDistance)
     end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SYNCDOORS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("player:syncDoors")
-AddEventHandler("player:syncDoors",function(index,door)
-	if NetworkDoesNetworkIdExist(index) then
-		local v = NetToEnt(index)
-		if DoesEntityExist(v) then
-			if door == "1" then
-				if GetVehicleDoorAngleRatio(v,0) == 0 then
-					SetVehicleDoorOpen(v,0,0,0)
-				else
-					SetVehicleDoorShut(v,0,0)
-				end
-			elseif door == "2" then
-				if GetVehicleDoorAngleRatio(v,1) == 0 then
-					SetVehicleDoorOpen(v,1,0,0)
-				else
-					SetVehicleDoorShut(v,1,0)
-				end
-			elseif door == "3" then
-				if GetVehicleDoorAngleRatio(v,2) == 0 then
-					SetVehicleDoorOpen(v,2,0,0)
-				else
-					SetVehicleDoorShut(v,2,0)
-				end
-			elseif door == "4" then
-				if GetVehicleDoorAngleRatio(v,3) == 0 then
-					SetVehicleDoorOpen(v,3,0,0)
-				else
-					SetVehicleDoorShut(v,3,0)
-				end
-			elseif door == "5" then
-				if GetVehicleDoorAngleRatio(v,5) == 0 then
-					SetVehicleDoorOpen(v,5,0,1)
-				else
-					SetVehicleDoorShut(v,5,1)
-				end
-			elseif door == "6" then
-				if GetVehicleDoorAngleRatio(v,4) == 0 then
-					SetVehicleDoorOpen(v,4,0,1)
-				else
-					SetVehicleDoorShut(v,4,1)
-				end
-			elseif door == nil then
-				if GetVehicleDoorAngleRatio(v,0) == 0 and GetVehicleDoorAngleRatio(v,1) == 0 then
-					SetVehicleDoorOpen(v,0,0,0)
-					SetVehicleDoorOpen(v,1,0,0)
-					SetVehicleDoorOpen(v,2,0,0)
-					SetVehicleDoorOpen(v,3,0,0)
-				else
-					SetVehicleDoorShut(v,0,0)
-					SetVehicleDoorShut(v,1,0)
-					SetVehicleDoorShut(v,2,0)
-					SetVehicleDoorShut(v,3,0)
-				end
-			end
-		end
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FPS
