@@ -306,15 +306,50 @@ svg {
 	background-repeat: no-repeat !important;
 }
 
-#seatBelt, #hardBelt {
+#hardBeltOff {
 	float: right;
 	display: none;
 	color: #939393;
 	font-size: 11px;
 	font-weight: 300;
 	line-height: 12px;
-	padding-top: 18px;
 	padding-left: 15px;
+	letter-spacing: 0.5px;
+	text-shadow: 1px 1px #000;
+}
+
+#hardBeltOn {
+	float: right;
+	display: none;
+	color: #939393;
+	font-size: 11px;
+	font-weight: 300;
+	line-height: 12px;
+	padding-left: 15px;
+	letter-spacing: 0.5px;
+	text-shadow: 1px 1px #000;
+}
+
+#seatBeltOff {
+	float: right;
+	display: none;
+	color: #939393;
+	font-size: 11px;
+	font-weight: 300;
+	line-height: 12px;
+	padding-left: 15px;
+	letter-spacing: 0.5px;
+	text-shadow: 1px 1px #000;
+}
+
+#seatBeltOn {
+	float: right;
+	display: none;
+	color: #939393;
+	font-size: 11px;
+	font-weight: 300;
+	line-height: 12px;
+	padding-top: 15px	padding-left: 15px;
 	letter-spacing: 0.5px;
 	text-shadow: 1px 1px #000;
 }

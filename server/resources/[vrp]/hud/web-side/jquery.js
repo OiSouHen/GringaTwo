@@ -172,26 +172,30 @@ $(document).ready(function(){
 				}
 
 				if (event["data"]["showbelt"] == false){
-					if($("#hardBelt").css("display") === "block"){
-						$("#hardBelt").css("display","none");
-						$("#seatBelt").css("display","none");
+					if($("#hardBeltOff").css("display") === "block"){
+						$("#hardBeltOff").css("display","none");
+						$("#seatBeltOff").css("display","none");
 					}
 				} else {
-					if($("#hardBelt").css("display") === "none"){
-						$("#hardBelt").css("display","block");
-						$("#seatBelt").css("display","block");
+					if($("#hardBeltOff").css("display") === "none"){
+						$("#hardBeltOff").css("display","block");
+						$("#seatBeltOff").css("display","block");
 					}
 
 					if (event["data"]["hardness"] == 1){
-						$("#hardBelt").css("color","#43a949");
+						$("#hardBeltOff").css("display","none");
+						$("#hardBeltOn").css("display","block");
 					} else {
-						$("#hardBelt").css("color","#939393");
+						$("#hardBeltOff").css("display","block");
+						$("#hardBeltOn").css("display","none");
 					}
 
 					if (event["data"]["seatbelt"] == 1){
-						$("#seatBelt").css("color","#43a949");
+						$("#seatBeltOff").css("display","none");
+						$("#seatBeltOn").css("display","block");
 					} else {
-						$("#seatBelt").css("color","#939393");
+						$("#seatBeltOff").css("display","block");
+						$("#seatBeltOn").css("display","none");
 					}
 				}
 
