@@ -26,20 +26,16 @@ function cRP.animalPayment()
 		else
 			
 			local random = math.random(100)
-			if parseInt(random) >= 76 then
-				vRP.giveInventoryItem(user_id,"orange",math.random(3),true)
+			if parseInt(random) >= 96 then
+				vRP.giveInventoryItem(user_id,"meatA",math.random(3),true)
+			elseif parseInt(random) >= 78 and parseInt(random) <= 95 then
+				vRP.giveInventoryItem(user_id,"meatB",math.random(3),true)
 			elseif parseInt(random) >= 66 and parseInt(random) <= 75 then
-				vRP.giveInventoryItem(user_id,"strawberry",math.random(3),true)
-			elseif parseInt(random) >= 56 and parseInt(random) <= 65 then
-				vRP.giveInventoryItem(user_id,"grape",math.random(3),true)
-			elseif parseInt(random) >= 46 and parseInt(random) <= 55 then
-				vRP.giveInventoryItem(user_id,"tange",math.random(3),true)
-			elseif parseInt(random) >= 36 and parseInt(random) <= 45 then
-				vRP.giveInventoryItem(user_id,"banana",math.random(3),true)
-			elseif parseInt(random) >= 26 and parseInt(random) <= 35 then
-				vRP.giveInventoryItem(user_id,"passion",math.random(3),true)
-			elseif parseInt(random) >= 1 and parseInt(random) <= 25 then
-				vRP.giveInventoryItem(user_id,"tomato",math.random(4),true)
+				vRP.giveInventoryItem(user_id,"meatC",math.random(3),true)
+			elseif parseInt(random) >= 36 and parseInt(random) <= 65 then
+				vRP.giveInventoryItem(user_id,"meatS",math.random(3),true)
+			elseif parseInt(random) >= 0 and parseInt(random) <= 35 then
+				vRP.giveInventoryItem(user_id,"animalpelt",math.random(5),true)
 			end
 			
 			collect[source] = nil
