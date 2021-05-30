@@ -53,7 +53,24 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTPLAYERS
+-- NEY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("ney",function(source,args,rawCommand)
+    local user_id = vRP.getUserId(source)
+    local identity = vRP.getUserIdentity(user_id)
+    if user_id then
+        if vRP.hasPermission(user_id,"Admin") then
+            if args[1] then
+                local nplayer = vRP.getUserSource(parseInt(args[1]))
+                if nplayer then
+                    TriggerClientEvent("ney",nplayer,args[1])
+                end
+            end
+        end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CLEARINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("clearinv",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
