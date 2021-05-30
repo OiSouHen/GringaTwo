@@ -108,7 +108,8 @@ function sanitizeString(str,strchars,allow_policy)
 		for i = 1,size do
 			local char = string.sub(strchars,i,i)
 			chars[char] = true
-		
+		end
+
 		sanitize_tmp[strchars] = chars
 	end
 
@@ -119,5 +120,6 @@ function sanitizeString(str,strchars,allow_policy)
 			r = r..char
 		end
 	end
+
 	return r
 end
