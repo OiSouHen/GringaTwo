@@ -18,14 +18,14 @@ local typeBikes = {}
 local localVehicles = {}
 local vehicles = {}
 local vehIds = {}
-local open = vector3(471.99,-1114.81,29.4)
-local zone = vector3(471.99,-1114.81,29.4)
+local open = vector3(-73.1,-2004.25,18.28)
+local zone = vector3(-73.1,-2004.25,18.28)
 
 local coords = {
-	[1] = { cds = vector3(485.57,-1102.04,29.21), h = 89.81 },
-	[2] = { cds = vector3(485.49,-1105.5,29.21), h = 89.81 },
-	[3] = { cds = vector3(485.4,-1109.41,29.2), h = 89.81 },
-	[4] = { cds = vector3(485.45,-1112.44,29.2), h = 89.81 }
+	[1] = { cds = vector3(-81.93,-2009.63,18.09), h = 172.65 },
+	[2] = { cds = vector3(-85.82,-2009.14,18.1), h = 172.65 },
+	[3] = { cds = vector3(-89.56,-2008.61,18.1), h = 172.65 },
+	[4] = { cds = vector3(-93.5,-2008.19,18.1), h = 172.65 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCVEHICLES
@@ -51,6 +51,23 @@ AddEventHandler("bdonate:syncList",function(cars,bikes)
 	typeBikes = bikes
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- LOCATEBENEFACTORPREMIUM
+-----------------------------------------------------------------------------------------------------------------------------------------
+local locateBenefactorPremium = {
+	{ -73.1,-2004.25,18.28 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(locateBenefactorPremium) do
+		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Benefactor Premium","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -62,9 +79,8 @@ Citizen.CreateThread(function()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - open)
-			if distance <= 2.1 then
+			if distance <= 1 then
 				timeDistance = 4
-				DrawText3D(open.x,open.y,open.z,"~g~E~w~   ABRIR")
 				if IsControlJustPressed(1,38) then
 					SetNuiFocus(true,true)
 					SendNUIMessage({ action = "show" })
@@ -162,21 +178,6 @@ function despawnVehicles()
 		end
 	end
 	vehIds = {}
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 400
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSEAPP
