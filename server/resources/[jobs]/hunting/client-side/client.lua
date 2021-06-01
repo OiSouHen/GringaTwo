@@ -16,7 +16,7 @@ vSERVER = Tunnel.getInterface("hunting")
 local blipHunting = {}
 local inHunting = false
 local animalHunting = {}
-local huntCoords = { -672.76,5837.39,17.32 }
+local huntCoords = { -678.2,5838.58,17.34 }
 local animalHahs = { "a_c_deer","a_c_coyote","a_c_mtlion","a_c_pig","a_c_panther","a_c_boar","a_c_cormorant" }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ANIMALCOORDS
@@ -173,7 +173,7 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(huntCoords[1],huntCoords[2],huntCoords[3]))
 
-			if distance <= 1 then
+			if distance <= 1.5 then
 				timeDistance = 4
 
 				if inHunting then

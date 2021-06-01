@@ -164,7 +164,7 @@ s {
 	margin-bottom: 3px;
 	border-radius: 4px;
 	color: #fff;
-	background: #1da1f2de;
+	background: #2a354c;
 }
 
 #socialLeft textarea {
@@ -191,7 +191,7 @@ s {
 	text-align: center;
 	border-radius: 4px;
 	padding: 10px 15px;
-	background: #1da1f2;
+	background: #1a1a1a;
 	color: #ffffff;
 }
 
@@ -200,7 +200,7 @@ s {
 }
 
 #socialSubmit:hover {
-	background: #0c5079;
+	background: #303030;
 }
 
 #socialLeft li {

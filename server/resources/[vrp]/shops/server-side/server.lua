@@ -106,6 +106,15 @@ local shops = {
 			["ambar"] = 20
 		}
 	},
+	["huntingStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["WEAPON_SWITCHBLADE"] = 725,
+			["WEAPON_MUSKET_AMMO"] = 7,
+			["WEAPON_MUSKET"] = 3250
+		}
+	},
 	["fishingSell"] = {
 		["mode"] = "Sell",
 		["type"] = "Cash",

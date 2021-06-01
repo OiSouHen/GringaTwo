@@ -114,6 +114,13 @@ AddEventHandler("shops:jewelryStore",function()
 		SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:HUNTINGSTORE
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:huntingStore",function()
+		SendNUIMessage({ action = "showNUI", name = tostring("huntingStore"), type = vSERVER.getShopType("huntingStore") })
+		SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:COFFEEMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:coffeeMachine",function()

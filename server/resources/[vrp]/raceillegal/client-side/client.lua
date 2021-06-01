@@ -298,8 +298,9 @@ Citizen.CreateThread(function()
 				
 				dwText("~y~CHECKPOINTS:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"],0.65)
 				dwText("~y~TOTAL DE VOLTAS:~w~ "..inLaps.." / "..runners[inSelected]["laps"],0.68)
-				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime.." / "..runners[inSelected]["raceTimers"],0.71)
---			    dwText("~y~PONTUAÇÃO:~w~ "..SoftPoints,0.74)
+--				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime.." / "..runners[inSelected]["raceTimers"],0.71)
+				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime,0.71)
+			    dwText("~y~PONTUAÇÃO:~w~ "..SoftPoints,0.74)
 
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then

@@ -439,6 +439,17 @@ Citizen.CreateThread(function()
 		distance = 2.00
 	})
 	
+	AddTargetModel({ -837606178 },{
+		options = {
+			{
+				event = "shops:huntingStore",
+				label = "Hunting Store",
+				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+	
 	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{
 		options = {
 			{

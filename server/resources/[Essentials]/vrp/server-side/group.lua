@@ -47,16 +47,16 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerSpawn",function(user_id,source,first_spawn)
-	if vRP.hasPermission(user_id,"Police") then
-		permissions[tostring(source)] = "Police"
-		TriggerClientEvent("tencode:StatusService",source,true)
-		TriggerEvent("blipsystem:serviceEnter",source,"Policial",77)
-	elseif vRP.hasPermission(user_id,"Paramedic") then
-		permissions[tostring(source)] = "Paramedic"
-		TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
-	elseif vRP.hasPermission(user_id,"Paramedic") then
-		permissions[tostring(source)] = "Mechanic"
-		TriggerEvent("blipsystem:serviceEnter",source,"Mecânico",51)
-	end
-end)
+--AddEventHandler("vRP:playerSpawn",function(user_id,source,first_spawn)
+--	if vRP.hasPermission(user_id,"Police") then
+--		permissions[tostring(source)] = "Police"
+--		TriggerClientEvent("tencode:StatusService",source,true)
+--		TriggerEvent("blipsystem:serviceEnter",source,"Policial",77)
+--	elseif vRP.hasPermission(user_id,"Paramedic") then
+--		permissions[tostring(source)] = "Paramedic"
+--		TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
+--	elseif vRP.hasPermission(user_id,"Paramedic") then
+--		permissions[tostring(source)] = "Mechanic"
+--		TriggerEvent("blipsystem:serviceEnter",source,"Mecânico",51)
+--	end
+--end)

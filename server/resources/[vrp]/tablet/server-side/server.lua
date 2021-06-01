@@ -45,13 +45,13 @@ function cRP.messageMedia(message,page)
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			if page == "Twitter" then
-				text = "<i><b>"..identity.name.." "..identity.name2.."</b> - "..os.date("%H")..":"..os.date("%M")..":</i><br>"..message
+				text = "<b>@"..identity.name..""..identity.name2.."</b> · "..os.date("%H")..":"..os.date("%M").."<br>"..message
 			end
 
 			if page == "Twitter" then
 				table.insert(twitter,{ text = text })
 				TriggerClientEvent("tablet:updateMedia", -1, page, text, false)
-				TriggerClientEvent("Notify",-1,"rosa","<b>@"..identity.name..""..identity.name2.."</b> públicou um novo Tweet.",1000)
+				TriggerClientEvent("Notify",-1,"twitter","<b>@"..identity.name..""..identity.name2.."</b> públicou um novo Tweet.",1000)
 --				TriggerClientEvent("sound:source",source,"softtick",0.5)
 			end
 		end

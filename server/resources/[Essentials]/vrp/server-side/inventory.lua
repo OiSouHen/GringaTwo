@@ -2174,7 +2174,18 @@ local itemlist = {
  -- END RIFLE
 
  -- START SHOTGUN
-    ["WEAPON_PUMPSHOTGUN"] = {
+    ["WEAPON_MUSKET"] = {
+		index = "winchester",
+		name = "Winchester 1892",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "2750",
+		type = "equip",
+		ammo = "WEAPON_MUSKET_AMMO",
+		weight = 7.25
+	},
+	["WEAPON_PUMPSHOTGUN"] = {
 		index = "remington",
 		name = "Remington",
 		desc = "",
@@ -2196,11 +2207,21 @@ local itemlist = {
 		ammo = "WEAPON_SAWNOFFSHOTGUN_AMMO",
 		weight = 3.00
 	},
+	["WEAPON_MUSKET_AMMO"] = {
+		index = "musketammo",
+		name = "Munição de Mosquete",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "10",
+		type = "recharge",
+		weight = 0.05
+	},
 	["WEAPON_PUMPSHOTGUN_AMMO"] = {
 		index = "remingtonammo",
 		name = "M. Remington",
 		desc = "",
-		tipo = "",
+		tipo = "Munição",
 		unity = "",
 		economy = "",
 		type = "recharge",
@@ -2210,7 +2231,7 @@ local itemlist = {
 		index = "mossberg590ammo",
 		name = "M. Mossberg 590",
 		desc = "",
-		tipo = "",
+		tipo = "Munição",
 		unity = "",
 		economy = "",
 		type = "recharge",

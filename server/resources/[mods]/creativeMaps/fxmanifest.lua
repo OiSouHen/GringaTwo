@@ -1,16 +1,18 @@
-fx_version "bodacious"
+fx_version "cerulean"
 game "gta5"
 
 this_is_a_map "yes"
 
-client_scripts {
-	"client.lua"
-}
-
 files {
-	'interiorproxies.meta',
+	"stream/*",
+	"stream/*/**",
+	"stream/*/*/**",
+	"stream/*/*/*/**",
+	"interiorproxies.meta"
 }
 
-data_file "DLC_ITYP_REQUEST" "stream/vrpInteriores/creative_hotel.ytyp"
-data_file "DLC_ITYP_REQUEST" "stream/vrpInteriores/creative_middle.ytyp"
 data_file "INTERIOR_PROXY_ORDER_FILE" "interiorproxies.meta"
+data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/v_int_16.ytyp"
+data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/v_int_49.ytyp"
+data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/creative_hotel.ytyp"
+data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/creative_middle.ytyp"

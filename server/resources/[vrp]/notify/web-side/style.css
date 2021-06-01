@@ -91,6 +91,11 @@ body {
 	border-bottom: 3px solid #6eb969;
 }
 
+#twitter {
+	background: rgba(34,34,34,0.75) url("images/twitter.png") no-repeat center left 11px;
+	border-bottom: 3px solid #3f4d72;
+}
+
 #unlocked {
 	background: rgba(34,34,34,0.75) url("images/unlocked.png") no-repeat center left 11px;
 	border-bottom: 3px solid #e62441;

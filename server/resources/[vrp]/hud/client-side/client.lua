@@ -292,7 +292,7 @@ Citizen.CreateThread(function()
 					if speed ~= beltSpeed then
 						local plate = GetVehicleNumberPlateText(vehicle)
 
-						if ((beltSpeed - speed) >= 60 and beltLock == 0) or ((beltSpeed - speed) >= 90 and beltLock == 1 and hardness[plate] == nil) then
+						if ((beltSpeed - speed) >= 35 and beltLock == 0) or ((beltSpeed - speed) >= 85 and beltLock == 1 and hardness[plate] == nil) then
 							local fowardVeh = fowardPed(ped)
 							local coords = GetEntityCoords(ped)
 							SetEntityCoords(ped,coords["x"] + fowardVeh["x"],coords["y"] + fowardVeh["y"],coords["z"] + 1,1,0,0,0)
@@ -360,37 +360,30 @@ AddEventHandler("homes:Hours",function(status)
 	homeInterior = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP:PLAYERREJOIN
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vRP:playerRejoin")
-AddEventHandler("vRP:playerRejoin",function()
-	homeInterior = false
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHREDUCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if GetEntityHealth(ped) > 101 then
-			if hunger >= 10 and hunger <= 20 then
+			if hunger >= 6 and hunger <= 15 then
 				ApplyDamageToPed(ped,1,false)
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
-			elseif hunger <= 9 then
+			elseif hunger <= 5 then
 				ApplyDamageToPed(ped,2,false)
 				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
 			end
 
-			if thirst >= 10 and thirst <= 20 then
+			if thirst >= 6 and thirst <= 15 then
 				ApplyDamageToPed(ped,1,false)
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
-			elseif thirst <= 9 then
+			elseif thirst <= 5 then
 				ApplyDamageToPed(ped,2,false)
 				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 			end
 		end
 
-		Citizen.Wait(10000)
+		Citizen.Wait(15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

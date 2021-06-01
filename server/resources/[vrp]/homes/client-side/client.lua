@@ -147,7 +147,7 @@ RegisterCommand("entrar",function(source,args)
 				table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
 			end
 
-			TriggerEvent("vrp_homes:Hours",true)
+			TriggerEvent("homes:Hours",true)
 			FreezeEntityPosition(ped,true)
 			SetEntityInvincible(ped,true)
 			Citizen.Wait(3000)
