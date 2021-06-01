@@ -8,8 +8,8 @@ vRP = Proxy.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cnVRP = {}
-Tunnel.bindInterface("creativeSpawn",cnVRP)
-vSERVER = Tunnel.getInterface("creativeSpawn")
+Tunnel.bindInterface("spawn",cnVRP)
+vSERVER = Tunnel.getInterface("spawn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -29,8 +29,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETUPCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("creativeSpawn:setupChars")
-AddEventHandler("creativeSpawn:setupChars",function()
+RegisterNetEvent("spawn:setupChars")
+AddEventHandler("spawn:setupChars",function()
 	SetEntityVisible(PlayerPedId(),false,false)
 	FreezeEntityPosition(PlayerPedId(),true)
 	SetEntityInvincible(PlayerPedId(),true)
@@ -47,16 +47,16 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETUPMAXCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("creativeSpawn:maxChars")
-AddEventHandler("creativeSpawn:maxChars",function()
+RegisterNetEvent("spawn:maxChars")
+AddEventHandler("spawn:maxChars",function()
 	SendNUIMessage({ action = "show" })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNCHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("creativeSpawn:spawnChar")
-AddEventHandler("creativeSpawn:spawnChar",function(status)
+RegisterNetEvent("spawn:spawnChar")
+AddEventHandler("spawn:spawnChar",function(status)
 	DoScreenFadeOut(1000)
 	Citizen.Wait(1000)
 	SetEntityVisible(PlayerPedId(),true,true)
@@ -83,7 +83,7 @@ RegisterNUICallback("CharacterChosen",function(data,cb)
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
 	SetEntityInvincible(PlayerPedId(),false)
-	TriggerServerEvent("creativeSpawn:charChosen",tonumber(data.id))
+	TriggerServerEvent("spawn:charChosen",tonumber(data.id))
 	SetNuiFocus(false,false)
 	removeCamActive()
 	cb("ok")
@@ -95,7 +95,7 @@ RegisterNUICallback("CharacterCreated",function(data,cb)
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
 	SetEntityInvincible(PlayerPedId(),false)	
-	TriggerServerEvent("creativeSpawn:createChar",data.name,data.name2,data.sex)
+	TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex)
 	SetNuiFocus(false,false)
 	removeCamActive()
 

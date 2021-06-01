@@ -45,9 +45,10 @@ AddEventHandler('__cfx_internal:commandFallback',function(command)
 	CancelEvent()
 end)
 
--- local commandos = {
--- 	["asss"] = { hellp = "teste" },
--- }
+local commandos = {
+	["e"] = { help = "teste" },
+}
+
   -- SUGESTÃO DE COMANDOS
 local function refreshCommands(player)
     if GetRegisteredCommands then
@@ -73,7 +74,7 @@ AddEventHandler('chat:init', function()
 end)
 
 AddEventHandler('onServerResourceStart', function(resName)
-    Wait(500)
+    Citizen.Wait(1)
 
     for _, player in ipairs(GetPlayers()) do
         refreshCommands(player)

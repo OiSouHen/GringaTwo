@@ -8,7 +8,7 @@ vRP = Proxy.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cnVRP = {}
-Tunnel.bindInterface("creativeSpawn",cnVRP)
+Tunnel.bindInterface("spawn",cnVRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETUPCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -37,32 +37,32 @@ end
 -- CHARCHOSEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local spawnLogin = {}
-RegisterServerEvent("creativeSpawn:charChosen")
-AddEventHandler("creativeSpawn:charChosen",function(id)
+RegisterServerEvent("spawn:charChosen")
+AddEventHandler("spawn:charChosen",function(id)
 	local source = source
 	TriggerClientEvent("hudActived",source,true)
 	TriggerEvent("baseModule:idLoaded",source,id,nil)
 
 	-- if spawnLogin[parseInt(id)] then
-	-- 	-- TriggerClientEvent("creativeSpawn:spawnChar",source,false)
+	-- 	-- TriggerClientEvent("spawn:spawnChar",source,false)
 	-- else
 	-- 	spawnLogin[parseInt(id)] = true
-	-- 	-- TriggerClientEvent("creativeSpawn:spawnChar",source,true)	
+	-- 	-- TriggerClientEvent("spawn:spawnChar",source,true)	
 	-- end
 	TriggerEvent("CharacterSpawn", source, id)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATECHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("creativeSpawn:createChar")
-AddEventHandler("creativeSpawn:createChar",function(name,name2,sex)
+RegisterServerEvent("spawn:createChar")
+AddEventHandler("spawn:createChar",function(name,name2,sex)
 	local source = source
 	local steam = vRP.getSteam(source)
 	local persons = getPlayerCharacters(steam)
 
 	if not vRP.getPremium2(steam) and parseInt(#persons) >= 1 then
 		TriggerClientEvent("Notify",source,"amarelo","Você atingiu o limite de personagens.",5000)
-		TriggerClientEvent("creativeSpawn:maxChars",source)
+		TriggerClientEvent("spawn:maxChars",source)
 		return
 	end
 
@@ -87,7 +87,7 @@ AddEventHandler("creativeSpawn:createChar",function(name,name2,sex)
 
 	spawnLogin[parseInt(newId)] = true
 	TriggerClientEvent("hudActived",source,true)
-	-- TriggerClientEvent("creativeSpawn:spawnChar",source,true)
+	-- TriggerClientEvent("spawn:spawnChar",source,true)
 	TriggerEvent("baseModule:idLoaded",source,newId,model)
 	TriggerEvent("CharacterSpawn", source, newId)
 end)

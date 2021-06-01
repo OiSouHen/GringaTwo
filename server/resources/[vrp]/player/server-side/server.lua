@@ -14,6 +14,17 @@ vCLIENT = Tunnel.getInterface("player")
 vTASKBAR = Tunnel.getInterface("taskbar")
 vSKINSHOP = Tunnel.getInterface("skinshop")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ME
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("me",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if args[1] then
+			TriggerClientEvent("player:showMe",-1,source,rawCommand)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHMENU:DOORS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vehmenu:doors")
@@ -217,7 +228,7 @@ function cRP.deleteChar()
 		Citizen.Wait(1000)
 		vRP.rejoinServer(source)
 		Citizen.Wait(1000)
-		TriggerClientEvent("creativeSpawn:setupChars",source)
+		TriggerClientEvent("spawn:setupChars",source)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

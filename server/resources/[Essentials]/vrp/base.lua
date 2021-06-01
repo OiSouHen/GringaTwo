@@ -327,7 +327,7 @@ end)
 RegisterServerEvent("vRP:playerSpawned")
 AddEventHandler("vRP:playerSpawned",function()
 	local source = source
-	TriggerClientEvent("creativeSpawn:setupChars",source)
+	TriggerClientEvent("spawn:setupChars",source)
 	
 	addPlayer[source] = true
 	TriggerClientEvent("vRP:updateList",-1,addPlayer)

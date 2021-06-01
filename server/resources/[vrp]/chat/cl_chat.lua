@@ -1,10 +1,24 @@
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Tunnel = module("vrp","lib/Tunnel")
+local Proxy = module("vrp","lib/Proxy")
+vRP = Proxy.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+cRP = {}
+Tunnel.bindInterface("chat",cRP)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
 local isRDR = not TerraingridActivate and true or false
-
 local chatInputActive = false
 local chatInputActivating = false
 local chatLoaded = false
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INTERNALEVENTS
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent('chatMessage')
 RegisterNetEvent('chat:addTemplate')
 RegisterNetEvent('chat:addMessage')
@@ -14,50 +28,42 @@ RegisterNetEvent('chat:addMode')
 RegisterNetEvent('chat:removeMode')
 RegisterNetEvent('chat:removeSuggestion')
 RegisterNetEvent('chat:clear')
-
--- internal events
 RegisterNetEvent('__cfx_internal:serverPrint')
-
 RegisterNetEvent('_chat:messageEntered')
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- chatMessage
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("chatMessage",function(author,color,text)
+	if not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
+		local args = { text }
+		if author ~= "" then
+			table.insert(args,1,author)
+		end
 
---deprecated, use chat:addMessage
-AddEventHandler('chatMessage', function(author, color, text)
-  local args = { text }
-  if author ~= "" then
-    table.insert(args, 1, author)
-  end
-  SendNUIMessage({
-    type = 'ON_MESSAGE',
-    message = {
-      color = color,
-      multiline = true,
-      args = args
-    }
-  })
+		SendNUIMessage({ type = "ON_MESSAGE", message = { color = color, multiline = true, args = args } })
+		SendNUIMessage({ type = "ON_SCREEN_STATE_CHANGE", shouldHide = false })
+	end
 end)
 
 AddEventHandler('__cfx_internal:serverPrint', function(msg)
-  SendNUIMessage({type = 'ON_MESSAGE',message = {templateId = 'print', multiline = true, args = { msg } }})
+	SendNUIMessage({type = 'ON_MESSAGE',message = {templateId = 'print', multiline = true, args = { msg } }})
 end)
 
 -- addMessage
 local addMessage = function(message)
   if type(message) == 'string' then
-    message = {
-      args = { message }
-    }
+    message = {args = { message }}
   end
 
-  SendNUIMessage({
-    type = 'ON_MESSAGE',
-    message = message
-  })
+  SendNUIMessage({ type = "ON_MESSAGE", message = message })
 end
 
 exports('addMessage', addMessage)
 AddEventHandler('chat:addMessage', addMessage)
 
--- addSuggestion
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SUGGESTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
 local addSuggestion = function(name, help, params)
   SendNUIMessage({
     type = 'ON_SUGGESTION_ADD',
@@ -68,7 +74,9 @@ local addSuggestion = function(name, help, params)
     }
   })
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADDSUGGESTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
 exports('addSuggestion', addSuggestion)
 AddEventHandler('chat:addSuggestion', addSuggestion)
 
@@ -80,28 +88,36 @@ AddEventHandler('chat:addSuggestions', function(suggestions)
     })
   end
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REMOVESUGGESTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler('chat:removeSuggestion', function(name)
   SendNUIMessage({
     type = 'ON_SUGGESTION_REMOVE',
     name = name
   })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADDMODE
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler('chat:addMode', function(mode)
   SendNUIMessage({
     type = 'ON_MODE_ADD',
     mode = mode
   })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REMOVEMODE
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler('chat:removeMode', function(name)
   SendNUIMessage({
     type = 'ON_MODE_REMOVE',
     name = name
   })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADDTEMPLATE
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler('chat:addTemplate', function(id, html)
   SendNUIMessage({
     type = 'ON_TEMPLATE_ADD',
@@ -111,13 +127,15 @@ AddEventHandler('chat:addTemplate', function(id, html)
     }
   })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHAT:CLEAR
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler('chat:clear', function(name)
-  SendNUIMessage({
-    type = 'ON_CLEAR'
-  })
+  SendNUIMessage({ type = "ON_CLEAR" })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHATRESULT
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback('chatResult', function(data, cb)
   chatInputActive = false
   SetNuiFocus(false)
@@ -137,7 +155,9 @@ RegisterNUICallback('chatResult', function(data, cb)
 
   cb('ok')
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REFRESHCOMMANDS
+-----------------------------------------------------------------------------------------------------------------------------------------
 local function refreshCommands()
   if GetRegisteredCommands then
     local registeredCommands = GetRegisteredCommands()
@@ -156,7 +176,9 @@ local function refreshCommands()
     TriggerEvent('chat:addSuggestions', suggestions)
   end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REFRESHTHEMES
+-----------------------------------------------------------------------------------------------------------------------------------------
 local function refreshThemes()
   local themes = {}
 
@@ -183,21 +205,43 @@ local function refreshThemes()
     themes = themes
   })
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- EVENTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("onClientResourceStart",function(resName)
+	if (GetCurrentResourceName() ~= resName) then
+		return
+	end
 
-AddEventHandler('onClientResourceStart', function(resName)
-  Wait(500)
+	local mHash = GetHashKey("mp_m_freemode_01")
+
+	RequestModel(mHash)
+	while not HasModelLoaded(mHash) do
+		Citizen.Wait(1)
+	end
+
+	if HasModelLoaded(mHash) then
+		SetPlayerModel(PlayerId(),mHash)
+		SetModelAsNoLongerNeeded(mHash)
+		FreezeEntityPosition(PlayerPedId(),false)
+	end
+	
+	refreshCommands()
+	refreshThemes()
+
+	TriggerEvent("spawn:generateJoin")
+	TriggerServerEvent("Queue:playerConnect")
+
+	ShutdownLoadingScreen()
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("onClientResourceStop", function(resName)
+  Citizen.Wait(1)
 
   refreshCommands()
   refreshThemes()
 end)
-
-AddEventHandler('onClientResourceStop', function(resName)
-  Wait(500)
-
-  refreshCommands()
-  refreshThemes()
-end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback('loaded', function(data, cb)
   TriggerServerEvent('chat:init')
 
@@ -208,20 +252,17 @@ RegisterNUICallback('loaded', function(data, cb)
 
   cb('ok')
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 local CHAT_HIDE_STATES = {
   SHOW_WHEN_ACTIVE = 0,
   ALWAYS_SHOW = 1,
   ALWAYS_HIDE = 2
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 local kvpEntry = GetResourceKvpString('hideState')
 local chatHideState = kvpEntry ~= nil and tonumber(kvpEntry) or CHAT_HIDE_STATES.SHOW_WHEN_ACTIVE
 local isFirstHide = true
-
-
-
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 if not isRDR then
    RegisterCommand('chat', function()
     if chatHideState == CHAT_HIDE_STATES.SHOW_WHEN_ACTIVE then
@@ -237,7 +278,7 @@ if not isRDR then
     SetResourceKvp('hideState', tostring(chatHideState))
   end, false)
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
   SetTextChatEnabled(false)
   SetNuiFocus(false)
