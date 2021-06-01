@@ -153,6 +153,36 @@ function cRP.setDiving()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DYNAMIC:REMOVEOUTFIT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.setRemoveoutfit()
+	local ped = PlayerPedId()
+		if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
+			SetPedComponentVariation(ped,1,-1,0,1)
+			SetPedComponentVariation(ped,3,15,0,1)
+			SetPedComponentVariation(ped,4,61,0,1)
+			SetPedComponentVariation(ped,5,-1,0,1)
+			SetPedComponentVariation(ped,6,34,0,1)
+			SetPedComponentVariation(ped,7,-1,0,1)
+			SetPedComponentVariation(ped,8,15,0,1)
+			SetPedComponentVariation(ped,9,-1,0,1)
+			SetPedComponentVariation(ped,10,-1,0,1)
+			SetPedComponentVariation(ped,11,15,0,1)
+		elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") then
+			SetPedComponentVariation(ped,1,-1,0,1)
+			SetPedComponentVariation(ped,3,15,0,1)
+			SetPedComponentVariation(ped,4,17,0,1)
+			SetPedComponentVariation(ped,5,-1,0,1)
+			SetPedComponentVariation(ped,6,35,0,1)
+			SetPedComponentVariation(ped,7,-1,0,1)
+			SetPedComponentVariation(ped,8,7,0,1)
+			SetPedComponentVariation(ped,9,-1,0,1)
+			SetPedComponentVariation(ped,10,-1,0,1)
+			SetPedComponentVariation(ped,11,18,0,1)
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATSHUFFLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()

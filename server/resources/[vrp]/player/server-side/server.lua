@@ -44,6 +44,18 @@ AddEventHandler("player:winsFunctions",function(winsFunctions)
  	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:OUTFITFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:outfitFunctions")
+AddEventHandler("player:outfitFunctions",function(outfitFunctions)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+	    if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+			vCLIENT.setRemoveoutfit(source)
+	    end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLOR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("wecolor",function(source,args,rawCommand)

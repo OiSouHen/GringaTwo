@@ -129,7 +129,7 @@ svg {
 }
 
 .armourDisplay {
-	stroke: #c75094;
+	stroke: #856baa;
 	stroke-width: 4;
 	margin-left: 5px;
 	fill: transparent;
@@ -216,7 +216,7 @@ svg {
 }
 
 .stressDisplay {
-	stroke: #79608a;
+	stroke: #c45895;
 	stroke-width: 4;
 	margin-left: 5px;
 	fill: transparent;
@@ -245,7 +245,7 @@ svg {
 }
 
 .oxigenDisplay {
-	stroke: #727e94;
+	stroke: #7d95c2;
 	stroke-width: 4;
 	margin-left: 5px;
 	fill: transparent;
