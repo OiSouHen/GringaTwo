@@ -26,6 +26,5 @@ files {
 	"lib/Tools.lua"
 }
 
-
 loadscreen "loading/index.html"
 --loadscreen_manual_shutdown "yes"
