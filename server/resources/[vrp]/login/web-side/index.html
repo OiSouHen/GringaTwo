@@ -3,22 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>#creative</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<style>
 		#index {
-			margin: 30px;
+			margin: 20px;
 			display: none;
+			letter-spacing: 1px;
+			line-height: 20px;
 			position: absolute;
 			transition: all 1s;
 		}
 
 		.spawnNow {
 			color: #8ebda3;
-			width: 200px;
+			width: 300px;
 			list-style: none;
 			user-select: none;
-			padding: 20px 20px;
+			padding: 25px 20px;
 			text-align: center;
+			font-size: 16px;
+			letter-spacing: 5px;
+			text-transform: uppercase;
 			border-radius: 3px;
 			margin-bottom: 10px;
 			transition: all 1s;
@@ -31,16 +37,19 @@
 		}
 
 		.spawn {
-			color: #949494;
-			width: 200px;
+			color: #979696;
+			width: 300px;
 			list-style: none;
 			user-select: none;
 			padding: 10px 20px;
 			text-align: center;
+			letter-spacing: 3px;
+			font-size: 13px;
 			border-radius: 3px;
 			margin-bottom: 10px;
 			transition: all 1s;
 			background: #292c38;
+			text-transform: uppercase;
 			font-family: 'Roboto',sans-serif;
 		}
 
@@ -63,8 +72,6 @@
 			<li class="spawnNow" data-spawn="spawn">CONFIRMAR</li>
 		</ul>
 	</div>
-	<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 	<script>
 		$(() => {
