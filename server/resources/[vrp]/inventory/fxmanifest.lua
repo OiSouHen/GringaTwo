@@ -5,12 +5,12 @@ ui_page "web-side/index.html"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
-	"client/*.lua"
+	"client-side/*.lua"
 }
 
 server_scripts {
 	"@vrp/lib/utils.lua",
-	"server/*.lua"
+	"server-side/*.lua"
 }
 
 files {
