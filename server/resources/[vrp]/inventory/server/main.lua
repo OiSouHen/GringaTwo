@@ -305,6 +305,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 				local itemName = inv[tostring(slot)].item
 				if vRP.itemTypeList(itemName) == "use" then
+					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					-- vCLIENT.removeWeaponInHand(source)
 					if itemName == "bandage" then
 						if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 200 then
@@ -1822,6 +1823,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 				end
 
 				if vRP.itemTypeList(itemName) == "equip" then
+					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					local pistols =     {"WEAPON_PISTOL_MK2", "WEAPON_COMBATPISTOL", "WEAPON_SKSPISTOL", "WEAPON_PISTOL","WEAPON_APPISTOL","WEAPON_PISTOL50","WEAPON_SNSPISTOL","WEAPON_SNSPISTOL_MK2","WEAPON_HEAVYPISTOL","WEAPON_VINTAGEPISTOL","WEAPON_FLAREGUN","WEAPON_MARKMANPISTOL","WEAPON_REVOLVER","WEAPON_REVOLVER_MK2","WEAPON_DOUBLEACTION","WEAPON_CERAMICPISTOL","WEAPON_NAVYREVOLVER","WEAPON_GADGETPISTOL","WEAPON_RAYPISTOL"}
 					local submachine =  {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG","WEAPON_RPG"}
 					local shotgun =     {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
@@ -1869,6 +1871,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                 end
 
                 if vRP.itemTypeList(itemName) == "recharge" then
+					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					local uweapons = vRPclient.getWeapons(source)
 					local weaponuse = string.gsub(itemName,"_AMMO","")
 					local weaponusename = weaponuse.."_AMMO"
