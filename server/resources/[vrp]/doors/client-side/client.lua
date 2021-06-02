@@ -22,42 +22,53 @@ AddEventHandler("doors:doorsUpdate",function(status)
 	doors = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DOORSUPDATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("doors:Update")
+AddEventHandler("doors:Update",function(number,status)
+	if doors ~= nil then
+		doors[number]["lock"] = status
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBUTTON
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 500
-		local ped = PlayerPedId()
-		local coords = GetEntityCoords(ped)
 		if doors ~= nil then
+			local ped = PlayerPedId()
+			local coords = GetEntityCoords(ped)
+
 			for k,v in pairs(doors) do
-				local distance = #(coords - vector3(v.x,v.y,v.z))
-				if distance <= v.distance then
-					local door = GetClosestObjectOfType(v.x,v.y,v.z,1.0,v.hash,false,false,false)
-					if doors ~= 0 then
-						if v.lock then
-							local _,h = GetStateOfClosestDoorOfType(v.hash,v.x,v.y,v.z,_,h)
+				local distance = #(coords - vector3(v["x"],v["y"],v["z"]))
+				if distance <= v["distance"] then
+					local closestDoor = GetClosestObjectOfType(v["x"],v["y"],v["z"],v["distance"] + 0.0,v["hash"],false,false,false)
+					if closestDoor then
+						if v["lock"] then
+							local _,h = GetStateOfClosestDoorOfType(v["hash"],v["x"],v["y"],v["z"])
 							if h > -0.02 and h < 0.02 then
-								FreezeEntityPosition(door,true)
+								FreezeEntityPosition(closestDoor,true)
 							end
 						else
-							FreezeEntityPosition(door,false)
+							FreezeEntityPosition(closestDoor,false)
 						end
 
-						if distance <= v.press then
-							timeDistance = 1
-							if v.text then
-								if v.lock then
-									DrawText3D(v.x,v.y,v.z,"~r~FECHADA~w~")
+						if distance <= v["press"] then
+							timeDistance = 4
+							
+							if v["text"] then
+								if v["lock"] then
+									DrawText3D(v["x"],v["y"],v["z"],"~r~FECHADA")
 								else
-									DrawText3D(v.x,v.y,v.z,"~g~ABERTA~w~")
+									DrawText3D(v["x"],v["y"],v["z"],"~g~ABERTA")
 								end
 							end
 
 							if IsControlJustPressed(1,38) and vSERVER.doorsPermission(k) then
-								v.lock = not v.lock
-								vSERVER.doorsStatistics(k,v.lock)
-								vRP._playAnim(true,{"anim@heists@keycard@","exit"},false)
+								v["lock"] = not v["lock"]
+								vRP.playAnim(true,{"anim@heists@keycard@","exit"},false)
+								vSERVER.doorsStatistics(k,v["lock"])
 								Citizen.Wait(350)
 								vRP.stopAnim()
 							end
@@ -66,6 +77,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -73,14 +85,18 @@ end)
 -- DWTEXT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.30,0.30)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0,1+factor,0,0,0,0,150)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0,1,width,0,0,0,0,150)
+	end
 end

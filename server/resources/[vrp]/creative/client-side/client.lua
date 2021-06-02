@@ -40,23 +40,32 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			timeDistance = 4
-			SetPedHelmet(ped,false)
-			DisableControlAction(0,345,true)
+
+			if IsPedOnAnyBike(ped) then
+				SetPedHelmet(ped,false)
+				DisableControlAction(0,345,true)
+			end
+
 			local veh = GetVehiclePedIsUsing(ped)
 			if GetPedInVehicleSeat(veh,-1) == ped then
 				local speed = GetEntitySpeed(veh) * 2.236936
 				if speed ~= oldSpeed then
 					if (oldSpeed - speed) >= 60 then
 						TriggerServerEvent("upgradeStress",10)
-						if GetVehicleClass(veh) ~= 8 then
+
+						if GetVehicleClass(veh) ~= 8 and GetEntityModel(veh) ~= 1755270897 then
+							SetVehicleEngineOn(veh,false,true,true)
 							vehicleTyreBurst(veh)
 						end
 					end
+
 					oldSpeed = speed
 				end
 			end
 		else
-			oldSpeed = 0
+			if oldSpeed ~= 0 then
+				oldSpeed = 0
+			end
 		end
 
 		Citizen.Wait(timeDistance)
@@ -254,7 +263,9 @@ local blips = {
 --	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
 	{ -1816.72,-1193.76,14.31,68,62,"Pescador",0.5 }
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADBLIPS
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	for _,v in pairs(blips) do
 		local blip = AddBlipForCoord(v[1],v[2],v[3])
@@ -487,62 +498,57 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL - 1000
+-- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
 		N_0xf4f2c0d4ee209e20()
+		N_0x9e4cfff989258472()
+		SetPlayerTargetingMode(2)
 		DistantCopCarSirens(false)
 
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_PISTOL50"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_REVOLVER"),0.4)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_PISTOL"),0.8)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_PISTOL_MK2"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_UNARMED"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_COMBATPISTOL"),0.8)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_FLASHLIGHT"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_NIGHTSTICK"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_HATCHET"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_KNIFE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_BAT"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_BATTLEAXE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_BOTTLE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_CROWBAR"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_DAGGER"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_GOLFCLUB"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_HAMMER"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_MACHETE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_POOLCUE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_STONE_HATCHET"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_SWITCHBLADE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_WRENCH"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_KNUCKLE"),0.1)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_COMPACTRIFLE"),0.4)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_APPISTOL"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_HEAVYPISTOL"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_MACHINEPISTOL"),0.7)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_MICROSMG"),0.7)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_MINISMG"),0.7)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_SNSPISTOL"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_SNSPISTOL_MK2"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_VINTAGEPISTOL"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_CARBINERIFLE"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_ASSAULTRIFLE"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_ASSAULTRIFLE_MK2"),0.6)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_ASSAULTSMG"),0.7)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_GUSENBERG"),0.7)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_SAWNOFFSHOTGUN"),1.3)
-		N_0x4757f00bc6323cfe(GetHashKey("WEAPON_PUMPSHOTGUN"),2.0)
-		
-		--ClearAreaOfPeds(GetEntityCoords(PlayerPedId()),1000.0,1)
+		SetCreateRandomCops(false)
+		SetCreateRandomCopsOnScenarios(false)
+		SetCreateRandomCopsNotOnScenarios(false)
+
+		SetVehicleModelIsSuppressed(GetHashKey("jet"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("blimp"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("polmav"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("buzzard2"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("mammatus"),true)
+
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL - 5
+-- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
+		N_0x4757f00bc6323cfe("WEAPON_BAT",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_BOTTLE",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_HAMMER",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_WRENCH",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_UNARMED",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_HATCHET",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_CROWBAR",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_MACHETE",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_POOLCUE",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_KNUCKLE",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_GOLFCLUB",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_BATTLEAXE",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_FLASHLIGHT",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_NIGHTSTICK",0.2)
+		N_0x4757f00bc6323cfe("WEAPON_STONE_HATCHET",0.1)
+
+		RemoveAllPickupsOfType("PICKUP_WEAPON_KNIFE")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_PISTOL")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_MINISMG")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_MICROSMG")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_PUMPSHOTGUN")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_CARBINERIFLE")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_SAWNOFFSHOTGUN")
+
 		HideHudComponentThisFrame(1)
 		HideHudComponentThisFrame(2)
 		HideHudComponentThisFrame(3)
@@ -559,64 +565,58 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(15)
 		HideHudComponentThisFrame(17)
 		HideHudComponentThisFrame(18)
+		
 		HideHudComponentThisFrame(20)
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
-		--DisableControlAction(1,37,true)
-        DisableControlAction(1,192,true)
-        DisableControlAction(1,204,true)
-        DisableControlAction(1,211,true)
-        DisableControlAction(1,349,true)
-        DisableControlAction(1,157,false)
-        DisableControlAction(1,158,false)
-        DisableControlAction(1,160,false)
-        DisableControlAction(1,164,false)
-        DisableControlAction(1,165,false)
-        DisableControlAction(1,159,false)
-        DisableControlAction(1,161,false)
-        DisableControlAction(1,162,false)
-        DisableControlAction(1,163,false)
-		
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_KNIFE"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_PISTOL"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_MINISMG"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_SMG"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_PUMPSHOTGUN"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_CARBINERIFLE"))
-		RemoveAllPickupsOfType(GetHashKey("PICKUP_WEAPON_COMBATPISTOL"))
 
+		SetMaxWantedLevel(0)
+		DisableVehicleDistantlights(true)
+		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
+		SetEveryoneIgnorePlayer(PlayerPedId(),true)
+		SetPlayerCanBeHassledByGangs(PlayerPedId(),false)
+		SetIgnoreLowPriorityShockingEvents(PlayerPedId(),true)
 
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			SetPedInfiniteAmmo(ped,true,"WEAPON_FIREEXTINGUISHER")
-		end
-		Citizen.Wait(5)
+		SetPedDensityMultiplierThisFrame(0.5)
+		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
+		SetParkedVehicleDensityMultiplierThisFrame(0.5)
+		SetRandomVehicleDensityMultiplierThisFrame(0.5)
+		SetVehicleDensityMultiplierThisFrame(0.5)
+		SetGarbageTrucks(true)
+		SetRandomBoats(true)
+
+		Wait(0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL - 0
+-- THREADINIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-	AddTextEntry("FE_THDR_GTAO","Cidade Gringa")
+	SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_STREETRACE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON_DIRT_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_NEXT_TO_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_SMALL",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_BIG",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MECHANIC",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_EMPTY",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BUSINESSMEN",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BIKE_OFF_ROAD_RACE",false)
+	StartAudioScene("FBI_HEIST_H5_MUTE_AMBIENCE_SCENE")
 	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
 	SetAudioFlag("PoliceScannerDisabled",true)
-
-	while true do
-		Citizen.Wait(0)
-
-		SetRandomBoats(false)
-		SetGarbageTrucks(false)
-		SetCreateRandomCops(false)
-		SetCreateRandomCopsOnScenarios(false)
-		SetCreateRandomCopsNotOnScenarios(false)
-
-		DisableVehicleDistantlights(true)
-		-- SetPedDensityMultiplierThisFrame(0.0)
-		SetVehicleDensityMultiplierThisFrame(0.75)
-		SetParkedVehicleDensityMultiplierThisFrame(0.75)
-		-- SetScenarioPedDensityMultiplierThisFrame(0.0,0.0)
-	end
+	SetAudioFlag("DisableFlightMusic",true)
+	SetPlayerCanUseCover(PlayerId(),false)
+	SetRandomEventFlag(false)
+	SetDeepOceanScaler(0.0)
+	SetRadarZoom(1100)
+	AddTextEntry("FE_THDR_GTAO","Cidade Gringa")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL - 10
@@ -635,101 +635,60 @@ Citizen.CreateThread(function()
 		RemoveVehiclesFromGeneratorsInArea(296.23 - 5.0,-607.61 - 5.0,43.34 - 5.0,296.23 + 5.0,-607.61 + 5.0,43.34 + 5.0)
 		RemoveVehiclesFromGeneratorsInArea(394.52 - 5.0,-570.99 - 5.0,28.69 - 5.0,394.52 + 5.0,-570.99 + 5.0,28.69 + 5.0)
 		RemoveVehiclesFromGeneratorsInArea(459.25 - 10.0,-604.23 - 10.0,28.5 - 10.0,459.25 + 10.0,-604.23 + 10.0,28.5 + 10.0)
-
------------------------------------------------------------------------------------------------------------------------------------------
--- AGACHAR
------------------------------------------------------------------------------------------------------------------------------------------
-		local ped = PlayerPedId()
-        DisableControlAction(0,36,true)
-        if not IsPedInAnyVehicle(ped) then
-            RequestAnimSet("move_ped_crouched")
-            RequestAnimSet("move_ped_crouched_strafing")
-            if IsDisabledControlJustPressed(0,36) then
-                if agachar then
-                    ResetPedStrafeClipset(ped)
-                    ResetPedMovementClipset(ped,0.25)
-                    agachar = false
-                else
-                    SetPedStrafeClipset(ped,"move_ped_crouched_strafing")
-                    SetPedMovementClipset(ped,"move_ped_crouched",0.25)
-                    agachar = true
-                end
-            end
-        end
-
+		RemoveVehiclesFromGeneratorsInArea(-449.8 - 10.0,5998.04 - 10.0,31.35 - 10.0,-449.8 + 10.0,5998.04 + 10.0,31.35 + 10.0)
+		RemoveVehiclesFromGeneratorsInArea(-476.6 - 10.0,6030.53 - 10.0,31.34 - 10.0,-476.6 + 10.0,6030.53 + 10.0,31.34 + 10.0)
+		RemoveVehiclesFromGeneratorsInArea(407.85 - 10.0,-996.92 - 10.0,29.27 - 10.0,407.85 + 10.0,-996.92 + 10.0,29.27 + 10.0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- IPLOADER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	LoadInterior(GetInteriorAtCoords(313.36,-591.02,43.29))
-	LoadInterior(GetInteriorAtCoords(440.84,-983.14,30.69))
-	LoadInterior(GetInteriorAtCoords(1768.09,3327.09,41.45))
-	
-	-- Ilha
-	Citizen.InvokeNative(0x9A9D1BA639675CF1, 'HeistIsland', true)
-
-	-- misc natives
-	Citizen.InvokeNative(0xF74B1FFA4A15FBEA, true)
-	Citizen.InvokeNative(0x53797676AD34A9AA, false)    
-	SetScenarioGroupEnabled('Heist_Island_Peds', true)
-
-	-- audio stuff
-	SetAudioFlag('PlayerOnDLCHeist4Island', true)
-	SetAmbientZoneListStatePersistent('AZL_DLC_Hei4_Island_Zones', true, true)
-	SetAmbientZoneListStatePersistent('AZL_DLC_Hei4_Island_Disabled_Zones', false, true)
-
-	for _,v in pairs(allIpls) do
-		loadInt(v.coords,v.interiorsProps)
-	end
-end)
-
-function loadInt(coordsTable,table)
-	for _,v in pairs(coordsTable) do
-		local interior = GetInteriorAtCoords(v[1],v[2],v[3])
-		LoadInterior(interior)
-		for _,i in pairs(table) do
-			EnableInteriorProp(interior,i)
-			Citizen.Wait(10)
-		end
-		RefreshInterior(interior)
-	end
-end
-
-allIpls = {
+local ipList = {
 	{
-		interiorsProps = {
+		props = {
 			"swap_clean_apt",
 			"layer_debra_pic",
 			"layer_whiskey",
 			"swap_sofa_A"
 		},
-		coords = {{ -1150.7,-1520.7,10.6 }}
-	},{
-		interiorsProps = {
+		coords = { -1150.7,-1520.7,10.6 }
+	},
+	{
+		props = {
 			"csr_beforeMission",
 			"csr_inMission"
 		},
-		coords = {{ -47.1,-1115.3,26.5 }}
-	},{
-		interiorsProps = {
+		coords = { -47.1,-1115.3,26.5 }
+	},
+	{
+		props = {
 			"V_Michael_bed_tidy",
 			"V_Michael_M_items",
 			"V_Michael_D_items",
 			"V_Michael_S_items",
 			"V_Michael_L_Items"
 		},
-		coords = {{ -802.3,175.0,72.8 }}
-	},{
-		interiorsProps = {
-			"meth_lab_production",
-			"meth_lab_upgrade",
-			"meth_lab_setup"
-		},
-		coords = {{ 38.49,3714.1,11.01 }}
+		coords = { -802.3,175.0,72.8 }
 	}
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADIPLOADER
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	for _k,_v in pairs(ipList) do
+		local interiorCoords = GetInteriorAtCoords(_v["coords"][1],_v["coords"][2],_v["coords"][3])
+		LoadInterior(interiorCoords)
+
+		if _v["props"] ~= nil then
+			for k,v in pairs(_v["props"]) do
+				EnableInteriorProp(interiorCoords,v)
+				Citizen.Wait(1)
+			end
+		end
+
+		RefreshInterior(interiorCoords)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASERTIME
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -838,33 +797,6 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- VEHICLESUPPRESSED
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local SUPPRESSED_MODELS = { "SHAMAL","LUXOR","LUXOR2","JET","LAZER","TITAN","BARRACKS","BARRACKS2","CRUSADER","RHINO","AIRTUG","RIPLEY","PHANTOM","HAULER","RUBBLE","BIFF","TACO","PACKER","TRAILERS","TRAILERS2","TRAILERS3","TRAILERS4","BLIMP","POLMAV","MULE","MULE2","MULE3","MULE4" }
-	while true do
-		for _,model in next,SUPPRESSED_MODELS do
-			SetVehicleModelIsSuppressed(GetHashKey(model),true)
-		end
-		Wait(10000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- NPC NAO DROPAR ARMA
 -----------------------------------------------------------------------------------------------------------------------------------------
 function SetWeaponDrops()
@@ -887,6 +819,175 @@ Citizen.CreateThread(function()
         SetWeaponDrops()
     end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- OPENOBJECTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+
+			local distance = #(coords - vector3(254.01,225.21,101.87))
+			if distance <= 3.0 then
+				timeDistance = 4
+
+				if IsControlJustPressed(1,38) then
+					local handle,object = FindFirstObject()
+					local finished = false
+
+					repeat
+						local heading = GetEntityHeading(object)
+						local coordsObj = GetEntityCoords(object)
+						local distanceObjs = #(coordsObj - coords)
+
+						if distanceObjs < 3.0 and GetEntityModel(object) == 961976194 then
+							if heading > 150.0 then
+								SetEntityHeading(object,0.0)
+							else
+								SetEntityHeading(object,160.0)
+							end
+
+							FreezeEntityPosition(object,true)
+							finished = true
+						end
+
+						finished,object = FindNextObject(handle)
+					until not finished
+
+					EndFindObject(handle)
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	TriggerEvent("hoverfy:insertTable",{{ 254.01,225.21,101.87,1.5,"E","Porta do Cofre","Pressione para abrir/fechar" }})
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHCAMERA
+-----------------------------------------------------------------------------------------------------------------------------------------
+local fov_max = 80.0
+local fov_min = 10.0
+local speed_lr = 3.0
+local speed_ud = 3.0
+local zoomspeed = 2.0
+local vehCamera = false
+local fov = (fov_max + fov_min) * 0.5
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADCAMERA
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if IsPedInAnyHeli(ped) then
+			timeDistance = 4
+
+			local veh = GetVehiclePedIsUsing(ped)
+			SetVehicleRadioEnabled(veh,false)
+
+			if IsControlJustPressed(1,51) then
+				TriggerEvent("hudActived",false)
+				vehCamera = true
+			end
+
+			if IsControlJustPressed(1,44) then
+				if GetPedInVehicleSeat(veh,1) == ped or GetPedInVehicleSeat(veh,2) == ped then
+					TaskRappelFromHeli(ped,1)
+				end
+			end
+
+			if vehCamera then
+				SetTimecycleModifierStrength(0.3)
+				SetTimecycleModifier("heliGunCam")
+
+				local scaleform = RequestScaleformMovie("HELI_CAM")
+				while not HasScaleformMovieLoaded(scaleform) do
+					Citizen.Wait(1)
+				end
+
+				local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA",true)
+				AttachCamToEntity(cam,veh,0.0,0.0,-1.5,true)
+				SetCamRot(cam,0.0,0.0,GetEntityHeading(veh))
+				SetCamFov(cam,fov)
+				RenderScriptCams(true,false,0,1,0)
+				PushScaleformMovieFunction(scaleform,"SET_CAM_LOGO")
+				PushScaleformMovieFunctionParameterInt(0)
+				PopScaleformMovieFunctionVoid()
+
+				while vehCamera do
+					if IsControlJustPressed(1,51) then
+						TriggerEvent("hudActived",true)
+						vehCamera = false
+					end
+
+					local zoomvalue = (1.0 / (fov_max - fov_min)) * (fov - fov_min)
+					CheckInputRotation(cam,zoomvalue)
+					HandleZoom(cam)
+					HideHudAndRadarThisFrame()
+					HideHudComponentThisFrame(19)
+					PushScaleformMovieFunction(scaleform,"SET_ALT_FOV_HEADING")
+					PushScaleformMovieFunctionParameterFloat(GetEntityCoords(veh).z)
+					PushScaleformMovieFunctionParameterFloat(zoomvalue)
+					PushScaleformMovieFunctionParameterFloat(GetCamRot(cam,2).z)
+					PopScaleformMovieFunctionVoid()
+					DrawScaleformMovieFullscreen(scaleform,255,255,255,255)
+
+					Citizen.Wait(1)
+				end
+
+				ClearTimecycleModifier()
+				fov = (fov_max + fov_min) * 0.5
+				RenderScriptCams(false,false,0,1,0)
+				SetScaleformMovieAsNoLongerNeeded(scaleform)
+				DestroyCam(cam,false)
+				SetNightvision(false)
+				SetSeethrough(false)
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKINPUTROTATION
+-----------------------------------------------------------------------------------------------------------------------------------------
+function CheckInputRotation(cam,zoomvalue)
+	local rightAxisX = GetDisabledControlNormal(0,220)
+	local rightAxisY = GetDisabledControlNormal(0,221)
+	local rotation = GetCamRot(cam,2)
+	if rightAxisX ~= 0.0 or rightAxisY ~= 0.0 then
+		new_z = rotation.z + rightAxisX * -1.0 * (speed_ud) * (zoomvalue + 0.1)
+		new_x = math.max(math.min(20.0,rotation.x + rightAxisY * -1.0 * (3.0) * (zoomvalue + 0.1)),-89.5)
+		SetCamRot(cam,new_x,0.0,new_z,2)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HANDLEZOOM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function HandleZoom(cam)
+	if IsControlJustPressed(1,241) then
+		fov = math.max(fov - zoomspeed,fov_min)
+	end
+
+	if IsControlJustPressed(1,242) then
+		fov = math.min(fov + zoomspeed,fov_max)
+	end
+
+	local current_fov = GetCamFov(cam)
+	if math.abs(fov - current_fov) < 0.1 then
+		fov = current_fov
+	end
+
+	SetCamFov(cam,current_fov + (fov - current_fov) * 0.05)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Rich Presence
 -----------------------------------------------------------------------------------------------------------------------------------------

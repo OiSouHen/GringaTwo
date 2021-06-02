@@ -117,3 +117,12 @@ Citizen.CreateThread(function()
 		Citizen.Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CRAFTING:MECHANICSTORE
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("crafting:mechanicCraft",function()
+	if vSERVER.requestPerm("mechanicCraft") then
+		SendNUIMessage({ action = "showNUI", name = tostring("mechanicCraft")})
+		SetNuiFocus(true,true)
+	end
+end)
