@@ -417,7 +417,7 @@ function cnVRP.functionShops(shopType,shopItem,shopAmount,slot)
 
 							if vRP.itemSubTypeList(shopItem) then
 								if vRP.getInventoryItemAmount(user_id,shopItem) > 0 then
-									TriggerClientEvent("Notify",source,"negado","Você já tem esse tipo de comida no inventário.",5000) return
+									TriggerClientEvent("Notify",source,"vermelho","Você já possui esse tipo de item.",5000) return
 								end
 							end
 							if vRP.paymentBank(parseInt(user_id),parseInt(shops[shopType]["list"][shopItem]*shopAmount)) then
@@ -427,7 +427,7 @@ function cnVRP.functionShops(shopType,shopItem,shopAmount,slot)
 									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
 								end						
 							else
-								TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente.",5000)
+								TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
 							end
 						end
 					elseif shops[shopType]["type"] == "Consume" then
@@ -438,7 +438,7 @@ function cnVRP.functionShops(shopType,shopItem,shopAmount,slot)
 								vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
 							end
 						else
-							TriggerClientEvent("Notify",source,"negado","Insuficiente "..vRP.itemNameList(shops[shopType]["item"])..".",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Insuficiente "..vRP.itemNameList(shops[shopType]["item"])..".",5000)
 						end
 					elseif shops[shopType]["type"] == "Premium" then
 						local identity = vRP.getUserIdentity(parseInt(user_id))
@@ -451,11 +451,11 @@ function cnVRP.functionShops(shopType,shopItem,shopAmount,slot)
 							end							vRP.remGmsId(user_id,parseInt(shops[shopType]["list"][shopItem]*shopAmount))
 							TriggerClientEvent("Notify",source,"sucesso","Você comprou <b>"..vRP.format(parseInt(shopAmount)).."x "..vRP.itemNameList(shopItem).."</b> por <b>"..vRP.format(parseInt(shops[shopType]["list"][shopItem]*shopAmount)).." coins</b>.",5000)
 						else
-							TriggerClientEvent("Notify",source,"negado","Coins Insuficientes.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Coins Insuficientes.",5000)
 						end
 					end
 				else
-					TriggerClientEvent("Notify",source,"negado","Mochila cheia.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				end
 			elseif shops[shopType]["mode"] == "Sell" then
 				if shops[shopType]["list"][shopItem] then
@@ -463,7 +463,7 @@ function cnVRP.functionShops(shopType,shopItem,shopAmount,slot)
 
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then	
 							vRP.giveInventoryItem(parseInt(user_id),"dollars",parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
-							TriggerClientEvent("Notify",source,"aviso","Voce recebeu $"..shops[shopType]["list"][shopItem]*shopAmount.." dolares.",5000)
+							TriggerClientEvent("Notify",source,"amarelo","Você recebeu $"..shops[shopType]["list"][shopItem]*shopAmount.." Dólares.",5000)
 						end
 					elseif shops[shopType]["type"] == "Consume" then
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then
