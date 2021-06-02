@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
+local Tools = module("vrp","lib/Tools")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,6 +65,21 @@ AddEventHandler("player:outfitFunctions",function(outfitFunctions)
 	    if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
 			vCLIENT.setRemoveoutfit(source)
 	    end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:IDENTITYFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:identityFunctions")
+AddEventHandler("player:identityFunctions",function(identityFunctions)
+	local source = source
+    local user_id = vRP.getUserId(source)
+	if user_id then
+		local identity = vRP.getUserIdentity(user_id)
+		if identity then
+		local infos = vRP.query("vRP/get_vrp_infos",{ steam = identity.steam })		
+			TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Gemas:</b> "..infos[1].gems.."<br><b>Máximo de Veículos:</b> "..identity.garage.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Premium:</b> "..infos[1].predays.." Dias",10000)
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -160,34 +176,6 @@ RegisterCommand("hood",function(source,args,rawCommand)
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DOORS
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("doors",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
--- 			local vehicle,vehNet = vRPclient.vehList(source,7)
--- 			if vehicle then
--- 				TriggerClientEvent("player:syncDoors",-1,vehNet,args[1])
--- 			end
--- 		end
--- 	end
--- end)
------------------------------------------------------------------------------------------------------------------------------------------
--- WINS
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("wins",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
--- 			local vehicle,vehNet = vRPclient.vehList(source,7)
--- 			if vehicle then
--- 				TriggerClientEvent("player:syncWins",-1,vehNet,args[1])
--- 			end
--- 		end
--- 	end
--- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -306,19 +294,6 @@ RegisterCommand("pr",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- EXTRAS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("extras",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id and args[1] then
-		if vRP.hasPermission(user_id,"Police") then
-			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-				vCLIENT.extraVehicle(args[1],source)
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- HR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("hr",function(source,args,rawCommand)
@@ -333,6 +308,19 @@ RegisterCommand("hr",function(source,args,rawCommand)
 						TriggerClientEvent("chatMessage",v,identity.name.." "..identity.name2,{255,175,175},rawCommand:sub(3))
 					end)
 				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- EXTRAS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("extras",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id and args[1] then
+		if vRP.hasPermission(user_id,"Police") and vRP.hasPermission("Paramedic") then
+			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+				vCLIENT.extraVehicle(args[1],source)
 			end
 		end
 	end

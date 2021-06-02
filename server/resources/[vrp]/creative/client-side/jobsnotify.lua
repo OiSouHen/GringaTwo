@@ -7,7 +7,7 @@ local localidades = {
         notifycoord = {81.82,-1554.86,29.6},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/lixeiro</b> para iniciar ou finalizar o serviço.",5000)
+                TriggerEvent("Notify","amarelo","Dê <b>/lixeiro</b> para iniciar ou finalizar o serviço.",3000)
             end
         end
     },
@@ -16,7 +16,7 @@ local localidades = {
         notifycoord = {354.14,270.56,103.02},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",5000)
+                TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",3000)
             end
         end
     },
@@ -25,7 +25,7 @@ local localidades = {
         notifycoord = {452.97,-607.75,28.59},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",5000)
+                TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",3000)
             end
         end
     },
@@ -34,7 +34,7 @@ local localidades = {
         notifycoord = {-555.2,5364.38,70.43},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/lenhador</b> para iniciar ou finalizar o serviço.",5000)
+                TriggerEvent("Notify","amarelo","Dê <b>/lenhador</b> para iniciar ou finalizar o serviço.",3000)
             end
         end
     },
@@ -43,7 +43,7 @@ local localidades = {
         notifycoord = {406.04,6526.17,27.75},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/colheita</b> para iniciar ou finalizar o serviço.",5000)
+                TriggerEvent("Notify","amarelo","Dê <b>/colheita</b> para iniciar ou finalizar o serviço.",3000)
             end
         end
     }

@@ -252,6 +252,12 @@ local pedList = {
 		model = { 0x62018559,"s_m_y_airworker" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
+	{ -- Desmanche
+		distance = 15,
+		coords = { 2340.67,3126.48,48.21,352.92 },
+		model = { 0x62CC28E2,"s_m_y_armymech_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
 	{ -- Bar
 		distance = 15,
 		coords = { 129.71,-1284.65,29.27,119.06 },

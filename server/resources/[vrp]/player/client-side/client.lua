@@ -192,7 +192,7 @@ function cRP.setRemoveoutfit()
 			SetPedComponentVariation(ped,10,-1,0,1)
 			SetPedComponentVariation(ped,11,18,0,1)
 		end
-	end
+end
 --end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATSHUFFLE

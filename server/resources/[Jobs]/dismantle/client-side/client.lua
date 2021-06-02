@@ -7,16 +7,22 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("dismantle",cnVRP)
+cRP = {}
+Tunnel.bindInterface("dismantle",cRP)
 vSERVER = Tunnel.getInterface("dismantle")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inService = false
 local timeDismantle = 0
-local disX,disY,disZ = 2379.19,3048.56,48.18
-local listX,listY,listZ = 2340.92,3128.05,48.21
+local disX,disY,disZ = 2342.71,3052.38,47.67
+local listX,listY,listZ = 2340.87,3128.03,48.21
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LOCALIDADES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local localidades = {
+    { 2340.87,3128.03,48.21 }
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDISMANTLE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -29,9 +35,9 @@ function startthreaddesmanche()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)
 					local distance = #(coords - vector3(disX,disY,disZ))
-					if distance <= 7 then
+					if distance <= 3 then
 						timeDistance = 4
-						dwText("~g~E~w~  DESMANCHAR UM VEÍCULO",0.93)
+						dwText("~y~E~w~  PRESSIONE PARA DESMANCHAR",0.95)
 						if IsControlJustPressed(1,38) and timeDismantle <= 0 then
 							timeDismantle = 3
 							local status,vehicle = vSERVER.checkVehlist()
@@ -89,9 +95,8 @@ Citizen.CreateThread(function()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(listX,listY,listZ))
-			if distance <= 2.5 then
+			if distance <= 1 then
 				timeDistance = 4
-				dwText("~g~E~w~  PARA PEGAR UMA LISTA DE CARROS",0.90)
 				if IsControlJustPressed(1,38) and distance <= 1.1 then
 					startthreaddesmanche()
 					vSERVER.acessList()
@@ -101,6 +106,17 @@ Citizen.CreateThread(function()
 		end
 		Citizen.Wait(timeDistance)
 	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(localidades) do
+		table.insert(innerTable,{ v[1],v[2],v[3],1,"E","Ferro Velho","Pressione para conversar" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DWTEXT

@@ -216,18 +216,21 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blips = {}
 local casas = false
-RegisterCommand("casas",function(source,args)
+RegisterNetEvent("homes:togglePropertys")
+AddEventHandler("homes:togglePropertys",function(source,args)
 	casas = not casas
 
 	if casas then
 		TriggerEvent("Notify","amarelo","Marcações ativadas.",3000)
+		
 		for k,v in pairs(homesList) do
 			blips[k] = AddBlipForRadius(v[5],v[6],v[7],5.0)
 			SetBlipAlpha(blips[k],255)
-			SetBlipColour(blips[k],75)
+			SetBlipColour(blips[k],82)
 		end
 	else
 		TriggerEvent("Notify","amarelo","Marcações desativadas.",3000)
+		
 		for k,v in pairs(blips) do
 			if DoesBlipExist(v) then
 				RemoveBlip(v)

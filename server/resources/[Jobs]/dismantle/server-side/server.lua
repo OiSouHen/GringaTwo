@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("dismantle",cnVRP)
+cRP = {}
+Tunnel.bindInterface("dismantle",cRP)
 vCLIENT = Tunnel.getInterface("dismantle")
 vRPRAGE = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ local itensList = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GENERATEVEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.generateVehlist()
+function cRP.generateVehlist()
 	vehListActived = {}
 	local amountVehs = 0
 	local vehSelected = 0
@@ -186,13 +186,13 @@ end
 -- THREADVEHGENERATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-	cnVRP.generateVehlist()
+	cRP.generateVehlist()
 
 	while true do
 		if timeList > 0 then
 			timeList = timeList - 1
 			if timeList <= 0 then
-				cnVRP.generateVehlist()
+				cRP.generateVehlist()
 			end
 		end
 		Citizen.Wait(60000)
@@ -201,7 +201,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKVEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkVehlist()
+function cRP.checkVehlist()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -215,7 +215,7 @@ function cnVRP.checkVehlist()
 						return true,vehicle
 					end
 				else
-					TriggerClientEvent("Notify",source,"vermelho","Este veículo é protegido pela seguradora.",1000)
+					TriggerClientEvent("Notify",source,"vermelho","Este veículo é protegido pela seguradora.",5000)
 				end
 			end
 		end
@@ -225,35 +225,36 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod(vehicle)
+function cRP.paymentMethod(vehicle)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.upgradeStress(user_id,20)
-		local value = math.random(2000,4000)
+		vRP.upgradeStress(user_id,25)
+		local value = math.random(12000,24000)
 
 		vRPRAGE.deleteVehicle(source,vehicle)
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
-		vRP.giveInventoryItem(user_id,itensList[math.random(#itensList)],math.random(25,50),true)
+		vRP.giveInventoryItem(user_id,itensList[math.random(#itensList)],math.random(6,16),true)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.acessList()
+function cRP.acessList()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if userList[user_id] == nil then
 			userList[user_id] = true
-			TriggerClientEvent("Notify",source,"sucesso","A lista do <b>/desmanche</b> agora está disponível.",3000)
+			TriggerClientEvent("Notify",source,"amarelo","Você pegou uma lista de veículos.",5000)
 		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DESMANCHE
+-- DISMANTLE:INVOKEDISMANTLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("desmanche",function(source)
+RegisterNetEvent("dismantle:invokeDismantle")
+AddEventHandler("dismantle:invokeDismantle",function(invokeDismantle)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if timeList > 0 and userList[user_id] then
@@ -263,9 +264,9 @@ RegisterCommand("desmanche",function(source)
 			end
 
 			if vehListNames ~= "" then
-				TriggerClientEvent("Notify",source,"importante",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista.",25000)
+				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista atual.",15000)
 			else
-				TriggerClientEvent("Notify",source,"importante","Nenhum veículo encontrado na lista, aguarde <b>"..parseInt(timeList).." minutos</b>, até que esteja cheio de veículos novos.",10000)
+				TriggerClientEvent("Notify",source,"azul","Nenhum veículo encontrado na lista, aguarde <b>"..parseInt(timeList).." minutos</b>.",5000)
 			end
 		end
 	end
