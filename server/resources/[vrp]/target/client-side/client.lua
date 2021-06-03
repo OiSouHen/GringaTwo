@@ -256,7 +256,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "target:animDeitar",
-				label = "Deitar na maca",
+				label = "Deitar",
 				tunnel = "client"
 			}
 		},
@@ -267,7 +267,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "target:animSentar",
-				label = "Sentar na cadeira",
+				label = "Sentar",
 				tunnel = "client"
 			}
 		},
@@ -278,7 +278,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:coffeeMachine",
-				label = "Máquina de Café",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -289,7 +289,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:donutMachine",
-				label = "Máquina de Doces",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -300,7 +300,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:colaMachine",
-				label = "Máquina de Refrigerante",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -311,7 +311,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:sodaMachine",
-				label = "Máquina de Refrigerante",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -322,7 +322,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:burgerMachine",
-				label = "Carrinho de Hambúrguer",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -333,135 +333,135 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:hotdogMachine",
-				label = "Carrinho de Cachorro-Quente",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 0.75
 	})
 
-	AddTargetModel({ 1099892058 },{
-		options = {
-			{
-				event = "shops:waterMachine",
-				label = "Máquina de Água",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75
-	})
+--	AddTargetModel({ 1099892058 },{
+--		options = {
+--			{
+--				event = "shops:waterMachine",
+--				label = "Máquina de Água",
+--				tunnel = "client"
+--			}
+--		},
+--		distance = 0.75
+--	})
 
-	AddTargetModel({ 0x18CE57D0 },{
+	AddTargetModel({ 0x18CE57D0 },{ -- Departament store
 		options = {
 			{
 				event = "shops:departamentStore",
-				label = "Loja de Departamento",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 
-	AddTargetModel({ 0x467415E9 },{
+	AddTargetModel({ 0x467415E9 },{ -- Ammunation store
 		options = {
 			{
 				event = "shops:ammunationStore",
-				label = "Ammunation Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 
-	AddTargetModel({ 0x5244247D },{
+	AddTargetModel({ 0x5244247D },{ -- Pharmacy Store
 		options = {
 			{
 				event = "shops:normalpharmacyStore",
-				label = "Pharmacy Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ -1286380898 },{
+	AddTargetModel({ -1286380898 },{ -- Hospital Pharmacy
 		options = {
 			{
 				event = "shops:hospitalpharmacyStore",
-				label = "Hospital Pharmacy Store",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ -429715051 },{
+	AddTargetModel({ -429715051 },{ -- Mega mall store
 		options = {
 			{
 				event = "shops:megaMallStore",
-				label = "Mega Mall Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ 1644266841 },{
+	AddTargetModel({ 1644266841 },{ -- Recycling sell
 		options = {
 			{
 				event = "shops:recyclingSell",
-				label = "Recycling Sell",
+				label = "Reciclar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ 2014052797,-518348876 },{
+	AddTargetModel({ 2014052797,-518348876 },{ -- Bar store
 		options = {
 			{
 				event = "shops:barsStore",
-				label = "Bar Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ -1022036185 },{
+	AddTargetModel({ -1022036185 },{ -- Jewelry store
 		options = {
 			{
 				event = "shops:jewelryStore",
-				label = "Jewelry Sell",
+				label = "Vender",
 				tunnel = "client"
 			}
 		},
 		distance = 2.00
 	})
 	
-	AddTargetModel({ -837606178 },{
+	AddTargetModel({ -837606178 },{ -- hunting store
 		options = {
 			{
 				event = "shops:huntingStore",
-				label = "Hunting Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{
+	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{ -- Open ATM
 		options = {
 			{
 				event = "atm:openATM",
-				label = "Caixa Eletrônico",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 
-	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324,1457690978 },{
+	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324,1457690978 },{ -- Hunting job
 		options = {
 			{
 				event = "hunting:animalCutting",
@@ -472,48 +472,59 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ -205311355 },{
+	AddTargetModel({ -205311355 },{ -- Remove objects
 		options = {
 			{
 				event = "tryDeleteObject",
-				label = "Remover Barreira",
+				label = "Remover",
 				tunnel = "objects"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ 829413118 },{
+	AddTargetModel({ 829413118 },{ -- Open benefactor
 		options = {
 			{
 				event = "benefactor:openBenefactor",
-				label = "Open Benefactor",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ -1674314660 },{
+	AddTargetModel({ -1674314660 },{ -- Mechanic craft
 		options = {
 			{
 				event = "crafting:mechanicCraft",
-				label = "Mechanic Craft",
+				label = "Criar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
 	})
 	
-	AddTargetModel({ -573669520 },{
+	AddTargetModel({ -573669520 },{ -- Mechanic store
 		options = {
 			{
 				event = "benefactor:openBenefactor",
-				label = "Mechanic Store",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
 		distance = 1.50
+	})
+	
+	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{ -- Verify newspaper
+		options = {
+			{
+				event = "garbageman:verifyBox",
+				label = "Vasculhar",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
 	})
 
 --	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
@@ -521,20 +532,8 @@ Citizen.CreateThread(function()
 --			{
 --				event = "inventory:verifyObjects",
 --				event = "inventory:garbageVerify",
---				label = "Vasculhar Lixeira",
+--				label = "Vasculhar",
 --				tunnel = "client"
---			}
---		},
---		distance = 0.75
---	})
-
---	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{
---		options = {
---			{
---				event = "inventory:verifyObjects",
---				label = "Vasculhar Caixa",
---				tunnel = "police",
---				service = "Jornaleiro"
 --			}
 --		},
 --		distance = 0.75
