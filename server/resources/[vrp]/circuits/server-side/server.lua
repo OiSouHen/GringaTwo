@@ -9,8 +9,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("raceillegal",cRP)
-vCLIENT = Tunnel.getInterface("raceillegal")
+Tunnel.bindInterface("circuits",cRP)
+vCLIENT = Tunnel.getInterface("circuits")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -78,10 +78,10 @@ function cRP.finishRacesDatabase(Selected,SoftPoints)
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RACEILLEGAL:EXPLOSIVEPLAYERS
+-- circuits:EXPLOSIVEPLAYERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("raceillegal:explosivePlayers")
-AddEventHandler("raceillegal:explosivePlayers",function()
+RegisterServerEvent("circuits:explosivePlayers")
+AddEventHandler("circuits:explosivePlayers",function()
 	local source = source
 	TriggerEvent("blipsystem:serviceExit",source)
 end)

@@ -58,6 +58,7 @@ AddEventHandler("shops:departamentStore",function()
 	if GetClockHours() >= 15 and GetClockHours() <= 20 then
 		SendNUIMessage({ action = "showNUI", name = tostring("departamentStore"), type = vSERVER.getShopType("departamentStore") })
 		SetNuiFocus(true,true)
+		TriggerEvent("sounds:source","shop",0.5)
 	else
 		TriggerEvent("Notify","amarelo","Loja fechada, a mesma só funciona das <b>15</b> ás <b>20</b> horas.",3000)
 	end
