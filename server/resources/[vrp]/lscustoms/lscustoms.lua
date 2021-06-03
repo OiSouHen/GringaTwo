@@ -787,9 +787,7 @@ function LSCMenu:OnMenuChange(last,current)
 	end	
 	c = current.name:lower()
 	if c == "front bumpers" then
-		MoveVehCam('front',-0.6,1.5,0.4)
 	elseif  c == "rear bumpers" then
-		MoveVehCam('back',-0.5,-1.5,0.2)
 	elseif c == "Engine Tunes" then
 	elseif c == "exhausts" then
 	elseif c == "hood" then
