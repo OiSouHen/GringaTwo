@@ -17,7 +17,7 @@ window.addEventListener("message",function(event){
 			$(".target-label").append("<div id='target-" + index + "'<li>" + item["label"] + "</li></div>");
 
 			$("#target-" + index).hover((e) => {
-				$("#target-" + index).css("color",e["type"] === "mouseenter" ? "#1e90ff":"#d6d9df")
+				$("#target-" + index).css("color",e["type"] === "mouseenter" ? "#00e07a":"#d6d9df")
 			});
 
 			$("#target-" + index + "").css("padding-top","7px");
@@ -27,7 +27,7 @@ window.addEventListener("message",function(event){
 			$("#target-" + index).data("ServiceData",item["service"]);
 		});
 
-		$(".target-eye").css("color","#1e90ff");
+		$(".target-eye").css("color","#00e07a");
 	} else if (item["response"] == "leftTarget"){
 		$(".target-label").html("");
 		$(".target-eye").css("color","#fff");
