@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("garbageman",cnVRP)
+cRP = {}
+Tunnel.bindInterface("garbageman",cRP)
 vSERVER = Tunnel.getInterface("garbageman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -55,15 +55,31 @@ function startthreadgarbage()
 	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADVERIFYBOX
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("garbageman:verifyBox")
+AddEventHandler("garbageman:verifyBox",function(verifyBox)
+TriggerEvent("cancelando",true)
+local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		TriggerEvent("Progress",5000,"Vasculhando...")
+		vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+		Wait(5000)
+		vSERVER.paymentBoxMethod()
+		TriggerEvent("cancelando",false)
+		ClearPedTasks(ped)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTGARBAGEMAN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getGarbageStatus()
+function cRP.getGarbageStatus()
 	return inService
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTGARBAGEMAN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.startGarbageman()
+function cRP.startGarbageman()
 	startthreadgarbage()
 	startthreadgarbageseconds()
 	inService = true
@@ -71,7 +87,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPGARBAGEMAN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.stopGarbageman()
+function cRP.stopGarbageman()
 	inService = false
 	for k,v in pairs(blips) do
 		if DoesBlipExist(blips[k]) then

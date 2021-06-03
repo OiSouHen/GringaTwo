@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("garbageman",cnVRP)
+cRP = {}
+Tunnel.bindInterface("garbageman",cRP)
 vCLIENT = Tunnel.getInterface("garbageman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -776,7 +776,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod(garbageId)
+function cRP.paymentMethod(garbageId)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -802,5 +802,27 @@ function cnVRP.paymentMethod(garbageId)
 		saveList[parseInt(garbageId)] = nil
 		TriggerClientEvent("garbageman:updateGarbageList",-1,saveList)
 		TriggerClientEvent("garbageman:removeGarbageBlips",-1,parseInt(garbageId))
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PAYMENTBOXMETHOD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.paymentBoxMethod()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			return
+		end
+		
+		local random = math.random(100)
+		if parseInt(random) >= 6 then
+			TriggerClientEvent("Notify",source,"amarelo","Nada encontrado.",3000)
+		elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
+			vRP.giveInventoryItem(user_id,"newspaper",math.random(3),true)
+		end
+
+		vRP.upgradeStress(user_id,2)
 	end
 end
