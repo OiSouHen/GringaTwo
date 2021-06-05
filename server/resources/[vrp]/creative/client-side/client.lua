@@ -626,7 +626,7 @@ Citizen.CreateThread(function()
 	SetRandomEventFlag(false)
 	SetDeepOceanScaler(0.0)
 	SetRadarZoom(1100)
-	AddTextEntry("FE_THDR_GTAO","Cidade Gringa")
+	AddTextEntry("FE_THDR_GTAO","GG RP")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL - 10

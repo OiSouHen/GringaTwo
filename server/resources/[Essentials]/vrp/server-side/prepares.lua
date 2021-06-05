@@ -129,6 +129,7 @@ vRP.prepare("vRP/resgate_prison","UPDATE vrp_users SET prison = 0 WHERE id = @us
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_GEMS
 -----------------------------------------------------------------------------------------------------------------------------------------
+vRP.prepare("vRP/set_vRP_gemsitem","UPDATE vrp_infos SET gems = gems + 1 WHERE steam = @steam")
 vRP.prepare("vRP/set_vRP_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE steam = @steam")
 vRP.prepare("vRP/rem_vRP_gems","UPDATE vrp_infos SET gems = gems - @gems WHERE steam = @steam")
 vRP.prepare("vRP/set_rental_time","UPDATE vrp_vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")

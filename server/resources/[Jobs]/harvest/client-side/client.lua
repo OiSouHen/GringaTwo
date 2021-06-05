@@ -83,7 +83,7 @@ function startthreadservice()
 				local ped = PlayerPedId()
 					local coords = GetEntityCoords(ped)
 					local collectDis = #(coords - vector3(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]))
-					if collectDis <= 70 then
+					if collectDis <= 150 then
 						timeDistance = 4
 						DrawText3D(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3],"~g~E~w~  COLHER")
 						if collectDis <= 0.8 and IsControlJustPressed(1,38) and timeSeconds <= 0 then

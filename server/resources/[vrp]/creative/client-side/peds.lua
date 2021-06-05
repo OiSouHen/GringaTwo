@@ -307,7 +307,7 @@ local pedList = {
 		model = { 0x1C95CB0B,"u_m_m_markfost" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Minerador
+	{ -- Minerador 2
 		distance = 30,
 		coords = { 2832.97,2797.6,57.46,99.22 },
 		model = { 0xD7DA9E99,"s_m_y_construct_01" },
@@ -329,6 +329,12 @@ local pedList = {
 		distance = 50,
 		coords = { 81.82,-1554.86,29.6,51.03 },
 		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Minerador
+		distance = 30,
+		coords = { -594.72,2090.05,131.65,27.03 },
+		model = { 0xD7DA9E99,"s_m_y_construct_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Colheita

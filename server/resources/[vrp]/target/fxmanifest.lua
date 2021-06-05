@@ -8,10 +8,7 @@ dependencies {
 ui_page "web-side/index.html"
 
 client_scripts {
-	"@vrp/lib/vehicles.lua",
-	"@vrp/lib/itemlist.lua",
 	"@vrp/lib/utils.lua",
-
 	"@PolyZone/client.lua",
 	"@PolyZone/BoxZone.lua",
 	"@PolyZone/EntityZone.lua",

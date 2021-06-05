@@ -5,6 +5,7 @@ ui_page "web-side/index.html"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
+	"@PolyZone/client.lua",
 	"client-side/*"
 }
 

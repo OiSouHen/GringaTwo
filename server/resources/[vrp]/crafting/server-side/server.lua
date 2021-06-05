@@ -463,6 +463,7 @@ local craftList = {
 				["amount"] = 1,
 				["destroy"] = true,
 				["require"] = {
+					["animalpelt"] = 4,
 					["rubber"] = 5
 				}
 			}

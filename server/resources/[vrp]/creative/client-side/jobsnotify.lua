@@ -7,7 +7,7 @@ local localidades = {
         notifycoord = {81.82,-1554.86,29.6},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/lixeiro</b> para iniciar ou finalizar o serviço.",3000)
+                TriggerEvent("Notify","amarelo","Dê <b>/lixeiro</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
     },
@@ -16,7 +16,7 @@ local localidades = {
         notifycoord = {354.14,270.56,103.02},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",3000)
+                TriggerEvent("Notify","amarelo","Dê <b>/transportador</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
     },
@@ -25,7 +25,7 @@ local localidades = {
         notifycoord = {452.97,-607.75,28.59},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",3000)
+                TriggerEvent("Notify","amarelo","Dê <b>/motorista</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
     },
@@ -34,7 +34,7 @@ local localidades = {
         notifycoord = {-555.2,5364.38,70.43},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/lenhador</b> para iniciar ou finalizar o serviço.",3000)
+                TriggerEvent("Notify","amarelo","Dê <b>/lenhador</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
     },
@@ -43,7 +43,16 @@ local localidades = {
         notifycoord = {406.04,6526.17,27.75},
         header = function()
             if IsControlJustPressed(1,38) then 
-                TriggerEvent("Notify","amarelo","Dê <b>/colheita</b> para iniciar ou finalizar o serviço.",3000)
+                TriggerEvent("Notify","amarelo","Dê <b>/colheita</b> para iniciar ou finalizar o serviço.",5000)
+            end
+        end
+    },
+	[5] = { -- Minerador
+		name = "Minerador",
+        notifycoord = {-594.72,2090.05,131.65},
+        header = function()
+            if IsControlJustPressed(1,38) then 
+                TriggerEvent("Notify","amarelo","Dê <b>/minerador</b> para iniciar ou finalizar o serviço.",5000)
             end
         end
     }
@@ -58,7 +67,7 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(ped)
         for k,v in pairs(localidades) do
             local distance = #(coords - vector3(v.notifycoord[1],v.notifycoord[2],v.notifycoord[3]))
-            if distance <= 1.5 then
+            if distance <= 1 then
                 sleep = 4
                 v.header()
             end

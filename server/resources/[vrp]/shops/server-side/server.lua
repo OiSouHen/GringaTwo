@@ -177,17 +177,6 @@ local shops = {
 			["identity"] = 600
 		}
 	},
-	["digitalDen"] = {
-		["mode"] = "Buy",
-		["type"] = "Cash",
-		["list"] = {
-			["radio"] = 4000,
-			["cellphone"] = 2000,
-			["binoculars"] = 1000,
-			["camera"] = 2000,
-			["vape"] = 30000
-		}
-	},
 	["megaMallStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
@@ -306,6 +295,15 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Consume",
 		["item"] = "dollars2",
+		["list"] = {
+			["meth"] = 500,
+			["lean"] = 500,
+			["ecstasy"] = 500
+		}
+	},
+	["robberysSelling"] = {
+		["mode"] = "Sell",
+		["type"] = "Cash",
 		["list"] = {
 			["meth"] = 500,
 			["lean"] = 500,

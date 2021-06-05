@@ -1682,7 +1682,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "radio" then
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
-						TriggerClientEvent("vrp_radio:openSystem",source)
+						TriggerClientEvent("radio:openSystem",source)
 					end
 
 					if itemName == "divingsuit" then
@@ -1803,6 +1803,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							end
 						end
 	                end
+					
+					if itemName == "gemstone" then
+						local identity = vRP.getUserIdentity(user_id)
+						if identity then
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+								vRP.execute("vRP/set_vRP_gemsitem",{ steam = identity.steam })
+							end
+						end
+	                end
 
 					if itemName == "pager" then
 						local nplayer = vRPclient.nearestPlayer(source,2)
@@ -1814,7 +1823,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerEvent("blipsystem:serviceExit",nplayer)
 									vRP.removePermission(vRP.getUserSource(nuser_id),"Police")
 									vRP.execute("vRP/upd_group",{ user_id = nuser_id, permiss = "Police", newpermiss = "waitPolice" })
-									TriggerClientEvent("Notify",source,"verde","Todas as comunicações da polícia foram retiradas.",5000)
+									TriggerClientEvent("Notify",source,"verde","Comunicações da polícia foram retiradas.",5000)
 								end
 							end
 						end

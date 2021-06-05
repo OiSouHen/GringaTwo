@@ -170,3 +170,54 @@ AddEventHandler("shops:waterMachine",function()
 	SendNUIMessage({ action = "showNUI", name = tostring("waterMachine"), type = vSERVER.getShopType("waterMachine") })
 	SetNuiFocus(true,true)
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+local shopList = {
+	{ 1272.33,-1711.61,54.78,"robberysSelling" }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHOVERFY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local innerTable = {}
+	for k,v in pairs(shopList) do
+		table.insert(innerTable,{ v[1],v[2],v[3],1,"E","Venda de Produtos","Pressione para abrir" })
+	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADOPEN
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	SetNuiFocus(false,false)
+
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			for k,v in pairs(shopList) do
+				local distance = #(coords - vector3(v[1],v[2],v[3]))
+				if distance <= 1 then
+					timeDistance = 4
+
+					if IsControlJustPressed(1,38) then
+						if v[6] then
+								SetNuiFocus(true,true)
+								SendNUIMessage({ action = "showNUI", name = tostring(v[4]), type = vSERVER.getShopType(v[4]) })
+						else
+							if vSERVER.requestPerm(v[4]) then
+								SetNuiFocus(true,true)
+								SendNUIMessage({ action = "showNUI", name = tostring(v[4]), type = vSERVER.getShopType(v[4]) })
+							end
+						end
+					end
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
