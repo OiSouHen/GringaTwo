@@ -16,7 +16,7 @@ vCLIENT = Tunnel.getInterface("admin")
 vHOMES = Tunnel.getInterface("homes")
 
 local screenshotOptions = {
-	encoding = 'png',
+	encoding = "png",
 	quality = 1
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
 		vCLIENT.setDiscord(source,"#"..user_id.." "..identity.name.." "..identity.name2)
-		TriggerClientEvent(source,'active:checkcam',true)
+		TriggerClientEvent(source,"active:checkcam",true)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -83,13 +83,13 @@ RegisterCommand("clearinv",function(source,args,rawCommand)
                 if tplayerID ~= nil then
                 local identity = vRP.getUserIdentity(user_id)
                     vRP.clearInventory(tuser_id)
-                    TriggerClientEvent("Notify",source,"verde","Limpou inventario do ID "..args[1].."</b>.",6000)
+                    TriggerClientEvent("Notify",source,"amarelo","Limpou inventario do ID "..args[1].."</b>.",3000)
                 else
-                    TriggerClientEvent("Notify",source,"vermelho","O usuário não foi encontrado ou está offline.",6000)
+                    TriggerClientEvent("Notify",source,"vermelho","Algo deu errado.",3000)
             end
         else
             vRP.clearInventory(user_id)
-            TriggerClientEvent("Notify",source,"verde","Você limpou seu inventário.",6000)
+            TriggerClientEvent("Notify",source,"amarelo","Você limpou seu inventário.",3000)
         end
     end
 end)
@@ -100,7 +100,7 @@ RegisterCommand("skin",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Admin") then
 		TriggerClientEvent("skinmenu",args[1],args[2])
-		TriggerClientEvent("Notify",source,"verde","Você colocou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
+		TriggerClientEvent("Notify",source,"amarelo","Setada a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -148,8 +148,8 @@ RegisterCommand("addcar",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") and args[1] and args[2] then
 			vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[1]), vehicle = args[2], plate = vRP.generatePlateNumber(), phone = vRP.getPhone(args[1]), work = tostring(false) })
-			TriggerClientEvent("Notify",args[1],"verde","Você recebeu o veículo <b>"..args[2].."</b> em sua garagem.",10000)
-			TriggerClientEvent("Notify",source,"amarelo","Você adicionou o veiculo <b>"..args[2].."</b> na garagem de ID <b>"..args[1].."</b>.",10000)
+			TriggerClientEvent("Notify",args[1],"amarelo","Recebido o veículo <b>"..args[2].."</b> em sua garagem.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Adicionado o veiculo <b>"..args[2].."</b> na garagem de ID <b>"..args[1].."</b>.",10000)
 		end
 	end
 end)
@@ -237,14 +237,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VIPCOINS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("diamonds",function(source,args,rawCommand)
+RegisterCommand("gems",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") and parseInt(args[1]) > 0 and parseInt(args[2]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
 				vRP.addGmsId(args[1],args[2])
-				TriggerClientEvent("Notify",source,"amarelo","Entregado <b>"..args[2].." Diamantes</b> para ["..args[1].."]<b>"..identity.name.."</b>.",5000)
+				TriggerClientEvent("Notify",source,"amarelo","Entregado <b>"..args[2].." Gemas</b> para ["..args[1].."]<b>"..identity.name.."</b>.",10000)
 			end
 		end
 	end
@@ -395,7 +395,7 @@ RegisterCommand("delnpcs",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			vCLIENT.deleteNpcs(source)
-			TriggerClientEvent("Notify",source,"verde","Você deletou os NPCs próximos.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","NPCs próximos deletados.",3000)
 		end
 	end
 end)
@@ -407,26 +407,26 @@ RegisterCommand("tuning",function(source,args,rawCommand)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			TriggerClientEvent("admin:vehicleTuning",source)
-			TriggerClientEvent("Notify",source,"amarelo","Você realizou melhorias no veículo.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Realizado melhorias no veículo.",3000)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('cone',function(source,args,rawCommand)
+RegisterCommand("cone",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") then
-		TriggerClientEvent('cone',source,args[1])
+		TriggerClientEvent("cone",source,args[1])
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BARREIRA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('barreira',function(source,args,rawCommand)
+RegisterCommand("barreira",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") then
-		TriggerClientEvent('barreira',source,args[1])
+		TriggerClientEvent("barreira",source,args[1])
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -439,21 +439,21 @@ RegisterCommand("fix",function(source,args,rawCommand)
 			local vehicle,vehNet = vRPclient.vehList(source,11)
 			if vehicle then
 				TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-				TriggerClientEvent("Notify",source,"verde","Você arrumou o veículo.",5000)
+				TriggerClientEvent("Notify",source,"amarelo","Veículo totalmente arrumado.",3000)
 			end
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CLEANAREA
+-- CLEARAREA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("cleanarea",function(source,args,rawCommand)
+RegisterCommand("cleararea",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") then
 			local x,y,z = vRPclient.getPositions(source)
 			TriggerClientEvent("syncarea",-1,x,y,z,100)
-			TriggerClientEvent("Notify",source,"verde","Você limpou toda a área próxima.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","Toda área próxima foi limpa.",3000)
 		end
 	end
 end)
@@ -473,8 +473,8 @@ RegisterCommand("onlines",function(source,args,rawCommand)
 			players = players..k
 			quantidade = quantidade + 1
 		end
-		TriggerClientEvent('chatMessage',source,"Total onlines",{1, 136, 0},quantidade)
-		TriggerClientEvent('chatMessage',source,"IDs onlines",{1, 136, 0},players)
+		TriggerClientEvent("chatMessage",source,"Total onlines",{1, 136, 0},quantidade)
+		TriggerClientEvent("chatMessage",source,"IDs onlines",{1, 136, 0},players)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -502,23 +502,6 @@ RegisterCommand("announce",function(source,args,rawCommand)
 				return
 			end
 			TriggerClientEvent("Notify",-1,"roxo",message,60000)
-			TriggerClientEvent("sound:source",-1,"heya",0.5)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TERREMOTO
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("terremoto",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Owner") then
-			local message = vRP.prompt(source,"Mensagem:","")
-			if message == "" then
-				return
-			end
-			TriggerClientEvent("Notify",-1,"roxo",message,60000)
-			TriggerClientEvent("sound:source",-1,"frenzy",0.5)
 		end
 	end
 end)

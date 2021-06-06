@@ -143,7 +143,7 @@ end)
 local showMe = {}
 
 RegisterNetEvent("player:showMe")
-AddEventHandler("player:showMe",function(source,text,v)
+AddEventHandler("player:showMe",function(source,text)
 	local pedSource = GetPlayerFromServerId(source)
 	if pedSource ~= -1 then
 		TriggerEvent("chatMessage","*Pensamento",{171,171,171},text.."*")

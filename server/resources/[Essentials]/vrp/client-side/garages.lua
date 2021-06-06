@@ -714,6 +714,7 @@ local vehList = {
 	[-1173768715] = { "ferrariitalia",false },
 	[-1573350092] = { "fordmustang",false },
 	[1114244595] = { "lamborghinihuracan",false },
+	[-476445088] = { "TTC8",false },
 	[1978088379] = { "lancerevolutionx",false },
 	[2034235290] = { "mazdarx7",false },
 	[547134075] = { "mclarenp1",false },

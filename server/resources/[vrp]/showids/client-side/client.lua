@@ -3,14 +3,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------------	
 local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
-vRPNames = {}
-Tunnel.bindInterface("wall",vRPNames)
-Proxy.addInterface("wall",vRPNames)
-KSRPserver = Tunnel.getInterface("wall")
+cRP = {}
+Tunnel.bindInterface("showids",cRP)
+Proxy.addInterface("showids",cRP)
+vSERVER = Tunnel.getInterface("showids")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local cDistance = 500
+local cDistance = 15000
 local showIds = false
 local players = {}
 local admin = false
@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
 	while true do
 	    for _, id in ipairs(GetActivePlayers()) do
 	    	if id == -1 or id == nil then return end
-			local pid, userIdentity = KSRPserver.getId(GetPlayerServerId(id))
+			local pid, userIdentity = vSERVER.getId(GetPlayerServerId(id))
 			if pid == -1 then
 				return
 			end
@@ -36,7 +36,7 @@ end)
 -- COMMAND
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("wall",function()
-	admin = KSRPserver.isAdmin()
+	admin = vSERVER.isAdmin()
 	if not admin then
 		return
 	end
@@ -46,30 +46,29 @@ RegisterCommand("wall",function()
 	end
 
 	if showIds then
-		
-		KSRPserver.reportLog("ON")
-		TriggerEvent('chatMessage',"PLAYERS IDS:",{0,213,189},"ON")
+		vSERVER.reportLog("ON")
+		TriggerEvent("Notify","amarelo","Wall ligado.",3000)
 	else
-		KSRPserver.reportLog("OFF")
-		TriggerEvent('chatMessage',"PLAYERS IDS:",{0,213,189},"OFF")
+		vSERVER.reportLog("OFF")
+		TriggerEvent("Notify","amarelo","Wall desligado.",3000)
 	end
 end)
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INFOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-    	local kswait = 1000
+    	local kswait = 15000
 		  if showIds then
 			pedAdm = PlayerPedId()
 			kswait = 7
-			if not IsEntityVisible(pedAdm) then
-	        	for k, id in ipairs(GetActivePlayers()) do
-	        		if  ((NetworkIsPlayerActive( id )) and GetPlayerPed(id) ~= PlayerPedId()) then
-				        x1, y1, z1 = table.unpack( GetEntityCoords( PlayerPedId(), true ) )
-				        x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( id ), true ) )
-				        distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
+
+	        	for k,id in ipairs(GetActivePlayers()) do
+	        		if ((NetworkIsPlayerActive(id)) and GetPlayerPed(id) ~= PlayerPedId()) then
+				        x1, y1, z1 = table.unpack(GetEntityCoords(PlayerPedId(),true))
+				        x2, y2, z2 = table.unpack(GetEntityCoords(GetPlayerPed(id),true))
+
+				        distance = math.floor(GetDistanceBetweenCoords(x1, y1, z1, x2, y2, z2,true))
 						if admin then
 					    	if ((distance < cDistance)) then
 					    		if GetPlayerPed(id) ~= -1 and players[id] ~= nil then
@@ -92,13 +91,14 @@ Citizen.CreateThread(function()
 					    			local playerArmourPercent = playerArmour
 					    			playerHealthPercent = math.floor(playerHealthPercent)
 					    			playerArmourPercent = math.floor(playerArmourPercent)
+									DrawLine(x1, y1, z1, x2, y2, z2, 129, 61, 138, 255)
 					    			DrawText3D(x2, y2, z2+1, "~p~ID: ~w~" .. players[id] .. "\n~g~VIDA:~w~ "..playerHealth.. " (" .. playerHealthPercent .. "%)\n~r~COLETE:~w~ "..playerArmour.. " (" .. playerArmourPercent .. "%)\n~b~STEAM:~w~ " .. playerName, 255, 255, 255)
 					    		end
 					    	end
 					    end
 					end
 				end
-			end
+
 		end
 		Citizen.Wait(kswait)
     end

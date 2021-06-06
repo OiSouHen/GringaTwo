@@ -5,19 +5,18 @@ local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
 
 vRPclient = Tunnel.getInterface("vRP")
---vCLIENT = Tunnel.getInterface("vrp_names")
-vRPNames = {}
-Tunnel.bindInterface("wall",vRPNames)
-Proxy.addInterface("wall",vRPNames)
+cRP = {}
+Tunnel.bindInterface("showids",cRP)
+Proxy.addInterface("showids",cRP)
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookids = "LINK DO WEBHOOK"
+local webhookids = "https://discord.com/api/webhooks/850595483147567115/FgfujOyIe7p5LqQ7IDkDluTZDYeq3XWKbHcyXJ9kqm_UBDbcBShQhBQAq0IFhPsizLX7"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- USER ADMIN PERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------	
-function vRPNames.isAdmin()
+function cRP.isAdmin()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -28,7 +27,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GET USER ID AND STEAMHEX
 -----------------------------------------------------------------------------------------------------------------------------------------	
-function vRPNames.getId(sourceplayer)
+function cRP.getId(sourceplayer)
 	if sourceplayer ~= nil and sourceplayer ~= 0 then
 		local user_id = vRP.getUserId(sourceplayer)
 		if user_id then
@@ -40,7 +39,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REPORT LOG WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRPNames.reportLog(toggle)
+function cRP.reportLog(toggle)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

@@ -342,7 +342,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("seatbelt","Colocar/Retirar o cinto.","keyboard","x")
+RegisterKeyMapping("seatbelt","Colocar/Retirar o cinto.","keyboard","g")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HUD:SYNCTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -396,19 +396,23 @@ Citizen.CreateThread(function()
 		local health = GetEntityHealth(ped)
 
 		if health > 101 then
-			if stress >= 80 then
+			if stress >= 99 then
 				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.75)
-				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
-				if parseInt(math.random(3)) >= 3 and not IsPedInAnyVehicle(ped) then
-					SetPedToRagdoll(ped,5000,5000,0,0,0,0)
-				end
 				ApplyDamageToPed(ped,2,false)
-				timeDistance = 10000
-			elseif stress >= 60 and stress <= 79 then
-				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.35)
 				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+			elseif stress >= 80 and stress <= 98 then
+				timeDistance = 5000
+				ApplyDamageToPed(ped,2,false)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.50)
+			elseif stress >= 60 and stress <= 79 then
+				timeDistance = 7500
 				ApplyDamageToPed(ped,1,false)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.25)
+			elseif stress >= 40 and stress <= 59 then
 				timeDistance = 10000
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
 			end
 		end
 
