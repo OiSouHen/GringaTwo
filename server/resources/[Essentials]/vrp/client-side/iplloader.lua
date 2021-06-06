@@ -6,7 +6,6 @@ Citizen.CreateThread(function()
 	EnableMpDlcMaps(true)
 
 	RequestIpl("gabz_pillbox_milo_")
---	RequestIpl("gabz_mrpd_milo_")
 	RequestIpl("coronertrash")
 	RequestIpl("Coroner_Int_On")
 	RequestIpl("chop_props")
