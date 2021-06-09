@@ -1,8 +1,9 @@
 description 'Gringa loadscreen'
 
 files {
-    'index.html',
-    'style.css'
+    'style.css',
+    'loadingserverlgbt.png',
+    'index.html'
 }
 
 loadscreen 'index.html'
