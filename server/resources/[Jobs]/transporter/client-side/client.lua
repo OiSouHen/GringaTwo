@@ -16,7 +16,8 @@ vSERVER = Tunnel.getInterface("transporter")
 local ouService = false
 local inService = false
 local selected = 0
-local blip = nil
+local blipCollect = nil
+local blipDelivery = nil
 local coSelected = 0
 local deSelected = 0
 local vehModel = 1747439474
@@ -137,9 +138,14 @@ function cnVRP.toggleService()
 	if inService then
 		inService = false
 		TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi finalizado.",2000)
-		if DoesBlipExist(blip) then
-			RemoveBlip(blip)
-			blip = nil
+		if DoesBlipExist(blipCollect) then
+			RemoveBlip(blipCollect)
+			blipCollect = nil
+		end
+		
+		if DoesBlipExist(blipDelivery) then
+			RemoveBlip(blipDelivery)
+			blipDelivery = nil
 		end
 	else
 			startthreadservice()
@@ -150,7 +156,9 @@ function cnVRP.toggleService()
 				coSelected = math.random(#collect)
 				deSelected = math.random(#deliver)
 			end
-			makeBlipMarked()
+			
+			makeCollectMarked(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
+			makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
 			TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi iniciado.",2000)
 	end
 end
@@ -165,37 +173,46 @@ function startthreadservice()
 				local ped = PlayerPedId()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)
-
-					-- COLLECT
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COLLECT
+-----------------------------------------------------------------------------------------------------------------------------------------
 					local collectDis = #(coords - vector3(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]))
 					if collectDis <= 10 then
 						timeDistance = 4
-						DrawMarker(21,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
+						DrawText3D(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3],"~g~E~w~  COLETAR")
+						makeCollectMarked(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
 						if collectDis <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
+							SetEntityHeading(ped,collect[coSelected][4])
+							SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
 							timeSeconds = 2
-							if vSERVER.collectMethod() then
-								SetEntityHeading(ped,collect[coSelected][4])
-								SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
-
-								SetTimeout(5000,function()
-									vRP.removeObjects()
-									TriggerEvent("cancelando",false)
-									coSelected = math.random(#collect)
-								end)
-							end
+							TriggerEvent("cancelando",true)
+							TriggerEvent("Progress",10000,"Coletando...")
+							vRP.playAnim(false,{"amb@prop_human_atm@male@idle_a","idle_a"},true)
+							Wait(10000)
+							vSERVER.collectMethod()
+							TriggerEvent("cancelando",false)
+							ClearPedTasks(ped)
+							vRP.removeObjects()
+							coSelected = math.random(#collect)
 						end
 					end
-
-					-- DELIVER
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DELIVERY
+-----------------------------------------------------------------------------------------------------------------------------------------
 					local deliverDis = #(coords - vector3(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]))
-					if deliverDis <= 100 then
+					if deliverDis <= 150 then
 						timeDistance = 4
-						DrawMarker(21,deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
-						if deliverDis <= 0.6 and IsControlJustPressed(1,38) and GetEntityModel(GetPlayersLastVehicle()) == vehModel and timeSeconds <= 0 then
-							timeSeconds = 2
+						DrawText3D(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3],"~g~E~w~  CONTINUAR")
+						makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+						if deliverDis <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
+						    if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
+								timeSeconds = 2
 							if vSERVER.paymentMethod() then
 								deSelected = math.random(#deliver)
-								makeBlipMarked()
+								makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+							end
+							else
+								TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Transportador</b>.",3000)
 							end
 						end
 					end
@@ -219,21 +236,57 @@ function startthreadserviceseconds()
 	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MAKEBLIPRACE
+-- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-function makeBlipMarked()
-	if DoesBlipExist(blip) then
-		RemoveBlip(blip)
-		blip = nil
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MAKECOLLECTMARKED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function makeCollectMarked(x,y,z)
+	if DoesBlipExist(blipCollect) then
+		RemoveBlip(blipCollect)
+		blipCollect = nil
 	end
 
-	blip = AddBlipForCoord(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-	SetBlipSprite(blip,1)
-	SetBlipColour(blip,84)
-	SetBlipScale(blip,0.4)
-	SetBlipAsShortRange(blip,false)
-	SetBlipRoute(blip,true)
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Transporte")
-	EndTextCommandSetBlipName(blip)
+		blipCollect = AddBlipForCoord(x,y,z)
+		SetBlipSprite(blipCollect,12)
+		SetBlipColour(blipCollect,2)
+		SetBlipScale(blipCollect,0.9)
+		SetBlipAsShortRange(blipCollect,true)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString("Coletar")
+		EndTextCommandSetBlipName(blipCollect)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MAKEDELIVERYMARKED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function makeDeliveryMarked(x,y,z)
+	if DoesBlipExist(blipDelivery) then
+		RemoveBlip(blipDelivery)
+		blipDelivery = nil
+	end
+
+		blipDelivery = AddBlipForCoord(x,y,z)
+		SetBlipSprite(blipDelivery,12)
+		SetBlipColour(blipDelivery,5)
+		SetBlipScale(blipDelivery,0.9)
+		SetBlipAsShortRange(blipDelivery,true)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString("Entregar")
+		EndTextCommandSetBlipName(blipDelivery)
 end

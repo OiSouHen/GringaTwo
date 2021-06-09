@@ -16,8 +16,8 @@ vSERVER = Tunnel.getInterface("hunting")
 local blipHunting = {}
 local inHunting = false
 local animalHunting = {}
-local huntCoords = { -678.2,5838.58,17.34 }
-local animalHahs = { "a_c_deer","a_c_coyote","a_c_mtlion","a_c_pig","a_c_panther","a_c_boar","a_c_cormorant" }
+local huntCoords = { -672.76,5837.39,17.32 }
+local animalHahs = { "a_c_deer","a_c_coyote","a_c_mtlion","a_c_pig","a_c_panther","a_c_boar" }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ANIMALCOORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -178,6 +178,8 @@ Citizen.CreateThread(function()
 
 				if inHunting then
 					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
+				else
+					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  INICIAR")
 				end
 
 				if IsControlJustPressed(1,38) and distance <= 1 then
@@ -194,13 +196,13 @@ Citizen.CreateThread(function()
 							animalHunting[k] = nil
 						end
 					end
-					
-					TriggerEvent("Notify","amarelo","O serviço de <b>Caçador</b> foi iniciado, agora abra o seu GPS e confira todas as suas caças disponíveis atualmente.",10000)
 
 					if inHunting then
 						inHunting = false
+						TriggerEvent("Notify","amarelo","O serviço de <b>Caçador</b> foi finalizado.",3000)
 					else
 						inHunting = true
+						TriggerEvent("Notify","amarelo","O serviço de <b>Caçador</b> foi iniciado.",3000)
 
 						for i = 1,25 do
 							newHunting(i)
@@ -212,17 +214,6 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(timeDistance)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local innerTable = {}
-	for k,v in pairs(huntCoords) do
-		table.insert(innerTable,{ huntCoords[1],huntCoords[2],huntCoords[3],1,"E","Caçador","Pressione para iniciar/finalizar" })
-	end
-
-	TriggerEvent("hoverfy:insertTable",innerTable)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HUNTING:ANIMALCUTING
@@ -250,8 +241,8 @@ AddEventHandler("hunting:animalCutting",function()
 						TriggerEvent("player:blockCommands",true)
 						TriggerEvent("cancelando",true)
 						
-						TriggerEvent("Progress",60000,"Esfolando...")
-						Citizen.Wait(60000)
+						TriggerEvent("Progress",30000,"Esfolando...")
+						Citizen.Wait(30000)
 
 						TriggerEvent("player:blockCommands",false)
 						TriggerEvent("cancelando",false)

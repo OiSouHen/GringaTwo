@@ -120,7 +120,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("debug",function(source,args,rawCommand)
+RegisterCommand("admindebug",function(source,args,rawCommand)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

@@ -8,13 +8,13 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("skinshop",cnVRP)
+cRP = {}
+Tunnel.bindInterface("skinshop",cRP)
 vCLIENT = Tunnel.getInterface("skinshop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkOpen()
+function cRP.checkOpen()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -27,18 +27,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATECLOTHES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateClothes(clothes,demand)
+function cRP.updateClothes(clothes)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		-- if demand then
-		-- 	local valor = math.random(100,350)
-		-- 	if vRP.paymentBank(user_id,valor) then
-		-- 		TriggerClientEvent("Notify",source,"sucesso","Voce pagou $"..valor.." em roupas.",5000)
-		-- 	else
-		-- 		TriggerClientEvent("Notify",source,"negado","Voce nao tem dinheiro.",5000)
-		-- 	end
-		-- end
 		vRP.setUData(user_id,"Clothings",clothes)
 	end
 end

@@ -8,13 +8,13 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("barbershop", cnVRP)
+cRP = {}
+Tunnel.bindInterface("barbershop", cRP)
 vCLIENT = Tunnel.getInterface("barbershop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BARBER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkOpen()
+function cRP.checkOpen()
     local source = source
     local user_id = vRP.getUserId(source)
     if user_id then
@@ -27,7 +27,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateSkin(myClothes)
+function cRP.updateSkin(myClothes)
     local source = source
     local user_id = vRP.getUserId(source)    
     if user_id then
@@ -38,7 +38,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("desbugar", function(source, args, rawCommand)
+RegisterCommand("debug", function(source, args, rawCommand)
     local user_id = vRP.getUserId(source)
     if user_id then
         if not vRPclient.inVehicle(source) then

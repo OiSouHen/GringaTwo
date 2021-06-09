@@ -47,7 +47,7 @@ AddEventHandler("trunkchest:openTrunk",function()
                     vCLIENT.trunkOpen(source)
 
                     if not vRPclient.inVehicle(source) then
-                        TriggerClientEvent("vrp_player:syncDoors",-1,vehNet,"5")
+                        TriggerClientEvent("player:syncDoors",-1,vehNet,"5")
                     end
                 end
             end

@@ -15,15 +15,15 @@ vCLIENT = Tunnel.getInterface("transporter")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local collect = {}
-local collectMin = 1
-local collectMax = 2
+local collectMin = 2
+local collectMax = 3
 
 local amount = {}
 local amountMin = 2
 local amountMax = 3
 
 local paymentMin = 75
-local paymentMax = 100
+local paymentMax = 105
 local consumeItem = "pouch"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRANSPORTER
@@ -62,13 +62,9 @@ function cnVRP.collectMethod()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + vRP.itemWeightList(tostring(consumeItem)) * parseInt(collect[source]) <= vRP.getBackpack(user_id) then
-			vRPclient.stopActived(source)
-			TriggerClientEvent("Progress",source,5000,"Coletando...")
 			vRP.upgradeStress(user_id,1)
-			vRPclient._playAnim(source,false,{"amb@prop_human_atm@male@idle_a","idle_a"},false)
 			vRP.giveInventoryItem(user_id,tostring(consumeItem),parseInt(collect[source]),true)
 			collect[source] = nil
-			TriggerClientEvent("cancelando",source,true)
 			return true
 		else
 			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
@@ -90,8 +86,7 @@ function cnVRP.paymentMethod()
 			vRP.upgradeStress(user_id,1)
 			local value = math.random(paymentMin,paymentMax) * amount[source]
 
-			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
-			TriggerClientEvent("sound:source",source,"coin",0.5)
+			vRP.giveInventoryItem(user_id,"dollars",parseInt(value))
 			amount[source] = nil
 
 			return true

@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("barbershop", cnVRP)
+cRP = {}
+Tunnel.bindInterface("barbershop", cRP)
 vSERVER = Tunnel.getInterface("barbershop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -65,14 +65,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ROTATELEFT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("rotate", function(data, cb)
-    local ped = PlayerPedId()
-    local heading = GetEntityHeading(ped)
-    if data == "left" then
-        SetEntityHeading(ped, heading + 10)
-    elseif data == "right" then
-        SetEntityHeading(ped, heading - 10)
-    end
+RegisterNUICallback("rotate",function(data,cb)
+	local ped = PlayerPedId()
+	local heading = GetEntityHeading(ped)
+	if data == "left" then
+		SetEntityHeading(ped,heading + 10)
+	elseif data == "right" then
+		SetEntityHeading(ped,heading - 10)
+	end
 end)
 
 --{"eyebrowsModel":16,"jawHeight":0,"eyebrowsWidth":0,"noseBridge":0,"chestColor":0,"complexionModel":-1,"neckWidth":0,"frecklesModel":-1,"skinColor":9,"blushColor":0,"cheekboneHeight":0,"eyebrowsColor":0,"chinLength":0,"cheekboneWidth":0,"sundamageModel":-1,"ageingModel":-1,"hairModel":4,"chinPosition":0,"firstHairColor":0,"noseShift":0,"noseTip":0,"chinWidth":0,"blemishesModel":-1,"beardColor":0,"noseWidth":0,"lipstickModel":-1,"makeupModel":-1,"lips":0,"noseHeight":0,"eyebrowsHeight":0,"secondHairColor":0,"blushModel":-1,"mothersID":24,"beardModel":-1,"jawWidth":0,"fathersID":4,"chestModel":-1,"lipstickColor":0,"shapeMix":0.7,"noseLength":0,"cheeksWidth":0,"chinShape":0,"eyesColor":0}
@@ -189,49 +189,43 @@ function displayBarbershop(enable)
     local ped = PlayerPedId()
 
     if enable then
-        SetNuiFocus(true, true)
-        SendNUIMessage({
-            openBarbershop = true,
-            myclothes = myClothes
-        })
+		SetEntityHeading(PlayerPedId(),332.21)
+		SetFollowPedCamViewMode(0)
+		SetNuiFocus(true,true)
+        SendNUIMessage({openBarbershop = true,myclothes = myClothes})
 
         FreezeEntityPosition(ped, true)
 
-        if IsDisabledControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 142) then
-            SendNUIMessage({
-                type = "click"
-            })
-        end
+        if IsDisabledControlJustReleased(0,24) or IsDisabledControlJustReleased(0,142) then
+			SendNUIMessage({ type = "click" })
+		end
 
-        SetPlayerInvincible(ped, true)
+		SetPlayerInvincible(ped,true)
 
         if not DoesCamExist(cam) then
-            cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
-            SetCamCoord(cam, GetEntityCoords(ped))
-            SetCamRot(cam, 0.0, 0.0, 0.0)
-            SetCamActive(cam, true)
-            RenderScriptCams(true, false, 0, true, true)
-            SetCamCoord(cam, GetEntityCoords(ped))
-        end
+			cam = CreateCam("DEFAULT_SCRIPTED_CAMERA",true)
+			SetCamCoord(cam,GetEntityCoords(ped))
+			SetCamRot(cam,0.0,0.0,0.0)
+			SetCamActive(cam,true)
+			RenderScriptCams(true,false,0,true,true)
+			SetCamCoord(cam,GetEntityCoords(ped))
+		end
 
-        local x, y, z = table.unpack(GetEntityCoords(ped))
-        SetCamCoord(cam, x + 0.2, y + 0.5, z + 0.7)
-        SetCamRot(cam, 0.0, 0.0, 150.0)
-    else
-        FreezeEntityPosition(ped, false)
-        SetPlayerInvincible(ped, false)
-        RenderScriptCams(false, false, 0, 1, 0)
-        DestroyCam(cam, false)
+		local x,y,z = table.unpack(GetEntityCoords(ped))
+		SetCamCoord(cam,x + 0.2,y + 0.5,z + 0.7)
+		SetCamRot(cam,0.0,0.0,150.0)
+	else
+		SetPlayerInvincible(ped,false)
+		RenderScriptCams(false,false,0,1,0)
+		DestroyCam(cam,false)
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    SetNuiFocus(false)
-    SendNUIMessage({
-        openBarbershop = false
-    })
+	SetNuiFocus(false)
+	SendNUIMessage({ openBarbershop = false })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOCATIONS
@@ -261,11 +255,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
+	
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
+			
 			for k,v in pairs(locations) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2.5 then
@@ -277,6 +273,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -284,9 +281,9 @@ end)
 -- SYNCAREA
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("syncarea")
-AddEventHandler("syncarea", function(x, y, z, distance)
-    ClearAreaOfVehicles(x, y, z, distance + 0.0, false, false, false, false, false)
-    ClearAreaOfEverything(x, y, z, distance + 0.0, false, false, false, false)
+AddEventHandler("syncarea",function(x,y,z,distance)
+	ClearAreaOfVehicles(x,y,z,distance + 0.0,false,false,false,false,false)
+	ClearAreaOfEverything(x,y,z,distance + 0.0,false,false,false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPEN BARBERSHOP

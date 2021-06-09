@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("skinshop",cnVRP)
+cRP = {}
+Tunnel.bindInterface("skinshop",cRP)
 vSERVER = Tunnel.getInterface("skinshop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -56,40 +56,29 @@ RegisterNetEvent("updateRoupas")
 AddEventHandler("updateRoupas",function(custom)
 	skinData = custom
 	resetClothing(custom)
-	vSERVER.updateClothes(json.encode(custom),true)
+	vSERVER.updateClothes(json.encode(custom))
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOCATESHOPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local locateShops = {
-	{ 72.14,-1398.5,29.38 }, -- Perto do Vanilla
-	{ -703.96,-151.97,37.42 }, -- Perto da Prefeitura
-	{ -168.13,-299.13,39.74 }, -- No Rockford Plaza
-	{ 428.65,-800.61,29.5 }, -- Perto da Antiga Polícia
-	{ -828.76,-1073.57,11.33 }, -- Perto da Waze News
-	{ -1188.68,-765.37,17.32 }, -- Perto do Bahamas
-	{ -1447.53,-242.51,49.83 }, -- Perto do Cemitério
-	{ 10.74,6513.87,31.88 }, -- Em Paleto Bay
-	{ 1696.34,4828.62,42.07 }, -- Sentido North
-	{ 123.52,-228.36,54.56 }, -- Avenida do Banco Central
-	{ 614.69,2767.25,42.09 }, -- Ao lado do Animal ARK
-	{ 1191.08,2713.23,38.23 }, -- Perto da Prisão
-	{ -3173.2,1039.67,20.87 }, -- Pra cima da Praia
-	{ -1107.46,2709.39,19.11 }, -- Rota 68
-	{ 380.26,-1608.79,29.3 }, -- Polícia
-	{ 1143.47,-1552.01,35.39 } -- Hospital
+	{ 75.40,-1392.92,29.37 },
+	{ -709.40,-153.66,37.41 },
+	{ -163.20,-302.03,39.73 },
+	{ 425.58,-806.23,29.49 },
+	{ -822.34,-1073.49,11.32 },
+	{ -1193.81,-768.49,17.31 },
+	{ -1450.85,-238.15,49.81 },
+	{ 4.90,6512.47,31.87 },
+	{ 1693.95,4822.67,42.06 },
+	{ 126.05,-223.10,54.55 },
+	{ 614.26,2761.91,42.08 },
+	{ 1196.74,2710.21,38.22 },
+	{ -3170.18,1044.54,20.86 },
+	{ -1101.46,2710.57,19.10 },
+	{ 452.57,-990.80,30.68 },
+	{ 300.67,-597.63,43.3 }
 }
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local innerTable = {}
-	for k,v in pairs(locateShops) do
-		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Loja de Roupas","Pressione para abrir" })
-	end
-
-	TriggerEvent("hoverfy:insertTable",innerTable)
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -106,6 +95,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 3 then
 					timeDistance = 4
+					DrawText3D(v[1],v[2],v[3],"~g~E~w~   ABRIR")
 					if IsControlJustPressed(0,38) and vSERVER.checkOpen() then
 						customCamLocation = nil
 						openMenu({
@@ -120,6 +110,21 @@ Citizen.CreateThread(function()
 		Citizen.Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
+	SetTextFont(4)
+	SetTextScale(0.35,0.35)
+	SetTextColour(255,255,255,100)
+	SetTextEntry("STRING")
+	SetTextCentre(1)
+	AddTextComponentString(text)
+	DrawText(_x,_y)
+	local factor = (string.len(text)) / 400
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RESETOUTFIT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -535,7 +540,7 @@ end)
 -- SAVESKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 function SaveSkin()
-	vSERVER.updateClothes(json.encode(skinData),true)
+	vSERVER.updateClothes(json.encode(skinData))
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETMASK
@@ -553,7 +558,7 @@ AddEventHandler("skinshop:setMask", function(mask)
 		Citizen.Wait(700)
 		skinData["mask"].item = mask[1]
 		skinData["mask"].texture = mask[2]
-		vSERVER.updateClothes(json.encode(skinData),false)
+		vSERVER.updateClothes(json.encode(skinData))
 		SetPedComponentVariation(ped,1,parseInt(mask[1]),parseInt(mask[2]),2)
 	end
 
@@ -574,7 +579,7 @@ AddEventHandler("skinshop:setHat",function(hat)
 	else
 		skinData["hat"].item = hat[1]
 		skinData["hat"].texture = hat[2]
-		vSERVER.updateClothes(json.encode(skinData),false)
+		vSERVER.updateClothes(json.encode(skinData))
 		SetPedPropIndex(ped,0,parseInt(hat[1]),parseInt(hat[2]),2)
 	end
 
@@ -595,7 +600,7 @@ AddEventHandler("skinshop:setGlasses", function(glasses)
 	else
 		skinData["glass"].item = glasses[1]
 		skinData["glass"].texture = glasses[2]
-		vSERVER.updateClothes(json.encode(skinData),false)
+		vSERVER.updateClothes(json.encode(skinData))
 		SetPedPropIndex(ped,1,parseInt(glasses[1]),parseInt(glasses[2]),2)
 	end
 
@@ -604,24 +609,24 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getHat()
+function cRP.getHat()
 	return skinData["hat"].item,skinData["hat"].texture
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETGLASSES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getGlasses()
+function cRP.getGlasses()
 	return skinData["glass"].item,skinData["glass"].texture
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETMASK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getMask()
+function cRP.getMask()
 	return skinData["mask"].item,skinData["mask"].texture
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETCUSTOMIZATION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getCustomization()
+function cRP.getCustomization()
 	return skinData
 end

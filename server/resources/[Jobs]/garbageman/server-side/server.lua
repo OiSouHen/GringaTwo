@@ -764,12 +764,12 @@ RegisterCommand("lixeiro",function(source,args,rawCommand)
 		local inService = vCLIENT.getGarbageStatus(source)
 		if inService then
 			vCLIENT.stopGarbageman(source)
-			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi finalizado.",2000)
+			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi finalizado.",3000)
 		else
 			vCLIENT.startGarbageman(source)
 			TriggerClientEvent("garbageman:insertBlips",source,saveList)
 			TriggerClientEvent("garbageman:updateGarbageList",source,saveList)
-			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi iniciado.",2000)
+			TriggerClientEvent("Notify",source,"amarelo","O serviço de <b>Lixeiro</b> foi iniciado.",3000)
 		end
 	end
 end)
@@ -786,19 +786,23 @@ function cRP.paymentMethod(garbageId)
 		end
 		
 		local random = math.random(100)
-		if parseInt(random) >= 81 then
-			vRP.giveInventoryItem(user_id,"plastic",math.random(8),true)
-		elseif parseInt(random) >= 61 and parseInt(random) <= 80 then
-			vRP.giveInventoryItem(user_id,"glass",math.random(8),true)
-		elseif parseInt(random) >= 41 and parseInt(random) <= 60 then
-			vRP.giveInventoryItem(user_id,"rubber",math.random(6),true)
-		elseif parseInt(random) >= 26 and parseInt(random) <= 40 then
-			vRP.giveInventoryItem(user_id,"aluminum",math.random(5),true)
-		elseif parseInt(random) >= 10 and parseInt(random) <= 25 then
-			vRP.giveInventoryItem(user_id,"copper",math.random(5),true)
+		if parseInt(random) >= 87 then
+			vRP.giveInventoryItem(user_id,"glassbottle",math.random(3),true)
+		elseif parseInt(random) >= 76 and parseInt(random) <= 86 then
+			vRP.giveInventoryItem(user_id,"elastic",math.random(3),true)
+		elseif parseInt(random) >= 56 and parseInt(random) <= 75 then
+			vRP.giveInventoryItem(user_id,"plasticbottle",math.random(3),true)
+		elseif parseInt(random) >= 31 and parseInt(random) <= 55 then
+			vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
+		elseif parseInt(random) >= 11 and parseInt(random) <= 30 then
+			vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
+		elseif parseInt(random) >= 6 and parseInt(random) <= 10 then
+			vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
+		elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
+			vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
 		end
 
-		vRP.upgradeStress(user_id,2)
+		vRP.upgradeStress(user_id,1)
 		saveList[parseInt(garbageId)] = nil
 		TriggerClientEvent("garbageman:updateGarbageList",-1,saveList)
 		TriggerClientEvent("garbageman:removeGarbageBlips",-1,parseInt(garbageId))
@@ -817,9 +821,9 @@ function cRP.paymentBoxMethod()
 		end
 		
 		local random = math.random(100)
-		if parseInt(random) >= 6 then
+		if parseInt(random) >= 16 then
 			TriggerClientEvent("Notify",source,"amarelo","Nada encontrado.",3000)
-		elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
+		elseif parseInt(random) >= 0 and parseInt(random) <= 15 then
 			vRP.giveInventoryItem(user_id,"newspaper",math.random(3),true)
 		end
 

@@ -38,71 +38,71 @@ body {
 
 #verde {
 	background: rgba(34,34,34,0.75) url("images/check.png") no-repeat center left 11px;
-	border-bottom: 3px solid #a3c846;
+	/*border-bottom: 3px solid #a3c846;*/
 }
 
 #vermelho {
 	background: rgba(34,34,34,0.75) url("images/cancel.png") no-repeat center left 11px;
-	border-bottom: 3px solid #e62441;
+	/*border-bottom: 3px solid #e62441;*/
 }
 
 #blood {
 	background: rgba(34,34,34,0.75) url("images/blood.png") no-repeat center left 11px;
-	border-bottom: 3px solid #e62441;
+	/*border-bottom: 3px solid #e62441;*/
 }
 
 #hunger {
 	background: rgba(34,34,34,0.75) url("images/hunger.png") no-repeat center left 11px;
-	border-bottom: 3px solid #f29b6f;
+	/*border-bottom: 3px solid #f29b6f;*/
 }
 
 #thirst {
 	background: rgba(34,34,34,0.75) url("images/thirst.png") no-repeat center left 11px;
-	border-bottom: 3px solid #73aae7;
+	/*border-bottom: 3px solid #73aae7;*/
 }
 
 #stress {
 	background: rgba(34,34,34,0.75) url("images/stress.png") no-repeat center left 11px;
-	border-bottom: 3px solid #c45895;
+	/*border-bottom: 3px solid #c45895;*/
 }
 
 #azul {
 	background: rgba(34,34,34,0.75) url("images/ring.png") no-repeat center left 11px;
-	border-bottom: 3px solid #6fa9dc;
+	/*border-bottom: 3px solid #6fa9dc;*/
 }
 
 #amarelo {
 	background: rgba(34,34,34,0.75) url("images/important.png") no-repeat center left 11px;
-	border-bottom: 3px solid #ffb400;
+	/*border-bottom: 3px solid #ffb400;*/
 }
 
 #roxo {
 	background: rgba(34,34,34,0.75) url("images/announce.png") no-repeat center left 11px;
-	border-bottom: 3px solid #7b68ac;
+	/*border-bottom: 3px solid #7b68ac;*/
 }
 
 #rosa {
 	background: rgba(34,34,34,0.75) url("images/social.png") no-repeat center left 11px;
-	border-bottom: 3px solid #d54867;
+	/*border-bottom: 3px solid #d54867;*/
 }
 
 #locked {
 	background: rgba(34,34,34,0.75) url("images/locked.png") no-repeat center left 11px;
-	border-bottom: 3px solid #6eb969;
+	/*border-bottom: 3px solid #6eb969;*/
 }
 
 #twitter {
 	background: rgba(34,34,34,0.75) url("images/twitter.png") no-repeat center left 11px;
-	border-bottom: 3px solid #3f4d72;
+	/*border-bottom: 3px solid #3f4d72;*/
 }
 
 #unlocked {
 	background: rgba(34,34,34,0.75) url("images/unlocked.png") no-repeat center left 11px;
-	border-bottom: 3px solid #e62441;
+	/*border-bottom: 3px solid #e62441;*/
 }
 
 #default {
-	border-bottom: 3px solid #91a2ac;
+	/*border-bottom: 3px solid #91a2ac;*/
 	background: rgba(34,34,34,0.75);
 	padding: 15px 20px !important;
 	line-height: 20px !important;

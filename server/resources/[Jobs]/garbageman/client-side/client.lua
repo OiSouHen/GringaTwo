@@ -32,18 +32,22 @@ function startthreadgarbage()
 
 					for k,v in pairs(garbageList) do
 						local distance = #(coords - vector3(v[1],v[2],v[3]))
-						if distance <= 5 then
+						if distance <= 0.6 then
 							timeDistance = 4
-							DrawMarker(21,v[1],v[2],v[3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
-							if distance <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 and GetEntityModel(GetPlayersLastVehicle()) == vehModel then
-								timeSeconds = 2
-								TriggerEvent("cancelando",true)
-								TriggerEvent("Progress",5000,"Procurando...")
-								vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-								Wait(5000)
-								vSERVER.paymentMethod(parseInt(k))
-								TriggerEvent("cancelando",false)
-								ClearPedTasks(ped)
+							DrawText3D(v[1],v[2],v[3],"~g~E~w~  VASCULHAR")
+							if distance <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
+							    if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
+								    timeSeconds = 2
+								    TriggerEvent("cancelando",true)
+								    vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+									TriggerEvent("Progress",5000,"Procurando...")
+								    Wait(5000)
+								    vSERVER.paymentMethod(parseInt(k))
+								    TriggerEvent("cancelando",false)
+								    ClearPedTasks(ped)
+								else
+								    TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Lixeiro</b>.",3000)
+								end
 							end
 						end
 					end
@@ -147,4 +151,23 @@ function startthreadgarbageseconds()
 			Citizen.Wait(1000)
 		end
 	end)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
