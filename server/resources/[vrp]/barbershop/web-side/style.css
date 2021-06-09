@@ -26,24 +26,22 @@ input[type=range]::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	height: 12px;
 	width: 12px;
-	background: #424242;
+	background: #ffffff;
 	cursor: pointer;
 	margin-top: -6px;
-	border-radius: 4px;
 }
 
 input[type=range]::-moz-range-thumb {
 	height: 12px;
 	width: 12px;
-	background: #424242;
-	border-radius: 4px;
+	background: #ffffff;
 	cursor: pointer;
 }
 
 input[type=range]::-ms-thumb {
 	height: 12px;
 	width: 12px;
-	background: #fff;
+	background: #ffffff;
 	cursor: pointer;
 }
 
@@ -51,18 +49,17 @@ input[type=range]::-webkit-slider-runnable-track {
 	width: 330px;
 	height: 2px;
 	cursor: pointer;
-	background: #666;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
-	background: #666;
-}
+	background: rgba(255,255,255,0.2); }
 
 input[type=range]::-moz-range-track {
 	width: 330px;
 	height: 2px;
 	cursor: pointer;
-	background: #656e8d;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type=range]::-ms-track {
@@ -75,19 +72,19 @@ input[type=range]::-ms-track {
 }
 
 input[type=range]::-ms-fill-lower {
-	background: #656e8d;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type=range]:focus::-ms-fill-lower {
-	background: #656e8d;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type=range]::-ms-fill-upper {
-	background: #656e8d;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type=range]:focus::-ms-fill-upper {
-	background: #656e8d;
+	background: rgba(255,255,255,0.2);
 }
 
 input[type="radio"] {
@@ -174,30 +171,30 @@ body {
 }
 
 .openBarbershop {
-	top: 0;
-	right: 0;
-	height: 0px;
-	width: 420px;
 	display: none;
-	color: #c0c0c0;
-	min-height: 100%;
 	position: absolute;
+	width: 420px;
+	min-height: 100%;
+	height: 0px;
+	color: rgba(255,255,255,0.5);
+	top: 0px;
+	right: 0px;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	background: #323644;
+	background-color: rgba(24,27,32,0.9);
 	overflow: hidden;
 }
 
 form {
 	width: 100%;
-	height: 76%;
+	height: 74%;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	overflow-y: auto;
 }
 
 .tab {
-	background: #7c344d;
+	border-bottom: 1px solid rgba(255,255,255,0.05);
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -210,7 +207,7 @@ form {
 }
 
 .tab a {
-	color: #d898ae;
+	color: white;
 	font-weight: normal;
 	text-decoration: none;
 	font-size: 14px;
@@ -224,8 +221,9 @@ form {
 }
 
 .tab .active {
-	color: #95c5ab;
-	background: #2e6e4c;
+	color: white;
+	font-weight: bold;
+	background: #34548e;
 }
 
 .tab .visage::before {
@@ -260,7 +258,7 @@ form {
 
 .block .group {
 	padding: 15px 30px;
-	border-bottom: 1px solid #40475c;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .block .group:last-child {
@@ -268,7 +266,7 @@ form {
 }
 
 .block h2 {
-	color: #fff;
+	color: rgba(255,255,255,0.5);
 	font-size: 12px;
 	font-weight: normal;
 	text-transform: uppercase;
@@ -284,15 +282,15 @@ form {
 	font-size: 11px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
-	color: #c0c0c0;
+	color: rgba(255,255,255,0.7);
 }
 
 .block .input .label-value {
 	position: absolute;
-	top: 8px;
-	font-size: 13px;
-	color: #c0c0c0;
-	right: 5px;
+	top: 0px;
+	font-size: 14px;
+	color: white;
+	right: 0px;
 	opacity: .5;
 }
 
@@ -300,8 +298,7 @@ form {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	padding: 12px 15px 15px;
-	background: #9b9a9a;
-	border-radius: 4px;
+	background-color: rgba(56,58,64,0.6);
 }
 
 .block .input .type-range .arrow {
@@ -342,15 +339,15 @@ form {
 }
 
 .block .input .type-img label:nth-child(4n) .img {
-	border-right: 1px solid #4b536b;
+	border-right: 1px solid #3d3d3d;
 }
 
 .block .input .type-img .img {
 	width: 100%;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	border-top: 1px solid #4b536b;
-	border-left: 1px solid #4b536b;
+	border-top: 1px solid #3d3d3d;
+	border-left: 1px solid #3d3d3d;
 }
 
 .block .input .type-img .img img {
@@ -366,7 +363,7 @@ form {
 	right: 5px;
 	width: 10px;
 	height: 10px;
-	background: #c0c0c0 url("assets/radio-check-black.png") no-repeat center center;
+	background: white url("assets/radio-check-black.png") no-repeat center center;
 	padding: 4px;
 	background-size: 8px 6px;
 	-webkit-transition: all .15s ease-in-out;
@@ -375,7 +372,7 @@ form {
 }
 
 .block .input .type-img input[type="radio"]:checked + .img {
-	border: 2px solid #c0c0c0;
+	border: 2px solid white;
 }
 
 .block .input .type-img input[type="radio"]:checked + .img:after {
@@ -395,15 +392,15 @@ form {
 	margin-bottom: 10px;
 }
 
-.buttons .yes {
+.submit {
 	width: 420px;
-	height: 40px;
+	height: 100px;
 	display: block;
 	border: none;
-	background-color: #2e6e4c;
-	font-size: 14px;
-	line-height: 40px;
-	color: #95c5ab;
+	background-color: #34548e;
+	font-size: 20px;
+	line-height: 70px;
+	color: white;
 	position: fixed;
 	bottom: 0px;
 	z-index: 100;
@@ -412,6 +409,54 @@ form {
 	transition: all .2s ease-in-out;
 }
 
-.buttons .yes:hover {
-	background-color: #39875e;
+.submit:hover {
+	background-color: #34548e;
+}
+
+.popup {
+	bottom: 10px;
+	left: 50%;
+	color: rgba(255,255,255,0.7);
+	width: 350px;
+	height: 100px;
+	display: none;
+	overflow: auto;
+	text-align: center;
+	position: absolute;
+	padding: 30px 50px;
+	transform: translate(-50%,-50%);
+	background-color: rgba(24,27,32,0.9);
+}
+
+.popup p {
+	margin-bottom: 10px;
+}
+
+.popup .buttons {
+	width: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+}
+
+.popup .buttons .button {
+	background-color: #1e3358;
+	text-align: center;
+	vertical-align: middle;
+	width: 80px;
+	height: 50px;
+	margin: 10px 10px 0;
+	padding: 0 10px;
+	color: rgba(255,255,255,0.7);
+	line-height: 45px;
+}
+
+.popup .buttons .yes {
+	background-color: #34548e;
 }

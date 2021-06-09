@@ -8,7 +8,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerSpawn",function(user_id,source)
+AddEventHandler("vRP:playerSpawn",function(user_id, source)
 	local data = vRP.getUserDataTable(user_id)
 	if data then
 		if data.customization then
@@ -17,18 +17,15 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 
 		if data.position then
 			if data.position.x == nil or data.position.y == nil or data.position.z == nil then
-				data.position = { x = -774.14, y = 307.75, z = 85.7 }
+				data.position = { x = -2043.94, y = -1031.38, z = 11.99 }
 			end
 		else
-			data.position = { x = -774.14, y = 307.75, z = 85.7 }
+			data.position = { x = -2043.94, y = -1031.38, z = 11.99 }
 		end
 		vRPclient.teleport(source,data.position.x,data.position.y,data.position.z+0.5)
 
 		if data.skin then
-			vRPclient.applySkin(source,data.skin)
-		end
-		if data.weaps then
-			vRPclient.giveWeapons(source,data.weaps,true)
+			vRPclient.applySkin(source, data.skin)
 		end
 
 		if data.health then
@@ -39,33 +36,37 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 			TriggerClientEvent("statusStress",source,data.stress)
 		end
 
-		if data.inventory == nil then
-			data.inventory = {}
+		if data.inventorys == nil then
+			data.inventorys = {}
+		end
+
+		if data.weaps then
+			vRPclient.giveWeapons(source,data.weaps,true)
 		end
 
 		vRPclient.playerReady(source)
 
 		Citizen.Wait(1000)
 
-		-- VRP_BARBERSHOP
-		--local barberData = vRP.query("vRP/selectSkin",{ user_id = parseInt(user_id) })
-		--if barberData[1] then
-		--	TriggerClientEvent("vrp_barbershop:setCustomization",source,{ parseInt(barberData[1].fathers),parseInt(barberData[1].kinship),parseInt(barberData[1].eyecolor),parseInt(barberData[1].skincolor),parseInt(barberData[1].acne),parseInt(barberData[1].stains),parseInt(barberData[1].freckles),parseInt(barberData[1].aging),parseInt(barberData[1].hair),parseInt(barberData[1].haircolor),parseInt(barberData[1].haircolor2),parseInt(barberData[1].makeup),parseInt(barberData[1].makeupintensity),parseInt(barberData[1].makeupcolor),parseInt(barberData[1].lipstick),parseInt(barberData[1].lipstickintensity),parseInt(barberData[1].lipstickcolor),parseInt(barberData[1].eyebrow),parseInt(barberData[1].eyebrowintensity),parseInt(barberData[1].eyebrowcolor),parseInt(barberData[1].beard),parseInt(barberData[1].beardintentisy),parseInt(barberData[1].beardcolor),parseInt(barberData[1].blush),parseInt(barberData[1].blushintentisy),parseInt(barberData[1].blushcolor) })
-		--else
-		--	vRP.execute("vRP/insertSkin",{ user_id = parseInt(user_id) })
-		--end
+		-- barbershop
+		local barberData = vRP.query("vRP/selectSkin",{ user_id = parseInt(user_id) })
+		if barberData[1] then
+			TriggerClientEvent("barbershop:setCustomization",source,{ parseInt(barberData[1].fathers),parseInt(barberData[1].kinship),parseInt(barberData[1].eyecolor),parseInt(barberData[1].skincolor),parseInt(barberData[1].acne),parseInt(barberData[1].stains),parseInt(barberData[1].freckles),parseInt(barberData[1].aging),parseInt(barberData[1].hair),parseInt(barberData[1].haircolor),parseInt(barberData[1].haircolor2),parseInt(barberData[1].makeup),parseInt(barberData[1].makeupintensity),parseInt(barberData[1].makeupcolor),parseInt(barberData[1].lipstick),parseInt(barberData[1].lipstickintensity),parseInt(barberData[1].lipstickcolor),parseInt(barberData[1].eyebrow),parseInt(barberData[1].eyebrowintensity),parseInt(barberData[1].eyebrowcolor),parseInt(barberData[1].beard),parseInt(barberData[1].beardintentisy),parseInt(barberData[1].beardcolor),parseInt(barberData[1].blush),parseInt(barberData[1].blushintentisy),parseInt(barberData[1].blushcolor) })
+		else
+			vRP.execute("vRP/insertSkin",{ user_id = parseInt(user_id) })
+		end
 
-		--Citizen.Wait(1000)
+		Citizen.Wait(1000)
 
-		-- SKINSHOP
+		-- skinshop
 		local playerData = vRP.getUData(user_id,"Clothings")
 		local resultData = json.decode(playerData)
 		if resultData == nil then
 			resultData = "clean"
 		end
 		TriggerClientEvent("skinshop:skinData",source,resultData)
-		
-		-- VRP_TATTOOS
+
+		-- tattoos
         local consult = vRP.getUData(user_id,"Tattoos")
         local result = json.decode(consult)
         if result then
