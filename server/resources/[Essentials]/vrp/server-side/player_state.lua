@@ -17,10 +17,10 @@ AddEventHandler("vRP:playerSpawn",function(user_id, source)
 
 		if data.position then
 			if data.position.x == nil or data.position.y == nil or data.position.z == nil then
-				data.position = { x = -2043.94, y = -1031.38, z = 11.99 }
-			end
+				data.position = { x = -26.9, y = -145.5, z = 56.98 }
+			end 
 		else
-			data.position = { x = -2043.94, y = -1031.38, z = 11.99 }
+			data.position = { x = -26.9, y = -145.5, z = 56.98 }
 		end
 		vRPclient.teleport(source,data.position.x,data.position.y,data.position.z+0.5)
 
