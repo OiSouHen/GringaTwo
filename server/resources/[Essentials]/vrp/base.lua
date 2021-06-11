@@ -312,11 +312,11 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 					vRP.execute("vRP/create_user",{ steam = steam })
 				end
 
-				deferrals.done("Faca sua whitelist e na parte de steam hex coloque: "..steam)
+				deferrals.done("Envie na sala liberação: "..steam)
 				TriggerEvent("queue:playerConnectingRemoveQueues",ids)
 			end
 		else
-			deferrals.done("Você foi banido da cidade. Sua steam: "..steam)
+			deferrals.done("Você foi banido da cidade.")
 			TriggerEvent("queue:playerConnectingRemoveQueues",ids)
 		end
 	end
@@ -350,7 +350,6 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 			vRP.user_tables[user_id].inventorys = {}
 			vRP.user_tables[user_id].skin = GetHashKey(model)
 			vRP.user_tables[user_id].inventorys["1"] = { item = "identity", amount = 1 }
-			vRP.user_tables[user_id].inventorys["2"] = { item = "dollars", amount = 500 }
 		end
 
 		local identity = vRP.getUserIdentity(user_id)

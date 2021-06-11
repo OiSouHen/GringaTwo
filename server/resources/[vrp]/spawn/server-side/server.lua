@@ -43,12 +43,13 @@ AddEventHandler("spawn:charChosen",function(id)
 	TriggerClientEvent("hudActived",source,true)
 	TriggerEvent("baseModule:idLoaded",source,id,nil)
 
-	if spawnLogin[id] then
-		TriggerClientEvent("spawn:spawnChar",source,false)
-	else
-		spawnLogin[id] = true
-		TriggerClientEvent("spawn:spawnChar",source,true)
-	end
+	-- if spawnLogin[parseInt(id)] then
+	-- 	-- TriggerClientEvent("spawn:spawnChar",source,false)
+	-- else
+	-- 	spawnLogin[parseInt(id)] = true
+	-- 	-- TriggerClientEvent("spawn:spawnChar",source,true)	
+	-- end
+	TriggerEvent("CharacterSpawn", source, id)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATECHAR
@@ -86,8 +87,9 @@ AddEventHandler("spawn:createChar",function(name,name2,sex)
 
 	spawnLogin[parseInt(newId)] = true
 	TriggerClientEvent("hudActived",source,true)
-	TriggerClientEvent("spawn:spawnChar",source,true)
+	-- TriggerClientEvent("spawn:spawnChar",source,true)
 	TriggerEvent("baseModule:idLoaded",source,newId,model)
+	TriggerEvent("CharacterSpawn", source, newId)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETPLAYERCHARACTERS

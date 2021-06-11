@@ -13,7 +13,19 @@ vSERVER = Tunnel.getInterface("spawn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local cam = nil
+cam = nil
+
+function removeCamActive()
+    if cam and IsCamActive(cam) then
+        SetCamCoord(cam, GetGameplayCamCoords())
+        SetCamRot(cam, GetGameplayCamRot(2), 2)
+        RenderScriptCams(0, 0, 0, 0, 0)
+        EnableGameplayCam(true)
+        SetCamActive(cam, false)
+        DestroyCam(cam)
+        cam = nil
+    end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETUPCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -47,10 +59,10 @@ RegisterNetEvent("spawn:spawnChar")
 AddEventHandler("spawn:spawnChar",function(status)
 	DoScreenFadeOut(1000)
 	Citizen.Wait(1000)
-
-	SetCamActive(cam,false)
-	DestroyCam(cam,true)
-	cam = nil
+	SetEntityVisible(PlayerPedId(),true,true)
+	FreezeEntityPosition(PlayerPedId(),false)
+	SetEntityInvincible(PlayerPedId(),false)
+	removeCamActive()
 
 	TriggerEvent("login:Spawn",status)
 end)
@@ -62,20 +74,31 @@ RegisterNUICallback("GetCharacters",function(data,cb)
 	Citizen.Wait(1000)
 	cb(chars)
 end)
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHARACTERCHOSEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("CharacterChosen",function(data,cb)
+	SetEntityVisible(PlayerPedId(),true,true)
+	FreezeEntityPosition(PlayerPedId(),false)
+	SetEntityInvincible(PlayerPedId(),false)
 	TriggerServerEvent("spawn:charChosen",tonumber(data.id))
 	SetNuiFocus(false,false)
+	removeCamActive()
 	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHARACTERCREATED
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("CharacterCreated",function(data,cb)
+	SetEntityVisible(PlayerPedId(),true,true)
+	FreezeEntityPosition(PlayerPedId(),false)
+	SetEntityInvincible(PlayerPedId(),false)	
 	TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex)
 	SetNuiFocus(false,false)
+	removeCamActive()
+
 	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -84,10 +107,4 @@ end)
 RegisterNUICallback("DeleteCharacter",function(data,cb)
 	local chars = vSERVER.deleteChar(tonumber(data.id))
 	cb(chars)
-end)
-
-CreateThread( function()
-	TriggerServerEvent("vRP:playerSpawned")
-	Wait(1000)
-	ShutdownLoadingScreen()
 end)

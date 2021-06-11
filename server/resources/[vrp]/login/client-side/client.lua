@@ -26,7 +26,7 @@ AddEventHandler("login:Spawn",function(status)
 	if status then
 		local x,y,z = table.unpack(GetEntityCoords(ped))
 
-		cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",x,y,z+200.0,270.00,0.0,0.0,80.0,0,0)
+		cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",x,y,z + 200.0,270.00,0.0,0.0,80.0,0,0)
 		SetCamActive(cam,true)
 
 		RenderScriptCams(true,false,1,true,true)
