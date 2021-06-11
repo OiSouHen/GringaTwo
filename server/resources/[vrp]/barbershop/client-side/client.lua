@@ -8,29 +8,60 @@ vRP = Proxy.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("barbershop",cRP)
+Tunnel.bindInterface("barbershop", cRP)
 vSERVER = Tunnel.getInterface("barbershop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local cam = -1
-local myClothes = {}
+myClothes = {}
+local canStartTread = 0
+
+function f(n)
+    n = n + 0.00000
+    return n
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("updateSkin",function(data)
-	myClothes = {}
-	myClothes = { tonumber(data["fathers"]),tonumber(data["kinship"]),tonumber(data["eyecolor"]),tonumber(data["skincolor"]),tonumber(data["acne"]),tonumber(data["stains"]),tonumber(data["freckles"]),tonumber(data["aging"]),tonumber(data["hair"]),tonumber(data["haircolor"]),tonumber(data["haircolor2"]),tonumber(data["makeup"]),tonumber(data["makeupintensity"]),tonumber(data["makeupcolor"]),tonumber(data["lipstick"]),tonumber(data["lipstickintensity"]),tonumber(data["lipstickcolor"]),tonumber(data["eyebrow"]),tonumber(data["eyebrowintensity"]),tonumber(data["eyebrowcolor"]),tonumber(data["beard"]),tonumber(data["beardintentisy"]),tonumber(data["beardcolor"]),tonumber(data["blush"]),tonumber(data["blushintentisy"]),tonumber(data["blushcolor"]),tonumber(data["face00"]),tonumber(data["face01"]),tonumber(data["face04"]),tonumber(data["face06"]),tonumber(data["face08"]),tonumber(data["face09"]),tonumber(data["face10"]),tonumber(data["face12"]),tonumber(data["face13"]),tonumber(data["face14"]),tonumber(data["face15"]),tonumber(data["face16"]),tonumber(data["face17"]),tonumber(data["face19"]),tonumber(data["mothers"]) }
+RegisterNUICallback("updateSkin", function(data)
+	
+	myClothes.skinColor = tonumber(data.skinColor)
+	myClothes.eyesColor = tonumber(data.eyesColor)
+    myClothes.complexionModel = tonumber(data.complexionModel)
+    myClothes.blemishesModel = tonumber(data.blemishesModel)
+    myClothes.frecklesModel = tonumber(data.frecklesModel)
+    myClothes.ageingModel = tonumber(data.ageingModel)
+    myClothes.hairModel = tonumber(data.hairModel)
+    myClothes.firstHairColor = tonumber(data.firstHairColor)
+    myClothes.secondHairColor = tonumber(data.secondHairColor)
+    myClothes.makeupModel = tonumber(data.makeupModel)
+    myClothes.lipstickModel = tonumber(data.lipstickModel)
+    myClothes.lipstickColor = tonumber(data.lipstickColor)
+    myClothes.eyebrowsModel = tonumber(data.eyebrowsModel)
+    myClothes.eyebrowsColor = tonumber(data.eyebrowsColor)
+    myClothes.beardModel = tonumber(data.beardModel)
+    myClothes.beardColor = tonumber(data.beardColor)    
+    myClothes.blushModel = tonumber(data.blushModel)
+    myClothes.blushColor = tonumber(data.blushColor)
 
-	if data["value"] then
-		SetNuiFocus(false)
-		displayBarbershop(false)
-		vSERVER.updateSkin(myClothes)
-		SendNUIMessage({ openBarbershop = false })
-	end
+    if data.value then
+        SetNuiFocus(false)
+        displayBarbershop(false)
+        vSERVER.updateSkin(myClothes)
+        SendNUIMessage({
+            openBarbershop = false
+        })
+    end
 
-	TriggerEvent("barbershop:apply",myClothes)
+    updateHead()
+    updateFace()
+    updateGenetics()
+
 end)
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ROTATELEFT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -43,91 +74,135 @@ RegisterNUICallback("rotate",function(data,cb)
 		SetEntityHeading(ped,heading - 10)
 	end
 end)
+
+--{"eyebrowsModel":16,"jawHeight":0,"eyebrowsWidth":0,"noseBridge":0,"chestColor":0,"complexionModel":-1,"neckWidth":0,"frecklesModel":-1,"skinColor":9,"blushColor":0,"cheekboneHeight":0,"eyebrowsColor":0,"chinLength":0,"cheekboneWidth":0,"sundamageModel":-1,"ageingModel":-1,"hairModel":4,"chinPosition":0,"firstHairColor":0,"noseShift":0,"noseTip":0,"chinWidth":0,"blemishesModel":-1,"beardColor":0,"noseWidth":0,"lipstickModel":-1,"makeupModel":-1,"lips":0,"noseHeight":0,"eyebrowsHeight":0,"secondHairColor":0,"blushModel":-1,"mothersID":24,"beardModel":-1,"jawWidth":0,"fathersID":4,"chestModel":-1,"lipstickColor":0,"shapeMix":0.7,"noseLength":0,"cheeksWidth":0,"chinShape":0,"eyesColor":0}
+function updateGenetics()
+    local data = myClothes
+    local ped = PlayerPedId()    
+    SetPedHeadBlendData(PlayerPedId(), tonumber(data.fathersID), tonumber(data.mothersID), 0, tonumber(data.skinColor), 0, 0, f(data.shapeMix), 0, 0, false)
+    SetPedEyeColor(ped, data.eyesColor)
+end
+
+function updateFace()
+    local ped = PlayerPedId()
+    local data = myClothes
+    -- Olhos
+    -- Sobrancelha
+    SetPedFaceFeature(ped, 6, tonumber(data.eyebrowsHeight))
+    SetPedFaceFeature(ped, 7, tonumber(data.eyebrowsWidth))
+    -- -- Nariz
+    SetPedFaceFeature(ped, 0, tonumber(data.noseWidth))
+    SetPedFaceFeature(ped, 1, tonumber(data.noseHeight))
+    SetPedFaceFeature(ped, 2, tonumber(data.noseLength))
+    SetPedFaceFeature(ped, 3, tonumber(data.noseBridge))
+    SetPedFaceFeature(ped, 4, tonumber(data.noseTip))
+    -- SetPedFaceFeature(ped, 5, data.noseShift)
+    -- Bochechas
+    SetPedFaceFeature(ped, 8, tonumber(data.cheekboneHeight))
+    SetPedFaceFeature(ped, 9, tonumber(data.cheekboneWidth))
+    SetPedFaceFeature(ped, 10, tonumber(data.cheeksWidth))
+    -- -- Boca/Mandibula
+    SetPedFaceFeature(ped, 12, tonumber(data.lips))
+    SetPedFaceFeature(ped, 13, tonumber(data.jawWidth))
+    SetPedFaceFeature(ped, 14, tonumber(data.jawHeight))
+    -- -- Queixo
+    SetPedFaceFeature(ped, 15, tonumber(data.chinLength))
+    SetPedFaceFeature(ped, 16, tonumber(data.chinPosition))
+    SetPedFaceFeature(ped, 17, tonumber(data.chinWidth))
+    SetPedFaceFeature(ped, 18, tonumber(data.chinShape))
+    -- -- Pescoço
+    SetPedFaceFeature(ped, 19, tonumber(data.neckWidth))
+
+end
+
+function updateHead()
+    local ped = PlayerPedId()
+    local data = myClothes
+    -- sobrancelhas
+    SetPedHeadOverlay(ped, 2, data.eyebrowsModel, 0.99)
+    SetPedHeadOverlayColor(ped, 2, 1, data.eyebrowsColor, data.eyebrowsColor)
+    -- Cabelo
+    SetPedComponentVariation(ped, 2, tonumber(data.hairModel), 0, 0)
+    SetPedHairColor(ped, tonumber(data.firstHairColor), tonumber(data.secondHairColor))
+    -- -- Barba
+    SetPedHeadOverlay(ped, 1, tonumber(data.beardModel), 0.99)
+    SetPedHeadOverlayColor(ped, 1, 1, tonumber(data.beardColor), tonumber(data.beardColor))
+    -- -- Pelo Corporal
+    SetPedHeadOverlay(ped, 10, tonumber(data.chestModel), 0.99)
+    SetPedHeadOverlayColor(ped, 10, 1, tonumber(data.chestColor), tonumber(data.chestColor))
+    -- -- Maquiagem
+    SetPedHeadOverlay(ped, 4, tonumber(data.makeupModel), 0.99)
+    SetPedHeadOverlayColor(ped, 4, 0, 0, 0)
+    -- -- Blush
+    SetPedHeadOverlay(ped, 5, tonumber(data.blushModel), 0.99)
+    SetPedHeadOverlayColor(ped, 5, 2, tonumber(data.blushColor), tonumber(data.blushColor))
+    -- -- Battom
+    SetPedHeadOverlay(ped, 8, tonumber(data.lipstickModel), 0.99)
+    SetPedHeadOverlayColor(ped, 8, 2, tonumber(data.lipstickColor), tonumber(data.lipstickColor))
+
+    -- Manchas
+    SetPedHeadOverlay(ped, 0, tonumber(data.blemishesModel), 0.99)
+    SetPedHeadOverlayColor(ped, 0, 0, 0, 0)
+    -- Envelhecimento
+    SetPedHeadOverlay(ped, 3, tonumber(data.ageingModel), 0.99)
+    SetPedHeadOverlayColor(ped, 3, 0, 0, 0)
+    -- Aspecto
+    SetPedHeadOverlay(ped, 6, tonumber(data.complexionModel), 0.99)
+    SetPedHeadOverlayColor(ped, 6, 0, 0, 0)
+    -- Pele
+    SetPedHeadOverlay(ped, 7, tonumber(data.sundamageModel), 0.99)
+    SetPedHeadOverlayColor(ped, 7, 0, 0, 0)
+    -- Sardas
+    SetPedHeadOverlay(ped, 9, tonumber(data.frecklesModel), 0.99)
+    SetPedHeadOverlayColor(ped, 9, 0, 0, 0)
+
+end
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETCUSTOMIZATION
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("barbershop:apply")
-AddEventHandler("barbershop:apply",function(status)
-	myClothes = {}
-	myClothes = { status[1] or 0, status[2] or 0, status[3] or 0, status[4] or 0, status[5] or 0, status[6] or 0, status[7] or 0, status[8] or 0, status[9] or 0, status[10] or 0, status[11] or 0, status[12] or 0, status[13] or 0, status[14] or 0, status[15] or 0, status[16] or 0, status[17] or 0, status[18] or 0, status[19] or 0, status[20] or 0, status[21] or 0, status[22] or 0, status[23] or 0, status[24] or 0, status[25] or 0, status[26] or 0, status[27] or 0, status[28] or 0, status[29] or 0, status[30] or 0, status[31] or 0, status[32] or 0, status[33] or 0, status[34] or 0, status[35] or 0, status[36] or 0, status[37] or 0, status[38] or 0, status[39] or 0, status[40] or 0, status[41] or 0 }
-
-	local ped = PlayerPedId()
-
-    local weightFace = myClothes[2] / 100 + 0.0
-    local weightSkin = myClothes[4] / 100 + 0.0
-
-	SetPedHeadBlendData(ped,myClothes[41],myClothes[1],0,myClothes[41],myClothes[1],0,weightFace,weightSkin,0.0,false)
-
-	SetPedEyeColor(ped,myClothes[3])
-
-	if myClothes[5] == 0 then
-		SetPedHeadOverlay(ped,0,myClothes[5],0.0)
-	else
-		SetPedHeadOverlay(ped,0,myClothes[5],1.0)
-	end
-
-	SetPedHeadOverlay(ped,6,myClothes[6],1.0)
-
-	if myClothes[7] == 0 then
-		SetPedHeadOverlay(ped,9,myClothes[7],0.0)
-	else
-		SetPedHeadOverlay(ped,9,myClothes[7],1.0)
-	end
-
-	SetPedHeadOverlay(ped,3,myClothes[8],1.0)
-
-	SetPedComponentVariation(ped,2,myClothes[9],0,1)
-	SetPedHairColor(ped,myClothes[10],myClothes[11])
-
-	SetPedHeadOverlay(ped,4,myClothes[12],myClothes[13] * 0.1)
-	SetPedHeadOverlayColor(ped,4,1,myClothes[14],myClothes[14])
-
-	SetPedHeadOverlay(ped,8,myClothes[15],myClothes[16] * 0.1)
-	SetPedHeadOverlayColor(ped,8,1,myClothes[17],myClothes[17])
-
-	SetPedHeadOverlay(ped,2,myClothes[18],myClothes[19] * 0.1)
-	SetPedHeadOverlayColor(ped,2,1,myClothes[20],myClothes[20])
-
-	SetPedHeadOverlay(ped,1,myClothes[21],myClothes[22] * 0.1)
-	SetPedHeadOverlayColor(ped,1,1,myClothes[23],myClothes[23])
-
-	SetPedHeadOverlay(ped,5,myClothes[24],myClothes[25] * 0.1)
-	SetPedHeadOverlayColor(ped,5,1,myClothes[26],myClothes[26])
-
-	SetPedFaceFeature(ped,0,myClothes[27] * 0.1)
-	SetPedFaceFeature(ped,1,myClothes[28] * 0.1)
-	SetPedFaceFeature(ped,4,myClothes[29] * 0.1)
-	SetPedFaceFeature(ped,6,myClothes[30] * 0.1)
-	SetPedFaceFeature(ped,8,myClothes[31] * 0.1)
-	SetPedFaceFeature(ped,9,myClothes[32] * 0.1)
-	SetPedFaceFeature(ped,10,myClothes[33] * 0.1)
-	SetPedFaceFeature(ped,12,myClothes[34] * 0.1)
-	SetPedFaceFeature(ped,13,myClothes[35] * 0.1)
-	SetPedFaceFeature(ped,14,myClothes[36] * 0.1)
-	SetPedFaceFeature(ped,15,myClothes[37] * 0.1)
-	SetPedFaceFeature(ped,16,myClothes[38] * 0.1)
-	SetPedFaceFeature(ped,17,myClothes[39] * 0.1)
-	SetPedFaceFeature(ped,19,myClothes[40] * 0.1)
+RegisterNetEvent("barbershop:setCustomization")
+AddEventHandler("barbershop:setCustomization", function(dbCharacter)
+    myClothes = dbCharacter	
+    canStartTread = 20
 end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		if canStartTread > 0 then
+			while not IsPedModel(PlayerPedId(),"mp_m_freemode_01") and not IsPedModel(PlayerPedId(),"mp_f_freemode_01") do
+				Citizen.Wait(10)
+			end
+            updateHead()
+            updateFace()
+            updateGenetics()
+            canStartTread = canStartTread - 1
+		end
+	end
+end)
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISPLAYBARBERSHOP
 -----------------------------------------------------------------------------------------------------------------------------------------
 function displayBarbershop(enable)
-	local ped = PlayerPedId()
+    local ped = PlayerPedId()
 
-	if enable then
+    if enable then
 		SetEntityHeading(PlayerPedId(),332.21)
 		SetFollowPedCamViewMode(0)
 		SetNuiFocus(true,true)
-		SendNUIMessage({ openBarbershop = true, maxHair = GetNumberOfPedDrawableVariations(ped,2) - 1, fathers = myClothes[1], mothers = myClothes[41], kinship = myClothes[2], eyecolor = myClothes[3], skincolor = myClothes[4], acne = myClothes[5], stains = myClothes[6], freckles = myClothes[7], aging = myClothes[8], hair = myClothes[9], haircolor = myClothes[10], haircolor2 = myClothes[11], makeup = myClothes[12], makeupintensity = myClothes[13], makeupcolor = myClothes[14], lipstick = myClothes[15], lipstickintensity = myClothes[16], lipstickcolor = myClothes[17], eyebrow = myClothes[18], eyebrowintensity = myClothes[19], eyebrowcolor = myClothes[20], beard = myClothes[21], beardintentisy = myClothes[22], beardcolor = myClothes[23], blush = myClothes[24], blushintentisy = myClothes[25], blushcolor = myClothes[26], face00 = myClothes[27], face01 = myClothes[28], face04 = myClothes[29], face06 = myClothes[30], face08 = myClothes[31], face09 = myClothes[32], face10 = myClothes[33], face12 = myClothes[34], face13 = myClothes[35], face14 = myClothes[36], face15 = myClothes[37], face16 = myClothes[38], face17 = myClothes[39], face19 = myClothes[40] })
+        SendNUIMessage({openBarbershop = true,myclothes = myClothes})
 
-		if IsDisabledControlJustReleased(0,24) or IsDisabledControlJustReleased(0,142) then
+        FreezeEntityPosition(ped, true)
+
+        if IsDisabledControlJustReleased(0,24) or IsDisabledControlJustReleased(0,142) then
 			SendNUIMessage({ type = "click" })
 		end
 
 		SetPlayerInvincible(ped,true)
 
-		if not DoesCamExist(cam) then
+        if not DoesCamExist(cam) then
 			cam = CreateCam("DEFAULT_SCRIPTED_CAMERA",true)
 			SetCamCoord(cam,GetEntityCoords(ped))
 			SetCamRot(cam,0.0,0.0,0.0)
@@ -143,7 +218,7 @@ function displayBarbershop(enable)
 		SetPlayerInvincible(ped,false)
 		RenderScriptCams(false,false,0,1,0)
 		DestroyCam(cam,false)
-	end
+    end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFOCUS
@@ -180,25 +255,25 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
-
+	
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
-
+			
 			for k,v in pairs(locations) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2.5 then
 					timeDistance = 4
-
-					if IsControlJustPressed(1,38) and vSERVER.checkShares() then
+					if IsControlJustPressed(1,38) and vSERVER.checkOpen() then
 						displayBarbershop(true)
+						SetEntityHeading(ped,332.21)
 					end
 				end
 			end
 		end
-
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -209,4 +284,12 @@ RegisterNetEvent("syncarea")
 AddEventHandler("syncarea",function(x,y,z,distance)
 	ClearAreaOfVehicles(x,y,z,distance + 0.0,false,false,false,false,false)
 	ClearAreaOfEverything(x,y,z,distance + 0.0,false,false,false,false)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- OPEN BARBERSHOP
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("opernBarberhop")
+AddEventHandler("opernBarberhop", function()
+    displayBarbershop(true)
+    SetEntityHeading(ped, 332.21)
 end)

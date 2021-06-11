@@ -395,14 +395,14 @@ form {
 	margin-bottom: 10px;
 }
 
-.submit {
+.buttons .yes {
 	width: 420px;
-	height: 70px;
+	height: 40px;
 	display: block;
 	border: none;
 	background-color: #2e6e4c;
-	font-size: 20px;
-	line-height: 70px;
+	font-size: 14px;
+	line-height: 40px;
 	color: #95c5ab;
 	position: fixed;
 	bottom: 0px;
@@ -412,6 +412,6 @@ form {
 	transition: all .2s ease-in-out;
 }
 
-.submit:hover {
+.buttons .yes:hover {
 	background-color: #39875e;
 }
