@@ -1866,7 +1866,7 @@ local mobileTheft = {
 		[20] = { "blackcard",1 }
 	},
 	["LOCKER"] = {
-		[1] = { "dollars",math.random(2500,5000) },
+		[1] = { "dollars",math.random(1500,3000) },
 		[2] = { "ring",math.random(4,8) },
 		[3] = { "watch",math.random(4,8) },
 		[4] = { "bluecard",1 },
