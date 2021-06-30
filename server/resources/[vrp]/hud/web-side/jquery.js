@@ -51,6 +51,7 @@ $(document).ready(function(){
 			} else {
 				$("#displayHud").fadeOut(500);
 			}
+
 			return
 		}
 
@@ -66,6 +67,14 @@ $(document).ready(function(){
 			return
 		}
 
+		if (event["data"]["screen"] !== undefined){
+			if (event["data"]["screen"] == true){
+				$("#saltyScreen").fadeIn(100);
+			} else {
+				$("#saltyScreen").fadeOut(100);
+			}
+		}
+
 		if (event["data"]["hood"] !== undefined){
 			if (event["data"]["hood"] == true){
 				$("#hoodDisplay").fadeIn(500);
@@ -79,10 +88,12 @@ $(document).ready(function(){
 		} else {
 			$("#voice").css("background","#222 url(micOff.png)");
 
-			if (event["data"]["voice"] == 1){
-				$(".voiceDisplay").css("stroke-dashoffset","66");
+			if (event["data"]["voice"] == 0){
+				$(".voiceDisplay").css("stroke-dashoffset","75");
+			} else if (event["data"]["voice"] == 1){
+				$(".voiceDisplay").css("stroke-dashoffset","50");
 			} else if (event["data"]["voice"] == 2){
-				$(".voiceDisplay").css("stroke-dashoffset","33");
+				$(".voiceDisplay").css("stroke-dashoffset","25");
 			} else if (event["data"]["voice"] == 3){
 				$(".voiceDisplay").css("stroke-dashoffset","0");
 			}
@@ -142,27 +153,20 @@ $(document).ready(function(){
 			$(".foodDisplay").css("stroke-dashoffset",100 - event["data"]["hunger"]);
 		}
 
+		if (event["data"]["suit"] == undefined){
+			if($(".oxigenBackground").css("display") === "block"){
+				$(".oxigenBackground").css("display","none");
+			}
+		} else {
+			if($(".oxigenBackground").css("display") === "none"){
+				$(".oxigenBackground").css("display","block");
+			}
+		}
+
 		if (lastOxigen !== event["data"]["oxigen"]){
 			lastOxigen = event["data"]["oxigen"];
 
-			if (event["data"]["oxigen"] == 10){
-				if($(".oxigenBackground").css("display") === "block"){
-					$(".oxigenBackground").css("display","none");
-				}
-			} else {
-				if($(".oxigenBackground").css("display") === "none"){
-					$(".oxigenBackground").css("display","block");
-				}
-			}
-
-			if (event["data"]["oxigen"] <= 0)
-				event["data"]["oxigen"] = 0;
-
-			if (event["data"]["oxigen"] <= 10){
-				$(".oxigenDisplay").css("stroke-dashoffset",100 - (event["data"]["oxigen"] * 10));
-			} else {
-				$(".oxigenDisplay").css("stroke-dashoffset",100 - (event["data"]["oxigen"] / 12));
-			}
+			$(".oxigenDisplay").css("stroke-dashoffset",100 - event["data"]["oxigen"]);
 		}
 
 		if (event["data"]["vehicle"] !== undefined){
@@ -172,30 +176,26 @@ $(document).ready(function(){
 				}
 
 				if (event["data"]["showbelt"] == false){
-					if($("#hardBeltOff").css("display") === "block"){
-						$("#hardBeltOff").css("display","none");
-						$("#seatBeltOff").css("display","none");
+					if($("#hardBelt").css("display") === "block"){
+						$("#hardBelt").css("display","none");
+						$("#seatBelt").css("display","none");
 					}
 				} else {
-					if($("#hardBeltOff").css("display") === "none"){
-						$("#hardBeltOff").css("display","block");
-						$("#seatBeltOff").css("display","block");
+					if($("#hardBelt").css("display") === "none"){
+						$("#hardBelt").css("display","block");
+						$("#seatBelt").css("display","block");
 					}
 
 					if (event["data"]["hardness"] == 1){
-						$("#hardBeltOff").css("display","none");
-						$("#hardBeltOn").css("display","block");
+						$("#hardBelt").html("<img src='beltOn.png'>");
 					} else {
-						$("#hardBeltOff").css("display","block");
-						$("#hardBeltOn").css("display","none");
+						$("#hardBelt").html("<img src='beltOff.png'>");
 					}
 
 					if (event["data"]["seatbelt"] == 1){
-						$("#seatBeltOff").css("display","none");
-						$("#seatBeltOn").css("display","block");
+						$("#seatBelt").html("<img src='beltOn.png'>");
 					} else {
-						$("#seatBeltOff").css("display","block");
-						$("#seatBeltOn").css("display","none");
+						$("#seatBelt").html("<img src='beltOff.png'>");
 					}
 				}
 
@@ -208,6 +208,6 @@ $(document).ready(function(){
 			}
 		}
 
-		$("#displayMiddle").html(event["data"]["radio"] + event["data"]["direction"] + "<s>:</s>" + event["data"]["street"]);
+		$("#displayMiddle").html("<text>" + event["data"]["radio"] + event["data"]["direction"] + "<s>:</s>" + event["data"]["street"] + "</text>");
 	});
 });
