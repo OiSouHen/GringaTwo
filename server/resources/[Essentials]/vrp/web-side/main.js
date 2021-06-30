@@ -14,22 +14,22 @@ window.addEventListener("load",function(){
 	requestmgr.onResponse = function(id,ok){ $.post("http://vrp/request",JSON.stringify({ act: "response", id: id, ok: ok })); }
 	wprompt.onClose = function(){ $.post("http://vrp/prompt",JSON.stringify({ act: "close", result: wprompt.result })); }
 
-	var pbars = {}
-	var divs = {}
-
 	window.addEventListener("message",function(evt){
 		var data = evt["data"];
 
-		if(data.act == "cfg"){
+		if(data["act"] == "cfg"){
 			cfg = data["cfg"]
 		}
-		else if(data["act"] == "prompt"){
+
+		if(data["act"] == "prompt"){
 			wprompt.open(data["title"],data["text"]);
 		}
-		else if(data["act"] == "request"){
+
+		if(data["act"] == "request"){
 			requestmgr.addRequest(data["id"],data["text"],data["time"]);
 		}
-		else if(data["act"] == "event"){
+
+		if(data["act"] == "event"){
 			if(data["event"] == "Y"){
 				requestmgr.respond(true);
 			}
@@ -37,14 +37,57 @@ window.addEventListener("load",function(){
 				requestmgr.respond(false);
 			}
 		}
-		else if (data["death"] == true){
+
+		if (data["death"] == true){
 			$("#deathDiv").css("display","block");
 		}
-		else if (data["death"] == false){
+
+		if (data["death"] == false){
 			$("#deathDiv").css("display","none");
 		}
-		else if (data["deathtext"] !== undefined){
+
+		if (data["deathtext"] !== undefined){
 			$("#deathText").html(data["deathtext"]);
+		}
+
+		if (data["wanted"] == true){
+			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
+
+			if($("#wantedDiv").css("display") === "none"){
+				$("#wantedDiv").css("display","block");
+			}
+		}
+
+		if (data["wanted"] == false){
+			if($("#wantedDiv").css("display") === "block"){
+				$("#wantedDiv").css("display","none");
+			}
+		}
+
+		if (data["wantedTime"] !== undefined){
+			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
+
+			$("#wantedDiv").html("As autoridades estão a sua procura, aguarde <b>"+parseInt(data["wantedTime"])+" segundos</b> até tudo se acalme.");
+		}
+
+		if (data["repose"] == true){
+			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
+
+			if($("#reposeDiv").css("display") === "none"){
+				$("#reposeDiv").css("display","block");
+			}
+		}
+
+		if (data["repose"] == false){
+			if($("#reposeDiv").css("display") === "block"){
+				$("#reposeDiv").css("display","none");
+			}
+		}
+
+		if (data["reposeTime"] !== undefined){
+			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
+
+			$("#reposeDiv").html("Tratamento ocasionou lesões no corpo, aguarde <b>"+parseInt(data["reposeTime"])+" segundos</b> até tudo fique bem.");
 		}
 	});
 });

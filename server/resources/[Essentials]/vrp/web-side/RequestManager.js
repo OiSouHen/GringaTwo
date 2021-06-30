@@ -33,7 +33,7 @@ RequestManager.prototype.respond = function(ok){
 }
 
 RequestManager.prototype.tick = function(){
-	for(var i = this.requests.length-1; i >= 0; i--){
+	for (var i = this.requests.length-1; i >= 0; i--){
 		var request = this.requests[i];
 		request.time -= 1;
 		request.div.innerHTML = this.buildText(request.text,request.time);
