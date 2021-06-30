@@ -7,17 +7,6 @@ html,body {
 	font-family: "Roboto",Arial,Helvetica,sans-serif;
 }
 
-#saltyScreen {
-	display: flex;
-	color: #ffb400;
-	padding: 20px 0;
-	letter-spacing: 2px;
-	align-items: flex-end;
-	justify-content: center;
-	text-transform: uppercase;
-	background: rgba(0,0,0,0.75);
-}
-
 #displayLogo {
 	top: 75px;
 	right: 75px;

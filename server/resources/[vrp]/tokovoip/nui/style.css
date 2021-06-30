@@ -1,0 +1,21 @@
+#pluginScreen {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: absolute;
+	font-family: "Roboto",Arial,Helvetica,sans-serif;
+	font-size: 13px;
+}
+#alertScreen {
+	display: flex;
+	color: #ffb400;
+	padding: 20px 0;
+	z-index: 10;
+	letter-spacing: 2px;
+	align-items: flex-end;
+	justify-content: center;
+	text-transform: uppercase;
+	background: rgba(0,0,0,0.75);
+}
