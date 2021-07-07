@@ -190,14 +190,14 @@ const requestInicio = () => {
 	$('#bank-right').html(`
 		<div class="menu-depositar">
 			<div class="title-sacar"><b>DEPOSITAR</b><br>Faça um depósito rápido na sua conta bancária.</div>
-			<input id="deposito" class="deposito" maxlength="9" spellcheck="false" value="" placeholder="VALOR..">
+			<input id="deposito" class="deposito" maxlength="9" spellcheck="false" value="" placeholder="VALOR...">
 			<div class="depositar">ENVIAR</div>
 		</div>
 		<div class="menu-space">
 		</div>
 		<div class="menu-sacar">
 			<div class="title-sacar"><b>SACAR</b><br>Retire rapidamente sua conta bancária.</div>
-			<input id="saque" class="saque" maxlength="9" spellcheck="false" value="" placeholder="VALOR..">
+			<input id="saque" class="saque" maxlength="9" spellcheck="false" value="" placeholder="VALOR...">
 			<div class="sacar">ENVIAR</div>
 		</div>`);
 }
