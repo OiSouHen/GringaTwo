@@ -11,8 +11,3 @@ server_scripts {
 	"@vrp/lib/utils.lua",
 	"server-side/*"
 }
-
-files {
-	"web-side/*",
-	"web-side/**/*"
-}
