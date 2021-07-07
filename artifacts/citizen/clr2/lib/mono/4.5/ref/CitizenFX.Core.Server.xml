@@ -6695,6 +6695,39 @@
             Routing buckets are also known as 'dimensions' or 'virtual worlds' in past echoes, however they are population-aware.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_GAME_BUILD_NUMBER">
+            <summary>
+            Returns the internal build number of the current game being executed.
+            
+            Possible values:
+            
+            *   FiveM
+                *   1604
+                *   2060
+                *   2189
+            *   RedM
+                *   1311
+                *   1355
+            *   LibertyM
+                *   43
+            *   FXServer
+                *   0
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_GAME_NAME">
+            <summary>
+            Returns the current game being executed.
+            
+            Possible values:
+            
+            | Return value | Meaning                        |
+            | ------------ | ------------------------------ |
+            | `fxserver`   | Server-side code ('Duplicity') |
+            | `fivem`      | FiveM for GTA V                |
+            | `libertym`   | LibertyM for GTA IV            |
+            | `redm`       | RedM for Red Dead Redemption 2 |
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_GAME_TIMER">
             <summary>
             Gets the current game timer in milliseconds.
@@ -7724,14 +7757,10 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_RANDOM_COMPONENT_VARIATION">
             <summary>
-            p1 is always false in R* scripts; and a quick disassembly seems to indicate that p1 is unused.  
+            p1 is always 0 in R* scripts; and a quick disassembly seems to indicate that p1 is unused.  
             
             List of component/props ID:
-            gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html  
-            ```
-            
-            ```
-            NativeDB Parameter 1: int p1
+            gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_RANDOM_PROPS">
@@ -8687,6 +8716,41 @@
             </param>
             <returns>
             The routing bucket ID.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetGameBuildNumber">
+            <summary>
+            Returns the internal build number of the current game being executed.
+            Possible values:
+            *   FiveM
+            *   1604
+            *   2060
+            *   2189
+            *   RedM
+            *   1311
+            *   1355
+            *   LibertyM
+            *   43
+            *   FXServer
+            *   0
+            </summary>
+            <returns>
+            The build number, or **0** if no build number is known.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetGameName">
+            <summary>
+            Returns the current game being executed.
+            Possible values:
+            | Return value | Meaning                        |
+            | ------------ | ------------------------------ |
+            | `fxserver`   | Server-side code ('Duplicity') |
+            | `fivem`      | FiveM for GTA V                |
+            | `libertym`   | LibertyM for GTA IV            |
+            | `redm`       | RedM for Red Dead Redemption 2 |
+            </summary>
+            <returns>
+            The game the script environment is running in.
             </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetGameTimer">
@@ -10185,12 +10249,9 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedRandomComponentVariation(System.Int32,System.Boolean)">
             <summary>
-            p1 is always false in R* scripts; and a quick disassembly seems to indicate that p1 is unused.
+            p1 is always 0 in R* scripts; and a quick disassembly seems to indicate that p1 is unused.
             List of component/props ID:
             gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
-            ```
-            ```
-            NativeDB Parameter 1: int p1
             </summary>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedRandomProps(System.Int32)">
