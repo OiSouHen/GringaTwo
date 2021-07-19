@@ -62,40 +62,6 @@ Citizen.CreateThread(function()
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Target","keyboard","LMENU")
 
-	AddBoxZone("stockadeHacker",vector3(1209.22,-3115.16,5.54),0.2,0.4,{
-		name = "stockadeHacker",
-		heading = 272.13,
-		debugPoly = false,
-		minZ = 5.44,
-		maxZ = 5.84
-	},{
-		distance = 0.75,
-		options = {
-			{
-				event = "stockade:initHacker",
-				label = "Hackear",
-				tunnel = "client"
-			}
-		}
-	})
-
-	AddBoxZone("servicePolice01",vector3(441.79,-982.07,30.69),0.4,0.4,{
-		name = "servicePolice01",
-		heading = 91,
-		debugPoly = false,
-		minZ = 30.79,
-		maxZ = 30.99
-	},{
-		distance = 0.75,
-		options = {
-			{
-				event = "player:service",
-				label = "Entrar/Sair de serviço",
-				tunnel = "server"
-			}
-		}
-	})
-
 	AddTargetModel({ 1631638868,2117668672,-1498379115,-1519439119,-289946279 },{
 		options = {
 			{
@@ -107,7 +73,7 @@ Citizen.CreateThread(function()
 		distance = 1.00
 	})
 
-	AddTargetModel({ -171943901,-109356459,1805980844,-99500382,1262298127,1737474779,2040839490,1037469683,867556671,-1521264200,-741944541,-591349326,-293380809,-628719744,-1317098115,1630899471,38932324,-523951410,725259233,764848282,2064599526,536071214,589738836,146905321,47332588,-1118419705,538002882,-377849416,96868307 },{
+	AddTargetModel({ -171943901,-109356459,1805980844,-99500382,1262298127,1737474779,2040839490,1037469683,867556671,-1521264200,-741944541,-591349326,-293380809,-628719744,-1317098115,1630899471,38932324,-523951410,725259233,764848282,2064599526,536071214,589738836,146905321,47332588,-1118419705,538002882,-377849416,96868307,-1195678770 },{
 		options = {
 			{
 				event = "target:animSentar",
@@ -122,7 +88,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:coffeeMachine",
-				label = "Comprar",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
@@ -133,29 +99,18 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:donutMachine",
-				label = "Comprar",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
 		distance = 0.75
 	})
 
-	AddTargetModel({ 992069095 },{
-		options = {
-			{
-				event = "shops:colaMachine",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75
-	})
-	
-	AddTargetModel({ 1114264700 },{
+	AddTargetModel({ 992069095,1114264700 },{
 		options = {
 			{
 				event = "shops:sodaMachine",
-				label = "Comprar",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
@@ -166,7 +121,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:burgerMachine",
-				label = "Comprar",
+				label = "Carrinho de Hambúrguer",
 				tunnel = "client"
 			}
 		},
@@ -177,135 +132,25 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:hotdogMachine",
-				label = "Comprar",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
 		distance = 0.75
 	})
 
---	AddTargetModel({ 1099892058 },{
---		options = {
---			{
---				event = "shops:waterMachine",
---				label = "Máquina de Água",
---				tunnel = "client"
---			}
---		},
---		distance = 0.75
---	})
-
-	AddTargetModel({ 0x18CE57D0 },{ -- Departament store
+	AddTargetModel({ 1099892058 },{
 		options = {
 			{
-				event = "shops:departamentStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-
-	AddTargetModel({ 0x467415E9 },{ -- Ammunation store
-		options = {
-			{
-				event = "shops:ammunationStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-
-	AddTargetModel({ 0x5244247D },{ -- Pharmacy Store
-		options = {
-			{
-				event = "shops:normalpharmacyStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ -1286380898 },{ -- Hospital Pharmacy
-		options = {
-			{
-				event = "shops:hospitalpharmacyStore",
+				event = "shops:waterMachine",
 				label = "Abrir",
 				tunnel = "client"
 			}
 		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ -429715051 },{ -- Mega mall store
-		options = {
-			{
-				event = "shops:megaMallStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ 1644266841 },{ -- Recycling sell
-		options = {
-			{
-				event = "shops:recyclingSell",
-				label = "Reciclar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ 2014052797,-518348876 },{ -- Bar store
-		options = {
-			{
-				event = "shops:barsStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ -1022036185 },{ -- Jewelry store
-		options = {
-			{
-				event = "shops:jewelryStore",
-				label = "Vender",
-				tunnel = "client"
-			}
-		},
-		distance = 2.00
-	})
-	
-	AddTargetModel({ -837606178 },{ -- hunting store
-		options = {
-			{
-				event = "shops:huntingStore",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ 506770882,-870868698,-1364697528,-1126237515 },{ -- Open ATM
-		options = {
-			{
-				event = "atm:openATM",
-				label = "Abrir",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
+		distance = 0.75
 	})
 
-	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324,1457690978 },{ -- Hunting job
+	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
 		options = {
 			{
 				event = "hunting:animalCutting",
@@ -316,7 +161,7 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ -205311355 },{ -- Remove objects
+	AddTargetModel({ -205311355 },{
 		options = {
 			{
 				event = "tryDeleteObject",
@@ -326,62 +171,483 @@ Citizen.CreateThread(function()
 		},
 		distance = 1.50
 	})
-	
-	AddTargetModel({ 829413118 },{ -- Open benefactor
+
+	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
 		options = {
 			{
-				event = "benefactor:openBenefactor",
-				label = "Abrir",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ -1674314660 },{ -- Mechanic craft
-		options = {
-			{
-				event = "crafting:mechanicCraft",
-				label = "Criar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ -573669520 },{ -- Mechanic store
-		options = {
-			{
-				event = "benefactor:openBenefactor",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-	
-	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{ -- Verify newspaper
-		options = {
-			{
-				event = "garbageman:verifyBox",
+				event = "inventory:verifyObjects",
 				label = "Vasculhar",
+				tunnel = "police",
+				service = "Lixeiro"
+			}
+		},
+		distance = 0.75
+	})
+
+	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{
+		options = {
+			{
+				event = "inventory:verifyObjects",
+				label = "Vasculhar",
+				tunnel = "police",
+				service = "Jornaleiro"
+			}
+		},
+		distance = 0.75
+	})
+
+	AddTargetModel({ -2007231801,1339433404,1694452750,1933174915,-462817101,-469694731,-164877493 },{
+		options = {
+			{
+				event = "crafting:fuelShop",
+				label = "Combustível",
 				tunnel = "client"
 			}
 		},
 		distance = 0.75
 	})
 
---	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
---		options = {
---			{
---				event = "inventory:verifyObjects",
---				event = "inventory:garbageVerify",
---				label = "Vasculhar",
---				tunnel = "client"
---			}
---		},
---		distance = 0.75
---	})
+	AddCircleZone("contractSystem",vector3(465.12,-1672.85,29.28),0.5,{
+		name = "contractSystem",
+		heading = 243.78
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "moneys:initSystem",
+				label = "Assinar",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("casinoWhell",vector3(1112.46,228.33,-49.64),0.5,{
+		name = "casinoWhell",
+		heading = 325.99
+	},{
+		distance = 0.75,
+		options = {
+			{
+				event = "luckywheel:targetRoll",
+				label = "Roda da Fortuna",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("trainJuice",vector3(-383.16,270.2,87.48),0.5,{
+		name = "trainJuice",
+		heading = 31.19
+	},{
+		distance = 1.25,
+		options = {
+			{
+				event = "works:trainJuice",
+				label = "Encher Copo",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("trainFood",vector3(-384.42,261.84,85.48),0.5,{
+		name = "trainFood",
+		heading = 121.89
+	},{
+		distance = 1.35,
+		options = {
+			{
+				event = "works:trainFood",
+				label = "Montar Lanche",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("trainBox",vector3(-381.56,262.83,87.33),0.5,{
+		name = "trainBox",
+		heading = 215.44
+	},{
+		distance = 1.25,
+		options = {
+			{
+				event = "works:trainBox",
+				label = "Montar Caixa",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry01",vector3(-626.67,-238.58,38.05),0.75,{
+		name = "jewelry01",
+		heading = 215.44
+	},{
+		shop = "1",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry02",vector3(-625.66,-237.86,38.05),0.75,{
+		name = "jewelry02",
+		heading = 218.27
+	},{
+		shop = "2",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry03",vector3(-626.84,-235.35,38.05),0.75,{
+		name = "jewelry03",
+		heading = 31.19
+	},{
+		shop = "3",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry04",vector3(-625.83,-234.6,38.05),0.75,{
+		name = "jewelry04",
+		heading = 34.02
+	},{
+		shop = "4",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry05",vector3(-626.9,-233.15,38.05),0.75,{
+		name = "jewelry05",
+		heading = 215.44
+	},{
+		shop = "5",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry06",vector3(-627.94,-233.92,38.05),0.75,{
+		name = "jewelry06",
+		heading = 218.27
+	},{
+		shop = "6",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry07",vector3(-620.22,-234.44,38.05),0.75,{
+		name = "jewelry07",
+		heading = 215.44
+	},{
+		shop = "7",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry08",vector3(-619.16,-233.7,38.05),0.75,{
+		name = "jewelry08",
+		heading = 215.44
+	},{
+		shop = "8",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry09",vector3(-617.56,-230.57,38.05),0.75,{
+		name = "jewelry09",
+		heading = 303.31
+	},{
+		shop = "9",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry10",vector3(-618.29,-229.49,38.05),0.75,{
+		name = "jewelry10",
+		heading = 306.15
+	},{
+		shop = "10",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry11",vector3(-619.68,-227.63,38.05),0.75,{
+		name = "jewelry11",
+		heading = 306.15
+	},{
+		shop = "11",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry12",vector3(-620.43,-226.56,38.05),0.75,{
+		name = "jewelry12",
+		heading = 306.15
+	},{
+		shop = "12",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry13",vector3(-623.92,-227.06,38.05),0.75,{
+		name = "jewelry13",
+		heading = 36.86
+	},{
+		shop = "13",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry14",vector3(-624.97,-227.84,38.05),0.75,{
+		name = "jewelry14",
+		heading = 36.86
+	},{
+		shop = "14",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry15",vector3(-624.42,-231.08,38.05),0.75,{
+		name = "jewelry15",
+		heading = 303.31
+	},{
+		shop = "15",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry16",vector3(-623.98,-228.18,38.05),0.75,{
+		name = "jewelry16",
+		heading = 215.44
+	},{
+		shop = "16",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry17",vector3(-621.08,-228.58,38.05),0.75,{
+		name = "jewelry17",
+		heading = 121.89
+	},{
+		shop = "17",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry18",vector3(-619.72,-230.43,38.05),0.75,{
+		name = "jewelry18",
+		heading = 119.06
+	},{
+		shop = "18",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry19",vector3(-620.14,-233.31,38.05),0.75,{
+		name = "jewelry19",
+		heading = 31.19
+	},{
+		shop = "19",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelry20",vector3(-623.05,-232.95,38.05),0.75,{
+		name = "jewelry20",
+		heading = 303.31
+	},{
+		shop = "20",
+		distance = 1.0,
+		options = {
+			{
+				event = "robberys:jewelry",
+				label = "Roubar",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("jewelryHacker",vector3(-631.38,-230.24,38.05),0.75,{
+		name = "jewelryHacker",
+		heading = 218.27
+	},{
+		distance = 0.75,
+		options = {
+			{
+				event = "robberys:Jewelry",
+				label = "Hackear",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("systemHacker",vector3(1275.76,-1710.39,54.76),0.5,{
+		name = "systemHacker",
+		heading = 297.64
+	},{
+		distance = 0.75,
+		options = {
+			{
+				event = "stockade:initHacker",
+				label = "Hackear Carro Forte",
+				tunnel = "client"
+			},
+			{
+				event = "robberys:Departament",
+				label = "Hackear Loja de Departamento",
+				tunnel = "client"
+			},
+			{
+				event = "robberys:Ammunation",
+				label = "Hackear Loja de Armas",
+				tunnel = "client"
+			},
+			{
+				event = "robberys:Fleecas",
+				label = "Hackear Fleeca",
+				tunnel = "client"
+			},
+			{
+				event = "robberys:Barbershop",
+				label = "Hackear Barbearia",
+				tunnel = "client"
+			},
+			{
+				event = "robberys:Banks",
+				label = "Hackear Bancos",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("divingStore",vector3(-815.74,-1346.58,5.14),0.5,{
+		name = "divingStore",
+		heading = 235.28
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "shops:divingSuit",
+				label = "Comprar Traje",
+				tunnel = "server"
+			},
+			{
+				event = "hud:rechargeOxigen",
+				label = "Reabastecer Oxigênio",
+				tunnel = "client"
+			}
+		}
+	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDICMENU
@@ -467,13 +733,11 @@ local adminMenu = {
 -- PLAYERTARGETENABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetEnable()
---	print(playerActive)
 	if playerActive then
 		if success or IsPedArmed(PlayerPedId(),6) or IsPedInAnyVehicle(PlayerPedId()) then
 			return
 		end
 
-		innerEntity = {}
 		targetActive = true
 
 		SendNUIMessage({ response = "openTarget" })
@@ -484,6 +748,8 @@ function playerTargetEnable()
 			local hit,entCoords,entity = RayCastGamePlayCamera(setDistance)
 
 			if hit == 1 then
+				innerEntity = {}
+
 				if GetEntityType(entity) ~= 0 then
 					if adminService then
 						if DoesEntityExist(entity) then
@@ -625,7 +891,7 @@ function playerTargetEnable()
 								if #(coords - entCoords) <= Models[k]["distance"] then
 
 									if Models[k]["desmanche"] then
-										local distance = #(coords - vector3(2413.07,3139.35,48.19))
+										local distance = #(coords - vector3(258.28,2578.16,45.16))
 										if distance > 10 then
 											goto scapeModel
 										end
@@ -644,7 +910,7 @@ function playerTargetEnable()
 									NetworkSetNetworkIdDynamic(netObjects,false)
 									SetNetworkIdExistsOnAllMachines(netObjects,true)
 
-									innerEntity = { entity,k,netObjects,GetEntityCoords(entity),GetEntityHeading(entity) }
+									innerEntity = { entity,k,netObjects,GetEntityCoords(entity) }
 									SendNUIMessage({ response = "validTarget", data = Models[k]["options"] })
 
 									while success and targetActive do
@@ -681,6 +947,10 @@ function playerTargetEnable()
 							success = true
 
 							SendNUIMessage({ response = "validTarget", data = Zones[k]["targetoptions"]["options"] })
+
+							if v["targetoptions"]["shop"] ~= nil then
+								innerEntity = { v["targetoptions"]["shop"] }
+							end
 
 							while success and targetActive do
 								local ped = PlayerPedId()
@@ -829,7 +1099,8 @@ local chairs = {
 	[-1118419705] = 0.5,
 	[538002882] = -0.1,
 	[-377849416] = 0.5,
-	[96868307] = 0.5
+	[96868307] = 0.5,
+	[-1195678770] = 0.7
 }
 
 RegisterNetEvent("target:animSentar")
@@ -841,7 +1112,11 @@ AddEventHandler("target:animSentar",function()
 
 			FreezeEntityPosition(innerEntity[1],true)
 			SetEntityCoords(ped,objCoords["x"],objCoords["y"],objCoords["z"] + chairs[innerEntity[2]],1,0,0,0)
-			SetEntityHeading(ped,GetEntityHeading(innerEntity[1]) - 180.0)
+			if chairs[innerEntity[2]] == 0.7 then
+				SetEntityHeading(ped,GetEntityHeading(innerEntity[1]))
+			else
+				SetEntityHeading(ped,GetEntityHeading(innerEntity[1]) - 180.0)
+			end
 
 			vRP.playAnim(false,{ task = "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" },false)
 		end
@@ -855,10 +1130,8 @@ function playerTargetDisable()
 		return
 	end
 
-	if targetActive then
-		targetActive = false
-		SendNUIMessage({ response = "closeTarget" })
-	end
+	targetActive = false
+	SendNUIMessage({ response = "closeTarget" })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SELECTTARGET
@@ -867,19 +1140,18 @@ RegisterNUICallback("selectTarget",function(data,cb)
 	success = false
 	targetActive = false
 	SetNuiFocus(false,false)
-	local ped = PlayerPedId()
 	SendNUIMessage({ response = "closeTarget" })
 
 	if data["tunnel"] == "client" then
 		TriggerEvent(data["event"],innerEntity)
+	elseif data["tunnel"] == "server" then
+		TriggerServerEvent(data["event"],innerEntity)
+	elseif data["tunnel"] == "shop" then
+		TriggerEvent(data["event"],innerEntity[1])
 	elseif data["tunnel"] == "paramedic" then
 		TriggerServerEvent(data["event"],innerEntity[1])
 	elseif data["tunnel"] == "police" then
 		TriggerServerEvent(data["event"],innerEntity,data["service"])
-
-		if data["service"] then
-			SetEntityHeading(ped,innerEntity[5])
-		end
 	elseif data["tunnel"] == "objects" then
 		TriggerServerEvent(data["event"],innerEntity[3])
 	elseif data["tunnel"] == "admin" then
