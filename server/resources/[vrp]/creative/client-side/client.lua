@@ -927,10 +927,10 @@ local fov = (fov_max + fov_min) * 0.5
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if IsPedInAnyHeli(ped) then
-			timeDistance = 4
+			timeDistance = 1
 
 			local veh = GetVehiclePedIsUsing(ped)
 			SetVehicleRadioEnabled(veh,false)
@@ -940,7 +940,7 @@ Citizen.CreateThread(function()
 				vehCamera = true
 			end
 
-			if IsControlJustPressed(1,44) then
+			if IsControlJustPressed(1,154) then
 				if GetPedInVehicleSeat(veh,1) == ped or GetPedInVehicleSeat(veh,2) == ped then
 					TaskRappelFromHeli(ped,1)
 				end
