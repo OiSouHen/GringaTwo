@@ -97,7 +97,7 @@ function vehicleTyreBurst(vehicle)
 	end
 
 	if math.random(100) < 30 then
-		Citizen.Wait(10)
+		Citizen.Wait(500)
 		vehicleTyreBurst(vehicle)
 	end
 end
