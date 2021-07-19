@@ -17,14 +17,11 @@ local stress = 0
 local hunger = 100
 local thirst = 100
 local hardness = {}
-local playerActive = true
 local showHud = false
 local talking = false
 local showMovie = false
 local radioDisplay = ""
 local homeInterior = false
-local streetLast = 0
-local flexDirection = "Norte"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -43,18 +40,16 @@ local timeDate = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if playerActive then
-			if GetGameTimer() >= timeDate then
-				timeDate = GetGameTimer() + 30000
-				clockMinutes = clockMinutes + 1
+		if GetGameTimer() >= timeDate then
+			timeDate = GetGameTimer() + 30000
+			clockMinutes = clockMinutes + 1
 
-				if clockMinutes >= 60 then
-					clockHours = clockHours + 1
-					clockMinutes = 0
+			if clockMinutes >= 60 then
+				clockHours = clockHours + 1
+				clockMinutes = 0
 
-					if clockHours >= 24 then
-						clockHours = 0
-					end
+				if clockHours >= 24 then
+					clockHours = 0
 				end
 			end
 		end
@@ -154,6 +149,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEDISPLAYHUD
 -----------------------------------------------------------------------------------------------------------------------------------------
+local streetLast = 0
+local flexDirection = "Norte"
 function updateDisplayHud()
 	local ped = PlayerPedId()
 	local armour = GetPedArmour(ped)
@@ -306,23 +303,36 @@ AddEventHandler("hud:RadioDisplay",function(number)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- FOWARDPED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function fowardPed(ped)
+	local heading = GetEntityHeading(ped) + 90.0
+	if heading < 0.0 then
+		heading = 360.0 + heading
+	end
+
+	heading = heading * 0.0174533
+
+	return { x = math.cos(heading) * 2.0, y = math.sin(heading) * 2.0 }
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
-		if playerActive then
-			local ped = PlayerPedId()
-			if IsPedInAnyVehicle(ped) then
-				if not IsPedOnAnyBike(ped) and not IsPedInAnyHeli(ped) and not IsPedInAnyPlane(ped) then
-					timeDistance = 1
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if IsPedInAnyVehicle(ped) then
+			if not IsPedOnAnyBike(ped) and not IsPedInAnyHeli(ped) and not IsPedInAnyPlane(ped) then
+				local vehicle = GetVehiclePedIsUsing(ped)
+				if GetPedInVehicleSeat(vehicle,-1) == ped then
+					timeDistance = 4
 
-					local vehicle = GetVehiclePedIsUsing(ped)
 					local speed = GetEntitySpeed(vehicle) * 2.236936
 					if speed ~= beltSpeed then
 						local plate = GetVehicleNumberPlateText(vehicle)
 
-						if ((beltSpeed - speed) >= 50 and beltLock == 0) or ((beltSpeed - speed) >= 75 and beltLock == 1 and hardness[plate] == nil and GetPedInVehicleSeat(vehicle,-1) == ped) then
+						if ((beltSpeed - speed) >= 35 and beltLock == 0) or ((beltSpeed - speed) >= 85 and beltLock == 1 and hardness[plate] == nil) then
 							local fowardVeh = fowardPed(ped)
 							local coords = GetEntityCoords(ped)
 							SetEntityCoords(ped,coords["x"] + fowardVeh["x"],coords["y"] + fowardVeh["y"],coords["z"] + 1,1,0,0,0)
@@ -338,14 +348,14 @@ Citizen.CreateThread(function()
 						beltSpeed = speed
 					end
 				end
-			else
-				if beltSpeed ~= 0 then
-					beltSpeed = 0
-				end
+			end
+		else
+			if beltSpeed ~= 0 then
+				beltSpeed = 0
+			end
 
-				if beltLock == 1 then
-					beltLock = 0
-				end
+			if beltLock == 1 then
+				beltLock = 0
 			end
 		end
 
@@ -390,45 +400,30 @@ AddEventHandler("homes:Hours",function(status)
 	homeInterior = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- FOWARDPED
------------------------------------------------------------------------------------------------------------------------------------------
-function fowardPed(ped)
-	local heading = GetEntityHeading(ped) + 90.0
-	if heading < 0.0 then
-		heading = 360.0 + heading
-	end
-
-	heading = heading * 0.0174533
-
-	return { x = math.cos(heading) * 2.0, y = math.sin(heading) * 2.0 }
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHREDUCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if playerActive then
-			local ped = PlayerPedId()
-			if GetEntityHealth(ped) > 101 then
-				if hunger >= 10 and hunger <= 20 then
-					ApplyDamageToPed(ped,1,false)
-					TriggerEvent("Notify","hunger","Sofrendo com a fome.",3000)
-				elseif hunger <= 9 then
-					ApplyDamageToPed(ped,2,false)
-					TriggerEvent("Notify","hunger","Sofrendo com a fome.",3000)
-				end
+		local ped = PlayerPedId()
+		if GetEntityHealth(ped) > 101 then
+			if hunger >= 6 and hunger <= 15 then
+				ApplyDamageToPed(ped,1,false)
+				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
+			elseif hunger <= 5 then
+				ApplyDamageToPed(ped,2,false)
+				TriggerEvent("Notify","hunger","Sofrendo com a fome.",2000)
+			end
 
-				if thirst >= 10 and thirst <= 20 then
-					ApplyDamageToPed(ped,1,false)
-					TriggerEvent("Notify","thirst","Sofrendo com a sede.",3000)
-				elseif thirst <= 9 then
-					ApplyDamageToPed(ped,2,false)
-					TriggerEvent("Notify","thirst","Sofrendo com a sede.",3000)
-				end
+			if thirst >= 6 and thirst <= 15 then
+				ApplyDamageToPed(ped,1,false)
+				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
+			elseif thirst <= 5 then
+				ApplyDamageToPed(ped,2,false)
+				TriggerEvent("Notify","thirst","Sofrendo com a sede.",2000)
 			end
 		end
 
-		Citizen.Wait(5000)
+		Citizen.Wait(15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -436,24 +431,28 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
-		if playerActive then
-			local ped = PlayerPedId()
-			local health = GetEntityHealth(ped)
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		local health = GetEntityHealth(ped)
 
-			if health > 101 then
-				if stress >= 99 then
-					ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.75)
-				elseif stress >= 80 and stress <= 98 then
-					timeDistance = 9990
-					ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.50)
-				elseif stress >= 60 and stress <= 79 then
-					timeDistance = 7500
-					ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.25)
-				elseif stress >= 40 and stress <= 59 then
-					timeDistance = 9990
-					ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
-				end
+		if health > 101 then
+			if stress >= 99 then
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.75)
+				ApplyDamageToPed(ped,2,false)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+			elseif stress >= 80 and stress <= 98 then
+				timeDistance = 5000
+				ApplyDamageToPed(ped,2,false)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.50)
+			elseif stress >= 60 and stress <= 79 then
+				timeDistance = 7500
+				ApplyDamageToPed(ped,1,false)
+				TriggerEvent("Notify","stress","Sofrendo com o estresse.",2000)
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.25)
+			elseif stress >= 40 and stress <= 59 then
+				timeDistance = 10000
+				ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
 			end
 		end
 
@@ -477,78 +476,5 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(1000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVESCUBA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:removeScuba")
-AddEventHandler("hud:removeScuba",function()
-	local ped = PlayerPedId()
-	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
-		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingMask))
-			divingMask = nil
-		end
-
-		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingTank))
-			divingTank = nil
-		end
-
-		SetEnableScuba(ped,false)
-		SetPedMaxTimeUnderwater(ped,10.0)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HUD:SETDIVING
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:setDiving")
-AddEventHandler("hud:setDiving",function()
-	local ped = PlayerPedId()
-
-	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
-		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingMask))
-			divingMask = nil
-		end
-
-		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingTank))
-			divingTank = nil
-		end
-
-		SetEnableScuba(ped,false)
-		SetPedMaxTimeUnderwater(ped,10.0)
-	else
-		local maskModel = GetHashKey("p_s_scuba_mask_s")
-		local tankModel = GetHashKey("p_s_scuba_tank_s")
-
-		RequestModel(tankModel)
-		while not HasModelLoaded(tankModel) do
-			Citizen.Wait(1)
-		end
-
-		RequestModel(maskModel)
-		while not HasModelLoaded(maskModel) do
-			Citizen.Wait(1)
-		end
-
-		if HasModelLoaded(tankModel) then
-			divingTank = CreateObject(tankModel,1.0,1.0,1.0,true,true,false)
-			AttachEntityToEntity(divingTank,ped,GetPedBoneIndex(ped,24818),-0.28,-0.24,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-			SetEntityAsMissionEntity(divingTank,true,true)
-			SetModelAsNoLongerNeeded(divingTank)
-		end
-
-		if HasModelLoaded(maskModel) then
-			divingMask = CreateObject(maskModel,1.0,1.0,1.0,true,true,false)
-			AttachEntityToEntity(divingMask,ped,GetPedBoneIndex(ped,12844),0.0,0.0,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-			SetEntityAsMissionEntity(divingMask,true,true)
-			SetModelAsNoLongerNeeded(divingMask)
-		end
-
-		SetEnableScuba(ped,true)
-		SetPedMaxTimeUnderwater(ped,2000.0)
 	end
 end)

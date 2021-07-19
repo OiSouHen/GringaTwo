@@ -30,25 +30,25 @@ end)
 -- FUNCTIONCRAFT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("functionCraft",function(data,cb)
-	vSERVER.functionCrafting(data.index,data.craft,data.amount,data.slot)
+	vSERVER.functionCrafting(data["index"],data["craft"],data["amount"],data["slot"])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTIONDESTROY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("functionDestroy",function(data,cb)
-	vSERVER.functionDestroy(data.index,data.craft,data.amount,data.slot)
+	vSERVER.functionDestroy(data["index"],data["craft"],data["amount"],data["slot"])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POPULATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("populateSlot",function(data,cb)
-	TriggerServerEvent("crafting:populateSlot",data.item,data.slot,data.target,data.amount)
+	TriggerServerEvent("crafting:populateSlot",data["item"],data["slot"],data["target"],data["amount"])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("updateSlot",function(data,cb)
-	TriggerServerEvent("crafting:updateSlot",data.item,data.slot,data.target,data.amount)
+	TriggerServerEvent("crafting:updateSlot",data["item"],data["slot"],data["target"],data["amount"])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATECRAFTING
@@ -67,62 +67,63 @@ end)
 -- CRAFTLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local craftList = {
-    { 68.88,-1570.04,29.6,"generalCrafting"},
-    { 2662.41,3468.25,55.95,"ilegalCrafting" },
-    { -883.07,-436.57,39.6,"fueltechCrafting" },
-	{ 48.52,-1594.3,29.6,"boateCrafting" },
-    { 1275.74,-1710.31,54.76,"mafiaCrafting" },
-    { -351.56,-107.99,38.7,"mecanicoCrafting" },
-    { 1593.14,6455.61,26.02,"avalanchesCrafting" },
-	{ 84.17,-1552.07,29.6,"lixeiroShop" },
-	{ 713.89,-961.52,30.4,"dressMaker" },
-	{ 169.56,-1634.05,29.28,"foodMarket" }
+	{ -384.34,266.96,86.46,102.05,"makeFoods" },
+	{ 713.95,-961.54,30.4,0.0,"dressMaker" },
+	{ 1126.71,-778.64,57.63,0.0,"rocketsShop" },
+	{ -1407.48,-443.53,35.91,303.31,"hayesShop" },
+	{ 82.45,-1553.26,29.59,229.61,"lixeiroShop" },
+	{ 107.15,-1974.9,20.94,206.93,"Ballas" },
+	{ 368.76,-2059.1,21.64,232.45,"Vagos" },
+	{ -153.91,-1628.17,33.65,141.74,"Families" },
+	{ 512.59,-1804.65,28.51,62.37,"Aztecas" },
+	{ 232.08,-1692.79,29.28,232.45,"DaNang" },
+	{ 986.95,-93.05,74.85,226.78,"South" },
+	{ 1980.47,3049.71,50.43,334.49,"North" },
+	{ -998.86,-1030.08,2.14,28.35,"Triads" },
+	{ 1165.22,-1631.53,37.04,192.76,"EastSide" },
+	{ 1393.8,1131.17,109.74,87.88,"Madrazo" },
+	{ 1442.88,-1480.28,63.22,167.25,"Marabunta" },
+	{ 1959.68,3828.07,32.05,209.77,"Rednecks" },
+	{ 1272.26,-1712.57,54.76,204.1,"ilegalWeapons" },
+	{ 94.36,-1294.11,29.27,119.06,"Vanilla" },
+	{ -571.41,289.9,79.18,266.46,"Tequila" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local innerTable = {}
-	for k,v in pairs(craftList) do
-		table.insert(innerTable,{ v[1],v[2],v[3],1.25,"E","Loja de Criação","Pressione para abrir" })
-	end
-
-	TriggerEvent("hoverfy:insertTable",innerTable)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADOPEN
+-- THREADTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
 
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-
-			for k,v in pairs(craftList) do
-				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1.25 then
-					timeDistance = 4
-
-					if IsControlJustPressed(1,38) and vSERVER.requestPerm(v[4]) then
-						SetNuiFocus(true,true)
-						SendNUIMessage({ action = "showNUI", name = tostring(v[4]) })
-					end
-				end
-			end
-		end
-
-		Citizen.Wait(timeDistance)
+	for k,v in pairs(craftList) do
+		exports["target"]:AddCircleZone("crafting:"..k,vector3(v[1],v[2],v[3]),1.0,{
+			name = "crafting:"..k,
+			heading = v[4]
+		},{
+			shop = k,
+			distance = 1.0,
+			options = {
+				{
+					event = "crafting:openSystem",
+					label = "Abrir",
+					tunnel = "shop"
+				}
+			}
+		})
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CRAFTING:MECHANICSTORE
+-- CRAFTING:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("crafting:mechanicCraft",function()
-	if vSERVER.requestPerm("mechanicCraft") then
-		SendNUIMessage({ action = "showNUI", name = tostring("mechanicCraft")})
+AddEventHandler("crafting:openSystem",function(shopId)
+	if vSERVER.requestPerm(craftList[shopId][5]) then
 		SetNuiFocus(true,true)
+		SendNUIMessage({ action = "showNUI", name = craftList[shopId][5] })
 	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CRAFTING:FUELSHOP
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("crafting:fuelShop",function()
+	SetNuiFocus(true,true)
+	SendNUIMessage({ action = "showNUI", name = "fuelShop" })
 end)

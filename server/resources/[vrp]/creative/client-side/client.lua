@@ -133,10 +133,6 @@ local blips = {
 	{ -70.96,-1762.21,29.54,361,62,"Posto de Gasolina",0.4 },
 	{ 1776.7,3330.56,41.32,361,62,"Posto de Gasolina",0.4 },
 	{ -1112.4,-2884.08,13.93,361,62,"Posto de Gasolina",0.4 },
-	{ 1148.78,-1532.84,35.39,80,38,"Hospital",0.5 },
---	{ 280.38,-584.45,43.29,80,38,"Hospital",0.5 },
---	{ 1839.43,3672.86,34.27,80,38,"Hospital",0.5 },
---	{ -247.42,6331.39,32.42,80,38,"Hospital",0.5 },
 	{ 55.43,-876.19,30.66,357,65,"Garagem",0.6 },
 	{ 598.04,2741.27,42.07,357,65,"Garagem",0.6 },
 	{ -136.36,6357.03,31.49,357,65,"Garagem",0.6 },
@@ -155,10 +151,9 @@ local blips = {
 	{ 528.66,-146.3,58.38,357,65,"Garagem",0.6 },
 	{ -1159.48,-739.32,19.89,357,65,"Garagem",0.6 },
 	{ 101.22,-1073.68,29.38,357,65,"Garagem",0.6 },
---	{ 426.57,-981.71,30.7,60,29,"Departamento Policial",0.6 },
---	{ 1851.45,3686.71,34.26,60,29,"Departamento Policial",0.6 },
---	{ -448.18,6011.68,31.71,60,29,"Departamento Policial",0.6 },
-	{ 1849.24,2585.94,45.68,60,29,"Departamento Policial",0.6 },
+	{ 426.57,-981.71,30.7,60,29,"Departamento Policial",0.6 },
+	{ 1851.45,3686.71,34.26,60,29,"Departamento Policial",0.6 },
+	{ -448.18,6011.68,31.71,60,29,"Departamento Policial",0.6 },
 	{ 25.68,-1346.6,29.5,52,36,"Loja de Departamento",0.5 },
 	{ 2556.47,382.05,108.63,52,36,"Loja de Departamento",0.5 },
 	{ 1163.55,-323.02,69.21,52,36,"Loja de Departamento",0.5 },
@@ -219,33 +214,31 @@ local blips = {
 	{ 452.99,-607.74,28.59,513,62,"Motorista",0.5 },
 	{ 356.42,274.61,103.14,67,62,"Transportador",0.5 },
 	{ -840.21,5399.25,34.61,285,62,"Lenhador",0.5 },
-	{ 132.6,-1305.06,29.2,93,62,"Bar",0.5 },
-	{ -565.14,271.56,83.02,93,62,"Bar",0.5 },
+	{ 132.6,-1305.06,29.2,93,62,"Vanilla Unicorn",0.5 },
+	{ -565.14,271.56,83.02,93,62,"Tequi-La-La",0.5 },
 	{ -172.21,6385.85,31.49,403,5,"Farmácia",0.7 },
 	{ 1690.07,3581.68,35.62,403,5,"Farmácia",0.7 },
-	{ 326.47,-1074.43,29.48,403,5,"Farmácia",0.7 },
+	{ 315.12,-1068.58,29.39,403,5,"Farmácia",0.7 },
 	{ 114.45,-4.89,67.82,403,5,"Farmácia",0.7 },
 	{ 46.66,-1749.79,29.64,78,11,"Mercado Central",0.5 },
 	{ 2747.28,3473.04,55.67,78,11,"Mercado Central",0.5 },
-	{ 67.67,-1568.61,29.59,318,62,"Lixeiro",0.6 },
---	{ 169.42,-1633.88,29.28,106,62,"Bishops",0.5 },
-	{ 169.51,-1634.03,29.3,106,62,"Bishops",0.5 },
+	{ 82.54,-1553.28,29.59,318,62,"Lixeiro",0.6 },
 	{ -428.56,-1728.33,19.79,467,11,"Reciclagem",0.6 },
 	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
 	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
---	{ -191.61,-1154.2,23.05,357,9,"Impound",0.6 },
---	{ 1738.32,3685.84,34.50,357,9,"Impound",0.6 },
---	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
+	{ -191.61,-1154.2,23.05,357,9,"Impound",0.6 },
+	{ 1724.84,3715.31,34.22,357,9,"Impound",0.6 },
+	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
 	{ -1178.37,-2845.97,13.93,402,26,"Mecânica",0.7 },
---	{ 1144.38,-770.17,57.58,402,26,"Mecânica",0.7 },
---	{ -1425.48,-436.4,35.79,402,26,"Mecânica",0.7 },
+	{ 1144.38,-770.17,57.58,402,26,"Mecânica",0.7 },
+	{ -1425.48,-436.4,35.79,402,26,"Mecânica",0.7 },
 	{ -206.22,-1303.12,31.27,402,26,"Mecânica",0.7 },
 	{ -359.81,-133.38,38.67,402,26,"Mecânica",0.7 },
 	{ 717.04,-1087.21,22.34,402,26,"Mecânica",0.7 },
 	{ -1144.02,-1989.42,13.16,402,26,"Mecânica",0.7 },
 	{ 1178.0,2657.85,37.98,402,26,"Mecânica",0.7 },
 	{ 116.38,6620.89,31.88,402,26,"Mecânica",0.7 },
---	{ -49.34,-1041.79,28.21,402,26,"Mecânica",0.7 },
+	{ -49.34,-1041.79,28.21,402,26,"Mecânica",0.7 },
 	{ -594.85,2090.27,131.6,617,62,"Minerador",0.6 },
 	{ 1322.93,-1652.29,52.27,75,13,"Loja de Tatuagem",0.5 },
 	{ -1154.42,-1425.9,4.95,75,13,"Loja de Tatuagem",0.5 },
@@ -253,7 +246,7 @@ local blips = {
 	{ -3169.62,1075.8,20.83,75,13,"Loja de Tatuagem",0.5 },
 	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
 	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
---	{ 2768.92,1391.1,24.53,597,62,"Mergulhador",0.7 },
+	{ 1148.78,-1532.84,35.39,80,38,"Hospital",0.5 },
 	{ 2679.43,3443.93,55.81,164,62,"Circuitos",0.7 },
 	{ -566.72,-2117.39,5.98,164,62,"Circuitos",0.7 },
 	{ 1679.4,-1564.53,112.57,164,62,"Circuitos",0.7 },
@@ -265,15 +258,14 @@ local blips = {
 	{ -324.69,-1098.09,23.03,164,62,"Circuitos",0.7 },
 	{ 844.67,-1985.39,29.31,164,62,"Circuitos",0.7 },
 	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
-	{ 1239.91,-3257.19,7.09,67,62,"Caminhoneiro",0.5 },
 	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
-	{ -73.46,-1119.38,25.8,225,62,"Benefactor",0.4 },
-	{ -73.1,-2004.25,18.28,225,62,"Benefactor",0.4 },
+	{ -69.95,62.06,71.88,225,62,"Benefactor",0.4 },
 	{ 895.36,-179.36,74.7,198,62,"Taxista",0.5 },
 	{ -680.9,5832.41,17.32,141,62,"Caçador",0.7 },
 	{ -773.55,298.51,85.71,475,31,"Eclipse Towers",0.5 },
---	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
-	{ -1816.72,-1193.76,14.31,68,62,"Pescador",0.5 }
+	{ -1816.72,-1193.76,14.31,68,62,"Pescador",0.5 },
+	{ 918.69,50.33,80.9,617,62,"Diamond Casino",0.6 },
+	{ -368.86,264.62,84.84,86,62,"Frangra",0.5 },
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBLIPS
@@ -520,6 +512,7 @@ Citizen.CreateThread(function()
 		DistantCopCarSirens(false)
 
 		SetCreateRandomCops(false)
+		CancelCurrentPoliceReport()
 		SetCreateRandomCopsOnScenarios(false)
 		SetCreateRandomCopsNotOnScenarios(false)
 
@@ -528,8 +521,10 @@ Citizen.CreateThread(function()
 		SetVehicleModelIsSuppressed(GetHashKey("polmav"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("buzzard2"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("mammatus"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("besra"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("luxor"),true)
 
-		Wait(1000)
+		Citizen.Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -537,8 +532,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
+		if IsPedArmed(PlayerPedId(),6) then
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,141,true)
+			DisableControlAction(1,142,true)
+		end
+
 		N_0x4757f00bc6323cfe("WEAPON_BAT",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_BOTTLE",0.1)
 		N_0x4757f00bc6323cfe("WEAPON_HAMMER",0.1)
 		N_0x4757f00bc6323cfe("WEAPON_WRENCH",0.1)
 		N_0x4757f00bc6323cfe("WEAPON_UNARMED",0.1)
@@ -582,23 +582,18 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
-		SetMaxWantedLevel(0)
 		DisableVehicleDistantlights(true)
-		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
-		SetEveryoneIgnorePlayer(PlayerPedId(),true)
-		SetPlayerCanBeHassledByGangs(PlayerPedId(),false)
-		SetIgnoreLowPriorityShockingEvents(PlayerPedId(),true)
 
 		SetPedDensityMultiplierThisFrame(0.5)
 		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
 		SetParkedVehicleDensityMultiplierThisFrame(0.5)
 		SetRandomVehicleDensityMultiplierThisFrame(0.5)
 		SetVehicleDensityMultiplierThisFrame(0.5)
-		SetGarbageTrucks(true)
-		SetRandomBoats(true)
+		SetGarbageTrucks(false)
+		SetRandomBoats(false)
 
-		Wait(0)
+		Citizen.Wait(0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
