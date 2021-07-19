@@ -35,10 +35,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		if doors ~= nil then
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
+
+			--local coordss = GetOffsetFromEntityInWorldCoords(ped,0.0,0.5,1.0)
+			--print(coordss["x"],coordss["y"],coordss["z"])
 
 			for k,v in pairs(doors) do
 				local distance = #(coords - vector3(v["x"],v["y"],v["z"]))
@@ -55,13 +58,13 @@ Citizen.CreateThread(function()
 						end
 
 						if distance <= v["press"] then
-							timeDistance = 4
-							
+							timeDistance = 1
+
 							if v["text"] then
 								if v["lock"] then
-									DrawText3D(v["x"],v["y"],v["z"],"~r~FECHADA")
+									DrawText3D(v["x"],v["y"],v["z"],"🔒")
 								else
-									DrawText3D(v["x"],v["y"],v["z"],"~g~ABERTA")
+									DrawText3D(v["x"],v["y"],v["z"],"🔓")
 								end
 							end
 
@@ -82,7 +85,7 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DWTEXT
+-- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
@@ -96,7 +99,7 @@ function DrawText3D(x,y,z,text)
 		SetTextCentre(1)
 		EndTextCommandDisplayText(_x,_y)
 
-		local width = string.len(text) / 160 * 0.45
-		DrawRect(_x,_y + 0,1,width,0,0,0,0,150)
+											 
+										 
 	end
 end
