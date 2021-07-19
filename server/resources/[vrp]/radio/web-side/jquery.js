@@ -6,7 +6,7 @@ $(document).ready(function(){
     window.addEventListener("message",function(event){
         switch (event.data.action){
             case "showMenu":
-                $("#actionmenu").fadeIn(500);
+                $("#actionmenu").css("display","block");
                 break;
         }
     });  
@@ -15,11 +15,11 @@ $(document).ready(function(){
         const key = data.key;
         switch(key) {
             case 'Escape':
-                $("#actionmenu").fadeOut(500);
-                $.post("http://radio/radioClose", JSON.stringify({}));
+                $("#actionmenu").css("display","none");
+                $.post("http://radio/radioClose");
                 break;
             case 'Enter':
-                document.getElementById("freq").blur();
+                $("#freq").blur();
                 setFrequency();
                 break;
         }
@@ -44,7 +44,7 @@ function debounce(func,immediate){
 		}
 		var callNow = immediate && !timeout
 		clearTimeout(timeout)
-		timeout = setTimeout(later,250)
+		timeout = setTimeout(later,500)
 		if (callNow) func.apply(context,args)
 	}
 }
