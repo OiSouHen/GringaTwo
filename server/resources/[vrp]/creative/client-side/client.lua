@@ -36,18 +36,20 @@ end)
 local oldSpeed = 0
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
-			timeDistance = 4
+			timeDistance = 1
 
-			if IsPedOnAnyBike(ped) then
-				SetPedHelmet(ped,false)
-				DisableControlAction(0,345,true)
-			end
+			SetPedHelmet(ped,false)
+			DisableControlAction(0,345,true)
 
 			local veh = GetVehiclePedIsUsing(ped)
 			if GetPedInVehicleSeat(veh,-1) == ped then
+				if GetVehicleDirtLevel(veh) ~= 0.0 then
+					SetVehicleDirtLevel(veh,0.0)
+				end
+
 				local speed = GetEntitySpeed(veh) * 2.236936
 				if speed ~= oldSpeed then
 					if (oldSpeed - speed) >= 60 then
