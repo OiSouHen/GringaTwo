@@ -11,8 +11,8 @@ html,body {
 }
 
 #displayNotify {
-	right: 50px;
-    bottom: 127px;
+	right: 60px;
+	bottom: 150px;
 	display: none;
 	color: #979696;
 	line-height: 18px;
