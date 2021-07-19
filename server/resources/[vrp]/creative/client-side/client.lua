@@ -866,14 +866,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 
 			local distance = #(coords - vector3(254.01,225.21,101.87))
 			if distance <= 3.0 then
-				timeDistance = 4
+				timeDistance = 1
 
 				if IsControlJustPressed(1,38) then
 					local handle,object = FindFirstObject()
