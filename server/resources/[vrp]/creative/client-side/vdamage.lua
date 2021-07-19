@@ -22,19 +22,19 @@ local sameVehicle = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLASSDAMAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
-local classDamage = { [0] = 1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.4,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0 }
+local classDamage = { [0] = 1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.5,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHVEH
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			local vehicle = GetVehiclePedIsUsing(ped)
 			local vehClass = GetVehicleClass(vehicle)
 			if vehClass ~= 13 and vehClass ~= 14 then
-				timeDistance = 4
+				timeDistance = 1
 
 				if sameVehicle then
 					local engineTorque = 1.0
