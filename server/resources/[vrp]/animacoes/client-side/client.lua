@@ -660,9 +660,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		if (binoculos or cameras) then
-			timeDistance = 4
+			timeDistance = 1
 
 			local ped = PlayerPedId()
 			local scaleform = RequestScaleformMovie("BINOCULARS")
@@ -780,8 +780,8 @@ Citizen.CreateThread(function()
 	local treatmentTimers = GetGameTimer()
 
 	while true do
-		if GetGameTimer() >= (treatmentTimers + 1000) then
-			treatmentTimers = GetGameTimer()
+		if GetGameTimer() >= treatmentTimers then
+			treatmentTimers = GetGameTimer() + 2000
 
 			if tratamento then
 				local ped = PlayerPedId()
@@ -799,6 +799,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(500)
+		Citizen.Wait(1000)
 	end
 end)
