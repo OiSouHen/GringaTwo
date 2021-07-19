@@ -746,7 +746,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if handcuff and GetEntityHealth(ped) > 101 and not startRope then
 			if not IsEntityPlayingAnim(ped,"mp_arresting","idle",3) then
@@ -756,7 +756,7 @@ Citizen.CreateThread(function()
 				end
 
 				TaskPlayAnim(ped,"mp_arresting","idle",3.0,3.0,-1,49,0,0,0,0)
-				timeDistance = 4
+				timeDistance = 1
 			end
 		end
 
@@ -843,9 +843,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		if coolTimers > 0 then
-			timeDistance = 4
+			timeDistance = 1
 			DisableControlAction(1,36,true)
 		end
 
@@ -869,10 +869,10 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) and IsPedArmed(ped,6) then
-			timeDistance = 4
+			timeDistance = 1
 
 			if IsPedShooting(ped) then
 				ShakeGameplayCam("SMALL_EXPLOSION_SHAKE",0.10)
