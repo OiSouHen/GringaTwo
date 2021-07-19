@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("rope",cnVRP)
+cRP = {}
+Tunnel.bindInterface("rope",cRP)
 vSERVER = Tunnel.getInterface("rope")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -40,7 +40,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.syncTarget(target,animationLib,animation2,distans,distans2,height,length,spin,controlFlag)
+function cRP.syncTarget(target,animationLib,animation2,distans,distans2,height,length,spin,controlFlag)
 	vRP.removeObjects()
 	local ped = PlayerPedId()
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
@@ -74,7 +74,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCSOURCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.syncSource(animationLib,animation,length,controlFlag,animFlag)
+function cRP.syncSource(animationLib,animation,length,controlFlag,animFlag)
 	local ped = PlayerPedId()
 
 	RequestAnimDict(animationLib)
@@ -97,7 +97,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPCARRY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.stopCarry()
+function cRP.stopCarry()
 	inCarry = false
 	inCarryBlock = false
 	TriggerEvent("cancelando",false)
