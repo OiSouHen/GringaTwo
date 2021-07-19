@@ -167,14 +167,14 @@ local animalCoords = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(huntCoords[1],huntCoords[2],huntCoords[3]))
 
-			if distance <= 1.5 then
-				timeDistance = 4
+			if distance <= 2 then
+				timeDistance = 1
 
 				if inHunting then
 					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
@@ -227,7 +227,7 @@ AddEventHandler("hunting:animalCutting",function()
 			local deerCoords = GetEntityCoords(animalHunting[k])
 			local distance = #(coords - deerCoords)
 
-			if distance <= 2 then
+			if distance <= 1.5 then
 				if IsPedDeadOrDying(animalHunting[k]) and not IsPedAPlayer(animalHunting[k]) then
 					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_SWITCHBLADE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
@@ -240,9 +240,8 @@ AddEventHandler("hunting:animalCutting",function()
 						vRP.playAnim(false,{"amb@medic@standing@kneel@base","base"},true)
 						TriggerEvent("player:blockCommands",true)
 						TriggerEvent("cancelando",true)
-						
-						TriggerEvent("Progress",30000,"Esfolando...")
-						Citizen.Wait(30000)
+
+						Citizen.Wait(15000)
 
 						TriggerEvent("player:blockCommands",false)
 						TriggerEvent("cancelando",false)
@@ -278,16 +277,16 @@ function newHunting(i)
 	end
 
 	if HasModelLoaded(mHash) then
+		local spawnX = math.random(-250,250)
+		local spawnY = math.random(-250,250)
 		local inLocate = math.random(#animalCoords)
 
 		animalHunting[i] = CreatePed(28,mHash,animalCoords[inLocate][1],animalCoords[inLocate][2],animalCoords[inLocate][3] - 1,false,false,false)
-
-		PlaceObjectOnGroundProperly(animalHunting[i])
-		SetModelAsNoLongerNeeded(mHash)
-
-		local spawnX = math.random(-100,100)
-		local spawnY = math.random(-100,100)
 		TaskGoStraightToCoord(animalHunting[i],animalCoords[inLocate][1] + spawnX,animalCoords[inLocate][2] + spawnY,animalCoords[inLocate][3],0.5,-1,0.0,0.0)
+		SetPedKeepTask(animalHunting[i],true)
+		SetPedCombatMovement(animalHunting[i],3)
+		SetPedCombatAbility(animalHunting[i],100)
+		SetPedCombatAttributes(animalHunting[i],46,1)
 
 		blipAnimal(i)
 	end
@@ -307,7 +306,7 @@ function blipAnimal(i)
 	SetBlipScale(blipHunting[i],0.8)
 	SetBlipAsShortRange(blipHunting[i],true)
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Animal")
+	AddTextComponentString("Cervo")
 	EndTextCommandSetBlipName(blipHunting[i])
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
