@@ -177,9 +177,9 @@ Citizen.CreateThread(function()
 				timeDistance = 1
 
 				if inHunting then
-					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  FINALIZAR")
+					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~   FINALIZAR")
 				else
-					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~  INICIAR")
+					DrawText3D(huntCoords[1],huntCoords[2],huntCoords[3],"~g~E~w~   INICIAR")
 				end
 
 				if IsControlJustPressed(1,38) and distance <= 1 then
