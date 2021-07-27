@@ -6,33 +6,45 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
+	{ -- AirForce
+		distance = 50,
+		coords = { -940.79,-2960.2,13.93,59.53 },
+		model = { 0x3AE4A33B,"ig_fbisuit_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
 	{ -- Ballas
 		distance = 30,
-		coords = { 103.27,-1977.23,20.94,65.2 },
+		coords = { 106.37,-1993.93,14.88,164.41 },
 		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Vagos
 		distance = 30,
-		coords = { 374.75,-2052.88,21.74,93.55 },
+		coords = { 426.4,-2052.29,18.74,323.15 },
 		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- DaNang
 		distance = 30,
-		coords = { 227.66,-1695.17,29.28,257.96 },
+		coords = { 228.49,-1755.92,25.24,48.19 },
 		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Families
 		distance = 30,
-		coords = { -156.87,-1627.8,33.62,8.51 },
+		coords = { -199.66,-1710.89,30.04,223.94 },
 		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Aztecas
 		distance = 30,
-		coords = { 515.31,-1801.27,28.51,192.76 },
+		coords = { 468.74,-1742.5,25.54,249.45 },
+		model = { 0xE52E126C,"ig_ramp_gang" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Crips
+		distance = 30,
+		coords = { -1120.62,-1555.22,0.98,308.98 },
 		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
@@ -222,9 +234,15 @@ local pedList = {
 		model = { 0x467415E9,"ig_dale" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Premium Store
+	{ -- Life Invader
 		distance = 20,
 		coords = { -1083.15,-245.88,37.76,209.77 },
+		model = { 0x2F8845A3,"ig_barry" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Prestige
+		distance = 15,
+		coords = { -72.19,-814.45,243.38,161.58 },
 		model = { 0x2F8845A3,"ig_barry" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
@@ -242,7 +260,7 @@ local pedList = {
 	},
 	{ -- Pharmacy Store
 		distance = 15,
-		coords = { 318.32,-1078.31,29.47,0.0 },
+		coords = { 326.5,-1074.43,29.47,0.0 },
 		model = { 0x5244247D,"u_m_y_baygor" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
@@ -328,6 +346,12 @@ local pedList = {
 		distance = 30,
 		coords = { 2768.92,1391.19,24.53,82.21 },
 		model = { 0xC79F6928,"a_f_y_beach_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Mergulhador
+		distance = 30,
+		coords = { 2768.62,1392.77,24.53,116.23 },
+		model = { 0x4A8E5536,"s_f_y_baywatch_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Colheita
@@ -520,12 +544,6 @@ local pedList = {
 		distance = 50,
 		coords = { -1816.76,-1193.97,14.31,334.49 },
 		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Loja do Mergulhador
-		distance = 50,
-		coords = { -815.31,-1346.84,5.14,51.03 },
-		model = { 0x4A8E5536,"s_f_y_baywatch_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Casino
