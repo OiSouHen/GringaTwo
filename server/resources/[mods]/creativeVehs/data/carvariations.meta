@@ -3,6 +3,29 @@
 <CVehicleModelInfoVariation>
 	<variationData>
 		<Item>
+			<modelName>corvette</modelName>
+			<colors>
+				<Item>
+					<indices content="char_array">2 2 2 2</indices>
+					<liveries />
+				</Item>
+			</colors>
+			<kits>
+				<Item>0_default_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+				<Probabilities>
+					<Item>
+						<Name>Standard White</Name>
+						<Value value="100"/>
+					</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="1200" />
+			<sirenSettings value="240" />
+		</Item>
+		<Item>
 			<modelName>r1</modelName>
 			<colors>
 				<Item>
