@@ -1,4 +1,4 @@
-# Creative V3
+# Creative V4
 
 > artifact folder is the fivem build.
 
@@ -6,11 +6,9 @@
 
 > server folder have the entire base files for the server.
 
-> unusable folder is the removed resources from the base files.
-
 ## Information
 
-Entire based at www.creative-rp.com, 05/2021.
+Entire based at www.creative-rp.com, 07/2021.
 
 ## Copyright
 
