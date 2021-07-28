@@ -12,7 +12,7 @@ Citizen.CreateThread(function()
 		local timeDistance = 100
 		local ped = PlayerPedId()
 		if (IsPedRunning(ped) or IsPedSprinting(ped)) and tackleSystem <= 0 and not IsPedSwimming(ped) then
-			timeDistance = 0
+			timeDistance = 1
 
 			if IsControlJustPressed(1,38) then
 				local userStatus = nearestPlayers()
@@ -76,14 +76,14 @@ function nearestPlayers()
 	local ped = PlayerPedId()
 	local nearestPlayer = false
 	local listPlayers = GetPlayers()
-	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,1.25,0.0)
+	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,1.10,0.0)
 
 	for _,v in ipairs(listPlayers) do
 		local uPlayer = GetPlayerPed(v)
 		if uPlayer ~= ped and not IsPedInAnyVehicle(uPlayer) then
 			local uCoords = GetEntityCoords(uPlayer)
 			local distance = #(coords - uCoords)
-			if distance <= 1.25 then
+			if distance <= 1.10 then
 				nearestPlayer = v
 			end
 		end
