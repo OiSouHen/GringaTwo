@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("notepad",cnVRP)
+cRP = {}
+Tunnel.bindInterface("notepad",cRP)
 vSERVER = Tunnel.getInterface("notepad")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -29,6 +29,7 @@ end)
 RegisterNUICallback("escape",function()
 	SetNuiFocus(false)
 	vRP.removeObjects("one")
+	SendNUIMessage({ action = "hideNotepad" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EDITNOTE
@@ -37,7 +38,7 @@ RegisterNUICallback("editNote",function(data)
 	SetNuiFocus(false)
 	vRP.removeObjects("one")
 	SendNUIMessage({ action = "hideNotepad" })
-	vSERVER.editNotepad(data.id,data.text)
+	vSERVER.editNotepad(data["id"],data["text"])
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DROPNOTE
@@ -45,8 +46,8 @@ end)
 RegisterNUICallback("dropNote",function(data)
 	SetNuiFocus(false)
 	vRP.removeObjects("one")
+	vSERVER.createNotepad(data["text"])
 	SendNUIMessage({ action = "hideNotepad" })
-	vSERVER.createNotepad(data.text)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEPLAYERS
@@ -67,7 +68,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATENOTEPAD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateNotepad(status)
+function cRP.updateNotepad(status)
 	notePad = status
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -75,28 +76,31 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
+
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(notePad) do
-				local distance = #(coords - vector3(v.x,v.y,v.z))
+				local distance = #(coords - vector3(v["x"],v["y"],v["z"]))
 				if distance <= 5 then
-					timeDistance = 4
-					DrawText3Ds(v.x,v.y,v.z-0.8,"~g~E~w~   LER     ~r~G~w~   DESTRUIR")
+					timeDistance = 1
+					DrawText3Ds(v["x"],v["y"],v["z"] - 0.8,"~g~G~w~   LER     ~y~H~w~   DESTRUIR")
+
 					if distance <= 1.2 then
-						if IsControlJustPressed(1,38) then
+						if IsControlJustPressed(1,47) then
 							SetNuiFocus(true,true)
-							SendNUIMessage({ action = "showNotepad2", text = v.text, id = v.id })
+							SendNUIMessage({ action = "showNotepad2", text = v["text"], id = v["id"] })
 							vRP.createObjects("amb@medic@standing@timeofdeath@base","base","prop_notepad_01",49,60309)
-						elseif IsControlJustPressed(1,47) then
-							vSERVER.destroyNotepad(v.id)
+						elseif IsControlJustPressed(1,304) then
+							vSERVER.destroyNotepad(v["id"])
 						end
 					end
 				end
 			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -104,14 +108,18 @@ end)
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3Ds(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/500
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 190 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end

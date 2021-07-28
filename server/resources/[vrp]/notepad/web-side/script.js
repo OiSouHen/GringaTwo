@@ -2,12 +2,12 @@ let noteID = 0
 
 $(document).ready(function(){
 	window.addEventListener("message",function(event){
-		let data = event.data
+		let data = event["data"]
 
 		$(".notepad textarea").val("")
 		$(".notepad button").off("click")
 
-		switch (data.action) {
+		switch (data["action"]) {
 			case "showNotepad":
 				$(".notepad button").on("click",dropNote);
 				$(".notepad button").html("Dropar");
@@ -18,8 +18,8 @@ $(document).ready(function(){
 				$(".notepad button").on("click",editNote);
 				$(".notepad textarea").val(data.text);
 				$(".notepad button").html("Editar");
+				noteID = data["id"]
 				$("body").show();
-				noteID = data.id
 			break;
 
 			case "hideNotepad":
@@ -29,10 +29,9 @@ $(document).ready(function(){
 	});
 
 	document.onkeyup = function(data){
-		if (data.which == 27){
+		if (data["which"] == 27){
 			$.post("http://notepad/escape");
-			$("body").hide();
-		}
+		};
 	};
 })
 
