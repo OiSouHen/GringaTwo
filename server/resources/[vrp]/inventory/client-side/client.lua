@@ -152,9 +152,9 @@ Citizen.CreateThread(function()
 			local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
             local distance = #(coords - vector3(v.x,v.y,cdz))
             if distance <= 50 then
-               timeDistance = 4
-			   DrawMarker(23,v.x,v.y,cdz + 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
-			   DrawMarker(21,v.x,v.y,cdz + 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
+			    timeDistance = 1
+			    DrawMarker(23,v.x,v.y,cdz + 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
+			    DrawMarker(21,v.x,v.y,cdz + 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
 			end
         end
 
@@ -278,6 +278,33 @@ function func.plateApply(plate)
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLATEVEHICLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.plateVehicle()
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local vehicle = GetVehiclePedIsUsing(ped)
+		if GetPedInVehicleSeat(vehicle,-1) == ped then
+			FreezeEntityPosition(vehicle,true)
+			return true
+		end
+	end
+
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLATEAPPLY
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.plateApply(plate)
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local vehicle = GetVehiclePedIsUsing(ped)
+
+		SetVehicleNumberPlateText(vehicle,plate)
+		FreezeEntityPosition(vehicle,false)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- TYRES - CHECK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function func.checkBurstTyres(index)
@@ -371,42 +398,25 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		if blockButtons then
-			timeDistance = 4
-			DisableControlAction(1,73,true)
+			timeDistance = 1
 			DisableControlAction(1,75,true)
-			DisableControlAction(1,29,true)
 			DisableControlAction(1,47,true)
-			DisableControlAction(1,105,true)
-			DisableControlAction(1,187,true)
-			DisableControlAction(1,189,true)
-			DisableControlAction(1,190,true)
-			DisableControlAction(1,188,true)
-			DisableControlAction(1,311,true)
-			DisableControlAction(1,245,true)
 			DisableControlAction(1,257,true)
-			DisableControlAction(1,288,true)
-		  --DisableControlAction(1,37,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
-
--- Citizen.CreateThread(function()
--- 	while true do
--- 		local timeDistance = 4
--- 		DisableControlAction(1,37,true)	
--- 		Citizen.Wait(timeDistance)
--- 	end
--- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARACHUTECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function func.parachuteColors()
-	GiveWeaponToPed(PlayerPedId(),"GADGET_PARACHUTE",1,false,true)
-	SetPedParachuteTintIndex(PlayerPedId(),math.random(7))
+	local ped = PlayerPedId()
+	GiveWeaponToPed(ped,"GADGET_PARACHUTE",1,false,true)
+	SetPedParachuteTintIndex(ped,math.random(7))
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKFOUNTAIN
@@ -476,6 +486,7 @@ function func.fishingAnim()
 	if IsEntityPlayingAnim(ped,"amb@world_human_stand_fishing@idle_a","idle_c",3) then
 		return true
 	end
+
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -595,32 +606,6 @@ RegisterNetEvent('tb-inventory:client:takingWeapon')
 AddEventHandler('tb-inventory:client:takingWeapon', function(bool)
     takingWeapon = bool
 end)
-
--- function func.putWeaponHands(weapon)
--- 	local ped = GetPlayerPed(-1)
--- 	local wep = GetHashKey(weapon)
--- 	if not HasPedGotWeapon(ped, GetHashKey(currentWeaponModel), false) then
--- 		currentWeapon = wep
--- 		currentWeaponModel = weapon
--- 		GiveWeaponToPed(ped, wep, 0, false, true)
--- 		-- Citizen.Wait(1000)
--- 	else
--- 		-- RemoveAllPedWeapons(ped, true)
--- 		-- currentWeapon = nil
--- 		-- currentWeaponModel = nil
--- 	end
--- end
-
--- function func.removeWeaponInHand()
--- 	local ped = GetPlayerPed(-1)
--- 	if HasPedGotWeapon(ped, GetHashKey(currentWeaponModel), false) then
--- 		RemoveWeaponFromPed(ped, GetHashKey(currentWeaponModel))
--- 		currentWeapon = nil
--- 		currentWeaponModel = nil
--- 		-- TriggerEvent('inventory:takingWeapon', false)		
--- 	end
--- end
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEAPON_AMMOS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -754,24 +739,25 @@ function func.rechargeWeapon2(ammoType,ammoAmount)
 	return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADRENALINEDISTANCE
+-- ADRENALINECDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local adrenalineCds = {
-	{ 1978.76,5171.11,47.64 },
-	{ 707.86,4183.95,40.71 },
-	{ 436.64,6462.23,28.75 },
-	{ -2173.5,4291.73,49.04 }
+	{ 1978.98,5171.98,47.63 }
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADRENALINEDISTANCE
+-----------------------------------------------------------------------------------------------------------------------------------------
 function func.adrenalineDistance()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
+
 	for k,v in pairs(adrenalineCds) do
 		local distance = #(coords - vector3(v[1],v[2],v[3]))
 		if distance <= 5 then
 			return true
 		end
 	end
+
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -783,8 +769,7 @@ AddEventHandler("inventory:Firecracker",function()
 	if not HasNamedPtfxAssetLoaded("scr_indep_fireworks") then
 		RequestNamedPtfxAsset("scr_indep_fireworks")
 		while not HasNamedPtfxAssetLoaded("scr_indep_fireworks") do
-			RequestNamedPtfxAsset("scr_indep_fireworks")
-			Citizen.Wait(10)
+			Citizen.Wait(1)
 		end
 	end
 
@@ -792,30 +777,33 @@ AddEventHandler("inventory:Firecracker",function()
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		RequestModel(mHash)
-		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 
-	local explosives = 25
-	local ped = PlayerPedId()
-	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.6,0.0)
-	firecracker = CreateObjectNoOffset(mHash,coords.x,coords.y,coords.z,true,false,false)
+	if HasModelLoaded(mHash) then
+		local explosives = 25
+		local ped = PlayerPedId()
+		fireTimers = GetGameTimer() + (5 * 60000)
+		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.6,0.0)
+		firecracker = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
 
-	PlaceObjectOnGroundProperly(firecracker)
-	FreezeEntityPosition(firecracker,true)
-	SetModelAsNoLongerNeeded(mHash)
+		PlaceObjectOnGroundProperly(firecracker)
+		FreezeEntityPosition(firecracker,true)
+		SetEntityAsNoLongerNeeded(firecracker)
+		SetModelAsNoLongerNeeded(mHash)
 
-	Citizen.Wait(10000)
+		Citizen.Wait(10000)
 
-	repeat
-		UseParticleFxAssetNextCall("scr_indep_fireworks")
-		local explode = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_trailburst",coords.x,coords.y,coords.z,0.0,0.0,0.0,2.5,false,false,false,false)
-		explosives = explosives - 1
+		repeat
+			UseParticleFxAssetNextCall("scr_indep_fireworks")
+			local explode = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_trailburst",coords["x"],coords["y"],coords["z"],0.0,0.0,0.0,2.5,false,false,false,false)
+			explosives = explosives - 1
 
-		Citizen.Wait(2000)
-	until explosives == 0
+			Citizen.Wait(2000)
+		until explosives <= 0
 
-	TriggerServerEvent("tryDeleteEntity",ObjToNet(firecracker))
+		TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(firecracker))
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TECHDISTANCE
@@ -829,3 +817,57 @@ function func.techDistance()
 	end
 	return false
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKWATER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.checkWater()
+	return IsPedSwimming(PlayerPedId())
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- WHEELCHAIR
+-----------------------------------------------------------------------------------------------------------------------------------------
+function func.wheelChair(vehPlate)
+	local ped = PlayerPedId()
+	local vehName = "wheelchair"
+	local mHash = GetHashKey(vehName)
+
+	RequestModel(mHash)
+	while not HasModelLoaded(mHash) do
+		Citizen.Wait(1)
+	end
+
+	local heading = GetEntityHeading(ped)
+	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.75,0.0)
+	local nveh = CreateVehicle(mHash,coords["x"],coords["y"],coords["z"],heading,true,true)
+
+	SetVehicleOnGroundProperly(nveh)
+	SetVehicleNumberPlateText(nveh,vehPlate)
+	SetEntityAsMissionEntity(nveh,true,true)
+	SetModelAsNoLongerNeeded(mHash)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- WHEELTREADS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local wheelChair = false
+Citizen.CreateThread(function()
+	while true do
+		local ped = PlayerPedId()
+		if IsPedInAnyVehicle(ped) then
+			local vehicle = GetVehiclePedIsUsing(ped)
+			local model = GetEntityModel(vehicle)
+			if model == -1178021069 then
+				if not IsEntityPlayingAnim(ped,"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester",3) then
+					vRP.playAnim(true,{"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester"},true)
+					wheelChair = true
+				end
+			end
+		else
+			if wheelChair then
+				vRP.removeObjects("one")
+				wheelChair = false
+			end
+		end
+
+		Citizen.Wait(1000)
+	end
+end)

@@ -1497,7 +1497,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						until active[user_id] == nil
 					end
 
-					if itemName == "postit" then
+					if itemName == "notepad" then
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 							vCLIENT.closeInventory(source)
 							TriggerClientEvent("notepad:createNotepad",source)
