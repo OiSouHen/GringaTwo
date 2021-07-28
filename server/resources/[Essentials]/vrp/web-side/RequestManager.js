@@ -8,7 +8,7 @@ function RequestManager(){
 }
 
 RequestManager.prototype.buildText = function(text,time){
-	return "<div id=\"NotifyBackground\">" + text +"<br>Para aceitar aperte <green>Y</green>, para rejeitar aperte <green>U</green></div>";
+	return "<div id=\"NotifyBackground\"><div id=\"NotifyText\">" + text +"</div><div id=\"NotifyY\">Y</div><div id=\"NotifyLeg\">Aceitar</div><div id=\"NotifyU\">U</div><div id=\"NotifyLeg\">Recusar</div></div>";
 }
 
 RequestManager.prototype.addRequest = function(id,text,time){

@@ -63,26 +63,64 @@ html,body {
 }
 
 #NotifyBackground {
+	float: left;
+	width: 273px;
+	padding: 25px;
 	color: #c0c0c0;
 	font-size: 13px;
  	line-height: 20px;
-	border-radius: 2px;
-	padding: 15px 20px;
-	margin-right: 10px;
+	border-radius: 3px;
+	margin-right: 20px;
 	background: #323644;
+	box-shadow: 0 1px 0 #232630;
 	text-shadow: 1px 1px #232630;
-	border-left: 5px solid #232630;
-	border-right: 5px solid #232630;
 	font-family: "Roboto",Arial,Helvetica,sans-serif;
 }
 
-#NotifyBackground green {
-	color: #2e6e4c;
+#NotifyBackground b {
+	color: #fff;
+	font-weight: 300;
 }
 
-#NotifyBackground b {
-	font-weight: 300;
-	color: rgba(255,255,255,0.9);
+#NotifyText {
+	float: left;
+	width: 273px;
+	margin-bottom: 15px;
+}
+
+#NotifyY {
+	color: #fff;
+	float: left;
+	padding: 10px 15px;
+	background: #2e6e4c;
+	box-shadow: 0 1px 0 #2c303c;
+	border-top-left-radius: 3px;
+	text-shadow: 1px 1px #225138;
+	border-bottom-left-radius: 3px;
+}
+
+#NotifyU {
+	color: #fff;
+	float: left;
+	margin-left: 20px;
+	padding: 10px 15px;
+	background: #2e6e4c;
+	box-shadow: 0 1px 0 #2c303c;
+	border-top-left-radius: 3px;
+	text-shadow: 1px 1px #225138;
+	border-bottom-left-radius: 3px;
+}
+
+#NotifyLeg {
+	float: left;
+	color: #a0ceb6;
+	padding: 10px 15px;
+	letter-spacing: 2px;
+	background: #275f42;
+	box-shadow: 0 1px 0 #2c303c;
+	border-top-right-radius: 3px;
+	text-shadow: 1px 1px #225138;
+	border-bottom-right-radius: 3px;
 }
 
 #deathDiv {
@@ -117,12 +155,12 @@ html,body {
 }
 
 #statusDiv {
-	left: 35px;
-	bottom: 35px;
+	top: 200px;
+	right: 50px;
+	width: 265px;
+	position: fixed;
 	font-size: 11px;
-	max-width: 300px;
 	line-height: 16px;
-	position: absolute;
 	text-shadow: 1px 1px #000;
 	color: rgba(255,255,255,0.75);
 	font-family: "Roboto",Arial,Helvetica,sans-serif;

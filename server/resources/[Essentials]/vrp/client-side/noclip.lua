@@ -22,10 +22,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 
 		if noclip then
-			timeDistance = 4
+			timeDistance = 1
 			local speed = 1.0
 			local ped = PlayerPedId()
 			local x,y,z = table.unpack(GetEntityCoords(ped))

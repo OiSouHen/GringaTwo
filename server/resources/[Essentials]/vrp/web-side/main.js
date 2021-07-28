@@ -51,8 +51,6 @@ window.addEventListener("load",function(){
 		}
 
 		if (data["wanted"] == true){
-			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
-
 			if($("#wantedDiv").css("display") === "none"){
 				$("#wantedDiv").css("display","block");
 			}
@@ -65,14 +63,10 @@ window.addEventListener("load",function(){
 		}
 
 		if (data["wantedTime"] !== undefined){
-			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
-
 			$("#wantedDiv").html("As autoridades estão a sua procura, aguarde <b>"+parseInt(data["wantedTime"])+" segundos</b> até tudo se acalme.");
 		}
 
 		if (data["repose"] == true){
-			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
-
 			if($("#reposeDiv").css("display") === "none"){
 				$("#reposeDiv").css("display","block");
 			}
@@ -85,8 +79,6 @@ window.addEventListener("load",function(){
 		}
 
 		if (data["reposeTime"] !== undefined){
-			if (data["map"] == 1){ $("#statusDiv").css("bottom","250px"); } else { $("#statusDiv").css("bottom","35px"); }
-
 			$("#reposeDiv").html("Tratamento ocasionou lesões no corpo, aguarde <b>"+parseInt(data["reposeTime"])+" segundos</b> até tudo fique bem.");
 		}
 	});

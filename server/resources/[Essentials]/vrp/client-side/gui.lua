@@ -5,6 +5,9 @@ local crouch = false
 local point = false
 local object = nil
 local celular = false
+local animDict = nil
+local animName = nil
+local animActived = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STATUS:CELULAR
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -17,31 +20,22 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if celular then
-			timeDistance = 4
-			DisableControlAction(1,288,true)
-			DisableControlAction(1,289,true)
-			DisableControlAction(1,170,true)
-			DisableControlAction(1,187,true)
-			DisableControlAction(1,189,true)
-			DisableControlAction(1,190,true)
-			DisableControlAction(1,188,true)
-			DisableControlAction(1,73,true)
-			DisableControlAction(1,167,true)
-			DisableControlAction(1,29,true)
-			DisableControlAction(1,182,true)
-			DisableControlAction(1,16,true)
-			DisableControlAction(1,17,true)
+		local timeDistance = 999
+		if celular or animActived then
+			timeDistance = 1
+			DisableControlAction(1,18,true)
 			DisableControlAction(1,24,true)
 			DisableControlAction(1,25,true)
-			DisableControlAction(1,245,true)
 			DisableControlAction(1,68,true)
 			DisableControlAction(1,70,true)
 			DisableControlAction(1,91,true)
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,142,true)
+			DisableControlAction(1,143,true)
+			DisableControlAction(1,257,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -99,21 +93,15 @@ end
 function tvRP.loadAnimSet(dict)
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
-		RequestAnimDict(dict)
---		Citizen.Wait(10)
 		Citizen.Wait(1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATEOBJECTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local animDict = nil
-local animName = nil
-local animActived = false
 function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,pos5)
 	if DoesEntityExist(object) then
---		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
-		TriggerServerEvent("tryDeleteEntity",NetworkGetNetworkIdFromEntity(object))
+		TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(object))
 		object = nil
 	end
 
@@ -122,32 +110,34 @@ function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,p
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		RequestModel(mHash)
---		Citizen.Wait(10)
 		Citizen.Wait(1)
 	end
 
-	if anim ~= "" then
-		tvRP.loadAnimSet(dict)
-		TaskPlayAnim(ped,dict,anim,3.0,3.0,-1,flag,0,0,0,0)
-	end
+	if HasModelLoaded(mHash) then
+		if anim ~= "" then
+			tvRP.loadAnimSet(dict)
+			TaskPlayAnim(ped,dict,anim,3.0,3.0,-1,flag,0,0,0,0)
+		end
 
-	if altura then
-		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
-		object = CreateObject(mHash,coords.x,coords.y,coords.z,true,true,true)
-		AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),altura,pos1,pos2,pos3,pos4,pos5,true,true,false,true,1,true)
-	else
-		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
-		object = CreateObject(mHash,coords.x,coords.y,coords.z,true,true,true)
-		AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),0.0,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
-	end
-	SetEntityAsMissionEntity(object,true,true)
-	SetModelAsNoLongerNeeded(mHash)
+		if altura then
+			local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
+			object = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
+			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),altura,pos1,pos2,pos3,pos4,pos5,true,true,false,true,1,true)
+		else
+			local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
+			object = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
+			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),0.0,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
+		end
 
-	animDict = dict
-	animName = anim
-	animFlags = flag
-	animActived = true
+		SetEntityAsMissionEntity(object,true,true)
+		SetEntityAsNoLongerNeeded(object)
+		SetModelAsNoLongerNeeded(mHash)
+
+		animActived = true
+		animFlags = flag
+		animDict = dict
+		animName = anim
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEACTIVED
@@ -166,12 +156,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
-		if not IsEntityPlayingAnim(ped,animDict,animName,3) and animActived then
-			TaskPlayAnim(ped,animDict,animName,3.0,3.0,-1,animFlags,0,0,0,0)
-			timeDistance = 4
+		if animActived then
+			if not IsEntityPlayingAnim(ped,animDict,animName,3) then
+				TaskPlayAnim(ped,animDict,animName,3.0,3.0,-1,animFlags,0,0,0,0)
+				timeDistance = 1
+			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -209,8 +202,7 @@ function tvRP.removeObjects(status)
 	TriggerEvent("camera")
 	TriggerEvent("binoculos")
 	if DoesEntityExist(object) then
---		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
-		TriggerServerEvent("tryDeleteEntity",NetworkGetNetworkIdFromEntity(object))
+		TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(object))
 		object = nil
 	end
 end
@@ -227,9 +219,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 100
 		if point then
-			timeDistance = 4
+			timeDistance = 1
 			local ped = PlayerPedId()
 			local camPitch = GetGameplayCamRelativePitch()
 
@@ -250,10 +242,10 @@ Citizen.CreateThread(function()
 			end
 			camHeading = (camHeading + 180.0) / 360.0
 
-			local blocked = 0
 			local nn = 0
+			local blocked = 0
 			local coords = GetOffsetFromEntityInWorldCoords(ped,(cosCamHeading*-0.2)-(sinCamHeading*(0.4*camHeading+0.3)),(sinCamHeading*-0.2)+(cosCamHeading*(0.4*camHeading+0.3)),0.6)
-			local ray = Cast_3dRayPointToPoint(coords.x,coords.y,coords.z-0.2,coords.x,coords.y,coords.z+0.2,0.4,95,ped,7);
+			local ray = Cast_3dRayPointToPoint(coords["x"],coords["y"],coords["z"]-0.2,coords.x,coords.y,coords.z+0.2,0.4,95,ped,7);
 			nn,blocked,coords,coords = GetRaycastResult(ray)
 
 			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Pitch",camPitch)
@@ -338,8 +330,7 @@ RegisterCommand("keybindPoint",function(source,args)
 			if not point then
 				tvRP.stopActived()
 				SetPedCurrentWeaponVisible(ped,0,1,1,1)
---				SetPedConfigFlag(ped,36,1)
-				SetPedConfigFlag(ped,36,0)
+				SetPedConfigFlag(ped,36,1)
 				TaskMoveNetwork(ped,"task_mp_pointing",0.5,0,"anim@mp_point",24)
 				point = true
 			else

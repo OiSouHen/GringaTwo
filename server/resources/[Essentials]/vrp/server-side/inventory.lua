@@ -22,6 +22,16 @@ local itemlist = {
         type = "use",
         weight = 1.10
     },
+	["wheelchair"] = {
+		index = "wheelchair",
+		name = "Cadeira de Rodas",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "2250",
+		type = "use",
+		weight = 7.50
+	},
 	["vest"] = {
 		index = "vest",
 		name = "Colete",
