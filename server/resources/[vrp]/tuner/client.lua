@@ -1,8 +1,13 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
 local tuna_interior_id    = GetInteriorAtCoords(vector3(-1350.0, 160.0, -100.0))
 local meetup_interior_id  = GetInteriorAtCoords(vector3(-2000.0, 1113.211, -25.36243))
 local methlab_interior_id = GetInteriorAtCoords(vector3(981.9999, -143.0, -50.0))
 local enteredInteriorId   = nil
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ENTITYS
+-----------------------------------------------------------------------------------------------------------------------------------------
 local EntitySetsTuner = {
     ['entity_set_bedroom']           = true,
     ['entity_set_bedroom_empty']     = true,
@@ -46,10 +51,11 @@ local entitySetsMeet = {
 local EntitySetMeth = {
     ['tintable_walls'] = true,
 }
-
--- Load base entity sets
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- IPLLOADER
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    
+
     RequestIpl('tr_tuner_meetup')
     RequestIpl('tr_tuner_race_line')
     RequestIpl('tr_tuner_shop_burton')
@@ -97,8 +103,9 @@ Citizen.CreateThread(function()
 
     SetInteriorEntitySetColor(284673, "tintable_walls", 2)
 end)
-
--- Main thread
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREAD
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
@@ -123,38 +130,11 @@ Citizen.CreateThread(function()
                 end
             end
         end
-        -- Enable the autoshop garage?
-        if Config.EnableGarage then
-            for k, v in pairs(Config.Garage) do
-                if GetDistanceBetweenCoords(GetEntityCoords(playerPed), v.enter.x, v.enter.y, v.enter.z, true) < 5.0 then
-                    if KeyTips(v.name, true) and IsControlJustPressed(0, 51) then
-                        enteredInteriorId = k
-                        DisableInteriors()
-                        ActivateInteriorEntitySet(tuna_interior_id, v.style)
-                        RefreshInterior(tuna_interior_id)
-                        TeleportPlayerWithCar(playerPed, v.leave.x, v.leave.y, v.leave.z, v.leave.h)
-                    end
-                elseif GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), v.leave.x, v.leave.y, v.leave.z, true) < 5.0 then
-                    if KeyTips(v.name, false) and IsControlJustPressed(0, 51) then
-                        if enteredInteriorId ~= nil then
-                            TeleportPlayerWithCar(playerPed, Config.Garage[enteredInteriorId].enter.x, Config.Garage[enteredInteriorId].enter.y, Config.Garage[enteredInteriorId].enter.z, Config.Garage[enteredInteriorId].enter.h)
-                        else
-                            TeleportPlayerWithCar(playerPed, v.enter.x, v.enter.y, v.enter.z, v.enter.h)
-                        end
-                        DisableInteriors()
-                    end
-                end
-            end
-        end
     end
 end)
-
-function DisplayHelpText(text)
-	SetTextComponentFormat('STRING')
-	AddTextComponentString(text)
-	DisplayHelpTextFromStringLabel(0, 0, 1, -1)
-end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLACKLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
 function IsBlackListVehicle(vehicle)
     if not DoesEntityExist(vehicle) then return false end
     local vehicleClass = GetVehicleClass(vehicle)
@@ -168,20 +148,25 @@ function IsBlackListVehicle(vehicle)
     end
     return false
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- KEYTIPS
+-----------------------------------------------------------------------------------------------------------------------------------------
 function KeyTips(name, enter)
     if IsBlackListVehicle(GetVehiclePedIsIn(GetPlayerPed(-1), false)) then
-        DisplayHelpText(string.format("%s %s", Config.Language["black_lists"], name))
+		TriggerEvent("Notify","amarelo","Você não pode entrar aqui com esse veículo.",5000)
+		Wait(30000)
         return false
     elseif enter then
-        DisplayHelpText(string.format("%s %s", Config.Language["press_enter"], name))
+      --DisplayHelpText(string.format("%s %s", Config.Language["press_enter"], name))
         return true
     else
-        DisplayHelpText(string.format("%s %s", Config.Language["press_leave"], name))
+      --DisplayHelpText(string.format("%s %s", Config.Language["press_leave"], name))
         return true
     end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TELEPORT
+-----------------------------------------------------------------------------------------------------------------------------------------
 function TeleportPlayerWithCar(playerPed, x, y, z, heading)
     DoScreenFadeOut(250)
     Citizen.Wait(250)
@@ -194,7 +179,9 @@ function TeleportPlayerWithCar(playerPed, x, y, z, heading)
     Citizen.Wait(1000)
     DoScreenFadeIn(250)
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DISABLE INTERIORS
+-----------------------------------------------------------------------------------------------------------------------------------------
 function DisableInteriors()
     local interiors = {
         ['entity_set_style_1'] = false,
