@@ -686,6 +686,12 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
+					if itemName == "wheelchair" then
+						vCLIENT.closeInventory(source)
+						LoadModel("prop_wheelchair_01")
+						local wheelchair = CreateObject(GetHashKey("prop_wheelchair_01"),GetEntityCoords(PlayerPedId()),true)
+					end
+					
 					if itemName == "teddy" then
 						vCLIENT.closeInventory(source)
 						vRPclient._createObjects(source,"impexp_int-0","mp_m_waremech_01_dual-0","v_ilev_mr_rasberryclean",49,24817,-0.20,0.46,-0.016,-180.0,-90.0,0.0)
@@ -2174,6 +2180,16 @@ AddEventHandler("inventory:Cancel",function()
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LOADMODEL
+-----------------------------------------------------------------------------------------------------------------------------------------
+LoadModel = function(model)
+	while not HasModelLoaded(model) do
+		RequestModel(model)
+		
+		Citizen.Wait(1)
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
