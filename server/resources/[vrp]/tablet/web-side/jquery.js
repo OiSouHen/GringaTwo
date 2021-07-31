@@ -1,6 +1,5 @@
 var selectPage = "commands";
 var reversePage = "commands";
-var mediaPage = "Twitter";
 /* ---------------------------------------------------------------------------------------------------------------- */
 $(document).ready(function(){
 	commandsPage();
@@ -17,10 +16,6 @@ $(document).ready(function(){
 
 			case "requestPossuidos":
 				benefactor("Possuidos");
-			break;
-			
-			case "messageMedia":
-				updateMedia(event.data.media,event.data.data,event.data.back)
 			break;
 		};
 	});
@@ -50,19 +45,15 @@ const commandsPage = () => {
 		<div id="titleContent">PRINCIPAIS</div>
 		<div id="pageDiv">
 			<b>/vehs</b> - Lista de seus veículos<br>
-			<b>/andar x</b> - Modifica o modo de andar<br>
-			<b>/cam</b> - Mudar uma câmera de segurança
+			<b>/andar x</b> - Modifica o modo de andar
 		</div>
 		<div id="pageDiv">
 			<b>/me</b> - Efetuar uma animação não existente<br>
-			<b>/chat</b> - Ativa/Desativa o chat<br>
-			<b>/setrepose x</b> - X é o número de minutos de repouso
+			<b>/chat</b> - Ativa/Desativa o chat
 		</div>
 		<div id="pageDiv">
 			<b>/debug</b> - Recarrega os dados do personagem<br>
-			<b>/limbo</b> - Utilizado quando cair no limbo e morrer<br>
-			<b>/911</b> - Chat de conversa dos policiais<br>
-			<b>/112</b> - Chat de conversa dos paramédicos
+			<b>/limbo</b> - Utilizado quando cair no limbo e morrer
 		</div>
 
 		<div id="divContent"></div>
@@ -271,50 +262,6 @@ const commandsPage = () => {
 	`);
 };
 /* ---------------------------------------------------------------------------------------------------------------- */
-const racesPage = (raceId) => {
-	selectPage = "races";
-
-	if (raceId == undefined){
-		raceId = 1;
-	}
-
-	$("#content").html(`
-		<div id="raceBar">
-			<li id="circuits" data-id="1" ${raceId == 1 ? "class=active":""}>01</li>
-			<li id="circuits" data-id="2" ${raceId == 2 ? "class=active":""}>02</li>
-			<li id="circuits" data-id="3" ${raceId == 3 ? "class=active":""}>03</li>
-			<li id="circuits" data-id="4" ${raceId == 4 ? "class=active":""}>04</li>
-			<li id="circuits" data-id="5" ${raceId == 5 ? "class=active":""}>05</li>
-			<li id="circuits" data-id="6" ${raceId == 6 ? "class=active":""}>06</li>
-			<li id="circuits" data-id="7" ${raceId == 7 ? "class=active":""}>07</li>
-			<li id="circuits" data-id="8" ${raceId == 8 ? "class=active":""}>08</li>
-			<li id="circuits" data-id="9" ${raceId == 9 ? "class=active":""}>09</li>
-		</div>
-
-		<div id="raceContent"></div>
-	`);
-
-	$.post("http://tablet/requestRanking",JSON.stringify({ id: raceId }),(data) => {
-		let position = 0;
-
-		$.each(JSON.parse(data),(k,v) => {
-			$('#raceContent').append(`
-				<div id="raceLine">
-					<div class="racePosition">${position = position + 1}</div>
-					<div class="raceName">${v["name"]} ${(position == 1 || position == 2 || position == 3) ? "<img src=\"images/"+position+".png\">":""}</div>
-					<div class="raceVehicle">${v["vehicle"]}</div>
-					<div class="racePoints">${format(v["points"])} Pontos</div>
-					<div class="raceDate">${v["date"]}</div>
-				</div>
-			`);
-		});
-	});
-};
-/* ----------CLICKRACES---------- */
-$(document).on("click","#circuits",function(e){
-	racesPage(e["target"]["dataset"]["id"]);
-});
-/* ---------------------------------------------------------------------------------------------------------------- */
 var benMode = "Carros"
 var benSearch = "alphabetic"
 
@@ -328,7 +275,7 @@ const benefactor = (mode) => {
 	selectPage = "benefactor";
 
 	$("#content").html(`
-		<div id="raceBar">
+		<div id="benefactorBar">
 			<li id="benefactor" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
 			<li id="benefactor" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
 			<li id="benefactor" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
@@ -355,11 +302,12 @@ const benefactor = (mode) => {
 				${nameList.map((item) => (`<span>
 					<left>
 						${item["name"]}<br>
-						<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}
-						<br><b>Porta-Malas:</b> ${format(item["chest"])}Kg
+						<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
+						<b>Taxa Semanal:</b> $${format(item["tax"])}<br>
+						<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 					</left>
 					<right>
-						${mode == "Aluguel" ? "<div id=\"benefactorRental\" data-name="+item["k"]+">ALUGAR</div>":"<div id=\"benefactorBuy\" data-name="+item["k"]+">COMPRAR</div>"}
+						${mode == "Aluguel" ? "<div id=\"benefactorRental\" data-name="+item["k"]+">G</div><div id=\"benefactorRentalMoney\" data-name="+item["k"]+">$</div>":"<div id=\"benefactorBuy\" data-name="+item["k"]+">COMPRAR</div>"}
 						<div id="benefactorDrive" data-name="${item["k"]}">TESTAR</div>
 					</right>
 				</span>`)).join('')}
@@ -369,7 +317,7 @@ const benefactor = (mode) => {
 				${nameList.map((item) => (`<span>
 					<left>
 						${item["name"]}<br>
-						<b>Valor:</b> $${format(item["price"])}<br>
+						<b>Venda:</b> $${format(item["price"])}<br>
 						<b>Taxa:</b> ${item["tax"]}
 					</left>
 					<right>
@@ -393,6 +341,10 @@ $(document).on("click","#benefactorBuy",function(e){
 $(document).on("click","#benefactorRental",function(e){
 	$.post("http://tablet/requestRental",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
 });
+/* ----------BENEFACTORRENTALMONEY---------- */
+$(document).on("click","#benefactorRentalMoney",function(e){
+	$.post("http://tablet/rentalMoney",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
+});
 /* ----------BENEFACTORSELL---------- */
 $(document).on("click","#benefactorSell",function(e){
 	$.post("http://tablet/requestSell",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
@@ -405,46 +357,6 @@ $(document).on("click","#benefactorTax",function(e){
 $(document).on("click","#benefactorDrive",function(e){
 	$.post("http://tablet/requestDrive",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
 });
-/* ---------------------------------------------------------------------------------------------------------------- */
-const midiaPage = (data) => {
-	mediaPage = data;
-
-	$("#socialRight").html("")
-	$("#socialRight").html("<div id='socialTitle'>Últimos tweets</div><div id='socialContent'></div>")
-	$.post("http://tablet/requestMedia",JSON.stringify({ media: data }),(data) => {
-		$.each(JSON.parse(data),(k,v) => {
-			$('#socialContent').prepend(`<div id="socialLine" ${v.back === true ? "":""}>${v.text}</div>`);
-		})
-	});
-}
-/* ---------------------------------------------------------------------------------------------------------------- */
-const socialPage = () => {
-	selectPage = "social";
-
-	$('#content').html(`
-		<div id='socialLeft'>
-			<textarea maxlength='280' class='mediaArea' spellcheck='false' value='' placeholder='O que está acontecendo?'></textarea>
-			<div id='socialSubmit'>Tweetar</div>
-		</div>
-		<div id='socialRight'></div>
-	`);
-
-	midiaPage(mediaPage);
-};
-/* ----------CLICKSOCIALSUBMIT---------- */
-$(document).on("click","#socialSubmit",function(){
-	let messageMedia = $('.mediaArea').val();
-	if (messageMedia != "") {
-		$.post("http://tablet/messageMedia",JSON.stringify({ message: messageMedia, page: mediaPage }));
-		$('.mediaArea').val("")
-	}
-});
-/* ----------UPDATEMEDIA---------- */
-const updateMedia = (media,data,back) => {
-	if (mediaPage == media){
-		$('#socialContent').prepend(`<div id="socialLine" ${back === true ? "":""}>${data}</div>`);
-	}
-}
 /* ----------FORMAT---------- */
 const format = (n) => {
 	var n = n.toString();

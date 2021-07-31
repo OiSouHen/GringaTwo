@@ -43,18 +43,16 @@ local timeDate = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if playerActive then
-			if GetGameTimer() >= timeDate then
-				timeDate = GetGameTimer() + 30000
-				clockMinutes = clockMinutes + 1
+		if GetGameTimer() >= timeDate then
+			timeDate = GetGameTimer() + 30000
+			clockMinutes = clockMinutes + 1
 
-				if clockMinutes >= 60 then
-					clockHours = clockHours + 1
-					clockMinutes = 0
+			if clockMinutes >= 60 then
+				clockHours = clockHours + 1
+				clockMinutes = 0
 
-					if clockHours >= 24 then
-						clockHours = 0
-					end
+				if clockHours >= 24 then
+					clockHours = 0
 				end
 			end
 		end
@@ -94,29 +92,23 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
-
-		if playerActive then
-			timeDistance = 0
-
-			if homeInterior then
-				SetWeatherTypeNow("CLEAR")
-				SetWeatherTypePersist("CLEAR")
-				SetWeatherTypeNowPersist("CLEAR")
-				NetworkOverrideClockTime(00,00,00)
-			else
-				SetWeatherTypeNow(weatherSync)
-				SetWeatherTypePersist(weatherSync)
-				SetWeatherTypeNowPersist(weatherSync)
-				NetworkOverrideClockTime(clockHours,clockMinutes,00)
-			end
-
-			if beltLock >= 1 then
-				DisableControlAction(1,75,true)
-			end
+		if homeInterior then
+			SetWeatherTypeNow("CLEAR")
+			SetWeatherTypePersist("CLEAR")
+			SetWeatherTypeNowPersist("CLEAR")
+			NetworkOverrideClockTime(00,00,00)
+		else
+			SetWeatherTypeNow(weatherSync)
+			SetWeatherTypePersist(weatherSync)
+			SetWeatherTypeNowPersist(weatherSync)
+			NetworkOverrideClockTime(clockHours,clockMinutes,00)
 		end
 
-		Citizen.Wait(timeDistance)
+		if beltLock >= 1 then
+			DisableControlAction(1,75,true)
+		end
+
+		Citizen.Wait(0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

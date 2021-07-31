@@ -149,6 +149,17 @@ Citizen.CreateThread(function()
 		},
 		distance = 0.75
 	})
+	
+	AddTargetModel({ -1364697528 },{
+		options = {
+			{
+				event = "atm:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
+	})
 
 	AddTargetModel({ -664053099,1682622302,307287994,-1323586730,-417505688,-832573324 },{
 		options = {

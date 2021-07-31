@@ -193,6 +193,13 @@ AddEventHandler("shops:sodaMachine",function()
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOPS:COLAMACHINE
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("shops:colaMachine",function()
+	SendNUIMessage({ action = "showNUI", name = tostring("colaMachine"), type = vSERVER.getShopType("colaMachine") })
+	SetNuiFocus(true,true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:DONUTMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:donutMachine",function()

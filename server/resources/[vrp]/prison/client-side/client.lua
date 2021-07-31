@@ -20,7 +20,7 @@ local prisonTimer = 0
 local prisonLocal = 1
 local coordsIntern = { 1679.94,2513.07,45.56 }
 local coordsExtern = { 1846.49,2584.38,45.66 }
-local coordsLeaver = { 1834.09,2594.34,46.02 }
+local coordsLeaver = { 1775.65,2551.89,45.57 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SERVICES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3]))
 
-			if distance <= 1.5 then
+			if distance <= 5 then
 				timeDistance = 4
 				DrawText3D(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3],"~g~E~w~   FUGIR")
 

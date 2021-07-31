@@ -120,114 +120,7 @@ s {
 	padding: 0 0 0 15px;
 }
 /* ---------------------------------------------------------------------------------------------------------------- */
-#socialLeft {
-	float: left;
-	width: 300px;
-	min-height: 409px;
-	max-height: 409px;
-}
-
-#socialRight {
-	float: left;
-	width: 819px;
-	min-height: 409px;
-	max-height: 409px;
-	padding-left: 10px;
-	margin-left: 10px;
-	border-left: 1px dotted #999;
-}
-
-#socialTitle {
-	float: left;
-	width: 804px;
-	font-size: 20px;
-	font-weight: 700;
-	letter-spacing: 1px;
-	margin-bottom: 15px;
-	padding: 5px 0 10px 15px;
-	text-transform: uppercase;
-	border-bottom: 1px dotted #999;
-}
-
-#socialContent {
-	float: left;
-	width: 819px;
-	height: 358px;
-	overflow: auto;
-}
-
-#socialLine {
-	float: left;
-	width: 789px;
-	line-height: 20px;
-	padding: 10px 15px;
-	margin-bottom: 3px;
-	border-radius: 4px;
-	color: #fff;
-	background: #2a354c;
-}
-
-#socialLeft textarea {
-	border: 0;
-	width: 300px;
-	resize: none;
-	height: 150px;
-	padding: 15px;
-	margin-top: 15px;
-	border-radius: 3px;
-}
-
-#socialLeft textarea::selection {
-	color: #fff;
-	background: #333;
-}
-
-#socialSubmit {
-	color: #fff;
-	float: left;
-	width: 120px;
-	margin-top: 10px;
-	margin-left: 150px;
-	text-align: center;
-	border-radius: 4px;
-	padding: 10px 15px;
-	background: #1a1a1a;
-	color: #ffffff;
-}
-
-#socialSubmit::selection {
-	color: #fff;
-}
-
-#socialSubmit:hover {
-	background: #303030;
-}
-
-#socialLeft li {
-	float: left;
-	width: 67px;
-	color: #ccc;
-	height: 42px;
-	font-size: 30px;
-	list-style: none;
-	background: #333;
-	padding-top: 10px;
-	margin-bottom: 3px;
-	border-radius: 3px;
-	text-align: center;
-}
-
-#socialLeft li::selection {
-	color: #ccc;
-}
-
-#socialDivision {
-	float: left;
-	width: 10px;
-	height: 52px;
-}
-/* ---------------------------------------------------------------------------------------------------------------- */
-#raceBar {
+#benefactorBar {
 	width: 1140px;
 	padding: 0 30px;
 	background: #222;
@@ -236,7 +129,7 @@ s {
 	position: absolute;
 }
 
-#raceBar li {
+#benefactorBar li {
 	float: left;
 	color: #999;
 	font-weight: 700;
@@ -246,85 +139,14 @@ s {
 	text-shadow: 0 0 rgba(0,0,0,0.5);
 }
 
-#raceBar li:hover {
+#benefactorBar li:hover {
 	color: #ccc;
 	background: #444;
 }
 
-#raceBar li.active {
+#benefactorBar li.active {
 	color: #ccc;
 	background: #666;
-}
-
-#raceContent {
-	float: left;
-	width: 1140px;
-	margin-top: 42px;
-	max-height: 418px;
-	min-height: 418px;
-	overflow-y: scroll;
-}
-
-#raceLine {
-	float: left;
-	width: 1140px;
-	margin-bottom: 3px;
-	border-radius: 3px;
-	background: rgba(100,100,100,0.1);
-}
-
-#raceLine:nth-child(2n) {
-	float: left;
-	width: 1140px;
-	margin-bottom: 3px;
-	border-radius: 3px;
-	background: rgba(255,255,255,0.1);
-}
-
-#raceLine:last-child {
-	margin-bottom: 0px;
-}
-
-#raceLine:hover {
-	background: rgba(240,203,88,0.5);
-}
-
-.racePosition {
-	float: left;
-	width: 20px;
-	padding: 14px 15px 13px;
-	text-align: right;
-}
-
-.raceName {
-	float: left;
-	width: 200px;
-	font-weight: 700;
-	padding: 14px 15px 13px 5px;
-}
-
-.raceName img {
-	margin-top: -4px;
-	margin-left: 10px;
-	position: absolute;
-}
-
-.raceVehicle {
-	float: left;
-	width: 200px;
-	padding: 14px 15px 13px;
-}
-
-.racePoints {
-	float: left;
-	width: 200px;
-	padding: 14px 15px 13px;
-}
-
-.raceDate {
-	float: left;
-	width: 200px;
-	padding: 14px 15px 13px;
 }
 /* ---------------------------------------------------------------------------------------------------------------- */
 #titleVehicles {
@@ -443,17 +265,29 @@ s {
 
 #benefactorRental {
 	float: left;
-	width: 89px;
-	color: #dacdf7;
+	width: 42px;
+	color: #8ebda3;
 	padding: 6px 0 4px;
 	text-align: center;
 	border-radius: 3px;
 	margin-bottom: 3px;
-	background: #6a48b8;
+	background: #2e6e4c;
+	margin-right: 6px;
 }
 
-#benefactorRental:hover {
-	background: #51368c;
+#benefactorRentalMoney {
+	float: left;
+	width: 41px;
+	color: #8ebda3;
+	padding: 6px 0 4px;
+	text-align: center;
+	border-radius: 3px;
+	margin-bottom: 3px;
+	background: #2e6e4c;
+}
+
+#benefactorRentalMoney:hover, #benefactorRental:hover {
+	background: #39875e;
 	transition: all 0.9s;
 }
 
