@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
             local distance = #(coords - vector3(v[5],v[6],v[7]))
             if distance <= 1.5 then
                 timeDistance = 5
-                DrawText3Ds(v[5],v[6],v[7],"~w~/ENTRAR    |    /PORTA")
+                DrawText3D(v[5],v[6],v[7],"~w~/ENTRAR    |    /PORTA")
             end
         end
         Citizen.Wait(timeDistance)
@@ -589,7 +589,7 @@ Citizen.CreateThread(function()
 						local distance = #(coords - vector3(theftHomesX+v[1],theftHomesY+v[2],1502.0))
 						if distance <= 1.5 then
 							timeDistance = 1
-							DrawText3Ds(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~  VASCULHAR")
+							DrawText3D(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~  VASCULHAR")
 							if distance <= 0.8 and IsControlJustPressed(1,38) then
 								TriggerEvent("cancelando",true)
 
@@ -630,7 +630,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.5 then
 					timeDistance = 1
-					DrawText3Ds(v[1],v[2],v[3],"~g~E~w~  "..v[5])
+					DrawText3D(v[1],v[2],v[3],"~g~E~w~  "..v[5])
 
 					if IsControlJustPressed(1,38) then
 						if v[4] == "exit" then
@@ -674,7 +674,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3Ds(x,y,z,text)
+function DrawText3D(x,y,z,text)
 	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
 
 	if onScreen then
