@@ -15,7 +15,7 @@ vSERVER = Tunnel.getInterface("products")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inService = false
 local timeSelling = 0
-local inTimers = 30
+local inTimers = 120
 local inPed = nil
 local lastItem = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -184,7 +184,7 @@ AddEventHandler("products:toggleService",function()
 			
 			if inPed ~= nil then
 				DeleteEntity(inPed)
-				inTimers = 30
+				inTimers = 120
 			end
 			
 			TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
@@ -217,9 +217,9 @@ function startthreaddelivery()
 
 						if timeSelling > 0 then
 							DisableControlAction(1,23,true)
-							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE  ~y~"..timeSelling.."~w~  SEGUNDOS")
+							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE "..timeSelling.." SEGUNDOS")
 						else
-							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~   VENDER")
+							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~  OFERECER")
 							if distance <= 1.5 then
 								if IsControlJustPressed(1,38) and vSERVER.checkAmount() and not IsPedInAnyVehicle(ped) then
 									timeSelling = 10
@@ -242,7 +242,7 @@ function startthreadintimers()
 			if inService and inTimers > 0 then
 				inTimers = inTimers - 1
 
-				if inTimers == 60 and inPed ~= nil then
+				if inTimers == 240 and inPed ~= nil then
 					DeleteEntity(inPed)
 					inPed = nil
 				end
@@ -264,7 +264,7 @@ function startthreadintimers()
 					SetBlockingOfNonTemporaryEvents(inPed,true)
 					SetModelAsNoLongerNeeded(mHash)
 
-					TriggerEvent("NotifyPush",{ time = ("%H:%M:%S - %d/%m/%Y"), text = "Ola gostaria de estar comprando este produto.", code = 20, title = "Quero comprar um produto", x = pedLocate[rand][1], y = pedLocate[rand][2], z = pedLocate[rand][3], name = callName[math.random(#callName)].." "..callName2[math.random(#callName2)], rgba = {69,115,41} })
+					TriggerEvent("NotifyPush",{ text = "Quero uma coisinha que você tem aí...", code = 20, title = "Quero comprar um produto", x = pedLocate[rand][1], y = pedLocate[rand][2], z = pedLocate[rand][3], name = callName[math.random(#callName)].." "..callName2[math.random(#callName2)], rgba = {69,115,41} })
 				end
 			end
 
@@ -304,7 +304,7 @@ function timeselling()
 					SetEntityInvincible(inPed,false)
 					FreezeEntityPosition(inPed,false)
 					TaskWanderStandard(inPed,10.0,10)
-					inTimers = math.random(20,30)
+					inTimers = math.random(100,120)
 
 					vSERVER.paymentMethod()
 
@@ -327,7 +327,7 @@ function timeselling()
 					FreezeEntityPosition(inPed,false)
 					TaskWanderStandard(inPed,10.0,10)
 					timeSelling = 0
-					inTimers = 90
+					inTimers = 245
 				end
 			end
 
