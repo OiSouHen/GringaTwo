@@ -11,7 +11,7 @@ vSERVER = Tunnel.getInterface("atm")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENATM
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("atm:openATM",function()
+AddEventHandler("atm:openSystem",function()
 	SetNuiFocus(true,true)
 	local saldo = vSERVER.getSaldo()			    
 	SendNUIMessage({ action = "show", saldo = tostring(saldo) })
