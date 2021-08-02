@@ -231,15 +231,15 @@ AddEventHandler("hunting:animalCutting",function()
 				if IsPedDeadOrDying(animalHunting[k]) and not IsPedAPlayer(animalHunting[k]) then
 					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_SWITCHBLADE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
+						TriggerEvent("player:blockCommands",true)
 						local targetEntity = animalHunting[k]
+						TriggerEvent("cancelando",true)
 						animalHunting[k] = nil
 
 						Citizen.Wait(1000)
 
 						vRP.playAnim(true,{"anim@gangops@facility@servers@bodysearch@","player_search"},true)
 						vRP.playAnim(false,{"amb@medic@standing@kneel@base","base"},true)
-						TriggerEvent("player:blockCommands",true)
-						TriggerEvent("cancelando",true)
 
 						Citizen.Wait(15000)
 
