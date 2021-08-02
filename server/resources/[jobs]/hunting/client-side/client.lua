@@ -237,6 +237,8 @@ AddEventHandler("hunting:animalCutting",function()
 						animalHunting[k] = nil
 
 						Citizen.Wait(1000)
+						
+						TriggerEvent("Progress",15000,"Esfolando...")
 
 						vRP.playAnim(true,{"anim@gangops@facility@servers@bodysearch@","player_search"},true)
 						vRP.playAnim(false,{"amb@medic@standing@kneel@base","base"},true)
