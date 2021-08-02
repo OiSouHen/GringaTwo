@@ -7,39 +7,45 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
+cRP = {}
+Tunnel.bindInterface("atm",cRP)
 vSERVER = Tunnel.getInterface("atm")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- OPENATM
+-- ATM:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("atm:openSystem",function()
-	SetNuiFocus(true,true)
-	local saldo = vSERVER.getSaldo()			    
-	SendNUIMessage({ action = "show", saldo = tostring(saldo) })
-	vRP._playAnim(false,{"amb@prop_human_atm@male@base","base"},true)
+	if vSERVER.requestWanted() then
+		SetNuiFocus(true,true)
+		SendNUIMessage({ action = "show" })
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CLOSEAPP
+-- ATM:UPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("CloseApp", function(data,cb)
-	SetNuiFocus(false)
-	cb("ok")
-	vRP._playAnim(false,{"amb@prop_human_atm@male@exit","exit"},false)
-	Citizen.Wait(4000)
-	vRP._stopAnim()
+RegisterNetEvent("atm:Update")
+AddEventHandler("atm:Update",function(action)
+	SendNUIMessage({ action = action })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- HANDLESAQUE
+-- CLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("HandleSaque", function(data,cb)
-	local valor = parseInt(data.valor)
-	local newSaldo = vSERVER.sacarValor(valor)
-	cb({ saldo = tostring(newSaldo) })
+RegisterNUICallback("close",function(data)
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "hide" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- HANDLETRANSFER
+-- DEPOSIT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("HandleTransfer", function(data,cb)
-	local valor,target = parseInt(data.valor),parseInt(data.target)
-	local newSaldo = vSERVER.transferirValor(valor,target)
-	cb({ saldo = tostring(newSaldo) })
+RegisterNUICallback("deposit",function(data)
+	if parseInt(data["value"]) > 0 then
+		vSERVER.bankDeposit(data["value"])
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- WITHDRAW
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("withdraw",function(data)
+	if parseInt(data["value"]) > 0 then
+		vSERVER.bankWithdraw(data["value"])
+	end
 end)

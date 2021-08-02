@@ -8,8 +8,21 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("atm",cnVRP)
+cRP = {}
+Tunnel.bindInterface("atm",cRP)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REQUESTWANTED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.requestWanted()
+ 	local source = source
+ 	local user_id = vRP.getUserId(source)
+ 	if user_id then
+ 		if not vRP.wantedReturn(user_id) then
+ 			return true
+ 		end
+ 		return false
+ 	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ATMTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -28,73 +41,50 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETSALDO
+-- BANKDEPOSIT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getSaldo()
+function cRP.bankDeposit(amount)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		return vRP.getBank(user_id)
+		if parseInt(amount) > 0 then
+			if vRP.tryGetInventoryItem(user_id,"dollars",parseInt(amount)) then
+				vRP.addBank(user_id,parseInt(amount))
+				TriggerClientEvent("bank:Update",source,"hide")
+			end
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SACARVALOR
+-- BANWITHDRAW
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.sacarValor(valor)
+function cRP.bankWithdraw(amount)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if parseInt(valor) > 5000 then
-			TriggerClientEvent("Notify",source,"amarelo","Limite de saque máximo atingido.",5000)
-			return vRP.getBank(user_id)
+
+		local getInvoice = vRP.getInvoice(user_id)
+		if getInvoice[1] ~= nil then
+			TriggerClientEvent("Notify",source,"amarelo","Encontramos faturas pendentes.",5000)
+			return
 		end
 
-		if parseInt(valor) > 0 then
-			if atmTimers[user_id] then
-				if atmTimers[user_id][1] > 0 and atmTimers[user_id][2] >= 5000 then
-					TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(atmTimers[user_id][1])).."</b>.",5000)
-					return vRP.getBank(user_id)
-				end
+		local getFines = vRP.getFines(user_id)
+		if getFines[1] ~= nil then
+			TriggerClientEvent("Notify",source,"amarelo","Encontramos multas pendentes.",5000)
+			return
+		end
 
-				if (atmTimers[user_id][2] + parseInt(valor)) <= 5000 then
-					if vRP.withdrawCash(user_id,parseInt(valor)) then
-						atmTimers[user_id][2] = atmTimers[user_id][2] +  parseInt(valor)
-					else
-						TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
-					end
-				else
-					TriggerClientEvent("Notify",source,"amarelo","Você atingiu o limite de retiradas.",5000)
-				end
-			else
-				if vRP.withdrawCash(user_id,parseInt(valor)) then
-					atmTimers[user_id] = { 600,parseInt(valor) }
+		if parseInt(amount) > 0 then
+			if vRP.computeInvWeight(user_id) + vRP.itemWeightList("dollars") * parseInt(amount) <= vRP.getBackpack(user_id) then
+				if vRP.withdrawCash(user_id,parseInt(amount)) then
+					TriggerClientEvent("bank:Update",source,"hide")
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
 				end
+			else
+				TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",3000)
 			end
 		end
-
-		return vRP.getBank(user_id)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TRANSFERIRVALOR
------------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.transferirValor(valor,target)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.paymentBank(user_id,valor) then
-			vRP.addBank(target,valor)
-
-			local nSource = vRP.getUserSource(target)
-			if nSource then
-				TriggerClientEvent("itensNotify",nSource,{ "+","dollars",vRP.format(valor),"Dólares" })
-			end
-		else
-			TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
-		end
-
-		return vRP.getBank(user_id)
 	end
 end
