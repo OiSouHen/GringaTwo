@@ -16,6 +16,7 @@ vSERVER = Tunnel.getInterface("atm")
 AddEventHandler("atm:openSystem",function()
 	if vSERVER.requestWanted() then
 		SetNuiFocus(true,true)
+		vRP._playAnim(false,{"amb@prop_human_atm@male@base","base"},true)
 		SendNUIMessage({ action = "show" })
 	end
 end)
@@ -32,6 +33,9 @@ end)
 RegisterNUICallback("close",function(data)
 	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hide" })
+	vRP._playAnim(false,{"amb@prop_human_atm@male@exit","exit"},false)
+	Citizen.Wait(4000)
+	vRP._stopAnim()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DEPOSIT
