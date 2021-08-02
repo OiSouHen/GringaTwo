@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("products",cnVRP)
+cRP = {}
+Tunnel.bindInterface("products",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -18,27 +18,16 @@ local amount = {}
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemList = {
-	{ item = "cocaine", priceMin = 2, priceMax = 10, randMin = 3, randMax = 6 },
-	{ item = "joint", priceMin = 2, priceMax = 10, randMin = 3, randMax = 6 },
-	{ item = "meth", priceMin = 2, priceMax = 10, randMin = 3, randMax = 6 },
-	{ item = "ecstasy", priceMin = 2, priceMax = 10, randMin = 3, randMax = 6 },
-	{ item = "lean", priceMin = 2, priceMax = 10, randMin = 3, randMax = 6 },
-	{ item = "keyboard", priceMin = 6, priceMax = 12, randMin = 1, randMax = 3 },
-	{ item = "mouse", priceMin = 6, priceMax = 12, randMin = 1, randMax = 3 },
-	{ item = "ring", priceMin = 6, priceMax = 12, randMin = 2, randMax = 4 },
-	{ item = "watch", priceMin = 14, priceMax = 18, randMin = 3, randMax = 6 },
-	{ item = "goldbar", priceMin = 20, priceMax = 24, randMin = 2, randMax = 4 },
-	{ item = "playstation", priceMin = 12, priceMax = 14, randMin = 1, randMax = 1 },
-	{ item = "xbox", priceMin = 12, priceMax = 14, randMin = 1, randMax = 1 },
-	{ item = "legos", priceMin = 6, priceMax = 10, randMin = 1, randMax = 1 },
-	{ item = "ominitrix", priceMin = 10, priceMax = 14, randMin = 1, randMax = 1 },
-	{ item = "bracelet", priceMin = 14, priceMax = 16, randMin = 1, randMax = 1 },
-	{ item = "dildo", priceMin = 8, priceMax = 12, randMin = 1, randMax = 1 }
+	{ item = "cocaine", priceMin = 45, priceMax = 95, randMin = 3, randMax = 6 },
+	{ item = "joint", priceMin = 35, priceMax = 85, randMin = 3, randMax = 6 },
+	{ item = "meth", priceMin = 105, priceMax = 170, randMin = 3, randMax = 6 },
+	{ item = "ecstasy", priceMin = 65, priceMax = 95, randMin = 3, randMax = 6 },
+	{ item = "lean", priceMin = 75, priceMax = 135, randMin = 3, randMax = 6 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKAMOUNT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkAmount()
+function cRP.checkAmount()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -71,7 +60,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod()
+function cRP.paymentMethod()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

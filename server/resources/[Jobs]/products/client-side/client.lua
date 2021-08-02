@@ -7,13 +7,12 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("products",cnVRP)
+cRP = {}
+Tunnel.bindInterface("products",cRP)
 vSERVER = Tunnel.getInterface("products")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inLocate = { 20.23,-1599.43,29.28 } 
 local inService = false
 local timeSelling = 0
 local inTimers = 30
@@ -175,30 +174,28 @@ local pedLocate = {
 local callName = { "James","John","Robert","Michael","William","David","Richard","Charles","Joseph","Thomas","Christopher","Daniel","Paul","Mark","Donald","George","Kenneth","Steven","Edward","Brian","Ronald","Anthony","Kevin","Jason","Matthew","Gary","Timothy","Jose","Larry","Jeffrey","Frank","Scott","Eric","Stephen","Andrew","Raymond","Gregory","Joshua","Jerry","Dennis","Walter","Patrick","Peter","Harold","Douglas","Henry","Carl","Arthur","Ryan","Roger","Joe","Juan","Jack","Albert","Jonathan","Justin","Terry","Gerald","Keith","Samuel","Willie","Ralph","Lawrence","Nicholas","Roy","Benjamin","Bruce","Brandon","Adam","Harry","Fred","Wayne","Billy","Steve","Louis","Jeremy","Aaron","Randy","Howard","Eugene","Carlos","Russell","Bobby","Victor","Martin","Ernest","Phillip","Todd","Jesse","Craig","Alan","Shawn","Clarence","Sean","Philip","Chris","Johnny","Earl","Jimmy","Antonio","Mary","Patricia","Linda","Barbara","Elizabeth","Jennifer","Maria","Susan","Margaret","Dorothy","Lisa","Nancy","Karen","Betty","Helen","Sandra","Donna","Carol","Ruth","Sharon","Michelle","Laura","Sarah","Kimberly","Deborah","Jessica","Shirley","Cynthia","Angela","Melissa","Brenda","Amy","Anna","Rebecca","Virginia","Kathleen","Pamela","Martha","Debra","Amanda","Stephanie","Carolyn","Christine","Marie","Janet","Catherine","Frances","Ann","Joyce","Diane","Alice","Julie","Heather","Teresa","Doris","Gloria","Evelyn","Jean","Cheryl","Mildred","Katherine","Joan","Ashley","Judith","Rose","Janice","Kelly","Nicole","Judy","Christina","Kathy","Theresa","Beverly","Denise","Tammy","Irene","Jane","Lori","Rachel","Marilyn","Andrea","Kathryn","Louise","Sara","Anne","Jacqueline","Wanda","Bonnie","Julia","Ruby","Lois","Tina","Phyllis","Norma","Paula","Diana","Annie","Lillian","Emily","Robin" }
 local callName2 = { "Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson","Garcia","Martinez","Robinson","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez","Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans","Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox","Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson","Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander","Russell","Griffin","Diaz","Hayes" }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSERVICE
+-- PRODUCTS:TOGGLESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("delivery",function(source,args,rawCommand)
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	local distance = #(coords - vector3(inLocate[1],inLocate[2],inLocate[3]))
-	if distance <= 5 then
+RegisterNetEvent("products:toggleService")
+AddEventHandler("products:toggleService",function()
+--	if vSERVER.checkPermission() then
 		if inService then
 			inService = false
-			TriggerEvent("Notify","sucesso","Serviço finalizado.",3000)
-
+			
 			if inPed ~= nil then
 				DeleteEntity(inPed)
 				inTimers = 30
 			end
+			
+			TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
 		else
 			startthreaddelivery()
 			startthreadintimers()
 			timeselling()
 			inService = true
-			TriggerEvent("Notify","sucesso","Voce pegou a lista dos contatos, espere um pouco que jaja alguem te chama.",5000)
+			TriggerEvent("Notify","verde","Vendas ativadas.",5000)
 		end
-	end
-	
+--	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDELIVERY
@@ -220,10 +217,10 @@ function startthreaddelivery()
 
 						if timeSelling > 0 then
 							DisableControlAction(1,23,true)
-							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE  ~g~"..timeSelling.."~w~  SEGUNDOS")
+							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE  ~y~"..timeSelling.."~w~  SEGUNDOS")
 						else
 							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~   VENDER")
-							if distance <= 2 then
+							if distance <= 1.5 then
 								if IsControlJustPressed(1,38) and vSERVER.checkAmount() and not IsPedInAnyVehicle(ped) then
 									timeSelling = 10
 								end
@@ -332,17 +329,21 @@ function timeselling()
 	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SHOWME3D
+-- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 400
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
