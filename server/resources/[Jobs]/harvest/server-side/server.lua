@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("harvest",cnVRP)
+cRP = {}
+Tunnel.bindInterface("harvest",cRP)
 vCLIENT = Tunnel.getInterface("harvest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -21,23 +21,14 @@ local amount = {}
 local amountMin = 2
 local amountMax = 3
 -----------------------------------------------------------------------------------------------------------------------------------------
--- harvest
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("Colheita",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		vCLIENT.toggleService(source)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.collectMethod()
+function cRP.collectMethod()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",3000)
 			Wait(1)
 		else
 			vRPclient.stopActived(source)

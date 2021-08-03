@@ -7,14 +7,17 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("harvest",cnVRP)
+cRP = {}
+Tunnel.bindInterface("harvest",cRP)
 vSERVER = Tunnel.getInterface("harvest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ouService = false
 local inService = false
+local currentStatus = false
+local serviceStatus = false
+local initService = { 405.51,6526.32,27.7 }
 local selected = 0
 local blip = nil
 local coSelected = 0
@@ -50,28 +53,56 @@ local collect = {
 	{ 322.34,6531.11,29.13,93.59 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTSERVICE
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleService()
-	if inService then
-		inService = false
-		TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi finalizado.",2000)
-		if DoesBlipExist(blip) then
-			RemoveBlip(blip)
-			blip = nil
-		end
-	else
-			startthreadservice()
-			startthreadserviceseconds()
-			inService = true
-			if not ouService then
-				ouService = true
-				coSelected = math.random(#collect)
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			local distance = #(coords - vector3(initService[1],initService[2],initService[3]))
+			if distance <= 2 then
+				timeDistance = 1
+
+				if serviceStatus then
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   FINALIZAR")
+				else
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   INICIAR")
+				end
+
+				if IsControlJustPressed(1,38) then
+					if serviceStatus then
+						serviceStatus = false
+						inService = false
+						TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi finalizado.",3000)
+						
+						if DoesBlipExist(blip) then
+							RemoveBlip(blip)
+							blip = nil
+						end
+					else
+						currentStatus = false
+						serviceStatus = true
+						startthreadservice()
+						startthreadserviceseconds()
+						inService = true
+						
+						if not ouService then
+						    ouService = true
+						    coSelected = math.random(#collect)
+						end
+						
+						makeBlipMarked()
+						TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi iniciado.",3000)
+					end
+				end
 			end
-			makeBlipMarked()
-			TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi iniciado.",2000)
+		end
+
+		Citizen.Wait(timeDistance)
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -141,14 +172,18 @@ end
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
