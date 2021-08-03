@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("lumberman",cnVRP)
+cRP = {}
+Tunnel.bindInterface("lumberman",cRP)
 vCLIENT = Tunnel.getInterface("lumberman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -26,18 +26,9 @@ local paymentMin = 125
 local paymentMax = 175
 local consumeItem = "woodlog"
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TRANSPORTER
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("lenhador",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		vCLIENT.toggleService(source)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTCOLLECT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.amountCollect()
+function cRP.amountCollect()
 	local source = source
 	if collect[source] == nil then
 		collect[source] = math.random(collectMin,collectMax)
@@ -46,7 +37,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.amountService()
+function cRP.amountService()
 	local source = source
 	if amount[source] == nil then
 		amount[source] = math.random(amountMin,amountMax)
@@ -55,8 +46,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.collectMethod()
-	cnVRP.amountCollect()
+function cRP.collectMethod()
+	cRP.amountCollect()
 
 	local source = source
 	local user_id = vRP.getUserId(source)
@@ -77,8 +68,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod()
-	cnVRP.amountService()
+function cRP.paymentMethod()
+	cRP.amountService()
 
 	local source = source
 	local user_id = vRP.getUserId(source)

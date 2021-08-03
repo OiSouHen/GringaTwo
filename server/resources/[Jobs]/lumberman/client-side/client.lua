@@ -7,14 +7,16 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("lumberman",cnVRP)
+cRP = {}
+Tunnel.bindInterface("lumberman",cRP)
 vSERVER = Tunnel.getInterface("lumberman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ouService = false
 local inService = false
+local currentStatus = false
+local serviceStatus = false
 local selected = 0
 local timeSeconds = 0
 local collectBlip = nil
@@ -22,6 +24,7 @@ local deliverBlip = nil
 local coSelected = 0
 local deSelected = 0
 local vehModel = -667151410
+local initService = { -840.13,5399.27,34.62 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELIVER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -83,36 +86,64 @@ local collect = {
 	[20] = { -619.22,5498.12,51.31,122.45 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTSERVICE
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleService()
-	if inService then
-		inService = false
-		TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi finalizado.",2000)
-		
-		if DoesBlipExist(collectBlip) then
-			RemoveBlip(collectBlip)
-			collectBlip = nil
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			local distance = #(coords - vector3(initService[1],initService[2],initService[3]))
+			if distance <= 2 then
+				timeDistance = 1
+
+				if serviceStatus then
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   FINALIZAR")
+				else
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   INICIAR")
+				end
+
+				if IsControlJustPressed(1,38) then
+					if serviceStatus then
+						serviceStatus = false
+						inService = false
+						
+						if DoesBlipExist(collectBlip) then
+						    RemoveBlip(collectBlip)
+						    collectBlip = nil
+						end
+
+						if DoesBlipExist(deliverBlip) then
+						    RemoveBlip(deliverBlip)
+						    deliverBlip = nil
+						end
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi finalizado.",3000)
+					else
+						currentStatus = false
+						serviceStatus = true
+						
+						startthreadservice()
+						startthreadserviceseconds()
+						inService = true
+						if not ouService then
+						    ouService = true
+						    coSelected = math.random(#collect)
+						    deSelected = math.random(#deliver)
+						end
+						collectBlipMarked()
+						deliverBlipMarked()
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi iniciado.",3000)
+					end
+				end
+			end
 		end
 
-		if DoesBlipExist(deliverBlip) then
-			RemoveBlip(deliverBlip)
-			deliverBlip = nil
-		end
-	else
-		startthreadservice()
-		startthreadserviceseconds()
-		inService = true
-		if not ouService then
-			ouService = true
-			coSelected = math.random(#collect)
-			deSelected = math.random(#deliver)
-		end
-		collectBlipMarked()
-		deliverBlipMarked()
-		TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi iniciado.",2000)
+		Citizen.Wait(timeDistance)
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -214,4 +245,23 @@ function deliverBlipMarked()
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString("Delivery")
 	EndTextCommandSetBlipName(deliverBlip)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
