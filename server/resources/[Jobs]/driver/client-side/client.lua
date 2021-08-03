@@ -7,19 +7,22 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("driver",cnVRP)
+cRP = {}
+Tunnel.bindInterface("driver",cRP)
 vSERVER = Tunnel.getInterface("driver")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blip = nil
 local inService = false
-local startX = 453.87
-local startY = -600.47
-local startZ = 28.59
+local currentStatus = false
+local serviceStatus = false
+local startX = 453.54
+local startY = -607.6
+local startZ = 28.58
 local driverPosition = 1
 local timeSeconds = 0
+local initService = { 453.54,-607.6,28.58 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -78,26 +81,50 @@ local coords = {
 	[52] = { 98.34,-628.98,31.57 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTSERVICE
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleService()
-	local ped = PlayerPedId()
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			local distance = #(coords - vector3(initService[1],initService[2],initService[3]))
+			if distance <= 2 then
+				timeDistance = 1
 
-	if not inService then
-		startthreadservice()
-		startthreadtimeseconds()
-		inService = true
-		makeBlipMarked()
-		TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi iniciado.",2000)
-	else
-		inService = false
-		TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi finalizado.",2000)
-		if DoesBlipExist(blip) then
-			RemoveBlip(blip)
-			blip = nil
+				if serviceStatus then
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   FINALIZAR")
+				else
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   INICIAR")
+				end
+
+				if IsControlJustPressed(1,38) then
+					if serviceStatus then
+						serviceStatus = false
+						inService = false
+						TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi finalizado.",3000)
+						
+						if DoesBlipExist(blip) then
+							RemoveBlip(blip)
+							blip = nil
+						end
+					else
+						currentStatus = false
+						serviceStatus = true
+						startthreadservice()
+						startthreadtimeseconds()
+						inService = true
+						makeBlipMarked()
+						TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi iniciado.",3000)
+					end
+				end
+			end
 		end
+
+		Citizen.Wait(timeDistance)
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -166,4 +193,23 @@ function makeBlipMarked()
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString("Parada de Ônibus")
 	EndTextCommandSetBlipName(blip)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end

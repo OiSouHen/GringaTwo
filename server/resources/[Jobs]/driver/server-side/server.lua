@@ -7,22 +7,13 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("driver",cnVRP)
+cRP = {}
+Tunnel.bindInterface("driver",cRP)
 vCLIENT = Tunnel.getInterface("driver")
------------------------------------------------------------------------------------------------------------------------------------------
--- MOTORISTA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("motorista",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		vCLIENT.toggleService(source)
-	end
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod(status)
+function cRP.paymentMethod(status)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
