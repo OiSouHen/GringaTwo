@@ -28,7 +28,7 @@ function cRP.collectMethod()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",3000)
 			Wait(1)
 		else
 			

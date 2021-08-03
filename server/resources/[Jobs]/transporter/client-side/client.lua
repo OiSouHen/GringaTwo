@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("transporter",cnVRP)
+cRP = {}
+Tunnel.bindInterface("transporter",cRP)
 vSERVER = Tunnel.getInterface("transporter")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -22,6 +22,9 @@ local coSelected = 0
 local deSelected = 0
 local vehModel = 1747439474
 local timeSeconds = 0
+local currentStatus = false
+local serviceStatus = false
+local initService = { 354.23,271.1,103.05 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELIVER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -132,36 +135,65 @@ local collect = {
 	{ 261.67,212.88,101.69,161.44 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTSERVICE
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.toggleService()
-	if inService then
-		inService = false
-		TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi finalizado.",2000)
-		if DoesBlipExist(blipCollect) then
-			RemoveBlip(blipCollect)
-			blipCollect = nil
-		end
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			local distance = #(coords - vector3(initService[1],initService[2],initService[3]))
+			if distance <= 2 then
+				timeDistance = 1
+
+				if serviceStatus then
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   FINALIZAR")
+				else
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   INICIAR")
+				end
+
+				if IsControlJustPressed(1,38) then
+					if serviceStatus then
+						serviceStatus = false
+						inService = false
+						
+						if DoesBlipExist(blipCollect) then
+						    RemoveBlip(blipCollect)
+						    blipCollect = nil
+						end
 		
-		if DoesBlipExist(blipDelivery) then
-			RemoveBlip(blipDelivery)
-			blipDelivery = nil
-		end
-	else
-			startthreadservice()
-			startthreadserviceseconds()
-			inService = true
-			if not ouService then
-				ouService = true
-				coSelected = math.random(#collect)
-				deSelected = math.random(#deliver)
-			end
+						if DoesBlipExist(blipDelivery) then
+						    RemoveBlip(blipDelivery)
+						    blipDelivery = nil
+						end
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi finalizado.",3000)
+					else
+						currentStatus = false
+						serviceStatus = true
+						
+						startthreadservice()
+						startthreadserviceseconds()
+						inService = true
+						if not ouService then
+						    ouService = true
+						    coSelected = math.random(#collect)
+						    deSelected = math.random(#deliver)
+						end
 			
-			makeCollectMarked(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
-			makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-			TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi iniciado.",2000)
+						makeCollectMarked(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
+						makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi iniciado.",3000)
+					end
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
