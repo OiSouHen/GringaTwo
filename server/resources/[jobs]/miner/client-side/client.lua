@@ -15,10 +15,13 @@ vSERVER = Tunnel.getInterface("miner")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ouService = false
 local inService = false
+local currentStatus = false
+local serviceStatus = false
 local selected = 0
 local blip = nil
 local coSelected = 0
 local timeSeconds = 0
+local initService = { -594.88,2090.6,131.55 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POUCHS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -73,28 +76,58 @@ local collect = {
 	{ -563.52,1885.74,123.07,209.01 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTSERVICE
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.toggleService()
-	if inService then
-		inService = false
-		TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi finalizado.",3000)
-		if DoesBlipExist(blip) then
-			RemoveBlip(blip)
-			blip = nil
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			local distance = #(coords - vector3(initService[1],initService[2],initService[3]))
+			if distance <= 2 then
+				timeDistance = 1
+
+				if serviceStatus then
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   FINALIZAR")
+				else
+					DrawText3D(initService[1],initService[2],initService[3],"~g~E~w~   INICIAR")
+				end
+
+				if IsControlJustPressed(1,38) then
+					if serviceStatus then
+						serviceStatus = false
+						inService = false
+						
+						if DoesBlipExist(blip) then
+						    RemoveBlip(blip)
+						    blip = nil
+						end
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi finalizado.",3000)
+					else
+						currentStatus = false
+						serviceStatus = true
+						startmineservice()
+						startmineserviceseconds()
+						inService = true
+						
+						if not ouService then
+						    ouService = true
+						    coSelected = math.random(#collect)
+						end
+						
+						makeBlipMarked()
+						
+						TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi iniciado.",3000)
+					end
+				end
+			end
 		end
-	else
-		startmineservice()
-		startmineserviceseconds()
-		inService = true
-		if not ouService then
-			ouService = true
-			coSelected = math.random(#collect)
-		end
-		makeBlipMarked()
-		TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi iniciado.",3000)
+
+		Citizen.Wait(timeDistance)
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
