@@ -6670,7 +6670,9 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_COORDS">
             <summary>
-            Gets the current coordinates for a specified entity. This native is used server side when using OneSync. See &lt;a href="#_0x3FEF770D40960D5A" &gt;GET_ENTITY_COORDS&lt;/a&gt; for client side.
+            Gets the current coordinates for a specified entity. This native is used server side when using OneSync.
+            
+            See [GET_ENTITY_COORDS](#\_0x3FEF770D40960D5A) for client side.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_HEALTH">
@@ -6705,6 +6707,7 @@
                 *   1604
                 *   2060
                 *   2189
+                *   2372
             *   RedM
                 *   1311
                 *   1355
@@ -8662,7 +8665,8 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetEntityCoords(System.Int32)">
             <summary>
-            Gets the current coordinates for a specified entity. This native is used server side when using OneSync. See &lt;a href="#_0x3FEF770D40960D5A" &gt;GET_ENTITY_COORDS&lt;/a&gt; for client side.
+            Gets the current coordinates for a specified entity. This native is used server side when using OneSync.
+            See [GET_ENTITY_COORDS](#\_0x3FEF770D40960D5A) for client side.
             </summary>
             <param name="entity">
             The entity to get the coordinates from.
@@ -8727,6 +8731,7 @@
             *   1604
             *   2060
             *   2189
+            *   2372
             *   RedM
             *   1311
             *   1355
