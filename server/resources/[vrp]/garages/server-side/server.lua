@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("garages",cnVRP)
+cRP = {}
+Tunnel.bindInterface("garages",cRP)
 vCLIENT = Tunnel.getInterface("garages")
 vHUD = Tunnel.getInterface("hud")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -433,7 +433,7 @@ local workgarage = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MYVEHICLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.myVehicles(work)
+function cRP.myVehicles(work)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -549,7 +549,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNVEHICLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.spawnVehicles(name,use)
+function cRP.spawnVehicles(name,use)
     local source = source
     local user_id = vRP.getUserId(source)
     if user_id and name then
@@ -631,7 +631,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELETEVEHICLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.deleteVehicles()
+function cRP.deleteVehicles()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -642,19 +642,19 @@ function cnVRP.deleteVehicles()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DV
+-- GARAGES:DELETEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("dv",function(source,args,rawCommand)
+RegisterNetEvent("garages:deleteVehicle")
+AddEventHandler("garages:deleteVehicle",function(deleteVehicle)
 	local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Admin") then
 		local vehicle = vRPclient.getNearVehicle(source,15)
 		if vehicle then
 			vCLIENT.deleteVehicle(source,vehicle)
+			TriggerClientEvent("Notify",source,"amarelo","Veículo enviado para a garagem.",3000)
 		end
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- FGARAGE
+-- RGARAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("rgarage",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
@@ -665,7 +665,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLELOCK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.vehicleLock()
+function cRP.vehicleLock()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -695,7 +695,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRYDELETE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.tryDelete(vehid,vehengine,vehbody,vehfuel,vehDoors,vehWindows,vehTyres,vehPlate)
+function cRP.tryDelete(vehid,vehengine,vehbody,vehfuel,vehDoors,vehWindows,vehTyres,vehPlate)
 	local source = source
 	if vehlist[vehid] and vehid ~= 0 then
 		local user_id = vehlist[vehid][1]
@@ -745,7 +745,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RETURNHOUSES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.returnHouses(nome,garage)
+function cRP.returnHouses(nome,garage)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

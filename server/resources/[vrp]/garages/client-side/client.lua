@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("garages",cnVRP)
+cRP = {}
+Tunnel.bindInterface("garages",cRP)
 vSERVER = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIAVEIS
@@ -1075,7 +1075,7 @@ local vehEletric = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.openGarage(name,status)
+function cRP.openGarage(name,status)
 	if name and status then
 		openGarage = name
 		pointGarage = status
@@ -1087,7 +1087,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEMODS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.vehicleMods(veh,custom)
+function cRP.vehicleMods(veh,custom)
 	if custom and veh then
 		SetVehicleModKit(veh,0)
 
@@ -1189,7 +1189,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWindows,vehDoors,vehTyres)
+function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWindows,vehDoors,vehTyres)
 	if vehicle[vehname] == nil then
 		local checkPos = nil
 		local checkslot = 0
@@ -1260,7 +1260,7 @@ function cnVRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWi
 					SetVehicleFuelLevel(nveh,vehfuel+0.0)
 				end
 
-				cnVRP.vehicleMods(nveh,custom)
+				cRP.vehicleMods(nveh,custom)
 
 				vehicle[vehname] = true
 
@@ -1283,26 +1283,29 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DELETEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.deleteVehicle(vehicle)
+function cRP.deleteVehicle(vehicle)
 	if IsEntityAVehicle(vehicle) then
+		local vehWindows = {}
 		local vehDoors = {}
+		local vehTyres = {}
+
 		for i = 0,5 do
 			vehDoors[i] = IsVehicleDoorDamaged(vehicle,i)
 		end
 
-		local vehWindows = {}
-		for i = 0,7 do
+		for i = 0,5 do
 			vehWindows[i] = IsVehicleWindowIntact(vehicle,i)
 		end
 
-		local vehTyres = {}
 		for i = 0,7 do
 			local tyre_state = 2
+
 			if IsVehicleTyreBurst(vehicle,i,true) then
 				tyre_state = 1
 			elseif IsVehicleTyreBurst(vehicle,i,false) then
 				tyre_state = 0
 			end
+
 			vehTyres[i] = tyre_state
 		end
 
@@ -1325,7 +1328,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCNAMEDELETE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.syncNameDelete(vehname)
+function cRP.syncNameDelete(vehname)
 	if vehicle[vehname] then
 		vehicle[vehname] = nil
 	end
@@ -1333,7 +1336,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RETURNVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.returnVehicle(name)
+function cRP.returnVehicle(name)
 	return vehicle[name]
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1451,7 +1454,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTANIMHOTWIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.startAnimHotwired()
+function cRP.startAnimHotwired()
 	vehHotwired = true
 	while not HasAnimDictLoaded(animDict) do
 		RequestAnimDict(animDict)
@@ -1462,7 +1465,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPANIMHOTWIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.stopAnimHotwired(vehicle)
+function cRP.stopAnimHotwired(vehicle)
 	while not HasAnimDictLoaded(animDict) do
 		RequestAnimDict(animDict)
 		Citizen.Wait(10)
@@ -1474,7 +1477,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEHOTWIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.updateHotwired(status)
+function cRP.updateHotwired(status)
 	vehHotwired = status
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

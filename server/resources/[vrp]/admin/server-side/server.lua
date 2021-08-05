@@ -118,7 +118,7 @@ RegisterCommand("item",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEBUG
+-- ADMINDEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("admindebug",function(source,args,rawCommand)
 	local source = source

@@ -5,6 +5,12 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+cRP = {}
+Tunnel.bindInterface("target",cRP)
+vSERVER = Tunnel.getInterface("target")
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Zones = {}
@@ -18,6 +24,20 @@ local targetActive = false
 local adminService = false
 local policeService = false
 local paramedicService = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADMIN:ONSERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.toggleService()
+	if adminService then
+		setDistance = 10.0
+		adminService = false
+		TriggerEvent("Notify","amarelo","Sistema desativado.",5000)
+	else
+		setDistance = 99.0
+		adminService = true
+		TriggerEvent("Notify","verde","Sistema ativado.",5000)
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:UPDATESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -38,21 +58,6 @@ end)
 RegisterNetEvent("vrp:playerActive")
 AddEventHandler("vrp:playerActive",function()
 	playerActive = true
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TARGET:TOGGLEADMIN
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("target:toggleAdmin")
-AddEventHandler("target:toggleAdmin",function()
-	if adminService then
-		setDistance = 10.0
-		adminService = false
-		TriggerEvent("Notify","amarelo","Sistema desativado.",5000)
-	else
-		setDistance = 99.0
-		adminService = true
-		TriggerEvent("Notify","verde","Sistema ativado.",5000)
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
@@ -167,17 +172,6 @@ Citizen.CreateThread(function()
 				event = "hunting:animalCutting",
 				label = "Esfolar",
 				tunnel = "client"
-			}
-		},
-		distance = 1.50
-	})
-
-	AddTargetModel({ -205311355 },{
-		options = {
-			{
-				event = "tryDeleteObject",
-				label = "Remover",
-				tunnel = "objects"
 			}
 		},
 		distance = 1.50
@@ -729,11 +723,6 @@ local policePed = {
 -- ADMINMENU
 -----------------------------------------------------------------------------------------------------------------------------------------
 local adminMenu = {
-	{
-		event = "tryDeleteObject",
-		label = "Deletar Objeto",
-		tunnel = "admin"
-	},
 	{
 		event = "garages:deleteVehicle",
 		label = "Deletar Veículo",
