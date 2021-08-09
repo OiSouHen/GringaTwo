@@ -121,6 +121,17 @@ Citizen.CreateThread(function()
 		},
 		distance = 0.75
 	})
+-- COCA
+	AddTargetModel({ 992069095,1114264700 },{
+		options = {
+			{
+				event = "shops:colaMachine",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
+	})
 
 	AddTargetModel({ 1129053052 },{
 		options = {
