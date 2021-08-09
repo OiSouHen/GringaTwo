@@ -20,7 +20,7 @@ local lastPassenger = nil
 local currentStatus = false
 local serviceStatus = false
 local currentPassenger = nil
-local initService = vector3(1841.28,2573.82,46.02)
+local initService = vector3(1845.69,2585.85,45.68)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +66,7 @@ Citizen.CreateThread(function()
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
 						serviceStatus = false
+						TriggerEvent("Notify","amarelo","O serviço de <b>Transporte de Presidiário</b> foi finalizado.",3000)
 
 						if DoesBlipExist(serviceBlip) then
 							RemoveBlip(serviceBlip)
@@ -92,6 +93,7 @@ Citizen.CreateThread(function()
 							currentPassenger = nil
 							currentStatus = false
 							serviceStatus = true
+							TriggerEvent("Notify","amarelo","O serviço de <b>Transporte de Presidiário</b> foi iniciado.",3000)
 							lastPassenger = nil
 							blipPassenger()
 						end
@@ -109,7 +111,7 @@ Citizen.CreateThread(function()
 					DrawMarker(1,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3] - 3,0,0,0,0,0,0,5.0,5.0,3.0,255,255,255,25,0,0,0,0)
 					DrawMarker(21,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3],0,0,0,0,180.0,130.0,1.5,1.5,1.0,42,137,255,100,0,0,0,1)
 
-					if IsControlJustPressed(1,38) and distance <= 2.5 and GetEntityModel(vehicle) == -1022830589 then
+					if IsControlJustPressed(1,38) and distance <= 2.5 and GetEntityModel(vehicle) == -2007026063 then
 										
 						if currentStatus then
 							FreezeEntityPosition(vehicle,true)
