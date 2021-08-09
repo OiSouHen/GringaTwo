@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 
 	$('input').change(function () {
-		$.post('http://barbershop/updateSkin', JSON.stringify({
+		$.post('http://vrp_barbershop/updateSkin', JSON.stringify({
 			value: false,
 			// fatherid: $('.fatherID').val(),
 			// kinship: $('.kinship').val(),
@@ -140,7 +140,7 @@ $(document).ready(function () {
 
 	$('.arrow').on('click', function (e) {
 		e.preventDefault();
-		$.post('http://barbershop/updateSkin', JSON.stringify({
+		$.post('http://vrp_barbershop/updateSkin', JSON.stringify({
 			value: false,
 			// fatherid: $('.fatherID').val(),
 			// kinship: $('.kinship').val(),
@@ -193,7 +193,7 @@ $(document).ready(function () {
 
 	$('.yes').on('click', function (e) {
 		e.preventDefault();
-		$.post('http://barbershop/updateSkin', JSON.stringify({
+		$.post('http://vrp_barbershop/updateSkin', JSON.stringify({
 			value: true,
 			skinColor: $('.skinColor').val(),
 			eyesColor: $('.eyesColor').val(),
@@ -220,10 +220,10 @@ $(document).ready(function () {
 
 	document.onkeydown = function (data) {
 		if (data.which == 65) {
-			$.post('http://barbershop/rotate', JSON.stringify("right"));
+			$.post('http://vrp_barbershop/rotate', JSON.stringify("right"));
 		}
 		if (data.which == 68) {
-			$.post('http://barbershop/rotate', JSON.stringify("left"));
+			$.post('http://vrp_barbershop/rotate', JSON.stringify("left"));
 		}
 	}
 });

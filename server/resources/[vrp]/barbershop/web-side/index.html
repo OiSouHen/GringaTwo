@@ -16,7 +16,7 @@
 			<form id="formBarbershop">
 				<div class="block visage active">
 					<div class="group" style="padding-top: 0;">						
-						<div class="input" style="display: none;">
+						<div class="input">
 							<div class="label">Cor da Pele</div>
 							<div class="label-value" data-legend="45"></div>
 							<div class="type-range">
@@ -213,11 +213,18 @@
 						</div>
 					</div>
 				</div>
-				<div class="buttons">
-				<button class="button yes">S  A  L  V  A  R</button>
-				</div>
+				<button class="submit">S  A  L  V  A  R</button>
 			</form>
 		</div>
+
+		<div class="popup confirmation">
+			<p>Deseja salvar a aparência atual?</p>
+			<div class="buttons">
+				<div class="button yes">S I M</div>
+				<div class="button no">N Ã O</div>
+			</div>
+		</div>
+
 		<script src="front.js" type="text/javascript"></script>
 		<script src="script.js" type="text/javascript"></script>
 	</body>
