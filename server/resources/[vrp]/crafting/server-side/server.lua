@@ -179,7 +179,7 @@ local craftList = {
 			}
 		}
 	},
-	["ilegalCrafting"] = {
+	["ilegalWeapons"] = {
 		["list"] = {
 			["WEAPON_ASSAULTRIFLE"] = {
 				["amount"] = 1,
@@ -300,7 +300,7 @@ local craftList = {
 			}
 		}
 	},
-		["mecanicoCrafting"] = {
+	["mecanicoCrafting"] = {
 		["list"] = {
 			["tires"] = {
 				["amount"] = 1,
@@ -352,43 +352,6 @@ local craftList = {
 					["rubber"] = 80,
 					["aluminum"] = 60,
 					["copper"] = 40
-				}
-			}
-		}
-	},
-	["avalanchesCrafting"] = {
-		["perm"] = "Avalanches",
-		["list"] = {
-			["hamburger"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["bread"] = 2,
-					["alface"] = 1,
-					["burguer"] = 1,
-					["queijo"] = 1,
-					["tomate"] = 1
-				}
-			},
-			["water"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["dollars"] = 250
-				}
-			},
-			["soda"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["dollars"] = 250
-				}
-			},
-			["cola"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["dollars"] = 250
 				}
 			}
 		}
@@ -469,7 +432,7 @@ local craftList = {
 			}
 		}
 	},
-	["foodMarket"] = {
+	["makeFoods"] = {
 		["list"] = {
 			["ketchup"] = {
 				["amount"] = 1,

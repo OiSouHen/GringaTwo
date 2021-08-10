@@ -125,9 +125,9 @@ local shopList = {
 	{ -216.47,-1318.95,30.89,"mechanicTools",false,false },
 	{ -197.35,-1320.54,31.09,"mechanicTools",false,false },
 	{ -199.41,-1319.8,31.09,"mechanicTools",false,false },
-	{ 563.32,2751.7,42.87,"animalStore",false,false },
-	{ 1116.52,218.21,-49.44,"casinoBuy",false,false,"Comprar" },
-	{ 1116.48,221.73,-49.44,"casinoSell",false,false,"Vender" },
+--	{ 563.32,2751.7,42.87,"animalStore",false,false },
+--	{ 1116.52,218.21,-49.44,"casinoBuy",false,false,"Comprar" },
+--	{ 1116.48,221.73,-49.44,"casinoSell",false,false,"Vender" },
 	{ 1112.05,211.53,-49.44,"mcFridge",false,false },
 	{ 1109.0,206.14,-49.44,"mcFridge",false,false },
 	{ 1115.2,206.59,-49.44,"mcFridge",false,false }

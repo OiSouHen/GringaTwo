@@ -54,7 +54,7 @@ local shops = {
 			["WEAPON_POOLCUE"] = 975
 		}
 	},
-	["normalpharmacyStore"] = {
+	["pharmacyStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
@@ -111,6 +111,15 @@ local shops = {
 	},
 	["huntingStore"] = {
 		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["WEAPON_SWITCHBLADE"] = 725,
+			["WEAPON_MUSKET_AMMO"] = 7,
+			["WEAPON_MUSKET"] = 3250
+		}
+	},
+	["huntingSell"] = {
+		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
 			["WEAPON_SWITCHBLADE"] = 725,

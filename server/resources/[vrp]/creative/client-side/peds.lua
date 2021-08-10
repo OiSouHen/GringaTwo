@@ -342,21 +342,15 @@ local pedList = {
 		model = { 0xD7DA9E99,"s_m_y_construct_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Mergulhador
-		distance = 30,
-		coords = { 2768.92,1391.19,24.53,82.21 },
-		model = { 0xC79F6928,"a_f_y_beach_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Mergulhador
-		distance = 30,
-		coords = { 2768.62,1392.77,24.53,116.23 },
-		model = { 0x4A8E5536,"s_f_y_baywatch_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Colheita
 		distance = 30,
 		coords = { 406.08,6526.17,27.75,87.88 },
+		model = { 0x94562DD7,"a_m_m_farmer_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Bishops
+		distance = 15,
+		coords = { 169.5,-1634.02,29.3,32.31 },
 		model = { 0x94562DD7,"a_m_m_farmer_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
@@ -498,18 +492,6 @@ local pedList = {
 		model = { 0x1475B827,"a_f_y_hippie_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Caminhoneiro
-		distance = 30,
-		coords = { 1239.87,-3257.2,7.09,274.97 },
-		model = { 0x59511A6C,"s_m_m_trucker_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Restocador
-		distance = 30,
-		coords = { 920.04,-1256.84,25.51,36.86 },
-		model = { 0x59511A6C,"s_m_m_trucker_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Taxista
 		distance = 30,
 		coords = { 894.9,-179.15,74.7,240.95 },
@@ -533,111 +515,6 @@ local pedList = {
 		coords = { -695.56,5802.12,17.32,65.2 },
 		model = { 0x1536D95A,"a_m_o_ktown_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Animal Park
-		distance = 15,
-		coords = { 563.19,2752.92,42.87,187.09 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Animal Park
-		distance = 50,
-		coords = { -1816.76,-1193.97,14.31,334.49 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1112.46,228.33,-49.64,147.41 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1117.62,221.35,-49.44,65.2 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1117.24,220.07,-49.44,87.88 },
-		model = { 0x1422D45B,"s_m_y_casino_01" },
-		anim = { "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" },
-		casino = "male"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1117.59,218.72,-49.44,107.72 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1111.85,209.98,-49.44,0.0 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "anim@amb@clubhouse@bar@drink@idle_a","idle_a_bartender" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1110.24,207.1,-49.44,127.56 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "anim@amb@clubhouse@bar@drink@idle_a","idle_a_bartender" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1113.6,207.06,-49.44,243.78 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "anim@amb@clubhouse@bar@drink@idle_a","idle_a_bartender" },
-		casino = "female"
-	},
-	{ -- Casino - Loja de Roupas
-		distance = 45,
-		coords = { 1100.7,195.55,-49.44,317.49 },
-		model = { 0x689C2A80,"a_f_y_epsilon_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1103.13,223.72,-49.0,323.15 },
-		model = { 0x35456A4,"ig_tomcasino" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1096.98,216.23,-49.0,138.9 },
-		model = { 0x35456A4,"ig_tomcasino" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 934.87,48.02,81.1,147.41 },
-		model = { 0x35456A4,"ig_tomcasino" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 937.17,46.49,81.1,144.57 },
-		model = { 0x35456A4,"ig_tomcasino" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1087.14,221.11,-49.2,181.42 },
-		model = { 0xBC92BED5,"s_f_y_casino_01" },
-		anim = { "anim@heists@prison_heiststation@cop_reactions","cop_b_idle" },
-		casino = "female"
-	},
-	{ -- Casino
-		distance = 30,
-		coords = { 1088.6,221.11,-49.2,147.41 },
-		model = { 0x1422D45B,"s_m_y_casino_01" },
-		anim = { "anim@heists@prison_heiststation@cop_reactions","cop_b_idle" },
-		casino = "male"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------

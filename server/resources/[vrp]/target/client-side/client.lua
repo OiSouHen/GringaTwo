@@ -111,7 +111,7 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 
-	AddTargetModel({ 992069095,1114264700 },{
+	AddTargetModel({ 1114264700 },{
 		options = {
 			{
 				event = "shops:sodaMachine",
@@ -121,8 +121,8 @@ Citizen.CreateThread(function()
 		},
 		distance = 0.75
 	})
--- COCA
-	AddTargetModel({ 992069095,1114264700 },{
+
+	AddTargetModel({ 992069095 },{
 		options = {
 			{
 				event = "shops:colaMachine",
@@ -247,48 +247,6 @@ Citizen.CreateThread(function()
 				event = "luckywheel:targetRoll",
 				label = "Roda da Fortuna",
 				tunnel = "client"
-			}
-		}
-	})
-
-	AddCircleZone("trainJuice",vector3(-383.16,270.2,87.48),0.5,{
-		name = "trainJuice",
-		heading = 31.19
-	},{
-		distance = 1.25,
-		options = {
-			{
-				event = "works:trainJuice",
-				label = "Encher Copo",
-				tunnel = "server"
-			}
-		}
-	})
-
-	AddCircleZone("trainFood",vector3(-384.42,261.84,85.48),0.5,{
-		name = "trainFood",
-		heading = 121.89
-	},{
-		distance = 1.35,
-		options = {
-			{
-				event = "works:trainFood",
-				label = "Montar Lanche",
-				tunnel = "server"
-			}
-		}
-	})
-
-	AddCircleZone("trainBox",vector3(-381.56,262.83,87.33),0.5,{
-		name = "trainBox",
-		heading = 215.44
-	},{
-		distance = 1.25,
-		options = {
-			{
-				event = "works:trainBox",
-				label = "Montar Caixa",
-				tunnel = "server"
 			}
 		}
 	})
