@@ -429,10 +429,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function dwText(text,height)
 	SetTextFont(4)
-	SetTextScale(0.50,0.50)
+	SetTextScale(0.40,0.40)
 	SetTextColour(255,255,255,180)
 	SetTextOutline()
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
-	DrawText(.015,height)
+	DrawText(0.060,height)
 end
