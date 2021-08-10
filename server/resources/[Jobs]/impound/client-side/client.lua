@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("impound",cnVRP)
+cRP = {}
+Tunnel.bindInterface("impound",cRP)
 vSERVER = Tunnel.getInterface("impound")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIÁVEIS
@@ -18,29 +18,33 @@ local timeSeconds = 0
 -- SERVICES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local services = {
-	{ 393.38,-1616.67,29.3 }
+	{ -238.83,-1173.78,23.03 },
+	{ 1724.84,3715.31,34.22 },
+	{ -364.24,6071.16,31.52 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- IMPOUND
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(services) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 30 then
-					timeDistance = 4
-					DrawMarker(23,v[1],v[2],v[3]-1,0,0,0,0,0,0,14.0,14.0,1.0,0,255,0,30,0,0,0,0)
-					if IsControlJustPressed(1,38) and timeSeconds <= 0 and distance <= 10 then
+					timeDistance = 1
+					DrawMarker(23,v[1],v[2],v[3] - 0.95,0.0,0.0,0.0,0.0,0.0,0.0,10.0,10.0,0.0,42,137,255,100,0,0,0,0)
+
+					if IsControlJustPressed(1,38) and timeSeconds <= 0 and distance <= 5 then
 						timeSeconds = 2
 						vSERVER.checkImpound()
 					end
 				end
 			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -52,6 +56,7 @@ Citizen.CreateThread(function()
 		if timeSeconds > 0 then
 			timeSeconds = timeSeconds - 1
 		end
+
 		Citizen.Wait(1000)
 	end
 end)

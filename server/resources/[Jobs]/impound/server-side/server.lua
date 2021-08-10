@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("impound",cnVRP)
+cRP = {}
+Tunnel.bindInterface("impound",cRP)
 vRPRAGE = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIÁVEIS
@@ -18,7 +18,7 @@ local impoundVehs = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKIMPOUND
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkImpound()
+function cRP.checkImpound()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -27,7 +27,7 @@ function cnVRP.checkImpound()
 			if impoundVehs[vehName.."-"..vehPlate] == nil then
 				return
 			else
-				local value = math.random(2000,2500)
+				local value = math.random(1500,2500)
 
 				impoundVehs[vehName.."-"..vehPlate] = nil
 				vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
@@ -49,9 +49,9 @@ RegisterCommand("impound",function(source,args,rawCommand)
 				if impoundVehs[vehName.."-"..vehPlate] == nil then
 					impoundVehs[vehName.."-"..vehPlate] = true
 					TriggerEvent("towdriver:alertPlayers",x,y,z,vRP.vehicleName(vehName).." - "..vehPlate)
-					TriggerClientEvent("Notify",source,"sucesso","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi registrado no <b>DMV</b>.",3000)
+					TriggerClientEvent("Notify",source,"verde","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi registrado no <b>DMV</b>.",5000)
 				else
-					TriggerClientEvent("Notify",source,"aviso","Veículo <b>"..vRP.vehicleName(vehName).."</b> já está na lista do <b>DMV</b>.",3000)
+					TriggerClientEvent("Notify",source,"amarelo","Veículo <b>"..vRP.vehicleName(vehName).."</b> já está na lista do <b>DMV</b>.",5000)
 				end
 			end
 		end

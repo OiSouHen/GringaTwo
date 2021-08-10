@@ -3,24 +3,13 @@ local count_bcast_timer = 0
 local delay_bcast_timer = 200
 ---------------------------------------------------------------------
 local count_sndclean_timer = 0
-local delay_sndclean_timer = 400
----------------------------------------------------------------------
-local actv_ind_timer = false
-local count_ind_timer = 0
-local delay_ind_timer = 180
 ---------------------------------------------------------------------
 local actv_lxsrnmute_temp = false
 local srntone_temp = 0
 local dsrn_mute = true
 ---------------------------------------------------------------------
-local state_indic = {}
 local state_lxsiren = {}
 local state_airmanu = {}
----------------------------------------------------------------------
-local ind_state_o = 0
-local ind_state_l = 1
-local ind_state_r = 2
-local ind_state_h = 3
 ---------------------------------------------------------------------
 local snd_lxsiren = {}
 local snd_airmanu = {}
@@ -42,70 +31,8 @@ function useFiretruckSiren(veh)
 			return true
 		end
 	end
-	return false
-end
----------------------------------------------------------------------
-function usePowercallAuxSrn(veh)
-	local model = GetEntityModel(veh)
-	for i = 1, #eModelsWithPcall, 1 do
-		if model == GetHashKey(eModelsWithPcall[i]) then
-			return true
-		end
-	end
-	return false
-end
----------------------------------------------------------------------
-function CleanupSounds()
-	if count_sndclean_timer > delay_sndclean_timer then
-		count_sndclean_timer = 0
 
-		for k, v in pairs(state_lxsiren) do
-			if v > 0 then
-				if not DoesEntityExist(k) or IsEntityDead(k) then
-					if snd_lxsiren[k] ~= nil then
-						StopSound(snd_lxsiren[k])
-						ReleaseSoundId(snd_lxsiren[k])
-						snd_lxsiren[k] = nil
-						state_lxsiren[k] = nil
-					end
-				end
-			end
-		end
-
-		for k, v in pairs(state_airmanu) do
-			if v then
-				if not DoesEntityExist(k) or IsEntityDead(k) or IsVehicleSeatFree(k,-1) then
-					if snd_airmanu[k] ~= nil then
-						StopSound(snd_airmanu[k])
-						ReleaseSoundId(snd_airmanu[k])
-						snd_airmanu[k] = nil
-						state_airmanu[k] = nil
-					end
-				end
-			end
-		end
-	else
-		count_sndclean_timer = count_sndclean_timer + 1
-	end
-end
----------------------------------------------------------------------
-function TogIndicStateForVeh(veh,newstate)
-	if DoesEntityExist(veh) and not IsEntityDead(veh) then
-		if newstate == ind_state_o then
-			SetVehicleIndicatorLights(veh,0,false)
-			SetVehicleIndicatorLights(veh,1,false)
-		elseif newstate == ind_state_l then
-			SetVehicleIndicatorLights(veh,0,false)
-			SetVehicleIndicatorLights(veh,1,true)
-		elseif newstate == ind_state_r then
-			SetVehicleIndicatorLights(veh,0,true)
-			SetVehicleIndicatorLights(veh,1,false)
-		elseif newstate == ind_state_h then
-			SetVehicleIndicatorLights(veh,0,true)
-			SetVehicleIndicatorLights(veh,1,true)
-		end
-		state_indic[veh] = newstate
-	end
+	return false
 end
 ---------------------------------------------------------------------
 function TogMuteDfltSrnForVeh(veh,toggle)
@@ -179,28 +106,14 @@ function SetAirManuStateForVeh(veh,newstate)
 	end
 end
 ---------------------------------------------------------------------
-RegisterNetEvent("lvc_TogIndicState_c")
-AddEventHandler("lvc_TogIndicState_c",function(sender,newstate)
-	local player_s = GetPlayerFromServerId(sender)
-	local ped_s = GetPlayerPed(player_s)
-	if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
-		if ped_s ~= PlayerPedId() then
-			if IsPedInAnyVehicle(ped_s,false) then
-				local veh = GetVehiclePedIsUsing(ped_s)
-				TogIndicStateForVeh(veh,newstate)
-			end
-		end
-	end
-end)
----------------------------------------------------------------------
 RegisterNetEvent("lvc_TogDfltSrnMuted_c")
 AddEventHandler("lvc_TogDfltSrnMuted_c",function(sender,toggle)
-	local player_s = GetPlayerFromServerId(sender)
-	local ped_s = GetPlayerPed(player_s)
-	if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
-		if ped_s ~= PlayerPedId() then
-			if IsPedInAnyVehicle(ped_s,false) then
-				local veh = GetVehiclePedIsUsing(ped_s)
+	local player = GetPlayerFromServerId(sender)
+	local ped = GetPlayerPed(player)
+	if DoesEntityExist(ped) and not IsEntityDead(ped) then
+		if ped ~= PlayerPedId() then
+			if IsPedInAnyVehicle(ped) then
+				local veh = GetVehiclePedIsUsing(ped)
 				TogMuteDfltSrnForVeh(veh,toggle)
 			end
 		end
@@ -209,12 +122,12 @@ end)
 ---------------------------------------------------------------------
 RegisterNetEvent("lvc_SetLxSirenState_c")
 AddEventHandler("lvc_SetLxSirenState_c",function(sender,newstate)
-	local player_s = GetPlayerFromServerId(sender)
-	local ped_s = GetPlayerPed(player_s)
-	if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
-		if ped_s ~= PlayerPedId() then
-			if IsPedInAnyVehicle(ped_s,false) then
-				local veh = GetVehiclePedIsUsing(ped_s)
+	local player = GetPlayerFromServerId(sender)
+	local ped = GetPlayerPed(player)
+	if DoesEntityExist(ped) and not IsEntityDead(ped) then
+		if ped ~= PlayerPedId() then
+			if IsPedInAnyVehicle(ped) then
+				local veh = GetVehiclePedIsUsing(ped)
 				SetLxSirenStateForVeh(veh,newstate)
 			end
 		end
@@ -223,12 +136,12 @@ end)
 ---------------------------------------------------------------------
 RegisterNetEvent("lvc_SetAirManuState_c")
 AddEventHandler("lvc_SetAirManuState_c",function(sender,newstate)
-	local player_s = GetPlayerFromServerId(sender)
-	local ped_s = GetPlayerPed(player_s)
-	if DoesEntityExist(ped_s) and not IsEntityDead(ped_s) then
-		if ped_s ~= PlayerPedId() then
-			if IsPedInAnyVehicle(ped_s,false) then
-				local veh = GetVehiclePedIsUsing(ped_s)
+	local player = GetPlayerFromServerId(sender)
+	local ped = GetPlayerPed(player)
+	if DoesEntityExist(ped) and not IsEntityDead(ped) then
+		if ped ~= PlayerPedId() then
+			if IsPedInAnyVehicle(ped) then
+				local veh = GetVehiclePedIsUsing(ped)
 				SetAirManuStateForVeh(veh,newstate)
 			end
 		end
@@ -237,41 +150,45 @@ end)
 ---------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		CleanupSounds()
+		local timeDistance = 999
+		if count_sndclean_timer > 400 then
+			count_sndclean_timer = 0
 
-		local slyphe = 500
-		local playerped = PlayerPedId()
-		if IsPedInAnyVehicle(playerped,false) then
-			slyphe = 250
-			local veh = GetVehiclePedIsUsing(playerped)
-			if GetPedInVehicleSeat(veh,-1) == playerped then
-				slyphe = 3
-				DisableControlAction(1,84,true)
-				DisableControlAction(1,83,true)
-
-				if state_indic[veh] ~= ind_state_o and state_indic[veh] ~= ind_state_l and state_indic[veh] ~= ind_state_r and state_indic[veh] ~= ind_state_h then
-					state_indic[veh] = ind_state_o
-				end
-
-				if actv_ind_timer then
-					if state_indic[veh] == ind_state_l or state_indic[veh] == ind_state_r then
-						if GetEntitySpeed(veh) < 6 then
-							count_ind_timer = 0
-						else
-							if count_ind_timer > delay_ind_timer then
-								count_ind_timer = 0
-								actv_ind_timer = false
-								state_indic[veh] = ind_state_o
-								TogIndicStateForVeh(veh,state_indic[veh])
-								count_bcast_timer = delay_bcast_timer
-							else
-								count_ind_timer = count_ind_timer + 1
-							end
+			for k, v in pairs(state_lxsiren) do
+				if v > 0 then
+					if not DoesEntityExist(k) or IsEntityDead(k) then
+						if snd_lxsiren[k] ~= nil then
+							StopSound(snd_lxsiren[k])
+							ReleaseSoundId(snd_lxsiren[k])
+							snd_lxsiren[k] = nil
+							state_lxsiren[k] = nil
 						end
 					end
 				end
+			end
 
+			for k, v in pairs(state_airmanu) do
+				if v then
+					if not DoesEntityExist(k) or IsEntityDead(k) or IsVehicleSeatFree(k,-1) then
+						if snd_airmanu[k] ~= nil then
+							StopSound(snd_airmanu[k])
+							ReleaseSoundId(snd_airmanu[k])
+							snd_airmanu[k] = nil
+							state_airmanu[k] = nil
+						end
+					end
+				end
+			end
+		else
+			count_sndclean_timer = count_sndclean_timer + 1
+		end
+
+		local ped = PlayerPedId()
+		if IsPedInAnyVehicle(ped) then
+			local veh = GetVehiclePedIsUsing(ped)
+			if GetPedInVehicleSeat(veh,-1) == ped then
 				if GetVehicleClass(veh) == 18 then
+					timeDistance = 1
 					local actv_manu = false
 					local actv_horn = false
 
@@ -306,11 +223,8 @@ Citizen.CreateThread(function()
 					if not IsPauseMenuActive() then
 						if IsDisabledControlJustReleased(0,85) then
 							if IsVehicleSirenOn(veh) then
-								TriggerEvent("sound:source","sirenOffline",0.5)
 								SetVehicleSiren(veh,false)
 							else
-								TriggerEvent("sound:source","sirenOnline",0.5)
-								Citizen.Wait(150)
 								SetVehicleSiren(veh,true)
 								count_bcast_timer = delay_bcast_timer
 							end
@@ -393,64 +307,25 @@ Citizen.CreateThread(function()
 						SetAirManuStateForVeh(veh, hmanu_state_new)
 						count_bcast_timer = delay_bcast_timer
 					end
-				end
-
-				if GetVehicleClass(veh) ~= 14 and GetVehicleClass(veh) ~= 15 and GetVehicleClass(veh) ~= 16 and GetVehicleClass(veh) ~= 21 then
-					if not IsPauseMenuActive() then
-						if IsDisabledControlJustReleased(0,84) then
-							local cstate = state_indic[veh]
-							if cstate == ind_state_l then
-								state_indic[veh] = ind_state_o
-								actv_ind_timer = false
-							else
-								state_indic[veh] = ind_state_l
-								actv_ind_timer = true
-							end
-							count_ind_timer = 0
-							count_bcast_timer = delay_bcast_timer
-							TogIndicStateForVeh(veh,state_indic[veh])
-						elseif IsDisabledControlJustReleased(0,83) then
-							local cstate = state_indic[veh]
-							if cstate == ind_state_r then
-								state_indic[veh] = ind_state_o
-								actv_ind_timer = false
-							else
-								state_indic[veh] = ind_state_r
-								actv_ind_timer = true
-							end
-							count_ind_timer = 0
-							count_bcast_timer = delay_bcast_timer
-							TogIndicStateForVeh(veh,state_indic[veh])
-						elseif IsControlJustReleased(1,202) then
-							if GetLastInputMethod(0) then
-								local cstate = state_indic[veh]
-								if cstate == ind_state_h then
-									state_indic[veh] = ind_state_o
-								else
-									state_indic[veh] = ind_state_h
-								end
-								actv_ind_timer = false
-								count_ind_timer = 0
-								count_bcast_timer = delay_bcast_timer
-								TogIndicStateForVeh(veh,state_indic[veh])
-							end
-						end
-					end
 
 					if count_bcast_timer > delay_bcast_timer then
-						count_bcast_timer = 0
-						if GetVehicleClass(veh) == 18 then
-							TriggerServerEvent("lvc_TogDfltSrnMuted_s",dsrn_mute)
-							TriggerServerEvent("lvc_SetLxSirenState_s",state_lxsiren[veh])
-							TriggerServerEvent("lvc_SetAirManuState_s",state_airmanu[veh])
+						local playerAround = {}
+						for _,player in ipairs(GetActivePlayers()) do
+							playerAround[#playerAround + 1] = GetPlayerServerId(player)
 						end
-						TriggerServerEvent("lvc_TogIndicState_s",state_indic[veh])
+
+						count_bcast_timer = 0
+
+						TriggerServerEvent("lvc_TogDfltSrnMuted_s",dsrn_mute,playerAround)
+						TriggerServerEvent("lvc_SetLxSirenState_s",state_lxsiren[veh],playerAround)
+						TriggerServerEvent("lvc_SetAirManuState_s",state_airmanu[veh],playerAround)
 					else
 						count_bcast_timer = count_bcast_timer + 1
 					end
 				end
 			end
 		end
-		Citizen.Wait(slyphe)
+
+		Citizen.Wait(timeDistance)
 	end
 end)
