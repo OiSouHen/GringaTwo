@@ -15,40 +15,120 @@ vSERVER = Tunnel.getInterface("paramedic")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local damaged = {}
 local bleeding = 0
+local myInjuries = false
+local showDiagnostic = false
+local timeInjuries = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PRESSEDDIAGNOSTIC
+-- BONES
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
+local bones = {
+	[11816] = "Pelvis",
+	[58271] = "Coxa Esquerda",
+	[63931] = "Panturrilha Esquerda",
+	[14201] = "Pe Esquerdo",
+	[2108] = "Dedo do Pe Esquerdo",
+	[65245] = "Pe Esquerdo",
+	[57717] = "Pe Esquerdo",
+	[46078] = "Joelho Esquerdo",
+	[51826] = "Coxa Direita",
+	[36864] = "Panturrilha Direita",
+	[52301] = "Pe Direito",
+	[20781] = "Dedo do Pe Direito",
+	[35502] = "Pe Direito",
+	[24806] = "Pe Direito",
+	[16335] = "Joelho Direito",
+	[23639] = "Coxa Direita",
+	[6442] = "Coxa Direita",
+	[57597] = "Espinha Cervical",
+	[23553] = "Espinha Toraxica",
+	[24816] = "Espinha Lombar",
+	[24817] = "Espinha Sacral",
+	[24818] = "Espinha Cocciana",
+	[64729] = "Escapula Esquerda",
+	[45509] = "Braco Esquerdo",
+	[61163] = "Antebraco Esquerdo",
+	[18905] = "Mao Esquerda",
+	[18905] = "Mao Esquerda",
+	[26610] = "Dedo Esquerdo",
+	[4089] = "Dedo Esquerdo",
+	[4090] = "Dedo Esquerdo",
+	[26611] = "Dedo Esquerdo",
+	[4169] = "Dedo Esquerdo",
+	[4170] = "Dedo Esquerdo",
+	[26612] = "Dedo Esquerdo",
+	[4185] = "Dedo Esquerdo",
+	[4186] = "Dedo Esquerdo",
+	[26613] = "Dedo Esquerdo",
+	[4137] = "Dedo Esquerdo",
+	[4138] = "Dedo Esquerdo",
+	[26614] = "Dedo Esquerdo",
+	[4153] = "Dedo Esquerdo",
+	[4154] = "Dedo Esquerdo",
+	[60309] = "Mao Esquerda",
+	[36029] = "Mao Esquerda",
+	[61007] = "Antebraco Esquerdo",
+	[5232] = "Antebraco Esquerdo",
+	[22711] = "Cotovelo Esquerdo",
+	[10706] = "Escapula Direita",
+	[40269] = "Braco Direito",
+	[28252] = "Antebraco Direito",
+	[57005] = "Mao Direita",
+	[58866] = "Dedo Direito",
+	[64016] = "Dedo Direito",
+	[64017] = "Dedo Direito",
+	[58867] = "Dedo Direito",
+	[64096] = "Dedo Direito",
+	[64097] = "Dedo Direito",
+	[58868] = "Dedo Direito",
+	[64112] = "Dedo Direito",
+	[64113] = "Dedo Direito",
+	[58869] = "Dedo Direito",
+	[64064] = "Dedo Direito",
+	[64065] = "Dedo Direito",
+	[58870] = "Dedo Direito",
+	[64080] = "Dedo Direito",
+	[64081] = "Dedo Direito",
+	[28422] = "Mao Direita",
+	[6286] = "Mao Direita",
+	[43810] = "Antebraço Direito",
+	[37119] = "Antebraço Direito",
+	[2992] = "Cotovelo Direito",
+	[39317] = "Pescoco",
+	[31086] = "Cabeca",
+	[12844] = "Cabeca",
+	[65068] = "Rosto"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GAMEEVENTTRIGGERED
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("gameEventTriggered",function(name,args)
+	if name == "CEventNetworkEntityDamage" then
+		if PlayerPedId() == args[1] and GetGameTimer() >= timeInjuries then
+			if not IsPedInAnyVehicle(args[1]) and GetEntityHealth(args[1]) > 101 then
+				local ped = PlayerPedId()
+				timeInjuries = GetGameTimer() + 2500
 
-		if GetEntityHealth(ped) > 110 and not IsPedInAnyVehicle(ped) then
-			if not damaged.vehicle and HasEntityBeenDamagedByAnyVehicle(ped) then
-				ClearEntityLastDamageEntity(ped)
-				damaged.vehicle = true
-				bleeding = bleeding + 2
-				TriggerServerEvent("dna:dropDna",80,190,40)
-			end
+				if not damaged["vehicle"] and HasEntityBeenDamagedByAnyVehicle(ped) then
+					bleeding = bleeding + 1
+					TriggerServerEvent("dna:dropDna",80,190,40)
+					damaged["vehicle"] = true
+				end
 
-			if HasEntityBeenDamagedByWeapon(ped,0,2) then
-				ClearEntityLastDamageEntity(ped)
-				damaged.bullet = true
-				bleeding = bleeding + 1
-				TriggerServerEvent("dna:dropDna",30,100,200)
-			end
+				if not damaged["tazer"] and IsPedAPlayer(args[2]) and IsPedArmed(args[2],6) and GetSelectedPedWeapon(args[2]) ~= GetHashKey("WEAPON_STUNGUN") then
+					damaged["tazer"] = true
+					TriggerServerEvent("dna:dropDna",30,100,200)
+				end
 
-			if not damaged.taser and IsPedBeingStunned(ped) then
-				ClearEntityLastDamageEntity(ped)
-				damaged.taser = true
+				if not IsPedBeingStunned(ped) then
+					bleeding = bleeding + 1
+				end
+
+				local hit,bone = GetPedLastDamageBone(ped)
+				if hit and not damaged[bone] and bone ~= 0 then
+					damaged[bone] = true
+				end
 			end
 		end
-
-		local hit,bone = GetPedLastDamageBone(ped)
-		if hit and not damaged[bone] and bone ~= 0 then
-			damaged[bone] = true
-		end
-
-		Citizen.Wait(500)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -82,11 +162,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("resetDiagnostic")
 AddEventHandler("resetDiagnostic",function()
-	local ped = PlayerPedId()
-	ClearPedBloodDamage(ped)
-
-	damaged = {}
+	ClearPedBloodDamage(PlayerPedId())
 	bleeding = 0
+	damaged = {}
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RESETDIAGNOSTIC
@@ -98,41 +176,56 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWINJURIES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local exit = true
 RegisterNetEvent("drawInjuries")
 AddEventHandler("drawInjuries",function(ped,injuries)
-	local function draw3dtext(x,y,z,text)
-		local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-		SetTextFont(4)
-		SetTextScale(0.35,0.35)
-		SetTextColour(255,255,255,100)
-		SetTextEntry("STRING")
-		SetTextCentre(1)
-		AddTextComponentString(text)
-		DrawText(_x,_y)
-		local factor = (string.len(text))/300
-		DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-	end
+	local serverId = GetPlayerFromServerId(ped)
+	local playerPed = GetPlayerPed(serverId)
+	showDiagnostic = not showDiagnostic
+	local countDiagnostic = 0
 
-	Citizen.CreateThread(function()
-		local counter = 0
-		exit = not exit
-
-		while true do
-			if counter > 1000 or exit then
-				exit = true
-				break
-			end
-
-			for k,v in pairs(injuries) do
-				local x,y,z = table.unpack(GetPedBoneCoords(GetPlayerPed(GetPlayerFromServerId(ped)),k))
-				draw3dtext(x,y,z,"~w~"..string.upper(v))
-			end
-
-			counter = counter + 1
-			Citizen.Wait(0)
+	while true do
+		if countDiagnostic >= 1000 or not showDiagnostic then
+			showDiagnostic = false
+			break
 		end
-	end)
+
+		for k,v in pairs(injuries) do
+			if bones[k] then
+				local coords = GetPedBoneCoords(playerPed,k)
+				DrawText3D(coords["x"],coords["y"],coords["z"],"~w~"..string.upper(bones[k]))
+			end
+		end
+
+		countDiagnostic = countDiagnostic + 1
+
+		Citizen.Wait(0)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MYINJURIES
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:myInjuries")
+AddEventHandler("paramedic:myInjuries",function()
+	myInjuries = not myInjuries
+	local countDiagnostic = 0
+
+	while true do
+		if countDiagnostic >= 1000 or not myInjuries then
+			myInjuries = false
+			break
+		end
+
+		for k,v in pairs(damaged) do
+			if bones[k] then
+				local coords = GetPedBoneCoords(PlayerPedId(),k)
+				DrawText3D(coords["x"],coords["y"],coords["z"],"~w~"..string.upper(bones[k]))
+			end
+		end
+
+		countDiagnostic = countDiagnostic + 1
+
+		Citizen.Wait(0)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETDIAGNOSTIC
@@ -145,4 +238,23 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.getBleeding()
 	return bleeding
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = (string.len(text) + 4) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
 end
