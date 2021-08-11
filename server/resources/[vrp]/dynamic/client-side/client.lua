@@ -126,50 +126,17 @@ end)
 -- EMERGENCYFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("emergencyFunctions",function(source,args)
-	if policeService or paramedicService then
+	if policeService then
 		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not menuOpen then
 
 			local ped = PlayerPedId()
 			if GetEntityHealth(ped) > 101 then
 				menuOpen = true
 
-				exports["dynamic"]:AddButton("Serviço","Verificar companheiros em serviço.","player:servicoFunctions","","utilitys",true)
-
-				if not IsPedInAnyVehicle(ped) then
-					exports["dynamic"]:AddButton("Carregar pelos Braços","Carregar a pessoa mais próxima.","player:carryFunctions","bracos","player",true)
-					exports["dynamic"]:AddButton("Carregar nos Ombros","Carregar a pessoa mais próxima.","player:carryFunctions","ombros","player",true)
-					exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","player",true)
-					exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","player",true)
-
-					exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player")
-				end
-
 				if policeService then
-					exports["dynamic"]:AddButton("Computador","Abrir o dispositivo móvel.","police:openSystem","","utilitys",false)
 					exports["dynamic"]:AddButton("Barreira","Colocar barreira na frente.","police:insertBarrier","","utilitys",false)
-					exports["dynamic"]:AddButton("Invadir","Invadir a residência.","homes:invadeSystem","","utilitys",true)
 
-					exports["dynamic"]:AddButton("Remover Chapéu","Remover da pessoa mais próxima.","skinshop:removeProps","hat","player",true)
-					exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:removeProps","mask","player",true)
-					exports["dynamic"]:AddButton("Defusar","Desativar bomba do veículo.","races:defuseBomb","","player",true)
-
-					exports["dynamic"]:AddButton("Sheriff","Fardamento de oficial.","player:presetFunctions","1","prePolice",true)
-					exports["dynamic"]:AddButton("State Police","Fardamento de oficial.","player:presetFunctions","2","prePolice",true)
-					exports["dynamic"]:AddButton("State Park","Fardamento de oficial.","player:presetFunctions","3","prePolice",true)
-					exports["dynamic"]:AddButton("Los Santos Police","Fardamento de oficial.","player:presetFunctions","4","prePolice",true)
-					exports["dynamic"]:AddButton("Los Santos Police","Fardamento de oficial.","player:presetFunctions","5","prePolice",true)
-
-					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
 					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos policiais.","utilitys")
-				elseif paramedicService then
-					exports["dynamic"]:AddButton("Medical Center","Fardamento de doutor.","player:presetFunctions","6","preMedic",true)
-					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico.","player:presetFunctions","7","preMedic",true)
-					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico interno.","player:presetFunctions","8","preMedic",true)
-					exports["dynamic"]:AddButton("Fire Departament","Fardamento de atendimentos.","player:presetFunctions","9","preMedic",true)
-					exports["dynamic"]:AddButton("Fire Departament","Fardamento de mergulhador.","player:presetFunctions","10","preMedic",true)
-
-					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
-					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos paramédicos.","utilitys")
 				end
 			end
 		end
