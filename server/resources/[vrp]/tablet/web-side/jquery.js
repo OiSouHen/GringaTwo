@@ -14,8 +14,16 @@ $(document).ready(function(){
 				$("#mainPage").css("display","none");
 			break;
 
-			case "requestPossuidos":
-				benefactor("Possuidos");
+			case "updatePossuidos":
+				updatePossuidos();
+			break;
+
+			case "updateCarros":
+				updateCarros();
+			break;
+
+			case "updateMotos":
+				updateMotos();
 			break;
 		};
 	});
@@ -36,9 +44,7 @@ $(document).on("click","#mainMenu li",function(){
 			reversePage = selectPage;
 		};
 	};
-});
-/* ---------------------------------------------------------------------------------------------------------------- */
-const commandsPage = () => {
+});const commandsPage = () => {
 	selectPage = "commands";
 
 	$("#content").html(`
@@ -262,92 +268,103 @@ const commandsPage = () => {
 	`);
 };
 /* ---------------------------------------------------------------------------------------------------------------- */
-var benMode = "Carros"
-var benSearch = "alphabetic"
-
-const searchTypePage = (mode) => {
-	benSearch = mode;
-	benefactor(benMode);
-}
-/* ---------------------------------------------------------------------------------------------------------------- */
-const benefactor = (mode) => {
-	benMode = mode;
-	selectPage = "benefactor";
-
+const UpdateLista = (mode) => {
 	$("#content").html(`
 		<div id="benefactorBar">
-			<li id="benefactor" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
-			<li id="benefactor" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
-			<li id="benefactor" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
-			<li id="benefactor" data-id="Servicos" ${mode == "Servicos" ? "class=active":""}>SERVIÇOS</li>
-			<li id="benefactor" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
+		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
+		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
+		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
 		</div>
 
 		<div id="contentVehicles">
 			<div id="titleVehicles">${mode}</div>
-			<div id="typeSearch"><span onclick="searchTypePage('alphabetic');">Ordem Alfabética</span> / <span onclick="searchTypePage('crescent');">Valor Crescente</span></div>
 			<div id="pageVehicles"></div>
 		</div>
 	`);
-
-	$.post("http://tablet/request"+ mode,JSON.stringify({}),(data) => {
-		if (benSearch == "alphabetic"){
-			var nameList = data["result"].sort((a,b) => (a["name"] > b["name"]) ? 1: -1);
+	$.post(`http://tablet/request${mode}`,JSON.stringify({}),(data) => {
+		let i = 0;
+		var nameList = data["veiculos"].sort((a,b) => (a["name"] > b["name"]) ? 1: -1);
+		
+		if (mode == "Possuidos"){
+			$("#pageVehicles").html(`
+			${nameList.map((item) => (`<span>
+				<left>
+					${item["name"]}<br>
+					<b>Valor:</b> $${format(item["price"])}<br>
+					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
+				</left>
+				<right>
+				    <br>
+					<div id="benefactorSell" data-name="${item["k"]}">Vender</div><br>
+				</right>
+			</span>`)).join('')}
+		`);
 		} else {
-			var nameList = data["result"].sort((a,b) => (a["price"] > b["price"]) ? 1: -1);
-		}
-
-		if (mode !== "Possuidos"){
 			$("#pageVehicles").html(`
 				${nameList.map((item) => (`<span>
 					<left>
 						${item["name"]}<br>
-						<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
-						<b>Taxa Semanal:</b> $${format(item["tax"])}<br>
+						<b>Valor:</b> $${format(item["price"])}<br>
 						<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 					</left>
 					<right>
-						${mode == "Aluguel" ? "<div id=\"benefactorRental\" data-name="+item["k"]+">G</div><div id=\"benefactorRentalMoney\" data-name="+item["k"]+">$</div>":"<div id=\"benefactorBuy\" data-name="+item["k"]+">COMPRAR</div>"}
-						<div id="benefactorDrive" data-name="${item["k"]}">TESTAR</div>
-					</right>
-				</span>`)).join('')}
-			`);
-		} else {
-			$("#pageVehicles").html(`
-				${nameList.map((item) => (`<span>
-					<left>
-						${item["name"]}<br>
-						<b>Venda:</b> $${format(item["price"])}<br>
-						<b>Taxa:</b> ${item["tax"]}
-					</left>
-					<right>
-						<div id="benefactorSell" data-name="${item["k"]}">VENDER</div>
-						<div id="benefactorTax" data-name="${item["k"]}">PAGAR</div>
+						<br>
+						<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
 					</right>
 				</span>`)).join('')}
 			`);
 		}
 	});
-};
-/* ----------BENEFACTOR---------- */
-$(document).on("click","#benefactor",function(e){
-	benefactor(e["target"]["dataset"]["id"]);
-});
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+const benefactor = () => {
+	selectPage = "benefactor";
+	$("#content").html(`
+		<div id="benefactorBar">
+		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" class="active">CARROS</li>
+		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos">MOTOS</li>
+		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos">POSSUÍDOS</li>
+		</div>
+
+		<div id="contentVehicles">
+			<div id="titleVehicles">Carros</div>
+			<div id="pageVehicles"></div>
+		</div>
+	`);
+
+	$.post(`http://tablet/requestCarros`,JSON.stringify({}),(data) => {
+		let i = 0;
+		const nameList = data.veiculos.sort((a,b) => (a.nome > b.nome) ? 1: -1);
+		$("#pageVehicles").html(`
+			${nameList.map((item) => (`<span>
+				<left>
+					${item["name"]}<br>
+					<b>Valor:</b> $${format(item["price"])}<br>
+					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
+				</left>
+				<right>
+					<br>
+					<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
+				</right>
+			</span>`)).join('')}
+		`);
+	});
+}
 /* ----------BENEFACTORBUY---------- */
 $(document).on("click","#benefactorBuy",function(e){
-	$.post("http://tablet/requestBuy",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
-});
-/* ----------BENEFACTORRENTAL---------- */
-$(document).on("click","#benefactorRental",function(e){
-	$.post("http://tablet/requestRental",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
-});
-/* ----------BENEFACTORRENTALMONEY---------- */
-$(document).on("click","#benefactorRentalMoney",function(e){
-	$.post("http://tablet/rentalMoney",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
+	$.post("http://tablet/buyDealer",JSON.stringify({
+		name: e["target"]["dataset"]["name"]
+	}));
+	UpdateLista('Carros');
+	$.post("http://tablet/closeSystem");
 });
 /* ----------BENEFACTORSELL---------- */
 $(document).on("click","#benefactorSell",function(e){
-	$.post("http://tablet/requestSell",JSON.stringify({ name: e["target"]["dataset"]["name"] }));
+	$.post("http://tablet/sellDealer",JSON.stringify({
+		name: e["target"]["dataset"]["name"]
+	}));
+	UpdateLista('Carros');
+	$.post("http://tablet/closeSystem");
 });
 /* ----------BENEFACTORTAX---------- */
 $(document).on("click","#benefactorTax",function(e){

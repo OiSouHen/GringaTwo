@@ -12,63 +12,214 @@ Tunnel.bindInterface("tablet",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local twitter = {}
+local motos = {}
+local carros = {}
+local stockVeh = {}
+local lockReq = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTRACES
+-- VEHICLEGLOBALTHREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
---vRP.execute("vRP/show_winrace", { raceid = id } )
+Citizen.CreateThread(function()
+	local vehicles = vRP.vehicleGlobal()
+	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
+	for k,v in pairs(vehicles) do
+		if v[4] == "cars" then
+			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+		elseif v[4] == "bikes" then
+			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+		end
+	end
+	if #temp_stock > 0 then
+		for k,v in pairs(temp_stock) do
+			if v.vehicle then
+				stockVeh[string.lower(v.vehicle)] = v.estoque
+			end
+		end
+	end
+end)
 
---function cRP.requestRanking(raceId)
---	local result = MySQL.Sync.fetchAll("SELECT * FROM vrp_races WHERE raceid = @raceId",{ ['@raceId'] = raceId })
---	local result = vRP.execute("vRP/show_winrace", { id = raceId, raceid = raceId } )
---	if result then
---		return result.raceId
---	end
---	return nil
---end
+function task_save_datatables()
+	SetTimeout(60000,task_save_datatables)
+	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
+	local temp_db = {}
+	if #temp_stock > 0 then
+		for k,v in pairs(temp_stock) do
+			if v.vehicle then
+				temp_db[string.lower(v.vehicle)] = v.estoque
+			end
+		end
+	end
+
+	for k,v in pairs(stockVeh) do
+		if temp_db[k] then
+			vRP.execute("vRP/update_ConceStock",{ estoque = tonumber(v), vehicle = k })
+		else
+			vRP.execute("vRP/insert_ConceStock",{ estoque = tonumber(v), vehicle = k })
+		end
+	end
+end
+
+async(function()
+	task_save_datatables()
+end)
+
+local hasVehicleStock = function(veh)
+	if stockVeh and veh then
+		veh = tostring(veh)
+		if stockVeh[veh] then
+			local temp_stock = stockVeh[veh]
+			if temp_stock > 0 then return true else return false end
+		end
+	end
+	return false
+end
+
+local tryAddVehicleInStock = function(veh)
+	if stockVeh and veh then
+		veh = tostring(veh)
+		if stockVeh[veh] then
+			local temp_stock = stockVeh[veh]
+			stockVeh[veh] = temp_stock + 1
+			return true
+		end
+	end
+	return false
+end
+
+local tryRemVehicleInStock = function(veh)
+	if stockVeh and veh then
+		veh = tostring(veh)
+		if stockVeh[veh] then
+			local temp_stock = stockVeh[veh]
+			if temp_stock > 0 then
+				stockVeh[veh] = temp_stock - 1
+				return true
+			end
+		end
+	end
+	return false
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTMEDIA
+-- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.requestMedia(media)
-	if media == "Twitter" then
-		return twitter
+local webhookdealership = ""
+
+function creativelogs(webhook,message)
+	if webhook ~= nil and webhook ~= "" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MESSAGEMEDIA
+-- CARROS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.messageMedia(message,page)
+function cRP.Carros()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local text = ""
-		local identity = vRP.getUserIdentity(user_id)
-		if identity then
-			if page == "Twitter" then
-				text = "<b>@"..identity.name..""..identity.name2.."</b> · "..os.date("%H")..":"..os.date("%M").."<br>"..message
+		return carros
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MOTOS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.Motos()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		return motos
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POSSUIDOS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.Possuidos()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local vehList = {}
+		local vehicles = vRP.query("vRP/get_vehicle",{ user_id = parseInt(user_id) })
+		for k,v in pairs(vehicles) do
+			table.insert(vehList,{ k = v.vehicle, work = v.work, name = vRP.vehicleName(v.vehicle), price = parseInt(vRP.vehiclePrice(v.vehicle)*0.7), chest = parseInt(vRP.vehicleChest(v.vehicle)) })
+		end
+		return vehList
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BUYDEALER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.buyDealer(name)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(user_id)
+	if user_id then
+		local vehName = tostring(name)
+		if hasVehicleStock(vehName) then
+			if tryRemVehicleInStock(vehName) then
+				local maxVehs = vRP.query("vRP/con_maxvehs",{ user_id = parseInt(user_id) })
+				local myGarages = vRP.getInformation(user_id)
+				
+				if vRP.getPremium(user_id) then
+					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
+						TriggerClientEvent("Notify",source,"azul","Você atingiu o máximo de veículos em sua garagem.",3000)
+						return
+					end
+				else
+					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
+						TriggerClientEvent("Notify",source,"azul","Você atingiu o máximo de veículos em sua garagem.",3000)
+						return
+					end
+				end
+				
+				local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
+				if vehicle[1] then
+					TriggerClientEvent("Notify",source,"azul","Você já possui um <b>"..vRP.vehicleName(vehName).."</b>.",3000)
+					return
+				else
+					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName))) then
+						vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
+						TriggerClientEvent("Notify",source,"verde","A compra foi concluída com verde.",5000)
+						creativelogs(webhookdealership,"```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[COMPROU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					else
+						TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
+					end
+				end
 			end
-
-			if page == "Twitter" then
-				table.insert(twitter,{ text = text })
-				TriggerClientEvent("tablet:updateMedia", -1, page, text, false)
-				TriggerClientEvent("Notify",-1,"twitter","<b>@"..identity.name..""..identity.name2.."</b> públicou um novo Tweet.",1000)
---				TriggerClientEvent("sound:source",source,"softtick",0.5)
-			end
+		else
+			TriggerClientEvent("Notify",source,"vermelho","Estoque insuficiente desse veiculo.",3000)
+			return
 		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSTART
+-- SELLDEALER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local twitterFile = LoadResourceFile("logsystem","twitter.json")
-
-	twitter = json.decode(twitterFile)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- ADMIN:KICKALL
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("admin:KickAll")
-AddEventHandler("admin:KickAll",function()
-	SaveResourceFile("logsystem","twitter.json",json.encode(twitter),-1)
-end)
+function cRP.sellDealer(name)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(user_id)	
+	if user_id then
+		if vRP.vehicleType(name) ~= nil or vRP.vehicleType(name) == "donate" then
+			if not lockReq[user_id] or lockReq[user_id] <= os.time() then
+				lockReq[user_id] = os.time() + 300
+				local vehName = tostring(name)
+				local getInvoice = vRP.getInvoice(user_id)
+				if getInvoice[1] ~= nil then
+					TriggerClientEvent("Notify",source,"vermelho","Encontramos faturas pendentes.",3000)
+					return
+				end
+				
+				tryAddVehicleInStock(vehName)
+				vRP.execute("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..vehName })
+				vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..vehName })
+				vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = vehName })
+				vRP.addBank(user_id,parseInt(vRP.vehiclePrice(name)*0.75))
+				TriggerClientEvent("Notify",source,"verde","Venda concluida.",3000)
+				creativelogs(webhookdealership,"ini```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[VENDEU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[DATA]: %d/%m/%Y [HORA]: %H:%M:%S").." \r```")
+			else
+				TriggerClientEvent("Notify",source,"amarelo","Aguarde 5 minutos para vender novamente.",3000)
+			end
+		else
+			TriggerClientEvent("Notify",source,"negado","Você não pode vender este veículo.",3000)
+		end
+	end
+end

@@ -17,20 +17,26 @@ Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CLOSENUI
+-----------------------------------------------------------------------------------------------------------------------------------------
+function closeNui()
+	vRP.removeObjects("one")
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "closeSystem" })
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- TABLET
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tablet",function(source,args)
-	if not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
-		local ped = PlayerPedId()
-		if not IsEntityInWater(ped) and GetEntityHealth(ped) > 101 then
-			SetNuiFocus(true,true)
-			SetCursorLocation(0.5,0.5)
-			SendNUIMessage({ action = "openSystem" })
+	local ped = PlayerPedId()
+	if not IsPauseMenuActive() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
+		SetNuiFocus(true,true)
+		SetCursorLocation(0.5,0.5)
+		SendNUIMessage({ action = "openSystem" })
 
-			if not IsPedInAnyVehicle(PlayerPedId()) then
-				vRP.removeObjects()
-				vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
-			end
+		if not IsPedInAnyVehicle(PlayerPedId()) then
+			vRP.removeObjects()
+			vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
 		end
 	end
 end)
@@ -48,38 +54,67 @@ RegisterNUICallback("closeSystem",function(data)
 	SendNUIMessage({ action = "closeSystem" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTRANKING
+-- REQUESTCARROS
 -----------------------------------------------------------------------------------------------------------------------------------------
---RegisterNUICallback("requestRanking",function(data,cb)
---	cb(vSERVER.requestRanking(data["raceId"]))
---	local result = vSERVER.requestRanking(data.raceId)
---end)
------------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTMEDIA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestMedia",function(data,cb)
-	local result = vSERVER.requestMedia(data.media)
-	if result then
-		cb(json.encode(result))
+RegisterNUICallback("requestCarros",function(data,cb)
+	local veiculos = vSERVER.Carros()
+	if veiculos then
+		cb({ veiculos = veiculos })
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTBUY
+-- REQUESTMOTOS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("messageMedia",function(data,cb)
-	vSERVER.messageMedia(data.message,data.page)
+RegisterNUICallback("requestMotos",function(data,cb)
+	local veiculos = vSERVER.Motos()
+	if veiculos then
+		cb({ veiculos = veiculos })
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TABLET:UPDATE
+-- REQUESTPOSSUIDOS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tablet:Update")
-AddEventHandler("tablet:Update",function(action)
-	SendNUIMessage({ action = action })
+RegisterNUICallback("requestPossuidos",function(data,cb)
+	local veiculos = vSERVER.Possuidos()
+	if veiculos then
+		cb({ veiculos = veiculos })
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BUYDEALER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("buyDealer",function(data)
+	if data.name ~= nil then
+		vSERVER.buyDealer(data.name)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SELLDEALER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("sellDealer",function(data)
+	if data.name ~= nil then
+		vSERVER.sellDealer(data.name)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REQUESTSELL
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("RequestSell",function(data,cb)
+	vSERVER.requestSell(data.name)
+	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEMEDIA
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("tablet:updateMedia")
-AddEventHandler("tablet:updateMedia",function(media,data,back)
-	SendNUIMessage({ action = "messageMedia", media = media, data = data, back = back })
+AddEventHandler("tablet:updateMedia",function(media,data)
+	SendNUIMessage({ action = "messageMedia", media = media, data = data })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCAREA
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("syncarea")
+AddEventHandler("syncarea",function(x,y,z,distance)
+	ClearAreaOfVehicles(x,y,z,distance + 0.0,false,false,false,false,false)
+	ClearAreaOfEverything(x,y,z,distance + 0.0,false,false,false,false)
 end)
