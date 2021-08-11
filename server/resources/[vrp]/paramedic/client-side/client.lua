@@ -7,9 +7,9 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("hospital",cnVRP)
-vSERVER = Tunnel.getInterface("hospital")
+cRP = {}
+Tunnel.bindInterface("paramedic",cRP)
+vSERVER = Tunnel.getInterface("paramedic")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -52,30 +52,29 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PRESSEDBLEEDING
+-- THREADBLEEDING
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
+	local bleedingTimers = GetGameTimer()
+
 	while true do
-		local ped = PlayerPedId()
+		if GetGameTimer() >= bleedingTimers then
+			bleedingTimers = GetGameTimer() + 15000
 
-		if GetEntityHealth(ped) > 101 then
-			if bleeding == 4 then
-				SetEntityHealth(ped,GetEntityHealth(ped)-2)
-			elseif bleeding == 5 then
-				SetEntityHealth(ped,GetEntityHealth(ped)-3)
-			elseif bleeding == 6 then
-				SetEntityHealth(ped,GetEntityHealth(ped)-4)
-			elseif bleeding >= 7 then
-				SetEntityHealth(ped,GetEntityHealth(ped)-5)
-			end
+			local ped = PlayerPedId()
+			if GetEntityHealth(ped) > 101 and bleeding >= 3 then
+				if bleeding >= 7 then
+					ApplyDamageToPed(ped,5,false)
+				else
+					ApplyDamageToPed(ped,bleeding - 2,false)
+				end
 
-			if bleeding >= 4 then
-				TriggerEvent("Notify","blood","Sangramento encontrado.",2000)
+				TriggerEvent("Notify","blood","Sangramento encontrado.",3000)
 				TriggerServerEvent("dna:dropDna",255,0,0)
 			end
 		end
 
-		Citizen.Wait(20000)
+		Citizen.Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -138,12 +137,12 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETDIAGNOSTIC
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getDiagnostic()
+function cRP.getDiagnostic()
 	return damaged,bleeding
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETBLEEDING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getBleeding()
+function cRP.getBleeding()
 	return bleeding
 end

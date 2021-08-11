@@ -8,9 +8,9 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("hospital",cnVRP)
-vCLIENT = Tunnel.getInterface("hospital")
+cRP = {}
+Tunnel.bindInterface("paramedic",cRP)
+vCLIENT = Tunnel.getInterface("paramedic")
 vSURVIVAL = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLEEDING
