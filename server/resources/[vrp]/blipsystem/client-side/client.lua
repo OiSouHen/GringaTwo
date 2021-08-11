@@ -7,22 +7,37 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("blipsystem",cnVRP)
+cRP = {}
+Tunnel.bindInterface("blipsystem",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local userList = {}
 local userBlips = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- blipsystem:UPDATEBLIPS
+-- BLIPSYSTEM:UPDATEBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("blipsystem:updateBlips")
-AddEventHandler("blipsystem:updateBlips",function(status)
-	userList = status
+AddEventHandler("blipsystem:updateBlips",function(userTable)
+	userList = userTable
+
+	for k,v in pairs(userList) do
+		if DoesBlipExist(userBlips[k]) then
+			SetBlipCoords(userBlips[k],v[1]["x"],v[1]["y"],v[1]["z"])
+		else
+			userBlips[k] = AddBlipForCoord(v[1]["x"],v[1]["y"],v[1]["z"])
+			SetBlipSprite(userBlips[k],1)
+			SetBlipAsShortRange(userBlips[k],true)
+			SetBlipScale(userBlips[k],0.5)
+			SetBlipColour(userBlips[k],v[3])
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString(v[2])
+			EndTextCommandSetBlipName(userBlips[k])
+		end
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- blipsystem:CLEANBLIPS
+-- BLIPSYSTEM:CLEANBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("blipsystem:cleanBlips")
 AddEventHandler("blipsystem:cleanBlips",function()
@@ -30,11 +45,11 @@ AddEventHandler("blipsystem:cleanBlips",function()
 		RemoveBlip(userBlips[k])
 	end
 
-	userList = {}
 	userBlips = {}
+	userList = {}
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- blipsystem:CLEANBLIPS
+-- BLIPSYSTEM:CLEANBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("blipsystem:removeBlips")
 AddEventHandler("blipsystem:removeBlips",function(source)
@@ -42,28 +57,5 @@ AddEventHandler("blipsystem:removeBlips",function(source)
 		RemoveBlip(userBlips[source])
 		userBlips[source] = nil
 		userList[source] = nil
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREAD:UPDATEBLIPS
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		for k,v in pairs(userList) do
-			if DoesBlipExist(userBlips[k]) then
-				SetBlipCoords(userBlips[k],v[1],v[2],v[3])
-			else
-				userBlips[k] = AddBlipForCoord(v[1],v[2],v[3])
-				SetBlipSprite(userBlips[k],1)
-				SetBlipScale(userBlips[k],0.5)
-				SetBlipColour(userBlips[k],v[5])
-				SetBlipAsShortRange(userBlips[k],false)
-				BeginTextCommandSetBlipName("STRING")
-				AddTextComponentString(v[4])
-				EndTextCommandSetBlipName(userBlips[k])
-			end
-		end
-
-		Citizen.Wait(500)
 	end
 end)
