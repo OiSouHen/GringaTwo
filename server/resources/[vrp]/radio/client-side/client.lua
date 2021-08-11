@@ -25,7 +25,7 @@ RegisterNUICallback("radioClose",function(data,cb)
     SendNUIMessage({ action = "hideMenu" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- /INV
+-- OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("radio:openSystem")
 AddEventHandler("radio:openSystem",function()
@@ -51,7 +51,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("inativeFrequency",function(data)
 	TriggerEvent("radio:outServers")
-	TriggerEvent("Notify","amarelo","Rádio desativado.",5000)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFREQUENCY
@@ -61,7 +60,8 @@ function cRP.startFrequency(frequency)
 		exports["tokovoip"]:removePlayerFromRadio(activeFrequencys)
 	end
 
-	exports["tokovoip"]:addPlayerToRadio(frequency)
+--	exports["tokovoip"]:addPlayerToRadio(frequency)
+	exports["tokovoip"]:setRadioChannel(frequency)
 	activeFrequencys = frequency
 	activeRadio = true
 end
@@ -71,6 +71,7 @@ end
 RegisterNetEvent("radio:outServers")
 AddEventHandler("radio:outServers",function()
 	if activeFrequencys ~= 0 then
+		TriggerEvent("Notify","amarelo","Rádio desativado.",5000)
 		exports["tokovoip"]:removePlayerFromRadio(activeFrequencys)
 		TriggerEvent("hud:RadioDisplay",0)
 		activeFrequencys = 0
@@ -84,10 +85,11 @@ Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
 
 	while true do
-		if GetGameTimer() >= (timeCheck + 60000) and activeRadio then
-			timeCheck = GetGameTimer()
+		if GetGameTimer() >= timeCheck and activeRadio then
+			timeCheck = GetGameTimer() + 60000
 
-			if vSERVER.checkRadio() then
+			local ped = PlayerPedId()
+			if vSERVER.checkRadio() or IsPedSwimming(ped) then
 				TriggerEvent("radio:outServers")
 			end
 		end
