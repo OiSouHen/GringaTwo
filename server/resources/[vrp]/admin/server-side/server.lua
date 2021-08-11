@@ -118,6 +118,21 @@ RegisterCommand("item",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ADDMONEY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("addmoney",function(source,args,rawCommand)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        if vRP.hasPermission(user_id,"Admin") and args[1] and args[2] then
+            local identity = vRP.getUserIdentity(parseInt(args[1]))
+
+            vRP.addBank(parseInt(args[1]),parseInt(args[2]))
+            TriggerClientEvent("Notify",source,"verde","Dado <b>$"..args[2].." dólares</b> para <b>"..identity.name.." ["..args[1].."]</b>",5000)
+        end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- ADMINDEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("admindebug",function(source,args,rawCommand)
