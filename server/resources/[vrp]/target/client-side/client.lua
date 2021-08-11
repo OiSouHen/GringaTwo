@@ -67,6 +67,34 @@ Citizen.CreateThread(function()
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Target","keyboard","LMENU")
 
+    AddCircleZone("treatment01",vector3(1147.09,-1543.0,35.39),0.75,{  
+		name = "treatment01",
+		heading = 152.31
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("treatment02",vector3(1766.74,2514.26,45.83),0.75,{
+		name = "treatment02",
+		heading = 29.0
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
+			}
+		}
+	})
+
 	AddTargetModel({ 1631638868,2117668672,-1498379115,-1519439119,-289946279 },{
 		options = {
 			{
