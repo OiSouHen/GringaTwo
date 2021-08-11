@@ -10,18 +10,6 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("checkin",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHECKSERVICES
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkServices()
-	local amountMedics = vRP.numPermission("Paramedic")
-	if parseInt(#amountMedics) > 1 then
-		TriggerClientEvent("Notify",source,"amarelo","Existem médicos em serviço.",3000)
-		Wait(1000)
-		return false
-	end
-	return true
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTCHECKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.paymentCheckin()
@@ -29,7 +17,7 @@ function cRP.paymentCheckin()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Mechanic") then
-			TriggerClientEvent("Notify",source,"verde","Seu tratamento ficou por conta da casa.",5000)
+			TriggerClientEvent("Notify",source,"verde","Tratamento por conta da casa.",3000)
 			return true
 		end
 		
