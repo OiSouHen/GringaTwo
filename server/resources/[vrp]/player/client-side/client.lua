@@ -29,6 +29,39 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 exports("blockCommands",blocks)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- AWAYSYSTEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+local awayTimers = GetGameTimer()
+local awaySystem = { 0.0,0.0,1800 }
+
+Citizen.CreateThread(function()
+	while true do
+		if GetGameTimer() >= awayTimers then
+			awayTimers = GetGameTimer() + 10000
+
+			local ped = PlayerPedId()
+			local coords = GetEntityCoords(ped)
+			if coords["x"] == awaySystem[1] and coords["y"] == awaySystem[2] then
+				if awaySystem[3] > 0 then
+					awaySystem[3] = awaySystem[3] - 10
+
+					if awaySystem[3] == 60 or awaySystem[3] == 30 then
+						TriggerEvent("Notify","amarelo","Mova-se e evite ser desconectado.",3000)
+					end
+				else
+					TriggerServerEvent("player:kickSystem","Desconectado, muito tempo ausente.")
+				end
+			else
+				awaySystem[1] = coords["x"]
+				awaySystem[2] = coords["y"]
+				awaySystem[3] = 1800
+			end
+		end
+
+		Citizen.Wait(10000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATSHUFFLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -94,9 +127,15 @@ end
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
+	local salaryTimers = GetGameTimer()
+
 	while true do
-		Citizen.Wait(30*60000)
-		TriggerServerEvent("player:salary")
+		if GetGameTimer() >= salaryTimers then
+			salaryTimers = GetGameTimer() + (30 * 60000)
+			TriggerServerEvent("player:salary")
+		end
+
+		Citizen.Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -453,9 +492,13 @@ AddEventHandler("player:syncWins",function(vehIndex,status)
 			if status == "1" then
 				RollUpWindow(v,0)
 				RollUpWindow(v,1)
+				RollUpWindow(v,2)
+				RollUpWindow(v,3)
 			else
 				RollDownWindow(v,0)
 				RollDownWindow(v,1)
+				RollDownWindow(v,2)
+				RollDownWindow(v,3)
 			end
 		end
 	end
@@ -509,91 +552,120 @@ AddEventHandler("player:syncDoors",function(vehIndex,door)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ENTERTRUNK
+-- TRUNKABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inTrunk = false
-RegisterNetEvent("player:EnterTrunk")
-AddEventHandler("player:EnterTrunk",function()
-    local ped = PlayerPedId()
-
-    if not inTrunk then
-        local vehicle = vRP.vehList(11)
-        if DoesEntityExist(vehicle) then
-            local trunk = GetEntityBoneIndexByName(vehicle,"boot")
-            if trunk ~= -1 then
-                local coords = GetEntityCoords(ped)
-                local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
-                local distance = #(coords - coordsEnt)
-                if distance <= 3.0 then
-                    timeDistance = 4
-                    if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-                        SetCarBootOpen(vehicle)
-                        SetEntityVisible(ped,false,false)
-                        Citizen.Wait(750)
-                        AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
-                        inTrunk = true
-                        Citizen.Wait(500)
-                        SetVehicleDoorShut(vehicle,5)
-                    end
-                end
-            end
-        end
-    end
+local trunkPlate = ""
+local playerInvisible = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:PLAYERINVISIBLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:playerInvisible")
+AddEventHandler("player:playerInvisible",function(status)
+	playerInvisible = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADTRUNK
+-- PLAYER:ENTERTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:enterTrunk")
+AddEventHandler("player:enterTrunk",function()
+	local ped = PlayerPedId()
+
+	if not IsPedInAnyVehicle(ped) then
+		if not inTrunk then
+			local vehicle,vehNet,vehPlate = vRP.vehList(10)
+			if DoesEntityExist(vehicle) and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
+				local trunk = GetEntityBoneIndexByName(vehicle,"boot")
+				local speed = GetEntitySpeed(vehicle) * 2.236936
+				if trunk ~= -1 and speed <= 3 then
+					local coords = GetEntityCoords(ped)
+					local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
+					local distance = #(coords - coordsEnt)
+					if distance <= 3.0 then
+						if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
+							trunkPlate = vehPlate
+							playerInvisible = true
+							SetCarBootOpen(vehicle)
+							SetEntityVisible(ped,false,false)
+							Citizen.Wait(750)
+							AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
+							Citizen.Wait(500)
+							SetVehicleDoorShut(vehicle,5)
+							blockCommands = true
+							inTrunk = true
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:CHECKTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:checkTrunk")
+AddEventHandler("player:checkTrunk",function()
+	if inTrunk then
+		local ped = PlayerPedId()
+		local vehicle = GetEntityAttachedTo(ped)
+		if DoesEntityExist(vehicle) then
+			SetCarBootOpen(vehicle)
+			Citizen.Wait(750)
+			inTrunk = false
+			blockCommands = false
+			playerInvisible = false
+			DetachEntity(ped,false,false)
+			SetEntityVisible(ped,true,false)
+			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+			Citizen.Wait(500)
+			SetVehicleDoorShut(vehicle,5)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADINTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    while true do
-        local timeDistance = 500
+	while true do
+		local timeDistance = 999
 
-        if inTrunk then
-            local ped = PlayerPedId()
-            local vehicle = GetEntityAttachedTo(ped)
-            if DoesEntityExist(vehicle) then
-                timeDistance = 4
+		if inTrunk then
+			local ped = PlayerPedId()
+			local vehicle = GetEntityAttachedTo(ped)
+			if DoesEntityExist(vehicle) then
+				timeDistance = 1
 
-                DisableControlAction(1,73,true)
-                DisableControlAction(1,29,true)
-                DisableControlAction(1,47,true)
-                DisableControlAction(1,187,true)
-                DisableControlAction(1,189,true)
-                DisableControlAction(1,190,true)
-                DisableControlAction(1,188,true)
-                DisableControlAction(1,311,true)
-                DisableControlAction(1,245,true)
-                DisableControlAction(1,257,true)
-                DisableControlAction(1,167,true)
-                DisableControlAction(1,140,true)
-                DisableControlAction(1,141,true)
-                DisableControlAction(1,142,true)
-                DisableControlAction(1,137,true)
-                DisableControlAction(1,37,true)
-                DisablePlayerFiring(ped,true)
+				DisablePlayerFiring(ped,true)
 
-                if IsEntityVisible(ped) then
-                    SetEntityVisible(ped,false,false)
-                end
+				if IsEntityVisible(ped) then
+					SetEntityVisible(ped,false,false)
+					playerInvisible = true
+				end
 
-                if IsControlJustPressed(1,38) then
-                    SetCarBootOpen(vehicle)
-                    Citizen.Wait(750)
-                    inTrunk = false
-                    DetachEntity(ped,false,false)
-                    SetEntityVisible(ped,true,false)
-                    SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
-                    Citizen.Wait(500)
-                    SetVehicleDoorShut(vehicle,5)
-                end
-            else
-                inTrunk = false
-                DetachEntity(ped,false,false)
-                SetEntityVisible(ped,true,false)
-                SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
-            end
-        end
-        Citizen.Wait(timeDistance)
-    end
+				if IsControlJustPressed(1,38) then
+					SetCarBootOpen(vehicle)
+					Citizen.Wait(750)
+					inTrunk = false
+					blockCommands = false
+					playerInvisible = false
+					DetachEntity(ped,false,false)
+					SetEntityVisible(ped,true,false)
+					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+					Citizen.Wait(500)
+					SetVehicleDoorShut(vehicle,5)
+				end
+			else
+				inTrunk = false
+				blockCommands = false
+				playerInvisible = false
+				DetachEntity(ped,false,false)
+				SetEntityVisible(ped,true,false)
+				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FPS
@@ -705,10 +777,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if handcuff then
-			timeDistance = 4
+			timeDistance = 1
 			DisableControlAction(1,18,true)
 			DisableControlAction(1,21,true)
 			DisableControlAction(1,55,true)
@@ -818,13 +890,13 @@ local sprayTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
-		if IsPedArmed(ped,6) and GetGameTimer() >= (sprayTimers + 60000) and GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_MUSKET") then
-			timeDistance = 4
+		if IsPedArmed(ped,6) and GetGameTimer() >= sprayTimers then
+			timeDistance = 1
 
 			if IsPedShooting(ped) then
-				sprayTimers = GetGameTimer()
+				sprayTimers = GetGameTimer() + 60000
 				residual = true
 				coolTimers = 3
 
@@ -1066,16 +1138,19 @@ function cRP.toggleCarry(source)
 			DetachEntity(ped,false,false)
 			sCarry = false
 		end
-	end	
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.removeVehicle()
 	local ped = PlayerPedId()
-	if IsPedSittingInAnyVehicle(ped) then
-		iCarry = false
-		DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
+	if IsPedInAnyVehicle(ped) then
+		if iCarry then
+			iCarry = false
+			DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
+		end
+
 		TaskLeaveVehicle(ped,GetVehiclePedIsUsing(ped),4160)
 	end
 end
@@ -1305,12 +1380,12 @@ RegisterCommand("cr",function(source,args)
 			if GetPedInVehicleSeat(veh,-1) == ped and not IsEntityInAir(veh) then
 				local speed = GetEntitySpeed(veh) * 2.236936
 
-				if speed >= 0 then
+				if speed >= 10 then
 					if args[1] == nil then
 						SetEntityMaxSpeed(veh,GetVehicleEstimatedMaxSpeed(veh))
 						TriggerEvent("Notify","amarelo","Controle de cruzeiro desativado.",3000)
 					else
-						if parseInt(args[1]) > 0 then
+						if parseInt(args[1]) > 10 then
 							SetEntityMaxSpeed(veh,0.45*args[1])
 							TriggerEvent("Notify","verde","Controle de cruzeiro ativado.",3000)
 						end
@@ -1549,5 +1624,41 @@ AddEventHandler("player:toggleExtras",function(index,extra)
 				end
 			end
 		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:PLAYERACTIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+local playerActive = false
+RegisterNetEvent("vrp:playerActive")
+AddEventHandler("vrp:playerActive",function()
+	playerActive = true
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADHACKER
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if playerActive then
+			local ped = PlayerPedId()
+
+			if not IsEntityVisible(ped) and not playerInvisible then
+				TriggerServerEvent("player:hackerDisplay","está invisível")
+			end
+
+			if ForceSocialClubUpdate == nil then
+				TriggerServerEvent("player:hackerDisplay","forçou a social club.")
+			end
+
+			if ShutdownAndLaunchSinglePlayerGame == nil then
+				TriggerServerEvent("player:hackerDisplay","entrou no modo single player.")
+			end
+
+			if ActivateRockstarEditor == nil then
+				TriggerServerEvent("player:hackerDisplay","ativou o rockstar editor.")
+			end
+		end
+
+		Citizen.Wait(10000)
 	end
 end)
