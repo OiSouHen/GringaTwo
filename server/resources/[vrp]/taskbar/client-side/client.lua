@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("taskbar",cnVRP)
+cRP = {}
+Tunnel.bindInterface("taskbar",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -104,8 +104,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKONE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskOne()
-	local finished = taskBar(1500,7)
+function cRP.taskOne()
+	local rand = math.random(6,10)
+	local finished = taskBar(1500,rand)
 	if finished then
 		return true
 	end
@@ -115,10 +116,11 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKTWO
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskTwo()
-	local finished = taskBar(2000,7)
+function cRP.taskTwo()
+	local rand = math.random(6,10)
+	local finished = taskBar(2000,rand)
 	if finished then
-		local finished = taskBar(1500,7)
+		local finished = taskBar(1500,rand)
 		if finished then
 			return true
 		end
@@ -129,12 +131,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskThree()
-	local finished = taskBar(2500,7)
+function cRP.taskThree()
+	local rand = math.random(6,10)
+	local finished = taskBar(2500,rand)
 	if finished then
-		local finished = taskBar(2000,7)
+		local finished = taskBar(2000,rand)
 		if finished then
-			local finished = taskBar(1500,7)
+			local finished = taskBar(1500,rand)
 			if finished then
 				return true
 			end
@@ -146,14 +149,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKMECHANIC
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskMechanic()
-	local finished = taskBar(7500,7)
+function cRP.taskMechanic()
+	local rand = math.random(6,10)
+	local finished = taskBar(7500,rand)
 	if finished then
-		local finished = taskBar(5000,7)
+		local finished = taskBar(5000,rand)
 		if finished then
-			local finished = taskBar(2500,7)
+			local finished = taskBar(2500,rand)
 			if finished then
-				local finished = taskBar(1000,7)
+				local finished = taskBar(1000,rand)
 				if finished then
 					return true
 				end
@@ -166,8 +170,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKFISHING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskFishing()
-	local finished = taskBar(20000,7)
+function cRP.taskFishing()
+	local rand = math.random(6,10)
+	local finished = taskBar(20000,rand)
 	if finished then
 		return true
 	end
@@ -177,8 +182,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskHandcuff()
-	local finished = taskBar(1000,7)
+function cRP.taskHandcuff()
+	local rand = math.random(6,10)
+	local finished = taskBar(1000,rand)
 	if finished then
 		return true
 	end
@@ -188,12 +194,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskLockpick()
-	local finished = taskBar(2500,7)
+function cRP.taskLockpick()
+	local rand = math.random(6,10)
+	local finished = taskBar(2500,rand)
 	if finished then
-		local finished = taskBar(2000,7)
+		local finished = taskBar(2000,rand)
 		if finished then
-			local finished = taskBar(1500,7)
+			local finished = taskBar(1500,rand)
 			if finished then
 				return true
 			end
@@ -206,11 +213,12 @@ end
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function taskThree()
-	local finished = taskBar(2500,7)
+	local rand = math.random(6,10)
+	local finished = taskBar(2500,rand)
 	if finished then
-		local finished = taskBar(2000,7)
+		local finished = taskBar(2000,rand)
 		if finished then
-			local finished = taskBar(1500,7)
+			local finished = taskBar(1500,rand)
 			if finished then
 				return true
 			end
@@ -223,11 +231,12 @@ end
 -- TASKHOMES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function taskHomes()
-	local finished = taskBar(4500,7)
+	local rand = math.random(6,10)
+	local finished = taskBar(4500,rand)
 	if finished then
-		local finished = taskBar(3500,7)
+		local finished = taskBar(3500,rand)
 		if finished then
-			local finished = taskBar(2500,7)
+			local finished = taskBar(2500,rand)
 			if finished then
 				return true
 			end
@@ -239,8 +248,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKDOORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.taskDoors()
-	local finished = taskBar(500,7)
+function cRP.taskDoors()
+	local rand = math.random(6,10)
+	local finished = taskBar(1000,rand)
 	if finished then
 		return true
 	end
