@@ -1,53 +1,59 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETNEARVEHICLES
+-- NEARVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.getNearVehicles(radius)
-	local r = {}
-	local coords = GetEntityCoords(PlayerPedId())
+function nearVehicle(radius)
+	local vehList = {}
+	local vehReturn = {}
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
 
-	local vehs = {}
-	local it,veh = FindFirstVehicle()
-	if veh then
-		table.insert(vehs,veh)
+	local _next,_vehicle = FindFirstVehicle()
+	if _vehicle then
+		table.insert(vehList,_vehicle)
 	end
-	local ok
+
 	repeat
-		ok,veh = FindNextVehicle(it)
-		if ok and veh then
-			table.insert(vehs,veh)
+		local _nextVehicle,_vehicle = FindNextVehicle(_next)
+		if _nextVehicle and _vehicle then
+			table.insert(vehList,_vehicle)
 		end
-	until not ok
-	EndFindVehicle(it)
+	until not _nextVehicle
 
-	for _,veh in pairs(vehs) do
-		local coordsVeh = GetEntityCoords(veh)
-		local distance = #(coords - coordsVeh)
+	EndFindVehicle(_next)
+
+	for k,v in pairs(vehList) do
+		local uCoords = GetEntityCoords(v)
+		local distance = #(coords - uCoords)
 		if distance <= radius then
-			r[veh] = distance
+			vehReturn[v] = distance
 		end
 	end
-	return r
+
+	return vehReturn
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETNEARVEHICLE
+-- NEARVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.getNearVehicle(radius)
-	local veh
-	local vehs = tvRP.getNearVehicles(radius)
-	local min = radius + 0.0001
-	for _veh,dist in pairs(vehs) do
-		if dist < min then
-			min = dist
-			veh = _veh
+function tvRP.nearVehicle(radius)
+	local vehSelect = false
+	local minRadius = radius + 0.0001
+	local vehList = nearVehicle(radius)
+
+	for _vehicle,_distance in pairs(vehList) do
+		if _distance <= minRadius then
+			minRadius = _distance
+			vehSelect = _vehicle
 		end
 	end
-	return veh 
+
+	return vehSelect
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.inVehicle()
-	return IsPedSittingInAnyVehicle(PlayerPedId())
+	local ped = PlayerPedId()
+	return IsPedInAnyVehicle(ped)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHLIST
@@ -741,21 +747,72 @@ local vehList = {
 -- VEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.vehList(radius)
-	local veh = nil
+	local vehicle = nil
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
-		veh = GetVehiclePedIsUsing(ped)
+		vehicle = GetVehiclePedIsUsing(ped)
 	else
-		veh = tvRP.getNearVehicle(radius)
+		vehicle = tvRP.nearVehicle(radius)
 	end
 
-	if IsEntityAVehicle(veh) then
-		local model = GetEntityModel(veh)
-		return veh,VehToNet(veh),GetVehicleNumberPlateText(veh),vehList[model][1],GetVehicleDoorsLockedForPlayer(veh,PlayerId()),vehList[model][2],GetVehicleBodyHealth(veh),model,GetVehicleClass(veh)
+	if IsEntityAVehicle(vehicle) then
+		local vehNet = VehToNet(vehicle)
+		local vehModel = GetEntityModel(vehicle)
+		local vehClass = GetVehicleClass(vehicle)
+		local vehHealth = GetEntityHealth(vehicle)
+		local vehBody = GetVehicleBodyHealth(vehicle)
+		local vehEngine = GetVehicleEngineHealth(vehicle)
+		local vehPlate = GetVehicleNumberPlateText(vehicle)
+
+		return vehicle,vehNet,vehPlate,vehList[vehModel][1],GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()),vehList[vehModel][2],vehHealth,vehClass,vehBody,vehEngine
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VEHLIST
+-- VEHSITTING
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.vehSitting()
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local vehicle = GetVehiclePedIsUsing(ped)
+		local vehModel = GetEntityModel(vehicle)
+		local vehPlate = GetVehicleNumberPlateText(vehicle)
+		local vehNet = VehToNet(vehicle)
+
+		return vehicle,vehNet,vehPlate,vehList[vehModel][1]
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHICLENAME
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.vehicleName()
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local vehicle = GetVehiclePedIsUsing(ped)
+		local vehModel = GetEntityModel(vehicle)
+
+		return vehList[vehModel][1]
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHICLEMODEL
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.vehicleModel(vehModel)
+	return vehList[vehModel][1]
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHICLEHASH
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.vehicleHash()
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local veh = GetVehiclePedIsUsing(ped)
+		local vehModel = GetEntityModel(vehicle)
+
+		return vehModel
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHPLATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.vehiclePlate()
 	local ped = PlayerPedId()
