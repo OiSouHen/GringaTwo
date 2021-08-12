@@ -5,14 +5,6 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DISPATCH
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	for i = 1,12 do
-		EnableDispatchService(i,false)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- RADIOVOLUME
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("volume", function(source,args)
@@ -239,6 +231,14 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DISPATCH
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	for i = 1,25 do
+		EnableDispatchService(i,false)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- RECOIL
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -358,20 +358,20 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,142,true)
 		end
 
-		N_0x4757f00bc6323cfe("WEAPON_BAT",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_HAMMER",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_WRENCH",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_UNARMED",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_HATCHET",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_CROWBAR",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_MACHETE",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_POOLCUE",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_KNUCKLE",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_GOLFCLUB",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_BATTLEAXE",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_FLASHLIGHT",0.1)
-		N_0x4757f00bc6323cfe("WEAPON_NIGHTSTICK",0.2)
-		N_0x4757f00bc6323cfe("WEAPON_STONE_HATCHET",0.1)
+		N_0x4757f00bc6323cfe("WEAPON_BAT",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_HAMMER",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_WRENCH",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_UNARMED",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_HATCHET",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_CROWBAR",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_MACHETE",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_POOLCUE",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_KNUCKLE",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_GOLFCLUB",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_BATTLEAXE",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_FLASHLIGHT",0.25)
+		N_0x4757f00bc6323cfe("WEAPON_NIGHTSTICK",0.35)
+		N_0x4757f00bc6323cfe("WEAPON_STONE_HATCHET",0.25)
 
 		RemoveAllPickupsOfType("PICKUP_WEAPON_KNIFE")
 		RemoveAllPickupsOfType("PICKUP_WEAPON_PISTOL")
@@ -402,14 +402,16 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
+		SetMaxWantedLevel(0)
 		DisableVehicleDistantlights(true)
+		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
 
-		SetPedDensityMultiplierThisFrame(0.5)
 		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
 		SetParkedVehicleDensityMultiplierThisFrame(0.5)
 		SetRandomVehicleDensityMultiplierThisFrame(0.5)
 		SetVehicleDensityMultiplierThisFrame(0.5)
+		SetPedDensityMultiplierThisFrame(0.5)
 		SetGarbageTrucks(false)
 		SetRandomBoats(false)
 
@@ -482,15 +484,13 @@ local ipList = {
 			"swap_sofa_A"
 		},
 		coords = { -1150.7,-1520.7,10.6 }
-	},
-	{
+	},{
 		props = {
 			"csr_beforeMission",
 			"csr_inMission"
 		},
 		coords = { -47.1,-1115.3,26.5 }
-	},
-	{
+	},{
 		props = {
 			"V_Michael_bed_tidy",
 			"V_Michael_M_items",
@@ -499,6 +499,93 @@ local ipList = {
 			"V_Michael_L_Items"
 		},
 		coords = { -802.3,175.0,72.8 }
+	},{
+		props = {
+			"v_gabz_mrpd_rm1",
+			"v_gabz_mrpd_rm2",
+			"v_gabz_mrpd_rm3",
+			"v_gabz_mrpd_rm4",
+			"v_gabz_mrpd_rm5",
+			"v_gabz_mrpd_rm6",
+			"v_gabz_mrpd_rm7",
+			"v_gabz_mrpd_rm8",
+			"v_gabz_mrpd_rm9",
+			"v_gabz_mrpd_rm10",
+			"v_gabz_mrpd_rm11",
+			"v_gabz_mrpd_rm12",
+			"v_gabz_mrpd_rm13",
+			"v_gabz_mrpd_rm14",
+			"v_gabz_mrpd_rm15",
+			"v_gabz_mrpd_rm16",
+			"v_gabz_mrpd_rm17",
+			"v_gabz_mrpd_rm18",
+			"v_gabz_mrpd_rm19",
+			"v_gabz_mrpd_rm20",
+			"v_gabz_mrpd_rm21",
+			"v_gabz_mrpd_rm22",
+			"v_gabz_mrpd_rm23",
+			"v_gabz_mrpd_rm24",
+			"v_gabz_mrpd_rm25",
+			"v_gabz_mrpd_rm26",
+			"v_gabz_mrpd_rm27",
+			"v_gabz_mrpd_rm28",
+			"v_gabz_mrpd_rm29",
+			"v_gabz_mrpd_rm30",
+			"v_gabz_mrpd_rm31"
+		},
+		coords = { 451.0129,-993.3741,29.1718 }
+	},{
+		coords = { -69.18748,72.87926,77.17023 } -- Benefactor
+	},{
+		coords = { -1685.06,-277.2893,60.31789 } -- Church
+	},{
+		coords = { 1129.451,-782.8797,59.21406 } -- Rockets
+	},{
+		coords = { 1152.216,-786.5847,59.33324 } -- Rockets
+	},{
+		coords = { 322.113,-1075.958,28.3984 } -- Pharmacy Santos
+	},{
+		coords = { 1174.968,2641.397,36.75007 } -- Harmony
+	},{
+		coords = { -1419.976,-447.8622,36.62567 } -- Hayes
+	},{
+		coords = { 338.8661,-582.8466,29.63187 } -- Pillbox
+	},{
+		coords = { 311.2546,-592.4204,42.32737 } -- Pillbox
+	},{
+		coords = { -189.059,-1164.32,24.1877 } -- Impound
+	},{
+		coords = { -37.1869,-1050.44,27.58956 } -- Bennys
+	},{
+		coords = { -675.3189,5836.144,17.70478 } -- Hunting
+	},{
+		coords = { -175.6765,6385.318,30.5772 } -- Pharmacy Paleto
+	},{
+		coords = { -255.972,6321.406,33.116 } -- Paleto Hospital
+	},{
+		coords = { 562.8,2745.72,41.87698 } -- Petshop
+	},{
+		coords = { 1783.901,2555.33,46.70935 } -- Prison
+	},{
+		coords = { 1597.629,2553.452,45.81208 } -- Prison
+	},{
+		coords = { 1758.084,2486.698,48.78679 } -- Prison
+	},{
+		coords = { 1767.281,2583.534,46.59865 } -- Prison
+	},{
+		coords = { 1832.21,2582.68,47.0143 } -- Prison
+	},{
+		coords = { 1959.688,3844.558,34.54492 } -- Sandy Bar
+	},{
+		coords = { 1959.688,3844.558,34.54492 } -- Sandy Bar
+	},{
+		coords = { 1830.509,3679.626,33.2749 } -- Sandypital
+	},{
+		coords = { -551.0138,-193.8526,45.22602 } -- Towhall
+	},{
+		coords = { -372.7785,268.4121,85.78004 } -- Train
+	},{
+		coords = { -582.9611,-922.9904,21.54857 } -- Benefactor
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -518,33 +605,6 @@ Citizen.CreateThread(function()
 
 		RefreshInterior(interiorCoords)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- COOLDOWNBUNNYHOP
------------------------------------------------------------------------------------------------------------------------------------------
-local bunnyhop = 0
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(5000)
-        if bunnyhop > 0 then
-            bunnyhop = bunnyhop - 5
-        end
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- COOLDOWNBUNNYHOP
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-    while true do
-        local ped = PlayerPedId()
-        if IsPedJumping(ped) and bunnyhop <= 0 then
-            bunnyhop = 5
-        end
-        if bunnyhop > 0 then
-            DisableControlAction(0,22,true)
-        end
-        Citizen.Wait(5)
-    end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASERTIME
@@ -585,32 +645,8 @@ local teleport = {
 	{ 327.16,-603.53,43.29,338.97,-583.85,74.16 },
 	{ 338.97,-583.85,74.16,327.16,-603.53,43.29 },
 
-	{ 936.02,47.21,81.1,1089.62,205.88,-49.0 },
-	{ 1089.62,205.88,-49.0,936.02,47.21,81.1 },
-
-	{ 1139.42,234.62,-50.45,965.03,58.41,112.56 },
-	{ 965.03,58.41,112.56,1139.42,234.62,-50.45 },
-
-	{ -1370.26,-503.09,33.16,-1369.63,-471.99,84.45 },
-	{ -1369.63,-471.99,84.45,-1370.26,-503.09,33.16 },
-
-	{ -1581.11,-558.64,34.95,-1560.71,-569.28,114.44 },
-	{ -1560.71,-569.28,114.44,-1581.11,-558.64,34.95 },
-
-	{ -66.98,-802.54,44.23,-74.98,-824.33,321.29 },
-	{ -74.98,-824.33,321.29,-66.98,-802.54,44.23 },
-
-	{ 4.58,-705.95,45.98,-139.85,-627.0,168.83 },
-	{ -139.85,-627.0,168.83,4.58,-705.95,45.98 },
-
 	{ -117.29,-604.52,36.29,-74.48,-820.8,243.39 },
 	{ -74.48,-820.8,243.39,-117.29,-604.52,36.29 },
-
-	{ -826.9,-699.89,28.06,-1575.14,-569.15,108.53 },
-	{ -1575.14,-569.15,108.53,-826.9,-699.89,28.06 },
-
-	{ -935.68,-378.77,38.97,-1386.84,-478.56,72.05 },
-	{ -1386.84,-478.56,72.05,-935.68,-378.77,38.97 },
 
 	{ -741.07,5593.13,41.66,446.19,5568.79,781.19 },
 	{ 446.19,5568.79,781.19,-741.07,5593.13,41.66 },
@@ -623,6 +659,7 @@ local teleport = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	local innerTable = {}
+
 	for k,v in pairs(teleport) do
 		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Porta de Acesso","Pressione para acessar" })
 	end
@@ -634,14 +671,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			for _,v in pairs(teleport) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2 then
-					timeDistance = 4
+					timeDistance = 1
 
 					if IsControlJustPressed(1,38) then
 						SetEntityCoords(ped,v[4],v[5],v[6],1,0,0,0)
@@ -886,4 +923,26 @@ Citizen.CreateThread(function()
 --      SetDiscordRichPresenceAction(1, "DISCORD", "https://discord.gg/4j8ZR6QKdk")
         Citizen.Wait(60000)
     end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BUNNYHOP
+-----------------------------------------------------------------------------------------------------------------------------------------
+local bunnyHope = GetGameTimer()
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			if GetGameTimer() <= bunnyHope then
+				timeDistance = 1
+				DisableControlAction(1,22,true)
+			else
+				if IsPedJumping(ped) then
+					bunnyHope = GetGameTimer() + 5000
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
 end)
