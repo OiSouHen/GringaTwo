@@ -15,7 +15,6 @@ vSERVER = Tunnel.getInterface("engine")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local isPrice = 0
 local lastFuel = 0
-local isGallons = 0
 local vehFuels = {}
 local isFuel = false
 local gameTimer = GetGameTimer()
@@ -38,7 +37,7 @@ local vehClass = {
 	[12] = 1.0,
 	[13] = 0.0,
 	[14] = 0.0,
-	[15] = 1.0,
+	[15] = 2.5,
 	[16] = 1.0,
 	[17] = 1.0,
 	[18] = 1.0,
@@ -50,51 +49,50 @@ local vehClass = {
 -- VEHFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehFuel = {
-	[1.0] = 0.95,
-	[0.9] = 0.85,
-	[0.8] = 0.75,
-	[0.7] = 0.65,
-	[0.6] = 0.55,
-	[0.5] = 0.45,
-	[0.4] = 0.35,
-	[0.3] = 0.25,
-	[0.2] = 0.15,
-	[0.1] = 0.10,
+	[1.0] = 0.99,
+	[0.9] = 0.89,
+	[0.8] = 0.79,
+	[0.7] = 0.69,
+	[0.6] = 0.59,
+	[0.5] = 0.49,
+	[0.4] = 0.39,
+	[0.3] = 0.29,
+	[0.2] = 0.19,
+	[0.1] = 0.09,
 	[0.0] = 0.00
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUELLOCS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local fuelLocs = {
-	{ 265.05,-1262.65,29.3,15.0 },
-	{ 819.14,-1028.65,26.41,15.0 },
-	{ 1208.61,-1402.43,35.23,15.0 },
-	{ 1181.48,-330.26,69.32,10.0 },
-	{ 621.01,268.68,103.09,15.0 },
-	{ 2581.09,361.79,108.47,17.0 },
-	{ 175.08,-1562.12,29.27,15.0 },
-	{ -319.76,-1471.63,30.55,17.0 },
-	{ 1778.52,3326.35,41.35,10.0 },
-	{ 49.42,2778.8,58.05,15.0 },
-	{ 264.09,2606.56,44.99,15.0 },
-	{ 1039.38,2671.28,39.56,15.0 },
-	{ 1207.4,2659.93,37.9,10.0 },
-	{ 2539.19,2594.47,37.95,9.0 },
-	{ 2679.95,3264.18,55.25,10.0 },
-	{ 2005.03,3774.43,32.41,15.0 },
-	{ 1687.07,4929.53,42.08,15.0 },
-	{ 1701.53,6415.99,32.77,10.0 },
-	{ 180.1,6602.88,31.87,15.0 },
-	{ -94.46,6419.59,31.48,15.0 },
-	{ -2555.17,2334.23,33.08,16.0 },
-	{ -1800.09,803.54,138.72,16.0 },
-	{ -1437.0,-276.8,46.21,15.0 },
-	{ -2096.3,-320.17,13.17,17.0 },
-	{ -724.56,-935.97,19.22,17.0 },
-	{ -525.26,-1211.19,18.19,15.0 },
-	{ -70.96,-1762.21,29.54,15.0 },
-	{ 4419.91,-4475.49,4.36,15.0 },
-	{ -1112.4,-2884.08,13.93,15.0 }
+	{ 265.05,-1262.65,29.3,15.0,0.085 },
+	{ 819.14,-1028.65,26.41,15.0,0.085 },
+	{ 1208.61,-1402.43,35.23,15.0,0.065 },
+	{ 1181.48,-330.26,69.32,10.0,0.075 },
+	{ 621.01,268.68,103.09,15.0,0.075 },
+	{ 2581.09,361.79,108.47,17.0,0.055 },
+	{ 175.08,-1562.12,29.27,15.0,0.075 },
+	{ -319.76,-1471.63,30.55,17.0,0.075 },
+	{ 1778.52,3326.35,41.35,10.0,0.085 },
+	{ 49.42,2778.8,58.05,15.0,0.055 },
+	{ 264.09,2606.56,44.99,15.0,0.065 },
+	{ 1039.38,2671.28,39.56,15.0,0.065 },
+	{ 1207.4,2659.93,37.9,10.0,0.065 },
+	{ 2539.19,2594.47,37.95,9.0,0.055 },
+	{ 2679.95,3264.18,55.25,10.0,0.065 },
+	{ 2005.03,3774.43,32.41,15.0,0.075 },
+	{ 1687.07,4929.53,42.08,15.0,0.055 },
+	{ 1701.53,6415.99,32.77,10.0,0.065 },
+	{ 180.1,6602.88,31.87,15.0,0.085 },
+	{ -94.46,6419.59,31.48,15.0,0.085 },
+	{ -2555.17,2334.23,33.08,16.0,0.065 },
+	{ -1800.09,803.54,138.72,16.0,0.065 },
+	{ -1437.0,-276.8,46.21,15.0,0.075 },
+	{ -2096.3,-320.17,13.17,17.0,0.085 },
+	{ -724.56,-935.97,19.22,17.0,0.075 },
+	{ -525.26,-1211.19,18.19,15.0,0.075 },
+	{ -70.96,-1762.21,29.54,15.0,0.085 },
+	{ -1112.4,-2884.08,13.93,15.0,0.075 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FLOOR
@@ -114,8 +112,9 @@ Citizen.CreateThread(function()
 			if NetworkGetEntityIsNetworked(vehicle) then
 				local speed = GetEntitySpeed(vehicle) * 2.236936
 				if IsVehicleEngineOn(vehicle) and GetPedInVehicleSeat(vehicle,-1) == ped and GetVehicleFuelLevel(vehicle) >= 5 and speed > 5 then
+					local vehClasses = GetVehicleClass(vehicle)
 					local vehNet = NetworkGetNetworkIdFromEntity(vehicle)
-					TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),GetVehicleFuelLevel(vehicle) - (vehFuel[floor(GetVehicleCurrentRpm(vehicle))] or 1.0) * (vehClass[GetVehicleClass(vehicle)] or 1.0) / 10)
+					TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),GetVehicleFuelLevel(vehicle) - (vehFuel[floor(GetVehicleCurrentRpm(vehicle))] or 1.0) * (vehClass[vehClasses] or 1.0) / 10)
 				end
 			end
 		end
@@ -133,10 +132,11 @@ Citizen.CreateThread(function()
 		if not IsPedInAnyVehicle(ped) then
 			if GetSelectedPedWeapon(ped) == 883325847 then
 				local vehicle = GetPlayersLastVehicle()
-				if DoesEntityExist(vehicle) and NetworkGetEntityIsNetworked(vehicle) then
+				if DoesEntityExist(vehicle) then
 					local coords = GetEntityCoords(ped)
 					local coordsVeh = GetEntityCoords(vehicle)
 					local vehFuel = GetVehicleFuelLevel(vehicle)
+					local vehPlate = GetVehicleNumberPlateText(vehicle)
 					local distance = #(coords - vector3(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"]))
 					if distance <= 3.5 then
 						timeDistance = 1
@@ -150,7 +150,7 @@ Citizen.CreateThread(function()
 								text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   ABASTECER")
 							end
 						else
-							if vehFuel >= 0.0 and GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100 > 1 then
+							if GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100 > 1 then
 								SetPedAmmo(ped,883325847,math.floor(GetAmmoInPedWeapon(ped,883325847) - 0.02 * 100))
 
 								SetVehicleFuelLevel(vehicle,vehFuel + 0.025)
@@ -187,7 +187,6 @@ Citizen.CreateThread(function()
 								end
 							end
 						end
-
 					end
 
 					if isFuel and distance > 3.5 then
@@ -196,7 +195,6 @@ Citizen.CreateThread(function()
 						RemoveAnimDict("timetable@gardener@filling_can")
 						isFuel = false
 					end
-
 				end
 			else
 				local coords = GetEntityCoords(ped)
@@ -209,6 +207,7 @@ Citizen.CreateThread(function()
 						if DoesEntityExist(vehicle) then
 							local coordsVeh = GetEntityCoords(vehicle)
 							local vehFuel = GetVehicleFuelLevel(vehicle)
+							local vehPlate = GetVehicleNumberPlateText(vehicle)
 							local distance = #(coords - vector3(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"]))
 
 							if distance <= 3.5 then
@@ -219,30 +218,26 @@ Citizen.CreateThread(function()
 										text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   ABASTECER")
 									end
 								else
-									if vehFuel >= 0.0 then
-										isPrice = isPrice + 0.075
-										isGallons = isGallons + 0.025
-										SetVehicleFuelLevel(vehicle,vehFuel + 0.025)
-										text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   CANCELAR")
-										text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%   ~w~PREÇO: ~y~$"..parseInt(isPrice))
+									isPrice = isPrice + v[5]
+									SetVehicleFuelLevel(vehicle,vehFuel + 0.025)
+									text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   CANCELAR")
+									text3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 0.85,"TANQUE: ~y~"..parseInt(floor(vehFuel)).."%   ~w~PREÇO: ~y~$"..parseInt(isPrice))
 
-										if not IsEntityPlayingAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3) then
-											TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
+									if not IsEntityPlayingAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3) then
+										TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
+									end
+
+									if vehFuel >= 100.0 or GetEntityHealth(ped) <= 101 then
+										if vSERVER.paymentFuel(isPrice) then
+											TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),vehFuel)
+										else
+											TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
 										end
 
-										if vehFuel >= 100.0 or GetEntityHealth(ped) <= 101 then
-											if vSERVER.paymentFuel(isPrice) then
-												TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),vehFuel)
-											else
-												TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),lastFuel)
-											end
-
-											StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
-											RemoveAnimDict("timetable@gardener@filling_can")
-											isFuel = false
-											isGallons = 0
-											isPrice = 0
-										end
+										StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
+										RemoveAnimDict("timetable@gardener@filling_can")
+										isFuel = false
+										isPrice = 0
 									end
 								end
 
@@ -253,13 +248,12 @@ Citizen.CreateThread(function()
 										if vSERVER.paymentFuel(isPrice) then
 											TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),vehFuel)
 										else
-											TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),lastFuel)
+											TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
 										end
 
 										StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 										RemoveAnimDict("timetable@gardener@filling_can")
 										isFuel = false
-										isGallons = 0
 										isPrice = 0
 									else
 										if vehFuel < 100.0 then
@@ -271,23 +265,20 @@ Citizen.CreateThread(function()
 										end
 									end
 								end
-
 							end
 
 							if isFuel and distance > 3.5 then
 								if vSERVER.paymentFuel(isPrice) then
 									TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),vehFuel)
 								else
-									TriggerServerEvent("engine:tryFuel",NetworkGetNetworkIdFromEntity(vehicle),lastFuel)
+									TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
 								end
 
 								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 								RemoveAnimDict("timetable@gardener@filling_can")
 								isFuel = false
-								isGallons = 0
 								isPrice = 0
 							end
-
 						end
 					end
 				end
@@ -374,9 +365,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("engine:vehTuning")
 AddEventHandler("engine:vehTuning",function()
-	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
-	if vehicle and NetworkGetEntityIsNetworked(vehicle) then
+	local vehicle = vRP.nearVehicle(5)
+	if vehicle then
 		local motor = GetVehicleMod(vehicle,11)
 		local freio = GetVehicleMod(vehicle,12)
 		local transmissao = GetVehicleMod(vehicle,13)
@@ -385,6 +375,7 @@ AddEventHandler("engine:vehTuning",function()
 		local body = GetVehicleBodyHealth(vehicle)
 		local engine = GetVehicleEngineHealth(vehicle)
 		local fuel = GetVehicleFuelLevel(vehicle)
+		local plate = GetVehicleNumberPlateText(vehicle)
 
 		if motor == -1 then
 			motor = "Desativado"
@@ -450,8 +441,6 @@ AddEventHandler("engine:vehTuning",function()
 			blindagem = "Nível 5 / "..GetNumVehicleMods(vehicle,16)
 		end
 
---		TriggerEvent("Notify","default","<br><line>----------------------------------------</line><br>",10000)
-		
 		TriggerEvent("Notify","default","<b>Motor:</b> "..motor.."<br><b>Freio:</b> "..freio.."<br><b>Transmissão:</b> "..transmissao.."<br><b>Suspensão:</b> "..suspensao.."<br><b>Blindagem:</b> "..blindagem.."<br><b>Lataria:</b> "..parseInt(body/10).."%<br><b>Motor:</b> "..parseInt(engine/10).."%<br><b>Gasolina:</b> "..parseInt(fuel).."%",10000)
 	end
 end)
