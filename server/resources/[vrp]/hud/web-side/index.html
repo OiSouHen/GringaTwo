@@ -9,16 +9,17 @@
 		<script src="jquery.js"></script>
 	</head>
 	<body>
-		<!--<div id="saltyScreen">Aguardando conexão com o teamspeak</div>-->
-
 		<div id="displayLogo"></div>
 
 		<div id="displayHud">
 			<div id="displayTop">
 				<span id="mph"></span>
 				<span id="gasoline"></span>
-				<span id="seatBelt"></span>
-				<span id="hardBelt"></span>
+				<span id="seatBelt">BELT</span>
+
+				<div class="map">
+					<div class="mapBorder"></div>
+				</div>
 			</div>
 
 			<div id="displayMiddle"></div>
@@ -33,7 +34,7 @@
 				</div>
 
 				<div class="oxigenBackground">
-					<div class="middleIcon" style="background: #222 url(oxigen.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/oxigen.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="oxigenDisplay" cx="19" cy="19" r="16"/>
@@ -41,7 +42,7 @@
 				</div>
 
 				<div class="stressBackground">
-					<div class="middleIcon" style="background: #222 url(stress.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/stress.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="stressDisplay" cx="19" cy="19" r="16"/>
@@ -49,7 +50,7 @@
 				</div>
 
 				<div class="foodBackground">
-					<div class="middleIcon" style="background: #222 url(food.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/food.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="foodDisplay" cx="19" cy="19" r="16"/>
@@ -57,7 +58,7 @@
 				</div>
 
 				<div class="waterBackground">
-					<div class="middleIcon" style="background: #222 url(water.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/water.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="waterDisplay" cx="19" cy="19" r="16"/>
@@ -65,7 +66,7 @@
 				</div>
 
 				<div class="armourBackground">
-					<div class="middleIcon" style="background: #222 url(armour.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/armour.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="armourDisplay" cx="19" cy="19" r="16"/>
@@ -73,7 +74,7 @@
 				</div>
 
 				<div class="healthBackground">
-					<div class="middleIcon" style="background: #222 url(health.png);"></div>
+					<div class="middleIcon" style="background: #222 url(images/health.png);"></div>
 
 					<svg height="37px" width="37px">
 						<circle class="healthDisplay" cx="19" cy="19" r="16"/>
