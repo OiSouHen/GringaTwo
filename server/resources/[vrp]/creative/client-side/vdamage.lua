@@ -22,7 +22,7 @@ local sameVehicle = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLASSDAMAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
-local classDamage = { [0] = 1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.5,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0 }
+local classDamage = { 1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.0,1.5,1.5,1.5,1.5,0.0,0.0,1.5,1.5,1.5,1.5,1.5,1.5,1.5 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHVEH
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
 
 				engineNew = engineCurrent
 				engineDelta = engineLast - engineCurrent
-				engineScaled = engineDelta * 0.6 * classDamage[vehClass]
+				engineScaled = engineDelta * 0.6 * classDamage[vehClass + 1]
 
 				bodyCurrent = GetVehicleBodyHealth(vehicle)
 				if bodyCurrent >= 1000 then
@@ -69,7 +69,7 @@ Citizen.CreateThread(function()
 
 				bodyNew = bodyCurrent
 				bodyDelta = bodyLast - bodyCurrent
-				bodyScaled = bodyDelta * 0.6 * classDamage[vehClass]
+				bodyScaled = bodyDelta * 0.6 * classDamage[vehClass + 1]
 
 				if engineCurrent > 101.0 and bodyCurrent > 101.0 then
 					SetVehicleUndriveable(vehicle,false)
