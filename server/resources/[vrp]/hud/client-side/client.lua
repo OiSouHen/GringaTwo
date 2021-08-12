@@ -23,14 +23,20 @@ local talking = false
 local showMovie = false
 local radioDisplay = ""
 local homeInterior = false
-local streetLast = 0
 local flexDirection = "Norte"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
-local beltLock = 0
 local beltSpeed = 0
-local beltVelocity = 0
+local beltLock = false
+local beltVelocity = vector3(0,0,0)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DIVINABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local divingMask = nil
+local divingTank = nil
+local clientOxigen = 100
+local divingTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOCKVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -144,8 +150,6 @@ function updateDisplayHud()
 	local armour = GetPedArmour(ped)
 	local coords = GetEntityCoords(ped)
 	local heading = GetEntityHeading(ped)
-	local health = GetEntityHealth(ped) - 100
-	local oxigen = GetPlayerUnderwaterTimeRemaining(PlayerId())
 	local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(coords["x"],coords["y"],coords["z"]))
 
 	if heading >= 315 or heading < 45 then
@@ -159,6 +163,10 @@ function updateDisplayHud()
 	end
 
 	if IsPedInAnyVehicle(ped) then
+		if not IsMinimapRendering() then
+			DisplayRadar(true)
+		end
+
 		local vehicle = GetVehiclePedIsUsing(ped)
 		local fuel = GetVehicleFuelLevel(vehicle)
 		local plate = GetVehicleNumberPlateText(vehicle)
@@ -169,9 +177,13 @@ function updateDisplayHud()
 			showBelt = false
 		end
 
-		SendNUIMessage({ vehicle = true, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock, hardness = (hardness[plate] or 0) })
+		SendNUIMessage({ vehicle = true, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = clientThirst, hunger = clientHunger, stress = clientStress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock })
 	else
-		SendNUIMessage({ vehicle = false, talking = talking, health = health, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen })
+		if IsMinimapRendering() then
+			DisplayRadar(false)
+		end
+
+		SendNUIMessage({ vehicle = false, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = clientThirst, hunger = clientHunger, stress = clientStress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -305,9 +317,7 @@ Citizen.CreateThread(function()
 					local vehicle = GetVehiclePedIsUsing(ped)
 					local speed = GetEntitySpeed(vehicle) * 2.236936
 					if speed ~= beltSpeed then
-						local plate = GetVehicleNumberPlateText(vehicle)
-
-						if ((beltSpeed - speed) >= 50 and beltLock == 0) or ((beltSpeed - speed) >= 75 and beltLock == 1 and hardness[plate] == nil and GetPedInVehicleSeat(vehicle,-1) == ped) then
+						if (beltSpeed - speed) >= 45 and not beltLock then
 							local fowardVeh = fowardPed(ped)
 							local coords = GetEntityCoords(ped)
 							SetEntityCoords(ped,coords["x"] + fowardVeh["x"],coords["y"] + fowardVeh["y"],coords["z"] + 1,1,0,0,0)
@@ -328,8 +338,8 @@ Citizen.CreateThread(function()
 					beltSpeed = 0
 				end
 
-				if beltLock == 1 then
-					beltLock = 0
+				if beltLock then
+					beltLock = false
 				end
 			end
 		end
@@ -344,12 +354,12 @@ RegisterCommand("seatbelt",function(source,args)
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		if not IsPedOnAnyBike(ped) then
-			if beltLock == 1 then
+			if beltLock then
 				TriggerEvent("sounds:source","unbelt",0.5)
-				beltLock = 0
+				beltLock = false
 			else
 				TriggerEvent("sounds:source","belt",0.5)
-				beltLock = 1
+				beltLock = true
 			end
 		end
 	end
@@ -472,12 +482,12 @@ AddEventHandler("hud:removeScuba",function()
 	local ped = PlayerPedId()
 	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
 		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingMask))
+			TriggerServerEvent("tryDeleteObject",ObjToNet(divingMask))
 			divingMask = nil
 		end
 
 		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingTank))
+			TriggerServerEvent("tryDeleteObject",ObjToNet(divingTank))
 			divingTank = nil
 		end
 
@@ -494,18 +504,19 @@ AddEventHandler("hud:setDiving",function()
 
 	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
 		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingMask))
+			TriggerServerEvent("tryDeleteObject",ObjToNet(divingMask))
 			divingMask = nil
 		end
 
 		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(divingTank))
+			TriggerServerEvent("tryDeleteObject",ObjToNet(divingTank))
 			divingTank = nil
 		end
 
 		SetEnableScuba(ped,false)
 		SetPedMaxTimeUnderwater(ped,10.0)
 	else
+		local coords = GetEntityCoords(ped)
 		local maskModel = GetHashKey("p_s_scuba_mask_s")
 		local tankModel = GetHashKey("p_s_scuba_tank_s")
 
@@ -520,17 +531,31 @@ AddEventHandler("hud:setDiving",function()
 		end
 
 		if HasModelLoaded(tankModel) then
-			divingTank = CreateObject(tankModel,1.0,1.0,1.0,true,true,false)
+			divingTank = CreateObject(tankModel,coords["x"],coords["y"],coords["z"],true,true,false)
+			local netObjs = ObjToNet(divingTank)
+
+			SetNetworkIdCanMigrate(netObjs,true)
+
+			SetEntityAsMissionEntity(divingTank,true,false)
+			SetEntityInvincible(divingTank,true)
+
 			AttachEntityToEntity(divingTank,ped,GetPedBoneIndex(ped,24818),-0.28,-0.24,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-			SetEntityAsMissionEntity(divingTank,true,true)
-			SetModelAsNoLongerNeeded(divingTank)
+
+			SetModelAsNoLongerNeeded(tankModel)
 		end
 
 		if HasModelLoaded(maskModel) then
-			divingMask = CreateObject(maskModel,1.0,1.0,1.0,true,true,false)
+			divingMask = CreateObject(maskModel,coords["x"],coords["y"],coords["z"],true,true,false)
+			local netObjs = ObjToNet(divingMask)
+
+			SetNetworkIdCanMigrate(netObjs,true)
+
+			SetEntityAsMissionEntity(divingMask,true,false)
+			SetEntityInvincible(divingMask,true)
+
 			AttachEntityToEntity(divingMask,ped,GetPedBoneIndex(ped,12844),0.0,0.0,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-			SetEntityAsMissionEntity(divingMask,true,true)
-			SetModelAsNoLongerNeeded(divingMask)
+
+			SetModelAsNoLongerNeeded(maskModel)
 		end
 
 		SetEnableScuba(ped,true)
