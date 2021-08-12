@@ -905,16 +905,12 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- Rich Presence
+-- RICHPRESENCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-
---		SetDiscordAppId(494493006418673703)
 		SetDiscordAppId(848976568952029184)
---		SetDiscordRichPresenceAsset("logotive")
 		SetDiscordRichPresenceAsset("gringapresence")
---		SetRichPresence("Creative Roleplay")
 		SetRichPresence("Gringa Roleplay")
 
 --      SetDiscordRichPresenceAssetText("Gringa Roleplay")
@@ -923,26 +919,4 @@ Citizen.CreateThread(function()
 --      SetDiscordRichPresenceAction(1, "DISCORD", "https://discord.gg/4j8ZR6QKdk")
         Citizen.Wait(60000)
     end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- BUNNYHOP
------------------------------------------------------------------------------------------------------------------------------------------
-local bunnyHope = GetGameTimer()
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 999
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			if GetGameTimer() <= bunnyHope then
-				timeDistance = 1
-				DisableControlAction(1,22,true)
-			else
-				if IsPedJumping(ped) then
-					bunnyHope = GetGameTimer() + 5000
-				end
-			end
-		end
-
-		Citizen.Wait(timeDistance)
-	end
 end)
