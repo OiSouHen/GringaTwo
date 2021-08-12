@@ -67,14 +67,6 @@ $(document).ready(function(){
 			return
 		}
 
-		if (event["data"]["screen"] !== undefined){
-			if (event["data"]["screen"] == true){
-				$("#saltyScreen").fadeIn(100);
-			} else {
-				$("#saltyScreen").fadeOut(100);
-			}
-		}
-
 		if (event["data"]["hood"] !== undefined){
 			if (event["data"]["hood"] == true){
 				$("#hoodDisplay").fadeIn(500);
@@ -84,17 +76,17 @@ $(document).ready(function(){
 		}
 
 		if (event["data"]["talking"] == true){
-			$("#voice").css("background","#333 url(micOn.png)");
+			$("#voice").css("background","#333 url(images/micOn.png)");
 		} else {
-			$("#voice").css("background","#222 url(micOff.png)");
+			$("#voice").css("background","#222 url(images/micOff.png)");
 
-			if (event["data"]["voice"] == 0){
+			if (event["data"]["voice"] == 1){
 				$(".voiceDisplay").css("stroke-dashoffset","75");
-			} else if (event["data"]["voice"] == 1){
-				$(".voiceDisplay").css("stroke-dashoffset","50");
 			} else if (event["data"]["voice"] == 2){
-				$(".voiceDisplay").css("stroke-dashoffset","25");
+				$(".voiceDisplay").css("stroke-dashoffset","50");
 			} else if (event["data"]["voice"] == 3){
+				$(".voiceDisplay").css("stroke-dashoffset","25");
+			} else if (event["data"]["voice"] == 4){
 				$(".voiceDisplay").css("stroke-dashoffset","0");
 			}
 		}
@@ -176,26 +168,18 @@ $(document).ready(function(){
 				}
 
 				if (event["data"]["showbelt"] == false){
-					if($("#hardBelt").css("display") === "block"){
-						$("#hardBelt").css("display","none");
+					if($("#seatBelt").css("display") === "block"){
 						$("#seatBelt").css("display","none");
 					}
 				} else {
-					if($("#hardBelt").css("display") === "none"){
-						$("#hardBelt").css("display","block");
+					if($("#seatBelt").css("display") === "none"){
 						$("#seatBelt").css("display","block");
 					}
 
-					if (event["data"]["hardness"] == 1){
-						$("#hardBelt").html("<img src='beltOn.png'>");
+					if (event["data"]["seatbelt"] == true){
+						$("#seatBelt").css("color","#70cc72");
 					} else {
-						$("#hardBelt").html("<img src='beltOff.png'>");
-					}
-
-					if (event["data"]["seatbelt"] == 1){
-						$("#seatBelt").html("<img src='beltOn.png'>");
-					} else {
-						$("#seatBelt").html("<img src='beltOff.png'>");
+						$("#seatBelt").css("color","#939393");
 					}
 				}
 

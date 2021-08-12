@@ -4,6 +4,7 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+vRPS = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -13,17 +14,18 @@ Tunnel.bindInterface("hud",cRP)
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local voice = 2
-local stress = 0
-local hunger = 100
-local thirst = 100
-local hardness = {}
-local playerActive = true
 local showHud = false
 local talking = false
+local stress = 0
 local showMovie = false
 local radioDisplay = ""
+local pauseBreak = false
+local hunger = 100
+local thirst = 100
 local homeInterior = false
+local playerActive = true
 local flexDirection = "Norte"
+local updateFoods = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ local timeDate = GetGameTimer()
 Citizen.CreateThread(function()
 	while true do
 		if GetGameTimer() >= timeDate then
-			timeDate = GetGameTimer() + 30000
+			timeDate = GetGameTimer() + 10000
 			clockMinutes = clockMinutes + 1
 
 			if clockMinutes >= 60 then
@@ -63,7 +65,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(10000)
+		Citizen.Wait(5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -110,7 +112,7 @@ Citizen.CreateThread(function()
 			NetworkOverrideClockTime(clockHours,clockMinutes,00)
 		end
 
-		if beltLock >= 1 then
+		if beltLock then
 			DisableControlAction(1,75,true)
 		end
 
@@ -135,6 +137,16 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
+		if IsPauseMenuActive() then
+			SendNUIMessage({ hud = false })
+			pauseBreak = true
+		else
+			if pauseBreak and showHud then
+				SendNUIMessage({ hud = true })
+				pauseBreak = false
+			end
+		end
+
 		if showHud then
 			updateDisplayHud()
 		end
@@ -177,13 +189,13 @@ function updateDisplayHud()
 			showBelt = false
 		end
 
-		SendNUIMessage({ vehicle = true, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = clientThirst, hunger = clientHunger, stress = clientStress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock })
+		SendNUIMessage({ vehicle = true, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock })
 	else
 		if IsMinimapRendering() then
 			DisplayRadar(false)
 		end
 
-		SendNUIMessage({ vehicle = false, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = clientThirst, hunger = clientHunger, stress = clientStress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask })
+		SendNUIMessage({ vehicle = false, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -194,6 +206,10 @@ RegisterCommand("hud",function(source,args)
 
 	updateDisplayHud()
 	SendNUIMessage({ hud = showHud })
+
+	if IsMinimapRendering() and not showHud then
+		DisplayRadar(false)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOVIE
@@ -218,20 +234,6 @@ AddEventHandler("hud:toggleHood",function()
 	end
 
 	SendNUIMessage({ hood = showHood })
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HUD:HARDNESS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:plateHardness")
-AddEventHandler("hud:plateHardness",function(vehPlate,status)
-	hardness[vehPlate] = parseInt(status)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HUD:ALLHARDNESS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:allHardness")
-AddEventHandler("hud:allHardness",function(vehHardness)
-	hardness = vehHardness
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HUD:REMOVEHOOD
@@ -308,7 +310,6 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 999
-		if playerActive then
 			local ped = PlayerPedId()
 			if IsPedInAnyVehicle(ped) then
 				if not IsPedOnAnyBike(ped) and not IsPedInAnyHeli(ped) and not IsPedInAnyPlane(ped) then
@@ -342,7 +343,6 @@ Citizen.CreateThread(function()
 					beltLock = false
 				end
 			end
-		end
 
 		Citizen.Wait(timeDistance)
 	end
@@ -402,7 +402,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if playerActive then
 			local ped = PlayerPedId()
 			if GetEntityHealth(ped) > 101 then
 				if hunger >= 10 and hunger <= 20 then
@@ -421,7 +420,6 @@ Citizen.CreateThread(function()
 					TriggerEvent("Notify","thirst","Sofrendo com a sede.",3000)
 				end
 			end
-		end
 
 		Citizen.Wait(5000)
 	end
@@ -432,7 +430,6 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 999
-		if playerActive then
 			local ped = PlayerPedId()
 			local health = GetEntityHealth(ped)
 
@@ -450,7 +447,6 @@ Citizen.CreateThread(function()
 					ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
 				end
 			end
-		end
 
 		Citizen.Wait(timeDistance)
 	end

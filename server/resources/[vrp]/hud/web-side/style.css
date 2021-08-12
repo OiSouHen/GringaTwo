@@ -15,7 +15,7 @@ html,body {
 	opacity: 0.5;
 	position: absolute !important;
 	animation: creative 10s ease-out infinite;
-	background: url("logo.png") no-repeat;
+	background: url("images/logo.png") no-repeat;
 }
 
 @keyframes creative {
@@ -322,41 +322,17 @@ svg {
 	background-repeat: no-repeat !important;
 }
 
-#seatBelt, #hardBelt {
-	float: right;
-	display: none;
-	color: #939393;
-	font-size: 11px;
-	font-weight: 300;
-	line-height: 12px;
-	padding-top: 18px;
-	padding-left: 15px;
-	letter-spacing: 0.5px;
-	text-shadow: 1px 1px #000;
-}
-
-#seatBelt img, #hardBelt img {
-	margin-top: -14px;
-}
-
-#mph {
+#gasoline, #mph, #seatBelt {
 	float: right;
 	color: #939393;
 	font-size: 11px;
-	font-weight: 700;
 	padding-left: 20px;
 	letter-spacing: 0.5px;
 	text-shadow: 1px 1px #000;
 }
 
-#gasoline {
-	float: right;
-	color: #939393;
-	font-size: 11px;
-	font-weight: 700;
-	padding-left: 15px;
-	letter-spacing: 0.5px;
-	text-shadow: 1px 1px #000;
+#seatBelt {
+	padding-top: 17px !important;
 }
 
 #gasoline s, #mph s {
@@ -394,4 +370,23 @@ svg {
 	display: none;
 	background: #000;
 	position: absolute !important;
+}
+
+.map {
+	bottom: 4.5vh;
+	left: 2.7vh;
+	width: 28vh;
+	position: fixed;
+	overflow: hidden;
+	text-align: center;
+}
+
+.mapBorder {
+	top: 0;
+	width: 24vh;
+	height: 22vh;
+	border-radius: 50%;
+	position: relative;
+	display: inline-block;
+	border: 3px solid rgba(200,200,200,0.5);
 }
