@@ -45,7 +45,7 @@ const TattooStore = {
 		$(".item").removeClass("selected");
 
 		TattooStore.selectedTattoos = {};
-		TattooStore.callServer("clearTattoo",{});
+		TattooStore.callServer("limpaTattoo",{});
 	},
 	loadStaticListeners: function(){
 		$(".category").on("click",function(){

@@ -70,7 +70,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id, source)
         local consult = vRP.getUData(user_id,"Tattoos")
         local result = json.decode(consult)
         if result then
-            TriggerClientEvent("tattoos:setTattoos",source,result)
+            TriggerClientEvent("tattoos:apply",source,result)
         end
 	end
 end)

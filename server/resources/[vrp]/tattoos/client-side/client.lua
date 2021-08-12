@@ -110,20 +110,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_022_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_028_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_029_M", ["part"] = "mpgunrunning_overlays" },
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
 				{ ["name"] = "FM_Hip_M_Tat_000", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_002", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_006", ["part"] = "mphipster_overlays" },
@@ -212,27 +198,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_044_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_046_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_048_M", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_M_003", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_004", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_005", ["part"] = "multiplayer_overlays" },
@@ -280,31 +245,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Xmas2_M_Tat_024", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_M_Tat_025", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_M_Tat_029", ["part"] = "mpchristmas2_overlays" },
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
 				{ ["name"] = "FM_Hip_M_Tat_005", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_021", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_Smuggler_Tattoo_011_M", ["part"] = "mpsmuggler_overlays" },
@@ -350,8 +290,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_016_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_025_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_027_M", ["part"] = "mpgunrunning_overlays" },
-																		
-																		
 				{ ["name"] = "FM_Hip_M_Tat_003", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_007", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_015", ["part"] = "mphipster_overlays" },
@@ -391,11 +329,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_035_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_039_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_043_M", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_M_001", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_007", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_015", ["part"] = "multiplayer_overlays" },
@@ -437,7 +370,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_002_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_021_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_024_M", ["part"] = "mpgunrunning_overlays" },
-																		
 				{ ["name"] = "FM_Hip_M_Tat_001", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_004", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_008", ["part"] = "mphipster_overlays" },
@@ -472,10 +404,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_036_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_038_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_049_M", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_M_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_010", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_000", ["part"] = "multiplayer_overlays" },
@@ -506,7 +434,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_007_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_011_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_023_M", ["part"] = "mpgunrunning_overlays" },
-																		
 				{ ["name"] = "FM_Hip_M_Tat_009", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_019", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_040", ["part"] = "mphipster_overlays" },
@@ -518,8 +445,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_007_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_013_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_021_M", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_M_009", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_008", ["part"] = "multiplayer_overlays" },
@@ -544,7 +469,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_006_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_026_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_030_M", ["part"] = "mpgunrunning_overlays" },
-																		
 				{ ["name"] = "FM_Hip_M_Tat_038", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_042", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_LR_Tat_030_M", ["part"] = "mplowrider2_overlays" },
@@ -742,20 +666,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_022_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_028_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_029_F", ["part"] = "mpgunrunning_overlays" },
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
 				{ ["name"] = "FM_Hip_F_Tat_000", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_002", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_006", ["part"] = "mphipster_overlays" },
@@ -844,27 +754,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_044_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_046_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_048_F", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_F_003", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_004", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_005", ["part"] = "multiplayer_overlays" },
@@ -909,31 +798,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Xmas2_F_Tat_025", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_F_Tat_029", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_003_F", ["part"] = "mpgunrunning_overlays" },
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
-																		
 				{ ["name"] = "FM_Hip_F_Tat_005", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_021", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_Smuggler_Tattoo_011_F", ["part"] = "mpsmuggler_overlays" },
@@ -978,8 +842,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_016_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_025_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_027_F", ["part"] = "mpgunrunning_overlays" },
-																		
-																		
 				{ ["name"] = "FM_Hip_F_Tat_003", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_007", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_015", ["part"] = "mphipster_overlays" },
@@ -1019,11 +881,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_035_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_039_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_043_F", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_F_001", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_007", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_015", ["part"] = "multiplayer_overlays" },
@@ -1063,7 +920,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_002_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_021_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_024_F", ["part"] = "mpgunrunning_overlays" },
-																		
 				{ ["name"] = "FM_Hip_F_Tat_001", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_004", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_008", ["part"] = "mphipster_overlays" },
@@ -1102,10 +958,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_036_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_038_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_049_F", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_F_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_010", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_001", ["part"] = "multiplayer_overlays" },
@@ -1134,7 +986,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_007_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_011_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_023_F", ["part"] = "mpgunrunning_overlays" },
-																		
 				{ ["name"] = "MP_Buis_F_LLeg_000", ["part"] = "mpbusiness_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_009", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_019", ["part"] = "mphipster_overlays" },
@@ -1147,8 +998,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_007_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_013_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_021_F", ["part"] = "mpstunt_overlays" },
-																			 
-																			 
 				{ ["name"] = "FM_Tat_Award_F_009", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_008", ["part"] = "multiplayer_overlays" },
@@ -1174,7 +1023,6 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_030_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Bea_F_RLeg_000", ["part"] = "mpbeach_overlays" },
 				{ ["name"] = "MP_Buis_F_RLeg_000", ["part"] = "mpbusiness_overlays" },
-																		
 				{ ["name"] = "FM_Hip_F_Tat_038", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_042", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_LR_Tat_030_F", ["part"] = "mplowrider2_overlays" },
@@ -1285,8 +1133,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TATTOOS:APPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tattoos:setTattoos")
-AddEventHandler("tattoos:setTattoos",function(status)
+RegisterNetEvent("tattoos:apply")
+AddEventHandler("tattoos:apply",function(status)
 	atualTattoo = status
 
 	for k,v in pairs(atualTattoo) do
@@ -1304,29 +1152,29 @@ function openTattooShop()
 	if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
 		atualShop = tattooShop["partsM"]
 
---		SetPedComponentVariation(ped,1,-1,0,1)
---		SetPedComponentVariation(ped,3,15,0,1)
---		SetPedComponentVariation(ped,4,61,0,1)
---		SetPedComponentVariation(ped,5,-1,0,1)
---		SetPedComponentVariation(ped,6,34,0,1)
---		SetPedComponentVariation(ped,7,-1,0,1)
---		SetPedComponentVariation(ped,8,15,0,1)
---		SetPedComponentVariation(ped,9,-1,0,1)
---		SetPedComponentVariation(ped,10,-1,0,1)
---		SetPedComponentVariation(ped,11,15,0,1)
+		SetPedComponentVariation(ped,1,-1,0,1)
+		SetPedComponentVariation(ped,3,15,0,1)
+		SetPedComponentVariation(ped,4,61,0,1)
+		SetPedComponentVariation(ped,5,-1,0,1)
+		SetPedComponentVariation(ped,6,34,0,1)
+		SetPedComponentVariation(ped,7,-1,0,1)
+		SetPedComponentVariation(ped,8,15,0,1)
+		SetPedComponentVariation(ped,9,-1,0,1)
+		SetPedComponentVariation(ped,10,-1,0,1)
+		SetPedComponentVariation(ped,11,15,0,1)
 	elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") then
 		atualShop = tattooShop["partsF"]
 
---		SetPedComponentVariation(ped,1,-1,0,1)
---		SetPedComponentVariation(ped,3,15,0,1)
---		SetPedComponentVariation(ped,4,17,0,1)
---		SetPedComponentVariation(ped,5,-1,0,1)
---		SetPedComponentVariation(ped,6,35,0,1)
---		SetPedComponentVariation(ped,7,-1,0,1)
---		SetPedComponentVariation(ped,8,7,0,1)
---		SetPedComponentVariation(ped,9,-1,0,1)
---		SetPedComponentVariation(ped,10,-1,0,1)
---		SetPedComponentVariation(ped,11,18,0,1)
+		SetPedComponentVariation(ped,1,-1,0,1)
+		SetPedComponentVariation(ped,3,15,0,1)
+		SetPedComponentVariation(ped,4,17,0,1)
+		SetPedComponentVariation(ped,5,-1,0,1)
+		SetPedComponentVariation(ped,6,35,0,1)
+		SetPedComponentVariation(ped,7,-1,0,1)
+		SetPedComponentVariation(ped,8,7,0,1)
+		SetPedComponentVariation(ped,9,-1,0,1)
+		SetPedComponentVariation(ped,10,-1,0,1)
+		SetPedComponentVariation(ped,11,18,0,1)
 	end
 
 	ClearAllPedProps(ped)
@@ -1334,9 +1182,9 @@ function openTattooShop()
 	SendNUIMessage({ openNui = true, shop = atualShop, tattoo = atualTattoo })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- UPDATETATTOO
+-- ATUALIZARTATTOO
 -----------------------------------------------------------------------------------------------------------------------------------------
-function updateTattoo()
+function atualizarTattoo()
 	ClearPedDecorations(PlayerPedId())
 
 	for k,v in pairs(atualTattoo) do
@@ -1365,10 +1213,9 @@ end
 -- CLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("close",function(data,cb)
---	TriggerEvent("skinshop:resetOutfit")
+	TriggerEvent("skinshop:updateTattoo")
 	RenderScriptCams(false,true,250,1,0)
 	vSERVER.updateTattoo(atualTattoo)
-												
 	SetNuiFocus(false,false)
 	DestroyCam(cam,false)
 	cam = nil
@@ -1400,7 +1247,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
@@ -1408,10 +1255,9 @@ Citizen.CreateThread(function()
 			for k,v in pairs(coordsSystem) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2 then
-					timeDistance = 4
-																		 
+					timeDistance = 1
 
-					if distance <= 1 and IsControlJustPressed(1,38) then
+					if IsControlJustPressed(1,38) then
 						openTattooShop()
 					end
 				end
@@ -1439,12 +1285,12 @@ RegisterNUICallback("changeTattoo",function(data,cb)
 	end
 
 	atualTattoo = newAtualTattoo
-	updateTattoo()
+	atualizarTattoo()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LIMPATATTOO
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("clearTattoo",function(data,cb)
+RegisterNUICallback("limpaTattoo",function(data,cb)
 	ClearPedDecorations(PlayerPedId())
 	atualTattoo = {}
 end)
@@ -1467,7 +1313,7 @@ RegisterNUICallback("handsup",function(data,cb)
 	local ped = PlayerPedId()
 	if IsEntityPlayingAnim(ped,"random@mugging3","handsup_standing_base",3) then
 		StopAnimTask(ped,"random@mugging3","handsup_standing_base",2.0)
-		vRP.stopAnim()
+		vRP.stopActived()
 	else
 		vRP.playAnim(true,{"random@mugging3","handsup_standing_base"},true)
 	end
