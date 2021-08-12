@@ -14,7 +14,7 @@ body {
 	display: flex;
 	color: #c6c6c6;
 	font-size: 13px;
-	max-width: 375px;
+	max-width: 400px;
 	overflow: hidden;
 	letter-spacing: .5px;
 	align-items: flex-end;
