@@ -121,7 +121,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:coffeeMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -132,7 +132,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:donutMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -143,7 +143,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:sodaMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -154,7 +154,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:colaMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -165,7 +165,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:burgerMachine",
-				label = "Carrinho de Hambúrguer",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -176,7 +176,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:hotdogMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -187,7 +187,7 @@ Citizen.CreateThread(function()
 		options = {
 			{
 				event = "shops:waterMachine",
-				label = "Abrir",
+				label = "Comprar",
 				tunnel = "client"
 			}
 		},
@@ -217,7 +217,7 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 
-	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703 },{
+	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703,720581693 },{
 		options = {
 			{
 				event = "inventory:verifyObjects",
@@ -621,9 +621,9 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddCircleZone("divingStore",vector3(-815.74,-1346.58,5.14),0.5,{
+	AddCircleZone("divingStore",vector3(2768.18,1392.51,24.53),0.5,{
 		name = "divingStore",
-		heading = 235.28
+		heading = 297.64
 	},{
 		distance = 1.0,
 		options = {
@@ -645,27 +645,27 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local paramedicMenu = {
 	{
-		event = "paramedic:reanimar",
+		event = "paramedic:Revive",
 		label = "Reanimar",
 		tunnel = "paramedic"
 	},
 	{
-		event = "paramedic:diagnostico",
+		event = "paramedic:Diagnostic",
 		label = "Diagnóstico",
 		tunnel = "paramedic"
 	},
 	{
-		event = "paramedic:tratamento",
+		event = "paramedic:Treatment",
 		label = "Tratamento",
 		tunnel = "paramedic"
 	},
 	{
-		event = "paramedic:sangramento",
+		event = "paramedic:Bleeding",
 		label = "Sangramento",
 		tunnel = "paramedic"
 	},
 	{
-		event = "paramedic:maca",
+		event = "paramedic:Bed",
 		label = "Deitar Paciente",
 		tunnel = "paramedic"
 	}
@@ -720,7 +720,7 @@ local adminMenu = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetEnable()
 	if playerActive then
-		if success or IsPedArmed(PlayerPedId(),6) or IsPedInAnyVehicle(PlayerPedId()) then
+		if exports["inventory"]:blockInvents() or exports["player"]:blockCommands() or exports["player"]:handCuff() or success or IsPedArmed(PlayerPedId(),6) or IsPedInAnyVehicle(PlayerPedId()) then
 			return
 		end
 
@@ -748,7 +748,7 @@ function playerTargetEnable()
 									Citizen.Wait(1)
 								end
 
-								local netObjects = NetworkGetNetworkIdFromEntity(entity)
+								local netObjects = ObjToNet(entity)
 								SetNetworkIdCanMigrate(netObjects,true)
 								NetworkSetNetworkIdDynamic(netObjects,false)
 								SetNetworkIdExistsOnAllMachines(netObjects,true)
@@ -783,12 +783,22 @@ function playerTargetEnable()
 								SendNUIMessage({ response = "leftTarget" })
 							end
 						end
-					elseif IsEntityAVehicle(entity) and policeService then
+					elseif IsEntityAVehicle(entity) then
 						if #(coords - entCoords) <= 1.0 then
 							success = true
 
-							innerEntity = { GetVehicleNumberPlateText(entity),vRP.vehicleModel(GetEntityModel(entity)) }
-							SendNUIMessage({ response = "validTarget", data = policeVeh })
+							innerEntity = { GetVehicleNumberPlateText(entity),vRP.vehicleModel(GetEntityModel(entity)),entity }
+
+							if policeService then
+								SendNUIMessage({ response = "validTarget", data = policeVeh })
+							else
+								local distance = #(coords - vector3(-1164.52,-2040.17,13.6))
+								if distance > 20 then
+									SendNUIMessage({ response = "validTarget", data = playerVeh })
+								else
+									SendNUIMessage({ response = "validTarget", data = dismantleVeh })
+								end
+							end
 
 							while success and targetActive do
 								local ped = PlayerPedId()
@@ -873,57 +883,59 @@ function playerTargetEnable()
 						end
 					else
 						for k,v in pairs(Models) do
-							if k == GetEntityModel(entity) then
-								if #(coords - entCoords) <= Models[k]["distance"] then
+							if DoesEntityExist(entity) then
+								if k == GetEntityModel(entity) then
+									if #(coords - entCoords) <= Models[k]["distance"] then
+										success = true
 
-									if Models[k]["desmanche"] then
-										local distance = #(coords - vector3(258.28,2578.16,45.16))
-										if distance > 10 then
-											goto scapeModel
-										end
-									end
+										if GetPedType(entity) == 28 then
+											innerEntity = { entity,k,nil,GetEntityCoords(entity) }
+										else
+											NetworkRegisterEntityAsNetworked(entity)
+											while not NetworkGetEntityIsNetworked(entity) do
+												NetworkRegisterEntityAsNetworked(entity)
+												Citizen.Wait(1)
+											end
 
-									success = true
+											while not NetworkHasControlOfEntity(entity) do
+												NetworkRequestControlOfEntity(entity)
+												Citizen.Wait(1)
+											end
 
-									NetworkRegisterEntityAsNetworked(entity)
-									while not NetworkGetEntityIsNetworked(entity) do
-										NetworkRegisterEntityAsNetworked(entity)
-										Citizen.Wait(1)
-									end
+											local netObjects = ObjToNet(entity)
+											SetNetworkIdCanMigrate(netObjects,true)
+											NetworkSetNetworkIdDynamic(netObjects,false)
+											SetNetworkIdExistsOnAllMachines(netObjects,true)
 
-									local netObjects = NetworkGetNetworkIdFromEntity(entity)
-									SetNetworkIdCanMigrate(netObjects,true)
-									NetworkSetNetworkIdDynamic(netObjects,false)
-									SetNetworkIdExistsOnAllMachines(netObjects,true)
-
-									innerEntity = { entity,k,netObjects,GetEntityCoords(entity) }
-									SendNUIMessage({ response = "validTarget", data = Models[k]["options"] })
-
-									while success and targetActive do
-										local ped = PlayerPedId()
-										local coords = GetEntityCoords(ped)
-										local hit,entCoords,entity = RayCastGamePlayCamera(setDistance)
-
-										DisablePlayerFiring(ped,true)
-
-										if (IsControlJustReleased(1,24) or IsDisabledControlJustReleased(1,24)) then
-											SetCursorLocation(0.5,0.5)
-											SetNuiFocus(true,true)
+											innerEntity = { entity,k,netObjects,GetEntityCoords(entity) }
 										end
 
-										if GetEntityType(entity) == 0 or #(coords - entCoords) > Models[k]["distance"] then
-											success = false
+										SendNUIMessage({ response = "validTarget", data = Models[k]["options"] })
+
+										while success and targetActive do
+											local ped = PlayerPedId()
+											local coords = GetEntityCoords(ped)
+											local hit,entCoords,entity = RayCastGamePlayCamera(setDistance)
+
+											DisablePlayerFiring(ped,true)
+
+											if (IsControlJustReleased(1,24) or IsDisabledControlJustReleased(1,24)) then
+												SetCursorLocation(0.5,0.5)
+												SetNuiFocus(true,true)
+											end
+
+											if GetEntityType(entity) == 0 or #(coords - entCoords) > Models[k]["distance"] then
+												success = false
+											end
+
+											Citizen.Wait(1)
 										end
 
-										Citizen.Wait(1)
+										SendNUIMessage({ response = "leftTarget" })
 									end
-
-									SendNUIMessage({ response = "leftTarget" })
 								end
 							end
 						end
-
-						::scapeModel::
 					end
 				end
 
@@ -1153,6 +1165,17 @@ RegisterNUICallback("closeTarget",function(data,cb)
 	success = false
 	targetActive = false
 	SetNuiFocus(false,false)
+	SendNUIMessage({ response = "closeTarget" })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RESETDEBUG
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("target:resetDebug")
+AddEventHandler("target:resetDebug",function()
+	success = false
+	targetActive = false
+	SetNuiFocus(false,false)
+	SendNUIMessage({ response = "closeTarget" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ROTATIONTODIRECTION
@@ -1198,13 +1221,6 @@ function AddCircleZone(name,center,radius,options,targetoptions)
 	Zones[name]["targetoptions"] = targetoptions
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADDBOXZONE
------------------------------------------------------------------------------------------------------------------------------------------
-function AddBoxZone(name,center,length,width,options,targetoptions)
-	Zones[name] = BoxZone:Create(center,length,width,options)
-	Zones[name]["targetoptions"] = targetoptions
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- ADDPOLYZONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function AddPolyzone(name,points,options,targetoptions)
@@ -1222,7 +1238,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EXPORTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-exports("AddBoxZone",AddBoxZone)
 exports("AddPolyzone",AddPolyzone)
 exports("AddCircleZone",AddCircleZone)
 exports("AddTargetModel",AddTargetModel)
