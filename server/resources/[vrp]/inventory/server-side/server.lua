@@ -685,11 +685,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							end
 						end
 					end
-
-					if itemName == "wheelchair" then
+					
+					if itemName == "tablet" then
 						vCLIENT.closeInventory(source)
-						LoadModel("prop_wheelchair_01")
-						local wheelchair = CreateObject(GetHashKey("prop_wheelchair_01"),GetEntityCoords(PlayerPedId()),true)
+						TriggerClientEvent("tablet:openSystem",source)
+					end
+					
+					if itemName == "coptablet" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("police:openSystem",source)
 					end
 					
 					if itemName == "teddy" then
@@ -874,23 +878,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 									vCLIENT.parachuteColors(source)
 								end
-							end
-							Citizen.Wait(0)
-						until active[user_id] == nil
-					end
-
-					if itemName == "skate" then
-						active[user_id] = 3
-						vCLIENT.closeInventory(source)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,3000,"Utilizando...")
-
-						repeat	
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-								TriggerClientEvent("skate",source)
-								
 							end
 							Citizen.Wait(0)
 						until active[user_id] == nil

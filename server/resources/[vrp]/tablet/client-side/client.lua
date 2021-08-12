@@ -25,11 +25,12 @@ function closeNui()
 	SendNUIMessage({ action = "closeSystem" })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TABLET
+-- OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("tablet",function(source,args)
+RegisterNetEvent("tablet:openSystem")
+AddEventHandler("tablet:openSystem",function()
 	local ped = PlayerPedId()
-	if not IsPauseMenuActive() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
+	if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
 		SetNuiFocus(true,true)
 		SetCursorLocation(0.5,0.5)
 		SendNUIMessage({ action = "openSystem" })
@@ -40,10 +41,6 @@ RegisterCommand("tablet",function(source,args)
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TABLET
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("tablet","Abrir o tablet","keyboard","f1")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------

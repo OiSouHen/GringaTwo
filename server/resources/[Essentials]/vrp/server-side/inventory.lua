@@ -2,6 +2,26 @@
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemlist = {
+    ["tablet"] = {
+	    index = "tablet",
+		name = "Tablet Particular",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.15
+	},
+	["coptablet"] = {
+		index = "coptablet",
+		name = "Tablet Policial",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.15
+	},
 	["radio"] = {
 		index = "radio",
 		name = "Rádio",
