@@ -12,9 +12,11 @@ function tvRP.noClip()
 	if noclip then
 		SetEntityInvincible(ped,true)
 		SetEntityVisible(ped,false,false)
+		TriggerEvent("player:playerInvisible",true)
 	else
 		SetEntityInvincible(ped,false)
 		SetEntityVisible(ped,true,false)
+		TriggerEvent("player:playerInvisible",false)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
