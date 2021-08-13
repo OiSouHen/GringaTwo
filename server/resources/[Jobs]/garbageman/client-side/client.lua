@@ -21,7 +21,8 @@ local trashCans = {
     {"prop_dumpster_02a"},
     {"prop_dumpster_02b"},
     {"prop_dumpster_4a"},
-    {"prop_dumpster_4b"}
+    {"prop_dumpster_4b"},
+    {"prop_cs_dumpster_01a"}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSEARCHTRASH
