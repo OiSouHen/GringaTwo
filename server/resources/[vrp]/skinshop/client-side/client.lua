@@ -15,6 +15,7 @@ vSERVER = Tunnel.getInterface("skinshop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local cam = -1
 local skinData = {}
+local heading = 332.219879
 local previousSkinData = {}
 local customCamLocation = nil
 local creatingCharacter = false
@@ -22,21 +23,32 @@ local creatingCharacter = false
 -- SKINDATA
 -----------------------------------------------------------------------------------------------------------------------------------------
 local skinData = {
-	["pants"] = { item = 0, texture = 0 },
-	["arms"] = { item = 0, texture = 0 },
-	["tshirt"] = { item = 1, texture = 0 },
-	["torso"] = { item = 0, texture = 0 },
-	["vest"] = { item = 0, texture = 0 },
-	["shoes"] = { item = 0, texture = 0 },
-	["mask"] = { item = 0, texture = 0 },
-	["hat"] = { item = -1, texture = 0 },
-	["glass"] = { item = 0, texture = 0 },
-	["ear"] = { item = -1, texture = 0 },
-	["watch"] = { item = -1, texture = 0 },
-	["bracelet"] = { item = -1, texture = 0 },
-	["accessory"] = { item = 0, texture = 0 },
-	["decals"] = { item = 0, texture = 0 }
+	["pants"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["arms"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["t-shirt"] = { item = 1, texture = 0, defaultItem = 1, defaultTexture = 0 },
+	["torso2"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["vest"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["bag"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["shoes"] = { item = 0, texture = 0, defaultItem = 1, defaultTexture = 0 },
+	["mask"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["hat"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+	["glass"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["ear"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+	["watch"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+	["bracelet"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+	["accessory"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+	["decals"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 }
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SKINDATA
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("skinshop:skinData")
+AddEventHandler("skinshop:skinData",function(status)
+	if status ~= "clean" then
+		skinData = status
+		resetClothing(skinData)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SKINSHOP:APPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -178,11 +190,12 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local clothingCategorys = {
 	["arms"] = { type = "variation", id = 3 },
-	["tshirt"] = { type = "variation", id = 8 },
-	["torso"] = { type = "variation", id = 11 },
+	["t-shirt"] = { type = "variation", id = 8 },
+	["torso2"] = { type = "variation", id = 11 },
 	["pants"] = { type = "variation", id = 4 },
 	["vest"] = { type = "variation", id = 9 },
 	["shoes"] = { type = "variation", id = 6 },
+	["bag"] = { type = "variation", id = 5 },
 	["mask"] = { type = "mask", id = 1 },
 	["hat"] = { type = "prop", id = 0 },
 	["glass"] = { type = "prop", id = 1 },
@@ -198,13 +211,14 @@ local clothingCategorys = {
 function GetMaxValues()
 	maxModelValues = {
 		["arms"] = { type = "character", item = 0, texture = 0 },
-		["tshirt"] = { type = "character", item = 0, texture = 0 },
-		["torso"] = { type = "character", item = 0, texture = 0 },
+		["t-shirt"] = { type = "character", item = 0, texture = 0 },
+		["torso2"] = { type = "character", item = 0, texture = 0 },
 		["pants"] = { type = "character", item = 0, texture = 0 },
 		["shoes"] = { type = "character", item = 0, texture = 0 },
 		["vest"] = { type = "character", item = 0, texture = 0 },
 		["accessory"] = { type = "character", item = 0, texture = 0 },
 		["decals"] = { type = "character", item = 0, texture = 0 },
+		["bag"] = { type = "character", item = 0, texture = 0 },
 		["mask"] = { type = "accessoires", item = 0, texture = 0 },
 		["hat"] = { type = "accessoires", item = 0, texture = 0 },
 		["glass"] = { type = "accessoires", item = 0, texture = 0 },
@@ -218,7 +232,7 @@ function GetMaxValues()
 		if v["type"] == "variation" then
 			maxModelValues[k]["item"] = GetNumberOfPedDrawableVariations(ped,v["id"]) - 1
 			maxModelValues[k]["texture"] = GetNumberOfPedTextureVariations(ped,v["id"],GetPedDrawableVariation(ped,v["id"])) - 1
-
+			
 			if maxModelValues[k]["texture"] <= 0 then
 				maxModelValues[k]["texture"] = 0
 			end
@@ -227,16 +241,21 @@ function GetMaxValues()
 		if v["type"] == "mask" then
 			maxModelValues[k]["item"] = GetNumberOfPedDrawableVariations(ped,v["id"]) - 1
 			maxModelValues[k]["texture"] = GetNumberOfPedTextureVariations(ped,v["id"],GetPedDrawableVariation(ped,v["id"])) - 1
-
+			
 			if maxModelValues[k]["texture"] <= 0 then
 				maxModelValues[k]["texture"] = 0
 			end
 		end
 
-		if v["type"] == "prop" then
-			maxModelValues[k]["item"] = GetNumberOfPedPropDrawableVariations(ped,v["id"]) - 1
-			maxModelValues[k]["texture"] = GetNumberOfPedPropTextureVariations(ped,v["id"],GetPedPropIndex(ped,v["id"])) - 1
+		if v["type"] == "overlay" then
+			maxModelValues[k].item = GetNumHeadOverlayValues(v.id)
+			maxModelValues[k].texture = 45
+		end
 
+		if v["type"] == "prop" then
+			maxModelValues[k]["item"] = GetNumberOfPedDrawableVariations(ped,v["id"]) - 1
+			maxModelValues[k]["texture"] = GetNumberOfPedTextureVariations(ped,v["id"],GetPedDrawableVariation(ped,v["id"])) - 1
+			
 			if maxModelValues[k]["texture"] <= 0 then
 				maxModelValues[k]["texture"] = 0
 			end
@@ -328,47 +347,55 @@ function closeMenu()
 	DestroyCam(cam,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DISABLECAM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function disableCam()
+	RenderScriptCams(false,true,250,1,0)
+	DestroyCam(cam,false)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- RESETCLOTHING
 -----------------------------------------------------------------------------------------------------------------------------------------
 function resetClothing(data)
 	local ped = PlayerPedId()
 
-	SetPedComponentVariation(ped,4,data["pants"]["item"],data["pants"]["texture"],1)
-	SetPedComponentVariation(ped,3,data["arms"]["item"],data["arms"]["texture"],1)
-	SetPedComponentVariation(ped,8,data["tshirt"]["item"],data["tshirt"]["texture"],1)
-	SetPedComponentVariation(ped,9,data["vest"]["item"],data["vest"]["texture"],1)
-	SetPedComponentVariation(ped,11,data["torso"]["item"],data["torso"]["texture"],1)
-	SetPedComponentVariation(ped,6,data["shoes"]["item"],data["shoes"]["texture"],1)
-	SetPedComponentVariation(ped,1,data["mask"]["item"],data["mask"]["texture"],1)
-	SetPedComponentVariation(ped,10,data["decals"]["item"],data["decals"]["texture"],1)
-	SetPedComponentVariation(ped,7,data["accessory"]["item"],data["accessory"]["texture"],1)
+	SetPedComponentVariation(ped,4,data["pants"].item,data["pants"].texture,2)
+	SetPedComponentVariation(ped,3,data["arms"].item,data["arms"].texture,2)
+	SetPedComponentVariation(ped,8,data["t-shirt"].item,data["t-shirt"].texture,2)
+	SetPedComponentVariation(ped,9,data["vest"].item,data["vest"].texture,2)
+	SetPedComponentVariation(ped,11,data["torso2"].item,data["torso2"].texture,2)
+	SetPedComponentVariation(ped,6,data["shoes"].item,data["shoes"].texture,2)
+	SetPedComponentVariation(ped,1,data["mask"].item,data["mask"].texture,2)
+	SetPedComponentVariation(ped,10,data["decals"].item,data["decals"].texture,2)
+	SetPedComponentVariation(ped,7,data["accessory"].item,data["accessory"].texture,2)
+	SetPedComponentVariation(ped,5,data["bag"].item,data["bag"].texture,2)
 
-	if data["hat"]["item"] ~= -1 and data["hat"]["item"] ~= 0 then
-		SetPedPropIndex(ped,0,data["hat"]["item"],data["hat"]["texture"],1)
+	if data["hat"].item ~= -1 and data["hat"].item ~= 0 then
+		SetPedPropIndex(ped,0,data["hat"].item,data["hat"].texture,2)
 	else
 		ClearPedProp(ped,0)
 	end
 
-	if data["glass"]["item"] ~= -1 and data["glass"]["item"] ~= 0 then
-		SetPedPropIndex(ped,1,data["glass"]["item"],data["glass"]["texture"],1)
+	if data["glass"].item ~= -1 and data["glass"].item ~= 0 then
+		SetPedPropIndex(ped,1,data["glass"].item,data["glass"].texture,2)
 	else
 		ClearPedProp(ped,1)
 	end
 
-	if data["ear"]["item"] ~= -1 and data["ear"]["item"] ~= 0 then
-		SetPedPropIndex(ped,2,data["ear"]["item"],data["ear"]["texture"],1)
+	if data["ear"].item ~= -1 and data["ear"].item ~= 0 then
+		SetPedPropIndex(ped,2,data["ear"].item,data["ear"].texture,2)
 	else
 		ClearPedProp(ped,2)
 	end
 
-	if data["watch"]["item"] ~= -1 and data["watch"]["item"] ~= 0 then
-		SetPedPropIndex(ped,6,data["watch"]["item"],data["watch"]["texture"],1)
+	if data["watch"].item ~= -1 and data["watch"].item ~= 0 then
+		SetPedPropIndex(ped,6,data["watch"].item,data["watch"].texture,2)
 	else
 		ClearPedProp(ped,6)
 	end
 
-	if data["bracelet"]["item"] ~= -1 and data["bracelet"]["item"] ~= 0 then
-		SetPedPropIndex(ped,7,data["bracelet"]["item"],data["bracelet"]["texture"],1)
+	if data["bracelet"].item ~= -1 and data["bracelet"].item ~= 0 then
+		SetPedPropIndex(ped,7,data["bracelet"].item,data["bracelet"].texture,2)
 	else
 		ClearPedProp(ped,7)
 	end
@@ -399,145 +426,155 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function ChangeVariation(data)
 	local ped = PlayerPedId()
-	local types = data["type"]
-	local item = data["articleNumber"]
-	local category = data["clothingType"]
+	local clothingCategory = data.clothingType
+	local type = data.type
+	local item = data.articleNumber
 
-	if category == "pants" then
-		if types == "item" then
-			SetPedComponentVariation(ped,4,item,0,1)
-			skinData["pants"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,4,GetPedDrawableVariation(ped,4),item,1)
-			skinData["pants"]["texture"] = item
+	if clothingCategory == "pants" then
+		if type == "item" then
+			SetPedComponentVariation(ped,4,item,0,2)
+			skinData["pants"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,4)
+			SetPedComponentVariation(ped,4,curItem,item,2)
+			skinData["pants"].texture = item
 		end
-	elseif category == "arms" then
-		if types == "item" then
-			SetPedComponentVariation(ped,3,item,0,1)
-			skinData["arms"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,3,GetPedDrawableVariation(ped,3),item,1)
-			skinData["arms"]["texture"] = item
+	elseif clothingCategory == "arms" then
+		if type == "item" then
+			SetPedComponentVariation(ped,3,item,0,2)
+			skinData["arms"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,3)
+			SetPedComponentVariation(ped,3,curItem,item,2)
+			skinData["arms"].texture = item
 		end
-	elseif category == "tshirt" then
-		if types == "item" then
-			SetPedComponentVariation(ped,8,item,0,1)
-			skinData["tshirt"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,8,GetPedDrawableVariation(ped,8),item,1)
-			skinData["tshirt"]["texture"] = item
+	elseif clothingCategory == "t-shirt" then
+		if type == "item" then
+			SetPedComponentVariation(ped,8,item,0,2)
+			skinData["t-shirt"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,8)
+			SetPedComponentVariation(ped,8,curItem,item,2)
+			skinData["t-shirt"].texture = item
 		end
-	elseif category == "vest" then
-		if types == "item" then
-			SetPedComponentVariation(ped,9,item,0,1)
-			skinData["vest"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,9,skinData["vest"]["item"],item,1)
-			skinData["vest"]["texture"] = item
+	elseif clothingCategory == "vest" then
+		if type == "item" then
+			SetPedComponentVariation(ped,9,item,0,2)
+			skinData["vest"].item = item
+		elseif type == "texture" then
+			SetPedComponentVariation(ped,9,skinData["vest"].item,item,2)
+			skinData["vest"].texture = item
 		end
-	elseif category == "decals" then
-		if types == "item" then
-			SetPedComponentVariation(ped,10,item,0,1)
-			skinData["decals"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,10,skinData["decals"]["item"],item,1)
-			skinData["decals"]["texture"] = item
+	elseif clothingCategory == "bag" then
+		if type == "item" then
+			SetPedComponentVariation(ped,5,item,0,2)
+			skinData["bag"].item = item
+		elseif type == "texture" then
+			SetPedComponentVariation(ped,5,skinData["bag"].item,item,2)
+			skinData["bag"].texture = item
 		end
-	elseif category == "accessory" then
-		if types == "item" then
-			SetPedComponentVariation(ped,7,item,0,1)
-			skinData["accessory"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,7,skinData["accessory"]["item"],item,1)
-			skinData["accessory"]["texture"] = item
+	elseif clothingCategory == "decals" then
+		if type == "item" then
+			SetPedComponentVariation(ped,10,item,0,2)
+			skinData["decals"].item = item
+		elseif type == "texture" then
+			SetPedComponentVariation(ped,10,skinData["decals"].item,item,2)
+			skinData["decals"].texture = item
 		end
-	elseif category == "torso" then
-		if types == "item" then
-			SetPedComponentVariation(ped,11,item,0,1)
-			skinData["torso"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,11,GetPedDrawableVariation(ped,11),item,1)
-			skinData["torso"]["texture"] = item
+	elseif clothingCategory == "accessory" then
+		if type == "item" then
+			SetPedComponentVariation(ped,7,item,0,2)
+			skinData["accessory"].item = item
+		elseif type == "texture" then
+			SetPedComponentVariation(ped,7,skinData["accessory"].item,item,2)
+			skinData["accessory"].texture = item
 		end
-	elseif category == "shoes" then
-		if types == "item" then
-			SetPedComponentVariation(ped,6,item,0,1)
-			skinData["shoes"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,6,GetPedDrawableVariation(ped,6),item,1)
-			skinData["shoes"]["texture"] = item
+	elseif clothingCategory == "torso2" then
+		if type == "item" then
+			SetPedComponentVariation(ped,11,item,0,2)
+			skinData["torso2"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,11)
+			SetPedComponentVariation(ped,11,curItem,item,2)
+			skinData["torso2"].texture = item
 		end
-	elseif category == "mask" then
-		if types == "item" then
-			SetPedComponentVariation(ped,1,item,0,1)
-			skinData["mask"]["item"] = item
-		elseif types == "texture" then
-			SetPedComponentVariation(ped,1,GetPedDrawableVariation(ped,1),item,1)
-			skinData["mask"]["texture"] = item
+	elseif clothingCategory == "shoes" then
+		if type == "item" then
+			SetPedComponentVariation(ped,6,item,0,2)
+			skinData["shoes"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,6)
+			SetPedComponentVariation(ped,6,curItem,item,2)
+			skinData["shoes"].texture = item
 		end
-	elseif category == "hat" then
-		if types == "item" then
+	elseif clothingCategory == "mask" then
+		if type == "item" then
+			SetPedComponentVariation(ped,1,item,0,2)
+			skinData["mask"].item = item
+		elseif type == "texture" then
+			local curItem = GetPedDrawableVariation(ped,1)
+			SetPedComponentVariation(ped,1,curItem,item,2)
+			skinData["mask"].texture = item
+		end
+	elseif clothingCategory == "hat" then
+		if type == "item" then
 			if item ~= -1 then
-				SetPedPropIndex(ped,0,item,skinData["hat"]["texture"],1)
+				SetPedPropIndex(ped,0,item,skinData["hat"].texture,2)
 			else
 				ClearPedProp(ped,0)
 			end
-
-			skinData["hat"]["item"] = item
-		elseif types == "texture" then
-			SetPedPropIndex(ped,0,skinData["hat"]["item"],item,1)
-			skinData["hat"]["texture"] = item
+			skinData["hat"].item = item
+		elseif type == "texture" then
+			SetPedPropIndex(ped,0,skinData["hat"].item,item,2)
+			skinData["hat"].texture = item
 		end
-	elseif category == "glass" then
-		if types == "item" then
+	elseif clothingCategory == "glass" then
+		if type == "item" then
 			if item ~= -1 then
-				SetPedPropIndex(ped,1,item,skinData["glass"]["texture"],1)
-				skinData["glass"]["item"] = item
+				SetPedPropIndex(ped,1,item,skinData["glass"].texture,2)
+				skinData["glass"].item = item
 			else
 				ClearPedProp(ped,1)
 			end
-		elseif types == "texture" then
-			SetPedPropIndex(ped,1,skinData["glass"]["item"],item,1)
-			skinData["glass"]["texture"] = item
+		elseif type == "texture" then
+			SetPedPropIndex(ped,1,skinData["glass"].item,item,2)
+			skinData["glass"].texture = item
 		end
-	elseif category == "ear" then
-		if types == "item" then
+	elseif clothingCategory == "ear" then
+		if type == "item" then
 			if item ~= -1 then
-				SetPedPropIndex(ped,2,item,skinData["ear"]["texture"],1)
+				SetPedPropIndex(ped,2,item,skinData["ear"].texture,2)
 			else
 				ClearPedProp(ped,2)
 			end
-
-			skinData["ear"]["item"] = item
-		elseif types == "texture" then
-			SetPedPropIndex(ped,2,skinData["ear"]["item"],item,1)
-			skinData["ear"]["texture"] = item
+			skinData["ear"].item = item
+		elseif type == "texture" then
+			SetPedPropIndex(ped,2,skinData["ear"].item,item,2)
+			skinData["ear"].texture = item
 		end
-	elseif category == "watch" then
-		if types == "item" then
+	elseif clothingCategory == "watch" then
+		if type == "item" then
 			if item ~= -1 then
-				SetPedPropIndex(ped,6,item,skinData["watch"]["texture"],1)
+				SetPedPropIndex(ped,6,item,skinData["watch"].texture,2)
 			else
 				ClearPedProp(ped,6)
 			end
-
-			skinData["watch"]["item"] = item
-		elseif types == "texture" then
-			SetPedPropIndex(ped,6,skinData["watch"]["item"],item,1)
-			skinData["watch"]["texture"] = item
+			skinData["watch"].item = item
+		elseif type == "texture" then
+			SetPedPropIndex(ped,6,skinData["watch"].item,item,2)
+			skinData["watch"].texture = item
 		end
-	elseif category == "bracelet" then
-		if types == "item" then
+	elseif clothingCategory == "bracelet" then
+		if type == "item" then
 			if item ~= -1 then
-				SetPedPropIndex(ped,7,item,skinData["bracelet"]["texture"],1)
+				SetPedPropIndex(ped,7,item,skinData["bracelet"].texture,2)
 			else
 				ClearPedProp(ped,7)
 			end
-
-			skinData["bracelet"]["item"] = item
-		elseif types == "texture" then
-			SetPedPropIndex(ped,7,skinData["bracelet"]["item"],item,1)
-			skinData["bracelet"]["texture"] = item
+			skinData["bracelet"].item = item
+		elseif type == "texture" then
+			SetPedPropIndex(ped,7,skinData["bracelet"].item,item,2)
+			skinData["bracelet"].texture = item
 		end
 	end
 
@@ -547,7 +584,6 @@ end
 -- SAVECLOTHING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("saveClothing",function(data)
-	vSERVER.updateClothes(json.encode(skinData))
 	SaveSkin()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -608,16 +644,23 @@ AddEventHandler("skinshop:setGlasses",function()
 	vRP.removeObjects("one")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SETARMS
+-- GETHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("skinshop:setArms")
-AddEventHandler("skinshop:setArms", function()
-	if GetPedDrawableVariation(PlayerPedId(),3) == skinData["arms"]["item"] then
-		SetPedComponentVariation(PlayerPedId(),3,15,0,1)
-	else
-		SetPedComponentVariation(PlayerPedId(),3,skinData["arms"]["item"],skinData["arms"]["texture"],1)
-	end
-end)
+function cRP.getHat()
+	return skinData["hat"].item,skinData["hat"].texture
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETGLASSES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.getGlasses()
+	return skinData["glass"].item,skinData["glass"].texture
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETMASK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.getMask()
+	return skinData["mask"].item,skinData["mask"].texture
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETCUSTOMIZATION
 -----------------------------------------------------------------------------------------------------------------------------------------
