@@ -1,4 +1,4 @@
-QBClothing = {}
+cReative = {}
 
 var selectedTab = ".characterTab"
 var lastCategory = "character"
@@ -20,7 +20,7 @@ $(document).on('click', '.clothing-menu-header-btn', function(e){
 	$(".clothing-menu-"+category+"-container").css({"display": "block"});
 })
 
-QBClothing.ResetItemTexture = function(obj, category) {
+cReative.ResetItemTexture = function(obj, category) {
 	var itemTexture = $(obj).parent().parent().find('[data-type="texture"]');
 	var defaultTextureValue = clothingCategorys[category].defaultTexture;
 	$(itemTexture).val(defaultTextureValue);
@@ -50,7 +50,7 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
 				type: buttonType,
 			}));
 			if (buttonType == "item") {
-				QBClothing.ResetItemTexture(this, clothingCategory);
+				cReative.ResetItemTexture(this, clothingCategory);
 			}
 		} else {
 			if (buttonType == "item") {
@@ -72,7 +72,7 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
 						}));
 					}
 				}
-				QBClothing.ResetItemTexture(this, clothingCategory);
+				cReative.ResetItemTexture(this, clothingCategory);
 			} else {
 				var buttonMax = $(this).parent().find('[data-headertype="texture-header"]').data('maxTexture');
 				if (newValue <= parseInt(buttonMax)) {
@@ -116,7 +116,7 @@ $(document).on('click', '.clothing-menu-option-item-left', function(e){
 					}));
 				}
 			}
-			QBClothing.ResetItemTexture(this, clothingCategory);
+			cReative.ResetItemTexture(this, clothingCategory);
 		} else {
 			if (newValue >= clothingCategorys[clothingCategory].defaultTexture) {
 				if (clothingCategory == "accessory" && newValue == 13) {
@@ -229,7 +229,7 @@ $(document).on('keydown', function() {
     }
 });
 
-QBClothing.ToggleChange = function(bool) {
+cReative.ToggleChange = function(bool) {
 	canChange = bool;
 }
 
@@ -237,19 +237,19 @@ $(document).ready(function(){
 	window.addEventListener('message', function(event) {
 		switch(event.data.action) {
 			case "open":
-			QBClothing.Open(event.data);
+			cReative.Open(event.data);
 			break;
 			case "close":
-			QBClothing.Close();
+			cReative.Close();
 			break;
 			case "updateMax":
-			QBClothing.SetMaxValues(event.data.maxValues);
+			cReative.SetMaxValues(event.data.maxValues);
 			break;
 			case "toggleChange":
-			QBClothing.ToggleChange(event.data.allow);
+			cReative.ToggleChange(event.data.allow);
 			break;
 			case "ResetValues":
-			QBClothing.ResetValues();
+			cReative.ResetValues();
 			break;
 		}
 	})
@@ -257,17 +257,17 @@ $(document).ready(function(){
 
 $(document).on('click', "#save-menu", function(e){
 	e.preventDefault();
-	QBClothing.Close();
+	cReative.Close();
 	$.post('http://skinshop/saveClothing');
 });
 
 $(document).on('click', "#cancel-menu", function(e){
 	e.preventDefault();
-	QBClothing.Close();
+	cReative.Close();
 	$.post('http://skinshop/resetOutfit');
 });
 
-QBClothing.SetCurrentValues = function(clothingValues) {
+cReative.SetCurrentValues = function(clothingValues) {
 	$.each(clothingValues, function(i, item){
 		var itemCats = $(".clothing-menu-container").find('[data-type="'+i+'"]');
 		var input = $(itemCats).find('input[data-type="item"]');
@@ -278,7 +278,7 @@ QBClothing.SetCurrentValues = function(clothingValues) {
 	});
 }
 
-QBClothing.Open = function(data) {
+cReative.Open = function(data) {
 	clothingCategorys = data.currentClothing;
 
 	$(".change-camera-buttons").fadeIn(150);
@@ -287,9 +287,9 @@ QBClothing.Open = function(data) {
 	$(".clothing-menu-clothing-container").css("display", "none");
 	$(".clothing-menu-accessoires-container").css("display", "none");
 	$(".clothing-menu-container").css({"display":"block"}).animate({right: 0,}, 200);
-	QBClothing.SetMaxValues(data.maxValues);
+	cReative.SetMaxValues(data.maxValues);
 	$(".clothing-menu-header").html("");
-	QBClothing.SetCurrentValues(data.currentClothing);
+	cReative.SetCurrentValues(data.currentClothing);
 	$.each(data.menus, function(i, menu){
 		if (menu.selected) {
 			$(".clothing-menu-header").append('<div class="clothing-menu-header-btn '+menu.menu+'Tab selected" data-category="'+menu.menu+'"><p>'+menu.label+'</p></div>')
@@ -307,7 +307,7 @@ QBClothing.Open = function(data) {
 	$(".clothing-menu-header-btn").css("width", menuWidth + "%");
 }
 
-QBClothing.Close = function() {
+cReative.Close = function() {
 	$.post('http://skinshop/close');
 	$(".change-camera-buttons").fadeOut(150);
 	$(".clothing-menu-character-container").css("display", "none");
@@ -325,7 +325,7 @@ QBClothing.Close = function() {
 	});
 }
 
-QBClothing.SetMaxValues = function(maxValues) {
+cReative.SetMaxValues = function(maxValues) {
 	$.each(maxValues, function(i, cat){
 		if (cat.type == "character") {
 			var containers = $(".clothing-menu-character-container").find('[data-type="'+i+'"]');
@@ -361,7 +361,7 @@ QBClothing.SetMaxValues = function(maxValues) {
 	})
 }
 
-QBClothing.ResetValues = function() {
+cReative.ResetValues = function() {
 	$.each(clothingCategorys, function(i, cat){
 		var itemCats = $(".clothing-menu-container").find('[data-type="'+i+'"]');
 		var input = $(itemCats).find('input[data-type="item"]');
