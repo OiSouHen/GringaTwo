@@ -1226,7 +1226,7 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 			until not DoesEntityExist(checkPos) or spawn[pointGarage][tostring(checkslot)] == nil
 
 			if spawn[pointGarage][tostring(checkslot)] == nil then
-				TriggerEvent("Notify","vermelho","Não existem vagas disponíveis.",5000)
+				TriggerEvent("Notify","amarelo","Vagas estão ocupadas.",5000)
 			else
 				local _,cdz = GetGroundZFor_3dCoord(spawn[pointGarage][tostring(checkslot)][1],spawn[pointGarage][tostring(checkslot)][2],spawn[pointGarage][tostring(checkslot)][3]+1)
 				local nveh = CreateVehicle(mHash,spawn[pointGarage][tostring(checkslot)][1],spawn[pointGarage][tostring(checkslot)][2],cdz,spawn[pointGarage][tostring(checkslot)][4],true,false)
