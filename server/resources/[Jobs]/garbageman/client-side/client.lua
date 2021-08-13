@@ -14,15 +14,19 @@ vSERVER = Tunnel.getInterface("garbageman")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local trashCans = {
-    {"prop_bin_01a"},
-    {"prop_bin_03a"},
-    {"prop_bin_05a"},
-    {"prop_dumpster_01a"},
-    {"prop_dumpster_02a"},
-    {"prop_dumpster_02b"},
-    {"prop_dumpster_4a"},
-    {"prop_dumpster_4b"},
-    {"prop_cs_dumpster_01a"}
+    {'prop_bin_01a'},
+    {'prop_bin_03a'},
+    {'prop_bin_05a'},
+    {'prop_dumpster_01a'},
+    {'prop_dumpster_02a'},
+    {'prop_dumpster_02b'},
+    {'prop_dumpster_4a'},
+    {'prop_dumpster_4b'},
+    {'prop_cs_dumpster_01a'},
+    {'prop_bin_07a'},
+    {'prop_bin_07b'},
+    {'prop_bin_07c'},
+    {'prop_bin_07d'}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSEARCHTRASH
