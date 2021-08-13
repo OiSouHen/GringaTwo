@@ -13,145 +13,65 @@ vSERVER = Tunnel.getInterface("garbageman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local blips = {}
-local timeSeconds = 0
-local garbageList = {}
-local inService = false
-local vehModel = 1917016601
+local trashCans = {
+    {'prop_bin_01a'},
+    {'prop_bin_03a'},
+    {'prop_bin_05a'},
+    {'prop_dumpster_01a'},
+    {'prop_dumpster_02a'},
+    {'prop_dumpster_02b'},
+    {'prop_dumpster_4a'},
+    {'prop_dumpster_4b'}
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGARBAGE
+-- THREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function startthreadgarbage()
-	Citizen.CreateThread(function()
-		while true do
-			local timeDistance = 500
-			if inService then
-				local ped = PlayerPedId()
-				if not IsPedInAnyVehicle(ped) then
-					local coords = GetEntityCoords(ped)
+Citizen.CreateThread(function()
+    while true do
+        local idle = 1000
+        local ped = GetPlayerPed(-1)
+        local pedCoords = GetEntityCoords(ped, 0)
+        local trashEmpty = false
 
-					for k,v in pairs(garbageList) do
-						local distance = #(coords - vector3(v[1],v[2],v[3]))
-						if distance <= 0.6 then
-							timeDistance = 4
-							DrawText3D(v[1],v[2],v[3],"~g~E~w~  VASCULHAR")
-							if distance <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
-							    if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
-								    timeSeconds = 2
-								    TriggerEvent("cancelando",true)
-								    vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-									TriggerEvent("Progress",5000,"Procurando...")
-								    Wait(5000)
-								    vSERVER.paymentMethod(parseInt(k))
-								    TriggerEvent("cancelando",false)
-								    ClearPedTasks(ped)
-								else
-								    TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Lixeiro</b>.",3000)
-								end
-							end
-						end
-					end
-				end
-			end
+        for k,v in pairs(trashCans) do
+            local trash = GetClosestObjectOfType(pedCoords["x"], pedCoords["y"], pedCoords["z"], 1.0, GetHashKey(v[1]), true, true, true)
+            SetEntityAsMissionEntity(trash, true, true)
+            if DoesEntityExist(trash) then
+                trashCoords = GetEntityCoords(trash, 0)
+            end
+        end
 
-			Citizen.Wait(timeDistance)
-		end
-	end)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADVERIFYBOX
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("garbageman:verifyBox")
-AddEventHandler("garbageman:verifyBox",function(verifyBox)
-TriggerEvent("cancelando",true)
-local ped = PlayerPedId()
-	if not IsPedInAnyVehicle(ped) then
-		TriggerEvent("Progress",5000,"Vasculhando...")
-		vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-		Wait(5000)
-		vSERVER.paymentBoxMethod()
-		TriggerEvent("cancelando",false)
-		ClearPedTasks(ped)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- STARTGARBAGEMAN
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.getGarbageStatus()
-	return inService
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- STARTGARBAGEMAN
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.startGarbageman()
-	startthreadgarbage()
-	startthreadgarbageseconds()
-	inService = true
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- STOPGARBAGEMAN
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.stopGarbageman()
-	inService = false
-	for k,v in pairs(blips) do
-		if DoesBlipExist(blips[k]) then
-			RemoveBlip(blips[k])
-			blips[k] = nil
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEGARBAGELIST
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("garbageman:updateGarbageList")
-AddEventHandler("garbageman:updateGarbageList",function(status)
-	garbageList = status
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEGARBAGELIST
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("garbageman:removeGarbageBlips")
-AddEventHandler("garbageman:removeGarbageBlips",function(number)
-	if DoesBlipExist(blips[number]) then
-		RemoveBlip(blips[number])
-		blips[number] = nil
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- INSERTBLIPS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("garbageman:insertBlips")
-AddEventHandler("garbageman:insertBlips",function(statusList)
-	if inService then
-		for k,v in pairs(blips) do
-			if DoesBlipExist(blips[k]) then
-				RemoveBlip(blips[k])
-				blips[k] = nil
-			end
-		end
+        if trashCoords ~= nil then
+            local distance = GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"])
+            if distance < 1.5 then
+                idle = 5   
+            end
+            if distance > 2 then
+                trashCoords = nil
+            end
+        end
 
-		Citizen.Wait(1000)
-
-		for k,v in pairs(statusList) do
-			blips[k] = AddBlipForRadius(v[1],v[2],v[3],5.0)
-			SetBlipAlpha(blips[k],255)
-			SetBlipColour(blips[k],57)
-		end
-	end
+        if trashCoords ~= nil then
+            if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"] < 1)) and (not IsPedInAnyVehicle(ped)) then
+				DrawText3D(trashCoords["x"], trashCoords["y"], trashCoords["z"]+1.2,"~g~E~w~   VASCULHAR")
+                
+                if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"] < 0.5)) then
+                    if IsControlPressed(1,38) then 
+                        TriggerEvent("cancelando",true)
+                        vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+                        TriggerEvent("Progress",5000,"Vasculhando...")
+                        Wait(5000)
+                        if vSERVER.searchTrash(trashCoords["x"]) then
+                        end
+						TriggerEvent("cancelando",false)
+						ClearPedTasks(ped)
+                    end
+                end
+            end
+        end
+        Citizen.Wait(idle)
+    end 
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TIMESECONDS
------------------------------------------------------------------------------------------------------------------------------------------
-function startthreadgarbageseconds()
-	Citizen.CreateThread(function()
-		while true do
-			if timeSeconds > 0 then
-				timeSeconds = timeSeconds - 1
-			end
-			Citizen.Wait(1000)
-		end
-	end)
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
