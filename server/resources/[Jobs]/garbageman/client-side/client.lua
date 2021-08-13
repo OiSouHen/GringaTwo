@@ -55,16 +55,18 @@ Citizen.CreateThread(function()
             if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"] < 1)) and (not IsPedInAnyVehicle(ped)) then
 				DrawText3D(trashCoords["x"], trashCoords["y"], trashCoords["z"]+1.2,"~g~E~w~   VASCULHAR")
                 
-                if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"] < 0.5)) then
-                    if IsControlPressed(1,38) then 
-                        TriggerEvent("cancelando",true)
-                        vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-                        TriggerEvent("Progress",5000,"Vasculhando...")
-                        Wait(5000)
-                        if vSERVER.searchTrash(trashCoords["x"]) then
+				if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
+                    if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], trashCoords["x"], trashCoords["y"], trashCoords["z"] < 0.5)) then
+                        if IsControlPressed(1,38) then 
+                            TriggerEvent("cancelando",true)
+                            vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+                            TriggerEvent("Progress",5000,"Vasculhando...")
+                            Wait(5000)
+                            if vSERVER.searchTrash(trashCoords["x"]) then
+                            end
+                            TriggerEvent("cancelando",false)
+                            ClearPedTasks(ped)
                         end
-						TriggerEvent("cancelando",false)
-						ClearPedTasks(ped)
                     end
                 end
             end
