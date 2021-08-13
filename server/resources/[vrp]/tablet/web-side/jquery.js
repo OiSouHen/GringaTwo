@@ -25,6 +25,10 @@ $(document).ready(function(){
 			case "updateMotos":
 				updateMotos();
 			break;
+			
+			case "updateAluguel":
+				updateAluguel();
+			break;
 		};
 	});
 
@@ -273,6 +277,7 @@ const UpdateLista = (mode) => {
 		<div id="benefactorBar">
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
+		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
 		</div>
 
@@ -290,12 +295,12 @@ const UpdateLista = (mode) => {
 			${nameList.map((item) => (`<span>
 				<left>
 					${item["name"]}<br>
-					<b>Valor:</b> $${format(item["price"])}<br>
+					<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
 					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 				</left>
 				<right>
 				    <br>
-					<div id="benefactorSell" data-name="${item["k"]}">Vender</div><br>
+					<div id="benefactorSell" data-name="${item["k"]}">VENDER</div><br>
 				</right>
 			</span>`)).join('')}
 		`);
@@ -304,7 +309,7 @@ const UpdateLista = (mode) => {
 				${nameList.map((item) => (`<span>
 					<left>
 						${item["name"]}<br>
-						<b>Valor:</b> $${format(item["price"])}<br>
+						<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
 						<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 					</left>
 					<right>
@@ -323,6 +328,7 @@ const benefactor = () => {
 		<div id="benefactorBar">
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" class="active">CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos">MOTOS</li>
+		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel">ALUGUEL</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos">POSSUÍDOS</li>
 		</div>
 

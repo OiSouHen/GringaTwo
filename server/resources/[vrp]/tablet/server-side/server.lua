@@ -14,6 +14,7 @@ Tunnel.bindInterface("tablet",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local motos = {}
 local carros = {}
+local aluguel = {}
 local stockVeh = {}
 local lockReq = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Citizen.CreateThread(function()
 			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
 		elseif v[4] == "bikes" then
 			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+		elseif v[4] == "donate" then
+			table.insert(aluguel,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
 		end
 	end
 	if #temp_stock > 0 then
@@ -127,6 +130,16 @@ function cRP.Motos()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		return motos
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ALUGUEL
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.Aluguel()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		return aluguel
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
