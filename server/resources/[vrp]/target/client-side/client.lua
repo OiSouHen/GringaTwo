@@ -205,25 +205,12 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
+	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911 },{
 		options = {
 			{
-				event = "inventory:verifyObjects",
+				event = "garbageman:searchTrash",
 				label = "Vasculhar",
-				tunnel = "police",
-				service = "Lixeiro"
-			}
-		},
-		distance = 0.75
-	})
-
-	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703,720581693 },{
-		options = {
-			{
-				event = "inventory:verifyObjects",
-				label = "Vasculhar",
-				tunnel = "police",
-				service = "Jornaleiro"
+				tunnel = "client"
 			}
 		},
 		distance = 0.75
