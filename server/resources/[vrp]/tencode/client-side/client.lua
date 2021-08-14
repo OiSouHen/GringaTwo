@@ -13,125 +13,133 @@ vSERVER = Tunnel.getInterface("tencode")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBUTTON
 -----------------------------------------------------------------------------------------------------------------------------------------
-local service = false
+local policeRadar = false
+local policeFreeze = false
+local policeService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADFOCUS
+-- NOTIFYPUSH
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	SetNuiFocus(false,false)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TENCODE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("tencode",function(source,args)
-	if service then
-		SetNuiFocus(true,true)
-		SendNUIMessage({ action = "openSystem" })
+RegisterNetEvent("notifyShooting")
+AddEventHandler("notifyShooting",function(coords)
+	if policeService then
+		TriggerEvent("NotifyPush",{ code = 10, title = "Confronto em andamento", x = coords["x"], y = coords["y"], z = coords["z"], criminal = "Disparos de arma de fogo", blipColor = 6 })
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TENCODE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("tencode","Abrir o código dez","keyboard","f3")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeSystem",function(data)
 	SetNuiFocus(false,false)
-	SendNUIMessage({ action = "closeSystem" })
+	SetCursorLocation(0.5,0.5)
+	SendNUIMessage({ tencode = false })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SENDCODE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("sendCode",function(data)
 	SetNuiFocus(false,false)
-	SendNUIMessage({ action = "closeSystem" })
-
-	vSERVER.sendCode(data.code)
+	SetCursorLocation(0.5,0.5)
+	vSERVER.sendCode(data["code"])
+	SendNUIMessage({ tencode = false })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- tencode:STATUSERVICE
+-- POLICE:UPDATESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tencode:StatusService")
-AddEventHandler("tencode:StatusService",function(status)
-	service = status
+RegisterNetEvent("police:updateService")
+AddEventHandler("police:updateService",function(status)
+	policeService = status
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- RADAR
------------------------------------------------------------------------------------------------------------------------------------------
-local radar = {
-	shown = false,
-	freeze = false,
-	info = "CARREGANDO...",
-	info2 = "CARREGANDO..."
-}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADRADAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
+	SetNuiFocus(false,false)
+
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
-		if IsPedInAnyPoliceVehicle(ped) and service then
-			timeDistance = 4
-			if IsControlJustPressed(1,306) then
-				radar.shown = not radar.shown
-			end
+		if IsPedInAnyPoliceVehicle(ped) and policeService then
+			if policeRadar then
+				if not policeFreeze then
+					timeDistance = 100
 
-			if IsControlJustPressed(1,301) then
-				radar.freeze = not radar.freeze
-			end
+					local vehicle = GetVehiclePedIsUsing(ped)
+					local vehicleDimension = GetOffsetFromEntityInWorldCoords(vehicle,0.0,1.0,1.0)
 
-			if radar.shown and IsPedInAnyVehicle(ped) then
-				if not radar.freeze then
-					local veh = GetVehiclePedIsUsing(ped)
-					local coordA = GetOffsetFromEntityInWorldCoords(veh,0.0,1.0,1.0)
-					local coordB = GetOffsetFromEntityInWorldCoords(veh,0.0,105.0,0.0)
-					local frontcar = StartShapeTestCapsule(coordA,coordB,3.0,10,veh,7)
-					local a,b,c,d,e = GetShapeTestResult(frontcar)
+					local vehicleFront = GetOffsetFromEntityInWorldCoords(vehicle,0.0,105.0,0.0)
+					local vehicleFrontShape = StartShapeTestCapsule(vehicleDimension,vehicleFront,3.0,10,vehicle,7)
+					local _,_,_,_,vehFront = GetShapeTestResult(vehicleFrontShape)
 
-					if IsEntityAVehicle(e) then
-						local fmodel = GetDisplayNameFromVehicleModel(GetEntityModel(e))
-						local fvspeed = GetEntitySpeed(e) * 2.236936
-						local fplate = GetVehicleNumberPlateText(e)
-						radar.info = string.format("~y~PLACA: ~w~%s   ~y~MODELO: ~w~%s   ~y~VELOCIDADE: ~w~%s MPH",fplate,fmodel,math.ceil(fvspeed))
+					if IsEntityAVehicle(vehFront) then
+						local vehModel = GetEntityModel(vehFront)
+						local vehPlate = GetVehicleNumberPlateText(vehFront)
+						local vehSpeed = GetEntitySpeed(vehFront) * 2.236936
+						local vehName = GetDisplayNameFromVehicleModel(vehModel)
+
+						SendNUIMessage({ radar = "top", plate = vehPlate, model = vehName, speed = vehSpeed })
 					end
 
-					local bcoordB = GetOffsetFromEntityInWorldCoords(veh,0.0,-105.0,0.0)
-					local rearcar = StartShapeTestCapsule(coordA,bcoordB,3.0,10,veh,7)
-					local f,g,h,i,j = GetShapeTestResult(rearcar)
+					local vehicleBack = GetOffsetFromEntityInWorldCoords(vehicle,0.0,-105.0,0.0)
+					local vehicleBackShape = StartShapeTestCapsule(vehicleDimension,vehicleBack,3.0,10,vehicle,7)
+					local _,_,_,_,vehBack = GetShapeTestResult(vehicleBackShape)
 
-					if IsEntityAVehicle(j) then
-						local bmodel = GetDisplayNameFromVehicleModel(GetEntityModel(j))
-						local bvspeed = GetEntitySpeed(j) * 2.236936
-						local bplate = GetVehicleNumberPlateText(j)
-						radar.info2 = string.format("~y~PLACA: ~w~%s   ~y~MODELO: ~w~%s   ~y~VELOCIDADE: ~w~%s MPH",bplate,bmodel,math.ceil(bvspeed))
+					if IsEntityAVehicle(vehBack) then
+						local vehModel = GetEntityModel(vehBack)
+						local vehPlate = GetVehicleNumberPlateText(vehBack)
+						local vehSpeed = GetEntitySpeed(vehBack) * 2.236936
+						local vehName = GetDisplayNameFromVehicleModel(vehModel)
+
+						SendNUIMessage({ radar = "bot", plate = vehPlate, model = vehName, speed = vehSpeed })
 					end
 				end
-
-				dwText(radar.info,0.905)
-				dwText(radar.info2,0.93)
 			end
 		end
 
-		if not IsPedInAnyVehicle(ped) and radar.shown then
-			radar.shown = false
-			radar.freeze = false
+		if not IsPedInAnyVehicle(ped) and policeRadar then
+			policeRadar = false
+			SendNUIMessage({ radar = false })
 		end
 
 		Citizen.Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DWTEXT
+-- TOGGLERADAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-function dwText(text,height)
-	SetTextFont(4)
-	SetTextScale(0.50,0.50)
-	SetTextColour(255,255,255,180)
-	SetTextOutline()
-	SetTextCentre(1)
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawText(0.5,height)
-end
+RegisterCommand("toggleRadar",function(source,args)
+	local ped = PlayerPedId()
+	if IsPedInAnyPoliceVehicle(ped) and policeService then
+		if policeRadar then
+			policeRadar = false
+			SendNUIMessage({ radar = false })
+		else
+			policeRadar = true
+			SendNUIMessage({ radar = true })
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TOGGLEFREEZE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("toggleFreeze",function(source,args)
+	local ped = PlayerPedId()
+	if IsPedInAnyPoliceVehicle(ped) and policeService then
+		policeFreeze = not policeFreeze
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TENCODE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("tencode",function(source,args)
+	if policeService then
+		SetNuiFocus(true,true)
+		SetCursorLocation(0.5,0.9)
+		SendNUIMessage({ tencode = true })
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- KEYMAPPING
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterKeyMapping("tencode","Abrir o código dez","keyboard","f2")
+RegisterKeyMapping("toggleRadar","Ativar/Desativar radar das viaturas.","keyboard","N")
+RegisterKeyMapping("toggleFreeze","Travar/Destravar radar das viaturas.","keyboard","M")
