@@ -1158,7 +1158,7 @@ end
 -- EXTRAS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.extraVehicle(data)
-	local vehicle = vRP.getNearVehicle(11)
+	local vehicle = vRP.nearVehicle(11)
 	if data == "1" then
 		if DoesExtraExist(vehicle,1) then
 			if IsVehicleExtraTurnedOn(vehicle,1) then
@@ -1253,7 +1253,7 @@ end
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.putVehicle(seat)
-	local veh = vRP.getNearVehicle(11)
+	local veh = vRP.nearVehicle(11)
 	if IsEntityAVehicle(veh) then
 		if parseInt(seat) <= 1 or seat == nil then
 			seat = -1

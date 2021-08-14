@@ -33,7 +33,7 @@ end)
 function cRP.towPlayer()
 	local vehicle = GetPlayersLastVehicle()
 	if IsVehicleModel(vehicle,GetHashKey("flatbed")) and not IsPedInAnyVehicle(PlayerPedId()) then
-		towed = vRP.getNearVehicle(11)
+		towed = vRP.nearVehicle(11)
 		if DoesEntityExist(vehicle) and DoesEntityExist(towed) then
 			if tow then
 				vSERVER.tryTow(VehToNet(vehicle),VehToNet(tow),"out")

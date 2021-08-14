@@ -635,7 +635,7 @@ function cRP.deleteVehicles()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local vehicle = vRPclient.getNearVehicle(source,15)
+		local vehicle = vRPclient.nearVehicle(source,15)
 		if vehicle then
 			vCLIENT.deleteVehicle(source,vehicle)
 		end
@@ -647,7 +647,7 @@ end
 RegisterNetEvent("garages:deleteVehicle")
 AddEventHandler("garages:deleteVehicle",function(deleteVehicle)
 	local user_id = vRP.getUserId(source)
-		local vehicle = vRPclient.getNearVehicle(source,15)
+		local vehicle = vRPclient.nearVehicle(source,15)
 		if vehicle then
 			vCLIENT.deleteVehicle(source,vehicle)
 			TriggerClientEvent("Notify",source,"amarelo","Veículo enviado para a garagem.",3000)

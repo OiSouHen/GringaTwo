@@ -23,9 +23,9 @@ AddEventHandler("blipsystem:updateBlips",function(userTable)
 
 	for k,v in pairs(userList) do
 		if DoesBlipExist(userBlips[k]) then
-			SetBlipCoords(userBlips[k],v[1]["x"],v[1]["y"],v[1]["z"])
+			SetBlipCoords(userBlips[k],v[1],v[2],v[3])
 		else
-			userBlips[k] = AddBlipForCoord(v[1]["x"],v[1]["y"],v[1]["z"])
+			userBlips[k] = AddBlipForCoord(v[1],v[2],v[3])
 			SetBlipSprite(userBlips[k],1)
 			SetBlipAsShortRange(userBlips[k],true)
 			SetBlipScale(userBlips[k],0.5)

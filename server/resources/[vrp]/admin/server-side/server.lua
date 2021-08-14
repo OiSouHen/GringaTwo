@@ -395,7 +395,7 @@ RegisterCommand("hash",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Admin") then
-			local vehicle = vRPclient.getNearVehicle(source,7)
+			local vehicle = vRPclient.nearVehicle(source,7)
 			if vehicle then
 				vCLIENT.vehicleHash(source,vehicle)
 			end
