@@ -98,8 +98,5 @@ function DrawText3D(x,y,z,text)
 		SetTextFont(4)
 		SetTextCentre(1)
 		EndTextCommandDisplayText(_x,_y)
-
-											 
-										 
 	end
 end

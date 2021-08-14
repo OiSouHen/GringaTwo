@@ -16,17 +16,18 @@ vCLIENT = Tunnel.getInterface("towdriver")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local userList = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TOW
+-- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("tow",function(source,args,rawCommand)
+function cRP.paymentMethod()
+	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-			if vRPclient.getHealth(source) > 101 then
-				vCLIENT.towPlayer(source)
-				userList[user_id] = source
-			end
+		vRP.upgradeStress(user_id,1)
+		local value = math.random(220,380)
+
+		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 	end
-end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRYTOW
 -----------------------------------------------------------------------------------------------------------------------------------------
