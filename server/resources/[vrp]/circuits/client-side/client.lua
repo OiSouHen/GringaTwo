@@ -296,16 +296,29 @@ Citizen.CreateThread(function()
 				SoftPoints = (GetGameTimer() - Points)
 				CountPoints = (SoftPoints / 1000)
 				
-				dwText("~y~CHECKPOINTS:~w~ "..inCheckpoint.." / "..#runners[inSelected]["coords"],0.65)
-				dwText("~y~TOTAL DE VOLTAS:~w~ "..inLaps.." / "..runners[inSelected]["laps"],0.68)
---				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime.." / "..runners[inSelected]["raceTimers"],0.71)
-				dwText("~y~TEMPO RESTANTE:~w~ "..raceTime,0.71)
-			    dwText("~y~PONTUAÇÃO:~w~ "..SoftPoints,0.74)
+				if raceTime > 0 then
+					dwText("VOLTAS~w~ ",0.40,0.40,0.68,0.80,180)
+					dwText(inLaps.."  /  "..runners[inSelected]["laps"],0.50,0.50,0.725,0.795,240,true)
+					dwText("CHECKPOINT~w~ ",0.40,0.45,0.66,0.83,180)
+					dwText(inCheckpoint.."  /  "..#runners[inSelected]["coords"],0.50,0.50,0.725,0.827,240,true)
+					dwText("PONTOS~w~ ",0.40,0.40,0.679,0.86,180)
+					dwText2(SoftPoints,0.50,0.50,0.731,0.857,240,true)
+					dwText("TEMPO ~b~",0.40,0.40,0.683,0.89,180)
+					dwText(raceTime,0.50,0.50,0.726,0.886,240,true)
+
+				else
+					dwText("VOLTAS~w~ ",0.40,0.40,0.68,0.88,180)
+					dwText(inLaps.."  /  "..runners[inSelected]["laps"],0.50,0.50,0.725,0.877,240,true)
+					dwText("CHECKPOINT~w~ ",0.45,0.45,0.66,0.91,180)
+					dwText(inCheckpoint.."  /  "..#runners[inSelected]["coords"],0.50,0.50,0.725,0.907,240,true)
+					dwText("PONTOS~w~ ",0.40,0.40,0.68,0.94,180)
+					dwText2(SoftPoints,0.50,0.50,0.725,0.937,240,true)
+				end
 
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then
-					DrawMarker(1,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]-3,0,0,0,0,0,0,12.0,12.0,8.0,255,255,255,25,0,0,0,0)
-					DrawMarker(21,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]+1,0,0,0,0,180.0,130.0,3.0,3.0,2.0,42,137,255,50,1,0,0,1)
+						DrawMarker(1,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3] - 3,0,0,0,0,0,0,12.0,12.0,8.0,255,255,255,25,0,0,0,0)
+						DrawMarker(21,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3] + 1,0,0,0,0,180.0,130.0,3.0,3.0,2.0,42,137,255,100,0,0,0,1)
 
 					if distance <= 10 then
 						if inCheckpoint >= #runners[inSelected]["coords"] then
@@ -406,10 +419,10 @@ function makeBlips()
 	end
 
 	CheckBlip = AddBlipForCoord(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3])
-	SetBlipSprite(CheckBlip,12)
+	SetBlipSprite(CheckBlip,1)
 	SetBlipAsShortRange(CheckBlip,true)
-	SetBlipScale(CheckBlip,0.9)
-	SetBlipColour(CheckBlip,5)
+	SetBlipScale(CheckBlip,0.5)
+	SetBlipColour(CheckBlip,3)
 	SetBlipRoute(CheckBlip,true)
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString("Checkpoint")
@@ -427,12 +440,39 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DWTEXT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function dwText(text,height)
-	SetTextFont(4)
-	SetTextScale(0.40,0.40)
-	SetTextColour(255,255,255,180)
-	SetTextOutline()
+function dwText(text,s1,s2,x,y,alpha,shadow)
+	SetTextFont(6)
+	SetTextScale(s1,s2)
+	SetTextColour(255,255,255,alpha)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
-	DrawText(0.060,height)
+	if shadow then
+		SetTextDropShadow(1)
+	end
+	DrawText(x,y)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DWTEXT2
+-----------------------------------------------------------------------------------------------------------------------------------------
+function dwText2(text,s1,s2,x,y,alpha,shadow)
+	SetTextFont(6)
+	SetTextScale(s1,s2)
+	SetTextColour(255,255,255,alpha)
+	BeginTextCommandDisplayText("STRING")
+	AddTextComponentFormattedInteger(text, true)
+	if shadow then
+		SetTextDropShadow(1)
+	end
+	
+	if parseInt(text) < 999  then
+		DrawText(x,y)
+	elseif parseInt(text) > 999 and parseInt(text) < 9999 then
+		DrawText(x-0.003,y)
+	elseif parseInt(text) > 9999 and parseInt(text) < 99999 then
+		DrawText(x-0.006,y)
+	elseif parseInt(text) > 99999 and parseInt(text) < 999999 then
+		DrawText(x-0.009,y)
+	elseif parseInt(text) > 999999 and parseInt(text) < 9999999 then
+		DrawText(x-0.012,y)
+	end
 end
