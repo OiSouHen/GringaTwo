@@ -92,7 +92,7 @@ local pedList = {
 	},
 	{ -- Paramedic
 		distance = 30,
-		coords = { 1163.36,-1483.63,34.85,98.56 },
+		coords = { 1166.02,-1484.69,34.99,182.32 },
 		model = { 0xB353629E,"s_m_m_paramedic_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
