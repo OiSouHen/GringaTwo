@@ -68,13 +68,13 @@ local garages = {
 	[17] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[18] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[19] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
-	[20] = { ["name"] = "Heliparamedic", ["payment"] = true, ["perm"] = "Paramedic" },
-	[21] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[22] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[23] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[24] = { ["name"] = "Helipolice", ["payment"] = true, ["perm"] = "Police" },
-	[25] = { ["name"] = "Helipolice", ["payment"] = true, ["perm"] = "Police" },
-	[26] = { ["name"] = "Helipolice", ["payment"] = true, ["perm"] = "Police" },
+	
+	
+	
+	
+	
+	
+	
 	[27] = { ["name"] = "Driver", ["payment"] = true, ["public"] = true },
 	[28] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
 	[29] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
@@ -84,14 +84,15 @@ local garages = {
 	[34] = { ["name"] = "Fisherman", ["payment"] = true, ["public"] = true },
 	[35] = { ["name"] = "Boats", ["payment"] = true, ["public"] = true },
 	[36] = { ["name"] = "Garbageman", ["payment"] = true, ["public"] = true },
---	[37] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
-	[38] = { ["name"] = "Prison", ["payment"] = true, ["perm"] = "Police" },
-	[40] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
-	[41] = { ["name"] = "Tow", ["payment"] = true, ["public"] = true },
---	[42] = { ["name"] = "Taxi", ["payment"] = true, ["public"] = true },
-	[43] = { ["name"] = "TheLost", ["payment"] = true, ["perm"] = "TheLost" },
---	[44] = { ["name"] = "PostOp", ["payment"] = true, ["public"] = true },
---	[46] = { ["name"] = "Ilegal", ["payment"] = true, ["public"] = true },
+
+
+
+
+	[42] = { ["name"] = "Taxi", ["payment"] = true, ["public"] = true },
+
+
+
+
 	[501] = { ["name"] = "Middle001", ["payment"] = false, ["perm"] = false },
 	[502] = { ["name"] = "Middle002", ["payment"] = false, ["perm"] = false },
 	[503] = { ["name"] = "Middle003", ["payment"] = false, ["perm"] = false },
@@ -350,12 +351,17 @@ local garages = {
 	[756] = { ["name"] = "Middle256", ["payment"] = false, ["perm"] = false },
 	[757] = { ["name"] = "Middle257", ["payment"] = false, ["perm"] = false },
 	[758] = { ["name"] = "Middle258", ["payment"] = false, ["perm"] = false },
-	[759] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
---	[760] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
---	[761] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
-	[762] = { ["name"] = "Goldminer", ["payment"] = true, ["public"] = true },
-	[763] = { ["name"] = "Avalanches", ["payment"] = true, ["perm"] = "Avalanches" },
-	[764] = { ["name"] = "Kart", ["payment"] = true, ["perm"] = false }
+
+
+
+
+
+	[764] = { ["name"] = "Kart", ["payment"] = true, ["perm"] = false },
+	[765] = { ["name"] = "Eclipse", ["payment"] = false, ["public"] = true },
+	[766] = { ["name"] = "Eclipse", ["payment"] = false, ["public"] = true },
+	[767] = { ["name"] = "Cassino", ["payment"] = false, ["public"] = true },
+	[768] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Police" },
+	[769] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Police" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GARAGES
@@ -650,7 +656,7 @@ AddEventHandler("garages:deleteVehicle",function(deleteVehicle)
 		local vehicle = vRPclient.nearVehicle(source,15)
 		if vehicle then
 			vCLIENT.deleteVehicle(source,vehicle)
-			TriggerClientEvent("Notify",source,"amarelo","Veículo enviado para a garagem.",3000)
+			TriggerClientEvent("Notify",source,"amarelo","O veículo próximo foi guardado.",3000)
 		end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
