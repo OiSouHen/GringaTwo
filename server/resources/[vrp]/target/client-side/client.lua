@@ -697,8 +697,13 @@ local policePed = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 local adminMenu = {
 	{
+		event = "admin:clearArea",
+		label = "Limpar Área Próxima",
+		tunnel = "admin"
+	},
+	{
 		event = "garages:deleteVehicle",
-		label = "Deletar Veículo",
+		label = "Deletar Veículo Próximo",
 		tunnel = "admin"
 	}
 }

@@ -460,16 +460,15 @@ RegisterCommand("fix",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CLEARAREA
+-- ADMIN:CLEARAREA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("cleararea",function(source,args,rawCommand)
+RegisterNetEvent("admin:clearArea")
+AddEventHandler("admin:clearArea",function(clearArea)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") then
-			local x,y,z = vRPclient.getPositions(source)
-			TriggerClientEvent("syncarea",-1,x,y,z,100)
-			TriggerClientEvent("Notify",source,"amarelo","Toda área próxima foi limpa.",3000)
-		end
+		local x,y,z = vRPclient.getPositions(source)
+		TriggerClientEvent("syncarea",-1,x,y,z,100)
+		TriggerClientEvent("Notify",source,"amarelo","Toda área próxima foi limpa.",3000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
