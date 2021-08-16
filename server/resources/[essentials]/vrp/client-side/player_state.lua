@@ -23,7 +23,7 @@ end
 function tvRP.getPositions()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
-	return vRPserver.mathLegth(coords.x),vRPserver.mathLegth(coords.y),vRPserver.mathLegth(coords.z),vRPserver.mathLegth(GetEntityHeading(ped))
+	return vRPS.mathLegth(coords.x),vRPS.mathLegth(coords.y),vRPS.mathLegth(coords.z),vRPS.mathLegth(GetEntityHeading(ped))
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- APPLYSKIN

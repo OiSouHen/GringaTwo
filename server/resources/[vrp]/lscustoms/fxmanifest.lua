@@ -3,10 +3,12 @@ game "gta5"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
-	"client-side/*"
+	"menu.lua",
+	"lscustoms.lua",
+	"lsconfig.lua"
 }
 
 server_scripts {
 	"@vrp/lib/utils.lua",
-	"server-side/*"
+	"lscustoms_server.lua"
 }

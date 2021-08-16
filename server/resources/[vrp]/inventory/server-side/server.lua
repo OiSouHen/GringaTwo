@@ -1194,17 +1194,18 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
 						TriggerClientEvent("Progress",source,15000,"Utilizando...")
-						vRPclient._createObjects(source,"mp_player_intdrink","loop_bottle","prop_ld_flow_bottle",49,60309,0.0,0.0,0.02,0.0,0.0,130.0)
+						vRPclient.createObjects(source,"mp_player_intdrink","loop_bottle","prop_ld_flow_bottle",49,60309,0.0,0.0,0.02,0.0,0.0,130.0)
 
 						repeat
 							if active[user_id] == 0 then
 								active[user_id] = nil
 								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
+								
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 									vRP.upgradeThirst(user_id,100)
 									vRP.giveInventoryItem(user_id,"emptybottle",1)
+									vRPclient._removeObjects(source,"one")
 								end
 							end
 							Citizen.Wait(0)
@@ -1271,7 +1272,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							if active[user_id] == 0 then
 								active[user_id] = nil
 								vCLIENT.blockButtons(source,false)
-								vRPclient._removeObjects(source,"one")
+								vRPclient._removeObjects(source)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 									vRP.upgradeStress(user_id,5)

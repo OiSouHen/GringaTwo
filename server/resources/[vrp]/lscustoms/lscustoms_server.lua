@@ -67,8 +67,8 @@ AddEventHandler("LSC:buttonSelected", function(name,button)
 	end
 end)
 
-RegisterServerEvent("LSC:finished")
-AddEventHandler("LSC:finished",function(veh)
+RegisterServerEvent("lscustoms:updateVehicle")
+AddEventHandler("lscustoms:updateVehicle",function(veh)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

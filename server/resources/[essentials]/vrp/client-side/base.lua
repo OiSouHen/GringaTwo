@@ -9,21 +9,75 @@ local Tools = module("vrp","lib/Tools")
 -----------------------------------------------------------------------------------------------------------------------------------------
 tvRP = {}
 Tunnel.bindInterface("vRP",tvRP)
-vRPserver = Tunnel.getInterface("vRP")
+vRPS = Tunnel.getInterface("vRP")
 Proxy.addInterface("vRP",tvRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local anims = {}
+local animFlags = 0
+local animDict = nil
+local animName = nil
+local animActived = false
+local showPassports = false
 local players = {}
-local showblips = {}
-local anim_ids = Tools.newIDGenerator()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.teleport(x,y,z)
 	SetEntityCoords(PlayerPedId(),x + 0.0001,y + 0.0001,z + 0.0001,1,0,0,0)
-	vRPserver._updatePositions(x,y,z)
+	vRPS._updatePositions(x,y,z)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NEARESTPLAYERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.nearestPlayers(vDistance)
+	local userList = {}
+	local ped = PlayerPedId()
+	local userPlayers = GetPlayers()
+	local coords = GetEntityCoords(ped)
+
+	for k,v in pairs(userPlayers) do
+		local uPlayer = GetPlayerFromServerId(k)
+		if uPlayer ~= PlayerId() and NetworkIsPlayerConnected(uPlayer) then
+			local uPed = GetPlayerPed(uPlayer)
+			local uCoords = GetEntityCoords(uPed)
+			local distance = #(coords - uCoords)
+			if distance <= vDistance then
+				userList[uPlayer] = { distance,k }
+			end
+		end
+	end
+
+	return userList
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NEARESTPLAYER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.nearestPlayer(radius)
+	local userSelect = false
+	local minRadius = radius + 0.0001
+	local userList = tvRP.nearestPlayers(radius)
+
+	for _,v in pairs(userList) do
+		if v[1] <= minRadius then
+			userSelect = v[2]
+			minRadius = v[1]
+		end
+	end
+
+	return userSelect
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETPLAYERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function GetPlayers()
+	local pedList = {}
+
+	for _,_player in ipairs(GetActivePlayers()) do
+		pedList[GetPlayerServerId(_player)] = true
+	end
+
+	return pedList
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETCAMDIRECTION
@@ -55,114 +109,49 @@ end)
 function tvRP.getPlayers()
 	return players
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- ADDPLAYER
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vRP:showIds")
-AddEventHandler("vRP:showIds",function(status)
-	showblips = status
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- NEARESTPLAYERS
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayers(vDistance)
-	local r = {}
-	for k,v in pairs(players) do
-		local player = GetPlayerFromServerId(k)
-		if player ~= PlayerId() and NetworkIsPlayerConnected(player) then
-			local oped = GetPlayerPed(player)
-			local coords = GetEntityCoords(oped)
-			local coordsPed = GetEntityCoords(PlayerPedId())
-			local distance = #(coords - coordsPed)
-			if distance <= vDistance then
-				r[GetPlayerServerId(player)] = distance
-			end
-		end
-	end
-	return r
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- NEARESTPLAYERS
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayersBlips()
-	local r = {}
-	for k,v in pairs(showblips) do
-		local player = GetPlayerFromServerId(k)
-		if player ~= PlayerId() and NetworkIsPlayerConnected(player) then
-			local oped = GetPlayerPed(player)
-			local coords = GetEntityCoords(oped)
-			local coordsPed = GetEntityCoords(PlayerPedId())
-			local distance = #(coords - coordsPed)
-			if distance <= 5 then
-				r[GetPlayerServerId(player)] = { v,coords.x,coords.y,coords.z }
-			end
-		end
-	end
-	return r
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- NEARESTPLAYER
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayer(radius)
-	local p = nil
-	local players = tvRP.nearestPlayers(2)
-	local min = radius + 0.0001
-	for k,v in pairs(players) do
-		if v < min then
-			min = v
-			p = k
-		end
-	end
-	return p
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- VARANIM
------------------------------------------------------------------------------------------------------------------------------------------
-local animActived = false
-local animDict = nil
-local animName = nil
-local animFlags = 0
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.playAnim(upper,seq,looping)
+function tvRP.playAnim(animUpper,animSequency,animLoop)
+	local playFlags = 0
 	local ped = PlayerPedId()
-	if seq.task then
+	if animSequency["task"] then
 		tvRP.stopAnim(true)
-		if seq.task == "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" then
+
+		if animSequency["task"] == "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" then
 			local coords = GetEntityCoords(ped)
-			TaskStartScenarioAtPosition(ped,seq.task,coords.x,coords.y,coords.z-1,GetEntityHeading(ped),0,0,false)
+			TaskStartScenarioAtPosition(ped,animSequency["task"],coords["x"],coords["y"],coords["z"] - 1,GetEntityHeading(ped),0,0,false)
 		else
-			TaskStartScenarioInPlace(ped,seq.task,0,not seq.play_exit)
+			TaskStartScenarioInPlace(ped,animSequency["task"],0,false)
 		end
 	else
-		tvRP.stopAnim(upper)
+		tvRP.stopAnim(animUpper)
 
-		local flags = 0
-
-		if upper then
-			flags = flags + 48
+		if animUpper then
+			playFlags = playFlags + 48
 		end
 
-		if looping then
-			flags = flags + 1
+		if animLoop then
+			playFlags = playFlags + 1
 		end
 
 		Citizen.CreateThread(function()
-			RequestAnimDict(seq[1])
-			while not HasAnimDictLoaded(seq[1]) do
-				RequestAnimDict(seq[1])
-				Citizen.Wait(10)
+			RequestAnimDict(animSequency[1])
+			while not HasAnimDictLoaded(animSequency[1]) do
+				Citizen.Wait(1)
 			end
 
-			if HasAnimDictLoaded(seq[1]) then
-				animDict = seq[1]
-				animName = seq[2]
-				animFlags = flags
-				if flags == 49 then
+			if HasAnimDictLoaded(animSequency[1]) then
+				animDict = animSequency[1]
+				animName = animSequency[2]
+				animFlags = playFlags
+
+				if playFlags == 49 then
 					animActived = true
 				end
-				TaskPlayAnim(ped,seq[1],seq[2],3.0,3.0,-1,flags,0,0,0,0)
+
+				TaskPlayAnim(ped,animSequency[1],animSequency[2],3.0,3.0,-1,playFlags,0,0,0,0)
 			end
 		end)
 	end
@@ -172,12 +161,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
-		if not IsEntityPlayingAnim(ped,animDict,animName,3) and animActived then
-			TaskPlayAnim(ped,animDict,animName,3.0,3.0,-1,animFlags,0,0,0,0)
-			timeDistance = 4
+		if animActived then
+			if not IsEntityPlayingAnim(ped,animDict,animName,3) then
+				TaskPlayAnim(ped,animDict,animName,3.0,3.0,-1,animFlags,0,0,0,0)
+				timeDistance = 1
+			end
 		end
+
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -186,10 +178,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
-						   
+		local timeDistance = 999
 		if animActived then
-			timeDistance = 4
+			timeDistance = 1
 			DisableControlAction(1,18,true)
 			DisableControlAction(1,24,true)
 			DisableControlAction(1,25,true)
@@ -207,12 +198,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.stopAnim(upper)
+function tvRP.stopAnim(animUpper)
 	animActived = false
-	if upper then
-		ClearPedSecondaryTask(PlayerPedId())
+	local ped = PlayerPedId()
+
+	if animUpper then
+		ClearPedSecondaryTask(ped)
 	else
-		ClearPedTasks(PlayerPedId())
+		ClearPedTasks(ped)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -220,6 +213,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.stopActived()
 	animActived = false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYSOUND
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.playSound(dict,name)
+	PlaySoundFrontend(-1,dict,name,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADQUEUE
@@ -233,3 +232,63 @@ Citizen.CreateThread(function()
 		Citizen.Wait(30000)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PASSPORTENALBLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function passportEnable()
+	if showPassports then return end
+
+	showPassports = true
+	local playerList = vRPS.userPlayers()
+
+	while showPassports do
+		local ped = PlayerPedId()
+		local userPlayers = GetPlayers()
+		local coords = GetEntityCoords(ped)
+
+		for k,v in pairs(userPlayers) do
+			local uPlayer = GetPlayerFromServerId(k)
+			if uPlayer ~= PlayerId() and NetworkIsPlayerConnected(uPlayer) then
+				local uPed = GetPlayerPed(uPlayer)
+				local uCoords = GetEntityCoords(uPed)
+				local distance = #(coords - uCoords)
+				if distance <= 5 then
+					DrawText3D(uCoords["x"],uCoords["y"],uCoords["z"] + 1.10,playerList[k])
+				end
+			end
+		end
+
+		Citizen.Wait(0)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PASSPORTDISABLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function passportDisable()
+	showPassports = false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PASSPORTCOMMANDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("+showPassports",passportEnable)
+RegisterCommand("-showPassports",passportDisable)
+RegisterKeyMapping("+showPassports","Visualizar Passaportes","keyboard","F7")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = (string.len(text) + 4) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
+end

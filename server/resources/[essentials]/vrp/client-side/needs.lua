@@ -18,7 +18,7 @@ Citizen.CreateThread(function()
 	while true do
 		if playerReady then
 			local coords = GetEntityCoords(PlayerPedId())
-			vRPserver._updatePositions(coords.x,coords.y,coords.z)
+			vRPS._updatePositions(coords.x,coords.y,coords.z)
 		end
 
 		Citizen.Wait(10000)
@@ -30,8 +30,8 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		if playerReady then
-			vRPserver._updateHealth(GetEntityHealth(PlayerPedId()))
-			vRPserver._updateArmour(GetPedArmour(PlayerPedId()))
+			vRPS._updateHealth(GetEntityHealth(PlayerPedId()))
+			vRPS._updateArmour(GetPedArmour(PlayerPedId()))
 		end
 
 		Citizen.Wait(30000)
@@ -82,13 +82,14 @@ function tvRP.setArmour(amount)
 	local armour = GetPedArmour(ped)
 	SetPedArmour(ped,parseInt(armour+amount))
 end
-
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREAD
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1000)
 		if IsPlayerPlaying(PlayerId()) and playerReady then
-			vRPserver._updateWeapons(tvRP.getWeapons())
+			vRPS._updateWeapons(tvRP.getWeapons())
 		end
 	end
 end)

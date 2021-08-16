@@ -1,19 +1,52 @@
+local Tunnel = module("vrp","lib/Tunnel")
+vINVENTORY = Tunnel.getInterface("inventory")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local crouch = false
-local point = false
 local object = nil
-local celular = false
+local point = false
 local animDict = nil
 local animName = nil
+local crouch = false
+local celular = false
+local cancelando = false
 local animActived = false
+local cdBtns = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STATUS:CELULAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("status:celular")
 AddEventHandler("status:celular",function(status)
 	celular = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CANCELANDO
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("cancelando")
+AddEventHandler("cancelando",function(status)
+	cancelando = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADCANCELANDO
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		if cancelando then
+			timeDistance = 1
+			DisableControlAction(1,24,true)
+			DisableControlAction(1,25,true)
+			DisableControlAction(1,38,true)
+			DisableControlAction(1,47,true)
+			DisableControlAction(1,257,true)
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,142,true)
+			DisableControlAction(1,137,true)
+			DisablePlayerFiring(PlayerPedId(),true)
+		end
+
+		Citizen.Wait(timeDistance)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCELULAR
@@ -49,9 +82,9 @@ end
 -- NUIPROMPT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("prompt",function(data,cb)
-	if data.act == "close" then
-		SetNuiFocus(false)
-		vRPserver._promptResult(data.result)
+	if data["act"] == "close" then
+		SetNuiFocus(false,false)
+		vRPS.promptResult(data["result"])
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -59,34 +92,16 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.prompt(title,default_text)
 	SendNUIMessage({ act = "prompt", title = title, text = tostring(default_text) })
-	SetNuiFocus(true)
+	SetNuiFocus(true,true)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUEST
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("request",function(data,cb)
-	if data.act == "response" then
-		vRPserver._requestResult(data.id,data.ok)
+	if data["act"] == "response" then
+		vRPS.requestResult(data["id"],data["ok"])
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SETDIV
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.setDiv(name,css,content)
-	SendNUIMessage({ act = "set_div", name = name, css = css, content = content })
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SETDIVCONTENT
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.setDivContent(name,content)
-	SendNUIMessage({ act = "set_div_content", name = name, content = content })
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVEDIV
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.removeDiv(name)
-	SendNUIMessage({ act = "remove_div", name = name })
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOADANIMSET
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -99,14 +114,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATEOBJECTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,pos5)
+function tvRP.createObjects(newDict,newAnim,newProp,newFlag,newHands,newHeight,newPos1,newPos2,newPos3,newPos4,newPos5)
 	if DoesEntityExist(object) then
 		TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(object))
 		object = nil
 	end
 
 	local ped = PlayerPedId()
-	local mHash = GetHashKey(prop)
+	local mHash = GetHashKey(newProp)
+	local coords = GetEntityCoords(ped)
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
@@ -114,41 +130,31 @@ function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,p
 	end
 
 	if HasModelLoaded(mHash) then
-		if anim ~= "" then
-			tvRP.loadAnimSet(dict)
-			TaskPlayAnim(ped,dict,anim,3.0,3.0,-1,flag,0,0,0,0)
+		if newAnim ~= "" then
+			tvRP.loadAnimSet(newDict)
+			TaskPlayAnim(ped,newDict,newAnim,3.0,3.0,-1,newFlag,0,0,0,0)
 		end
 
-		if altura then
-			local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
+		if newHeight then
 			object = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
-			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),altura,pos1,pos2,pos3,pos4,pos5,true,true,false,true,1,true)
+			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,newHands),newHeight,newPos1,newPos2,newPos3,newPos4,newPos5,true,true,false,true,1,true)
 		else
-			local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.0,-5.0)
 			object = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
-			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,mao),0.0,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
+			AttachEntityToEntity(object,ped,GetPedBoneIndex(ped,newHands),0.0,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
 		end
 
-		SetEntityAsMissionEntity(object,true,true)
+		local netObjs = NetworkGetNetworkIdFromEntity(object)
+
+		SetNetworkIdCanMigrate(netObjs,true)
+
+		SetEntityAsMissionEntity(object,true,false)
 		SetEntityAsNoLongerNeeded(object)
 		SetModelAsNoLongerNeeded(mHash)
 
 		animActived = true
-		animFlags = flag
-		animDict = dict
-		animName = anim
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVEACTIVED
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.removeActived()
-	if animActived then
-		if DoesEntityExist(object) then
-			TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
-			object = nil
-		end
-		animActived = false
+		animFlags = newFlag
+		animDict = newDict
+		animName = newAnim
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -165,23 +171,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADBLOCK
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if animActived then
-			timeDistance = 4
-			DisableControlAction(1,16,true)
-			DisableControlAction(1,17,true)
-			DisableControlAction(1,24,true)
-			DisableControlAction(1,25,true)
-		end
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -206,6 +195,32 @@ function tvRP.removeObjects(status)
 		object = nil
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCDELETEENTITY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("syncDeleteEntity")
+AddEventHandler("syncDeleteEntity",function(index)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			SetEntityAsMissionEntity(v,false,false)
+			DeleteEntity(v)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCCLEANENTITY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("syncCleanEntity")
+AddEventHandler("syncCleanEntity",function(index)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			SetVehicleDirtLevel(v,0.0)
+			SetVehicleUndriveable(v,false)
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLOCKDRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -258,46 +273,41 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SYNCDELETEENTITY
+-- DISABLECONTROLS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("syncDeleteEntity")
-AddEventHandler("syncDeleteEntity",function(index)
-	if NetworkDoesNetworkIdExist(index) then
-		local v = NetToEnt(index)
-		if DoesEntityExist(v) then
-			SetEntityAsMissionEntity(v,false,false)
-			DeleteEntity(v)
-		end
+Citizen.CreateThread(function()
+	while true do
+		DisableControlAction(1,37,false)
+		DisableControlAction(1,99,false)
+		DisableControlAction(1,100,false)
+		DisableControlAction(1,157,false)
+		DisableControlAction(1,158,false)
+		DisableControlAction(1,160,false)
+		DisableControlAction(1,164,false)
+		DisableControlAction(1,165,false)
+		DisableControlAction(1,159,false)
+		DisableControlAction(1,161,false)
+		DisableControlAction(1,162,false)
+		DisableControlAction(1,163,false)
+		DisableControlAction(1,261,false)
+		DisableControlAction(1,262,false)
+		DisableControlAction(1,204,false)
+		DisableControlAction(1,211,false)
+		DisableControlAction(1,349,false)
+		DisableControlAction(1,192,false)
+
+		Citizen.Wait(4)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SYNCCLEANENTITY
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("syncCleanEntity")
-AddEventHandler("syncCleanEntity",function(index)
-	if NetworkDoesNetworkIdExist(index) then
-		local v = NetToEnt(index)
-		if DoesEntityExist(v) then
-			SetVehicleDirtLevel(v,0.0)
-			SetVehicleUndriveable(v,false)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- CANCELANDO
------------------------------------------------------------------------------------------------------------------------------------------
-local cancelando = false
-RegisterNetEvent("cancelando")
-AddEventHandler("cancelando",function(status)
-	cancelando = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CANCELF6
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindCancel",function(source,args)
-	if not IsPauseMenuActive() then
+RegisterCommand("cRcancelf6",function(source,args)
+	if GetGameTimer() >= cdBtns then
+		cdBtns = GetGameTimer() + 1000
+
 		local ped = PlayerPedId()
-		if GetEntityHealth(ped) > 101 and not celular and not cancelando and not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
+		if not IsPauseMenuActive() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not celular and not cancelando then
 			TriggerServerEvent("inventory:Cancel")
 		end
 	end
@@ -305,62 +315,56 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HANDSUP
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindHandsupp",function(source,args)
-	if not IsPauseMenuActive() then
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) and not celular and GetEntityHealth(ped) > 101 then
-			if IsEntityPlayingAnim(ped,"random@mugging3","handsup_standing_base",3) then
-				StopAnimTask(ped,"random@mugging3","handsup_standing_base",2.0)
-				tvRP.stopActived()
-			else
-				tvRP.playAnim(true,{"random@mugging3","handsup_standing_base"},true)
-			end
+RegisterCommand("cRhandsup",function(source,args)
+	local ped = PlayerPedId()
+	if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPedInAnyVehicle(ped) and not celular and GetEntityHealth(ped) > 101 and not cancelando then
+		if IsEntityPlayingAnim(ped,"random@mugging3","handsup_standing_base",3) then
+			StopAnimTask(ped,"random@mugging3","handsup_standing_base",2.0)
+			tvRP.stopActived()
+		else
+			tvRP.playAnim(true,{"random@mugging3","handsup_standing_base"},true)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POINT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindPoint",function(source,args)
-	if not IsPauseMenuActive() then
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) and not celular and GetEntityHealth(ped) > 101 then
-			tvRP.loadAnimSet("anim@mp_point")
+RegisterCommand("cRpoint",function(source,args)
+	local ped = PlayerPedId()
+	if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not cancelando and not celular and not IsPedInAnyVehicle(ped) and GetEntityHealth(ped) > 101 then
+		tvRP.loadAnimSet("anim@mp_point")
 
-			if not point then
-				tvRP.stopActived()
-				SetPedCurrentWeaponVisible(ped,0,1,1,1)
-				SetPedConfigFlag(ped,36,1)
-				TaskMoveNetwork(ped,"task_mp_pointing",0.5,0,"anim@mp_point",24)
-				point = true
-			else
-				Citizen.InvokeNative(0xD01015C7316AE176,ped,"Stop")
-				if not IsPedInjured(ped) then
-					ClearPedSecondaryTask(ped)
-				end
-
-				if not IsPedInAnyVehicle(ped) then
-					SetPedCurrentWeaponVisible(ped,1,1,1,1)
-				end
-
-				SetPedConfigFlag(ped,36,0)
+		if not point then
+			tvRP.stopActived()
+			SetPedConfigFlag(ped,36,1)
+			TaskMoveNetwork(ped,"task_mp_pointing",0.5,0,"anim@mp_point",24)
+			point = true
+		else
+			Citizen.InvokeNative(0xD01015C7316AE176,ped,"Stop")
+			if not IsPedInjured(ped) then
 				ClearPedSecondaryTask(ped)
-				point = false
 			end
+
+			SetPedConfigFlag(ped,36,0)
+			ClearPedSecondaryTask(ped)
+			point = false
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LIGARVEH
+-- LIGARVEH / AGACHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindEngine",function(source,args)
-	if not IsPauseMenuActive() then
+RegisterCommand("cRenginecrouch",function(source,args)
+	if GetGameTimer() >= cdBtns then
+		cdBtns = GetGameTimer() + 1000
+
 		local ped = PlayerPedId()
-		if not celular and GetEntityHealth(ped) > 101 then
+		if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not celular and GetEntityHealth(ped) > 101 and not cancelando then
 			if IsPedInAnyVehicle(ped) then
 				local vehicle = GetVehiclePedIsUsing(ped)
 				if GetPedInVehicleSeat(vehicle,-1) == ped then
 					tvRP.removeObjects("two")
+
 					local running = GetIsVehicleEngineRunning(vehicle)
 					SetVehicleEngineOn(vehicle,not running,true,true)
 					if running then
@@ -369,6 +373,19 @@ RegisterCommand("keybindEngine",function(source,args)
 						SetVehicleUndriveable(vehicle,false)
 					end
 				end
+			elseif not blockDrunk then
+				RequestAnimSet("move_ped_crouched")
+				while not HasAnimSetLoaded("move_ped_crouched") do
+					Citizen.Wait(1)
+				end
+
+				if crouch then
+					ResetPedMovementClipset(ped,0.25)
+					crouch = false
+				else
+					SetPedMovementClipset(ped,"move_ped_crouched",0.25)
+					crouch = true
+				end
 			end
 		end
 	end
@@ -376,76 +393,64 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BIND
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybind",function(source,args)
-	if not IsPauseMenuActive() then
+RegisterCommand("cRbind",function(source,args)
+	if GetGameTimer() >= cdBtns then
+		cdBtns = GetGameTimer() + 1000
+
 		local ped = PlayerPedId()
-		if not celular and GetEntityHealth(ped) > 101 then
-			if args[1] == "1" then
-				TriggerServerEvent("inventory:useItem","1",1)
-			elseif args[1] == "2" then
-				TriggerServerEvent("inventory:useItem","2",1)
-			elseif args[1] == "3" then
-				TriggerServerEvent("inventory:useItem","3",1)
-			elseif args[1] == "4" then
-				TriggerServerEvent("inventory:useItem","4",1)
-			elseif args[1] == "5" then
-				TriggerServerEvent("inventory:useItem","5",1)
-			elseif args[1] == "f1" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",3) then
-					StopAnimTask(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"anim@heists@heist_corona@single_team","single_team_loop_boss"},true)
+		if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not celular and GetEntityHealth(ped) > 101 and not cancelando then
+			if parseInt(args[1]) >= 1 and parseInt(args[1]) <= 5 then
+				vINVENTORY.useItem(args[1])
+			elseif args[1] == "6" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
+					if IsEntityPlayingAnim(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",3) then
+						StopAnimTask(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",2.0)
+						tvRP.stopActived()
+					else
+						tvRP.playAnim(true,{"anim@heists@heist_corona@single_team","single_team_loop_boss"},true)
+					end
 				end
-			elseif args[1] == "f2" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"mini@strip_club@idles@bouncer@base","base",3) then
-					StopAnimTask(ped,"mini@strip_club@idles@bouncer@base","base",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"mini@strip_club@idles@bouncer@base","base"},true)
+			elseif args[1] == "7" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
+					if IsEntityPlayingAnim(ped,"mini@strip_club@idles@bouncer@base","base",3) then
+						StopAnimTask(ped,"mini@strip_club@idles@bouncer@base","base",2.0)
+						tvRP.stopActived()
+					else
+						tvRP.playAnim(true,{"mini@strip_club@idles@bouncer@base","base"},true)
+					end
 				end
-			elseif args[1] == "6" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"anim@mp_player_intupperfinger","idle_a_fp",3) then
-					StopAnimTask(ped,"anim@mp_player_intupperfinger","idle_a_fp",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"anim@mp_player_intupperfinger","idle_a_fp"},true)
+			elseif args[1] == "8" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
+					if IsEntityPlayingAnim(ped,"anim@mp_player_intupperfinger","idle_a_fp",3) then
+						StopAnimTask(ped,"anim@mp_player_intupperfinger","idle_a_fp",2.0)
+						tvRP.stopActived()
+					else
+						tvRP.playAnim(true,{"anim@mp_player_intupperfinger","idle_a_fp"},true)
+					end
 				end
-			elseif args[1] == "7" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"anim@heists@prison_heiststation@cop_reactions","cop_a_idle",3) then
-					StopAnimTask(ped,"anim@heists@prison_heiststation@cop_reactions","cop_a_idle",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"anim@heists@prison_heiststation@cop_reactions","cop_a_idle"},true)
+			elseif args[1] == "9" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
+					if IsEntityPlayingAnim(ped,"random@arrests@busted","idle_a",3) then
+						StopAnimTask(ped,"random@arrests@busted","idle_a",2.0)
+						tvRP.stopActived()
+					else
+						tvRP.playAnim(true,{"random@arrests@busted","idle_a"},true)
+					end
 				end
-			elseif args[1] == "8" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"amb@world_human_cop_idles@female@base","base",3) then
-					StopAnimTask(ped,"amb@world_human_cop_idles@female@base","base",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"amb@world_human_cop_idles@female@base","base"},true)
-				end
-			elseif args[1] == "9" and not IsPedInAnyVehicle(ped) then
-				if IsEntityPlayingAnim(ped,"random@arrests@busted","idle_a",3) then
-					StopAnimTask(ped,"random@arrests@busted","idle_a",2.0)
-					tvRP.stopActived()
-				else
-					tvRP.playAnim(true,{"random@arrests@busted","idle_a"},true)
-				end
-			elseif args[1] == "left" and not IsPedInAnyVehicle(ped) then
-				if not IsPedInAnyVehicle(ped) then
+			elseif args[1] == "left" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
 					tvRP.playAnim(true,{"anim@mp_player_intupperthumbs_up","enter"},false)
 				end
-			elseif args[1] == "right" and not IsPedInAnyVehicle(ped) then
-				if not IsPedInAnyVehicle(ped) then
+			elseif args[1] == "right" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
 					tvRP.playAnim(true,{"anim@mp_player_intcelebrationmale@face_palm","face_palm"},false)
 				end
-			elseif args[1] == "up" and not IsPedInAnyVehicle(ped) then
-				if not IsPedInAnyVehicle(ped) then
+			elseif args[1] == "up" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
 					tvRP.playAnim(true,{"anim@mp_player_intcelebrationmale@salute","salute"},false)
 				end
-			elseif args[1] == "down" and not IsPedInAnyVehicle(ped) then
-				if not IsPedInAnyVehicle(ped) then
+			elseif args[1] == "down" then
+				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
 					tvRP.playAnim(true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
 				end
 			end
@@ -455,61 +460,51 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ACCEPT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindAccept",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
-		SendNUIMessage({ act = "event", event = "Y" })
-	end
+RegisterCommand("cRaccept",function(source,args)
+	SendNUIMessage({ act = "event", event = "Y" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REJECT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindReject",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
-		SendNUIMessage({ act = "event", event = "U" })
-	end
+RegisterCommand("cRreject",function(source,args)
+	SendNUIMessage({ act = "event", event = "U" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LOCKCAR
+-- LOCKVEHICLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("lockVehicle",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
-		TriggerServerEvent("garages:lockVehicle")
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TRUNKCAR
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("vehTrunk",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
-		TriggerServerEvent("trunkchest:openTrunk")
+RegisterCommand("lockVehicles",function(source,args)
+	if GetGameTimer() >= cdBtns then
+		cdBtns = GetGameTimer() + 1000
+
+		local ped = PlayerPedId()
+		if not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPedSwimming(ped) and GetEntityHealth(ped) > 101 then
+			local vehicle,vehNet,vehPlate,vehName,vehLock = tvRP.vehList(5)
+			if vehicle then
+				TriggerServerEvent("garages:lockVehicle",vehNet,vehPlate,vehLock)
+			end
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("keybindCancel","Cancelar animações","keyboard","f6")
-RegisterKeyMapping("keybindHandsupp","Levantar as mãos","keyboard","x")
-RegisterKeyMapping("keybindPoint","Apontar os dedos","keyboard","b")
-RegisterKeyMapping("keybindEngine","Ligar veículo","keyboard","z")
-RegisterKeyMapping("keybind 1","Inventory Bind 1","keyboard","1")
-RegisterKeyMapping("keybind 2","Inventory Bind 2","keyboard","2")
-RegisterKeyMapping("keybind 3","Inventory Bind 3","keyboard","3")
-RegisterKeyMapping("keybind 4","Inventory Bind 4","keyboard","4")
-RegisterKeyMapping("keybind 5","Inventory Bind 5","keyboard","5")
-RegisterKeyMapping("keybind 6","Animation Bind 6","keyboard","6")
-RegisterKeyMapping("keybind 7","Animation Bind 7","keyboard","7")
-RegisterKeyMapping("keybind 8","Animation Bind 8","keyboard","8")
-RegisterKeyMapping("keybind 9","Animation Bind 9","keyboard","9")
-RegisterKeyMapping("keybind left","Bind Left","keyboard","left")
-RegisterKeyMapping("keybind right","Bind Right","keyboard","right")
-RegisterKeyMapping("keybind up","Bind Up","keyboard","up")
-RegisterKeyMapping("keybind down","Bind Down","keyboard","down")
-RegisterKeyMapping("keybindAccept","Aceitar chamado","keyboard","y")
-RegisterKeyMapping("keybindReject","Rejeitar chamado","keyboard","u")
-
---RegisterKeyMapping("keybind f1","Animation Bind f1","keyboard","f1")
---RegisterKeyMapping("keybind f2","Animation Bind f2","keyboard","f2")
+RegisterKeyMapping("cRcancelf6","Cancelar animações","keyboard","F6")
+RegisterKeyMapping("cRhandsup","Levantar as mãos","keyboard","X")
+RegisterKeyMapping("cRpoint","Apontar os dedos","keyboard","B")
+RegisterKeyMapping("cRenginecrouch","Agachar / Ligar veículo","keyboard","Z")
+RegisterKeyMapping("cRbind 1","Inventory 1","keyboard","1")
+RegisterKeyMapping("cRbind 2","Inventory 2","keyboard","2")
+RegisterKeyMapping("cRbind 3","Inventory 3","keyboard","3")
+RegisterKeyMapping("cRbind 4","Inventory 4","keyboard","4")
+RegisterKeyMapping("cRbind 5","Inventory 5","keyboard","5")
+RegisterKeyMapping("cRbind 6","Bind 6","keyboard","6")
+RegisterKeyMapping("cRbind 7","Bind 7","keyboard","7")
+RegisterKeyMapping("cRbind 8","Bind 8","keyboard","8")
+RegisterKeyMapping("cRbind 9","Bind 9","keyboard","9")
+RegisterKeyMapping("cRbind left","Bind Left","keyboard","LEFT")
+RegisterKeyMapping("cRbind right","Bind Right","keyboard","RIGHT")
+RegisterKeyMapping("cRbind up","Bind Up","keyboard","UP")
+RegisterKeyMapping("cRbind down","Bind Down","keyboard","DOWN")
+RegisterKeyMapping("cRaccept","Aceitar chamado","keyboard","Y")
+RegisterKeyMapping("cRreject","Rejeitar chamado","keyboard","U")
+RegisterKeyMapping("lockVehicles","Trancar veículo","keyboard","L")
