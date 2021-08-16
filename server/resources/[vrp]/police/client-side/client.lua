@@ -4,6 +4,7 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+vRPS = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -11,16 +12,54 @@ cRP = {}
 Tunnel.bindInterface("police",cRP)
 vSERVER = Tunnel.getInterface("police")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inSelect = 1
-local inDeath = false
-local inPrison = false
-local inTimer = GetGameTimer()
-local timeDeath = GetGameTimer()
-local coordsIntern = { 1679.94,2513.07,45.56 }
-local coordsExtern = { 1846.49,2584.38,45.66 }
-local coordsLeaver = { 1834.09,2594.34,46.02 }
+RegisterNUICallback("closeSystem",function(data)
+	SendNUIMessage({ action = "closeSystem" })
+	SetNuiFocus(false,false)
+	vRP.removeObjects()
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INITPRISON
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("initPrison",function(data)
+	vSERVER.initPrison(data)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INITFINE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("initFine",function(data)
+	vSERVER.initFine(data)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATEPORT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("updatePort",function(data)
+	vSERVER.updatePort(data["passaporte"])
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHUSER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("searchUser",function(data,cb)
+	cb({ result = vSERVER.searchUser(data) })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- OPENSYSTEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:openSystem")
+AddEventHandler("police:openSystem",function()
+	local ped = PlayerPedId()
+	if not IsPedSwimming(ped) then
+		SendNUIMessage({ action = "openSystem" })
+		TriggerEvent("dynamic:closeSystem")
+		SetNuiFocus(true,true)
+
+		if not IsPedInAnyVehicle(ped) then
+			vRP.removeObjects()
+			vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:INSERTBARRIER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -39,15 +78,37 @@ AddEventHandler("police:insertBarrier",function()
 
 		if HasModelLoaded(mHash) then
 			local newObject = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
+			local netObjs = ObjToNet(newObject)
+
+			SetNetworkIdCanMigrate(netObjs,true)
 
 			PlaceObjectOnGroundProperly(newObject)
-			SetEntityAsMissionEntity(newObject,true,true)
+			SetEntityAsMissionEntity(newObject,true,false)
 			SetEntityHeading(newObject,heading - 180)
 			FreezeEntityPosition(newObject,true)
+
 			SetModelAsNoLongerNeeded(mHash)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:UPDATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:Update")
+AddEventHandler("police:Update",function(action,data)
+	SendNUIMessage({ action = action, data = data })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local inSelect = 1
+local inDeath = false
+local inPrison = false
+local inTimer = GetGameTimer()
+local timeDeath = GetGameTimer()
+local coordsIntern = { 1679.94,2513.07,45.56 }
+local coordsExtern = { 1846.49,2584.38,45.66 }
+local coordsLeaver = { 1765.67,2565.99,45.57 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------

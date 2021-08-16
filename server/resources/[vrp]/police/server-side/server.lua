@@ -17,43 +17,71 @@ vCLIENT = Tunnel.getInterface("police")
 local records = "https://discordapp.com/api/webhooks/720509199016001577/ItUB6rFpnyZjYKWpOZvX798HeKaJG5A1piLHaP-NiRkqA4vhZLleyzktT6g_IGEPI3Jz"
 local fines = "https://discordapp.com/api/webhooks/720509293761134623/8QxolDcd3RNcxJ5ym6QH9tjJfxM3ivmiZlfwamxR9XpbEtytj3b8Bsco2sITphfl6NLq"
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PRISON
+-- INITPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("prender",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Police") then
-			local nuser_id = vRP.prompt(source,"Passaporte da pessoa:","")
-			if nuser_id == "" then
-				return
-			end
+function cRP.initPrison(data)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        local identity = vRP.getUserIdentity(parseInt(data.passaporte))
+        local identity2 = vRP.getUserIdentity(parseInt(user_id))
 
-			local services = vRP.prompt(source,"Serviços que a pessoa precisa fazer:","")
-			if services == "" then
-				return
-			end
-
-			local crimes = vRP.prompt(source,"Crimes cometidos pela pessoa:","")
-			if crimes == "" then
-				return
-			end
-
-			local nplayer = vRP.getUserSource(parseInt(nuser_id))
-			if nplayer then
-				vCLIENT.syncPrison(nplayer,1775.61,2495.13,50.43)
-			end
-
-			vRP.execute("vRP/set_prison",{ user_id = parseInt(nuser_id), prison = parseInt(services), locate = 1 })
-
-			local identity = vRP.getUserIdentity(parseInt(nuser_id))
-			local identity2 = vRP.getUserIdentity(parseInt(user_id))
-			if identity then
-				creativeLogs(records,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nSERVICES: "..parseInt(services).."\nCRIMES: "..crimes.."\nBY: "..identity2.name.." "..identity2.name2.."```")
-				TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> enviado para a prisão <b>"..parseInt(services).." serviços</b>.",5000)
-			end
+        local nplayer = vRP.getUserSource(parseInt(data.passaporte))
+        if nplayer then
+            vRP.setFines(parseInt(data.passaporte),parseInt(data.fines),parseInt(user_id),tostring(data.reason))
+            vRP.execute("vRP/set_prison",{ user_id = parseInt(data.passaporte), prison = parseInt(data.services), locate = parseInt(2) })
+            vCLIENT.syncPrison(nplayer,1775.61,2495.13,50.43)
+        end
+		
+		if identity then
+		    TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> enviado para a prisão.",5000)
+			creativeLogs(records,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nSERVICES: "..parseInt(services).."\nCRIMES: "..data.reason.."\nBY: "..identity2.name.." "..identity2.name2.."```")
 		end
-	end
-end)
+    end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INITFINE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.initFine(data)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        local identity = vRP.getUserIdentity(parseInt(data.passaporte))
+        local identity2 = vRP.getUserIdentity(parseInt(user_id))
+		
+		local nplayer = vRP.getUserSource(parseInt(data.passaporte))
+        if nplayer then
+            vRP.setFines(parseInt(data.passaporte),parseInt(data.fines),parseInt(user_id),tostring(data.reason))
+			vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
+        end
+		
+        if identity then
+            TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> recebeu multa de <b>$"..vRP.format(parseInt(data.fines)).." dólares</b>.",5000)
+			creativeLogs(fines,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nVALUE: $"..vRP.format(parseInt(value)).."\nBY: "..identity2.name.." "..identity2.name2.."```")
+        end
+    end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RPRISON
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.searchUser(data)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    local identity = vRP.getUserIdentity(data.passaporte)
+    if data.passaporte and user_id then
+        local name =  identity.name.." "..identity.name2
+        local rg = identity.registration
+        local phone = identity.phone
+        local gender = "M"
+        local fines = 0
+        local consult = vRP.getFines(data.passaporte)
+        for k,v in pairs(consult) do
+            fines = parseInt(fines) + parseInt(v.price)
+        end
+--        local data = vRP.query("vRP/get_pol",{ user_id = data.passaporte })
+        return {identity.register, name, rg , phone , gender, 10, data }
+    end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -160,39 +188,6 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",3000)
 		vCLIENT.syncPrison(source,parseInt(consult[1].locate))
 		vRPclient.teleport(source,1775.61,2495.13,50.43)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- MULTAR
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("multar",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Police") then
-			local nuser_id = vRP.prompt(source,"Passaporte da pessoa::","")
-			if nuser_id == "" or parseInt(nuser_id) <= 0 then
-				return
-			end
-
-			local value = vRP.prompt(source,"Valor da multa:","")
-			if value == "" or parseInt(value) <= 0 then
-				return
-			end
-
-			local reason = vRP.prompt(source,"Motivo da multa:","")
-			if reason == "" then
-				return
-			end
-
-			local identity = vRP.getUserIdentity(parseInt(nuser_id))
-			local identity2 = vRP.getUserIdentity(parseInt(user_id))
-			if identity then
-				vRP.setFines(parseInt(nuser_id),parseInt(value),parseInt(user_id),tostring(reason))
-				vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-				TriggerClientEvent("Notify",source,"amarelo","Aplicado multa em <b>"..identity.name.." "..identity.name2.."</b> no valor de <b>$"..vRP.format(parseInt(value)).." dólares</b>.",5000)
-				creativeLogs(fines,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nVALUE: $"..vRP.format(parseInt(value)).."\nCRIMES: "..reason.."\nBY: "..identity2.name.." "..identity2.name2.."```")
-			end
-		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
