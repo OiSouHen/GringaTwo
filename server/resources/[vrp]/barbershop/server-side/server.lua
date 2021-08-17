@@ -45,6 +45,7 @@ RegisterCommand("debug", function(source, args, rawCommand)
             local data = vRP.getUserDataTable(user_id)
             if data then
                 TriggerClientEvent("syncarea", -1, x, y, z, 2)
+                TriggerClientEvent("target:resetDebug")
                 vRPclient._setCustomization(source, data.customization)
                 local value = vRP.getUData(user_id, "currentCharacterMode")
                 if value ~= "" then
