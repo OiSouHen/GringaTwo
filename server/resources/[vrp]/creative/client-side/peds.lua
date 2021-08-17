@@ -14,6 +14,12 @@ local pedList = {
 	},
 	{ -- Ilegal
 		distance = 100,
+		coords = { -1167.03,-2034.54,13.31,140.84 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Ilegal
+		distance = 100,
 		coords = { 301.4,-195.29,61.57,158.75 },
 		model = { 0x158C439C,"g_f_y_ballas_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }

@@ -29,6 +29,10 @@ $(document).ready(function(){
 			case "updateAluguel":
 				updateAluguel();
 			break;
+			
+			case "aboutPage":
+				aboutPage();
+			break;
 		};
 	});
 
@@ -48,7 +52,38 @@ $(document).on("click","#mainMenu li",function(){
 			reversePage = selectPage;
 		};
 	};
-});const commandsPage = () => {
+});
+/* ---------------------------------------------------------------------------------------------------------------- */
+const aboutPage = () => {
+	selectPage = "about";
+
+	$.post("http://inventory/requestMochila",JSON.stringify({}),(data) => {
+		$("#content").html(`
+			<div id="titleContent">SOBRE</div>
+			<div id="pageDiv2">
+				<b>Passaporte:</b> 0<br>
+				<b>Nome:</b> 0<br>
+				<b>Tipo Sanguíneo:</b> 0
+			</div>
+			<div id="pageDiv2">
+				<b>Total de Gemas:</b> $0<br>
+				<b>Porte de Armas:</b> Não
+			</div>
+			<div id="pageDiv2">
+				<b>Máximo de Veículos:</b> 0<br>
+				<b>Máximo de Propriedades:</b> 0
+			</div>
+			<div id="pageDiv2">
+				<b>Pontos de Prestígio:</b> 0<br>
+				<b>Premium:</b> 0
+			</div>
+
+			<div id="divContent"></div>
+		`);
+	});
+};
+/* ---------------------------------------------------------------------------------------------------------------- */
+const commandsPage = () => {
 	selectPage = "commands";
 
 	$("#content").html(`
@@ -70,11 +105,11 @@ $(document).on("click","#mainMenu li",function(){
 
 		<div id="titleContent">BOTÕES DE ATALHO</div>
 		<div id="pageDiv">
-			<b>F1</b> - Abrir tablet<br>
-			<b>F2</b> - Abrir registro de chamados<br>
-			<b>F3</b> - Abrir código 10 policial<br>
+			<b>F1</b> - Abrir registro de chamados<br>
+			<b>F2</b> - Abrir código 10 policial<br>
 			<b>F4</b> - Abrir console do veículo<br>
-			<b>F6</b> - Cancela função ativa
+			<b>F6</b> - Cancela função ativa<br>
+			<b>F9</b> - Central de Funções
 		</div>
 		<div id="pageDiv">
 			<b>ARROW UP</b> - Saudação<br>
@@ -87,8 +122,7 @@ $(document).on("click","#mainMenu li",function(){
 			<b>HOME</b> - Muda a distancia de falar<br>
 			<b>B</b> - Apontar com o dedo<br>
 			<b>Z</b> - Ligar/Desligar motor e Agachar-se<br>
-			<b>X</b> - Levanta as mãos<br>
-			<b>F9</b> - Central de Funções
+			<b>X</b> - Levanta as mãos
 		</div>
 
 		<div id="divContent"></div>
@@ -272,7 +306,18 @@ $(document).on("click","#mainMenu li",function(){
 	`);
 };
 /* ---------------------------------------------------------------------------------------------------------------- */
+var benMode = "Carros"
+var benSearch = "alphabetic"
+
+const searchTypePage = (mode) => {
+	benSearch = mode;
+	benefactor(benMode);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
 const UpdateLista = (mode) => {
+	benMode = mode;
+	selectPage = "benefactor";
+	
 	$("#content").html(`
 		<div id="benefactorBar">
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
