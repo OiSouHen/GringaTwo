@@ -40,7 +40,9 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TASKSAVEDATATABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
 function task_save_datatables()
 	SetTimeout(60000,task_save_datatables)
 	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
@@ -61,11 +63,15 @@ function task_save_datatables()
 		end
 	end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ASYNC
+-----------------------------------------------------------------------------------------------------------------------------------------
 async(function()
 	task_save_datatables()
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HASVEHICLESTOCK
+-----------------------------------------------------------------------------------------------------------------------------------------
 local hasVehicleStock = function(veh)
 	if stockVeh and veh then
 		veh = tostring(veh)
@@ -76,7 +82,9 @@ local hasVehicleStock = function(veh)
 	end
 	return false
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TRYADDVEHICLEINSTOCK
+-----------------------------------------------------------------------------------------------------------------------------------------
 local tryAddVehicleInStock = function(veh)
 	if stockVeh and veh then
 		veh = tostring(veh)
@@ -88,7 +96,9 @@ local tryAddVehicleInStock = function(veh)
 	end
 	return false
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TRYREMVEHICLEINSTOCK
+-----------------------------------------------------------------------------------------------------------------------------------------
 local tryRemVehicleInStock = function(veh)
 	if stockVeh and veh then
 		veh = tostring(veh)
@@ -173,12 +183,12 @@ function cRP.buyDealer(name)
 				
 				if vRP.getPremium(user_id) then
 					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
-						TriggerClientEvent("Notify",source,"azul","Você atingiu o máximo de veículos em sua garagem.",3000)
+						TriggerClientEvent("Notify",source,"amarelo","Máximo de veículos atingido.",3000)
 						return
 					end
 				else
 					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
-						TriggerClientEvent("Notify",source,"azul","Você atingiu o máximo de veículos em sua garagem.",3000)
+						TriggerClientEvent("Notify",source,"amarelo","Máximo de veículos atingido.",3000)
 						return
 					end
 				end
@@ -240,10 +250,10 @@ function cRP.sellDealer(name)
 				TriggerClientEvent("Notify",source,"verde","Venda concluida.",3000)
 				creativelogs(webhookdealership,"ini```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[VENDEU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[DATA]: %d/%m/%Y [HORA]: %H:%M:%S").." \r```")
 			else
-				TriggerClientEvent("Notify",source,"amarelo","Aguarde 5 minutos para vender novamente.",3000)
+				TriggerClientEvent("Notify",source,"azul","Aguarde 5 minutos para vender novamente.",5000)
 			end
 		else
-			TriggerClientEvent("Notify",source,"negado","Você não pode vender este veículo.",3000)
+			TriggerClientEvent("Notify",source,"vermelho","Você não pode vender este veículo.",3000)
 		end
 	end
 end
