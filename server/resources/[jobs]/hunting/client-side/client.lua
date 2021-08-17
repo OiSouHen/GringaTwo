@@ -283,12 +283,14 @@ function newHunting(i)
 		local spawnY = math.random(-250,250)
 		local inLocate = math.random(#animalCoords)
 
-		animalHunting[i] = CreatePed(28,mHash,animalCoords[inLocate][1],animalCoords[inLocate][2],animalCoords[inLocate][3] - 1,false,false,false)
+		animalHunting[i] = CreatePed(28,mHash,animalCoords[inLocate][1],animalCoords[inLocate][2],animalCoords[inLocate][3] - 1,3374176,false,false)
 		TaskGoStraightToCoord(animalHunting[i],animalCoords[inLocate][1] + spawnX,animalCoords[inLocate][2] + spawnY,animalCoords[inLocate][3],0.5,-1,0.0,0.0)
 		SetPedKeepTask(animalHunting[i],true)
 		SetPedCombatMovement(animalHunting[i],3)
 		SetPedCombatAbility(animalHunting[i],100)
 		SetPedCombatAttributes(animalHunting[i],46,1)
+
+		SetModelAsNoLongerNeeded(mHash)
 
 		blipAnimal(i)
 	end
