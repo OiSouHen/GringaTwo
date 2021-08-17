@@ -94,6 +94,20 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
+	
+	AddCircleZone("polService01",vector3(1841.72,2577.98,46.02),0.75,{
+		name = "polService01",
+		heading = 9.53
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "police:servicePolice",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
 
 	AddTargetModel({ 1631638868,2117668672,-1498379115,-1519439119,-289946279 },{
 		options = {
@@ -200,6 +214,17 @@ Citizen.CreateThread(function()
 				event = "hunting:animalCutting",
 				label = "Esfolar",
 				tunnel = "client"
+			}
+		},
+		distance = 1.50
+	})
+
+	AddTargetModel({ -205311355 },{
+		options = {
+			{
+				event = "tryDeleteObject",
+				label = "Remover",
+				tunnel = "objects"
 			}
 		},
 		distance = 1.50
@@ -697,13 +722,18 @@ local policePed = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 local adminMenu = {
 	{
+		event = "tryDeleteObject",
+		label = "Deletar Objeto",
+		tunnel = "admin"
+	},
+	{
 		event = "admin:clearArea",
-		label = "Limpar Área Próxima",
+		label = "Limpar Área",
 		tunnel = "admin"
 	},
 	{
 		event = "garages:deleteVehicle",
-		label = "Deletar Veículo Próximo",
+		label = "Deletar Veículo",
 		tunnel = "admin"
 	}
 }

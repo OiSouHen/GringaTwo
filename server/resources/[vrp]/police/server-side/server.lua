@@ -12,10 +12,46 @@ cRP = {}
 Tunnel.bindInterface("police",cRP)
 vCLIENT = Tunnel.getInterface("police")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local records = "https://discordapp.com/api/webhooks/720509199016001577/ItUB6rFpnyZjYKWpOZvX798HeKaJG5A1piLHaP-NiRkqA4vhZLleyzktT6g_IGEPI3Jz"
 local fines = "https://discordapp.com/api/webhooks/720509293761134623/8QxolDcd3RNcxJ5ym6QH9tjJfxM3ivmiZlfwamxR9XpbEtytj3b8Bsco2sITphfl6NLq"
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local policeService = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:SERVICEPOLICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:servicePolice")
+AddEventHandler("police:servicePolice",function(servicePolice)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Police") then
+			vRP.removePermission(source,"Police")
+			TriggerEvent("blipsystem:serviceExit",source)
+			TriggerClientEvent("tencode:StatusService",source,false)
+			TriggerClientEvent("Notify",source,"amarelo","Você saiu de serviço.",3000)
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Police", newpermiss = "waitPolice" })
+			policeService = false
+		elseif vRP.hasPermission(user_id,"waitPolice") then
+			vRP.insertPermission(source,"Police")
+			TriggerClientEvent("tencode:StatusService",source,true)
+			TriggerEvent("blipsystem:serviceEnter",source,"Police",77)
+			TriggerClientEvent("Notify",source,"verde","Você entrou em serviço.",3000)
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
+			policeService = true
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:UPDATESERVICESTATUS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:updateService")
+AddEventHandler("police:updateService",function(status)
+	policeService = status
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INITPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
