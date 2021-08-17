@@ -232,7 +232,7 @@ Citizen.CreateThread(function()
 					DrawMarker(1,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3] - 3,0,0,0,0,0,0,5.0,5.0,3.0,255,255,255,25,0,0,0,0)
 					DrawMarker(21,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3],0,0,0,0,180.0,130.0,1.5,1.5,1.0,42,137,255,100,0,0,0,1)
 
-					if IsControlJustPressed(1,38) and distance <= 5 then
+					if IsControlJustPressed(1,38) and distance <= 2.5 and GetEntityModel(vehicle) == -956048545 then
 						if currentStatus then
 							FreezeEntityPosition(vehicle,true)
 
@@ -296,9 +296,14 @@ function generatePassenger(vehicle)
 
 	if HasModelLoaded(mHash) then
 		currentPassenger = CreatePed(4,spawnModels[randModels][2],spawnPeds[selectPosition][1],spawnPeds[selectPosition][2],spawnPeds[selectPosition][3],3374176,true,false)
+		local netPeds = PedToNet(currentPassenger)
+
+		SetNetworkIdCanMigrate(netPeds,true)
+
 		TaskEnterVehicle(currentPassenger,vehicle,-1,2,1.0,1,0)
-		SetEntityAsMissionEntity(currentPassenger,true,true)
+		SetEntityAsMissionEntity(currentPassenger,true,false)
 		SetEntityInvincible(currentPassenger,true)
+
 		SetModelAsNoLongerNeeded(mHash)
 
 		while true do
