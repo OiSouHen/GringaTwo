@@ -17,7 +17,6 @@ local Zones = {}
 local Models = {}
 local success = false
 local innerEntity = {}
-local dismantleList = {}
 local setDistance = 10.0
 local playerActive = true
 local targetActive = false
@@ -105,6 +104,20 @@ Citizen.CreateThread(function()
 				event = "police:servicePolice",
 				label = "Trabalhar",
 				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("dismantleCall",vector3(-1167.03,-2034.54,13.31),0.75,{
+		name = "dismantleCall",
+		heading = 309.99
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "dismantle:invokeList",
+				label = "Pegar lista",
+				tunnel = "client"
 			}
 		}
 	})
@@ -653,71 +666,6 @@ Citizen.CreateThread(function()
 	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PARAMEDICMENU
------------------------------------------------------------------------------------------------------------------------------------------
-local paramedicMenu = {
-	{
-		event = "paramedic:Revive",
-		label = "Reanimar",
-		tunnel = "paramedic"
-	},
-	{
-		event = "paramedic:Diagnostic",
-		label = "Diagnóstico",
-		tunnel = "paramedic"
-	},
-	{
-		event = "paramedic:Treatment",
-		label = "Tratamento",
-		tunnel = "paramedic"
-	},
-	{
-		event = "paramedic:Bleeding",
-		label = "Sangramento",
-		tunnel = "paramedic"
-	},
-	{
-		event = "paramedic:Bed",
-		label = "Deitar Paciente",
-		tunnel = "paramedic"
-	}
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- POLICEVEH
------------------------------------------------------------------------------------------------------------------------------------------
-local policeVeh = {
-	{
-		event = "police:runPlate",
-		label = "Verificar Placa",
-		tunnel = "police"
-	},
-	{
-		event = "police:impound",
-		label = "Registrar Veículo",
-		tunnel = "police"
-	},
-	{
-		event = "police:runArrest",
-		label = "Detenção do Veículo",
-		tunnel = "police"
-	}
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- POLICEPED
------------------------------------------------------------------------------------------------------------------------------------------
-local policePed = {
-	{
-		event = "police:runInspect",
-		label = "Revistar",
-		tunnel = "police"
-	},
-	{
-		event = "police:prisonClothes",
-		label = "Uniforme do Presídio",
-		tunnel = "police"
-	}
-}
------------------------------------------------------------------------------------------------------------------------------------------
 -- ADMINMENU
 -----------------------------------------------------------------------------------------------------------------------------------------
 local adminMenu = {
@@ -735,6 +683,21 @@ local adminMenu = {
 		event = "garages:deleteVehicle",
 		label = "Deletar Veículo",
 		tunnel = "admin"
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DISMANTLEVEH
+-----------------------------------------------------------------------------------------------------------------------------------------
+local dismantleVeh = {
+	{
+		event = "player:enterTrunk",
+		label = "Entrar no Porta-Malas",
+		tunnel = "client"
+	},
+	{
+		event = "dismantle:checkVehicle",
+		label = "Desmanchar",
+		tunnel = "client"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1047,46 +1010,6 @@ AddEventHandler("target:pacienteDeitar",function()
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TARGET:DISMANTLELIST
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("target:dismantleList")
-AddEventHandler("target:dismantleList",function(tableList)
-	RemoveTargetModel(dismantleList)
-
-	AddTargetModel(tableList,{
-		options = {
-			{
-				event = "dismantle:checkVehicle",
-				label = "Desmanchar",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75,
-		desmanche = true
-	})
-
-	dismantleList = tableList
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TARGET:DISMANTLELIST
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("target:dismantleClear")
-AddEventHandler("target:dismantleClear",function(model)
-	if Models[model] then
-		Models[model] = nil
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVETARGETMODEL
------------------------------------------------------------------------------------------------------------------------------------------
-function RemoveTargetModel(models)
-	for k,v in pairs(models) do
-		if Models[v] then
-			Models[v] = nil
-		end
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TARGET:SENTAR
 -----------------------------------------------------------------------------------------------------------------------------------------
