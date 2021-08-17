@@ -656,7 +656,6 @@ AddEventHandler("garages:deleteVehicle",function(deleteVehicle)
 		local vehicle = vRPclient.nearVehicle(source,15)
 		if vehicle then
 			vCLIENT.deleteVehicle(source,vehicle)
-			TriggerClientEvent("Notify",source,"amarelo","O veículo próximo foi guardado.",3000)
 		end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -682,10 +681,10 @@ function cRP.vehicleLock()
 				TriggerClientEvent("garages:vehicleClientLock",-1,vehNet,vehLock)
 
 				if vehLock == 1 then
-					TriggerClientEvent("Notify",source,"unlocked","Veículo destrancado.",5000)
+					TriggerClientEvent("Notify",source,"unlocked","Veículo destrancado.",3000)
 					TriggerClientEvent("sound:source",source,"unlock",0.5)
 				else
-					TriggerClientEvent("Notify",source,"locked","Veículo trancado.",5000)
+					TriggerClientEvent("Notify",source,"locked","Veículo trancado.",3000)
 					TriggerClientEvent("sound:source",source,"lock",0.5)
 				end
 
@@ -770,7 +769,7 @@ function cRP.returnHouses(nome,garage)
 			else
 				local getFines = vRP.getFines(user_id)
 				if getFines[1] then
-					TriggerClientEvent("Notify",source,"amarelo","Você tem multas pendentes.",5000)
+					TriggerClientEvent("Notify",source,"amarelo","Você tem multas pendentes.",3000)
 					return false
 				end
 
@@ -807,12 +806,12 @@ RegisterCommand("vehs",function(source,args,rawCommand)
 				local myGarages = vRP.getInformation(args[3])
 				if vRP.getPremium(parseInt(args[3])) then
 					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) + 2 then
-						TriggerClientEvent("Notify",source,"amarelo","Você atingiu o número máximo de veículos na garagem.",5000)
+						TriggerClientEvent("Notify",source,"amarelo","Você tem o máximo de veículos na garagem.",5000)
 						return
 					end
 				else
 					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
-						TriggerClientEvent("Notify",source,"amarelo","Você atingiu o número máximo de veículos na garagem.",5000)
+						TriggerClientEvent("Notify",source,"amarelo","Você tem o máximo de veículos na garagem.",5000)
 						return
 					end
 				end
@@ -839,7 +838,7 @@ RegisterCommand("vehs",function(source,args,rawCommand)
 							vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..tostring(args[2]) })
 						end
 
-						TriggerClientEvent("Notify",source,"verde","Transferência concluída com sucesso.",5000)
+						TriggerClientEvent("Notify",source,"verde","Transferência concluída.",5000)
 					end
 				end
 			end

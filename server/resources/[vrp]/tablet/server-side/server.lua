@@ -28,8 +28,8 @@ Citizen.CreateThread(function()
 			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
 		elseif v[4] == "bikes" then
 			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
-		elseif v[4] == "donate" then
-			table.insert(aluguel,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+		elseif v[4] == "rental" then
+			table.insert(aluguel,{ k = k, name = v[1], price = v[5], chest = parseInt(v[2]) })
 		end
 	end
 	if #temp_stock > 0 then
@@ -185,20 +185,31 @@ function cRP.buyDealer(name)
 				
 				local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
 				if vehicle[1] then
-					TriggerClientEvent("Notify",source,"azul","Você já possui um <b>"..vRP.vehicleName(vehName).."</b>.",3000)
+					TriggerClientEvent("Notify",source,"amarelo","Você já possui um <b>"..vRP.vehicleName(vehName).."</b>.",5000)
 					return
 				else
-					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName))) then
-						vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
-						TriggerClientEvent("Notify",source,"verde","A compra foi concluída com verde.",5000)
-						creativelogs(webhookdealership,"```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[COMPROU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					
+					if vRP.vehicleType(name) == "rental" then
+						if vRP.remGmsId(user_id,parseInt(vRP.vehicleGems(vehName))) then
+							vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
+							vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = vehName, premiumtime = parseInt(os.time()+30*24*60*60) })
+							TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)
+						else
+							TriggerClientEvent("Notify",source,"vermelho","Gemas insuficientes.",3000)
+						end
 					else
-						TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
+						if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName))) then
+							vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
+							TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)
+							creativelogs(webhookdealership,"```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[COMPROU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+						else
+							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
+						end
 					end
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"vermelho","Estoque insuficiente desse veiculo.",3000)
+			TriggerClientEvent("Notify",source,"vermelho","Estoque insuficiente desse veiculo.",5000)
 			return
 		end
 	end
@@ -211,7 +222,7 @@ function cRP.sellDealer(name)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)	
 	if user_id then
-		if vRP.vehicleType(name) ~= nil or vRP.vehicleType(name) == "donate" then
+		if vRP.vehicleType(name) ~= nil or vRP.vehicleType(name) == "rental" then
 			if not lockReq[user_id] or lockReq[user_id] <= os.time() then
 				lockReq[user_id] = os.time() + 300
 				local vehName = tostring(name)
