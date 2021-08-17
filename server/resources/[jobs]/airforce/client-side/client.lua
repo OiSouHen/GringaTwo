@@ -33,7 +33,14 @@ local stopVehicle = {
 	{ 476.81,-1106.55,43.07,87.88 },
 	{ 965.82,42.03,123.12,331.66 },
 	{ 910.34,-1681.39,51.12,172.92 },
-	{ 2510.72,-342.05,118.18,42.52 }
+	{ 2510.72,-342.05,118.18,42.52 },
+	{ -583.51,-930.51,36.83,269.3 },
+	{ -745.42,-1468.54,5.0,138.9 },
+	{ -1095.33,-835.02,37.68,127.56 },
+	{ 1770.37,3239.78,42.12,102.05 },
+	{ -475.3,5988.51,31.34,317.49 },
+	{ -1389.17,6742.57,11.98,70.87 },
+	{ -2043.87,-1031.47,11.98,70.87 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNPEDS
@@ -47,7 +54,14 @@ local spawnPeds = {
 	{ 484.59,-1094.01,43.07,0.0 },
 	{ 977.99,61.59,120.24,331.66 },
 	{ 915.82,-1699.71,51.12,175.75 },
-	{ 2507.44,-336.83,115.84,320.32 }
+	{ 2507.44,-336.83,115.84,320.32 },
+	{ -568.86,-927.78,36.83,87.88 },
+	{ -753.54,-1512.17,5.02,22.68 },
+	{ -1107.21,-832.44,37.68,221.11 },
+	{ 1741.76,3299.28,41.21,184.26 },
+	{ -451.8,6006.15,31.83,130.4 },
+	{ -1405.18,6747.72,11.9,252.29 },
+	{ -2059.1,-1026.61,11.9,255.12 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNMODELS
@@ -230,9 +244,14 @@ function generatePassenger(vehicle)
 
 	if HasModelLoaded(mHash) then
 		currentPassenger = CreatePed(4,spawnModels[randModels][2],spawnPeds[selectPosition][1],spawnPeds[selectPosition][2],spawnPeds[selectPosition][3],3374176,true,false)
+		local netPeds = PedToNet(currentPassenger)
+
+		SetNetworkIdCanMigrate(netPeds,true)
+
 		TaskEnterVehicle(currentPassenger,vehicle,-1,2,1.0,1,0)
-		SetEntityAsMissionEntity(currentPassenger,true,true)
+		SetEntityAsMissionEntity(currentPassenger,true,false)
 		SetEntityInvincible(currentPassenger,true)
+
 		SetModelAsNoLongerNeeded(mHash)
 
 		while true do
