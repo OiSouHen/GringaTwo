@@ -232,7 +232,6 @@ AddEventHandler("hunting:animalCutting",function()
 					if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_SWITCHBLADE") then
 						TaskTurnPedToFaceEntity(ped,animalHunting[k],-1)
 						TriggerEvent("player:blockCommands",true)
-						TriggerEvent("inventory:blockButtons",true)
 						local targetEntity = animalHunting[k]
 						TriggerEvent("cancelando",true)
 						animalHunting[k] = nil
@@ -247,7 +246,6 @@ AddEventHandler("hunting:animalCutting",function()
 						Citizen.Wait(15000)
 
 						TriggerEvent("player:blockCommands",false)
-						TriggerEvent("inventory:blockButtons",false)
 						TriggerEvent("cancelando",false)
 						vSERVER.animalPayment()
 						vRP.removeObjects()
