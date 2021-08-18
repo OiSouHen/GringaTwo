@@ -11,7 +11,7 @@ function cRP.checkPermission()
 	if user_id then
 		return vRP.hasPermission(user_id,"Mechanic")
 	else
---		TriggerClientEvent("Notify",source,"negado","Apenas mecânicos podem tunar veículos.",5000)
+		TriggerClientEvent("Notify",source,"vermelho","Apenas mecânicos podem tunar veículos.",5000)
 	end
 end
 
@@ -22,7 +22,10 @@ local tbl = {
 	[4] = { locked = false, player = nil },
 	[5] = { locked = false, player = nil },
 	[6] = { locked = false, player = nil },
-	[7] = { locked = false, player = nil }
+	[7] = { locked = false, player = nil },
+	[8] = { locked = false, player = nil },
+	[9] = { locked = false, player = nil },
+	[10] = { locked = false, player = nil }
 }
 
 RegisterServerEvent("lockGarage")

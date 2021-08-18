@@ -8,13 +8,16 @@ local currentpos = nil
 local currentgarage = 0
 
 local garages = {
-	[1] = { locked = false, drivein = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }, outside = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }, inside = { x = -1178.43, y = -2845.8, z = 13.6, heading = 149.91 }},
-	[2] = { locked = false, drivein = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }, outside = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }, inside = { x = -221.48, y = -1330.06, z = 30.55, heading = 270.19 }},
-	[3] = { locked = false, drivein = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }, outside = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }, inside = { x = -327.35, y = -137.75, z = 38.67, heading = 85.26 }},
-	[4] = { locked = false, drivein = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }, outside = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }, inside = { x = 732.99, y = -1088.86, z = 21.82, heading = 89.63 }},
-	[5] = { locked = false, drivein = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }, outside = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }, inside = { x = -1160.4, y = -2016.11, z = 12.84, heading = 339.95 }},
-	[6] = { locked = false, drivein = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }, outside = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }, inside = { x = 1174.68, y = 2640.21, z = 37.42, heading = 359.89 }},
-	[7] = { locked = false, drivein = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 }, outside = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 }, inside = { x = 110.9, y = 6626.94, z = 31.44, heading = 223.0 } }
+	[1] = { locked = false, drivein = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }, outside = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }, inside = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }},
+	[2] = { locked = false, drivein = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }, outside = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }, inside = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }},
+	[3] = { locked = false, drivein = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }, outside = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }, inside = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }},
+	[4] = { locked = false, drivein = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }, outside = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }, inside = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }},
+	[5] = { locked = false, drivein = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }, outside = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }, inside = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }},
+	[6] = { locked = false, drivein = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }, outside = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }, inside = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }},
+	[7] = { locked = false, drivein = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }, outside = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }, inside = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }},
+	[8] = { locked = false, drivein = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }, outside = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }, inside = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }},
+	[9] = { locked = false, drivein = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }, outside = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }, inside = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }},
+	[10] = { locked = false, drivein = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }, outside = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }, inside = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }}
 }
 
 local Menu = SetMenu()
