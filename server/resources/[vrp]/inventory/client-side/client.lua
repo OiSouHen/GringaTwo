@@ -786,23 +786,20 @@ AddEventHandler("inventory:Firecracker",function()
 		end
 	end
 
-	local mHash = GetHashKey("ind_prop_firework_03")
-
-	RequestModel(mHash)
-	while not HasModelLoaded(mHash) do
-		Citizen.Wait(1)
-	end
-
 	if HasModelLoaded(mHash) then
 		local explosives = 25
 		local ped = PlayerPedId()
 		fireTimers = GetGameTimer() + (5 * 60000)
 		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.6,0.0)
 		firecracker = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
+		local netObjs = ObjToNet(firecracker)
 
+		SetNetworkIdCanMigrate(netObjs,true)
+
+		SetEntityAsMissionEntity(firecracker,true,false)
 		PlaceObjectOnGroundProperly(firecracker)
 		FreezeEntityPosition(firecracker,true)
-		SetEntityAsNoLongerNeeded(firecracker)
+
 		SetModelAsNoLongerNeeded(mHash)
 
 		Citizen.Wait(10000)
@@ -815,7 +812,7 @@ AddEventHandler("inventory:Firecracker",function()
 			Citizen.Wait(2000)
 		until explosives <= 0
 
-		TriggerServerEvent("tryDeleteObject",NetworkGetNetworkIdFromEntity(firecracker))
+		TriggerServerEvent("tryDeleteObject",ObjToNet(firecracker))
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
