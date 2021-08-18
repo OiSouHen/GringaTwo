@@ -45,25 +45,10 @@ local spawnModels = {
 	{ "s_m_y_prisoner_01",0xB1BB9B59 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- THREADCHECKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 999
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			local distance = #(coords - initService)
-			if distance <= 2 then
-				timeDistance = 1
-
-				if serviceStatus then
-					DrawText3D(initService["x"],initService["y"],initService["z"],"~g~E~w~   FINALIZAR")
-				else
-					DrawText3D(initService["x"],initService["y"],initService["z"],"~g~E~w~   INICIAR")
-				end
-
-				if IsControlJustPressed(1,38) then
+RegisterNetEvent("corrections:initService")
+AddEventHandler("corrections:initService",function()
 					if serviceStatus then
 						serviceStatus = false
 						TriggerEvent("Notify","amarelo","O serviço de <b>Transporte de Presidiário</b> foi finalizado.",3000)
@@ -98,9 +83,14 @@ Citizen.CreateThread(function()
 							blipPassenger()
 						end
 					end
-				end
-			end
-		else
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
 			if serviceStatus then
 				local coords = GetEntityCoords(ped)
 				local vehicle = GetVehiclePedIsUsing(ped)
@@ -152,7 +142,6 @@ Citizen.CreateThread(function()
 					end
 				end
 			end
-		end
 
 		Citizen.Wait(timeDistance)
 	end

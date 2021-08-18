@@ -264,7 +264,7 @@ AddEventHandler("dismantle:invokeDismantle",function(invokeDismantle)
 			end
 
 			if vehListNames ~= "" then
-				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista atual.",15000)
+				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista atual.",30000)
 			else
 				TriggerClientEvent("Notify",source,"azul","Nenhum veículo encontrado na lista, aguarde <b>"..parseInt(timeList).." minutos</b>.",5000)
 			end
