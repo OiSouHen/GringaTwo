@@ -104,6 +104,11 @@ Citizen.CreateThread(function()
 				event = "police:servicePolice",
 				label = "Trabalhar",
 				tunnel = "server"
+			},
+			{
+				event = "corrections:initService",
+				label = "Transportar Presidiário",
+				tunnel = "client"
 			}
 		}
 	})
