@@ -63,6 +63,8 @@ function cRP.searchTrash(id)
 					vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
 					timers[id] = 600
 				end
+				
+				vRP.upgradeStress(user_id,1)
 
 				return true
 			end
