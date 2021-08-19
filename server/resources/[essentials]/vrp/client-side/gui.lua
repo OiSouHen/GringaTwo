@@ -277,7 +277,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		DisableControlAction(1,37,false)
+--		DisableControlAction(1,37,false)
 		DisableControlAction(1,99,false)
 		DisableControlAction(1,100,false)
 		DisableControlAction(1,157,false)

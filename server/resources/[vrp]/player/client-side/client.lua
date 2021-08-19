@@ -169,7 +169,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,141,true)
 			DisableControlAction(1,142,true)
 			DisableControlAction(1,137,true)
-			DisableControlAction(1,37,true)
+--			DisableControlAction(1,37,true)
 			DisableControlAction(1,38,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
