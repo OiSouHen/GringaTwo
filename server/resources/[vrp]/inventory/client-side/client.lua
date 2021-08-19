@@ -782,38 +782,39 @@ AddEventHandler("inventory:Firecracker",function()
 	if not HasNamedPtfxAssetLoaded("scr_indep_fireworks") then
 		RequestNamedPtfxAsset("scr_indep_fireworks")
 		while not HasNamedPtfxAssetLoaded("scr_indep_fireworks") do
-			Citizen.Wait(1)
+			RequestNamedPtfxAsset("scr_indep_fireworks")
+			Citizen.Wait(10)
 		end
 	end
 
-	if HasModelLoaded(mHash) then
-		local explosives = 25
-		local ped = PlayerPedId()
-		fireTimers = GetGameTimer() + (5 * 60000)
-		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.6,0.0)
-		firecracker = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
-		local netObjs = ObjToNet(firecracker)
+	local mHash = GetHashKey("ind_prop_firework_03")
 
-		SetNetworkIdCanMigrate(netObjs,true)
-
-		SetEntityAsMissionEntity(firecracker,true,false)
-		PlaceObjectOnGroundProperly(firecracker)
-		FreezeEntityPosition(firecracker,true)
-
-		SetModelAsNoLongerNeeded(mHash)
-
-		Citizen.Wait(10000)
-
-		repeat
-			UseParticleFxAssetNextCall("scr_indep_fireworks")
-			local explode = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_trailburst",coords["x"],coords["y"],coords["z"],0.0,0.0,0.0,2.5,false,false,false,false)
-			explosives = explosives - 1
-
-			Citizen.Wait(2000)
-		until explosives <= 0
-
-		TriggerServerEvent("tryDeleteObject",ObjToNet(firecracker))
+	RequestModel(mHash)
+	while not HasModelLoaded(mHash) do
+		RequestModel(mHash)
+		Citizen.Wait(10)
 	end
+
+	local explosives = 35
+	local ped = PlayerPedId()
+	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.6,0.0)
+	firecracker = CreateObjectNoOffset(mHash,coords.x,coords.y,coords.z,true,false,false)
+
+	PlaceObjectOnGroundProperly(firecracker)
+	FreezeEntityPosition(firecracker,true)
+	SetModelAsNoLongerNeeded(mHash)
+
+	Citizen.Wait(10000)
+
+	repeat
+		UseParticleFxAssetNextCall("scr_indep_fireworks")
+		local explode = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_trailburst",coords.x,coords.y,coords.z,0.0,0.0,0.0,2.5,false,false,false,false)
+		explosives = explosives - 1
+
+		Citizen.Wait(2000)
+	until explosives == 0
+
+	TriggerServerEvent("tryDeleteEntity",ObjToNet(firecracker))
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TECHDISTANCE

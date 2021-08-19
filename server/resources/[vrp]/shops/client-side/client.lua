@@ -179,7 +179,7 @@ AddEventHandler("shops:openSystem",function(shopId)
 			SetNuiFocus(true,true)
 			SendNUIMessage({ action = "showNUI", name = shopList[shopId][4], type = vSERVER.getShopType(shopList[shopId][4]) })
 		else
-			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."Hrs</b> รกs <b>"..shopList[shopId][7][2].."Hrs</b>.",5000)
+			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."Hrs</b> ás <b>"..shopList[shopId][7][2].."Hrs</b>.",5000)
 		end
 	else
 		if vSERVER.requestPerm(shopList[shopId][4]) then
