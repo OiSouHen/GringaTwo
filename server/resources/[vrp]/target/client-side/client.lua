@@ -258,6 +258,17 @@ Citizen.CreateThread(function()
 		},
 		distance = 0.75
 	})
+	
+	AddTargetModel({ 1211559620,1363150739,-1186769817,261193082,-756152956,-1383056703,720581693 },{
+		options = {
+			{
+				event = "garbageman:searchObject",
+				label = "Vasculhar",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
+	})
 
 	AddTargetModel({ -2007231801,1339433404,1694452750,1933174915,-462817101,-469694731,-164877493 },{
 		options = {

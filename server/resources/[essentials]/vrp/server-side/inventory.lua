@@ -1348,15 +1348,15 @@ local itemlist = {
 		type = "use",
 		weight = 0.75
 	},
-	["jornal"] = {
-		index = "jornal",
+	["newspaper"] = {
+		index = "newspaper",
 		name = "Jornal",
 		desc = "",
-		tipo = "Material",
+		tipo = "Comum",
 		unity = "Não",
 		economy = "15",
 		type = "use",
-		weight = 0.38
+		weight = 0.375
 	},
 	["dollars"] = {
 		index = "dollars",

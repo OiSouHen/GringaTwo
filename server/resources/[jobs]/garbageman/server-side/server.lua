@@ -74,3 +74,30 @@ function cRP.searchTrash(id)
 		end
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHOBJECT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.searchObject(id)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+	    if timers[id] == 0 or not timers[id] then
+		    if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			    Wait(1)
+		    else
+				
+			local random = math.random(100)
+			vRP.giveInventoryItem(user_id,"newspaper",math.random(2),true)
+			timers[id] = 600
+				
+			vRP.upgradeStress(user_id,1)
+
+			return true
+		end
+			return false
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
+		end
+	end
+end
