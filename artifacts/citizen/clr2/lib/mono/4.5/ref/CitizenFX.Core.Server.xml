@@ -6697,6 +6697,16 @@
             Routing buckets are also known as 'dimensions' or 'virtual worlds' in past echoes, however they are population-aware.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_SPEED">
+            <summary>
+            Gets the current speed of the entity in meters per second.
+            
+            ```
+            To convert to MPH: speed * 2.236936
+            To convert to KPH: speed * 3.6
+            ```
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_GAME_BUILD_NUMBER">
             <summary>
             Returns the internal build number of the current game being executed.
@@ -6958,6 +6968,22 @@
         <member name="F:CitizenFX.Core.Native.Hash.GET_VEHICLE_PED_IS_IN">
             <summary>
             Gets the vehicle the specified Ped is/was in depending on bool value. This native is used server side when using OneSync.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_VEHICLE_TYPE">
+            <summary>
+            Returns the type of the passed vehicle.
+            
+            ### Vehicle types
+            
+            *   automobile
+            *   bike
+            *   boat
+            *   heli
+            *   plane
+            *   submarine
+            *   trailer
+            *   train
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.IS_DUPLICITY_VERSION">
@@ -8723,6 +8749,21 @@
             The routing bucket ID.
             </returns>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.GetEntitySpeed(System.Int32)">
+            <summary>
+            Gets the current speed of the entity in meters per second.
+            ```
+            To convert to MPH: speed * 2.236936
+            To convert to KPH: speed * 3.6
+            ```
+            </summary>
+            <param name="entity">
+            The entity to get the speed of
+            </param>
+            <returns>
+            The speed of the entity in meters per second
+            </returns>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.GetGameBuildNumber">
             <summary>
             Returns the internal build number of the current game being executed.
@@ -9202,6 +9243,26 @@
             </param>
             <returns>
             The vehicle id. Returns 0 if the ped is/was not in a vehicle.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetVehicleType(System.Int32)">
+            <summary>
+            Returns the type of the passed vehicle.
+            ### Vehicle types
+            *   automobile
+            *   bike
+            *   boat
+            *   heli
+            *   plane
+            *   submarine
+            *   trailer
+            *   train
+            </summary>
+            <param name="vehicle">
+            The vehicle's entity handle.
+            </param>
+            <returns>
+            If the entity is a vehicle, the vehicle type. If it is not a vehicle, the return value will be null.
             </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.IsDuplicityVersion">
