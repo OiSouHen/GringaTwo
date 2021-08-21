@@ -14,12 +14,6 @@ local pedList = {
 	},
 	{ -- Ilegal
 		distance = 100,
-		coords = { -1167.03,-2034.54,13.31,140.84 },
-		model = { 0x158C439C,"g_f_y_ballas_01" },
-		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
-	},
-	{ -- Ilegal
-		distance = 100,
 		coords = { 301.4,-195.29,61.57,158.75 },
 		model = { 0x158C439C,"g_f_y_ballas_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
@@ -330,16 +324,28 @@ local pedList = {
 		model = { 0x5244247D,"u_m_y_baygor" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Mercado Central
+	{ -- Mercado Central Carson Avenue
 		distance = 30,
-		coords = { 46.67,-1749.79,29.62,48.19 },
+		coords = { 45.5,-1751.16,29.64,48.19 },
 		model = { 0xE6631195,"ig_cletus" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Mercado Central
+	{ -- Mercado Central Carson Avenue
 		distance = 30,
-		coords = { 2747.29,3473.06,55.67,252.29 },
+		coords = { 47.62,-1748.5,29.64,48.19 },
+		model = { 0x59511A6C,"s_m_m_trucker_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Mercado Central Senora Freeway
+		distance = 30,
+		coords = { 2748.74,3476.43,55.68,252.29 },
 		model = { 0xE6631195,"ig_cletus" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Mercado Central Senora Freeway
+		distance = 30,
+		coords = { 2745.96,3469.59,55.68,252.29 },
+		model = { 0x59511A6C,"s_m_m_trucker_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Recycling Sell
@@ -552,18 +558,6 @@ local pedList = {
 		model = { 0x1475B827,"a_f_y_hippie_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Caminhoneiro
-		distance = 30,
-		coords = { 1239.87,-3257.2,7.09,274.97 },
-		model = { 0x59511A6C,"s_m_m_trucker_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Restocador
-		distance = 30,
-		coords = { 920.04,-1256.84,25.51,36.86 },
-		model = { 0x59511A6C,"s_m_m_trucker_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Taxista
 		distance = 30,
 		coords = { 894.9,-179.15,74.7,240.95 },
@@ -588,17 +582,11 @@ local pedList = {
 		model = { 0x1536D95A,"a_m_o_ktown_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Animal Park
-		distance = 15,
-		coords = { 563.19,2752.92,42.87,187.09 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Animal Park
-		distance = 50,
-		coords = { -1816.76,-1193.97,14.31,334.49 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	{ -- Desmanche
+		distance = 30,
+		coords = { -1167.03,-2034.54,13.31,140.84 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
