@@ -30,7 +30,7 @@ local itemlist = {
 		unity = "Não",
 		economy = "975",
 		type = "use",
-		weight = 1.10
+		weight = 0.75
 	},
 	["radiodamaged"] = {
         index = "radiodamaged",
@@ -40,7 +40,7 @@ local itemlist = {
 		unity = "",
 		economy = "",
         type = "use",
-        weight = 1.10
+        weight = 0.85
     },
 	["wheelchair"] = {
 		index = "wheelchair",
@@ -58,9 +58,19 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "825",
+		economy = "875",
 		type = "use",
-		weight = 2.45
+		weight = 2.25
+	},
+	["vest2"] = {
+		index = "vest2",
+		name = "Colete Danificado",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.75
 	},
 	["bandage"] = {
 		index = "bandage",
@@ -72,7 +82,7 @@ local itemlist = {
 		type = "use",
 		weight = 0.10
 	},
-	["warfarin"] = {
+	["medkit"] = {
 		index = "medkit",
 		name = "Kit Médico",
 		desc = "",
@@ -96,11 +106,11 @@ local itemlist = {
 		index = "credential",
 		name = "Credencial",
 		desc = "",
-		tipo = "Comum",
+		tipo = "Usável",
 		unity = "Não",
-		economy = "325",
+		economy = "225",
 		type = "use",
-		weight = 0.10
+		weight = 0.75
 	},
 	["pouch"] = {
 		index = "pouch",
@@ -302,45 +312,15 @@ local itemlist = {
 		type = "use",
 		weight = 0.10
 	},
-	["cannabisseed"] = {
-		index = "cannabisseed",
-		name = "Semente de Maconha",
+	["horndeer"] = {
+		index = "horndeer",
+		name = "Chifre de Cervo",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "225",
 		type = "use",
-		weight = 0.10
-	},
-	["bucket"] = {
-		index = "bucket",
-		name = "Balde",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 1.50
-	},
-	["compost"] = {
-		index = "compost",
-		name = "Adubo",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 0.50
-	},
-	["weed"] = {
-		index = "weed",
-		name = "Maconha",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 0.50
+		weight = 4.00
 	},
 	["joint"] = {
 		index = "joint",
@@ -358,7 +338,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "40",
+		economy = "35",
 		type = "use",
 		weight = 0.50
 	},
@@ -368,7 +348,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "40",
+		economy = "35",
 		type = "use",
 		weight = 0.50
 	},
@@ -378,7 +358,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "40",
+		economy = "35",
 		type = "use",
 		weight = 0.50
 	},
@@ -388,27 +368,17 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "40",
+		economy = "35",
 		type = "use",
 		weight = 0.50
 	},
-	["methliquid"] = {
-		index = "methliquid",
-		name = "Meta Líquida",
+	["heroine"] = {
+		index = "heroine",
+		name = "Heroína",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 1.00
-	},
-	["silk"] = {
-		index = "silk",
-		name = "Seda",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "3500",
 		type = "use",
 		weight = 0.50
 	},
@@ -502,7 +472,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
-	-- PAREI AQUI
 	["energetic"] = {
 		index = "energetic",
 		name = "Energético",
@@ -512,26 +481,6 @@ local itemlist = {
 		economy = "315",
 		type = "use",
 		weight = 0.25
-	},
-	["delivery"] = { -- remover
-		index = "delivery",
-		name = "Caixa cheia",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 1.00
-	},
-	["paperbag"] = { -- remover
-		index = "paperbag",
-		name = "Saco de Papel",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 0.50
 	},
 	["battery"] = {
 		index = "battery",
@@ -1038,75 +987,75 @@ local itemlist = {
 		type = "use",
 		weight = 4.75
 	},
-	["ametista"] = {
-		index = "ametista",
+	["amethyst"] = {
+		index = "amethyst",
 		name = "Ametista",
 		desc = "",
-		tipo = "Minério",
+		tipo = "Comum",
 		unity = "Não",
-		economy = "",
+		economy = "40",
 		type = "use",
-		weight = 0.50
+		weight = 0.65
 	},
-	["diamante"] = {
-		index = "diamante",
+	["diamond"] = {
+		index = "diamond",
 		name = "Diamante",
 		desc = "",
-		tipo = "Minério",
+		tipo = "Comum",
 		unity = "Não",
-		economy = "26",
+		economy = "90",
 		type = "use",
-		weight = 0.50
+		weight = 0.80
 	},
-	["esmeralda"] = {
-		index = "esmeralda",
+	["emerald"] = {
+		index = "emerald",
 		name = "Esmeralda",
 		desc = "",
-		tipo = "Minério",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "120",
+		type = "use",
+		weight = 0.85
+	},
+	["ruby"] = {
+		index = "ruby",
+		name = "Rubi",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "50",
+		type = "use",
+		weight = 0.75
+	},
+	["sapphire"] = {
+		index = "sapphire",
+		name = "Safira",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "45",
+		type = "use",
+		weight = 0.70
+	},
+	["turquoise"] = {
+		index = "turquoise",
+		name = "Turquesa",
+		desc = "",
+		tipo = "Comum",
 		unity = "Não",
 		economy = "30",
 		type = "use",
-		weight = 0.50
+		weight = 0.55
 	},
-	["rubi"] = {
-		index = "rubi",
-		name = "Rubi",
-		desc = "",
-		tipo = "Minério",
-		unity = "Não",
-		economy = "22",
-		type = "use",
-		weight = 0.50
-	},
-	["safira"] = {
-		index = "safira",
-		name = "Safira",
-		desc = "",
-		tipo = "Minério",
-		unity = "Não",
-		economy = "20",
-		type = "use",
-		weight = 0.50
-	},
-	["turquesa"] = {
-		index = "turquesa",
-		name = "Turquesa",
-		desc = "",
-		tipo = "Minério",
-		unity = "Não",
-		economy = "20",
-		type = "use",
-		weight = 0.50
-	},
-	["ambar"] = {
-		index = "ambar",
+	["amber"] = {
+		index = "amber",
 		name = "Âmbar",
 		desc = "",
-		tipo = "Minério",
+		tipo = "Comum",
 		unity = "Não",
-		economy = "20",
+		economy = "35",
 		type = "use",
-		weight = 0.50
+		weight = 0.60
 	},
 	["gemstone"] = {
 		index = "gemstone",
@@ -1114,7 +1063,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "1500",
+		economy = "1250",
 		type = "use",
 		weight = 0.10
 	},
@@ -1228,65 +1177,35 @@ local itemlist = {
 		type = "use",
 		weight = 0.07
 	},
-	["eletronics"] = {
-		index = "eletronics",
-		name = "Eletrônico",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 1.80
-	},
-	["notebook"] = {
-		index = "notebook",
-		name = "Notebook",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 6.00
-	},
 	["keyboard"] = {
 		index = "keyboard",
 		name = "Teclado",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
-		weight = 2.50
+		weight = 0.50
 	},
 	["mouse"] = {
 		index = "mouse",
 		name = "Mouse",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
-		weight = 1.50
-	},
-	["ring"] = {
-		index = "ring",
-		name = "Anel",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 2.60
+		weight = 0.25
 	},
 	["watch"] = {
 		index = "watch",
 		name = "Relógio",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "100",
 		type = "use",
-		weight = 1.20
+		weight = 0.25
 	},
 	["c4"] = {
 		index = "c4",
@@ -1542,61 +1461,61 @@ local itemlist = {
 		index = "playstation",
 		name = "Playstation",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "100",
 		type = "use",
-		weight = 5.00
+		weight = 2.00
 	},
 	["xbox"] = {
 		index = "xbox",
 		name = "Xbox",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "100",
 		type = "use",
-		weight = 6.00
+		weight = 1.75
 	},
 	["legos"] = {
 		index = "legos",
 		name = "Legos",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
-		weight = 2.50
+		weight = 0.25
 	},
 	["ominitrix"] = {
 		index = "ominitrix",
 		name = "Ominitrix",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
-		weight = 2.50
+		weight = 0.50
 	},
 	["bracelet"] = {
 		index = "bracelet",
 		name = "Bracelete",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "95",
 		type = "use",
-		weight = 3.50
+		weight = 0.25
 	},
 	["dildo"] = {
 		index = "dildo",
 		name = "Vibrador",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
-		weight = 1.50
+		weight = 0.25
 	},
 	["WEAPON_KNIFE"] = {
 		index = "knife",
@@ -2372,9 +2291,19 @@ local itemlist = {
 		index = "analgesic",
 		name = "Analgésico",
 		desc = "",
-		tipo = "Remédio",
+		tipo = "Usável",
 		unity = "Não",
 		economy = "105",
+		type = "use",
+		weight = 0.10
+	},
+	["oxy"] = {
+		index = "analgesic",
+		name = "Oxy",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "75",
 		type = "use",
 		weight = 0.10
 	},
@@ -2382,51 +2311,31 @@ local itemlist = {
 		index = "gauze",
 		name = "Gazes",
 		desc = "",
-		tipo = "Curativo",
+		tipo = "Usável",
 		unity = "Não",
 		economy = "175",
 		type = "use",
-		weight = 0.07
+		weight = 0.10
 	},
 	["gsrkit"] = {
 		index = "gsrkit",
 		name = "Kit Residual",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "35",
 		type = "use",
-		weight = 3.50
+		weight = 0.75
 	},
 	["gdtkit"] = {
 		index = "gdtkit",
 		name = "Kit Químico",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "35",
 		type = "use",
-		weight = 6.50
-	},
-	["fueltech"] = {
-		index = "fueltech",
-		name = "Fueltech",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 3.50
-	},
-	["cpuchip"] = {
-		index = "cpuchip",
-		name = "Processador",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "use",
-		weight = 5.50
+		weight = 0.75
 	},
 	["orange"] = {
 		index = "orange",
@@ -2434,7 +2343,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		type = "use",
 		weight = 0.25
 	},
@@ -2444,7 +2353,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		type = "use",
 		weight = 0.15
 	},
@@ -2454,7 +2363,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		type = "use",
 		weight = 0.15
 	},
@@ -2465,7 +2374,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		weight = 0.25
 	},
 	["banana"] = {
@@ -2474,7 +2383,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		type = "use",
 		weight = 0.25
 	},
@@ -2484,7 +2393,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "4",
 		type = "use",
 		weight = 0.25
 	},
@@ -2494,7 +2403,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "S/E",
+		economy = "6",
 		type = "use",
 		weight = 0.15
 	},
@@ -2504,7 +2413,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "15",
+		economy = "20",
 		type = "use",
 		weight = 0.25
 	},
@@ -2568,6 +2477,277 @@ local itemlist = {
 		type = "use",
 		weight = 0.45
 	},
+	["cannedsoup"] = {
+		index = "cannedsoup",
+		name = "Sopa em Lata",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "15",
+		type = "use",
+		weight = 0.25
+	},
+	["canofbeans"] = {
+		index = "canofbeans",
+		name = "Lata de Feijão",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "15",
+		type = "use",
+		weight = 0.25
+	},
+--  [Homes]
+    ["lampshade"] = {
+		index = "lampshade",
+		name = "Abajur",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "115",
+		type = "use",
+		weight = 0.50
+	},
+	["pliers"] = {
+		index = "pliers",
+		name = "Alicate",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "75",
+		type = "use",
+		weight = 0.25
+	},
+	["silverring"] = {
+		index = "silverring",
+		name = "Anel de Prata",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["goldring"] = {
+		index = "goldring",
+		name = "Anel de Ouro",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.25
+	},
+	["spray01"] = {
+		index = "spray01",
+		name = "Desodorante 24hrs",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["spray02"] = {
+		index = "spray02",
+		name = "Antisséptico",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["spray03"] = {
+		index = "spray03",
+		name = "Desodorante 48hrs",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["spray04"] = {
+		index = "spray04",
+		name = "Desodorante 72hrs",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["eraser"] = {
+		index = "eraser",
+		name = "Apagador",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "75",
+		type = "use",
+		weight = 0.15
+	},
+	["deck"] = {
+		index = "deck",
+		name = "Baralho",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "75",
+		type = "use",
+		weight = 0.15
+	},
+	["slipper"] = {
+		index = "slipper",
+		name = "Chinelo",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "75",
+		type = "use",
+		weight = 0.50
+	},
+	["cup"] = {
+		index = "cup",
+		name = "Cálice",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.25
+	},
+	["dices"] = {
+		index = "dices",
+		name = "Dados",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "40",
+		type = "use",
+		weight = 0.25
+	},
+	["floppy"] = {
+		index = "floppy",
+		name = "Disquete",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "55",
+		type = "use",
+		weight = 0.15
+	},
+	["domino"] = {
+		index = "domino",
+		name = "Dominó",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "65",
+		type = "use",
+		weight = 0.25
+	},
+	["brush"] = {
+		index = "brush",
+		name = "Escova",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["horseshoe"] = {
+		index = "horseshoe",
+		name = "Ferradura",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["switch"] = {
+		index = "switch",
+		name = "Interruptor",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "35",
+		type = "use",
+		weight = 0.25
+	},
+	["blender"] = {
+		index = "blender",
+		name = "Liquidificador",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.50
+	},
+	["pan"] = {
+		index = "pan",
+		name = "Panela",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["rimel"] = {
+		index = "rimel",
+		name = "Rímel",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.25
+	},
+	["soap"] = {
+		index = "soap",
+		name = "Sabonete",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "75",
+		type = "use",
+		weight = 0.25
+	},
+	["sneakers"] = {
+		index = "sneakers",
+		name = "Tenis",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "115",
+		type = "use",
+		weight = 0.50
+	},
+	["brick"] = {
+		index = "brick",
+		name = "Tijolo",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "30",
+		type = "use",
+		weight = 0.50
+	},
+	["fan"] = {
+		index = "fan",
+		name = "Ventilador",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
+		type = "use",
+		weight = 0.50
+	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GENERATE:ADVTOOLBOX
