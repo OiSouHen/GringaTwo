@@ -186,7 +186,7 @@ local shops = {
 			["identity"] = 600
 		}
 	},
-	["megaMallStore"] = {
+	["mercadoCentral"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
