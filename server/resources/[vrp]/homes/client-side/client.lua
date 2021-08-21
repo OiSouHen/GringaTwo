@@ -594,8 +594,9 @@ Citizen.CreateThread(function()
 								TriggerEvent("cancelando",true)
 
 								if k == "LOCKER" then
-									local homeLocker = exports["safelocker"]:createSafe({ math.random(0,99),math.random(0,99) })
-									if homeLocker then
+--									local homeLocker = exports["safelocker"]:createSafe({ math.random(0,99),math.random(0,99) })
+									local safeCracking = exports["safecrack"]:safeCraking(1)
+									if safeCracking then
 										vSERVER.paymentTheft(k)
 									end
 									theftPlayers[k] = true

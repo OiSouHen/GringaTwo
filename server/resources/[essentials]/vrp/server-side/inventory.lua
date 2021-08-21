@@ -652,15 +652,15 @@ local itemlist = {
 		type = "use",
 		weight = 0.15
 	},
-	["cellbattery"] = {
-		index = "cellbattery",
-		name = "Bateria de celular",
+	["mbattery"] = {
+		index = "mbattery",
+		name = "Bateria Móvel",
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
 		economy = "35",
 		type = "use",
-		weight = 0.75
+		weight = 0.35
 	},
 	["cellphone"] = {
 		index = "cellphone",
@@ -681,7 +681,7 @@ local itemlist = {
 		desc = "Celular sem bateria",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "S/E",
+		economy = "350",
         type = "use",
         weight = 0.75
     },
@@ -691,7 +691,7 @@ local itemlist = {
 		desc = "Celular totalmente queimado",
 		tipo = "Eletrônico",
 		unity = "Não",
-		economy = "S/E",
+		economy = "100",
         type = "use",
         weight = 0.85
     },

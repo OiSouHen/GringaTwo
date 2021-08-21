@@ -799,6 +799,14 @@ local craftList = {
 					["plastic"] = 3,
 					["copper"] = 2
 				}
+			},
+			["cellphone"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["mbattery"] = 1,
+					["nbcellphone"] = 1
+				}
 			}
 		}
 	}
