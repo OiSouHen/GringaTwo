@@ -336,26 +336,6 @@ local craftList = {
 			}
 		}
 	},
-	["fueltechCrafting"] = {
-		["list"] = {
-			["fueltech"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["cpuchip"] = 25
-				}
-			},
-			["vest"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["rubber"] = 80,
-					["aluminum"] = 60,
-					["copper"] = 40
-				}
-			}
-		}
-	},
 	["lixeiroShop"] = {
 		["list"] = {
 			["aluminum"] = {
