@@ -22,7 +22,7 @@ local screenshotOptions = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookadmin = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
+local webhookadmin = "https://ptb.discord.com/api/webhooks/878435422064214019/-I2Bo8YJkdm7SeOve6LBstWeS6Snn2UcRKqckQKMDrd5iRVyRsXJ4YAWLY_GBYkIfsM4"
 local webhookkick = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
 local webhookfac = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
 local webhookkeys = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"

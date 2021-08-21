@@ -358,28 +358,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "weed" then
-						if vRP.getInventoryItemAmount(user_id,"weed") >= parseInt(rAmount) and vRP.getInventoryItemAmount(user_id,"silk") >= parseInt(rAmount) then
-						active[user_id] = parseInt(rAmount*3)
-						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,parseInt(rAmount*3000),"Utilizando...")
-
-						repeat
-							if active[user_id] == 0 then
-								active[user_id] = nil
-								vCLIENT.blockButtons(source,false)
-
-									if vRP.tryGetInventoryItem(user_id,"weed",parseInt(rAmount),true,slot) and vRP.tryGetInventoryItem(user_id,"silk",parseInt(rAmount),true) then
-										vRP.giveInventoryItem(user_id,"joint",parseInt(rAmount),true)
-									end
-								end
-								Citizen.Wait(0)
-							until active[user_id] == nil
-						else
-							TriggerClientEvent("Notify",source,"vermelho","Você não tem uma seda.",5000)
-						end
-					end
-
 					if itemName == "joint" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
 							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
@@ -546,7 +524,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						until active[user_id] == nil
 					end
 
-					if itemName == "warfarin" then
+					if itemName == "medkit" then
 						if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 200 then
 							active[user_id] = 60
 							vCLIENT.closeInventory(source)
@@ -1512,34 +1490,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "bucket" then
-                        if vRP.getInventoryItemAmount(user_id,"compost") >= 1 and vRP.getInventoryItemAmount(user_id,"bucket") >= 1 and vRP.getInventoryItemAmount(user_id,"cannabisseed") >= 1 then
-                        active[user_id] = 10
-                        vRPclient.stopActived(source)
-                        vCLIENT.closeInventory(source)
-                        vCLIENT.blockButtons(source,true)
-                        TriggerClientEvent("Progress",source,10000,"Utilizando...")
-                        vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-
-                        repeat
-                            if active[user_id] == 0 then
-                                active[user_id] = nil
-                                vCLIENT.blockButtons(source,false)
-                                vRPclient._removeObjects(source,"one")
-
-                                if vRP.tryGetInventoryItem(user_id,"compost",1,true) and vRP.tryGetInventoryItem(user_id,"bucket",1,true) and vRP.tryGetInventoryItem(user_id,"cannabisseed",1,true) then
-                                   vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-                                    vRP.upgradeHunger(user_id,30)
-                                  TriggerClientEvent('orp:weed:client:plantNewSeed', source, 'og_kush')
-                                end
-                            end
-                            Citizen.Wait(0)
-                        until active[user_id] == nil
-                        else
-                          TriggerClientEvent("Notify",source,"vermelho","Você não possúi todos os itens.",5000)
-						end
-					end
-
 					if itemName == "tires" then
 						if not vRPclient.inVehicle(source) then
 							local vehicle,vehNet = vRPclient.vehList(source,3)
@@ -1643,36 +1593,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                             end
                         end
                     end
-
-					if itemName == "fueltech" then
-                        if vRPclient.inVehicle(source) then
-                            if vCLIENT.techDistance(source) then
-                                local vehPlate = vRPclient.vehiclePlate(source)
-                                local plateUsers = vRP.getVehiclePlate(vehPlate)
-                                if not plateUsers then
-                                    active[user_id] = 30
-                                    vCLIENT.closeInventory(source)
-                                    vCLIENT.blockButtons(source,true)
-                                    TriggerClientEvent("Progress",source,30000,"Utilizando...")
-                                    vRPclient._playAnim(source,true,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-
-                                    repeat
-                                        if active[user_id] == 0 then
-                                            active[user_id] = nil
-                                            vRPclient._stopAnim(source,false)
-                                            vCLIENT.blockButtons(source,false)
-
-                                            if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-                                                TriggerClientEvent("admin:vehicleTuning",source)
-                                            end
-                                        end
-                                        Citizen.Wait(0)
-                                    until active[user_id] == nil
-                                end
-                            end
-                        end
-                    end
-
+					
 					if itemName == "radio" then
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
