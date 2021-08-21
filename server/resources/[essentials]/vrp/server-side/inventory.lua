@@ -2538,6 +2538,26 @@ local itemlist = {
 		type = "use",
 		weight = 0.25
 	},
+	["silvercoin"] = {
+		index = "silvercoin",
+		name = "Moeda de Prata",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.01
+	},
+	["goldcoin"] = {
+		index = "goldcoin",
+		name = "Moeda de Ouro",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "10",
+		type = "use",
+		weight = 0.01
+	},
 	["spray01"] = {
 		index = "spray01",
 		name = "Desodorante 24hrs",

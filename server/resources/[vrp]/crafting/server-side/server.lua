@@ -485,6 +485,323 @@ local craftList = {
 			}
 		}
 	},
+	["mercadoCentral"] = {
+		["list"] = {
+			["lampshade"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["aluminum"] = 2,
+					["glass"] = 2,
+					["plastic"] = 2,
+					["copper"] = 2
+				}
+			},
+			["pliers"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 3,
+					["plastic"] = 3,
+					["copper"] = 3
+				}
+			},
+			["goldring"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["goldcoin"] = 4,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["copper"] = 3
+				}
+			},
+			["silverring"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["silvercoin"] = 4,
+					["glass"] = 3,
+					["copper"] = 2
+				}
+			},
+			["spray02"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["eraser"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["deck"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 3
+				}
+			},
+			["bracelet"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["goldcoin"] = 4,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["copper"] = 3
+				}
+			},
+			["slipper"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 3,
+					["fabric"] = 1
+				}
+			},
+			["cup"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["aluminum"] = 2,
+					["glass"] = 3,
+					["silvercoin"] = 3
+				}
+			},
+			["dices"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 1,
+					["plastic"] = 4
+				}
+			},
+			["spray01"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["spray03"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["spray04"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["floppy"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 2,
+					["plastic"] = 5
+				}
+			},
+			["domino"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 1,
+					["plastic"] = 5
+				}
+			},
+			["brush"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["horseshoe"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["switch"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 1,
+					["plastic"] = 3
+				}
+			},
+			["legos"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 1,
+					["rubber"] = 2,
+					["plastic"] = 8
+				}
+			},
+			["blender"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["mouse"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["ominitrix"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 1,
+					["rubber"] = 2,
+					["plastic"] = 8
+				}
+			},
+			["pan"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 2,
+					["rubber"] = 2,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["aluminum"] = 3
+				}
+			},
+			["playstation"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 3,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["aluminum"] = 2
+				}
+			},
+			["watch"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["goldcoin"] = 4,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["copper"] = 3
+				}
+			},
+			["rimel"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["plastic"] = 4,
+					["copper"] = 3
+				}
+			},
+			["soap"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["plastic"] = 3,
+					["copper"] = 3
+				}
+			},
+			["keyboard"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 2,
+					["plastic"] = 4,
+					["copper"] = 3
+				}
+			},
+			["sneakers"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 3,
+					["fabric"] = 1
+				}
+			},
+			["brick"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["glass"] = 1,
+					["rubber"] = 2,
+					["plastic"] = 1
+				}
+			},
+			["fan"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["dildo"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["copper"] = 3,
+					["rubber"] = 2,
+					["plastic"] = 4
+				}
+			},
+			["xbox"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["aluminum"] = 2,
+					["glass"] = 3,
+					["plastic"] = 3,
+					["copper"] = 2
+				}
+			}
+		}
+	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTPERM
