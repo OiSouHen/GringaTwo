@@ -17,6 +17,7 @@ local trashCans = {
     {"prop_bin_01a"},
     {"prop_bin_03a"},
     {"prop_bin_05a"},
+    {"prop_bin_08a"},
     {"prop_dumpster_01a"},
     {"prop_dumpster_02a"},
     {"prop_dumpster_02b"},

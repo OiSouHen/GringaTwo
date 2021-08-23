@@ -52,26 +52,6 @@ local itemlist = {
 		type = "use",
 		weight = 7.50
 	},
-	["vest"] = {
-		index = "vest",
-		name = "Colete",
-		desc = "",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "875",
-		type = "use",
-		weight = 2.25
-	},
-	["vest2"] = {
-		index = "vest2",
-		name = "Colete Danificado",
-		desc = "",
-		tipo = "Comum",
-		unity = "Não",
-		economy = "125",
-		type = "use",
-		weight = 0.75
-	},
 	["bandage"] = {
 		index = "bandage",
 		name = "Bandagem",
@@ -652,16 +632,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.15
 	},
-	["mbattery"] = {
-		index = "mbattery",
-		name = "Bateria Móvel",
-		desc = "",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "35",
-		type = "use",
-		weight = 0.35
-	},
 	["cellphone"] = {
 		index = "cellphone",
 		name = "Celular",
@@ -677,7 +647,7 @@ local itemlist = {
 	},
 	["nbcellphone"] = {
         index = "nbcellphone",
-        name = "Celular",
+        name = "Celular Descarregado",
 		desc = "Celular sem bateria",
 		tipo = "Comum",
 		unity = "Não",
@@ -695,6 +665,16 @@ local itemlist = {
         type = "use",
         weight = 0.85
     },
+	["mbattery"] = {
+		index = "mbattery",
+		name = "Bateria Móvel",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "35",
+		type = "use",
+		weight = 0.35
+	},
 -- SUBTYPE COMIDA
 -- subtype = "comida",
 -- transform = "comida-estragada",
@@ -935,17 +915,43 @@ local itemlist = {
 		unity = "Não",
 		economy = "400",
 		type = "use",
+		subtype = "comida",
+		transform = "lockpick2",
+		durability = 10800,
 		weight = 1.25
 	},
 	["lockpick2"] = {
 		index = "lockpick2",
-		name = "Lockpick Quebrado",
+		name = "Lockpick Quebrada",
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
 		economy = "65",
 		type = "use",
 		weight = 1.25
+	},
+	["vest"] = {
+		index = "vest",
+		name = "Colete",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "875",
+		type = "use",
+		subtype = "comida",
+		transform = "vest2",
+		durability = 10800,
+		weight = 2.25
+	},
+	["vest2"] = {
+		index = "vest2",
+		name = "Colete Danificado",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 2.25
 	},
 	["toolbox"] = {
 		index = "toolbox",
@@ -1418,14 +1424,14 @@ local itemlist = {
 		weight = 0.25
 	},
 	["identity"] = {
-		index = "identity",
+		index = "newchars",
 		name = "Identidade",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "25",
 		type = "use",
-		weight = 1.50
+		weight = 0.25
 	},
 	["goldbar"] = {
 		index = "goldbar",

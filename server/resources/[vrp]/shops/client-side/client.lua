@@ -105,7 +105,7 @@ local shopList = {
 	{ -254.64,6326.95,32.82,"pharmacyParamedic",false,false },
 	{ 45.5,-1751.16,29.64,"mercadoCentral",false,true,{ 06,20 } },
 	{ 2748.74,3476.43,55.68,"mercadoCentral",false,true,{ 06,20 } },
-	{ -428.57,-1728.35,19.78,"recyclingSell",false,true,{ 06,20 } },
+	{ -428.54,-1728.29,19.78,"recyclingSell",false,true,{ 06,20 } },
 	{ 487.3,-997.08,30.68,"policeStore",false,false },
 	{ 1845.67,3692.58,34.26,"policeStore",false,false },
 	{ -449.8,6010.25,31.71,"policeStore",false,false },
