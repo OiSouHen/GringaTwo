@@ -1858,6 +1858,8 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 				end
 			end
 		end
+		
+		TriggerClientEvent("inventory:Update",source,"updateMochila")
     end
 end) 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1885,6 +1887,8 @@ RegisterCommand("garmas",function(source,args,rawCommand)
 
             TriggerClientEvent("Notify",source,"verde","Seu armamento foi guardado.",3000)
         end
+		
+		TriggerClientEvent("inventory:Update",source,"updateMochila")
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
