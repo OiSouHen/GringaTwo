@@ -19,12 +19,12 @@ local robberyProgress = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vars = {
 	[1] = {
-		["x"] = 28.24,
-		["y"] = -1338.832,
+		["x"] = 28.33,
+		["y"] = -1339.13,
 		["z"] = 29.5,
-		["cops"] = 3,
-		["time"] = 5,
-		["distance"] = 12,
+		["cops"] = 1,
+		["timer"] = 60,
+		["distance"] = 5,
 		["type"] = "convn",
 		["cooldown"] = 3600,
 		["name"] = "Loja de Departamento",
@@ -38,7 +38,7 @@ local vars = {
 		["y"] = 384.850,
 		["z"] = 108.63,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -53,7 +53,7 @@ local vars = {
 		["y"] = -314.055,
 		["z"] = 69.21,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -68,7 +68,7 @@ local vars = {
 		["y"] = -904.091,
 		["z"] = 19.22,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -83,7 +83,7 @@ local vars = {
 		["y"] = -1748.122,
 		["z"] = 29.43,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -98,7 +98,7 @@ local vars = {
 		["y"] = 333.712,
 		["z"] = 103.57,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -113,7 +113,7 @@ local vars = {
 		["y"] = 1004.504,
 		["z"] = 12.84,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -128,7 +128,7 @@ local vars = {
 		["y"] = 6421.161,
 		["z"] = 35.04,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -143,7 +143,7 @@ local vars = {
 		["y"] = 2662.45,
 		["z"] = 42.16,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -158,7 +158,7 @@ local vars = {
 		["y"] = 3749.239,
 		["z"] = 32.35,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -173,7 +173,7 @@ local vars = {
 		["y"] = 3286.811,
 		["z"] = 55.25,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -188,7 +188,7 @@ local vars = {
 		["y"] = 4920.711,
 		["z"] = 42.07,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -203,7 +203,7 @@ local vars = {
 		["y"] = 798.491,
 		["z"] = 138.2,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -218,7 +218,7 @@ local vars = {
 		["y"] = 386.765,
 		["z"] = 14.05,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -233,7 +233,7 @@ local vars = {
 		["y"] = 585.519,
 		["z"] = 7.91,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -248,7 +248,7 @@ local vars = {
 		["y"] = -979.760,
 		["z"] = 45.42,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -263,7 +263,7 @@ local vars = {
 		["y"] = 2717.833,
 		["z"] = 37.16,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -278,7 +278,7 @@ local vars = {
 		["y"] = -375.675,
 		["z"] = 39.17,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -293,7 +293,7 @@ local vars = {
 		["y"] = -916.213,
 		["z"] = 11.33,
 		["cops"] = 3,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "convn",
 		["cooldown"] = 3600,
@@ -308,7 +308,7 @@ local vars = {
 		["y"] = 3761.669,
 		["z"] = 34.71,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -323,7 +323,7 @@ local vars = {
 		["y"] = -51.643,
 		["z"] = 69.95,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -338,7 +338,7 @@ local vars = {
 		["y"] = -1034.951,
 		["z"] = 28.2,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -353,7 +353,7 @@ local vars = {
 		["y"] = 6085.647,
 		["z"] = 31.46,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -368,7 +368,7 @@ local vars = {
 		["y"] = -933.901,
 		["z"] = 21.83,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -383,7 +383,7 @@ local vars = {
 		["y"] = -395.832,
 		["z"] = 36.7,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -398,7 +398,7 @@ local vars = {
 		["y"] = 2700.388,
 		["z"] = 18.56,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -413,7 +413,7 @@ local vars = {
 		["y"] = 292.945,
 		["z"] = 108.74,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -428,7 +428,7 @@ local vars = {
 		["y"] = 1089.462,
 		["z"] = 20.84,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -443,7 +443,7 @@ local vars = {
 		["y"] = -1106.27,
 		["z"] = 29.8,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -458,7 +458,7 @@ local vars = {
 		["y"] = -2158.684,
 		["z"] = 29.62,
 		["cops"] = 2,
-		["time"] = 120,
+		["timer"] = 120,
 		["distance"] = 12,
 		["type"] = "ammus",
 		["cooldown"] = 3600,
@@ -473,7 +473,7 @@ local vars = {
 		["y"] = -336.485,
 		["z"] = 38.29,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -488,7 +488,7 @@ local vars = {
 		["y"] = -55.518,
 		["z"] = 49.54,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -503,7 +503,7 @@ local vars = {
 		["y"] = -284.649,
 		["z"] = 54.67,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -518,7 +518,7 @@ local vars = {
 		["y"] = -1046.292,
 		["z"] = 29.87,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -533,7 +533,7 @@ local vars = {
 		["y"] = 482.090,
 		["z"] = 16.2,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -548,7 +548,7 @@ local vars = {
 		["y"] = 2712.939,
 		["z"] = 38.59,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "fleeca",
 		["cooldown"] = 10800,
@@ -559,101 +559,11 @@ local vars = {
 		}
 	},
 	[37] = {
-		["x"] = 134.124,
-		["y"] = -1708.138,
-		["z"] = 29.7,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[38] = {
-		["x"] = -1284.667,
-		["y"] = -1115.089,
-		["z"] = 7.5,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[39] = {
-		["x"] = 1930.781,
-		["y"] = 3727.585,
-		["z"] = 33.35,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[40] = {
-		["x"] = 1211.147,
-		["y"] = -470.180,
-		["z"] = 66.71,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[41] = {
-		["x"] = -30.355,
-		["y"] = -151.385,
-		["z"] = 57.58,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[42] = {
-		["x"] = -278.047,
-		["y"] = 6231.001,
-		["z"] = 32.2,
-		["cops"] = 2,
-		["time"] = 180,
-		["distance"] = 10,
-		["type"] = "barber",
-		["cooldown"] = 3600,
-		["name"] = "Barbearia",
-		["required"] = "card04",
-		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 4500, ["max"] = 9000 }
-		}
-	},
-	[43] = {
 		["x"] = 265.336,
 		["y"] = 220.184,
 		["z"] = 102.09,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 20,
 		["type"] = "bank",
 		["cooldown"] = 10800,
@@ -663,16 +573,31 @@ local vars = {
 			{ ["item"] = "goldbar", ["min"] = 250, ["max"] = 500 }
 		}
 	},
-	[44] = {
+	[38] = {
 		["x"] = -104.386,
 		["y"] = 6477.150,
 		["z"] = 31.83,
 		["cops"] = 6,
-		["time"] = 300,
+		["timer"] = 300,
 		["distance"] = 12,
 		["type"] = "bank",
 		["cooldown"] = 10800,
 		["name"] = "Savings Bank",
+		["required"] = "card05",
+		["itens"] = {
+			{ ["item"] = "goldbar", ["min"] = 250, ["max"] = 500 }
+		}
+	},
+	[39] = {
+		["x"] = -1053.68,
+		["y"] = -230.54,
+		["z"] = 44.03,
+		["cops"] = 6,
+		["timer"] = 300,
+		["distance"] = 12,
+		["type"] = "lifeinvader",
+		["cooldown"] = 10800,
+		["name"] = "Life Invader",
 		["required"] = "card05",
 		["itens"] = {
 			{ ["item"] = "goldbar", ["min"] = 250, ["max"] = 500 }
@@ -714,9 +639,9 @@ function cRP.checkPolice(robberyId,coords)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PAYMENTMETHOD
+-- paymentRobbery
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.paymentMethod(robberyId)
+function cRP.paymentRobbery(robberyId)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -747,4 +672,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	vCLIENT.updateVars(source,vars)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADPLAYERSPAWN
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	Citizen.Wait(1000)
+	vCLIENT.updateVars(-1,vars)
 end)

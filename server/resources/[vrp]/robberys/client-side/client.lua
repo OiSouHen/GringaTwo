@@ -13,6 +13,7 @@ vSERVER = Tunnel.getInterface("robberys")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
+local activeTimers = GetGameTimer()
 local startRobbery = false
 local robberyTimer = 0
 local robberyId = 0
@@ -30,31 +31,57 @@ Citizen.CreateThread(function()
 			for k,v in pairs(vars) do
 				local distance = #(coords - vector3(v.x,v.y,v.z))
 				if distance <= v.distance then
-					timeDistance = 4
-
+					timeDistance = 1
+					
 					if not startRobbery then
 						if distance <= 1 then
 							DrawText3D(v.x,v.y,v.z-0.4,"~g~E~w~  ROUBAR",400)
 							if distance <= 1 and IsControlJustPressed(1,38) and vSERVER.checkPolice(k,coords) then
-								robberyId = k
-								startRobbery = true
-								robberyTimer = v.time
+								exports["memory"]:StartMinigame({ success = "robberys:startRobbery", fail = nil })
 							end
 						end
-					else
-						DrawText3D(v.x,v.y,v.z-0.4,"AGUARDE  "..robberyTimer.."  SEGUNDOS",370)
 					end
 				end
 			end
-
+			
 			if startRobbery then
 				local distance = #(coords - vector3(vars[robberyId].x,vars[robberyId].y,vars[robberyId].z))
 				if distance > vars[robberyId].distance or GetEntityHealth(ped) <= 101 then
+					SendNUIMessage({ show = false })
 					startRobbery = false
+					TriggerEvent("Notify","amarelo","Você se afastou demais.",5000)
 				end
 			end
 		end
 		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ROBBERYS:STARTROBBRY
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("robberys:startRobbery")
+AddEventHandler("robberys:startRobbery",function()
+	local timeDistance = 500
+	local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		local coords = GetEntityCoords(ped)
+		
+		for k,v in pairs(vars) do
+			local distance = #(coords - vector3(v.x,v.y,v.z))
+			if distance <= v.distance then
+				timeDistance = 1
+				
+				if not startRobbery then
+					if distance <= 1 then
+						robberyId = k
+						robberyTimer = v["timer"]
+						activeTimers = GetGameTimer()
+						SendNUIMessage({ show = true, timer = "AGUARDE "..robberyTimer.." SEGUNDOS" })
+						startRobbery = true
+					end
+				end
+			end
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -63,14 +90,19 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		if startRobbery then
-			if robberyTimer > 0 then
+			if GetGameTimer() >= activeTimers then
 				robberyTimer = robberyTimer - 1
+				activeTimers = GetGameTimer() + 1000
+				SendNUIMessage({ timer = "AGUARDE "..robberyTimer.." SEGUNDOS" })
+
 				if robberyTimer <= 0 then
+					vSERVER.paymentRobbery(robberyId)
+					SendNUIMessage({ show = false })
 					startRobbery = false
-					vSERVER.paymentMethod(robberyId)
 				end
 			end
 		end
+
 		Citizen.Wait(1000)
 	end
 end)

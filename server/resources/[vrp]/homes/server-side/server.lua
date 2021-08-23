@@ -1113,7 +1113,9 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	vCLIENT.updateHomes(source,homes)
 	vCLIENT.updateHomesTheft(source,homesTheft)
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADPLAYERSPAWN
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	Citizen.Wait(1000)
 	vCLIENT.updateHomes(-1,homes)
