@@ -1839,7 +1839,7 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 			if vRPclient.getArmour(source) == 0 then
 				TriggerClientEvent("Notify",source,"vermelho","Você não tem um colete.",5000)
 			elseif vRPclient.getArmour(source) <= 50 and vRPclient.getArmour(source) > 1 then    
-				TriggerClientEvent("Notify",source,"amarelo","Seu colete está danificado e foi guardado.",5000)
+				TriggerClientEvent("Notify",source,"vermelho","Seu colete está muito danificado.",5000)
 			elseif vRPclient.getArmour(source) <= 99 and vRPclient.getArmour(source) > 49 then
 				if vRP.computeInvWeight(user_id) + vRP.itemWeightList("vest2") <= vRP.getBackpack(user_id) then
 					vRP.giveInventoryItem(user_id,"vest2",1)
