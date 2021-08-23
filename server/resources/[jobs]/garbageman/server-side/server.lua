@@ -36,7 +36,7 @@ function cRP.searchTrash(id)
 	if user_id then
 	    if timers[id] == 0 or not timers[id] then
 		    if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+			    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 			    Wait(1)
 		    else
 				

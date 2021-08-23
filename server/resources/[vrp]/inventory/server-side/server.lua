@@ -1823,13 +1823,54 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GARMAS
+-- GCOLETE:ONE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("gcolete",function(source,args,rawCommand)
+    vRP.addUserGroup()
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GCOLETE:TWO
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("gcolete",function(source,args,rawCommand)
+    local source = source
+    local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+			if vRPclient.getArmour(source) == 0 then
+				TriggerClientEvent("Notify",source,"vermelho","Você não tem um colete.",5000)
+			elseif vRPclient.getArmour(source) <= 50 and vRPclient.getArmour(source) > 1 then    
+				TriggerClientEvent("Notify",source,"amarelo","Seu colete está danificado e foi guardado.",5000)
+			elseif vRPclient.getArmour(source) <= 99 and vRPclient.getArmour(source) > 49 then
+				if vRP.computeInvWeight(user_id) + vRP.itemWeightList("vest2") <= vRP.getBackpack(user_id) then
+					vRP.giveInventoryItem(user_id,"vest2",1)
+					vRPclient.setArmour(source,-100)
+					TriggerClientEvent("Notify",source,"amarelo","Seu colete está danificado e foi guardado.",5000)
+				else
+					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
+				end
+			elseif vRPclient.getArmour(source) == 100 then
+				if vRP.computeInvWeight(user_id) + vRP.itemWeightList("vest") <= vRP.getBackpack(user_id) then
+					vRPclient.setArmour(source,-100)
+					vRP.giveInventoryItem(user_id,"vest",1)
+					TriggerClientEvent("Notify",source,"verde","Seu colete foi guardado.",3000)
+				else
+					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
+				end
+			end
+		end
+    end
+end) 
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GARMAS:ONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("garmas",function(source,args,rawCommand)
     vRP.addUserGroup()
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GARMAS:TWO
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("garmas",function(source,args,rawCommand)
+    local source = source
     local user_id = vRP.getUserId(source)
     if user_id then
         if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
@@ -1842,7 +1883,7 @@ RegisterCommand("garmas",function(source,args,rawCommand)
             end
             vRPclient.updateWeapons(source)
 
-            TriggerClientEvent("Notify",source,"verde","O seu armamento foi todo guardado.",5000)
+            TriggerClientEvent("Notify",source,"verde","Seu armamento foi guardado.",3000)
         end
     end
 end)

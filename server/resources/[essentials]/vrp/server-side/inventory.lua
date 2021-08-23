@@ -651,7 +651,7 @@ local itemlist = {
 		desc = "Celular sem bateria",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "350",
+		economy = "325",
         type = "use",
         weight = 0.75
     },
@@ -661,7 +661,7 @@ local itemlist = {
 		desc = "Celular totalmente queimado",
 		tipo = "Eletrônico",
 		unity = "Não",
-		economy = "100",
+		economy = "240",
         type = "use",
         weight = 0.85
     },
@@ -2272,7 +2272,6 @@ local itemlist = {
 		weight = 0.50
 	},
  -- END OTHERS
-
 	["pager"] = {
 		index = "pager",
 		name = "Pager",
