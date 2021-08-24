@@ -487,20 +487,18 @@ local craftList = {
 	},
 	["fuelShop"] = {
 		["list"] = {
-			["ketchup"] = {
+			["WEAPON_PETROLCAN"] = {
 				["amount"] = 1,
 				["destroy"] = true,
 				["require"] = {
-					["emptybottle"] = 1,
-					["tomato"] = 6
+					["dollars"] = 50
 				}
 			},
-			["ketchup"] = {
-				["amount"] = 1,
+			["WEAPON_PETROLCAN_AMMO"] = {
+				["amount"] = 4500,
 				["destroy"] = true,
 				["require"] = {
-					["emptybottle"] = 1,
-					["tomato"] = 6
+					["dollars"] = 200
 				}
 			}
 		}

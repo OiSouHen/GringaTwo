@@ -1703,17 +1703,6 @@ local itemlist = {
 		type = "equip",
 		weight = 0.75
 	},
-	["WEAPON_PETROLCAN"] = {
-		index = "gallon",
-		name = "Galão",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "equip",
-		ammo = "WEAPON_PETROLCAN_AMMO",
-		weight = 2.50
-	},
 	["GADGET_PARACHUTE"] = {
 		index = "parachute",
 		name = "Paraquedas",
@@ -2241,15 +2230,26 @@ local itemlist = {
  -- END SHOTGUN
 
  -- START OTHERS
+	["WEAPON_PETROLCAN"] = {
+		index = "gallon",
+		name = "Galão",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "250",
+		type = "equip",
+		ammo = "WEAPON_PETROLCAN_AMMO",
+		weight = 1.25
+	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		index = "fuel",
 		name = "Combustível",
 		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "S/E",
 		type = "recharge",
-		weight = 0.10
+		weight = 0.001
 	},
 	["WEAPON_RAYPISTOL"] = {
 		index = "raypistol",
