@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("inspect",cnVRP)
+cRP = {}
+Tunnel.bindInterface("inspect",cRP)
 vSERVER = Tunnel.getInterface("inspect")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFOCUS
@@ -79,7 +79,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHEST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.openInspect()
+function cRP.openInspect()
 	SetNuiFocus(true,true)
 	SendNUIMessage({ action = "showMenu" })
 end
@@ -89,7 +89,7 @@ end
 local uCarry = nil
 local iCarry = false
 local sCarry = false
-function cnVRP.toggleCarry(source)
+function cRP.toggleCarry(source)
 	uCarry = source
 	iCarry = not iCarry
 
