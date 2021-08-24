@@ -485,6 +485,26 @@ local craftList = {
 			}
 		}
 	},
+	["fuelShop"] = {
+		["list"] = {
+			["ketchup"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["emptybottle"] = 1,
+					["tomato"] = 6
+				}
+			},
+			["ketchup"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["emptybottle"] = 1,
+					["tomato"] = 6
+				}
+			}
+		}
+	},
 	["mercadoCentral"] = {
 		["list"] = {
 			["lampshade"] = {

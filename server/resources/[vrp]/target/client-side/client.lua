@@ -127,6 +127,22 @@ Citizen.CreateThread(function()
 		}
 	})
 
+	AddTargetModel({ 1158960338 },{
+		options = {
+			{
+				event = "target:animDeitar",
+				label = "Chamar Paramédico",
+				tunnel = "client"
+			},
+			{
+				event = "target:animDeitar",
+				label = "Chamar Polícia",
+				tunnel = "client"
+			}
+		},
+		distance = 1.00
+	})
+	
 	AddTargetModel({ 1631638868,2117668672,-1498379115,-1519439119,-289946279 },{
 		options = {
 			{

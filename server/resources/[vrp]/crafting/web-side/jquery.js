@@ -263,7 +263,7 @@ const requestCrafting = () => {
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
-					<div class="invisibledurability"></div>
+					<div class="durability"></div>
 					<div class="nameItem">${v.name}</div>
 				</div>`;
 
