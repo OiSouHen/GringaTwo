@@ -67,7 +67,7 @@ local shops = {
 			["sinkalmy"] = 325
 		}
 	},
-	["hospitalpharmacyStore"] = {
+	["pharmacyParamedic"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["perm"] = "Paramedic",
@@ -127,12 +127,12 @@ local shops = {
 			["WEAPON_MUSKET"] = 3250
 		}
 	},
-	["fishingStore"] = {
+	["departamentFishs"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["bait"] = 10,
-			["fishingrod"] = 5000
+			["bait"] = 7,
+			["fishingrod"] = 725
 		}
 	},
 	["fishingSell"] = {

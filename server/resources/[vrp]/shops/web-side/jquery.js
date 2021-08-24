@@ -267,7 +267,7 @@ const requestShop = () => {
 						<div class="itemPrice">$${formatarNumero(v["price"])}</div>
 					</div>
 
-					<div class="invisibledurability"></div>
+					<div class="durability"></div>
 					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 

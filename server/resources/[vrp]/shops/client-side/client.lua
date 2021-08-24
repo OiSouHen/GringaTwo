@@ -92,6 +92,7 @@ local shopList = {
 	{ -3172.39,1087.88,20.84,"ammunationStore",false,false },
 	{ 22.17,-1106.71,29.79,"ammunationStore",false,false },
 	{ 810.18,-2157.77,29.62,"ammunationStore",false,false },
+	{ -72.64,-815.97,243.38,"registryStore",false,true,{ 08,20 } },
 	{ -1082.2,-247.51,37.76,"premiumStore",false,false },
 	{ -1816.74,-1193.84,14.31,"fishingSell",false,true,{ 08,20 } },
 	{ -695.56,5802.1,17.32,"huntingSell",false,true,{ 08,20 } },
@@ -100,9 +101,7 @@ local shopList = {
 	{ 1690.07,3581.68,35.62,"pharmacyStore",false,true,{ 08,20 } },
 	{ 326.5,-1074.43,29.47,"pharmacyStore",false,true,{ 08,20 } },
 	{ 114.45,-4.89,67.82,"pharmacyStore",false,true,{ 08,20 } },
-	{ 311.97,-597.66,43.29,"pharmacyParamedic",false,false },
-	{ 1825.6,3667.98,34.27,"pharmacyParamedic",false,false },
-	{ -254.64,6326.95,32.82,"pharmacyParamedic",false,false },
+	{ 1144.79,-1574.96,35.39,"pharmacyParamedic",false,false },
 	{ 45.5,-1751.16,29.64,"mercadoCentral",false,true,{ 06,20 } },
 	{ 2748.74,3476.43,55.68,"mercadoCentral",false,true,{ 06,20 } },
 	{ -428.54,-1728.29,19.78,"recyclingSell",false,true,{ 06,20 } },
@@ -196,48 +195,48 @@ end)
 -- SHOPS:COFFEEMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:coffeeMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("coffeeMachine"), type = vSERVER.getShopType("coffeeMachine") })
+	SendNUIMessage({ action = "showNUI", name = "coffeeMachine", type = vSERVER.getShopType("coffeeMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:SODAMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:sodaMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("sodaMachine"), type = vSERVER.getShopType("sodaMachine") })
+	SendNUIMessage({ action = "showNUI", name = "sodaMachine", type = vSERVER.getShopType("sodaMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:COLAMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:colaMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("colaMachine"), type = vSERVER.getShopType("colaMachine") })
+	SendNUIMessage({ action = "showNUI", name = "colaMachine", type = vSERVER.getShopType("colaMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:DONUTMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:donutMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("donutMachine"), type = vSERVER.getShopType("donutMachine") })
+	SendNUIMessage({ action = "showNUI", name = "donutMachine", type = vSERVER.getShopType("donutMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:BURGERMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:burgerMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("burgerMachine"), type = vSERVER.getShopType("burgerMachine") })
+	SendNUIMessage({ action = "showNUI", name = "burgerMachine", type = vSERVER.getShopType("burgerMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:HOTDOGMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:hotdogMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("hotdogMachine"), type = vSERVER.getShopType("hotdogMachine") })
+	SendNUIMessage({ action = "showNUI", name = "hotdogMachine", type = vSERVER.getShopType("hotdogMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHOPS:WATERMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:waterMachine",function()
-	SendNUIMessage({ action = "showNUI", name = tostring("waterMachine"), type = vSERVER.getShopType("waterMachine") })
+	SendNUIMessage({ action = "showNUI", name = "waterMachine", type = vSERVER.getShopType("waterMachine") })
 	SetNuiFocus(true,true)
 end)
