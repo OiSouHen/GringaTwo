@@ -692,6 +692,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "identity" then
+					vCLIENT.closeInventory(source)
+					Wait(1000)
 						local nplayer = vRPclient.nearestPlayer(source,2)
 						if nplayer then
 							local identity = vRP.getUserIdentity(user_id)
@@ -701,7 +703,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 						
 						TriggerClientEvent("Notify",source,"amarelo","Você está mostrando seu documento.",5000)
-						vCLIENT.closeInventory(source)
 					end
 
 					if itemName == "bonusDelivery" then
