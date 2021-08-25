@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("stockade",cnVRP)
+cRP = {}
+Tunnel.bindInterface("stockade",cRP)
 vCLIENT = Tunnel.getInterface("stockade")
 vTASKBAR = Tunnel.getInterface("taskbar")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -17,11 +17,11 @@ vTASKBAR = Tunnel.getInterface("taskbar")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local stockadePlates = {}
 local blockStockades = {}
-local stockadeItem = "blackcard"
+local stockadeItem = "pendrive"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPOLICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkPolice(vehPlate)
+function cRP.checkPolice(vehPlate)
 	if blockStockades[vehPlate] ~= nil then
 		return false
 	end
@@ -29,7 +29,7 @@ function cnVRP.checkPolice(vehPlate)
 	local source = source
 	local police = vRP.numPermission("Police")
 	if parseInt(#police) <= -1 then
-		TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
+		TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
 		return false
 	end
 	return true
@@ -37,7 +37,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WITHDRAWMONEY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.withdrawMoney(vehPlate,vehNet)
+function cRP.withdrawMoney(vehPlate,vehNet)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -48,7 +48,7 @@ function cnVRP.withdrawMoney(vehPlate,vehNet)
 					if vRP.tryGetInventoryItem(user_id,stockadeItem,1,true) then
 						stockadePlates[vehPlate] = 30
 						TriggerClientEvent("stockade:Destroy",-1,vehNet)
-						TriggerClientEvent("Notify",source,"sucesso","Sistema violado e as autoridades foram notificadas.",5000)
+						TriggerClientEvent("Notify",source,"verde","Sistema violado.",3000)
 
 						local x,y,z = vRPclient.getPositions(source)
 						local copAmount = vRP.numPermission("Police")
@@ -60,7 +60,7 @@ function cnVRP.withdrawMoney(vehPlate,vehNet)
 					end
 				end
 			else
-				TriggerClientEvent("Notify",source,"importante","Você não possui um <b>"..vRP.itemNameList(stockadeItem).."</b>.",5000)
+				TriggerClientEvent("Notify",source,"amarelo","Você não possui um <b>"..vRP.itemNameList(stockadeItem).."</b>.",5000)
 			end
 		else
 			if stockadePlates[vehPlate] > 0 then
@@ -77,7 +77,7 @@ function cnVRP.withdrawMoney(vehPlate,vehNet)
 				TriggerClientEvent("cancelando",source,false)
 				vRP.giveInventoryItem(user_id,"dollars",math.random(1000,2000),true)
 			else
-				TriggerClientEvent("Notify",source,"negado","Nenhum dinheiro encontrado.",5000)
+				TriggerClientEvent("Notify",source,"vermelho","Nenhum dinheiro encontrado.",5000)
 			end
 		end
 	end

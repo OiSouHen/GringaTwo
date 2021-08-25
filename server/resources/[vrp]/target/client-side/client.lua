@@ -30,11 +30,11 @@ function cRP.toggleService()
 	if adminService then
 		setDistance = 10.0
 		adminService = false
-		TriggerEvent("Notify","amarelo","Sistema desativado.",5000)
+		TriggerEvent("Notify","amarelo","Sistema desativado.",3000)
 	else
 		setDistance = 99.0
 		adminService = true
-		TriggerEvent("Notify","verde","Sistema ativado.",5000)
+		TriggerEvent("Notify","verde","Sistema ativado.",3000)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
