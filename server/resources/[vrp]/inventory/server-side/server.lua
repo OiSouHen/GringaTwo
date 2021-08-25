@@ -694,7 +694,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if nplayer then
 							local identity = vRP.getUserIdentity(user_id)
 							if identity then
-								TriggerClientEvent("Notify",nplayer,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
+								TriggerClientEvent("Notify",nplayer,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,15000)
 							end
 						end
 						
@@ -757,7 +757,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											if parseInt(check) > 0 then
 												TriggerClientEvent("Notify",source,"verde","Resultado positivo.",5000)
 											else
-												TriggerClientEvent("Notify",source,"vermelho","Resultado negativo.",3000)
+												TriggerClientEvent("Notify",source,"vermelho","Resultado negativo.",5000)
 											end
 										end
 									end
@@ -830,10 +830,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "vest" then
-						active[user_id] = 10
+						active[user_id] = 8
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,8000,"Utilizando...")
 						vRPclient._playAnim(source,true,{"clothingtie","try_tie_negative_a"},true)
 
 						repeat
@@ -2011,17 +2011,29 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 				TriggerClientEvent("Notify",source,"vermelho","Seu colete está muito danificado.",5000)
 			elseif vRPclient.getArmour(source) <= 99 and vRPclient.getArmour(source) > 49 then
 				if vRP.computeInvWeight(user_id) + vRP.itemWeightList("vest2") <= vRP.getBackpack(user_id) then
+				    vCLIENT.closeInventory(source)
+					vCLIENT.blockButtons(source,true)
+					TriggerClientEvent("Progress",source,8000,"Utilizando...")
+					vRPclient._playAnim(source,true,{"clothingtie","try_tie_negative_a"},true)
+					Wait(8000)
 					vRP.giveInventoryItem(user_id,"vest2",1)
 					vRPclient.setArmour(source,-100)
 					TriggerClientEvent("Notify",source,"amarelo","Seu colete está danificado e foi guardado.",5000)
+					vRPclient._stopAnim(source,true)
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 				end
 			elseif vRPclient.getArmour(source) == 100 then
 				if vRP.computeInvWeight(user_id) + vRP.itemWeightList("vest") <= vRP.getBackpack(user_id) then
+				    vCLIENT.closeInventory(source)
+					vCLIENT.blockButtons(source,true)
+					TriggerClientEvent("Progress",source,8000,"Utilizando...")
+					vRPclient._playAnim(source,true,{"clothingtie","try_tie_negative_a"},true)
+					Wait(8000)
 					vRPclient.setArmour(source,-100)
 					vRP.giveInventoryItem(user_id,"vest",1)
 					TriggerClientEvent("Notify",source,"verde","Seu colete foi guardado.",3000)
+					vRPclient._stopAnim(source,true)
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 				end
