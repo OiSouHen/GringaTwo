@@ -12,6 +12,7 @@ files {
 }
 
 data_file "INTERIOR_PROXY_ORDER_FILE" "interiorproxies.meta"
+data_file "DLC_ITYP_REQUEST" "stream/creativeTaco/taco.ytyp"
 data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/v_int_16.ytyp"
 data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/v_int_49.ytyp"
 data_file "DLC_ITYP_REQUEST" "stream/creativeInteriores/creative_hotel.ytyp"
