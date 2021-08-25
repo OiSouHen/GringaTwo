@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SInteriorOrderData>
-	<startFrom value="2500" />
+	<startFrom value="4001" />
 	<filePathHash value="0" />
 	<proxies>
 		<Item>bkr_id1_33_strm_0</Item>
@@ -21,5 +21,14 @@
 		<Item>prison_cells_milo_</Item>
 		<Item>prison_garage_details</Item>
 		<Item>prison_visit_milo_</Item>
+		<Item>clawles_int_placement</Item>
+		<Item>cls_sherifff_lodinterior</Item>
+		<Item>cs1_16_sheriff_cap</Item>
+		<Item>cs1_17_sheriff_cap</Item>
+		<Item>cs1_occl_09</Item>
+		<Item>cs1_occl_10</Item>
+		<Item>hei_cs1_16_interior_v_sheriff2_milo_</Item>
+		<Item>int_clawles_sheriff_milo_</Item>
+		<Item>tiwabs_illegal_hospital_milo</Item>
 	</proxies>
 </SInteriorOrderData>
