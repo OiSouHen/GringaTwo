@@ -113,6 +113,39 @@ Citizen.CreateThread(function()
 		}
 	})
 	
+	AddCircleZone("polService02",vector3(1853.35,3689.78,34.27),0.75,{
+		name = "polService01",
+		heading = 9.53
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "police:servicePolice",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("polService03",vector3(-449.03,6012.85,31.72),0.75,{
+		name = "polService01",
+		heading = 9.53
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "police:servicePolice",
+				label = "Trabalhar",
+				tunnel = "server"
+			},
+			{
+				event = "corrections:initService",
+				label = "Transportar Presidiário",
+				tunnel = "client"
+			}
+		}
+	})
+	
 	AddCircleZone("dismantleCall",vector3(-1167.03,-2034.54,13.31),0.75,{
 		name = "dismantleCall",
 		heading = 309.99
