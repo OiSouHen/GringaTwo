@@ -295,14 +295,14 @@ function makeCollectMarked(x,y,z)
 		blipCollect = nil
 	end
 
-		blipCollect = AddBlipForCoord(x,y,z)
-		SetBlipSprite(blipCollect,12)
-		SetBlipColour(blipCollect,2)
-		SetBlipScale(blipCollect,0.9)
-		SetBlipAsShortRange(blipCollect,true)
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString("Coletar")
-		EndTextCommandSetBlipName(blipCollect)
+	blipCollect = AddBlipForCoord(x,y,z)
+	SetBlipSprite(blipCollect,12)
+	SetBlipColour(blipCollect,2)
+	SetBlipScale(blipCollect,0.9)
+	SetBlipAsShortRange(blipCollect,true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Coletar")
+	EndTextCommandSetBlipName(blipCollect)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MAKEDELIVERYMARKED
@@ -313,12 +313,12 @@ function makeDeliveryMarked(x,y,z)
 		blipDelivery = nil
 	end
 
-		blipDelivery = AddBlipForCoord(x,y,z)
-		SetBlipSprite(blipDelivery,12)
-		SetBlipColour(blipDelivery,5)
-		SetBlipScale(blipDelivery,0.9)
-		SetBlipAsShortRange(blipDelivery,true)
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString("Entregar")
-		EndTextCommandSetBlipName(blipDelivery)
+	blipDelivery = AddBlipForCoord(x,y,z)
+	SetBlipSprite(blipDelivery,12)
+	SetBlipColour(blipDelivery,5)
+	SetBlipScale(blipDelivery,0.9)
+	SetBlipAsShortRange(blipDelivery,true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Entregar")
+	EndTextCommandSetBlipName(blipDelivery)
 end
