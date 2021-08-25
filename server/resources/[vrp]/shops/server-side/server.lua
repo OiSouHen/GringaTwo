@@ -96,17 +96,17 @@ local shops = {
 			["gemstone"] = 1
 		}
 	},
-	["jewelryStore"] = {
+	["minerShop"] = {
 		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["ametista"] = 22,
-			["diamante"] = 26,
-			["esmeralda"] = 30,
-			["rubi"] = 22,
-			["safira"] = 20,
-			["turquesa"] = 20,
-			["ambar"] = 20
+			["amethyst"] = 43,
+			["diamond"] = 97,
+			["emerald"] = 125,
+			["ruby"] = 52,
+			["sapphire"] = 48,
+			["turquoise"] = 33,
+			["amber"] = 37
 		}
 	},
 	["huntingStore"] = {
