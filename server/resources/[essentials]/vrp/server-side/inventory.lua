@@ -512,86 +512,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.20
 	},
-	["alface"] = {
-		index = "alface",
-		name = "Alface",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.10
-	},
-	["bacon"] = {
-		index = "bacon",
-		name = "Bacon",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.10
-	},
-	["burguer"] = {
-		index = "burguer",
-		name = "Hamburguer",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.20
-	},
-	["milk"] = {
-		index = "milk",
-		name = "Leite",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.75
-	},
-	["onion"] = {
-		index = "onion",
-		name = "Cebola",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.20
-	},
-	["ovos"] = {
-		index = "ovos",
-		name = "Ovos",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.15
-	},
-	["presunto"] = {
-		index = "presunto",
-		name = "Presunto",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.10
-	},
-	["queijo"] = {
-		index = "queijo",
-		name = "Queijo",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.10
-	},
 	["tomate"] = {
 		index = "tomate",
 		name = "Tomate",
@@ -675,10 +595,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.35
 	},
--- SUBTYPE COMIDA
--- subtype = "comida",
--- transform = "comida-estragada",
--- durability = 1500,
     ["cola"] = {
 		index = "cola",
 		name = "Cola",
@@ -917,19 +833,6 @@ local itemlist = {
 		unity = "Sim",
 		economy = "15",
 		type = "use",
-		subtype = "comida",
-		transform = "badchocolate",
-		durability = 1500,
-		weight = 0.10
-	},
-	["badchocolate"] = {
-		index = "badchocolate",
-		name = "Chocolate vencido",
-		desc = "",
-		tipo = "Comum",
-		unity = "Não",
-		economy = "10",
-		type = "use",
 		weight = 0.10
 	},
 	["donut"] = {
@@ -978,11 +881,20 @@ local itemlist = {
 		type = "use",
 		weight = 0.25
 	},
--- END SUBTYPE COMIDA
+	["fries"] = {
+		index = "fries",
+		name = "Fritas",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "15",
+		type = "use",
+		weight = 0.15
+	},
 	["bread"] = {
 		index = "bread",
 		name = "Pão",
-		desc = "Usado para fazer Hambúrguer",
+		desc = "Usado para fazer Hambúrguers",
 		tipo = "Usável",
 		unity = "Não",
 		economy = "5",
