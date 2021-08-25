@@ -97,7 +97,7 @@ local shopList = {
 	{ -1816.74,-1193.84,14.31,"fishingSell",false,true,{ 08,20 } },
 	{ -695.56,5802.1,17.32,"huntingSell",false,true,{ 08,20 } },
 	{ -678.26,5838.62,17.32,"huntingStore",false,true,{ 08,20 } },
-	{ -172.5,6380.98,31.48,"pharmacyStore",false,true,{ 08,20 } },
+	{ -172.18,6385.73,31.5,"pharmacyStore",false,true,{ 08,20 } },
 	{ 1690.07,3581.68,35.62,"pharmacyStore",false,true,{ 08,20 } },
 	{ 326.5,-1074.43,29.47,"pharmacyStore",false,true,{ 08,20 } },
 	{ 114.45,-4.89,67.82,"pharmacyStore",false,true,{ 08,20 } },

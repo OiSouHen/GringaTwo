@@ -302,7 +302,7 @@ local pedList = {
 	},
 	{ -- Pharmacy Store
 		distance = 30,
-		coords = { -172.89,6381.32,31.48,223.94 },
+		coords = { -171.5,6386.63,31.5,133.7 },
 		model = { 0x5244247D,"u_m_y_baygor" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
