@@ -18,7 +18,7 @@ local timeSeconds = 0
 -- SERVICES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local services = {
-	{ -238.83,-1173.78,23.03 },
+	{ 408.03,-1638.37,29.38 },
 	{ 1724.84,3715.31,34.22 },
 	{ -364.24,6071.16,31.52 }
 }
@@ -46,6 +46,27 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- IMPOUND
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("impound",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Police") then
+			local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,7)
+			if vehicle then
+				local x,y,z = vRPclient.getPositions(source)
+				if impoundVehs[vehName.."-"..vehPlate] == nil then
+					impoundVehs[vehName.."-"..vehPlate] = true
+					TriggerEvent("towdriver:alertPlayers",x,y,z,vRP.vehicleName(vehName).." - "..vehPlate)
+					TriggerClientEvent("Notify",source,"verde","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi registrado no <b>DMV</b>.",5000)
+				else
+					TriggerClientEvent("Notify",source,"amarelo","Veículo <b>"..vRP.vehicleName(vehName).."</b> já está na lista do <b>DMV</b>.",5000)
+				end
+			end
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

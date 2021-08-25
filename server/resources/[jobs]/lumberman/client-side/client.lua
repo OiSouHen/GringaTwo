@@ -132,8 +132,8 @@ Citizen.CreateThread(function()
 						    coSelected = math.random(#collect)
 						    deSelected = math.random(#deliver)
 						end
-						collectBlipMarked()
-						deliverBlipMarked()
+						makeCollectMarked()
+						makeDeliveryMarked()
 						
 						TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi iniciado.",3000)
 					end
@@ -155,38 +155,46 @@ function startthreadservice()
 				local ped = PlayerPedId()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)
-
-					-- COLLECT
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COLLECTDIS
+-----------------------------------------------------------------------------------------------------------------------------------------
 					local collectDis = #(coords - vector3(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]))
-					if collectDis <= 30 then
+					if collectDis <= 250 then
 						timeDistance = 4
-						DrawMarker(21,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
+						DrawText3D(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3],"~g~E~w~   CORTAR")
 						if collectDis <= 0.6 and IsControlJustPressed(1,38) and GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_HATCHET") and timeSeconds <= 0 then
 							timeSeconds = 2
+							SetEntityHeading(ped,collect[coSelected][4])
+							SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
+							TriggerEvent("cancelando",true)
+							TriggerEvent("Progress",3000,"Cortando...")
+							vRP.playAnim(false,{"amb@world_human_hammering@male@base","base"},true)
+							Wait(3000)
+							
 							if vSERVER.collectMethod() then
 								SetEntityHeading(ped,collect[coSelected][4])
 								SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
+								TriggerEvent("cancelando",false)
+								ClearPedTasks(ped)
+								vRP.removeObjects()
+								coSelected = math.random(#collect)
+								makeCollectMarked()
 
-								SetTimeout(3000,function()
-									vRP.removeObjects()
-									TriggerEvent("cancelando",false)
-									coSelected = math.random(#collect)
-									collectBlipMarked()
-								end)
 							end
 						end
 					end
-
-					-- DELIVER
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DELIVERDIS
+-----------------------------------------------------------------------------------------------------------------------------------------
 					local deliverDis = #(coords - vector3(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]))
-					if deliverDis <= 100 then
+					if deliverDis <= 50 then
 						timeDistance = 4
-						DrawMarker(21,deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
+						DrawText3D(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3],"~g~E~w~   ENTREGAR")
 						if deliverDis <= 0.6 and IsControlJustPressed(1,38) and GetEntityModel(GetPlayersLastVehicle()) == vehModel and timeSeconds <= 0 then
 							timeSeconds = 2
 							if vSERVER.paymentMethod() then
 								deSelected = math.random(#deliver)
-								deliverBlipMarked()
+								makeDeliveryMarked()
 							end
 						end
 					end
@@ -212,39 +220,38 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTBLIPRACE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function collectBlipMarked()
-	if DoesBlipExist(collectBlip) then
-		RemoveBlip(collectBlip)
-		collectBlip = nil
+function makeCollectMarked(x,y,z)
+	if DoesBlipExist(blipCollect) then
+		RemoveBlip(blipCollect)
+		blipCollect = nil
 	end
 
-	collectBlip = AddBlipForCoord(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
-	SetBlipSprite(collectBlip,1)
-	SetBlipColour(collectBlip,5)
-	SetBlipScale(collectBlip,0.4)
-	SetBlipAsShortRange(collectBlip,false)
+	blipCollect = AddBlipForCoord(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
+	SetBlipSprite(blipCollect,12)
+	SetBlipColour(blipCollect,5)
+	SetBlipScale(blipCollect,0.9)
+	SetBlipAsShortRange(blipCollect,true)
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Collect")
-	EndTextCommandSetBlipName(collectBlip)
+	AddTextComponentString("Coletar")
+	EndTextCommandSetBlipName(blipCollect)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DELIVERBLIPRACE
+-- MAKEDELIVERYMARKED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function deliverBlipMarked()
-	if DoesBlipExist(deliverBlip) then
-		RemoveBlip(deliverBlip)
-		deliverBlip = nil
+function makeDeliveryMarked(x,y,z)
+	if DoesBlipExist(blipDelivery) then
+		RemoveBlip(blipDelivery)
+		blipDelivery = nil
 	end
 
-	deliverBlip = AddBlipForCoord(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-	SetBlipSprite(deliverBlip,1)
-	SetBlipColour(deliverBlip,84)
-	SetBlipScale(deliverBlip,0.4)
-	SetBlipAsShortRange(deliverBlip,false)
-	SetBlipRoute(deliverBlip,true)
+	blipDelivery = AddBlipForCoord(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+	SetBlipSprite(blipDelivery,12)
+	SetBlipColour(blipDelivery,5)
+	SetBlipScale(blipDelivery,0.9)
+	SetBlipAsShortRange(blipDelivery,true)
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Delivery")
-	EndTextCommandSetBlipName(deliverBlip)
+	AddTextComponentString("Entregar")
+	EndTextCommandSetBlipName(blipDelivery)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D

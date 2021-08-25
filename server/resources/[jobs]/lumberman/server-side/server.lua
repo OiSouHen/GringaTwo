@@ -16,11 +16,11 @@ vCLIENT = Tunnel.getInterface("lumberman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local collect = {}
 local collectMin = 2
-local collectMax = 6
+local collectMax = 4
 
 local amount = {}
-local amountMin = 4
-local amountMax = 8
+local amountMin = 3
+local amountMax = 6
 
 local paymentMin = 125
 local paymentMax = 175
@@ -54,10 +54,8 @@ function cRP.collectMethod()
 	if user_id then
 		if vRP.computeInvWeight(user_id) + vRP.itemWeightList(tostring(consumeItem)) * parseInt(collect[source]) <= vRP.getBackpack(user_id) then
 			vRPclient.stopActived(source)
-			TriggerClientEvent("Progress",source,5000,"Coletando...")
-			TriggerClientEvent("cancelando",source,true)
-			vRP.giveInventoryItem(user_id,tostring(consumeItem),parseInt(collect[source]))
-			vRPclient._playAnim(source,false,{"melee@hatchet@streamed_core","plyr_front_takedown_b"},true)
+			vRP.giveInventoryItem(user_id,tostring(consumeItem),parseInt(collect[source]),true)
+			vRP.upgradeStress(user_id,1)
 			collect[source] = nil
 
 			return true
