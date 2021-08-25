@@ -150,7 +150,6 @@ function dump(o)
 -- WEAPON_AMMOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local weapon_ammos = {
--- START PISTOLS
 	["WEAPON_PISTOL_AMMO"] = {
 		"WEAPON_PISTOL"
 	},
@@ -181,9 +180,6 @@ local weapon_ammos = {
 	["WEAPON_COMBATPISTOL_AMMO"] = {
 		"WEAPON_COMBATPISTOL"
 	},
--- END PISTOLS
-
--- START SMG
 	["WEAPON_COMPACTRIFLE_AMMO"] = {
 		"WEAPON_COMPACTRIFLE"
 	},
@@ -205,9 +201,6 @@ local weapon_ammos = {
 	["WEAPON_MACHINEPISTOL_AMMO"] = {
 		"WEAPON_MACHINEPISTOL"
 	},
--- END SMG
-
--- START RIFLE
     ["WEAPON_CARBINERIFLE_AMMO"] = {
 		"WEAPON_CARBINERIFLE"
 	},
@@ -217,9 +210,6 @@ local weapon_ammos = {
 	["WEAPON_ASSAULTRIFLE_MK2_AMMO"] = {
 		"WEAPON_ASSAULTRIFLE_MK2"
 	},
--- END RIFLE
-
--- START SHOTGUN
     ["WEAPON_PUMPSHOTGUN_AMMO"] = {
 		"WEAPON_PUMPSHOTGUN"
 	},
@@ -232,16 +222,12 @@ local weapon_ammos = {
 	["WEAPON_SNIPERRIFLE_AMMO"] = {
 		"WEAPON_SNIPERRIFLE"
 	},
--- END SHOTGUN
-
--- START OTHERS
     ["WEAPON_RPG_AMMO"] = {
 		"WEAPON_RPG"
 	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		"WEAPON_PETROLCAN"
 	}
--- END OTHERS
 }
 
 local function checkWeaponByAmmo(ammo, weapon)
@@ -383,9 +369,9 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.weedTimer(user_id,2)
-									vRP.downgradeHunger(user_id,10)
-									vRP.downgradeThirst(user_id,10)
+									vRP.weedTimer(user_id,5)
+									vRP.downgradeHunger(user_id,12)
+									vRP.downgradeThirst(user_id,6)
 									vRP.downgradeStress(user_id,15)
 									vPLAYER.movementClip(source,"move_m@shadyped@a")
 								end
@@ -395,10 +381,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "lean" then
-						active[user_id] = 6
+						active[user_id] = 7
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,6000,"Utilizando...")
+						TriggerClientEvent("Progress",source,7000,"Utilizando...")
 						vRPclient._playAnim(source,true,{"mp_suicide","pill"},true)
 
 						repeat
@@ -408,9 +394,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.chemicalTimer(user_id,2)
-									vRP.downgradeStress(user_id,50)
-									--TriggerClientEvent("cleanEffectDrugs",source)
+									vRP.chemicalTimer(user_id,5)
+									vRP.downgradeStress(user_id,12)
+									vRP.downgradeThirst(user_id,6)
+									TriggerClientEvent("cleanEffectDrugs",source) -- TRY
 									TriggerClientEvent("setMeth",source)
 								end
 							end
@@ -419,10 +406,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "ecstasy" then
-						active[user_id] = 6
+						active[user_id] = 7
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,6000,"Utilizando...")
+						TriggerClientEvent("Progress",source,7000,"Utilizando...")
 						vRPclient._playAnim(source,true,{"mp_suicide","pill"},true)
 
 						repeat
@@ -432,7 +419,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.chemicalTimer(user_id,2)
+									vRP.chemicalTimer(user_id,5)
+									vRP.downgradeThirst(user_id,12)
 									TriggerClientEvent("setEcstasy",source)
 									TriggerClientEvent("setEnergetic",source,10,1.45)
 								end
@@ -442,10 +430,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "meth" then
-						active[user_id] = 6
+						active[user_id] = 7
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,6000,"Utilizando...")
+						TriggerClientEvent("Progress",source,7000,"Utilizando...")
 						vRPclient._playAnim(source,true,{"anim@amb@nightclub@peds@","missfbi3_party_snort_coke_b_male3"},true)
 
 						repeat
@@ -455,8 +443,9 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.chemicalTimer(user_id,2)
-									vRPclient.setArmour(source,20)
+									vRP.chemicalTimer(user_id,5)
+									vRP.downgradeThirst(user_id,12)
+									vRPclient.setArmour(source,10)
 									TriggerClientEvent("setMeth",source)
 								end
 							end
@@ -464,11 +453,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						until active[user_id] == nil
 					end
 					
-					if itemName == "dildo" then
-						active[user_id] = 15
+					if itemName == "cocaine" then
+						active[user_id] = 7
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						TriggerClientEvent("Progress",source,7000,"Utilizando...")
 						vRPclient._playAnim(source,true,{"anim@amb@nightclub@peds@","missfbi3_party_snort_coke_b_male3"},true)
 
 						repeat
@@ -478,14 +467,16 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.chemicalTimer(user_id,2)
-									TriggerClientEvent("setMeth",source)
+									vRP.chemicalTimer(user_id,6)
+									vRP.downgradeThirst(user_id,6)
+									TriggerClientEvent("setEnergetic",source,15,1.65)
+									TriggerClientEvent("setCocaine",source)
 								end
 							end
 							Citizen.Wait(0)
 						until active[user_id] == nil
 					end
-
+					
 					if itemName == "cigarette" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
 							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
@@ -505,7 +496,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.downgradeStress(user_id,15)
+									vRP.downgradeStress(user_id,10)
+									vRP.downgradeThirst(user_id,6)
 								end
 							end
 							Citizen.Wait(0)
@@ -522,7 +514,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						repeat
 							if active[user_id] == 0 then
 								active[user_id] = nil
-								vRP.downgradeStress(user_id,10)
+								vRP.downgradeStress(user_id,20)
+								vRP.downgradeThirst(user_id,3)
 								vCLIENT.blockButtons(source,false)
 								vRPclient._removeObjects(source,"one")
 							end
@@ -577,7 +570,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								Citizen.Wait(0)
 							until active[user_id] == nil
 						else
-							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
+							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou desmaiado.",5000)
 						end
 					end
 
@@ -658,7 +651,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 												vRP.upgradeStress(nuser_id,10)
 												vRP.upgradeThirst(nuser_id,10)
 												vRP.upgradeHunger(nuser_id,10)
-												vRP.chemicalTimer(nuser_id,1)
+												vRP.chemicalTimer(nuser_id,10)
+												vRP.chemicalTimer(user_id,10)
 												vSURVIVAL._revivePlayer(nplayer,110)
 												TriggerClientEvent("resetBleeding",nplayer)
 											end
@@ -671,13 +665,18 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 					
 					if itemName == "tablet" then
-						vCLIENT.closeInventory(source)
 						TriggerClientEvent("tablet:openSystem",source)
+						vCLIENT.closeInventory(source)
 					end
 					
 					if itemName == "coptablet" then
-						vCLIENT.closeInventory(source)
-						TriggerClientEvent("police:openSystem",source)
+					    if vRP.hasPermission(user_id,"Police") then
+						    TriggerClientEvent("police:openSystem",source)
+							vCLIENT.closeInventory(source)
+						else
+						    TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível para você.",5000)
+							vCLIENT.closeInventory(source)
+						end
 					end
 					
 					if itemName == "teddy" then
@@ -698,6 +697,9 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								TriggerClientEvent("Notify",nplayer,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
 							end
 						end
+						
+						TriggerClientEvent("Notify",source,"amarelo","Você está mostrando seu documento.",5000)
+						vCLIENT.closeInventory(source)
 					end
 
 					if itemName == "bonusDelivery" then
@@ -1424,7 +1426,183 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.upgradeHunger(user_id,100)
+									vRP.upgradeHunger(user_id,20)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "hamburger2" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_cs_burger_01",49,60309)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,50)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "hamburger3" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_cs_burger_01",49,60309)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,50)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "hamburger4" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_cs_burger_01",49,60309)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,50)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "hamburger5" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_cs_burger_01",49,60309)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,50)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "hotdog" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"amb@code_human_wander_eating_donut@male@idle_a","idle_c","prop_cs_hotdog_01",49,28422)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,20)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "sandwich" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_sandwich_01",49,18905,0.13,0.05,0.02,-50.0,16.0,60.0)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,20)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "tacos" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_taco_01",49,18905,0.16,0.06,0.02,-50.0,220.0,60.0)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,30)
+								end
+							end
+							Citizen.Wait(0)
+						until active[user_id] == nil
+					end
+					
+					if itemName == "fries" then
+						active[user_id] = 15
+						vRPclient.stopActived(source)
+						vCLIENT.closeInventory(source)
+						vCLIENT.blockButtons(source,true)
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
+						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_food_bs_chips",49,18905,0.10,0.0,0.08,150.0,320.0,160.0)
+
+						repeat
+							if active[user_id] == 0 then
+								active[user_id] = nil
+								vCLIENT.blockButtons(source,false)
+								vRPclient._removeObjects(source,"one")
+
+								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+									vRP.upgradeHunger(user_id,15)
 								end
 							end
 							Citizen.Wait(0)
@@ -1432,11 +1610,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "chocolate" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 						vRPclient._createObjects(source,"mp_player_inteat@burger","mp_player_int_eat_burger","prop_choc_ego",49,60309)
 
 						repeat
@@ -1446,7 +1624,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.downgradeStress(user_id,50)
+									vRP.downgradeStress(user_id,6)
 								end
 							end
 							Citizen.Wait(0)
@@ -1454,11 +1632,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "donut" then
-						active[user_id] = 10
+						active[user_id] = 15
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,10000,"Utilizando...")
+						TriggerClientEvent("Progress",source,15000,"Utilizando...")
 	                    vRPclient._createObjects(source,"amb@code_human_wander_eating_donut@male@idle_a","idle_c","prop_amb_donut",49,28422)
 
 						repeat
@@ -1468,7 +1646,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vRPclient._removeObjects(source,"one")
 
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.downgradeStress(user_id,50)
+									vRP.downgradeStress(user_id,12)
 								end
 							end
 							Citizen.Wait(0)
@@ -1621,17 +1799,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRPclient._stopAnim(nplayer,false)
 									TriggerClientEvent("sound:source",source,"uncuff",0.5)
 									TriggerClientEvent("sound:source",nplayer,"uncuff",0.5)
-								-- else
-								-- 	active[user_id] = 30
-								-- 	local taskResult = vTASKBAR.taskHandcuff(nplayer)
-								-- 	if not taskResult then
-								-- 		vPLAYER.toggleHandcuff(nplayer)
-								-- 		TriggerClientEvent("sound:source",source,"cuff",0.5)
-								-- 		TriggerClientEvent("sound:source",nplayer,"cuff",0.5)
-								-- 		vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
-								-- 	else
-								-- 		TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser algemado.",5000)
-								--	end
 									active[user_id] = nil
 								end
 							end
@@ -1656,10 +1823,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							--end
 						end
 						
-					end
-
-					if itemName == "c4" then
-						TriggerClientEvent("cashmachine:machineRobbery",source)
 					end
 
 					if itemName == "premium01" then
@@ -1753,10 +1916,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 				if vRP.itemTypeList(itemName) == "equip" then
 					TriggerClientEvent("inventory:Update",source,"updateMochila")
-					local pistols =     {"WEAPON_PISTOL_MK2", "WEAPON_COMBATPISTOL", "WEAPON_SKSPISTOL", "WEAPON_PISTOL","WEAPON_APPISTOL","WEAPON_PISTOL50","WEAPON_SNSPISTOL","WEAPON_SNSPISTOL_MK2","WEAPON_HEAVYPISTOL","WEAPON_VINTAGEPISTOL","WEAPON_FLAREGUN","WEAPON_MARKMANPISTOL","WEAPON_REVOLVER","WEAPON_REVOLVER_MK2","WEAPON_DOUBLEACTION","WEAPON_CERAMICPISTOL","WEAPON_NAVYREVOLVER","WEAPON_GADGETPISTOL","WEAPON_RAYPISTOL"}
-					local submachine =  {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG","WEAPON_RPG"}
-					local shotgun =     {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_SNIPERRIFLE","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
-					local rifles =      {"WEAPON_ASSAULTRIFLE", "WEAPON_ASSAULTRIFLE_MK2", "WEAPON_CARBINERIFLE","WEAPON_CARBINERIFLE_MK2","WEAPON_ADVANCEDRIFLE", "WEAPON_SPECIALCARBINE","WEAPON_SPECIALCARBINE_MK2","WEAPON_BULLUPRIFLE","WEAPON_BULLUPRIFLE_MK2","WEAPON_COMPACTRFILE","WEAPON_MILITARYRIFLE"}
+					local pistols = {"WEAPON_PISTOL_MK2", "WEAPON_COMBATPISTOL", "WEAPON_SKSPISTOL", "WEAPON_PISTOL","WEAPON_APPISTOL","WEAPON_PISTOL50","WEAPON_SNSPISTOL","WEAPON_SNSPISTOL_MK2","WEAPON_HEAVYPISTOL","WEAPON_VINTAGEPISTOL","WEAPON_FLAREGUN","WEAPON_MARKMANPISTOL","WEAPON_REVOLVER","WEAPON_REVOLVER_MK2","WEAPON_DOUBLEACTION","WEAPON_CERAMICPISTOL","WEAPON_NAVYREVOLVER","WEAPON_GADGETPISTOL","WEAPON_RAYPISTOL"}
+					local submachine = {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG","WEAPON_RPG"}
+					local shotgun = {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_SNIPERRIFLE","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
+					local rifles = {"WEAPON_ASSAULTRIFLE", "WEAPON_ASSAULTRIFLE_MK2", "WEAPON_CARBINERIFLE","WEAPON_CARBINERIFLE_MK2","WEAPON_ADVANCEDRIFLE", "WEAPON_SPECIALCARBINE","WEAPON_SPECIALCARBINE_MK2","WEAPON_BULLUPRIFLE","WEAPON_BULLUPRIFLE_MK2","WEAPON_COMPACTRFILE","WEAPON_MILITARYRIFLE"}
 					local weaponsList = vRPclient.getWeapons(source)
 					local weaponName = string.gsub(itemName,"wbody|","")
 					if has_value(pistols, weaponName) then
@@ -1930,7 +2093,7 @@ AddEventHandler("inventory:sendItem",function(itemName,amount)
 						if vRP.computeInvWeight(nuser_id) + vRP.itemWeightList(itemName) * parseInt(amount) <= vRP.getBackpack(nuser_id) then
 							if vRP.itemSubTypeList(itemName) then
 								if vRP.getInventoryItemAmount(nuser_id,itemName) > 0 then
-									TriggerClientEvent("Notify",source,"vermelho","O cidadão já possúi um item do mesmo.",5000)
+									TriggerClientEvent("Notify",source,"amarelo","O cidadão já possúi um item do mesmo.",5000)
 								else
 									local durability = vRP.getInventoryItemDurability(user_id,itemName)
 									if vRP.tryGetInventoryItem(user_id,itemName,amount,true) then

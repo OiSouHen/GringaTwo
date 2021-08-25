@@ -309,7 +309,7 @@ Citizen.CreateThread(function()
 			if ecstasy <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
 				ecstasy = 0
 
-				TriggerServerEvent("upgradeStress",100)
+				TriggerServerEvent("upgradeStress",50)
 				if GetScreenEffectIsActive("MinigameTransitionIn") then
 					StopScreenEffect("MinigameTransitionIn")
 				end
