@@ -229,6 +229,9 @@ local weapon_ammos = {
 	["WEAPON_MUSKET_AMMO"] = {
 		"WEAPON_MUSKET"
 	},
+	["WEAPON_SNIPERRIFLE_AMMO"] = {
+		"WEAPON_SNIPERRIFLE"
+	},
 -- END SHOTGUN
 
 -- START OTHERS
@@ -1323,17 +1326,17 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
                             if vTASKBAR.taskFishing(source) then
                                 local rand = parseInt(math.random(3))
-                                local fishs = { "octopus","shrimp","carp" }
+                                local fishs = { "octopus","shrimp","carp","codfish","catfish","goldenfish","horsefish","tilapia","pacu","pirarucu","tambaqui" }
 
                                 if vRP.computeInvWeight(user_id) + vRP.itemWeightList(fishs[rand]) * rand <= vRP.getBackpack(user_id) then
-                                    if vRP.tryGetInventoryItem(user_id,"bait",rand,true) then
+                                    if vRP.tryGetInventoryItem(user_id,"bait",rand,false) then
                                         vRP.giveInventoryItem(user_id,fishs[rand],rand,true)
                                     else
                                         TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(rand).."x "..vRP.itemNameList("bait").."</b>.",5000)
                                         vRPclient._removeObjects(source,"one")
                                     end
                                 else
-                                    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
+                                    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
                                     vRPclient._removeObjects(source,"one")
                                 end
                             end
@@ -1752,7 +1755,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					local pistols =     {"WEAPON_PISTOL_MK2", "WEAPON_COMBATPISTOL", "WEAPON_SKSPISTOL", "WEAPON_PISTOL","WEAPON_APPISTOL","WEAPON_PISTOL50","WEAPON_SNSPISTOL","WEAPON_SNSPISTOL_MK2","WEAPON_HEAVYPISTOL","WEAPON_VINTAGEPISTOL","WEAPON_FLAREGUN","WEAPON_MARKMANPISTOL","WEAPON_REVOLVER","WEAPON_REVOLVER_MK2","WEAPON_DOUBLEACTION","WEAPON_CERAMICPISTOL","WEAPON_NAVYREVOLVER","WEAPON_GADGETPISTOL","WEAPON_RAYPISTOL"}
 					local submachine =  {"WEAPON_MICROSMG","WEAPON_SMG","WEAPON_SMG_MK2","WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MINISMG","WEAPON_GUSENBERG","WEAPON_RPG"}
-					local shotgun =     {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
+					local shotgun =     {"WEAPON_PUMPSHOTGUN","WEAPON_PUMPSHOTGUN_MK2","WEAPON_SAWNOFFSHOTGUN","WEAPON_ASSAULTSHOTGUN","WEAPON_BULLUPSHOTGUN","WEAPON_MUSKET","WEAPON_SNIPERRIFLE","WEAPON_HEAVYSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_COMBATSHOTGUN" }
 					local rifles =      {"WEAPON_ASSAULTRIFLE", "WEAPON_ASSAULTRIFLE_MK2", "WEAPON_CARBINERIFLE","WEAPON_CARBINERIFLE_MK2","WEAPON_ADVANCEDRIFLE", "WEAPON_SPECIALCARBINE","WEAPON_SPECIALCARBINE_MK2","WEAPON_BULLUPRIFLE","WEAPON_BULLUPRIFLE_MK2","WEAPON_COMPACTRFILE","WEAPON_MILITARYRIFLE"}
 					local weaponsList = vRPclient.getWeapons(source)
 					local weaponName = string.gsub(itemName,"wbody|","")

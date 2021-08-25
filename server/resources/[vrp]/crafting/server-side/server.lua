@@ -469,6 +469,42 @@ local craftList = {
 					["water"] = 1,
 					["grape"] = 9
 				}
+			},
+			["hamburger4"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["meatA"] = 1,
+					["ketchup"] = 1,
+					["bread"] = 2
+				}
+			},
+			["hamburger2"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["meatB"] = 1,
+					["ketchup"] = 1,
+					["bread"] = 2
+				}
+			},
+			["hamburger5"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["meatS"] = 1,
+					["ketchup"] = 1,
+					["bread"] = 2
+				}
+			},
+			["hamburger3"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["meatC"] = 1,
+					["ketchup"] = 1,
+					["bread"] = 2
+				}
 			}
 		}
 	},

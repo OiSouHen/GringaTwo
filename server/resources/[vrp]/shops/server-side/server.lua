@@ -18,23 +18,23 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-		    ["absolut"] = 215,
+		    ["absolut"] = 15,
 			["notepad"] = 10,
-			["coffee"] = 195,
-			["chandon"] = 215,
-			["chocolate"] = 315,
-			["cigarette"] = 75,
-			["cola"] = 515,
-			["dewars"] = 215,
-			["energetic"] = 315,
-			["emptybottle"] = 650,
-			["hamburger"] = 900,
-			["hennessy"] = 215,
+			["coffee"] = 20,
+			["chandon"] = 15,
+			["chocolate"] = 15,
+			["cigarette"] = 10,
+			["cola"] = 15,
+			["dewars"] = 15,
+			["energetic"] = 15,
+			["emptybottle"] = 30,
+			["hamburger"] = 25,
+			["hennessy"] = 15,
 			["lighter"] = 175,
-			["bread"] = 78,
-			["sandwich"] = 875,
-			["soda"] = 515,
-			["tacos"] = 745
+			["bread"] = 5,
+			["sandwich"] = 15,
+			["soda"] = 15,
+			["tacos"] = 22
 		}
 	},
 	["ammunationStore"] = {
@@ -113,7 +113,9 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["WEAPON_SWITCHBLADE"] = 725,
+			["WEAPON_SWITCHBLADE"] = 525,
+			["WEAPON_SNIPERRIFLE_AMMO"] = 9,
+			["WEAPON_SNIPERRIFLE"] = 7250,
 			["WEAPON_MUSKET_AMMO"] = 7,
 			["WEAPON_MUSKET"] = 3250
 		}
@@ -122,7 +124,19 @@ local shops = {
 		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["WEAPON_SWITCHBLADE"] = 725
+			["banana"] = 6,
+			["meatA"] = 40,
+			["meatB"] = 45,
+			["meatC"] = 50,
+			["meatS"] = 55,
+			["horndeer"] = 225,
+			["orange"] = 6,
+			["passion"] = 6,
+			["strawberry"] = 6,
+			["animalpelt"] = 50,
+			["tange"] = 6,
+			["tomato"] = 8,
+			["grape"] = 6
 		}
 	},
 	["departamentFishs"] = {
@@ -210,63 +224,63 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["energetic"] = 325,
-			["cola"] = 515,
-			["soda"] = 515,
-			["absolut"] = 200,
-			["chandon"] = 200,
-			["dewars"] = 200,
-			["hennessy"] = 200
+			["energetic"] = 15,
+			["cola"] = 15,
+			["soda"] = 15,
+			["absolut"] = 20,
+			["chandon"] = 20,
+			["dewars"] = 20,
+			["hennessy"] = 20
 		}
 	},
 	["coffeeMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["coffee"] = 205
+			["coffee"] = 20
 		}
 	},
 	["sodaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["soda"] = 515
+			["soda"] = 15
 		}
 	},
 	["colaMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["cola"] = 515
+			["cola"] = 15
 		}
 	},
 	["donutMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["donut"] = 9,
-			["chocolate"] = 315
+			["donut"] = 15,
+			["chocolate"] = 15
 		}
 	},
 	["burgerMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["hamburger"] = 920
+			["hamburger"] = 25
 		}
 	},
 	["hotdogMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["hotdog"] = 900
+			["hotdog"] = 15
 		}
 	},
 	["waterMachine"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["water"] = 850
+			["water"] = 30
 		}
 	},
 	["policeStore"] = {
@@ -307,6 +321,22 @@ local shops = {
 			["meth"] = 500,
 			["lean"] = 500,
 			["ecstasy"] = 500
+		}
+	},
+	["ilegalCriminal"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["TOKEN_WEAPON_PISTOL"] = 3795,
+			["TOKEN_WEAPON_PISTOL_MK2"] = 3775,
+			["TOKEN_WEAPON_APPISTOL"] = 4775,
+			["TOKEN_WEAPON_HEAVYPISTOL"] = 3750,
+			["TOKEN_WEAPON_SNSPISTOL"] = 3225,
+			["TOKEN_WEAPON_SNSPISTOL_MK2"] = 3795,
+			["TOKEN_WEAPON_VINTAGEPISTOL"] = 2775,
+			["TOKEN_WEAPON_PISTOL50"] = 5225,
+			["TOKEN_WEAPON_REVOLVER"] = 4225,
+			["TOKEN_WEAPON_COMBATPISTOL"] = 3250
 		}
 	}
 }

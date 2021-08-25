@@ -485,8 +485,8 @@ end)
 function func.fishingStatus()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
-	local distance = #(coords - vector3(-1202.71,2714.76,4.11))
-	if distance <= 20 then
+	local distance = #(coords - vector3(-3352.64,1022.7,-0.51))
+	if distance <= 50 then
 		return true
 	end
 	return false
@@ -701,6 +701,9 @@ local weapon_ammos = {
 	},
 	["WEAPON_MUSKET_AMMO"] = {
 		"WEAPON_MUSKET"
+	},
+	["WEAPON_SNIPERRIFLE_AMMO"] = {
+		"WEAPON_SNIPERRIFLE"
 	},
 -- END SHOTGUN
 
