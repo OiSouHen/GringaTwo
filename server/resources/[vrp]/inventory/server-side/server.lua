@@ -352,7 +352,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 					if itemName == "joint" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
-							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
+							TriggerClientEvent("Notify",source,"amarelo","Você precisa de Isqueiro.",3000)
+							vCLIENT.closeInventory(source)
 							return
 						end
 						
@@ -479,7 +480,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					
 					if itemName == "cigarette" then
 						if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
-							TriggerClientEvent("Notify",source,"vermelho","Você não tem um isqueiro.",5000)
+							TriggerClientEvent("Notify",source,"amarelo","Você precisa de Isqueiro.",3000)
+							vCLIENT.closeInventory(source)
 							return
 						end
 
@@ -2020,6 +2022,7 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 					vRPclient.setArmour(source,-100)
 					TriggerClientEvent("Notify",source,"amarelo","Seu colete está danificado e foi guardado.",5000)
 					vRPclient._stopAnim(source,true)
+					vCLIENT.blockButtons(source,false)
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 				end
@@ -2034,6 +2037,7 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 					vRP.giveInventoryItem(user_id,"vest",1)
 					TriggerClientEvent("Notify",source,"verde","Seu colete foi guardado.",3000)
 					vRPclient._stopAnim(source,true)
+					vCLIENT.blockButtons(source,false)
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 				end
