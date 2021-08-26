@@ -190,6 +190,8 @@ local blips = {
 	{ 46.66,-1749.79,29.64,78,11,"Mercado Central",0.5 },
 	{ 2747.28,3473.04,55.67,78,11,"Mercado Central",0.5 },
 	{ 82.54,-1553.28,29.59,318,62,"Lixeiro",0.6 },
+	{ 287.36,2843.6,44.7,318,62,"Lixeiro",0.6 },
+	{ -413.97,6171.58,31.48,318,62,"Lixeiro",0.6 },
 	{ -428.56,-1728.33,19.79,467,11,"Reciclagem",0.6 },
 	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
 	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
@@ -212,13 +214,15 @@ local blips = {
 	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
 	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
 	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
-	{ 11.12,-1605.65,29.4,79,62,"Tacos",0.5 },
+	{ 12.33,-1607.92,32.84,79,62,"Tacos",0.5 },
 	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
 	{ 895.36,-179.36,74.7,198,62,"Taxista",0.5 },
 	{ -1031.05,-2965.67,13.95,307,62,"Táxi Aéreo",0.7 },
 	{ -680.9,5832.41,17.32,141,62,"Cabana do Caçador",0.7 },
 	{ -773.55,298.51,85.71,475,31,"Eclipse Towers",0.5 },
-	{ -1816.72,-1193.76,14.31,68,62,"Pescador",0.5 },
+	{ -1816.74,-1193.84,14.31,68,62,"Pescador",0.5 },
+	{ -325.88,6228.43,31.49,68,62,"Pescador",0.5 },
+	{ 911.0,3644.85,32.67,68,62,"Pescador",0.5 },
 	{ -117.24,-604.57,36.28,408,62,"Escritório",0.6 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -234,6 +238,28 @@ Citizen.CreateThread(function()
 		BeginTextCommandSetBlipName("STRING")
 		AddTextComponentString(v[6])
 		EndTextCommandSetBlipName(blip)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ALPHAS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local alphas = {
+	{ -3418.14,967.56,8.34,25,2 },
+	{ -273.63,6633.67,7.4,25,2 },
+	{ 713.39,4101.04,35.79,25,2 },
+	{ 1343.03,2233.61,88.43,200,3 },
+	{ -1171.5,1454.58,185.28,300,3 },
+	{ -852.1,4940.38,235.63,300,3 },
+	{ 1311.92,4610.54,131.21,200,3 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADALPHA
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	for _,v in pairs(alphas) do
+		local blip = AddBlipForRadius(v[1],v[2],v[3],v[4] + 0.0)
+		SetBlipAlpha(blip,100)
+		SetBlipColour(blip,v[5])
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -399,13 +425,9 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(11)
 		HideHudComponentThisFrame(12)
 		HideHudComponentThisFrame(13)
---		HideHudComponentThisFrame(14)
 		HideHudComponentThisFrame(15)
---		HideHudComponentThisFrame(16)
 		HideHudComponentThisFrame(17)
 		HideHudComponentThisFrame(18)
---		HideHudComponentThisFrame(19)
---		HideHudComponentThisFrame(20)
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
@@ -429,9 +451,9 @@ end)
 -- THREADINIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
---	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
---	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
---	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
     SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
 	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
 	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)

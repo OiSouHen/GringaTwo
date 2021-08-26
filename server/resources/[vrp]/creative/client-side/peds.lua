@@ -462,6 +462,18 @@ local pedList = {
 		model = { 0xEE75A00F,"s_m_y_garbage" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
+	{ -- Lixeiro
+		distance = 50,
+		coords = { 287.77,2843.9,44.7,121.89 },
+		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Lixeiro
+		distance = 50,
+		coords = { -413.97,6171.58,31.48,320.32 },
+		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
 	{ -- Loja de Roupas
 		distance = 15,
 		coords = { 73.96,-1393.01,29.37,274.97 },
@@ -617,6 +629,24 @@ local pedList = {
 		coords = { -1167.03,-2034.54,13.31,140.84 },
 		model = { 0x158C439C,"g_f_y_ballas_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Pescador
+		distance = 30,
+		coords = { -1816.76,-1193.97,14.31,334.49 },
+		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Pescador
+		distance = 30,
+		coords = { -326.29,6228.74,31.49,226.78 },
+		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Pescador
+		distance = 30,
+		coords = { 911.0,3644.85,32.67,181.42 },
+		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
