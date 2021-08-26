@@ -3,29 +3,6 @@
 <CVehicleModelInfoVariation>
 	<variationData>
 		<Item>
-			<modelName>corvette</modelName>
-			<colors>
-				<Item>
-					<indices content="char_array">2 2 2 2</indices>
-					<liveries />
-				</Item>
-			</colors>
-			<kits>
-				<Item>0_default_modkit</Item>
-			</kits>
-			<windowsWithExposedEdges />
-			<plateProbabilities>
-				<Probabilities>
-					<Item>
-						<Name>Standard White</Name>
-						<Value value="100"/>
-					</Item>
-				</Probabilities>
-			</plateProbabilities>
-			<lightSettings value="1200" />
-			<sirenSettings value="240" />
-		</Item>
-		<Item>
 			<modelName>r1</modelName>
 			<colors>
 				<Item>
@@ -479,6 +456,29 @@
 			<sirenSettings value="243"/>
 		</Item>
 		<Item>
+			<modelName>corvette</modelName>
+			<colors>
+				<Item>
+					<indices content="char_array">2 2 2 2</indices>
+					<liveries />
+				</Item>
+			</colors>
+			<kits>
+				<Item>corvette_modkit</Item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+				<Probabilities>
+					<Item>
+						<Name>Standard White</Name>
+						<Value value="100"/>
+					</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="1200" />
+			<sirenSettings value="240" />
+		</Item>
+		<Item>
 			<modelName>crownvictoria</modelName>
 			<colors>
 				<Item>
@@ -487,7 +487,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>crownvictoria_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges/>
 			<plateProbabilities>
@@ -510,7 +510,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>fordtaurus_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges/>
 			<plateProbabilities>
@@ -533,7 +533,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>dodgecharger2014_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges/>
 			<plateProbabilities>
@@ -556,7 +556,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>fordexplorer_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges/>
 			<plateProbabilities>
@@ -579,7 +579,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>fordraptor_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges/>
 			<plateProbabilities>
@@ -602,7 +602,7 @@
 				</Item>
 			</colors>
 			<kits>
-				<Item>0_default_modkit</Item>
+				<Item>fordmustanggt_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges />
 			<plateProbabilities>
@@ -1339,29 +1339,6 @@
 			</colors>
 			<kits>
 				<Item>nissangtr3_modkit</Item>
-			</kits>
-			<windowsWithExposedEdges />
-			<plateProbabilities>
-				<Probabilities>
-					<Item>
-						<Name>Standard White</Name>
-						<Value value="100" />
-					</Item>
-				</Probabilities>
-			</plateProbabilities>
-			<lightSettings value="1200" />
-			<sirenSettings value="0" />
-		</Item>
-		<Item>
-			<modelName>hachura</modelName>
-			<colors>
-				<Item>
-					<indices content="char_array">2 2 2 2</indices>
-					<liveries />
-				</Item>
-			</colors>
-			<kits>
-				<Item>hachura_modkit</Item>
 			</kits>
 			<windowsWithExposedEdges />
 			<plateProbabilities>
