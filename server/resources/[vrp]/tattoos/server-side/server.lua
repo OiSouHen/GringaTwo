@@ -10,6 +10,19 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("tattoos",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKSHARES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.checkShares()
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        if not vRP.wantedReturn(user_id) and not vRP.reposeReturn(user_id) then
+            return true
+        end
+    end
+    return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATETATTOO
 ----------------------------------------------------------------------------- ------------------------------------------------------------
 function cRP.updateTattoo(status)

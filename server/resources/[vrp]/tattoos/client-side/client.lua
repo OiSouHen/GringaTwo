@@ -1257,7 +1257,7 @@ Citizen.CreateThread(function()
 				if distance <= 2 then
 					timeDistance = 1
 
-					if IsControlJustPressed(1,38) then
+					if IsControlJustPressed(1,38) and vSERVER.checkShares() then
 						openTattooShop()
 					end
 				end
