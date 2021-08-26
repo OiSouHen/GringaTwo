@@ -9,6 +9,7 @@ client_scripts {
 }
 
 server_scripts {
+	"@vrp/lib/vehicles.lua",
 	"@vrp/lib/utils.lua",
 	"server-side/*"
 }
