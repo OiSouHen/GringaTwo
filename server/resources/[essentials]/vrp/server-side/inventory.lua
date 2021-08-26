@@ -2,6 +2,26 @@
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemlist = {
+    ["scrapmetal"] = {
+	    index = "scrapmetal",
+		name = "Sucata de Metal",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.05
+	},
+    ["whistle"] = {
+	    index = "whistle",
+		name = "Apito Animal",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "325",
+		type = "use",
+		weight = 0.15
+	},
     ["tablet"] = {
 	    index = "tablet",
 		name = "Tablet Particular",
