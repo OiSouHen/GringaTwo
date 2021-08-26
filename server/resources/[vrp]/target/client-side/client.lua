@@ -94,6 +94,20 @@ Citizen.CreateThread(function()
 		}
 	})
 	
+	AddCircleZone("treatment03",vector3(-253.72,6330.93,32.43),0.75,{
+		name = "treatment03",
+		heading = 136.43
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
+			}
+		}
+	})
+	
 	AddCircleZone("polService01",vector3(1841.72,2577.98,46.02),0.75,{
 		name = "polService01",
 		heading = 9.53
@@ -114,7 +128,7 @@ Citizen.CreateThread(function()
 	})
 	
 	AddCircleZone("polService02",vector3(1853.35,3689.78,34.27),0.75,{
-		name = "polService01",
+		name = "polService02",
 		heading = 9.53
 	},{
 		distance = 1.0,
@@ -127,9 +141,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("polService03",vector3(-449.03,6012.85,31.72),0.75,{
-		name = "polService01",
-		heading = 9.53
+	AddCircleZone("polService03",vector3(-449.33,6011.25,31.72),0.75,{
+		name = "polService03",
+		heading = 163.53
 	},{
 		distance = 1.0,
 		options = {
@@ -142,6 +156,62 @@ Citizen.CreateThread(function()
 				event = "corrections:initService",
 				label = "Transportar Presidiário",
 				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("polService04",vector3(387.18,797.08,190.5),0.75,{
+		name = "polService04",
+		heading = 339.48
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "police:servicePolice",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("foodJuice",vector3(13.25,-1596,29.37),0.5,{
+		name = "foodJuice",
+		heading = 38.10
+	},{
+		distance = 1.25,
+		options = {
+			{
+				event = "tacos:foodJuice",
+				label = "Encher Copo",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("foodBurger",vector3(11.12,-1599,29.37),0.5,{
+		name = "foodBurger",
+		heading = 57.33
+	},{
+		distance = 1.35,
+		options = {
+			{
+				event = "tacos:foodBurger",
+				label = "Montar Lanche",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("foodBox",vector3(15.61,-1597.97,29.38),0.5,{
+		name = "foodBox",
+		heading = 320.01
+	},{
+		distance = 1.25,
+		options = {
+			{
+				event = "tacos:foodBox",
+				label = "Montar Caixa",
+				tunnel = "server"
 			}
 		}
 	})
