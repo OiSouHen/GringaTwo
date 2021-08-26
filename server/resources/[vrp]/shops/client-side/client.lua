@@ -164,11 +164,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:openSystem",function(shopId)
 	if shopList[shopId][6] then
-		if GetClockHours() >= shopList[shopId][7][1] and GetClockHours() <= shopList[shopId][7][2] then
+		if GetClockHours() >= shopList[shopId][7][1] and GetClockHours() <= (shopList[shopId][7][2] - 1) then
 			SetNuiFocus(true,true)
 			SendNUIMessage({ action = "showNUI", name = shopList[shopId][4], type = vSERVER.getShopType(shopList[shopId][4]) })
 		else
-			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."Hrs</b> ás <b>"..shopList[shopId][7][2].."Hrs</b>.",5000)
+			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."</b> ?s <b>"..shopList[shopId][7][2].."</b> horas.",5000)
 		end
 	else
 		if vSERVER.requestPerm(shopList[shopId][4]) then
