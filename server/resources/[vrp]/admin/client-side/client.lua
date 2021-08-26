@@ -70,7 +70,7 @@ function cRP.teleportLimbo()
 	local coords = GetEntityCoords(ped)
 	local _,xCoords = GetNthClosestVehicleNode(coords["x"],coords["y"],coords["z"],1,0,0,0)
 
-	SetEntityCoordsNoOffset(ped,xCoords["x"],xCoords["y"],xCoords["z"],1,0,0)
+	SetEntityCoordsNoOffset(ped,xCoords["x"],xCoords["y"],xCoords["z"] + 1,1,0,0)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHELETRIC
@@ -99,21 +99,6 @@ local vehEletric = {
 RegisterNetEvent("ney")
 AddEventHandler("ney",function(ForwardVectorX,ForwardVectorY,ForwardVectorZ,Tackler)
     SetPedToRagdollWithFall(PlayerPedId(),1500,2000,0,ForwardVector,1.0,0.0,0.0,0.0,0.0,0.0,0.0)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- NOCLIPEFFECT
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent('noclipeffect')
-AddEventHandler('noclipeffect',function()
-    local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1)))
-    local particleDictionary = "scr_rcbarry2"
-    local particleName = "scr_clown_death"
-    RequestNamedPtfxAsset(particleDictionary)
-    while not HasNamedPtfxAssetLoaded(particleDictionary) do
-    Citizen.Wait(0)
-    end
-    SetPtfxAssetNextCall(particleDictionary)
-    local effect = StartParticleFxLoopedAtCoord(particleName, x, y, z+0.8, 0.0, 180.0, 0.0, 3.0, false, false, false, false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONE
