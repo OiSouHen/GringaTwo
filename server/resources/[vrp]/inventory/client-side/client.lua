@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-func = {}
-Tunnel.bindInterface("inventory",func)
+cRP = {}
+Tunnel.bindInterface("inventory",cRP)
 vSERVER = Tunnel.getInterface("inventory")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -93,7 +93,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSEINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.closeInventory()
+function cRP.closeInventory()
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
 	SendNUIMessage({ action = "hideMenu" })
@@ -136,7 +136,7 @@ end)
 -- RegisterCommand('a', function(source) 
 -- 	RemoveAllPedWeapons(PlayerPedId(), true)
 -- end)
-function func.dropItem(item,amount)
+function cRP.dropItem(item,amount)
 	TriggerServerEvent("inventory:dropItem",item,amount,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -288,7 +288,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATE - FUNCTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.plateDistance()
+function cRP.plateDistance()
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		local vehicle = GetVehiclePedIsUsing(ped)
@@ -306,7 +306,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATE - COLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.plateApply(plate)
+function cRP.plateApply(plate)
     local ped = PlayerPedId()
     local vehicle = GetPlayersLastVehicle()
     if IsEntityAVehicle(vehicle) then
@@ -317,7 +317,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.plateVehicle()
+function cRP.plateVehicle()
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		local vehicle = GetVehiclePedIsUsing(ped)
@@ -332,7 +332,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATEAPPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.plateApply(plate)
+function cRP.plateApply(plate)
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		local vehicle = GetVehiclePedIsUsing(ped)
@@ -344,7 +344,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYRES - CHECK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.checkBurstTyres(index)
+function cRP.checkBurstTyres(index)
     if NetworkDoesNetworkIdExist(index) then
 		local v = NetToEnt(index)
 		if DoesEntityExist(v) then
@@ -426,7 +426,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARACHUTECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.parachuteColors()
+function cRP.parachuteColors()
 	local ped = PlayerPedId()
 	GiveWeaponToPed(ped,"GADGET_PARACHUTE",1,false,true)
 	SetPedParachuteTintIndex(ped,math.random(7))
@@ -434,7 +434,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKFOUNTAIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.checkFountain()
+function cRP.checkFountain()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 
@@ -452,7 +452,7 @@ end
 -- CASHREGISTER
 -----------------------------------------------------------------------------------------------------------------------------------------
 local registerCoords = {}
-function func.cashRegister()
+function cRP.cashRegister()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 
@@ -480,21 +480,32 @@ AddEventHandler("inventory:updateRegister",function(status)
 	registerCoords = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- FISHINGCDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local fishingcds = {
+	{ -3418.14,967.56,8.34 },
+	{ -273.63,6633.67,7.4 },
+	{ 713.39,4101.04,35.79 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- FISHINGSTATUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.fishingStatus()
+function cRP.fishingStatus()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
-	local distance = #(coords - vector3(-3352.64,1022.7,-0.51))
-	if distance <= 50 then
-		return true
+	for k,v in pairs(fishingcds) do
+		local distance = #(coords - vector3(v[1],v[2],v[3]))
+		if distance <= 25 then
+			return true
+		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FISHINGANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.fishingAnim()
+function cRP.fishingAnim()
 	local ped = PlayerPedId()
 	if IsEntityPlayingAnim(ped,"amb@world_human_stand_fishing@idle_a","idle_c",3) then
 		return true
@@ -719,7 +730,7 @@ local weapon_ammos = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECHARGEWEAPON
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.rechargeCheck(ammoType)
+function cRP.rechargeCheck(ammoType)
 	local ped = PlayerPedId()
 	if weapon_ammos[ammoType] then
 		for k,v in pairs(weapon_ammos[ammoType]) do
@@ -733,7 +744,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECHARGEWEAPON
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.rechargeWeapon(ammoType,ammoAmount)
+function cRP.rechargeWeapon(ammoType,ammoAmount)
 	local ped = PlayerPedId()
 	if weapon_ammos[ammoType] then
 		for k,v in pairs(weapon_ammos[ammoType]) do
@@ -748,7 +759,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECHARGEWEAPON
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.rechargeWeapon2(ammoType,ammoAmount)
+function cRP.rechargeWeapon2(ammoType,ammoAmount)
 	local ped = PlayerPedId()
 	local targetWeapon = GetSelectedPedWeapon(ped) -- getting target weapon.
 	local targetWeaponAmmo = GetAmmoInPedWeapon(ped, targetWeapon) -- getting target weapon ammo.
@@ -766,7 +777,7 @@ local adrenalineCds = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADRENALINEDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.adrenalineDistance()
+function cRP.adrenalineDistance()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 
@@ -825,7 +836,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TECHDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.techDistance()
+function cRP.techDistance()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local distance = #(coords - vector3(1174.66,2640.45,37.82))
@@ -837,13 +848,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKWATER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.checkWater()
+function cRP.checkWater()
 	return IsPedSwimming(PlayerPedId())
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WHEELCHAIR
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.wheelChair(vehPlate)
+function cRP.wheelChair(vehPlate)
 	local ped = PlayerPedId()
 	local vehName = "wheelchair"
 	local mHash = GetHashKey(vehName)

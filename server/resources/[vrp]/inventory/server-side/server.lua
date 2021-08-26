@@ -10,8 +10,8 @@ local idgens = Tools.newIDGenerator()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-func = {}
-Tunnel.bindInterface("inventory",func)
+cRP = {}
+Tunnel.bindInterface("inventory",cRP)
 vCLIENT = Tunnel.getInterface("inventory")
 vRPRAGE = Tunnel.getInterface("garages")
 vSURVIVAL = Tunnel.getInterface("survival")
@@ -77,7 +77,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.Mochila()
+function cRP.Mochila()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -683,6 +683,14 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					
 					if itemName == "whistle" then
 						vCLIENT.closeInventory(source)
+						local nplayer = vRPclient.nearestPlayer(source,5)
+						if nplayer then
+							local identity = vRP.getUserIdentity(user_id)
+							if identity then
+							    TriggerClientEvent("sounds:source",nplayer,"whistle",0.5)
+							end
+						end
+						
 						TriggerClientEvent("hunting:animalCalling",source)
 					end
 					
@@ -2083,7 +2091,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.updateWeaponAmmo(weapon,ammo)
+function cRP.updateWeaponAmmo(weapon,ammo)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -2336,7 +2344,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function func.checkInventory()
+function cRP.checkInventory()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
