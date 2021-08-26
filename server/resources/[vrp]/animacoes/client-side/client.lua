@@ -901,7 +901,7 @@ Citizen.CreateThread(function()
 
 	while true do
 		if GetGameTimer() >= treatmentTimers then
-			treatmentTimers = GetGameTimer() + 2000
+			treatmentTimers = GetGameTimer() + 5000
 
 			if tratamento then
 				local ped = PlayerPedId()
