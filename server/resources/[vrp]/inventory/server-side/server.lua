@@ -681,6 +681,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 					
+					if itemName == "whistle" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("hunting:animalCalling",source)
+					end
+					
 					if itemName == "teddy" then
 						vCLIENT.closeInventory(source)
 						vRPclient._createObjects(source,"impexp_int-0","mp_m_waremech_01_dual-0","v_ilev_mr_rasberryclean",49,24817,-0.20,0.46,-0.016,-180.0,-90.0,0.0)
