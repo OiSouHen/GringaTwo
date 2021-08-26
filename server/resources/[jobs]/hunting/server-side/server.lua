@@ -26,17 +26,21 @@ function cRP.animalPayment()
 		else
 			
 			local random = math.random(100)
-			if parseInt(random) >= 96 then
-				vRP.giveInventoryItem(user_id,"meatA",math.random(2),true)
-			elseif parseInt(random) >= 78 and parseInt(random) <= 95 then
-				vRP.giveInventoryItem(user_id,"meatB",math.random(2),true)
-			elseif parseInt(random) >= 66 and parseInt(random) <= 75 then
-				vRP.giveInventoryItem(user_id,"meatC",math.random(2),true)
-			elseif parseInt(random) >= 36 and parseInt(random) <= 65 then
-				vRP.giveInventoryItem(user_id,"meatS",math.random(2),true)
-			elseif parseInt(random) >= 0 and parseInt(random) <= 35 then
-				vRP.giveInventoryItem(user_id,"animalpelt",math.random(3),true)
+			if parseInt(random) >= 86 then
+				vRP.giveInventoryItem(user_id,"meatA",math.random(3),true)
+				vRP.giveInventoryItem(user_id,"animalpelt",math.random(2),true)
+			elseif parseInt(random) >= 61 and parseInt(random) <= 85 then
+				vRP.giveInventoryItem(user_id,"meatB",math.random(3),true)
+				vRP.giveInventoryItem(user_id,"animalpelt",math.random(1),true)
+			elseif parseInt(random) >= 31 and parseInt(random) <= 60 then
+				vRP.giveInventoryItem(user_id,"meatC",math.random(3),true)
+				vRP.giveInventoryItem(user_id,"animalpelt",math.random(2),true)
+			elseif parseInt(random) >= 0 and parseInt(random) <= 30 then
+				vRP.giveInventoryItem(user_id,"meatS",math.random(3),true)
+				vRP.giveInventoryItem(user_id,"animalpelt",math.random(1),true)
 			end
+			
+			vRP.upgradeStress(user_id,3)
 			
 			collect[source] = nil
 			return true
