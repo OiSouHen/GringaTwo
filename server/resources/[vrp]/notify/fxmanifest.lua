@@ -10,5 +10,5 @@ client_scripts {
 
 files {
 	"web-side/*",
-	"web-side/images/*"
+	"web-side/**/*"
 }
