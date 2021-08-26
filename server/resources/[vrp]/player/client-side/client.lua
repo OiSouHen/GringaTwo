@@ -105,25 +105,6 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
-
-	if onScreen then
-		BeginTextCommandDisplayText("STRING")
-		AddTextComponentSubstringKeyboardDisplay(text)
-		SetTextColour(255,255,255,150)
-		SetTextScale(0.35,0.35)
-		SetTextFont(4)
-		SetTextCentre(1)
-		EndTextCommandDisplayText(_x,_y)
-
-		local width = string.len(text) / 160 * 0.45
-		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -177,18 +158,6 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PRESSME
------------------------------------------------------------------------------------------------------------------------------------------
-local showMe = {}
-
-RegisterNetEvent("player:showMe")
-AddEventHandler("player:showMe",function(source,text)
-	local pedSource = GetPlayerFromServerId(source)
-	if pedSource ~= -1 then
-		TriggerEvent("chatMessage","*Pensamento",{171,171,171},text.."*")
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- DIVING
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.setDiving()
@@ -231,28 +200,7 @@ function cRP.setRemoveoutfit()
 			SetPedComponentVariation(ped,10,-1,0,1)
 			SetPedComponentVariation(ped,11,18,0,1)
 		end
-end
---end
------------------------------------------------------------------------------------------------------------------------------------------
--- SEATSHUFFLE
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
-			local veh = GetVehiclePedIsUsing(ped)
-			if GetPedInVehicleSeat(veh,0) == ped then
-				if not GetIsTaskActive(ped,164) and GetIsTaskActive(ped,165) then
-					SetPedIntoVehicle(ped,veh,0)
-					SetPedConfigFlag(ped,184,true)
-					SetVehicleCloseDoorDeferedAction(veh,0)
-				end
-			end
-		end
-
-		Citizen.Wait(100)
 	end
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETENERGETIC
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -586,6 +534,7 @@ AddEventHandler("player:enterTrunk",function()
 							trunkPlate = vehPlate
 							playerInvisible = true
 							SetCarBootOpen(vehicle)
+							TriggerEvent("hud:toggleHood")
 							SetEntityVisible(ped,false,false)
 							Citizen.Wait(750)
 							AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
@@ -615,6 +564,7 @@ AddEventHandler("player:checkTrunk",function()
 			blockCommands = false
 			playerInvisible = false
 			DetachEntity(ped,false,false)
+			TriggerEvent("hud:toggleHood")
 			SetEntityVisible(ped,true,false)
 			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
 			Citizen.Wait(500)
@@ -649,6 +599,7 @@ Citizen.CreateThread(function()
 					blockCommands = false
 					playerInvisible = false
 					DetachEntity(ped,false,false)
+					TriggerEvent("hud:toggleHood")
 					SetEntityVisible(ped,true,false)
 					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
 					Citizen.Wait(500)
@@ -659,6 +610,7 @@ Citizen.CreateThread(function()
 				blockCommands = false
 				playerInvisible = false
 				DetachEntity(ped,false,false)
+				TriggerEvent("hud:toggleHood")
 				SetEntityVisible(ped,true,false)
 				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
 			end
@@ -747,20 +699,6 @@ AddEventHandler("resetHandcuff",function()
 		vRP.stopAnim(false)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- CUFF
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindcuff",function(source,args)
-	vSERVER.cuffToggle()
-end)
-RegisterKeyMapping("keybindcuff","Algemar o Cidadao","keyboard","g")
------------------------------------------------------------------------------------------------------------------------------------------
--- CARRY
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("keybindcarry",function(source,args)
-	vSERVER.carryToggle()
-end)
-RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOVEMENTCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1025,18 +963,6 @@ function cRP.removeVehicle()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLAYER:SPAWNSEAT
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("player:spawnSeat")
-AddEventHandler("player:spawnSeat",function(vehIndex)
-	if NetworkDoesNetworkIdExist(vehIndex) then
-		local v = NetToEnt(vehIndex)
-		if DoesEntityExist(v) then
-			SetPedIntoVehicle(PlayerPedId(),v,-1)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.putVehicle(vehIndex)
@@ -1066,92 +992,24 @@ function cRP.putVehicle(vehIndex)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:SPAWNSEAT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:spawnSeat")
+AddEventHandler("player:spawnSeat",function(vehIndex)
+	if NetworkDoesNetworkIdExist(vehIndex) then
+		local v = NetToEnt(vehIndex)
+		if DoesEntityExist(v) then
+			SetPedIntoVehicle(PlayerPedId(),v,-1)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- LIVERY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.toggleLivery(number)
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		SetVehicleLivery(GetVehiclePedIsUsing(ped),number)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- BLACKWEAPONS
------------------------------------------------------------------------------------------------------------------------------------------
-local blackWeapons = {
-	"WEAPON_UNARMED",
-	"WEAPON_FLASHLIGHT",
-	"WEAPON_NIGHTSTICK",
-	"WEAPON_STUNGUN",
-	"GADGET_PARACHUTE",
-	"WEAPON_PETROLCAN",
-	"WEAPON_FIREEXTINGUISHER",
-	"WEAPON_BAT",
-	"WEAPON_BATTLEAXE",
-	"WEAPON_BOTTLE",
-	"WEAPON_CROWBAR",
-	"WEAPON_DAGGER",
-	"WEAPON_GOLFCLUB",
-	"WEAPON_HAMMER",
-	"WEAPON_MACHETE",
-	"WEAPON_POOLCUE",
-	"WEAPON_STONE_HATCHET",
-	"WEAPON_SWITCHBLADE",
-	"WEAPON_WRENCH",
-	"WEAPON_KNUCKLE"
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- SHOTDISTANCE
------------------------------------------------------------------------------------------------------------------------------------------
-local shotDistance = {
-	{ -186.1,-893.5,29.3,2500 },
-	{ 1389.7,3237.2,37.6,1300 },
-	{ -137.4,6228.4,31.2,1000 }
-}
-
-function cRP.shotDistance(x,y,z)
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(shotDistance) do
-		local distance = #(coords - vector3(v[1],v[2],v[3]))
-		if distance <= v[4] then
-			return true
-		end
-	end
-	return false
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TOGGLECARRY
------------------------------------------------------------------------------------------------------------------------------------------
-local uCarry = nil
-local iCarry = false
-local sCarry = false
-function cRP.toggleCarry(source)
-	uCarry = source
-	iCarry = not iCarry
-
-	local ped = PlayerPedId()
-	if iCarry and uCarry then
-		AttachEntityToEntity(ped,GetPlayerPed(GetPlayerFromServerId(uCarry)),11816,0.6,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
-		sCarry = true
-	else
-		if sCarry then
-			DetachEntity(ped,false,false)
-			sCarry = false
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVEVEHICLE
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.removeVehicle()
-	local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped) then
-		if iCarry then
-			iCarry = false
-			DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
-		end
-
-		TaskLeaveVehicle(ped,GetVehiclePedIsUsing(ped),4160)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1250,174 +1108,29 @@ function cRP.extraVehicle(data)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PUTVEHICLE
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.putVehicle(seat)
-	local veh = vRP.nearVehicle(11)
-	if IsEntityAVehicle(veh) then
-		if parseInt(seat) <= 1 or seat == nil then
-			seat = -1
-		elseif parseInt(seat) == 2 then
-			seat = 0
-		elseif parseInt(seat) == 3 then
-			seat = 1
-		elseif parseInt(seat) == 4 then
-			seat = 2
-		elseif parseInt(seat) == 5 then
-			seat = 3
-		elseif parseInt(seat) == 6 then
-			seat = 4
-		elseif parseInt(seat) == 7 then
-			seat = 5
-		elseif parseInt(seat) >= 8 then
-			seat = 6
-		end
-
-		local ped = PlayerPedId()
-		if IsVehicleSeatFree(veh,seat) then
-			ClearPedTasks(ped)
-			ClearPedSecondaryTask(ped)
-			SetPedIntoVehicle(ped,veh,seat)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- HOLSTER
------------------------------------------------------------------------------------------------------------------------------------------
-local weapons = {
-	"WEAPON_KNIFE",
-	"WEAPON_HATCHET",
-	"WEAPON_RPG",
-	"WEAPON_RAYPISTOL",
-	"WEAPON_PISTOL",
-	"WEAPON_PISTOL_MK2",
-	"WEAPON_PISTOL50",
-	"WEAPON_REVOLVER",
-	"WEAPON_COMBATPISTOL",
-	"WEAPON_FLASHLIGHT",
-	"WEAPON_NIGHTSTICK",
-	"WEAPON_STUNGUN",
-	"WEAPON_COMPACTRIFLE",
-	"WEAPON_APPISTOL",
-	"WEAPON_HEAVYPISTOL",
-	"WEAPON_MACHINEPISTOL",
-	"WEAPON_MICROSMG",
-	"WEAPON_MINISMG",
-	"WEAPON_SNSPISTOL",
-	"WEAPON_SNSPISTOL_MK2",
-	"WEAPON_VINTAGEPISTOL",
-	"WEAPON_CARBINERIFLE",
-	"WEAPON_SMG",
-	"WEAPON_MUSKET",
-	"WEAPON_SNIPERRIFLE",
-	"WEAPON_PUMPSHOTGUN",
-	"WEAPON_SAWNOFFSHOTGUN",
-	"WEAPON_ASSAULTRIFLE",
-	"WEAPON_ASSAULTRIFLE_MK2",
-	"WEAPON_ASSAULTSMG",
-	"WEAPON_GUSENBERG"
-}
-
-local holster = false
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 100
-		local ped = PlayerPedId()
-		if DoesEntityExist(ped) and GetEntityHealth(ped) > 101 and not IsPedInAnyVehicle(ped) then
-			if CheckWeapon(ped) then
-				if not holster then
-					timeDistance = 4
-					if not IsEntityPlayingAnim(ped,"amb@world_human_sunbathe@female@back@idle_a","idle_a",3) then
-						loadAnimDict("rcmjosh4")
-						TaskPlayAnim(ped,"rcmjosh4","josh_leadout_cop2",3.0,2.0,-1,48,10,0,0,0)
-						Citizen.Wait(450)
-						ClearPedTasks(ped)
-					end
-					holster = true
-				end
-			elseif not CheckWeapon(ped) then
-				if holster then
-					timeDistance = 4
-					if not IsEntityPlayingAnim(ped,"amb@world_human_sunbathe@female@back@idle_a","idle_a",3) then
-						loadAnimDict("weapons@pistol@")
-						TaskPlayAnim(ped,"weapons@pistol@","aim_2_holster",3.0,2.0,-1,48,10,0,0,0)
-						Citizen.Wait(450)
-						ClearPedTasks(ped)
-					end
-					holster = false
-				end
-			end
-		end
-
-		if GetEntityHealth(ped) <= 101 and holster then
-			holster = false
-			SetCurrentPedWeapon(ped,GetHashKey("WEAPON_UNARMED"),true)
-		end
-		Citizen.Wait(timeDistance)
-	end
-end)
-
-function CheckWeapon(ped)
-	for i = 1,#weapons do
-		if GetHashKey(weapons[i]) == GetSelectedPedWeapon(ped) then
-			return true
-		end
-	end
-	return false
-end
-
-function loadAnimDict(dict)
-	while not HasAnimDictLoaded(dict) do
-		RequestAnimDict(dict)
-		Citizen.Wait(10)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- CRUISER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("cr",function(source,args)
-		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) then
-			local veh = GetVehiclePedIsUsing(ped)
-			if GetPedInVehicleSeat(veh,-1) == ped and not IsEntityInAir(veh) then
-				local speed = GetEntitySpeed(veh) * 2.236936
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		local veh = GetVehiclePedIsUsing(ped)
+		if GetPedInVehicleSeat(veh,-1) == ped and not IsEntityInAir(veh) then
+			local speed = GetEntitySpeed(veh) * 2.236936
 
-				if speed >= 10 then
-					if args[1] == nil then
-						SetEntityMaxSpeed(veh,GetVehicleEstimatedMaxSpeed(veh))
-						TriggerEvent("Notify","amarelo","Controle de cruzeiro desativado.",3000)
-					else
-						if parseInt(args[1]) > 10 then
-							SetEntityMaxSpeed(veh,0.45*args[1])
-							TriggerEvent("Notify","verde","Controle de cruzeiro ativado.",3000)
-						end
+			if speed >= 10 then
+				if args[1] == nil then
+					SetEntityMaxSpeed(veh,GetVehicleEstimatedMaxSpeed(veh))
+					TriggerEvent("Notify","amarelo","Controle de cruzeiro desativado.",3000)
+				else
+					if parseInt(args[1]) > 10 then
+						SetEntityMaxSpeed(veh,0.45*args[1])
+						TriggerEvent("Notify","verde","Controle de cruzeiro ativado.",3000)
 					end
 				end
 			end
 		end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DISTANCESERVICE
------------------------------------------------------------------------------------------------------------------------------------------
-local disService = {
-	{ 1146.9,-1542.8,35.39,"Paramedic" },
-	{ -198.22,-1317.91,31.09,"Mechanic" },
-	{ 362.84,-1588.72,29.3,"Police" }
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- DISTANCESERVICE
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.distanceService()
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(disService) do
-		local distance = #(coords - vector3(v[1],v[2],v[3]))
-		if distance <= 15 then
-			return true,v[4]
-		end
 	end
-	return false,nil
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1664,3 +1377,28 @@ Citizen.CreateThread(function()
 		Citizen.Wait(10000)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ONRESOURCESTOP
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("onResourceStop",function(resource)
+	TriggerServerEvent("player:hackerDisplay","deu stop no resource **"..resource.."**")
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWTEXT3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,150)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
+	end
+end
