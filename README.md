@@ -1,15 +1,19 @@
 # Creative V4
 
-> artifact folder is the fivem build.
+> artifact: Pasta com os Artefatos do FiveM(build).
 
-> database folder have the sqls for the server.
+> database: Pasta com o banco de dados da Base.
 
-> server folder have the entire base files for the server.
+> server: Pasta com todos os arquivos da Base.
 
-## Information
+## Informações
 
-Entire based at www.creative-rp.com, 08/2021, with latest build [4393].
+O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 08/2021, utilizando os Artefatos de número [4439].
 
-## Copyright
+## Direitos autorais
 
-SummerZ, Qbus, Fedéera, Harry, Hensa.
+SummerZ, Qbus, Fedéera, Harry, Hensa, NoPixel Creators, FiveM Fórum.
+
+## Links uteis
+
+> Gráfico: https://bit.ly/38lF5ku
