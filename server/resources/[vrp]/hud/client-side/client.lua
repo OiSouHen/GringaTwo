@@ -47,6 +47,33 @@ local clockMinutes = 0
 local weatherSync = "CLEAR"
 local timeDate = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:PLAYERACTIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vrp:playerActive")
+AddEventHandler("vrp:playerActive",function(user_id)
+	playerActive = true
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADGLOBAL
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if divingMask ~= nil then
+			if GetGameTimer() >= divingTimers then
+				divingTimers = GetGameTimer() + 35000
+				clientOxigen = clientOxigen - 1
+				vRPS.clientOxigen()
+
+				if clientOxigen <= 0 then
+					ApplyDamageToPed(PlayerPedId(),50,false)
+				end
+			end
+		end
+
+		Citizen.Wait(5000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -130,7 +157,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("Progress")
 AddEventHandler("Progress",function(progressTimer)
-	SendNUIMessage({ progress = true, progressTimer = parseInt(progressTimer - 500) })
+	SendNUIMessage({ progress = true, progressTimer = progressTimer })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHUD

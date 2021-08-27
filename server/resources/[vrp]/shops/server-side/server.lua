@@ -113,6 +113,7 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
+			["whistle"] = 325,
 			["WEAPON_SWITCHBLADE"] = 525,
 			["WEAPON_SNIPERRIFLE_AMMO"] = 9,
 			["WEAPON_SNIPERRIFLE"] = 7250,

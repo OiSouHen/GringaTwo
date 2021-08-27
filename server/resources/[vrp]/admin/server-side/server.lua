@@ -22,21 +22,23 @@ local screenshotOptions = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookadmin = "https://ptb.discord.com/api/webhooks/878435422064214019/-I2Bo8YJkdm7SeOve6LBstWeS6Snn2UcRKqckQKMDrd5iRVyRsXJ4YAWLY_GBYkIfsM4"
-local webhookkick = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookfac = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookkeys = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookcds = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookblacklist = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookgive = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookban = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookadminwl = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookunwl = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookadmingod = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookinfernao = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhooktroxao = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-local webhookaddcar = "https://discordapp.com/api/webhooks/826174706586877962/fNUi2HDJzPH67Psk_l3asBByE8-UewnL_mk7qdBbFcrCHWeWL2AqNwiGP9_DJQNzxK5n"
-
+local webhookadmin = ""
+local webhookkick = "YOURWEEBHOOKHERE"
+local webhookfac = "YOURWEEBHOOKHERE"
+local webhookkeys = "YOURWEEBHOOKHERE"
+local webhookcds = "YOURWEEBHOOKHERE"
+local webhookblacklist = "YOURWEEBHOOKHERE"
+local webhookgive = "YOURWEEBHOOKHERE"
+local webhookban = "YOURWEEBHOOKHERE"
+local webhookadminwl = "YOURWEEBHOOKHERE"
+local webhookunwl = "YOURWEEBHOOKHERE"
+local webhookadmingod = "YOURWEEBHOOKHERE"
+local webhookinfernao = "YOURWEEBHOOKHERE"
+local webhooktroxao = "YOURWEEBHOOKHERE"
+local webhookaddcar = "YOURWEEBHOOKHERE"
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SENDWEBHOOKMESSAGE
+-----------------------------------------------------------------------------------------------------------------------------------------
 function SendWebhookMessage(webhook,message)
 	if webhook ~= nil and webhook ~= "" then
 		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
@@ -487,8 +489,9 @@ RegisterCommand("onlines",function(source,args,rawCommand)
 			players = players..k
 			quantidade = quantidade + 1
 		end
-		TriggerClientEvent("chatMessage",source,"Total onlines",{1, 136, 0},quantidade)
-		TriggerClientEvent("chatMessage",source,"IDs onlines",{1, 136, 0},players)
+
+		TriggerClientEvent("chatMessage",source,"IDS Onlines:",{1, 136, 0},players)
+		TriggerClientEvent("Notify",source,"amarelo","Atualmente <b>"..quantidade.."</b> onlines.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -515,7 +518,7 @@ RegisterCommand("announce",function(source,args,rawCommand)
 			if message == "" then
 				return
 			end
-			TriggerClientEvent("Notify",-1,"roxo",message,60000)
+			TriggerClientEvent("Notify",-1,"default",message,60000)
 		end
 	end
 end)

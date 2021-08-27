@@ -186,7 +186,7 @@ function (t, e, n) {
 						case 0:
 							return t.abrupt("return", this.post("sendMessage", {
 								phoneNumber: e,
-								message: n
+								message: n.substring(0,255)
 							}));
 						case 1:
 						case "end":
@@ -712,7 +712,7 @@ function (t, e, n) {
 						case 0:
 							this.post("tchat_addMessage", {
 								channel: e,
-								message: n
+								message: n.substring(0,255)
 							});
 						case 1:
 						case "end":
@@ -2625,7 +2625,7 @@ default = {
 		computed: o()({},
 		n.i(r.b)(["show", "zoom", "coque", "appelsInfo", "myPhoneNumber", "volume", "tempoHide"])),
 		watch: {
-			appelsInfo: function (t, e) {
+			appelsInfo: function (t, e){
 				if (null !== this.appelsInfo && !0 !== this.appelsInfo.is_accepts ? (null !== this.soundCall && this.soundCall.pause(), !0 === this.appelsInfo.initiator ? this.soundCall = new Audio("/html/static/sound/Phone_Call_Sound_Effect.ogg") : this.soundCall = new Audio("/html/static/sound/ring.ogg"), this.soundCall.loop = !0, this.soundCall.volume = this.volume, this.soundCall.play()) : null !== this.soundCall && (this.soundCall.pause(), this.soundCall = null), null === t && null !== e) return void this.$router.push({
 					name: "home"
 				});
@@ -3078,7 +3078,7 @@ default = {
 				}).then(function (t) {
 					e.ignoreControls = !1,
 					"Cancelar" !== t.title && (e.$phoneAPI.callEvent(t.eventName, t.type), e.$router.push({
-						name: "appels"
+						name: "home"
 					}))
 				}))
 			}
@@ -3151,7 +3151,7 @@ default = {
 					secondary: "+"
 				},
 				{
-					primary: "-",
+					primary: "#",
 					secondary: "",
 					isNotNumber: !0
 				}],
@@ -3913,7 +3913,7 @@ default = {
 			limit: {
 				type: Number,
 			default:
-				255
+				200
 			}
 		},
 		computed: o()({},
@@ -4327,7 +4327,7 @@ default = {
 							n = e.sent,
 							void 0 !== n && void 0 !== n.text && (s = n.text.trim(), 0 !== s.length && t.tchatSendMessage({
 								channel: t.channel,
-								message: s
+								message: s.substring(0,255)
 							}));
 						case 4:
 						case "end":
@@ -4341,7 +4341,7 @@ default = {
 				var t = this.message.trim();
 				0 !== t.length && (this.tchatSendMessage({
 					channel: this.channel,
-					message: t
+					message: t.substring(0,255)
 				}), this.message = "")
 			},
 			onBack: function () {
@@ -4452,7 +4452,7 @@ default = {
 					var e = document.querySelector(".group.select");
 					if ("text" === e.dataset.type) {
 						var n = {
-							limit: parseInt(e.dataset.maxlength) || 64,
+							limit: parseInt(e.dataset.maxlength) || 32,
 							text: this.contact[e.dataset.model] || ""
 						};
 						this.$phoneAPI.getReponseText(n).then(function (n) {
@@ -4639,7 +4639,7 @@ default = {
 			onSelect: function (t) {
 				var e = this; - 1 === t.num ? l.a.CreateTextModal({
 					title: this.IntlString("APP_PHONE_ENTER_NUMBER"),
-					limit: 10
+					limit: 9
 				}).then(function (t) {
 					var n = t.text.trim();
 					"" !== n && e.$router.push({
@@ -4730,7 +4730,7 @@ default = {
 					var n = e.text.trim();
 					"" !== n && t.sendMessage({
 						phoneNumber: t.phoneNumber,
-						message: n
+						message: n.substring(0,255)
 					})
 				}))
 			},
@@ -4738,7 +4738,7 @@ default = {
 				var t = this.message.trim();
 				"" !== t && (this.message = "", this.sendMessage({
 					phoneNumber: this.phoneNumber,
-					message: t
+					message: t.substring(0,255)
 				}))
 			},
 			isSMSImage: function (t) {
@@ -4961,7 +4961,7 @@ default = {
 							a = i.url,
 							null !== a && void 0 !== a && t.sendMessage({
 								phoneNumber: t.phoneNumber,
-								message: a
+								message: a.substring(0,255)
 							});
 						case 14:
 							t.ignoreControls = !1,
@@ -5513,7 +5513,7 @@ default = {
 						if ("text" === t.dataset.type) {
 							var e = t.querySelector("input"),
 							n = {
-								limit: parseInt(t.dataset.maxlength) || 64,
+								limit: parseInt(t.dataset.maxlength) || 32,
 								text: t.dataset.defaultValue || ""
 							};
 							this.$phoneAPI.getReponseText(n).then(function (t) {
@@ -7229,26 +7229,7 @@ function (t, e) {
 			n = t._self._c || e;
 			return n("div", {
 				staticClass: "phone_infoBare barre-header"
-			},
-			[n("span", {
-				staticClass: "reseau"
-			},
-			[t._v(t._s(t.config.reseau))]), t._v(" "), n("span", {
-				staticClass: "time"
-			},
-			[n("current-time")], 1), t._v(" "), n("hr", {
-				staticClass: "batterie1"
-			}), t._v(" "), n("hr", {
-				staticClass: "batterie2"
-			}), t._v(" "), n("hr", {
-				staticClass: "barre1"
-			}), t._v(" "), n("hr", {
-				staticClass: "barre2"
-			}), t._v(" "), n("hr", {
-				staticClass: "barre3"
-			}), t._v(" "), n("hr", {
-				staticClass: "barre4"
-			})])
+			});
 		},
 		staticRenderFns: []
 	}
@@ -7277,7 +7258,7 @@ function (t, e) {
 				attrs: {
 					"data-type": "text",
 					"data-model": "display",
-					"data-maxlength": "64"
+					"data-maxlength": "32"
 				}
 			},
 			[n("input", {
@@ -7293,7 +7274,7 @@ function (t, e) {
 				}],
 				attrs: {
 					type: "text",
-					maxlength: "64"
+					maxlength: "32"
 				},
 				domProps: {
 					value: t.contact.display
@@ -8001,7 +7982,7 @@ function (t, e) {
 				staticClass: "group inputText",
 				attrs: {
 					"data-type": "text",
-					"data-maxlength": "64",
+					"data-maxlength": "32",
 					"data-defaultValue": t.localAccount.username
 				}
 			},
@@ -8279,7 +8260,7 @@ function (t, e) {
 				staticClass: "group inputText",
 				attrs: {
 					"data-type": "text",
-					"data-maxlength": "64",
+					"data-maxlength": "32",
 					"data-defaultValue": ""
 				}
 			},

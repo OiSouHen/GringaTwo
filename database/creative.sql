@@ -1,19 +1,8 @@
 CREATE DATABASE IF NOT EXISTS `creative`;
 USE `creative`;
 
-DROP TABLE IF EXISTS `cloakroom_custom`;
-CREATE TABLE `cloakroom_custom` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `id_roupa` int(11) NOT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `roupa` text DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-DROP TABLE IF EXISTS `phone_app_chat`;
-CREATE TABLE `phone_app_chat` (
+DROP TABLE IF EXISTS `phone_chat`;
+CREATE TABLE `phone_chat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `channel` varchar(20) NOT NULL,
   `message` varchar(255) NOT NULL,
@@ -44,8 +33,8 @@ CREATE TABLE `phone_messages` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `phone_users_contacts`;
-CREATE TABLE `phone_users_contacts` (
+DROP TABLE IF EXISTS `phone_contacts`;
+CREATE TABLE `phone_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `identifier` varchar(60) CHARACTER SET utf8mb4 DEFAULT NULL,
   `number` varchar(10) CHARACTER SET utf8mb4 DEFAULT NULL,
@@ -283,10 +272,3 @@ CREATE TABLE `vrp_weapons` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `weed_plants`;
-CREATE TABLE `weed_plants` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `properties` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

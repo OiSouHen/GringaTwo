@@ -399,8 +399,16 @@ RegisterCommand("cRbind",function(source,args)
 
 		local ped = PlayerPedId()
 		if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not celular and GetEntityHealth(ped) > 101 and not cancelando then
-			if parseInt(args[1]) >= 1 and parseInt(args[1]) <= 5 then
-				vINVENTORY.useItem(args[1])
+			if args[1] == "1" then
+				TriggerServerEvent("inventory:useItem","1",1)
+			elseif args[1] == "2" then
+				TriggerServerEvent("inventory:useItem","2",1)
+			elseif args[1] == "3" then
+				TriggerServerEvent("inventory:useItem","3",1)
+			elseif args[1] == "4" then
+				TriggerServerEvent("inventory:useItem","4",1)
+			elseif args[1] == "5" then
+				TriggerServerEvent("inventory:useItem","5",1)
 			elseif args[1] == "6" then
 				if not IsPedInAnyVehicle(ped) and not IsPedArmed(ped,6) and not IsPedSwimming(ped) then
 					if IsEntityPlayingAnim(ped,"anim@heists@heist_corona@single_team","single_team_loop_boss",3) then
