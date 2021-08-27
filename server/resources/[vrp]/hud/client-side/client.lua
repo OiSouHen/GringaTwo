@@ -42,7 +42,7 @@ local divingTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOCKVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local clockHours = 18
+local clockHours = 13
 local clockMinutes = 0
 local weatherSync = "CLEAR"
 local timeDate = GetGameTimer()
