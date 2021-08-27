@@ -32,14 +32,14 @@ AddEventHandler("police:servicePolice",function(servicePolice)
 			vRP.removePermission(source,"Police")
 			TriggerEvent("blipsystem:serviceExit",source)
 			TriggerClientEvent("tencode:StatusService",source,false)
-			TriggerClientEvent("Notify",source,"amarelo","Você saiu de serviço.",3000)
+			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Police", newpermiss = "waitPolice" })
 			policeService = false
 		elseif vRP.hasPermission(user_id,"waitPolice") then
 			vRP.insertPermission(source,"Police")
 			TriggerClientEvent("tencode:StatusService",source,true)
 			TriggerEvent("blipsystem:serviceEnter",source,"Police",77)
-			TriggerClientEvent("Notify",source,"verde","Você entrou em serviço.",3000)
+			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
 			policeService = true
 		end

@@ -28,16 +28,12 @@ files {
 }
 
 client_scripts {
-	"@vrp/lib/vehicles.lua",
-	"@vrp/lib/itemlist.lua",
 	"@vrp/lib/utils.lua",
 	"client/client.lua",
 	"client/app_tchat.lua"
 }
 
 server_scripts {
-	"@vrp/lib/vehicles.lua",
-	"@vrp/lib/itemlist.lua",
 	"@vrp/lib/utils.lua",
 	"server/server.lua",
 	"server/app_tchat.lua"
