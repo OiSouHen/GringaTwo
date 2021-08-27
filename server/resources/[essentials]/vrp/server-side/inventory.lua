@@ -248,7 +248,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "18",
+		economy = "20",
 		type = "use",
 		weight = 0.75
 	},
@@ -268,7 +268,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "16",
+		economy = "18",
 		type = "use",
 		weight = 0.50
 	},
@@ -278,7 +278,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "16",
+		economy = "22",
 		type = "use",
 		weight = 0.50
 	},
@@ -288,7 +288,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "18",
+		economy = "22",
 		type = "use",
 		weight = 0.50
 	},
@@ -298,7 +298,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "20",
+		economy = "23",
 		type = "use",
 		weight = 0.25
 	},
@@ -318,7 +318,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "14",
+		economy = "20",
 		type = "use",
 		weight = 0.25
 	},
@@ -328,7 +328,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "28",
+		economy = "25",
 		type = "use",
 		weight = 0.50
 	},
@@ -338,7 +338,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "26",
+		economy = "23",
 		type = "use",
 		weight = 0.25
 	},
@@ -348,7 +348,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "32",
+		economy = "23",
 		type = "use",
 		weight = 0.75
 	},
