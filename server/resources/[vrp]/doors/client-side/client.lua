@@ -44,12 +44,12 @@ Citizen.CreateThread(function()
 			--print(coordss["x"],coordss["y"],coordss["z"])
 
 			for k,v in pairs(doors) do
-				local distance = #(coords - vector3(v["x"],v["y"],v["z"]))
-				if distance <= v["distance"] then
-					local closestDoor = GetClosestObjectOfType(v["x"],v["y"],v["z"],v["distance"] + 0.0,v["hash"],false,false,false)
+				local distance = #(coords - vector3(v.x,v.y,v.z))
+				if distance <= v.distance then
+					local closestDoor = GetClosestObjectOfType(v.x,v.y,v.z,1.0,v.hash,false,false,false)
 					if closestDoor then
 						if v["lock"] then
-							local _,h = GetStateOfClosestDoorOfType(v["hash"],v["x"],v["y"],v["z"])
+							local _,h = GetStateOfClosestDoorOfType(v.hash,v.x,v.y,v.z,_,h)
 							if h > -0.02 and h < 0.02 then
 								FreezeEntityPosition(closestDoor,true)
 							end
@@ -57,21 +57,21 @@ Citizen.CreateThread(function()
 							FreezeEntityPosition(closestDoor,false)
 						end
 
-						if distance <= v["press"] then
+						if distance <= v.press then
 							timeDistance = 1
 
 							if v["text"] then
 								if v["lock"] then
-									DrawText3D(v["x"],v["y"],v["z"],"🔒")
+									DrawText3D(v.x,v.y,v.z,"🔒")
 								else
-									DrawText3D(v["x"],v["y"],v["z"],"🔓")
+									DrawText3D(v.x,v.y,v.z,"🔓")
 								end
 							end
 
 							if IsControlJustPressed(1,38) and vSERVER.doorsPermission(k) then
-								v["lock"] = not v["lock"]
+								v.lock = not v.lock
 								vRP.playAnim(true,{"anim@heists@keycard@","exit"},false)
-								vSERVER.doorsStatistics(k,v["lock"])
+								vSERVER.doorsStatistics(k,v.lock)
 								Citizen.Wait(350)
 								vRP.stopAnim()
 							end
