@@ -13,8 +13,6 @@ vSERVER = Tunnel.getInterface("miner")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local ouService = false
-local inService = false
 local currentStatus = false
 local serviceStatus = false
 local selected = 0
@@ -96,30 +94,25 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
+						currentStatus = true
 						serviceStatus = false
-						inService = false
 						
 						if DoesBlipExist(blip) then
 						    RemoveBlip(blip)
 						    blip = nil
 						end
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 					else
 						currentStatus = false
 						serviceStatus = true
 						startmineservice()
 						startmineserviceseconds()
-						inService = true
-						
-						if not ouService then
-						    ouService = true
-						    coSelected = math.random(#collect)
-						end
+						coSelected = math.random(#collect)
 						
 						makeBlipMarked()
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Minerador</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 					end
 				end
 			end
@@ -135,7 +128,7 @@ function startmineservice()
 	Citizen.CreateThread(function()
 		while true do
 			local timeDistance = 500
-			if inService then
+			if serviceStatus then
 				local ped = PlayerPedId()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)

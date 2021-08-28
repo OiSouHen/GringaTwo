@@ -13,8 +13,6 @@ vSERVER = Tunnel.getInterface("transporter")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local ouService = false
-local inService = false
 local selected = 0
 local blipCollect = nil
 local blipDelivery = nil
@@ -155,8 +153,8 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
+						currentStatus = true
 						serviceStatus = false
-						inService = false
 						
 						if DoesBlipExist(blipCollect) then
 						    RemoveBlip(blipCollect)
@@ -168,24 +166,20 @@ Citizen.CreateThread(function()
 						    blipDelivery = nil
 						end
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 					else
 						currentStatus = false
 						serviceStatus = true
 						
 						startthreadservice()
 						startthreadserviceseconds()
-						inService = true
-						if not ouService then
-						    ouService = true
-						    coSelected = math.random(#collect)
-						    deSelected = math.random(#deliver)
-						end
+						coSelected = math.random(#collect)
+						deSelected = math.random(#deliver)
 			
 						makeCollectMarked(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3])
 						makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Transportador</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 					end
 				end
 			end
@@ -201,7 +195,7 @@ function startthreadservice()
 	Citizen.CreateThread(function()
 		while true do
 			local timeDistance = 500
-			if inService then
+			if serviceStatus then
 				local ped = PlayerPedId()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)

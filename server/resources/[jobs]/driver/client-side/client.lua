@@ -14,7 +14,6 @@ vSERVER = Tunnel.getInterface("driver")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blip = nil
-local inService = false
 local currentStatus = false
 local serviceStatus = false
 local driverPosition = 1
@@ -98,9 +97,9 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
+						currentStatus = true
 						serviceStatus = false
-						inService = false
-						TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 						
 						if DoesBlipExist(blip) then
 							RemoveBlip(blip)
@@ -111,9 +110,8 @@ Citizen.CreateThread(function()
 						serviceStatus = true
 						startthreadservice()
 						startthreadtimeseconds()
-						inService = true
 						makeBlipMarked()
-						TriggerEvent("Notify","amarelo","O serviço de <b>Motorista</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 					end
 				end
 			end
@@ -129,7 +127,7 @@ function startthreadservice()
 	Citizen.CreateThread(function()
 		while true do
 			local timeDistance = 500
-			if inService then
+			if serviceStatus then
 				local ped = PlayerPedId()
 				if IsPedInAnyVehicle(ped) then
 					local veh = GetVehiclePedIsUsing(ped)

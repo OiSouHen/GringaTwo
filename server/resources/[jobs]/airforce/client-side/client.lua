@@ -137,7 +137,7 @@ Citizen.CreateThread(function()
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
 						serviceStatus = false
-						TriggerEvent("Notify","amarelo","O serviço de <b>Táxi Aéreo</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 
 						if DoesBlipExist(serviceBlip) then
 							RemoveBlip(serviceBlip)
@@ -163,7 +163,7 @@ Citizen.CreateThread(function()
 						currentPassenger = nil
 						currentStatus = false
 						serviceStatus = true
-						TriggerEvent("Notify","amarelo","O serviço de <b>Táxi Aéreo</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 						lastPassenger = nil
 						blipPassenger()
 					end

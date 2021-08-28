@@ -51,7 +51,7 @@ RegisterNetEvent("corrections:initService")
 AddEventHandler("corrections:initService",function()
 					if serviceStatus then
 						serviceStatus = false
-						TriggerEvent("Notify","amarelo","O serviço de <b>Transporte de Presidiário</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 
 						if DoesBlipExist(serviceBlip) then
 							RemoveBlip(serviceBlip)
@@ -78,7 +78,7 @@ AddEventHandler("corrections:initService",function()
 							currentPassenger = nil
 							currentStatus = false
 							serviceStatus = true
-							TriggerEvent("Notify","amarelo","O serviço de <b>Transporte de Presidiário</b> foi iniciado.",3000)
+							TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 							lastPassenger = nil
 							blipPassenger()
 						end

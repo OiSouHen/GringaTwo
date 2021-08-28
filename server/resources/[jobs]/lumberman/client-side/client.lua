@@ -13,8 +13,6 @@ vSERVER = Tunnel.getInterface("lumberman")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local ouService = false
-local inService = false
 local currentStatus = false
 local serviceStatus = false
 local selected = 0
@@ -106,8 +104,8 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
+						currentStatus = true
 						serviceStatus = false
-						inService = false
 						
 						if DoesBlipExist(collectBlip) then
 						    RemoveBlip(collectBlip)
@@ -119,23 +117,19 @@ Citizen.CreateThread(function()
 						    deliverBlip = nil
 						end
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 					else
 						currentStatus = false
 						serviceStatus = true
 						
 						startthreadservice()
 						startthreadserviceseconds()
-						inService = true
-						if not ouService then
-						    ouService = true
-						    coSelected = math.random(#collect)
-						    deSelected = math.random(#deliver)
-						end
+						coSelected = math.random(#collect)
+						deSelected = math.random(#deliver)
 						makeCollectMarked()
 						makeDeliveryMarked()
 						
-						TriggerEvent("Notify","amarelo","O serviço de <b>Lenhador</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 					end
 				end
 			end
@@ -151,7 +145,7 @@ function startthreadservice()
 	Citizen.CreateThread(function()
 		while true do
 			local timeDistance = 500
-			if inService then
+			if serviceStatus then
 				local ped = PlayerPedId()
 				if not IsPedInAnyVehicle(ped) then
 					local coords = GetEntityCoords(ped)
@@ -167,9 +161,9 @@ function startthreadservice()
 							SetEntityHeading(ped,collect[coSelected][4])
 							SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
 							TriggerEvent("cancelando",true)
-							TriggerEvent("Progress",3000,"Cortando...")
+							TriggerEvent("Progress",10000,"Cortando...")
 							vRP.playAnim(false,{"amb@world_human_hammering@male@base","base"},true)
-							Wait(3000)
+							Wait(10000)
 							
 							if vSERVER.collectMethod() then
 								SetEntityHeading(ped,collect[coSelected][4])
@@ -179,7 +173,6 @@ function startthreadservice()
 								vRP.removeObjects()
 								coSelected = math.random(#collect)
 								makeCollectMarked()
-
 							end
 						end
 					end
