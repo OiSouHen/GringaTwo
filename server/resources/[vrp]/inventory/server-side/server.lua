@@ -893,7 +893,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                 vRPclient.stopActived(source)
                                 vCLIENT.closeInventory(source)
                                 vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
-                                vRP.createDurability(itemName)
 
                                 local taskResult = vTASKBAR.taskMechanic(source)
                                 if taskResult then
@@ -919,7 +918,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 								vCLIENT.blockButtons(source,true)
 								vRPRAGE.startAnimHotwired(source)
-								vRP.createDurability(itemName)
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
@@ -981,8 +979,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											end)
 										end
 									end
---								else
---									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
+								else
+									TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
@@ -1008,8 +1006,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vHOMES.enterHomesTheft(source,homeName)
 									TriggerEvent("vrp:homes:ApplyTime",homeName)
 								
---								else
---									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
+								else
+									TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then
