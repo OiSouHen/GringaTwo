@@ -15,11 +15,6 @@ vCLIENT = Tunnel.getInterface("harvest")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local collect = {}
-local collectMin = 1
-local collectMax = 2
-local amount = {}
-local amountMin = 2
-local amountMax = 3
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -28,14 +23,10 @@ function cRP.collectMethod()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",3000)
+			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
 			Wait(1)
 		else
-			vRPclient.stopActived(source)
-			TriggerClientEvent("Progress",source,4000,"Colhendo...")
-			vRP.upgradeStress(user_id,1)
-			vRPclient._playAnim(source,false,{"amb@prop_human_movie_bulb@base","base"},false)
-			
+
 			local random = math.random(100)
 			if parseInt(random) >= 76 then
 				vRP.giveInventoryItem(user_id,"orange",math.random(3),true)
@@ -53,8 +44,9 @@ function cRP.collectMethod()
 				vRP.giveInventoryItem(user_id,"tomato",math.random(4),true)
 			end
 			
+			vRP.upgradeStress(user_id,1)
+			
 			collect[source] = nil
-			TriggerClientEvent("cancelando",source,true)
 			return true
 		end
 		return false

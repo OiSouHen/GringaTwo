@@ -14,15 +14,10 @@ cRP = {}
 Tunnel.bindInterface("admin",cRP)
 vCLIENT = Tunnel.getInterface("admin")
 vHOMES = Tunnel.getInterface("homes")
-
-local screenshotOptions = {
-	encoding = "png",
-	quality = 1
-}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookadmin = ""
+local webhookadmin = "YOURWEEBHOOKHERE"
 local webhookkick = "YOURWEEBHOOKHERE"
 local webhookfac = "YOURWEEBHOOKHERE"
 local webhookkeys = "YOURWEEBHOOKHERE"

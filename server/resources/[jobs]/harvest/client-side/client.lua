@@ -13,8 +13,6 @@ vSERVER = Tunnel.getInterface("harvest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local ouService = false
-local inService = false
 local currentStatus = false
 local serviceStatus = false
 local initService = { 406.08,6526.17,27.75 }
@@ -71,9 +69,9 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					if serviceStatus then
+					    currentStatus = true
 						serviceStatus = false
-						inService = false
-						TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi finalizado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
 						
 						if DoesBlipExist(blip) then
 							RemoveBlip(blip)
@@ -84,15 +82,9 @@ Citizen.CreateThread(function()
 						serviceStatus = true
 						startthreadservice()
 						startthreadserviceseconds()
-						inService = true
-						
-						if not ouService then
-						    ouService = true
-						    coSelected = math.random(#collect)
-						end
-						
+						coSelected = math.random(#collect)
 						makeBlipMarked()
-						TriggerEvent("Notify","amarelo","O serviço de <b>Colheita</b> foi iniciado.",3000)
+						TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
 					end
 				end
 			end
@@ -108,28 +100,31 @@ function startthreadservice()
 	Citizen.CreateThread(function()
 		while true do
 			local timeDistance = 500
-			if inService then
+			if serviceStatus then
 				local ped = PlayerPedId()
-					local coords = GetEntityCoords(ped)
-					local collectDis = #(coords - vector3(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]))
-					if collectDis <= 150 then
-						timeDistance = 4
-						DrawText3D(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3],"~g~E~w~  COLHER")
-						if collectDis <= 0.8 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
-							timeSeconds = 2
-							if vSERVER.collectMethod() then
-								SetEntityHeading(ped,collect[coSelected][4])
-								SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
-
-								SetTimeout(4000,function()
-									vRP.removeObjects()
-									TriggerEvent("cancelando",false)
-									coSelected = math.random(#collect)
-								end)
-							end
-						end
+				local coords = GetEntityCoords(ped)
+				local collectDis = #(coords - vector3(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]))
+				if collectDis <= 150 then
+					timeDistance = 4
+					DrawText3D(collect[coSelected][1],collect[coSelected][2],collect[coSelected][3],"~g~E~w~  COLHER")
+					if collectDis <= 0.8 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
+						timeSeconds = 2
+						TriggerEvent("player:blockCommands",true)
+						TriggerEvent("cancelando",true)
+						TriggerEvent("Progress",5000,"Colhendo...")
+						vRP.playAnim(true,{"amb@prop_human_movie_bulb@base","base"},true)
+						SetEntityHeading(ped,collect[coSelected][4])
+						SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
+						Citizen.Wait(5000)
+						TriggerEvent("player:blockCommands",false)
+						vSERVER.collectMethod()
+						TriggerEvent("cancelando",false)
+						vRP.removeObjects()
+						coSelected = math.random(#collect)
 					end
+				end
 			end
+			
 			Citizen.Wait(timeDistance)
 		end
 	end)
@@ -143,6 +138,7 @@ function startthreadserviceseconds()
 			if timeSeconds > 0 then
 				timeSeconds = timeSeconds - 1
 			end
+			
 			Citizen.Wait(1000)
 		end
 	end)
