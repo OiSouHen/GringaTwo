@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("survival",cnVRP)
+cRP = {}
+Tunnel.bindInterface("survival",cRP)
 vCLIENT = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GOD
@@ -17,7 +17,7 @@ vCLIENT = Tunnel.getInterface("survival")
 RegisterCommand("god",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			if args[1] then
 				local nplayer = vRP.getUserSource(parseInt(args[1]))
 				if nplayer then
@@ -46,7 +46,7 @@ end)
 RegisterCommand("good",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			if args[1] then
 				local nplayer = vRP.getUserSource(parseInt(args[1]))
 				if nplayer then
@@ -72,7 +72,7 @@ end)
 RegisterCommand("health",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			if args[1] then
 				local nplayer = vRP.getUserSource(parseInt(args[1]))
 				if nplayer then
@@ -94,7 +94,7 @@ end)
 RegisterCommand("armour",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			if args[1] then
 				local nplayer = vRP.getUserSource(parseInt(args[1]))
 				if nplayer then
@@ -127,7 +127,7 @@ end)
 RegisterCommand("re",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") then
 			local nplayer = vRPclient.nearestPlayer(source,2)
 			if nplayer then
 				if vCLIENT.deadPlayer(nplayer) then
@@ -148,7 +148,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GG
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.ResetPedToHospital()
+function cRP.ResetPedToHospital()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -159,13 +159,12 @@ function cnVRP.ResetPedToHospital()
 			TriggerClientEvent("resetBleeding",source)
 			TriggerClientEvent("resetDiagnostic",source)
 			TriggerClientEvent("survival:FadeOutIn",source)
+			
 			local clear = vRP.clearInventory(user_id)
 			if clear then
+				Wait(1000)
 				vRPclient._clearWeapons(source)
-				Wait(2000)
 				vRPclient.teleport(source,-1041.25,-2744.99,21.35)
---				Wait(1000)
---				vCLIENT.SetPedInBed(source)
 			end
 		end
 	end

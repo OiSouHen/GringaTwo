@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("survival",cnVRP)
+cRP = {}
+Tunnel.bindInterface("survival",cRP)
 vSERVER = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -73,6 +73,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -100,15 +101,16 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINISHDEATH
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.finishDeath()
+function cRP.finishDeath()
 	local ped = PlayerPedId()
 	if GetEntityHealth(ped) <= 101 then
 		deadPlayer = false
 		TriggerEvent("hudActived",true)
-		SendNUIMessage({ death = false })
 		ClearPedBloodDamage(ped)
 		SetEntityHealth(ped,200)
 		SetEntityInvincible(ped,false)
+		ClearPedTasks(ped)
+		SendNUIMessage({ death = false })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -130,13 +132,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DEADPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.deadPlayer()
+function cRP.deadPlayer()
 	return deadPlayer
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REVIVEPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.revivePlayer(health)
+function cRP.revivePlayer(health)
 	SetEntityHealth(PlayerPedId(),health)
 	SetEntityInvincible(PlayerPedId(),false)
 	TriggerEvent("hudActived",true)
@@ -206,7 +208,7 @@ end)
 -- STARTCURE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local cure = false
-function cnVRP.startCure()
+function cRP.startCure()
 	local ped = PlayerPedId()
 
 	if cure then
@@ -242,7 +244,7 @@ local beds = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETPEDINBED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.SetPedInBed()
+function cRP.SetPedInBed()
 	local ped = PlayerPedId()
 	local x,y,z = table.unpack(GetEntityCoords(ped))
 
