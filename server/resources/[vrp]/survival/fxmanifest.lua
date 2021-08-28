@@ -14,7 +14,5 @@ server_scripts {
 }
 
 files {
-	"web-side/index.html",
-	"web-side/index.js",
-	"web-side/style.css"
+	"web-side/*"
 }

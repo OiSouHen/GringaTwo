@@ -14,8 +14,9 @@ vSERVER = Tunnel.getInterface("survival")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local deadPlayer = false
-local deathtimer = 600
+local deathtimer = 300
 local blockControls = false
+local emergencyButton = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,14 +28,22 @@ Citizen.CreateThread(function()
 			if not deadPlayer then
 				timeDistance = 100
 				deadPlayer = true
+				emergencyButton = false
 				SendNUIMessage({ death = true })
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 600
+				deathtimer = 300
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 					vRP.playAnim(false,{"dead","dead_a"},true)
+				end
+				
+				if IsPedInAnyVehicle(ped) then
+					local vehicle = GetVehiclePedIsUsing(ped)
+					if GetPedInVehicleSeat(vehicle,-1) == ped then
+						SetVehicleEngineOn(vehicle,false,true,true)
+					end
 				end
 				
 				SetEntityHealth(ped,101)
@@ -45,17 +54,17 @@ Citizen.CreateThread(function()
 			else
 				if deathtimer > 0 then
 					timeDistance = 4
+					emergencyButton = true
 					SetEntityHealth(ped,101)
 					TriggerEvent("hudActived",false)
-					drawTxt("NOCAUTEADO, AGUARDE ~y~"..deathtimer.."~w~ SEGUNDOS",4,0.5,0.90,0.50,255,255,255,200)
-					drawTxt("DIGITE ~y~/GG~w~ E DESISTA IMEDIATAMENTE",4,0.5,0.93,0.50,255,255,255,200)
-
+					SendNUIMessage({ deathtext = "DIGITE <color>/GG</color> PARA DESISTIR IMEDIATAMENTE<br><i>OU AGUARDE <color>"..deathtimer.." SEGUNDOS</color></i>" })
+					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
 					end
 				else
 					timeDistance = 4
-					drawTxt("SEU TEMPO ACABOU, DIGITE ~y~/GG~w~",4,0.5,0.93,0.50,255,255,255,200)
+					SendNUIMessage({ deathtext = "SEU TEMPO ACABOU, DIGITE <color>/GG</color>" })
 					
 					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
 						vRP.playAnim(false,{"dead","dead_a"},true)
@@ -82,11 +91,10 @@ end)
 -- GG
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source,args,rawCommand)
-	if deathtimer <= 600 then
+	if deathtimer <= 300 then
 		vSERVER.ResetPedToHospital()
 		TriggerEvent("hudActived",true)
---	else
---		TriggerEvent("Notify","azul","Você ainda tem <b>"..deathtimer.." segundos</b> de vida.",5000)
+		SendNUIMessage({ death = false })
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -110,6 +118,7 @@ function cnVRP.finishDeath()
 	if GetEntityHealth(ped) <= 101 then
 		deadPlayer = false
 		TriggerEvent("hudActived",true)
+		SendNUIMessage({ death = false })
 		ClearPedBloodDamage(ped)
 		SetEntityHealth(ped,200)
 		SetEntityInvincible(ped,false)
@@ -121,6 +130,13 @@ end
 Citizen.CreateThread(function()
 	while true do
 		SetPlayerHealthRechargeMultiplier(PlayerId(),0)
+		SetPlayerHealthRechargeLimit(PlayerId(),0)
+
+		if GetEntityMaxHealth(PlayerPedId()) ~= 200 then
+			SetEntityMaxHealth(PlayerPedId(),200)
+			SetPedMaxHealth(PlayerPedId(),200)
+		end
+
 		Citizen.Wait(100)
 	end
 end)
@@ -137,6 +153,7 @@ function cnVRP.revivePlayer(health)
 	SetEntityHealth(PlayerPedId(),health)
 	SetEntityInvincible(PlayerPedId(),false)
 	TriggerEvent("hudActived",true)
+	SendNUIMessage({ death = false })
 	
 	if deadPlayer then
 		deadPlayer = false
