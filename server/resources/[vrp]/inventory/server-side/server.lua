@@ -1808,13 +1808,24 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 					if itemName == "handcuff" then
 						if not vRPclient.inVehicle(source) then
-							local nplayer = vRPclient.nearestPlayer(source,1)
+							local nplayer = vRPclient.nearestPlayer(source,2)
 							if nplayer then
 								if vPLAYER.getHandcuff(nplayer) then
 									vPLAYER.toggleHandcuff(nplayer)
 									vRPclient._stopAnim(nplayer,false)
-									TriggerClientEvent("sound:source",source,"uncuff",0.5)
-									TriggerClientEvent("sound:source",nplayer,"uncuff",0.5)
+									TriggerClientEvent("sounds:source",source,"uncuff",0.5)
+									TriggerClientEvent("sounds:source",nplayer,"uncuff",0.5)
+								else
+									active[user_id] = 30
+									local taskResult = vTASKBAR.taskHandcuff(nplayer)
+									if not taskResult then
+										vPLAYER.toggleHandcuff(nplayer)
+										TriggerClientEvent("sounds:source",source,"cuff",0.5)
+										TriggerClientEvent("sounds:source",nplayer,"cuff",0.5)
+										vRPclient._playAnim(source,false,{"mp_arrest_paired","cop_p2_back_left"},false)
+										vRPclient._playAnim(nplayer,false,{"mp_arrest_paired","crook_p2_back_left"},false)
+										vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
+									end
 									active[user_id] = nil
 								end
 							end
