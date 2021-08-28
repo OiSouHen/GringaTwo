@@ -889,29 +889,23 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                         if not vRPclient.inVehicle(source) then
                             local vehicle,vehNet = vRPclient.vehList(source,11)
                             if vehicle then
-								if vCLIENT.checkBurstTyres(source,vehNet) then
-									active[user_id] = 30
-									vRPclient.stopActived(source)
-									vCLIENT.closeInventory(source)
-									vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
-									-- vRP.createDurability(itemName)
+                                active[user_id] = 30
+                                vRPclient.stopActived(source)
+                                vCLIENT.closeInventory(source)
+                                vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
+                                vRP.createDurability(itemName)
 
-									local taskResult = vTASKBAR.taskMechanic(source)
-									if taskResult then
-										vRP.upgradeStress(user_id,5)
-										if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-											TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
-											TriggerClientEvent("Notify",source,"verde","Arrumado com sucesso.",5000)
-										end
-									else
-										TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
-									end
-
-									vRPclient._stopAnim(source,false)
-									active[user_id] = nil
+                                local taskResult = vTASKBAR.taskMechanic(source)
+                                if taskResult then
+                                    vRP.upgradeStress(user_id,2)
+                                    TriggerClientEvent("inventory:repairVehicle",-1,vehNet,true)
+                                    vRP.removeInventoryItem(user_id,itemName,1,true)
 								else
-									TriggerClientEvent("Notify",source,"vermelho","Você precisa arrumar os pneus primeiro.",5000)
-								end
+                                    TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
+                                end
+
+                                vRPclient._stopAnim(source,false)
+                                active[user_id] = nil
                             end
                         end
                     end
@@ -925,7 +919,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 								vCLIENT.blockButtons(source,true)
 								vRPRAGE.startAnimHotwired(source)
---								vRP.createDurability(itemName)
+								vRP.createDurability(itemName)
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
@@ -948,8 +942,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											end)
 										end
 									end
---								else
---									TriggerClientEvent("Notify",source,"vermelho","Você infelizmente falhou.",5000)
+								else
+									TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
 								end
 
 								if parseInt(math.random(1000)) >= 950 then

@@ -105,20 +105,32 @@ Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ENTERVEHICLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.enterVehicle()
+	local ped = PlayerPedId()
+	if GetVehiclePedIsTryingToEnter(ped) > 0 then
+		return true
+	end
+
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- MOC
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("inventory:moc",function(source,args)
-	if not IsPlayerFreeAiming(PlayerPedId()) and GetEntityHealth(PlayerPedId()) > 101 then
-		SetNuiFocus(true,true)
-		SetCursorLocation(0.5,0.5)
-		SendNUIMessage({ action = "showMenu" })
+RegisterCommand("moc",function(source,args)
+	if GetEntityHealth(PlayerPedId()) > 101 and not blockButtons then
+		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPlayerFreeAiming(PlayerId()) then
+			SetNuiFocus(true,true)
+			SetCursorLocation(0.5,0.5)
+			SendNUIMessage({ action = "showMenu" })
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MOC
+-- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("inventory:moc","Abrir a mochila","keyboard","oem_3")
--- oem_3
+RegisterKeyMapping("moc","Abrir a mochila","keyboard","oem_3")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DROPITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +194,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-        local timeDistance = 500
+        local timeDistance = 999
         local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
 		for k,v in pairs(droplist) do
@@ -210,7 +222,6 @@ end)
 RegisterNUICallback("sendItem",function(data)
 	local ped = GetPlayerPed(-1)
 	if IsPedArmed(ped,1) or IsPedArmed(ped,2) or IsPedArmed(ped,4) then
-		-- RemoveAllPedWeapons(ped, false)
 		currentWeapon = nil
 		currentWeaponModel = nil
 		TriggerServerEvent("inventory:sendItem",data.item,data.amount)
@@ -224,7 +235,6 @@ end)
 RegisterNUICallback("updateSlot",function(data,cb)
 	local ped = GetPlayerPed(-1)
 	if IsPedArmed(ped) or IsPedArmed(ped,2) or IsPedArmed(ped,4) then
-		-- RemoveAllPedWeapons(ped, false)
 		currentWeapon = nil
 		currentWeaponModel = nil
 		TriggerServerEvent("inventory:updateSlot",data.item,data.slot,data.target,data.amount)
@@ -241,10 +251,7 @@ RegisterNUICallback("requestMochila",function(data,cb)
 	local dropItems = {}
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
---		print("A")
 		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
---			print("B")
---			print(v.desc)
 			table.insert(dropItems,{economy = v.economy, unity = v.unity, tipo = v.tipo, desc = v.desc, name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
 		end
 	end
@@ -272,7 +279,7 @@ local plateZ = 18.81
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
@@ -371,15 +378,30 @@ AddEventHandler("inventory:repairVehicle",function(index,status)
 	if NetworkDoesNetworkIdExist(index) then
 		local v = NetToEnt(index)
 		if DoesEntityExist(v) then
-			local fuel = GetVehicleFuelLevel(v)
 			if status then
+				local vehTyres = {}
+				local fuel = GetVehicleFuelLevel(v)
+
+				for i = 0,7 do
+					local tyre_state = 2
+					if IsVehicleTyreBurst(v,i,true) then
+						tyre_state = 1
+					elseif IsVehicleTyreBurst(v,i,false) then
+						tyre_state = 0
+					end
+
+					vehTyres[i] = tyre_state
+				end
+
 				SetVehicleFixed(v)
-				SetVehicleDeformationFixed(v)
+				SetVehicleFuelLevel(v,fuel)
+
+				for k,vs in pairs(vehTyres) do
+					if vs < 2 then
+						SetVehicleTyreBurst(v,k,(vs == 1),1000.0)
+					end
+				end
 			end
-			SetVehicleBodyHealth(v,1000.0)
-			SetVehicleEngineHealth(v,1000.0)
-			SetVehiclePetrolTankHealth(v,1000.0)
-			SetVehicleFuelLevel(v,fuel)
 		end
 	end
 end)
@@ -622,14 +644,93 @@ RegisterCommand("attachs",function(source,args)
 		end
 	end
 end)
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTWEAPONHANDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent('tb-inventory:client:takingWeapon')
-AddEventHandler('tb-inventory:client:takingWeapon', function(bool)
-    takingWeapon = bool
-end)
+function cRP.putWeaponHands(weaponName,weaponAmmo)
+	if not putWeaponHands then
+		if weaponAmmo > 0 then
+			weaponActive = true
+		end
+
+		putWeaponHands = true
+		TriggerEvent("cancelando",true)
+
+		local ped = PlayerPedId()
+		if HasPedGotWeapon(ped,GetHashKey("GADGET_PARACHUTE"),false) then
+			RemoveAllPedWeapons(ped,true)
+			GiveWeaponToPed(ped,"GADGET_PARACHUTE",1,false,true)
+			SetPedParachuteTintIndex(ped,math.random(7))
+		else
+			RemoveAllPedWeapons(ped,true)
+		end
+
+		if not IsPedInAnyVehicle(ped) then
+			loadAnimDict("rcmjosh4")
+
+			TaskPlayAnim(ped,"rcmjosh4","josh_leadout_cop2",3.0,2.0,-1,48,10,0,0,0)
+
+			Citizen.Wait(200)
+
+			GiveWeaponToPed(ped,weaponName,weaponAmmo,false,true)
+
+			Citizen.Wait(300)
+
+			ClearPedTasks(ped)
+		else
+			GiveWeaponToPed(ped,weaponName,weaponAmmo,true,true)
+		end
+
+		TriggerEvent("cancelando",false)
+		useWeapon = weaponName
+		putWeaponHands = false
+
+		return true
+	end
+
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STOREWEAPONHANDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.storeWeaponHands()
+	if not storeWeaponHands then
+		storeWeaponHands = true
+		TriggerEvent("cancelando",true)
+
+		local ped = PlayerPedId()
+		local lastWeapon = useWeapon
+		local weaponAmmo = GetAmmoInPedWeapon(ped,useWeapon)
+
+		if not IsPedInAnyVehicle(ped) then
+			loadAnimDict("weapons@pistol@")
+
+			TaskPlayAnim(ped,"weapons@pistol@","aim_2_holster",3.0,2.0,-1,48,10,0,0,0)
+
+			Citizen.Wait(450)
+
+			ClearPedTasks(ped)
+		end
+
+		if HasPedGotWeapon(ped,GetHashKey("GADGET_PARACHUTE"),false) then
+			RemoveAllPedWeapons(ped,true)
+			GiveWeaponToPed(ped,"GADGET_PARACHUTE",1,false,true)
+			SetPedParachuteTintIndex(ped,math.random(7))
+		else
+			RemoveAllPedWeapons(ped,true)
+		end
+
+		weaponActive = false
+		useWeapon = ""
+
+		storeWeaponHands = false
+		TriggerEvent("cancelando",false)
+
+		return true,weaponAmmo,lastWeapon
+	end
+
+	return false
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEAPON_AMMOS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -852,50 +953,24 @@ function cRP.checkWater()
 	return IsPedSwimming(PlayerPedId())
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- WHEELCHAIR
+-- TOGGLECARRY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.wheelChair(vehPlate)
+local uCarry = nil
+local iCarry = false
+local sCarry = false
+RegisterNetEvent("toggleCarry")
+AddEventHandler("toggleCarry",function(source)
+	uCarry = source
+	iCarry = not iCarry
+
 	local ped = PlayerPedId()
-	local vehName = "wheelchair"
-	local mHash = GetHashKey(vehName)
-
-	RequestModel(mHash)
-	while not HasModelLoaded(mHash) do
-		Citizen.Wait(1)
-	end
-
-	local heading = GetEntityHeading(ped)
-	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.75,0.0)
-	local nveh = CreateVehicle(mHash,coords["x"],coords["y"],coords["z"],heading,true,true)
-
-	SetVehicleOnGroundProperly(nveh)
-	SetVehicleNumberPlateText(nveh,vehPlate)
-	SetEntityAsMissionEntity(nveh,true,true)
-	SetModelAsNoLongerNeeded(mHash)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- WHEELTREADS
------------------------------------------------------------------------------------------------------------------------------------------
-local wheelChair = false
-Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) then
-			local vehicle = GetVehiclePedIsUsing(ped)
-			local model = GetEntityModel(vehicle)
-			if model == -1178021069 then
-				if not IsEntityPlayingAnim(ped,"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester",3) then
-					vRP.playAnim(true,{"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester"},true)
-					wheelChair = true
-				end
-			end
-		else
-			if wheelChair then
-				vRP.removeObjects("one")
-				wheelChair = false
-			end
+	if iCarry and uCarry then
+		Citizen.InvokeNative(0x6B9BBD38AB0796DF,ped,GetPlayerPed(GetPlayerFromServerId(uCarry)),4103,11816,0.48,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
+		sCarry = true
+	else
+		if sCarry then
+			DetachEntity(ped,false,false)
+			sCarry = false
 		end
-
-		Citizen.Wait(1000)
 	end
 end)
