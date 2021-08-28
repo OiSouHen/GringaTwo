@@ -7,9 +7,9 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("dna",cnVRP)
-vCLIENT = Tunnel.getInterface("dna")
+cRP = {}
+Tunnel.bindInterface("evidence",cRP)
+vCLIENT = Tunnel.getInterface("evidence")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -17,8 +17,8 @@ local dnaList = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DROPDNA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("dna:dropDna")
-AddEventHandler("dna:dropDna",function(r,g,b)
+RegisterNetEvent("evidence:dropDna")
+AddEventHandler("evidence:dropDna",function(r,g,b)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -29,16 +29,16 @@ AddEventHandler("dna:dropDna",function(r,g,b)
 
 		table.insert(dnaList[grid],{ x,y,z,r,g,b,user_id,1800 })
 
-		TriggerClientEvent("dna:dnaUpdates",-1,dnaList)
+		TriggerClientEvent("evidence:dnaUpdates",-1,dnaList)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEDNA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("dna:removeDna")
-AddEventHandler("dna:removeDna",function(grid,tables)
+RegisterNetEvent("evidence:removeDna")
+AddEventHandler("evidence:removeDna",function(grid,tables)
 	dnaList[grid][tables] = nil
-	TriggerClientEvent("dna:dnaUpdates",-1,dnaList)
+	TriggerClientEvent("evidence:dnaUpdates",-1,dnaList)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMER
@@ -51,7 +51,7 @@ Citizen.CreateThread(function()
 					w[8] = w[8] - 10
 					if w[8] <= 0 then
 						dnaList[k][y] = nil
-						TriggerClientEvent("dna:dnaUpdates",-1,dnaList)
+						TriggerClientEvent("evidence:dnaUpdates",-1,dnaList)
 					end
 				end
 			end
@@ -64,7 +64,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local resultTimers = 0
 local dnaResult = "Nenhum"
-RegisterCommand("dna",function(source,args,rawCommand)
+RegisterCommand("evidence",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vCLIENT.checkDistance(source) and resultTimers <= 0 and vRP.hasPermission(user_id,"Paramedic") then
@@ -79,7 +79,7 @@ RegisterCommand("dna",function(source,args,rawCommand)
 					else
 						dnaResult = "Individuo Indigente"
 					end
-					TriggerClientEvent("dna:lastResult",-1,"teste em andamento")
+					TriggerClientEvent("evidence:lastResult",-1,"teste em andamento")
 				end
 			end
 		end
@@ -94,9 +94,9 @@ Citizen.CreateThread(function()
 			resultTimers = resultTimers - 10
 			if resultTimers <= 0 then
 				if math.random(100) >= 50 then
-					TriggerClientEvent("dna:lastResult",-1,dnaResult)
+					TriggerClientEvent("evidence:lastResult",-1,dnaResult)
 				else
-					TriggerClientEvent("dna:lastResult",-1,"falhou")
+					TriggerClientEvent("evidence:lastResult",-1,"falhou")
 				end
 			end
 		end

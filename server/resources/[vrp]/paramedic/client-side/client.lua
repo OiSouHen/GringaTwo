@@ -110,13 +110,13 @@ AddEventHandler("gameEventTriggered",function(name,args)
 
 				if not damaged["vehicle"] and HasEntityBeenDamagedByAnyVehicle(ped) then
 					bleeding = bleeding + 1
-					TriggerServerEvent("dna:dropDna",80,190,40)
+					TriggerServerEvent("evidence:dropDna",80,190,40)
 					damaged["vehicle"] = true
 				end
 
 				if not damaged["tazer"] and IsPedAPlayer(args[2]) and IsPedArmed(args[2],6) and GetSelectedPedWeapon(args[2]) ~= GetHashKey("WEAPON_STUNGUN") then
 					damaged["tazer"] = true
-					TriggerServerEvent("dna:dropDna",30,100,200)
+					TriggerServerEvent("evidence:dropDna",30,100,200)
 				end
 
 				if not IsPedBeingStunned(ped) then
@@ -150,7 +150,7 @@ Citizen.CreateThread(function()
 				end
 
 				TriggerEvent("Notify","blood","Sangramento encontrado.",3000)
-				TriggerServerEvent("dna:dropDna",255,0,0)
+				TriggerServerEvent("evidence:dropDna",255,0,0)
 			end
 		end
 

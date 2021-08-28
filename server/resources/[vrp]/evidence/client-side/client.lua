@@ -7,9 +7,9 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("dna",cnVRP)
-vSERVER = Tunnel.getInterface("dna")
+cRP = {}
+Tunnel.bindInterface("evidence",cRP)
+vSERVER = Tunnel.getInterface("evidence")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DNALIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -21,8 +21,8 @@ local dnaDeltas = { vector2(-1,-1),vector2(-1,0),vector2(-1,1),vector2(0,-1),vec
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMUPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("dna:dnaUpdates")
-AddEventHandler("dna:dnaUpdates",function(status)
+RegisterNetEvent("evidence:dnaUpdates")
+AddEventHandler("evidence:dnaUpdates",function(status)
 	dnaList = status
 
 	local ped = PlayerPedId()
@@ -65,7 +65,7 @@ Citizen.CreateThread(function()
 							DrawText3D(v[1],v[2],v[3]+0.2,"~y~"..grid.."   ~w~"..k,500)
 							DrawMarker(28,v[1],v[2],v[3]+0.05,0,0,0,180.0,0,0,0.04,0.04,0.04,v[4],v[5],v[6],100,0,0,0,0)
 							if distance <= 1.2 and GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_PETROLCAN") and IsPedShooting(ped) then
-								TriggerServerEvent("dna:removeDna",grid,k)
+								TriggerServerEvent("evidence:removeDna",grid,k)
 							end
 						end
 					end
@@ -78,8 +78,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LASTRESULT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("dna:lastResult")
-AddEventHandler("dna:lastResult",function(status)
+RegisterNetEvent("evidence:lastResult")
+AddEventHandler("evidence:lastResult",function(status)
 	lastResult = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkDistance()
+function cRP.checkDistance()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local distance = #(coords - vector3(dnaX,dnaY,dnaZ))
@@ -115,7 +115,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.getPostions()
+function cRP.getPostions()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local gridChunk = vector2(gridChunk(coords.x),gridChunk(coords.y))
@@ -126,15 +126,19 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text,width)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / width
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,125)
+function DrawText3D(x,y,z,text)
+	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
+
+	if onScreen then
+		BeginTextCommandDisplayText("STRING")
+		AddTextComponentSubstringKeyboardDisplay(text)
+		SetTextColour(255,255,255,100)
+		SetTextScale(0.35,0.35)
+		SetTextFont(4)
+		SetTextCentre(1)
+		EndTextCommandDisplayText(_x,_y)
+
+		local width = string.len(text) / 160 * 0.45
+		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,125)
+	end
 end
