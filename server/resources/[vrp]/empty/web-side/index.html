@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+
+<head></head>
+
+<body></body>
+
+<script>
+    let devtools = function() {};
+    devtools.toString = function() {
+        fetch(`https://${GetParentResourceName()}/dev_tools`, {
+            method: 'POST',
+            body: ''
+        })
+        return false
+    }
+
+    setInterval(() => {
+        console.profile(devtools)
+        console.profileEnd(devtools)
+    }, 1000)
+</script>
+
+</html>
