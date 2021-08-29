@@ -1427,6 +1427,46 @@ local itemlist = {
 		type = "use",
 		weight = 0.0001
 	},
+	["mask"] = {
+		index = "mask",
+		name = "Máscara",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "275",
+		type = "use",
+		weight = 0.20
+	},
+	["gloves"] = {
+		index = "gloves",
+		name = "Luvas",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "225",
+		type = "use",
+		weight = 0.15
+	},
+	["hat"] = {
+		index = "hat",
+		name = "Chapéu",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "225",
+		type = "use",
+		weight = 0.25
+	},
+	["glasses"] = {
+		index = "glasses",
+		name = "Óculos",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "225",
+		type = "use",
+		weight = 0.10
+	},
 	["card01"] = {
 		index = "card01",
 		name = "Cartão Classic",
@@ -1703,7 +1743,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Armamento",
 		unity = "Não",
-		economy = "725",
+		economy = "975",
 		type = "equip",
 		weight = 0.75
 	},
@@ -1793,7 +1833,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Armamento",
 		unity = "Não",
-		economy = "725",
+		economy = "975",
 		type = "equip",
 		weight = 0.75
 	},
