@@ -217,7 +217,7 @@ local shops = {
 			["radio"] = 975,
 			["tablet"] = 125,
 			["teddy"] = 75,
-			["vape"] = 4750
+			["vape"] = 4750,
 			["glasses"] = 225
 		}
 	},

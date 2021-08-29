@@ -212,12 +212,15 @@ function cRP.updateHomes(status)
 	homesList = status
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CASAS
+-- HOMES:TOGGLEPROPERTYS:LOCAL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blips = {}
 local casas = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HOMES:TOGGLEPROPERTYS
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("homes:togglePropertys")
-AddEventHandler("homes:togglePropertys",function(source,args)
+AddEventHandler("homes:togglePropertys",function()
 	casas = not casas
 
 	if casas then
