@@ -591,7 +591,7 @@ function cRP.spawnVehicles(name,use)
 				end
 
 				if garages[use].payment and not vRP.getPremium(parseInt(user_id)) then
-                    if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*0.01) then
+                     if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*0.01) then
                         local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
                         if status and vRP.paymentBank(parseInt(user_id),parseInt(vRP.vehiclePrice(name)*0.01)) then
                             vehlist[vehid] = { parseInt(user_id),name }
