@@ -207,18 +207,18 @@ local shops = {
 			["binoculars"] = 275,
 			["cellphone"] = 575,
 			["mbattery"] = 35,
---			["hat"] = 225,
+			["hat"] = 225,
 			["rope"] = 875,
 			["camera"] = 275,
 			["firecracker"] = 100,
---			["gloves"] = 225,
---			["mask"] = 275,
+			["gloves"] = 225,
+			["mask"] = 275,
 			["rose"] = 25,
 			["radio"] = 975,
 			["tablet"] = 125,
 			["teddy"] = 75,
 			["vape"] = 4750
---			["glasses"] = 225
+			["glasses"] = 225
 		}
 	},
 	["barsStore"] = {
@@ -310,23 +310,15 @@ local shops = {
 			["WEAPON_STUNGUN"] = 2250
 		}
 	},
-	["drugsSelling"] = {
+	["mechanicTools"] = {
 		["mode"] = "Buy",
-		["type"] = "Consume",
-		["item"] = "dollars2",
-		["list"] = {
-			["meth"] = 500,
-			["lean"] = 500,
-			["ecstasy"] = 500
-		}
-	},
-	["robberysSelling"] = {
-		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["meth"] = 500,
-			["lean"] = 500,
-			["ecstasy"] = 500
+			["toolbox"] = 500,
+			["WEAPON_WRENCH"] = 725,
+			["lockpick"] = 400,
+			["tires"] = 275,
+			["WEAPON_CROWBAR"] = 725
 		}
 	},
 	["ilegalCriminal"] = {
