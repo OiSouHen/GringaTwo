@@ -5,6 +5,13 @@ function tvRP.playSound(dict,name)
 	PlaySoundFrontend(-1,dict,name,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADREADY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	NetworkSetFriendlyFireOption(true)
+	SetCanAttackFriendly(PlayerPedId(),true,false)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GETMODELPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.getModelPlayer()
@@ -28,20 +35,14 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- APPLYSKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.applySkin(model)
-	local mHash = model
-
+function tvRP.applySkin(mHash)
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		RequestModel(mHash)
-		Citizen.Wait(10)
+		Citizen.Wait(1)
 	end
 
 	if HasModelLoaded(mHash) then
 		SetPlayerModel(PlayerId(),mHash)
-		SetModelAsNoLongerNeeded(mHash)
+		SetPedComponentVariation(PlayerPedId(),5,0,0,1)
 	end
-
-	SetPedComponentVariation(PlayerPedId(),1,0,0,2)
 end
-
