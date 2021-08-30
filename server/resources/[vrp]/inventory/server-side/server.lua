@@ -1911,7 +1911,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.execute("vRP/set_vRP_gemsitem",{ steam = identity.steam })
+								vRP.execute("vRP/set_gemsitem",{ steam = identity.steam })
 							end
 						end
 	                end
@@ -2206,8 +2206,8 @@ AddEventHandler("itemdrop:Create",function(item,count,source,durability)
 		end
 end)
 -- ROUBO
-RegisterServerEvent("vrp_itemdrop:Create")
-AddEventHandler("vrp_itemdrop:Create",function(item,count,x,y,z,source)
+RegisterServerEvent("itemdrop:Create")
+AddEventHandler("itemdrop:Create",function(item,count,x,y,z,source)
     local id = idgens:gen()
     droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])

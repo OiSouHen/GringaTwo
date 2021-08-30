@@ -32,7 +32,7 @@ vRP.prepare("gcphone/addPhoneContacts","INSERT INTO phone_contacts(identifier,nu
 vRP.prepare("gcphone/updateReadMessage","UPDATE phone_messages SET isRead = 1 WHERE receiver = @receiver AND transmitter = @transmitter")
 vRP.prepare("gcphone/getPhoneMessagesId","SELECT * FROM phone_messages WHERE transmitter = @transmitter AND receiver = receiver ORDER BY id DESC LIMIT 1")
 vRP.prepare("gcphone/insertPhoneMessages","INSERT INTO phone_messages(transmitter,receiver,message,isRead,owner) VALUES(@transmitter,@receiver,@message,@owner,@owner)")
-vRP.prepare("gcphone/getPhoneMessages","SELECT phone_messages.* FROM phone_messages LEFT JOIN vrp_users ON vrp_users.id = @identifier WHERE phone_messages.receiver = vrp_users.phone")
+vRP.prepare("gcphone/getPhoneMessages","SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.id = @identifier WHERE phone_messages.receiver = users.phone")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------

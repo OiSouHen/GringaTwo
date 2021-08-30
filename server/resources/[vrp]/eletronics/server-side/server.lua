@@ -63,17 +63,17 @@ function cRP.paymentSystems(x,y,z)
 		if machineStart then
 			machineStart = false
 			local grid = vRP.getGridzone(x,y)
-			TriggerEvent("vrp_itemdrop:Create","dollars",parseInt(math.random(15000,17500)),x,y,z,source)
+			TriggerEvent("itemdrop:Create","dollars",parseInt(math.random(15000,17500)),x,y,z,source)
 
 			local random = math.random(100)
 			if parseInt(random) >= 75 then
-				TriggerEvent("vrp_itemdrop:Create","aluminum",parseInt(math.random(10,20)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","aluminum",parseInt(math.random(10,20)),x,y,z,source)
 			elseif parseInt(random) >= 50 and parseInt(random) <= 74 then
-				TriggerEvent("vrp_itemdrop:Create","rubber",parseInt(math.random(25,50)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","rubber",parseInt(math.random(25,50)),x,y,z,source)
 			elseif parseInt(random) >= 25 and parseInt(random) <= 49 then
-				TriggerEvent("vrp_itemdrop:Create","plastic",parseInt(math.random(25,50)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","plastic",parseInt(math.random(25,50)),x,y,z,source)
 			elseif parseInt(random) <= 24 then
-				TriggerEvent("vrp_itemdrop:Create","copper",parseInt(math.random(10,20)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","copper",parseInt(math.random(10,20)),x,y,z,source)
 			end
 		end
 	end

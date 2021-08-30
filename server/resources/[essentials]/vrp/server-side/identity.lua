@@ -16,7 +16,7 @@ end
 -- GETUSERIDREGISTRATION
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUserIdRegistration(registration)
-	local rows = vRP.query("vRP/get_vrp_registration",{ registration = registration })
+	local rows = vRP.query("vRP/get_registration",{ registration = registration })
 	if rows[1] then
 		return rows[1].id
 	end
@@ -34,7 +34,7 @@ end
 -- GETUSERBYPHONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUserByPhone(phone)
-	local rows = vRP.query("vRP/get_vrp_phone",{ phone = phone })
+	local rows = vRP.query("vRP/get_phone",{ phone = phone })
 	if rows[1] then
 		return rows[1].id
 	end
@@ -43,7 +43,7 @@ end
 -- GETPHONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getPhone(id)
-	local rows = vRP.query("vRP/get_vrp_users",{ id = id })
+	local rows = vRP.query("vRP/get_users",{ id = id })
 	if rows[1] then
 		return rows[1].phone
 	end

@@ -69,7 +69,7 @@ AddEventHandler("player:identityFunctions",function(identityFunctions)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-		local infos = vRP.query("vRP/get_vrp_infos",{ steam = identity.steam })		
+		local infos = vRP.query("vRP/get_infos",{ steam = identity.steam })		
 			TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Gemas:</b> "..infos[1].gems.."<br><b>Máximo de Veículos:</b> "..identity.garage.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Premium:</b> "..infos[1].predays.." Dias",15000)
 		end
 	end

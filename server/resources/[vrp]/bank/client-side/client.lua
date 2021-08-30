@@ -159,7 +159,7 @@ RegisterNUICallback("invoicesPayment",function(data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTDEPOSITO
+-- BANKDEPOSIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("bankDeposit",function(data)
 	if parseInt(data.deposito) > 0 then
@@ -167,7 +167,7 @@ RegisterNUICallback("bankDeposit",function(data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTDEPOSITO
+-- BANKWITHDRAW
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("bankWithdraw",function(data)
 	if parseInt(data.saque) > 0 then
@@ -175,7 +175,7 @@ RegisterNUICallback("bankWithdraw",function(data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_PANK:UPDATE
+-- BANK:UPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("bank:Update")
 AddEventHandler("bank:Update",function(action)
