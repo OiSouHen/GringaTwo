@@ -18,8 +18,6 @@ function cRP.checkPermission()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		return vRP.hasPermission(user_id,"Mechanic")
-	else
-		TriggerClientEvent("Notify",source,"vermelho","Apenas mecânicos podem tunar veículos.",5000)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

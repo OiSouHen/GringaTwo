@@ -524,6 +524,8 @@ Citizen.CreateThread(function()
 										currentpos = v
 										currentgarage = k
 										DriveInGarage()
+									else
+										TriggerEvent("Notify","vermelho","Apenas mecânicos podem tunar veículos.",5000)
 									end
 								end
 							end
