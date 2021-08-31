@@ -14,8 +14,9 @@ vCLIENT = Tunnel.getInterface("police")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local records = "https://discordapp.com/api/webhooks/720509199016001577/ItUB6rFpnyZjYKWpOZvX798HeKaJG5A1piLHaP-NiRkqA4vhZLleyzktT6g_IGEPI3Jz"
-local fines = "https://discordapp.com/api/webhooks/720509293761134623/8QxolDcd3RNcxJ5ym6QH9tjJfxM3ivmiZlfwamxR9XpbEtytj3b8Bsco2sITphfl6NLq"
+local records = ""
+local fines = ""
+local servicelog = ""
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,19 +28,22 @@ RegisterNetEvent("police:servicePolice")
 AddEventHandler("police:servicePolice",function(servicePolice)
 	local source = source
 	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			vRP.removePermission(source,"Police")
 			TriggerEvent("blipsystem:serviceExit",source)
 			TriggerClientEvent("tencode:StatusService",source,false)
 			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Polícia).```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Police", newpermiss = "waitPolice" })
 			policeService = false
 		elseif vRP.hasPermission(user_id,"waitPolice") then
 			vRP.insertPermission(source,"Police")
 			TriggerClientEvent("tencode:StatusService",source,true)
-			TriggerEvent("blipsystem:serviceEnter",source,"Police",77)
+			TriggerEvent("blipsystem:serviceEnter",source,"Polícia",77)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Polícia).```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
 			policeService = true
 		end

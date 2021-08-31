@@ -13,6 +13,47 @@ Tunnel.bindInterface("paramedic",cRP)
 vCLIENT = Tunnel.getInterface("paramedic")
 vSURVIVAL = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- WEBHOOKS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local servicelog = ""
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local paramedicService = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PARAMEDIC:SERVICEPARAMEDIC
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:serviceParamedic")
+AddEventHandler("paramedic:serviceParamedic",function(serviceParamedic)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Paramedic") then
+			vRP.removePermission(source,"Paramedic")
+			TriggerEvent("blipsystem:serviceExit",source)
+			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Paramédico).```")
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Paramedic", newpermiss = "waitParamedic" })
+			paramedicService = false
+		elseif vRP.hasPermission(user_id,"waitParamedic") then
+			vRP.insertPermission(source,"Paramedic")
+			TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
+			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Paramédico).```")
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitParamedic", newpermiss = "Paramedic" })
+			paramedicService = true
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PARAMEDIC:UPDATESERVICESTATUS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:updateService")
+AddEventHandler("paramedic:updateService",function(status)
+	paramedicService = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- BONES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local bones = {
@@ -165,3 +206,11 @@ RegisterCommand("tratamento",function(source,args,rawCommand)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LOGS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function creativeLogs(webhook,message)
+	if webhook ~= "" then
+		PerformHttpRequest(webhook,function(err,text,headers) end,"POST",json.encode({ content = message }),{ ['Content-Type'] = "application/json" })
+	end
+end

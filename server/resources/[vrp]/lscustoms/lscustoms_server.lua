@@ -1,10 +1,18 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP
+-----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
 Tunnel.bindInterface("lscustoms",cRP)
-
+vRPclient = Tunnel.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKPERMISSION
+-----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.checkPermission()
 	local source = source
 	local user_id = vRP.getUserId(source)
@@ -14,7 +22,50 @@ function cRP.checkPermission()
 		TriggerClientEvent("Notify",source,"vermelho","Apenas mecânicos podem tunar veículos.",5000)
 	end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- WEBHOOKS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local servicelog = ""
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local mechanicService = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LSCUSTOMS:SERVICEMECHANIC
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("lscustoms:serviceMechanic")
+AddEventHandler("lscustoms:serviceMechanic",function(serviceMechanic)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Mechanic") then
+			vRP.removePermission(source,"Mechanic")
+			TriggerEvent("blipsystem:serviceExit",source)
+			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Mecânico).```")
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Mechanic", newpermiss = "waitMechanic" })
+			mechanicService = false
+		elseif vRP.hasPermission(user_id,"waitMechanic") then
+			vRP.insertPermission(source,"Mechanic")
+			TriggerEvent("blipsystem:serviceEnter",source,"Mecânico",77)
+			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
+			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Mecânico).```")
+			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitMechanic", newpermiss = "Mechanic" })
+			mechanicService = true
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LSCUSTOMS:UPDATESERVICESTATUS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("lscustoms:updateService")
+AddEventHandler("lscustoms:updateService",function(status)
+	mechanicService = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- OTHERS
+-----------------------------------------------------------------------------------------------------------------------------------------
 local tbl = {
 	[1] = { locked = false, player = nil },
 	[2] = { locked = false, player = nil },
@@ -148,3 +199,11 @@ AddEventHandler("lscustoms:updateVehicle",function(veh)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LOGS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function creativeLogs(webhook,message)
+	if webhook ~= "" then
+		PerformHttpRequest(webhook,function(err,text,headers) end,"POST",json.encode({ content = message }),{ ['Content-Type'] = "application/json" })
+	end
+end
