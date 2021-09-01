@@ -8,7 +8,7 @@
 
 ## Informações
 
-O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 08/2021, utilizando os Artefatos de número [4455].
+O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 08/2021, utilizando os Artefatos de número [4460].
 
 ## Links uteis
 
