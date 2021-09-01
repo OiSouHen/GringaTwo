@@ -56,6 +56,11 @@ Citizen.CreateThread(function()
 	},{
 		distance = 1.0,
 		options = {
+		    {
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -70,6 +75,11 @@ Citizen.CreateThread(function()
 	},{
 		distance = 1.0,
 		options = {
+		    {
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -84,6 +94,11 @@ Citizen.CreateThread(function()
 	},{
 		distance = 1.0,
 		options = {
+		    {
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -158,6 +173,132 @@ Citizen.CreateThread(function()
 		}
 	})
 	
+	AddCircleZone("mecService02",vector3(1158.86,-778.84,57.61),0.75,{
+		name = "mecService02",
+		heading = 87.32
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService03",vector3(-1430.46,-453.75,35.91),0.75,{
+		name = "mecService03",
+		heading = 215.95
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService04",vector3(-227.85,-1328.24,30.9),0.75,{
+		name = "mecService04",
+		heading = 95.3
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService05",vector3(-342.82,-140.4,39.01),0.75,{
+		name = "mecService05",
+		heading = 171.25
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService06",vector3(727.77,-1063.95,22.17),0.75,{
+		name = "mecService06",
+		heading = 354.92
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService07",vector3(-1156.78,-2001.0,13.19),0.75,{
+		name = "mecService07",
+		heading = 31.37
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService08",vector3(1174.92,2635.85,37.76),0.75,{
+		name = "mecService08",
+		heading = 192.07
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService09",vector3(107.41,6629.54,31.79),0.75,{
+		name = "mecService09",
+		heading = 51.64
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("mecService10",vector3(-35.57,-1070.28,28.4),0.75,{
+		name = "mecService10",
+		heading = 161.19
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
 	AddCircleZone("foodJuice",vector3(13.25,-1596,29.37),0.5,{
 		name = "foodJuice",
 		heading = 38.10
@@ -216,15 +357,20 @@ Citizen.CreateThread(function()
 
 	AddTargetModel({ 1158960338 },{
 		options = {
-			{
-				event = "target:animDeitar",
+		    {
+				event = "paramedic:callParamedic",
 				label = "Chamar Paramédico",
-				tunnel = "client"
+				tunnel = "server"
 			},
 			{
-				event = "target:animDeitar",
+				event = "police:callPolice",
 				label = "Chamar Polícia",
-				tunnel = "client"
+				tunnel = "server"
+			},
+			{
+				event = "lscustoms:callMechanic",
+				label = "Chamar Mecânico",
+				tunnel = "server"
 			}
 		},
 		distance = 1.00

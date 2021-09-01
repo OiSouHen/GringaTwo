@@ -54,6 +54,27 @@ AddEventHandler("paramedic:updateService",function(status)
 	paramedicService = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PARAMEDIC:CALLPARAMEDIC
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:callParamedic")
+AddEventHandler("paramedic:callParamedic",function()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local x,y,z = vRPclient.getPositions(source)
+	if user_id then
+		local amountMecs = vRP.numPermission("Paramedic")
+		if parseInt(#amountMecs) <= 0 then
+			TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
+		else
+			for k,v in pairs(amountMecs) do
+				async(function()
+					TriggerClientEvent("NotifyPush",v,{ code = 31, title = "Ligação de um orelhão.", x = x, y = y, z = z, rgba = {0,150,90} })
+				end)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- BONES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local bones = {

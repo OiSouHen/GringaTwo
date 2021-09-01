@@ -102,8 +102,7 @@ local shopList = {
 	{ 1690.07,3581.68,35.62,"pharmacyStore",false,true,{ 8,20 } },
 	{ 326.5,-1074.43,29.47,"pharmacyStore",false,true,{ 8,20 } },
 	{ 114.45,-4.89,67.82,"pharmacyStore",false,true,{ 8,20 } },
-	{ 311.97,-597.66,43.29,"pharmacyParamedic",false,false },
-	{ 1825.6,3667.98,34.27,"pharmacyParamedic",false,false },
+	{ 1144.86,-1574.93,35.39,"pharmacyParamedic",false,false },
 	{ -254.64,6326.95,32.82,"pharmacyParamedic",false,false },
 	{ 45.17,-1750.7,29.64,"mercadoCentral",false,true,{ 6,20 } },
 	{ 2748.22,3473.94,55.67,"mercadoCentral",false,true,{ 6,20 } },
@@ -113,13 +112,13 @@ local shopList = {
 	{ -451.87,6013.68,31.72,"policeStore",false,false },
 	{ -620.99,-228.69,38.05,"minerShop",false,true,{ 12,18 } },
 	{ -732.76,-1737.74,29.17,"ilegalHouse",false,true,{ 18,20 } },
-	{ -1250.21,-640.39,25.9,"ilegalCosmetics",false,true,{ 20,22 } },
-	{ -41.3,-706.57,32.27,"ilegalToys",false,true,{ 12,14 } },
-	{ 1085.31,-1282.5,20.19,"ilegalCriminal",false,true,{ 4,5 } },
 	{ -653.12,-1502.67,5.22,"ilegalHouse",false,true,{ 12,18 } },
+	{ -1250.21,-640.39,25.9,"ilegalCosmetics",false,true,{ 20,22 } },
 	{ 389.71,-942.61,29.42,"ilegalCosmetics",false,true,{ 20,22 } },
+	{ -41.3,-706.57,32.27,"ilegalToys",false,true,{ 12,14 } },
 	{ 154.98,-1472.47,29.35,"ilegalToys",false,true,{ 12,14 } },
 	{ 488.1,-1456.11,29.28,"ilegalCriminal",false,true,{ 0,2 } },
+	{ 1085.31,-1282.5,20.19,"ilegalCriminal",false,true,{ 4,5 } },
 	{ 169.76,-1535.88,29.25,"weaponsStore",false,true,{ 4,5 } },
 	{ 301.14,-195.75,61.57,"weaponsStore",false,true,{ 4,5 } },
 	{ 1154.64,-792.42,57.61,"mechanicTools",false,true,{ 8,20 } },
@@ -138,7 +137,6 @@ local shopList = {
 	{ -216.47,-1318.95,30.89,"mechanicTools",false,true,{ 8,20 } },
 	{ -197.35,-1320.54,31.09,"mechanicTools",false,true,{ 8,20 } },
 	{ -199.41,-1319.8,31.09,"mechanicTools",false,true,{ 8,20 } },
-	{ 563.32,2751.7,42.87,"animalStore",false,false },
 	{ 1112.05,211.53,-49.44,"mcFridge",false,false },
 	{ 1109.0,206.14,-49.44,"mcFridge",false,false },
 	{ 1115.2,206.59,-49.44,"mcFridge",false,false },
@@ -179,7 +177,7 @@ AddEventHandler("shops:openSystem",function(shopId)
 			SetNuiFocus(true,true)
 			SendNUIMessage({ action = "showNUI", name = shopList[shopId][4], type = vSERVER.getShopType(shopList[shopId][4]) })
 		else
-			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."</b> ?s <b>"..shopList[shopId][7][2].."</b> horas.",5000)
+			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."</b> ás <b>"..shopList[shopId][7][2].."</b> horas.",5000)
 		end
 	else
 		if vSERVER.requestPerm(shopList[shopId][4]) then
