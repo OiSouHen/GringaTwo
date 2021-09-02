@@ -355,7 +355,7 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddTargetModel({ 1158960338 },{
+	AddTargetModel({ 1158960338,1281992692 },{
 		options = {
 		    {
 				event = "paramedic:callParamedic",

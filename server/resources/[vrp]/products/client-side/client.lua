@@ -13,7 +13,7 @@ vSERVER = Tunnel.getInterface("products")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inService = false
+local hasStart = false
 local timeSelling = 0
 local inTimers = 120
 local inPed = nil
@@ -178,24 +178,20 @@ local callName2 = { "Hen","Smith","Johnson","Williams","Jones","Brown","Davis","
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("products:toggleService")
 AddEventHandler("products:toggleService",function()
---	if vSERVER.checkPermission() then
-		if inService then
-			inService = false
-			
-			if inPed ~= nil then
-				DeleteEntity(inPed)
-				inTimers = 120
-			end
-			
-			TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
-		else
-			startthreaddelivery()
-			startthreadintimers()
-			timeselling()
-			inService = true
-			TriggerEvent("Notify","verde","Vendas ativadas.",5000)
+	if hasStart then
+		hasStart = false
+		if inPed ~= nil then
+			DeleteEntity(inPed)
+			inTimers = 120
 		end
---	end
+		TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
+	else
+		startthreaddelivery()
+		startthreadintimers()
+		timeselling()
+		hasStart = true
+		TriggerEvent("Notify","verde","Vendas ativadas.",5000)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDELIVERY
@@ -205,7 +201,7 @@ function startthreaddelivery()
 		while true do
 			local timeDistance = 500
 
-			if inService then
+			if hasStart then
 				if inPed ~= nil and inTimers <= 0 then
 					local ped = PlayerPedId()
 					local coords = GetEntityCoords(ped)
@@ -239,7 +235,7 @@ end
 function startthreadintimers()
 	Citizen.CreateThread(function()
 		while true do
-			if inService and inTimers > 0 then
+			if hasStart and inTimers > 0 then
 				inTimers = inTimers - 1
 
 				if inTimers == 240 and inPed ~= nil then

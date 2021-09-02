@@ -221,7 +221,7 @@ local shops = {
 			["glasses"] = 225
 		}
 	},
-	["barsStore"] = {
+	["mcFridge"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
@@ -321,7 +321,7 @@ local shops = {
 			["WEAPON_CROWBAR"] = 725
 		}
 	},
-	["ilegalCriminal"] = {
+	["weaponsStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
@@ -334,7 +334,23 @@ local shops = {
 			["TOKEN_WEAPON_VINTAGEPISTOL"] = 2775,
 			["TOKEN_WEAPON_PISTOL50"] = 5225,
 			["TOKEN_WEAPON_REVOLVER"] = 4225,
-			["TOKEN_WEAPON_COMBATPISTOL"] = 3250
+			["TOKEN_WEAPON_COMBATPISTOL"] = 3250,
+			["TOKEN_WEAPON_COMPACTRIFLE"] = 12225,
+			["TOKEN_WEAPON_MICROSMG"] = 12225,
+			["TOKEN_WEAPON_MINISMG"] = 12225,
+			["TOKEN_WEAPON_SMG"] = 3250,
+			["TOKEN_WEAPON_ASSAULTSMG"] = 12225,
+			["TOKEN_WEAPON_GUSENBERG"] = 12225,
+			["TOKEN_WEAPON_MACHINEPISTOL"] = 4775,
+			["TOKEN_WEAPON_CARBINERIFLE"] = 5250,
+			["TOKEN_WEAPON_CARBINERIFLE_MK2"] = 6250,
+			["TOKEN_WEAPON_ASSAULTRIFLE"] = 17775,
+			["TOKEN_WEAPON_ASSAULTRIFLE_MK2"] = 18775,
+			["TOKEN_WEAPON_MUSKET"] = 2750,
+			["TOKEN_WEAPON_SNIPERRIFLE"] = 6750,
+			["TOKEN_WEAPON_PUMPSHOTGUN"] = 4250,
+			["TOKEN_WEAPON_PUMPSHOTGUN_MK2"] = 16775,
+			["TOKEN_WEAPON_SAWNOFFSHOTGUN"] = 10775
 		}
 	}
 }

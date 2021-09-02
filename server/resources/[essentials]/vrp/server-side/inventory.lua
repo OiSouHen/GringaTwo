@@ -2223,6 +2223,16 @@ local itemlist = {
 		ammo = "WEAPON_COMPACTRIFLE_AMMO",
 		weight = 2.25
 	},
+	["TOKEN_WEAPON_COMPACTRIFLE"] = {
+		index = "tokensmg",
+		name = "Token - AK Compact",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_MICROSMG"] = {
 		index = "uzi",
 		name = "Uzi",
@@ -2233,6 +2243,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_MICROSMG_AMMO",
 		weight = 1.25
+	},
+	["TOKEN_WEAPON_MICROSMG"] = {
+		index = "tokensmg",
+		name = "Token - Uzi",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_MINISMG"] = {
 		index = "skorpionv61",
@@ -2245,6 +2265,16 @@ local itemlist = {
 		ammo = "WEAPON_MINISMG_AMMO",
 		weight = 1.75
 	},
+	["TOKEN_WEAPON_MINISMG"] = {
+		index = "tokensmg",
+		name = "Token - Skorpion V61",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_SMG"] = {
 		index = "mp5",
 		name = "MP5",
@@ -2255,6 +2285,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_SMG_AMMO",
 		weight = 5.25
+	},
+	["TOKEN_WEAPON_SMG"] = {
+		index = "tokensmg",
+		name = "Token - MP5",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "3250",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_ASSAULTSMG"] = {
 		index = "steyraug",
@@ -2267,6 +2307,16 @@ local itemlist = {
 		ammo = "WEAPON_ASSAULTSMG_AMMO",
 		weight = 5.75
 	},
+	["TOKEN_WEAPON_ASSAULTSMG"] = {
+		index = "tokenrifle",
+		name = "Token - Steyr AUG",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_GUSENBERG"] = {
 		index = "thompson",
 		name = "Thompson",
@@ -2278,6 +2328,16 @@ local itemlist = {
 		ammo = "WEAPON_GUSENBERG_AMMO",
 		weight = 6.25
 	},
+	["TOKEN_WEAPON_GUSENBERG"] = {
+		index = "tokenrifle",
+		name = "Token - Thompson",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_MACHINEPISTOL"] = {
 		index = "tec9",
 		name = "Tec-9",
@@ -2288,6 +2348,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_MACHINEPISTOL_AMMO",
 		weight = 1.75
+	},
+	["TOKEN_WEAPON_MACHINEPISTOL"] = {
+		index = "tokenrifle",
+		name = "Token - Tec-9",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "4775",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_COMPACTRIFLE_AMMO"] = {
 		index = "rifleammo",
@@ -2373,6 +2443,16 @@ local itemlist = {
 		ammo = "WEAPON_CARBINERIFLE_AMMO",
 		weight = 7.75
 	},
+	["TOKEN_WEAPON_CARBINERIFLE"] = {
+		index = "tokenrifle",
+		name = "Token - M4A1",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "5250",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_CARBINERIFLE_MK2"] = {
 		index = "m4a4",
 		name = "M4A4",
@@ -2383,6 +2463,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_CARBINERIFLE_MK2_AMMO",
 		weight = 8.50
+	},
+	["TOKEN_WEAPON_CARBINERIFLE_MK2"] = {
+		index = "tokenrifle",
+		name = "Token - M4A4",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "6250",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_ASSAULTRIFLE"] = {
 		index = "ak103",
@@ -2395,6 +2485,16 @@ local itemlist = {
 		ammo = "WEAPON_ASSAULTRIFLE_AMMO",
 		weight = 7.75
 	},
+	["TOKEN_WEAPON_ASSAULTRIFLE"] = {
+		index = "tokenrifle",
+		name = "Token - AK-103",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "17775",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_ASSAULTRIFLE_MK2"] = {
 		index = "ak74",
 		name = "AK-74",
@@ -2405,6 +2505,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_ASSAULTRIFLE_MK2_AMMO",
 		weight = 7.75
+	},
+	["TOKEN_WEAPON_ASSAULTRIFLE_MK2"] = {
+		index = "tokenrifle",
+		name = "Token - AK-74",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "18775",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_CARBINERIFLE_AMMO"] = {
 		index = "rifleammo",
@@ -2460,6 +2570,16 @@ local itemlist = {
 		ammo = "WEAPON_MUSKET_AMMO",
 		weight = 6.25
 	},
+	["TOKEN_WEAPON_MUSKET"] = {
+		index = "tokenrifle",
+		name = "Token - Winchester 1892",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "2750",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_SNIPERRIFLE"] = {
 		index = "sauer101",
 		name = "Sauer 101",
@@ -2470,6 +2590,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_SNIPERRIFLE_AMMO",
 		weight = 8.25
+	},
+	["TOKEN_WEAPON_SNIPERRIFLE"] = {
+		index = "tokenrifle",
+		name = "Token - Sauer 101",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "6750",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_PUMPSHOTGUN"] = {
 		index = "mossberg590",
@@ -2482,6 +2612,16 @@ local itemlist = {
 		ammo = "WEAPON_PUMPSHOTGUN_AMMO",
 		weight = 7.25
 	},
+	["TOKEN_WEAPON_PUMPSHOTGUN"] = {
+		index = "tokenrifle",
+		name = "Token - Mossberg 590",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "4250",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_PUMPSHOTGUN_MK2"] = {
 		index = "mossberg590a1",
 		name = "Mossberg 590A1",
@@ -2493,6 +2633,16 @@ local itemlist = {
 		ammo = "WEAPON_PUMPSHOTGUN_MK2_AMMO",
 		weight = 7.25
 	},
+	["TOKEN_WEAPON_PUMPSHOTGUN_MK2"] = {
+		index = "tokenrifle",
+		name = "Token - Mossberg 590A1",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "16775",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_SAWNOFFSHOTGUN"] = {
 		index = "mossberg500",
 		name = "Mossberg 500",
@@ -2503,6 +2653,16 @@ local itemlist = {
 		type = "equip",
 		ammo = "WEAPON_SAWNOFFSHOTGUN_AMMO",
 		weight = 5.75
+	},
+	["TOKEN_WEAPON_SAWNOFFSHOTGUN"] = {
+		index = "tokenrifle",
+		name = "Token - Mossberg 500",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "10775",
+		type = "use",
+		weight = 0.50
 	},
 	["WEAPON_MUSKET_AMMO"] = {
 		index = "musketammo",
