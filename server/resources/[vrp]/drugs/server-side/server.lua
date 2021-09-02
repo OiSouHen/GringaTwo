@@ -9,11 +9,12 @@ vRPclient = Tunnel.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("products",cRP)
+Tunnel.bindInterface("drugs",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local amount = {}
+local hasTimer = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +38,7 @@ function cRP.checkAmount()
 			if vRP.getInventoryItemAmount(user_id,v.item) >= parseInt(rand) then
 				amount[user_id] = { v.item,rand,price }
 
-				TriggerClientEvent("products:lastItem",source,v.item)
+				TriggerClientEvent("drugs:lastItem",source,v.item)
 
 				if (v.item == "joint" or v.item == "lean" or v.item == "meth" or v.item == "ecstasy" or v.item == "cocaine") and math.random(100) >= 75 then
 					local x,y,z = vRPclient.getPositions(source)
@@ -50,9 +51,9 @@ function cRP.checkAmount()
 				end
 
 				return true
-			else
-			 	TriggerClientEvent("Notify",source,"vermelho","Nada que me interesse.",3000)
 			end
+			
+			hasTimer = 0
 		end
 		return false
 	end
@@ -70,5 +71,18 @@ function cRP.paymentMethod()
 			vRP.giveInventoryItem(user_id,"dollars2",parseInt(value),true)
 			TriggerClientEvent("sounds:source",source,"coin",0.5)
 		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PAYMENTROBBERY
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.paymentRobbery()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+			vRP.upgradeStress(user_id,2)
+			
+			vRP.giveInventoryItem(user_id,"dollars2",500,true)
+			TriggerClientEvent("sounds:source",source,"coin",0.5)
 	end
 end

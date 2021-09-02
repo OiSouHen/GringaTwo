@@ -209,10 +209,10 @@ local craftList = {
 				}
 			},
 			["WEAPON_PETROLCAN_AMMO"] = {
-				["amount"] = 4500,
+				["amount"] = 250,
 				["destroy"] = true,
 				["require"] = {
-					["dollars"] = 200
+					["dollars"] = 100
 				}
 			}
 		}
