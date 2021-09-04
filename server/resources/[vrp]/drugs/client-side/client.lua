@@ -34,7 +34,7 @@ Citizen.CreateThread(function()
 							local hasCoords = GetEntityCoords(hasPed)
 							local distance = #(coords - hasCoords)
 
-							if distance <= 1.5 and not hasList[PedToNet(hasPed)] then
+							if distance <= 1.5 then
 								timeDistance = 1
 								DrawText3D(hasCoords["x"],hasCoords["y"],hasCoords["z"],"~g~E~w~  OFERECER")
 
@@ -195,7 +195,7 @@ Citizen.CreateThread(function()
 							local distance = #(coords - GetEntityCoords(vehicle))
 							local modelName = vRP.vehicleModel(GetEntityModel(vehicle))
 
-							if distance <= 10 and IsPedFacingPed(target,ped,180.0) and speed <= 5 and not hasList[PedToNet(target)] then
+							if distance <= 10 and IsPedFacingPed(target,ped,180.0) and speed <= 5 then
 								actionRobbery = true
 
 								SetVehicleForwardSpeed(vehicle,0)
@@ -248,7 +248,6 @@ Citizen.CreateThread(function()
 									end
 
 									TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
-									TriggerServerEvent("plateRobberys",plate,modelName)
 								end
 
 								ClearPedTasks(target)
@@ -263,7 +262,7 @@ Citizen.CreateThread(function()
 						local coords = GetEntityCoords(ped)
 						local distance = #(coords - GetEntityCoords(target))
 
-						if distance < 5 and IsPedFacingPed(target,ped,180.0) and not hasList[PedToNet(target)] then
+						if distance < 5 and IsPedFacingPed(target,ped,180.0) then
 							actionRobbery = true
 
 							SetEntityAsMissionEntity(target,true,false)
@@ -308,13 +307,13 @@ Citizen.CreateThread(function()
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
 								vSERVER.paymentRobbery()
-								TriggerEvent("Notify","default","vSERVER.paymentRobbery().",5000)
 							end
 
 							ClearPedTasks(target)
 							TaskWanderStandard(target,10.0,10)
 							TaskReactAndFleePed(target,ped)
 							SetPedKeepTask(target,true)
+							Wait(10000)
 						end
 					end
 
