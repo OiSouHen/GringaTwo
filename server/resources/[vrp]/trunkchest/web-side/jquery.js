@@ -185,7 +185,7 @@ const colorPicker = (percent) => {
 }
 
 const updateChest = () => {
-	$.post("http://trunkchest/requestMochila",JSON.stringify({}),(data) => {
+	$.post("http://trunkchest/requestBackpack",JSON.stringify({}),(data) => {
 		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
 		$("#weightTextRight").html(`${(data["peso2"]).toFixed(2)}   /   ${(data["maxpeso2"]).toFixed(2)}`);
 

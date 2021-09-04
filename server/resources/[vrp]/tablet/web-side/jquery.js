@@ -57,7 +57,7 @@ $(document).on("click","#mainMenu li",function(){
 const aboutPage = () => {
 	selectPage = "about";
 
-	$.post("http://inventory/requestMochila",JSON.stringify({}),(data) => {
+	$.post("http://inventory/requestBackpack",JSON.stringify({}),(data) => {
 		$("#content").html(`
 			<div id="titleContent">SOBRE</div>
 			<div id="pageDiv2">

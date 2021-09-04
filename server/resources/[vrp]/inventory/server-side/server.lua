@@ -890,6 +890,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                             local vehicle,vehNet = vRPclient.vehList(source,11)
                             if vehicle then
                                 active[user_id] = 30
+							 
                                 vRPclient.stopActived(source)
                                 vCLIENT.closeInventory(source)
                                 vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
@@ -918,6 +919,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 								vCLIENT.blockButtons(source,true)
 								vRPRAGE.startAnimHotwired(source)
+																						  
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
@@ -1775,17 +1777,17 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                                     local plate = vRP.genPlate()
                                     vCLIENT.plateApply(source,plate)
                                     TriggerEvent("setPlateEveryone",plate)
-                                    TriggerClientEvent("Notify",source,"sucesso","Placa do veiculo clonada.",7000)
+                                    TriggerClientEvent("Notify",source,"verde","Placa clonada.",3000)
                                 end
                             else
-                                TriggerClientEvent("Notify",source,"vermelho","Voce falhou.",7000)
+                                TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
                             end
                                 vRPclient._stopAnim(source,false)
                                 active[user_id] = nil
                             end
                         end
                     end
-					
+
 					if itemName == "radio" then
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
@@ -1818,6 +1820,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										vRPclient._playAnim(nplayer,false,{"mp_arrest_paired","crook_p2_back_left"},false)
 										vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
 									end
+			  
 									active[user_id] = nil
 								end
 							end
@@ -2206,8 +2209,8 @@ AddEventHandler("itemdrop:Create",function(item,count,source,durability)
 		end
 end)
 -- ROUBO
-RegisterServerEvent("itemdrop:Create")
-AddEventHandler("itemdrop:Create",function(item,count,x,y,z,source)
+RegisterServerEvent("vrp_itemdrop:Create")
+AddEventHandler("vrp_itemdrop:Create",function(item,count,x,y,z,source)
     local id = idgens:gen()
     droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])

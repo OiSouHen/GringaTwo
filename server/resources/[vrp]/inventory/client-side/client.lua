@@ -190,20 +190,21 @@ AddEventHandler("itemdrop:Update",function(status)
 	droplist = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADDROP
+-- THREADDROPBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    while true do
-        local timeDistance = 999
+	while true do
+		local timeDistance = 999
         local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
+		
 		for k,v in pairs(droplist) do
 			local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
             local distance = #(coords - vector3(v.x,v.y,cdz))
             if distance <= 50 then
-			    timeDistance = 1
-			    DrawMarker(23,v.x,v.y,cdz + 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
-			    DrawMarker(21,v.x,v.y,cdz + 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
+				timeDistance = 1
+				DrawMarker(23,v.x,v.y,cdz+ 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
+				DrawMarker(21,v.x,v.y,cdz+ 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
 			end
         end
 
@@ -243,15 +244,15 @@ RegisterNUICallback("updateSlot",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MOCHILA
+-- REQUESTBACKPACK
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestMochila",function(data,cb)
+RegisterNUICallback("requestBackpack",function(data,cb)
 	local ped = PlayerPedId()
 	local x,y,z = table.unpack(GetEntityCoords(ped))
 	local dropItems = {}
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
-		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
+		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 0.9 then
 			table.insert(dropItems,{economy = v.economy, unity = v.unity, tipo = v.tipo, desc = v.desc, name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
 		end
 	end
@@ -269,13 +270,13 @@ AddEventHandler("inventory:Update",function(action)
 	SendNUIMessage({ action = action })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLATE - VARIABLES
+-- PLATEVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local plateX = -1133.31
 local plateY = 2694.2
 local plateZ = 18.81
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLATE - THREAD
+-- PLATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
@@ -293,7 +294,7 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLATE - FUNCTION
+-- PLATEDISTANCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.plateDistance()
 	local ped = PlayerPedId()
@@ -309,17 +310,6 @@ function cRP.plateDistance()
 		end
 	end
 	return false
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- PLATE - COLORS
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.plateApply(plate)
-    local ped = PlayerPedId()
-    local vehicle = GetPlayersLastVehicle()
-    if IsEntityAVehicle(vehicle) then
-        SetVehicleNumberPlateText(vehicle,plate)
-        FreezeEntityPosition(vehicle,false)
-    end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATEVEHICLE
@@ -349,7 +339,7 @@ function cRP.plateApply(plate)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TYRES - CHECK
+-- CHECKBURSTTYRES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.checkBurstTyres(index)
     if NetworkDoesNetworkIdExist(index) then
@@ -364,7 +354,7 @@ function cRP.checkBurstTyres(index)
 			if not tires_burst then
 				return true
 			else
-				-- TriggerEvent("Notify","vermelho","Você precisa arrumar os pneus primeiro.")
+				TriggerEvent("Notify","vermelho","Você precisa arrumar os pneus primeiro.")
 				return false
 			end
 		end
