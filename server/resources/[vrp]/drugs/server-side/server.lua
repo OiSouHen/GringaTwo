@@ -38,6 +38,7 @@ function cRP.checkAmount()
 			if vRP.getInventoryItemAmount(user_id,v.item) >= parseInt(rand) then
 				amount[user_id] = { v.item,rand,price }
 				TriggerClientEvent("drugs:lastItem",source,v.item)
+				vRP.wantedTimer(user_id,5)
 				vRP.upgradeStress(user_id,2)
 				
 				local x,y,z = vRPclient.getPositions(source)
@@ -79,8 +80,16 @@ function cRP.paymentRobbery()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
+		local random = math.random(100)
+		if parseInt(random) >= 50 then
+			vRP.giveInventoryItem(user_id,"dollars",math.random(500),true)
+		elseif parseInt(random) >= 0 and parseInt(random) <= 49 then
+			vRP.giveInventoryItem(user_id,"dollars2",math.random(500),true)
+		end
+		
+		vRP.wantedTimer(user_id,10)
 		vRP.upgradeStress(user_id,4)
-		vRP.giveInventoryItem(user_id,"dollars2",math.random(500),true)
+		
 		TriggerClientEvent("sounds:source",source,"cash",0.5)
 		
 		local x,y,z = vRPclient.getPositions(source)
