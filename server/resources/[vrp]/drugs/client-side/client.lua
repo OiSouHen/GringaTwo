@@ -47,7 +47,6 @@ Citizen.CreateThread(function()
 											Citizen.Wait(100)
 										end
 
---										vSERVER.insertPedlist(PedToNet(hasPed),false,true)
 										PlayAmbientSpeech1(hasPed,"GENERIC_HI","SPEECH_PARAMS_STANDARD")
 										TaskSetBlockingOfNonTemporaryEvents(hasPed,true)
 										SetBlockingOfNonTemporaryEvents(hasPed,true)
@@ -88,7 +87,6 @@ Citizen.CreateThread(function()
 											Citizen.Wait(1)
 										end
 									else
---										vSERVER.insertPedlist(PedToNet(hasPed),true,true)
 										PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
 										TaskWanderStandard(hasPed,10.0,10)
 										TaskReactAndFleePed(hasPed,ped)
@@ -268,12 +266,6 @@ Citizen.CreateThread(function()
 						if distance < 5 and IsPedFacingPed(target,ped,180.0) and not hasList[PedToNet(target)] then
 							actionRobbery = true
 
---							if math.random(100) >= 95 then
---								vSERVER.insertPedlist(PedToNet(target),true,false)
---							else
---								vSERVER.insertPedlist(PedToNet(target),false,false)
---							end
-
 							SetEntityAsMissionEntity(target,true,false)
 
 							while not NetworkHasControlOfEntity(target) and DoesEntityExist(target) do
@@ -316,6 +308,7 @@ Citizen.CreateThread(function()
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
 								vSERVER.paymentRobbery()
+								TriggerEvent("Notify","default","vSERVER.paymentRobbery().",5000)
 							end
 
 							ClearPedTasks(target)
