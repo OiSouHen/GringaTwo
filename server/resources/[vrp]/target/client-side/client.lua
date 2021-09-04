@@ -955,6 +955,11 @@ local adminMenu = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 local playerVeh = {
 	{
+		event = "inventory:applyPlate",
+		label = "Trocar Placa",
+		tunnel = "server"
+	},
+	{
 		event = "player:enterTrunk",
 		label = "Entrar no Porta-Malas",
 		tunnel = "client"
@@ -964,6 +969,11 @@ local playerVeh = {
 -- DISMANTLEVEH
 -----------------------------------------------------------------------------------------------------------------------------------------
 local dismantleVeh = {
+	{
+		event = "inventory:applyPlate",
+		label = "Trocar Placa",
+		tunnel = "server"
+	},
 	{
 		event = "player:enterTrunk",
 		label = "Entrar no Porta-Malas",

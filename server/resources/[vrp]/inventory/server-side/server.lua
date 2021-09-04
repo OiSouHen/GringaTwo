@@ -1762,32 +1762,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 					end
 
-					if itemName == "plate" then
-                        if not vRPclient.inVehicle(source) then
-                            local vehicle,vehNet = vRPclient.vehList(source,3)
-                            if vehicle then
-                                active[user_id] = 30
-                                vRPclient.stopActived(source)
-                                vCLIENT.closeInventory(source)
-                                vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-    
-                                local taskResult = vTASKBAR.taskThree(source)
-                                if taskResult then
-                                    if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-                                    local plate = vRP.genPlate()
-                                    vCLIENT.plateApply(source,plate)
-                                    TriggerEvent("setPlateEveryone",plate)
-                                    TriggerClientEvent("Notify",source,"verde","Placa clonada.",3000)
-                                end
-                            else
-                                TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
-                            end
-                                vRPclient._stopAnim(source,false)
-                                active[user_id] = nil
-                            end
-                        end
-                    end
-
 					if itemName == "radio" then
 						vRPclient.stopActived(source)
 						vCLIENT.closeInventory(source)
@@ -2360,7 +2334,9 @@ function cRP.checkInventory()
 		return true
 	end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- FUNCTIONHASVALUE
+-----------------------------------------------------------------------------------------------------------------------------------------
 function has_value (tab, val)
     for index, value in ipairs(tab) do
         if value == val then
@@ -2369,3 +2345,41 @@ function has_value (tab, val)
     end
     return false
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- USEPLATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("inventory:applyPlate")
+AddEventHandler("inventory:applyPlate",function()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.getInventoryItemAmount(user_id,"plate") >= 1 then
+			if not vRPclient.inVehicle(source) then
+				local vehicle,vehNet = vRPclient.vehList(source,3)
+				if vehicle then
+					active[user_id] = 30
+					vRPclient.stopActived(source)
+					vCLIENT.closeInventory(source)
+					vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+					
+					local taskResult = vTASKBAR.taskThree(source)
+					if taskResult then
+						if vRP.tryGetInventoryItem(user_id,"plate",1,true,slot) then
+							local plate = vRP.genPlate()
+							vCLIENT.plateApply(source,plate)
+							TriggerEvent("setPlateEveryone",plate)
+							TriggerClientEvent("Notify",source,"verde","Placa clonada.",3000)
+						end
+					else
+						TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
+					end
+					
+					vRPclient._stopAnim(source,false)
+					active[user_id] = nil
+				end
+			else
+				TriggerClientEvent("Notify",source,"amarelo","Você precisa de uma Placa.",5000)
+            end
+		end
+	end
+end)

@@ -329,23 +329,21 @@ local plateSave = {}
 RegisterCommand("placa",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Police") then
+		if vRP.hasPermission(user_id,"waitPolice") or vRP.hasPermission(user_id,"Police") then
 			if vRPclient.getHealth(source) > 101 then
 				if args[1] then
 					local plateUser = vRP.getVehiclePlate(tostring(args[1]))
 					if plateUser then
 						local identity = vRP.getUserIdentity(plateUser)
 						if identity then
-							vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-							TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,25000)
+							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,10000)
 						end
 					else
 						if not plateSave[string.upper(args[1])] then
 							plateSave[string.upper(args[1])] = { math.random(5000,9999),plateName[math.random(#plateName)].." "..plateName2[math.random(#plateName2)],vRP.generatePhoneNumber() }
 						end
 
-						vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-						TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..plateSave[args[1]][1].."<br><b>RG:</b> "..string.upper(args[1]).."<br><b>Nome:</b> "..plateSave[args[1]][2].."<br><b>Telefone:</b> "..plateSave[args[1]][3],25000)
+						TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..plateSave[args[1]][1].."<br><b>RG:</b> "..string.upper(args[1]).."<br><b>Nome:</b> "..plateSave[args[1]][2].."<br><b>Telefone:</b> "..plateSave[args[1]][3],10000)
 					end
 				else
 					local vehicle,vehNet,vehPlate = vRPclient.vehList(source,7)
@@ -354,16 +352,14 @@ RegisterCommand("placa",function(source,args,rawCommand)
 						if plateUser then
 							local identity = vRP.getUserIdentity(plateUser)
 							if identity then
-								vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-								TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,25000)
+								TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,10000)
 							end
 						else
 							if not plateSave[vehPlate] then
 								plateSave[vehPlate] = { math.random(5000,9999),plateName[math.random(#plateName)].." "..plateName2[math.random(#plateName2)],vRP.generatePhoneNumber() }
 							end
 
-							vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-							TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..plateSave[vehPlate][1].."<br><b>RG:</b> "..vehPlate.."<br><b>Nome:</b> "..plateSave[vehPlate][2].."<br><b>Telefone:</b> "..plateSave[vehPlate][3],25000)
+							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..plateSave[vehPlate][1].."<br><b>RG:</b> "..vehPlate.."<br><b>Nome:</b> "..plateSave[vehPlate][2].."<br><b>Telefone:</b> "..plateSave[vehPlate][3],10000)
 						end
 					end
 				end
