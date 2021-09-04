@@ -67,9 +67,8 @@ Citizen.CreateThread(function()
 														PlayAmbientSpeech1(hasPed,"GENERIC_THANKS","SPEECH_PARAMS_STANDARD")
 														TaskWanderStandard(hasPed,10.0,10)
 														vSERVER.paymentMethod()
-														TaskReactAndFleePed(hasPed,ped)
 														SetPedKeepTask(hasPed,true)
-														Wait(10000)
+														Wait(30000)
 														hasTimer = -1
 														break
 													end
@@ -313,7 +312,7 @@ Citizen.CreateThread(function()
 							TaskWanderStandard(target,10.0,10)
 							TaskReactAndFleePed(target,ped)
 							SetPedKeepTask(target,true)
-							Wait(10000)
+							Wait(15000)
 						end
 					end
 
