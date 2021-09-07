@@ -270,14 +270,14 @@ function vRP.rejoinServer(source)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CLEARINVENTORY - NEED TRY MOCHILAS
+-- CLEARINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.clearInventory(user_id)
 	local data = vRP.user_tables[user_id]
 	if vRP.getPremium(user_id) then
-		data.backpack = 50
+		data.backpack = 15
 	else
-		data.backpack = 50
+		data.backpack = 30
 	end
 	vRP.user_tables[user_id].inventorys = {}
 	vRP.upgradeThirst(user_id,100)

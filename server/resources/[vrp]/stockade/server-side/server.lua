@@ -79,7 +79,7 @@ function cRP.withdrawMoney(vehPlate,vehNet)
 				TriggerClientEvent("cancelando",source,false)
 				
 				if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-				    TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
+				    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				    Wait(1)
 				else
 			

@@ -55,9 +55,9 @@ AddEventHandler("trunkchest:openTrunk",function()
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MOCHILA
+-- BACKPACK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.Mochila()
+function cRP.Backpack()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
@@ -188,7 +188,7 @@ AddEventHandler("trunkchest:populateSlot",function(itemName,slot,target,amount)
 
 		if vRP.tryGetInventoryItem(user_id,itemName,amount,false,slot) then
 			vRP.giveInventoryItem(user_id,itemName,amount,false,target)
-			TriggerClientEvent("trunkchest:Update",source,"updateMochila")
+			TriggerClientEvent("trunkchest:Update",source,"updateBackpack")
 		end
 	end
 end)
@@ -214,7 +214,7 @@ AddEventHandler("trunkchest:updateSlot",function(itemName,slot,target,amount)
 			end
 		end
 
-		TriggerClientEvent("trunkchest:Update",source,"updateMochila")
+		TriggerClientEvent("trunkchest:Update",source,"updateBackpack")
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +229,7 @@ AddEventHandler("trunkchest:sumSlot",function(itemName,slot,amount)
 		if inv then
 			if inv[tostring(slot)] and inv[tostring(slot)].item == itemName then
 				if vRP.tryChestItem(user_id,vehChest[parseInt(user_id)],itemName,amount,slot) then
-					TriggerClientEvent("trunkchest:Update",source,"updateMochila")
+					TriggerClientEvent("trunkchest:Update",source,"updateBackpack")
 				end
 			end
 		end
@@ -258,7 +258,7 @@ function cRP.storeItem(itemName,slot,amount)
 			end
 
 			if vRP.storeChestItem(user_id,vehChest[parseInt(user_id)],itemName,amount,parseInt(vehWeight[user_id]),slot) then
-				TriggerClientEvent("trunkchest:Update",source,"updateMochila")
+				TriggerClientEvent("trunkchest:Update",source,"updateBackpack")
 			end
 		end
 	end
@@ -272,7 +272,7 @@ function cRP.takeItem(itemName,slot,amount)
 		local user_id = vRP.getUserId(source)
 		if user_id then
 			if vRP.tryChestItem(user_id,vehChest[parseInt(user_id)],itemName,amount,slot) then
-				TriggerClientEvent("trunkchest:Update",source,"updateMochila")
+				TriggerClientEvent("trunkchest:Update",source,"updateBackpack")
 			end
 		end
 	end

@@ -194,7 +194,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
+		local timeDistance = 500
         local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
 		
@@ -252,12 +252,12 @@ RegisterNUICallback("requestBackpack",function(data,cb)
 	local dropItems = {}
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
-		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 0.9 then
+		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
 			table.insert(dropItems,{economy = v.economy, unity = v.unity, tipo = v.tipo, desc = v.desc, name = v.name, key = v.name, durability = v.durability, amount = v.count, index = v.index, peso = v.peso, desc = v.desc, id = k })
 		end
 	end
 
-	local inventario,peso,maxpeso,infos = vSERVER.Mochila()
+	local inventario,peso,maxpeso,infos = vSERVER.Backpack()
 	if inventario then
 		cb({ inventario = inventario, drop = dropItems, peso = peso, maxpeso = maxpeso, infos = infos })
 	end

@@ -1,10 +1,10 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETBACKPACK - NEED TRY MOCHILAS
+-- GETBACKPACK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getBackpack(user_id)
 	local data = vRP.getUserDataTable(user_id)
 	if data.backpack == nil then
-		data.backpack = 50
+		data.backpack = 30
 	end
 
 	return data.backpack

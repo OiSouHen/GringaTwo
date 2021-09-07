@@ -496,7 +496,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 						end
 					end
 				else
-					TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente na mochila.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				end
 			elseif shops[shopType]["mode"] == "Sell" then
 				if shops[shopType]["list"][shopItem] then

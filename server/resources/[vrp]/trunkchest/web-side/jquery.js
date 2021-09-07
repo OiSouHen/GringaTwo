@@ -15,7 +15,7 @@ $(document).ready(function () {
 				$(".ui-tooltip").hide();
 				break;
 
-			case "updateMochila":
+			case "updateBackpack":
 				updateChest();
 				break;
 		}

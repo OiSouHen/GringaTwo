@@ -2,7 +2,7 @@
 	window.addEventListener("message",function(event){
 		switch(event["data"]["action"]){
 			case "showMenu":
-				updateMochila();
+				updateBackpack();
 				$(".inventory").css("display","flex");
 			break;
 
@@ -11,8 +11,8 @@
 				$(".ui-tooltip").hide();
 			break;
 
-			case "updateMochila":
-				updateMochila();
+			case "updateBackpack":
+				updateBackpack();
 			break;
 		}
 	});
@@ -20,6 +20,8 @@
 	document.onkeyup = data => {
 		if (data["key"] === "Escape"){
 			$.post("http://inventory/invClose");
+			$(".invRight").html("");
+			$(".invLeft").html("");
 		}
 	};
 });
@@ -240,7 +242,7 @@ const updateDrag = () => {
 	});
 
 	$(".populated").on("auxclick", e => {
-		if (e["which"] === 3) {
+		if (e["which"] === 3){
 			const item = e["target"];
 			const shiftPressed = event.shiftKey;
 			const origin = $(item).parent()[0].className;
@@ -323,7 +325,7 @@ const colorPicker = (percent) => {
 	return colorPercent;
 }
 
-const updateMochila = () => {
+const updateBackpack = () => {
 	$.post("http://inventory/requestBackpack",JSON.stringify({}),(data) => {
   		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
 
@@ -331,6 +333,9 @@ const updateMochila = () => {
 
 		$(".invLeft").html("");
 		$(".invRight").html("");
+
+		if (data["maxpeso"] > 100)
+			data["maxpeso"] = 100;
 
 		const nameList2 = data["drop"].sort((a,b) => (a["name"] > b["name"]) ? 1:-1);
 
@@ -404,17 +409,17 @@ const updateMochila = () => {
 	});
 }
 /* ----------FORMATARNUMERO---------- */
-const formatarNumero = (n) => {
+const formatarNumero = n => {
 	var n = n.toString();
-	var r = '';
+	var r = "";
 	var x = 0;
 
-	for (var i = n.length; i > 0; i--){
-		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? '.' : '');
+	for (var i = n["length"]; i > 0; i--) {
+		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? "." : "");
 		x = x == 2 ? 0 : x + 1;
 	}
 
-	return r.split('').reverse().join('');
+	return r.split("").reverse().join("");
 }
 
 function somenteNumeros(e){

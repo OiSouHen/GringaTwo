@@ -75,9 +75,9 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MOCHILA
+-- BACKPACK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.Mochila()
+function cRP.Backpack()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
