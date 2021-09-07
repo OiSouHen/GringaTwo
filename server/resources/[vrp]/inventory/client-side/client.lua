@@ -57,7 +57,9 @@ exports("blockInvents",blockInvents)
 -- UPDATEWEAPONN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local AllWeapons = json.decode('{"melee":{"dagger":"0x92A27487","bat":"0x958A4A8F","bottle":"0xF9E6AA4B","crowbar":"0x84BD7BFD","unarmed":"0xA2719263","flashlight":"0x8BB05FD7","golfclub":"0x440E4788","hammer":"0x4E875F73","hatchet":"0xF9DCBF2D","knuckle":"0xD8DF3C3C","knife":"0x99B507EA","machete":"0xDD5DF8D9","switchblade":"0xDFE37640","nightstick":"0x678B81B1","wrench":"0x19044EE0","battleaxe":"0xCD274149","poolcue":"0x94117305","stone_hatchet":"0x3813FC08"},"handguns":{"PISTOL":"0x1B06D571","PISTOL_MK2":"0xBFE256D4","COMBATPISTOL":"0x5EF9FEC4","APPISTOL":"0x22D8FE39","STUNGUN":"0x3656C8C1","PISTOL50":"0x99AEEB3B","SNSPISTOL":"0xBFD21232","SNSPISTOL_MK2":"0x88374054","HEAVYPISTOL":"0xD205520E","VINTAGEPISTOL":"0x83839C4","FLAREGUN":"0x47757124","MARKSMANPISTOL":"0xDC4DB296","REVOLVER":"0xC1B3C3D1","REVOLVER_MK2":"0xCB96392F","DOUBLEACTION":"0x97EA20B8","RAYPISTOL":"0xAF3696A1"},"smg":{"MICROSMG":"0x13532244","SMG":"0x2BE6766B","SMG_MK2":"0x78A97CD0","ASSAULTSMG":"0xEFE7E2DF","COMBATPDW":"0xA3D4D34","MACHINEPISTOL":"0xDB1AA450","MINISMG":"0xBD248B55","RAYCARBINE":"0x476BF155"},"shotguns":{"pumpshotgun":"0x1D073A89","pumpshotgun_mk2":"0x555AF99A","sawnoffshotgun":"0x7846A318","assaultshotgun":"0xE284C527","bullpupshotgun":"0x9D61E50F","musket":"0xA89CB99E","heavyshotgun":"0x3AABBBAA","dbshotgun":"0xEF951FBB","autoshotgun":"0x12E82D3D"},"assault_rifles":{"ASSAULTRIFLE":"0xBFEFFF6D","ASSAULTRIFLE_MK2":"0x394F415C","CARBINERIFLE":"0x83BF0278","CARBINERIFLE_MK2":"0xFAD1F1C9","ADVANCEDRIFLE":"0xAF113F99","SPECIALCARBINE":"0xC0A3098D","SPECIALCARBINE_MK2":"0x969C3D67","BULLPUPRIFLE":"0x7F229F94","BULLPUPRIFLE_MK2":"0x84D6FAFD","COMPACTRIFLE":"0x624FE830"},"MACHINE_GUNS":{"mg":"0x9D07F764","combatmg":"0x7FD62962","combatmg_mk2":"0xDBBD7280","gusenberg":"0x61012683"},"sniper_rifles":{"sniperrifle":"0x5FC3C11","heavysniper":"0xC472FE2","heavysniper_mk2":"0xA914799","marksmanrifle":"0xC734385A","marksmanrifle_mk2":"0x6A6C02E0"},"heavy_weapons":{"rpg":"0xB1CA77B1","grenadelauncher":"0xA284510B","grenadelauncher_smoke":"0x4DD2DC56","minigun":"0x42BF8A85","firework":"0x7F7497E5","railgun":"0x6D544C99","hominglauncher":"0x63AB0442","compactlauncher":"0x781FE4A","rayminigun":"0xB62D1F67"},"throwables":{"grenade":"0x93E220BD","bzgas":"0xA0973D5E","smokegrenade":"0xFDBC8A50","flare":"0x497FACC3","molotov":"0x24B17070","stickybomb":"0x2C3731D9","proxmine":"0xAB564B93","snowball":"0x787F0BB","pipebomb":"0xBA45E8B8","ball":"0x23C9F95C"},"misc":{"petrolcan":"0x34A67B97","fireextinguisher":"0x60EC506","parachute":"0xFBAB5776"}}')
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADUPDATEWEAPONN
+-----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local slyphe = 500
@@ -79,6 +81,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(slyphe)
 	end
 end)
@@ -132,12 +135,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("moc","Abrir a mochila","keyboard","oem_3")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DROPITEM
+-- NUI:DROPITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("dropItem",function(data)
 	local ped = GetPlayerPed(-1)
 	if IsPedArmed(ped,1) or IsPedArmed(ped,2) or IsPedArmed(ped,4) then
-		-- RemoveAllPedWeapons(ped, false)
 		currentWeapon = nil
 		currentWeaponModel = nil
 		TriggerServerEvent("inventory:dropItem",data.item,data.amount,true)
@@ -145,9 +147,9 @@ RegisterNUICallback("dropItem",function(data)
 		TriggerServerEvent("inventory:dropItem",data.item,data.amount,true)
 	end
 end)
--- RegisterCommand('a', function(source) 
--- 	RemoveAllPedWeapons(PlayerPedId(), true)
--- end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- FUNCTION:DROPITEM
+-----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.dropItem(item,amount)
 	TriggerServerEvent("inventory:dropItem",item,amount,false)
 end
@@ -263,35 +265,11 @@ RegisterNUICallback("requestBackpack",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- inventory:UPDATE
+-- INVENTORY:UPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:Update")
 AddEventHandler("inventory:Update",function(action)
 	SendNUIMessage({ action = action })
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PLATEVARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local plateX = -1133.31
-local plateY = 2694.2
-local plateZ = 18.81
------------------------------------------------------------------------------------------------------------------------------------------
--- PLATE
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 999
-		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			local distance = #(coords - vector3(plateX,plateY,plateZ))
-			if distance <= 50.0 then
-				timeDistance = 4
-				DrawMarker(23,plateX,plateY,plateZ-0.98,0,0,0,0,0,0,5.0,5.0,1.0,255,0,0,50,0,0,0,0)
-			end
-		end
-		Citizen.Wait(timeDistance)
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATEDISTANCE
@@ -725,7 +703,6 @@ end
 -- WEAPON_AMMOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local weapon_ammos = {
--- START PISTOLS
 	["WEAPON_PISTOL_AMMO"] = {
 		"WEAPON_PISTOL"
 	},
@@ -756,9 +733,6 @@ local weapon_ammos = {
 	["WEAPON_COMBATPISTOL_AMMO"] = {
 		"WEAPON_COMBATPISTOL"
 	},
--- END PISTOLS
-
--- START SMG
 	["WEAPON_COMPACTRIFLE_AMMO"] = {
 		"WEAPON_COMPACTRIFLE"
 	},
@@ -780,9 +754,6 @@ local weapon_ammos = {
 	["WEAPON_MACHINEPISTOL_AMMO"] = {
 		"WEAPON_MACHINEPISTOL"
 	},
--- END SMG
-
--- START RIFLE
     ["WEAPON_CARBINERIFLE_AMMO"] = {
 		"WEAPON_CARBINERIFLE"
 	},
@@ -792,9 +763,6 @@ local weapon_ammos = {
 	["WEAPON_ASSAULTRIFLE_MK2_AMMO"] = {
 		"WEAPON_ASSAULTRIFLE_MK2"
 	},
--- END RIFLE
-
--- START SHOTGUN
     ["WEAPON_PUMPSHOTGUN_AMMO"] = {
 		"WEAPON_PUMPSHOTGUN"
 	},
@@ -807,16 +775,12 @@ local weapon_ammos = {
 	["WEAPON_SNIPERRIFLE_AMMO"] = {
 		"WEAPON_SNIPERRIFLE"
 	},
--- END SHOTGUN
-
--- START OTHERS
     ["WEAPON_RPG_AMMO"] = {
 		"WEAPON_RPG"
 	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		"WEAPON_PETROLCAN"
 	}
--- END OTHERS
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECHARGEWEAPON
@@ -840,7 +804,7 @@ function cRP.rechargeWeapon(ammoType,ammoAmount)
 	if weapon_ammos[ammoType] then
 		for k,v in pairs(weapon_ammos[ammoType]) do
 			if HasPedGotWeapon(ped,v) then
-				SetPedAmmo(ped, v, ammoAmount) -- deleting ammo from clip.
+				SetPedAmmo(ped, v, ammoAmount)
 				return true
 			end
 		end
@@ -852,11 +816,11 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.rechargeWeapon2(ammoType,ammoAmount)
 	local ped = PlayerPedId()
-	local targetWeapon = GetSelectedPedWeapon(ped) -- getting target weapon.
-	local targetWeaponAmmo = GetAmmoInPedWeapon(ped, targetWeapon) -- getting target weapon ammo.
-	local currentAmmo = targetWeaponAmmo -- variable that will keep our target weapon current ammo.
+	local targetWeapon = GetSelectedPedWeapon(ped)
+	local targetWeaponAmmo = GetAmmoInPedWeapon(ped, targetWeapon)
+	local currentAmmo = targetWeaponAmmo
 	local ped = PlayerPedId()
-	SetPedAmmo(ped, targetWeapon, ammoAmount) -- deleting ammo from clip.
+	SetPedAmmo(ped, targetWeapon, ammoAmount)
 	return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
