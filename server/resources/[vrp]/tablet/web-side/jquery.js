@@ -57,25 +57,20 @@ $(document).on("click","#mainMenu li",function(){
 const aboutPage = () => {
 	selectPage = "about";
 
-	$.post("http://inventory/requestBackpack",JSON.stringify({}),(data) => {
+	$.post("http://tablet/aboutInformations",JSON.stringify({}),(data) => {
 		$("#content").html(`
 			<div id="titleContent">SOBRE</div>
 			<div id="pageDiv2">
-				<b>Passaporte:</b> 0<br>
-				<b>Nome:</b> 0<br>
-				<b>Tipo Sanguíneo:</b> 0
+				<b>Passaporte:</b> ${format(data.infos[1])}
 			</div>
 			<div id="pageDiv2">
-				<b>Total de Gemas:</b> $0<br>
-				<b>Porte de Armas:</b> Não
+			    <b>Nome:</b> ${data.infos[0]}
 			</div>
 			<div id="pageDiv2">
-				<b>Máximo de Veículos:</b> 0<br>
-				<b>Máximo de Propriedades:</b> 0
+			<b>Total de Gemas:</b> $${format(data.infos[3])}
 			</div>
 			<div id="pageDiv2">
-				<b>Pontos de Prestígio:</b> 0<br>
-				<b>Premium:</b> 0
+				<b>Saldo Bancário:</b> $${format(data.infos[2])}
 			</div>
 
 			<div id="divContent"></div>

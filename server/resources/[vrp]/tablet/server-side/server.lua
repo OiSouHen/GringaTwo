@@ -263,28 +263,16 @@ end
 function cRP.aboutInformations()
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local steam = vRP.getSteam(source)
 	if user_id then
-		local myGarages = vRP.getInformation(user_id)
-		local identity = vRP.getUserIdentity(user_id)
-		local maxWeight = vRP.computeInvWeight(user_id)
-		local backpack = vRP.getBackpack(user_id)
-		local gems = vRP.getUserGems(user_id)
-		local fullName = identity.name..' '..identity.name2
-		local premium = vRP.getPremium2(steam)
-		local garageMax = 2
+		local inv = vRP.getInventory(user_id)
+		if inv then
+			local inventory = {}
+			for k,v in pairs(inv) do
+					inventory[k] = v
+				end
 
-		return 
-		{
-			user_id, -- 0
-			fullName, -- 1
-			identity.phone, -- 2
-			identity.registration, -- 3
-			identity.bank, -- 4
-			gems, -- 5
-			premium, -- 6
-			garageMax, -- 7
-			myGarages[1].garage -- 8
-		}
-	end	
+			local identity = vRP.getUserIdentity(user_id)
+			return inventory,vRP.computeInvWeight(user_id),vRP.getBackpack(user_id),{ identity.name.." "..identity.name2,parseInt(user_id),parseInt(identity.bank),parseInt(vRP.getGmsId(user_id)),identity.phone,identity.registration }
+		end
+	end
 end

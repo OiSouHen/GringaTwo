@@ -113,7 +113,10 @@ end)
 -- ABOUTINFORMATIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("aboutInformations",function(data,cb)
-	cb({ result = vSERVER.aboutInformations() })
+	local inventario,peso,maxpeso,infos = vSERVER.aboutInformations()
+	if inventario then
+		cb({ inventario = inventario, drop = dropItems, peso = peso, maxpeso = maxpeso, infos = infos })
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEMEDIA
