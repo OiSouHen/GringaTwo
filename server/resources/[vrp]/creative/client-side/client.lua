@@ -99,7 +99,6 @@ end
 local blips = {
 	{ 1148.78,-1532.84,35.39,80,38,"Hospital",0.5 },
 	{ -247.42,6331.39,32.42,80,38,"Hospital",0.5 },
-	{ 859.4,-2363.23,30.0,315,8,"Encontro de Carros",0.4 },
 	{ 55.43,-876.19,30.66,357,65,"Garagem",0.6 },
 	{ 598.04,2741.27,42.07,357,65,"Garagem",0.6 },
 	{ -136.36,6357.03,31.49,357,65,"Garagem",0.6 },
@@ -427,6 +426,7 @@ Citizen.CreateThread(function()
 		RemoveAllPickupsOfType("PICKUP_WEAPON_SAWNOFFSHOTGUN")
 
 		HideHudComponentThisFrame(1)
+		
 		HideHudComponentThisFrame(3)
 		HideHudComponentThisFrame(4)
 		HideHudComponentThisFrame(5)
@@ -438,9 +438,13 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(11)
 		HideHudComponentThisFrame(12)
 		HideHudComponentThisFrame(13)
+		
 		HideHudComponentThisFrame(15)
+		
 		HideHudComponentThisFrame(17)
 		HideHudComponentThisFrame(18)
+		
+		
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
@@ -493,7 +497,7 @@ Citizen.CreateThread(function()
 	SetRadarZoom(1100)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL - 10
+-- THREADGLOBAL:REMOVEVEHICLESFROMSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do

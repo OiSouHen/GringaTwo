@@ -418,38 +418,35 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSERVICE
+-- STARTTHREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function startthreadservice()
-	Citizen.CreateThread(function()
-		while true do
-			local timeDistance = 500
-			if serviceStatus then
-				local ped = PlayerPedId()
-				if not IsPedInAnyVehicle(ped) then
-					local coords = GetEntityCoords(ped)
------------------------------------------------------------------------------------------------------------------------------------------
--- DELIVERY
------------------------------------------------------------------------------------------------------------------------------------------
-					local deliverDis = #(coords - vector3(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]))
-					if deliverDis <= 150 then
-						timeDistance = 4
-						DrawText3D(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3],"~g~E~w~  CONTINUAR")
-						makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-						if deliverDis <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
-						    if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
-								timeSeconds = 2
-							if vSERVER.paymentMethod() then
-								deSelected = math.random(#deliver)
-								makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-							end
-							else
-								TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Tacos</b>.",3000)
-							end
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 500
+		if serviceStatus then
+			local ped = PlayerPedId()
+			local coords = GetEntityCoords(ped)
+			local deliverDis = #(coords - vector3(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3]))
+			if deliverDis <= 150 then
+				timeDistance = 4
+				DrawText3D(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3],"~g~E~w~  CONTINUAR")
+				makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+				if deliverDis <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
+					if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
+						timeSeconds = 2
+							
+						if vSERVER.paymentMethod() then
+							deSelected = math.random(#deliver)
+							makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+						end
+					else
+						TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Tacos</b>.",3000)
 						end
 					end
 				end
 			end
+				
 			Citizen.Wait(timeDistance)
 		end
 	end)
