@@ -106,7 +106,7 @@ Citizen.CreateThread(function()
 						SetNuiFocus(true,true)
 						SendNUIMessage({ action = "showMenu" })
 						TransitionToBlurred(1000)
-						TriggerEvent("sound:source","zipper",0.5)
+						TriggerEvent("sounds:source","zipper",0.5)
 					end
 				end
 			end

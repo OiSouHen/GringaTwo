@@ -49,40 +49,40 @@ local spawnModels = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("corrections:initService")
 AddEventHandler("corrections:initService",function()
-					if serviceStatus then
-						serviceStatus = false
-						TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
-
-						if DoesBlipExist(serviceBlip) then
-							RemoveBlip(serviceBlip)
-							serviceBlip = nil
-						end
-
-						if currentPassenger ~= nil then
-							TriggerServerEvent("tryDeleteObject",PedToNet(currentPassenger))
-							currentPassenger = nil
-						end
-
-						if lastPassenger ~= nil then
-							TriggerServerEvent("tryDeleteObject",lastPassenger)
-							lastPassenger = nil
-						end
-					else
-						if vSERVER.checkPermission() then
-							repeat
-								if lastPosition == selectPosition then
-									selectPosition = math.random(#stopVehicle - 1)
-								end
-							until lastPosition ~= selectPosition
-
-							currentPassenger = nil
-							currentStatus = false
-							serviceStatus = true
-							TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
-							lastPassenger = nil
-							blipPassenger()
-						end
-					end
+	if serviceStatus then
+		serviceStatus = false
+		TriggerEvent("Notify","amarelo","Serviço finalizado.",5000)
+		
+		if DoesBlipExist(serviceBlip) then
+			RemoveBlip(serviceBlip)
+			serviceBlip = nil
+		end
+		
+		if currentPassenger ~= nil then
+			TriggerServerEvent("tryDeleteObject",PedToNet(currentPassenger))
+			currentPassenger = nil
+		end
+		
+		if lastPassenger ~= nil then
+			TriggerServerEvent("tryDeleteObject",lastPassenger)
+			lastPassenger = nil
+		end
+	else
+		if vSERVER.checkPermission() then
+			repeat
+				if lastPosition == selectPosition then
+					selectPosition = math.random(#stopVehicle - 1)
+				end
+			until lastPosition ~= selectPosition
+			
+			currentPassenger = nil
+			currentStatus = false
+			serviceStatus = true
+			TriggerEvent("Notify","amarelo","Serviço iniciado.",5000)
+			lastPassenger = nil
+			blipPassenger()
+		end
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES

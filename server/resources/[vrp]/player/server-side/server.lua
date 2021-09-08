@@ -409,15 +409,15 @@ function cRP.cuffToggle()
 						if vCLIENT.getHandcuff(nplayer) then
 							vCLIENT.toggleHandcuff(nplayer)
 							vRPclient._stopAnim(nplayer,false)
-							TriggerClientEvent("sound:source",source,"uncuff",0.5)
-							TriggerClientEvent("sound:source",nplayer,"uncuff",0.5)
+							TriggerClientEvent("sounds:source",source,"uncuff",0.5)
+							TriggerClientEvent("sounds:source",nplayer,"uncuff",0.5)
 						else
 							poCuff[user_id] = true
 							local taskResult = vTASKBAR.taskHandcuff(nplayer)
 							if not taskResult then
 								vCLIENT.toggleHandcuff(nplayer)
-								TriggerClientEvent("sound:source",source,"cuff",0.5)
-								TriggerClientEvent("sound:source",nplayer,"cuff",0.5)
+								TriggerClientEvent("sounds:source",source,"cuff",0.5)
+								TriggerClientEvent("sounds:source",nplayer,"cuff",0.5)
 								vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
 							end
 							poCuff[user_id] = nil

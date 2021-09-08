@@ -10,13 +10,7 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("taxi",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local amount = {}
-local paymentMin = 150
-local paymentMax = 250
------------------------------------------------------------------------------------------------------------------------------------------
--- paymentService
+-- PAYMENTSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.paymentService(status)
 	local source = source
@@ -29,6 +23,7 @@ function cRP.paymentService(status)
 		else
 			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 		end
-		TriggerClientEvent("sound:source",source,"coin",0.5)
+
+		TriggerClientEvent("sounds:source",source,"cash",0.5)
 	end
 end

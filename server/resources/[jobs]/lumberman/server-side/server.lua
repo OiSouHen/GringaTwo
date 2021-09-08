@@ -77,7 +77,7 @@ function cRP.paymentMethod()
 			local value = math.random(paymentMin,paymentMax) * amount[source]
 
 			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
-			TriggerClientEvent("sound:source",source,"coin",0.5)
+			TriggerClientEvent("sounds:source",source,"cash",0.5)
 			amount[source] = nil
 
 			return true

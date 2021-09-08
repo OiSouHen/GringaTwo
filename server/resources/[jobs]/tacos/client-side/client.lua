@@ -14,9 +14,7 @@ vSERVER = Tunnel.getInterface("tacos")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local selected = 0
-local blipCollect = nil
 local blipDelivery = nil
-local coSelected = 0
 local deSelected = 0
 local vehModel = 1951180813
 local timeSeconds = 0

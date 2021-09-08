@@ -669,10 +669,10 @@ function cRP.vehicleLock()
 
 				if vehLock == 1 then
 					TriggerClientEvent("Notify",source,"unlocked","Veículo destrancado.",3000)
-					TriggerClientEvent("sound:source",source,"unlock",0.5)
+					TriggerClientEvent("sounds:source",source,"unlock",0.5)
 				else
 					TriggerClientEvent("Notify",source,"locked","Veículo trancado.",3000)
-					TriggerClientEvent("sound:source",source,"lock",0.5)
+					TriggerClientEvent("sounds:source",source,"lock",0.5)
 				end
 
 				if not vRPclient.inVehicle(source) then
