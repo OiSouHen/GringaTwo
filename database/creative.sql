@@ -80,7 +80,7 @@ CREATE TABLE `benefactor` (
   `vehicle` varchar(50) NOT NULL,
   `estoque` int(11) NOT NULL DEFAULT -1,
   PRIMARY KEY (`vehicle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Sobre: Tabela aonde é definido o estoque dos veiculos\r\nColunas: \r\n• vehicle = Nome de Spawn do Veiculo;\r\n• estoque = Quantidade disponivel em estoque (-1 para estoque infinito);\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Estoque dos veiculos';
 
 DROP TABLE IF EXISTS `chests`;
 CREATE TABLE `chests` (
