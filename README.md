@@ -8,11 +8,11 @@
 
 ## Informações
 
-O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 08/2021, utilizando os Artefatos de número [4460].
+O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 08/2021, utilizando os Artefatos de número [4491].
 
 ## Links uteis
 
-> Gráfico: https://bit.ly/38lF5ku.
+> MOD Gráfico: https://bit.ly/38lF5ku.
 
 ## Direitos autorais
 
