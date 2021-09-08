@@ -813,7 +813,7 @@ local pedList = {
 	{ -- Tacos
 		distance = 30,
 		coords = { 21.98,-1602.79,29.39,227.54 },
-		model = { 0x158C439C,"g_f_y_ballas_01" },
+		model = { 0x0F977CEB,"s_m_y_chef_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	}
 }
