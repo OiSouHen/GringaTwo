@@ -31,26 +31,27 @@ function cRP.updateSkin(myClothes)
     local source = source
     local user_id = vRP.getUserId(source)    
     if user_id then
-        vRP.setUData(user_id, "currentCharacterMode", json.encode(myClothes))
+        vRP.setUData(user_id,"currentCharacterMode",json.encode(myClothes))
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("debug", function(source, args, rawCommand)
+RegisterCommand("debug",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
     if user_id then
         if not vRPclient.inVehicle(source) then
-            local x, y, z = vRPclient.getPositions(source)
+            local x,y,z = vRPclient.getPositions(source)
             local data = vRP.getUserDataTable(user_id)
             if data then
-                TriggerClientEvent("syncarea", -1, x, y, z, 2)
-                TriggerClientEvent("target:resetDebug")
-                vRPclient._setCustomization(source, data.customization)
-                local value = vRP.getUData(user_id, "currentCharacterMode")
+                TriggerClientEvent("syncarea",-1,x,y,z,2)
+                TriggerClientEvent("target:resetDebug",source)
+                vRPclient._setCustomization(source,data.customization)
+				
+                local value = vRP.getUData(user_id,"currentCharacterMode")
                 if value ~= "" then
                     local custom = json.decode(value) or {}            
-                    TriggerClientEvent("barbershop:setCustomization", player, custom)
+                    TriggerClientEvent("barbershop:setCustomization",player,custom)
                 end
             end
         end
@@ -74,13 +75,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BARBERSHOP:INIT
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("barbershop:init", function(user_id)
+AddEventHandler("barbershop:init",function(user_id)
     local player = vRP.getUserSource(user_id)
     if player then
         local value = vRP.getUData(user_id, "currentCharacterMode")
         if value ~= "" then
             local custom = json.decode(value) or {}            
-            TriggerClientEvent("barbershop:setCustomization", player, custom)
+            TriggerClientEvent("barbershop:setCustomization",player,custom)
         end
     end
 end)
