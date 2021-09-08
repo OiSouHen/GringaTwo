@@ -7,13 +7,12 @@ local Proxy = module("vrp","lib/Proxy")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP = {}
+tvRP = {}
 vRP.users = {}
 vRP.rusers = {}
 vRP.user_tables = {}
 vRP.user_sources = {}
 Proxy.addInterface("vRP",vRP)
-
-tvRP = {}
 Tunnel.bindInterface("vRP",tvRP)
 vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -26,12 +25,13 @@ local db_drivers = {}
 local cached_queries = {}
 local cached_prepares = {}
 local db_initialized = false
-
 -----------------------------------------------------------------------------------------------------------------------------------------
--- WEBHOOK
+-- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local webhookjoins = ""
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SENDWEBHOOKMESSAGE
+-----------------------------------------------------------------------------------------------------------------------------------------
 function SendWebhookMessage(webhook,message)
 	if webhook ~= nil and webhook ~= "" then
 		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
@@ -181,14 +181,6 @@ function vRP.getInventory(user_id)
     end
     return false
 end
-
--- function vRP.getInventory(user_id)
--- 	local data = vRP.user_tables[user_id]
--- 	if data then
--- 		return data.inventorys
--- 	end
--- 	return false
--- end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESELECTSKIN
 -----------------------------------------------------------------------------------------------------------------------------------------

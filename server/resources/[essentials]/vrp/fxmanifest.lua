@@ -17,14 +17,13 @@ client_scripts {
 
 files {
 	"loading/index.html",	
-    'loading/script.js',
-    'loading/style.css',
-	"web-side/*",
+    "loading/script.js",
+    "loading/style.css",
 	"lib/Tunnel.lua",
 	"lib/Proxy.lua",
 	"lib/Luaseq.lua",
-	"lib/Tools.lua"
+	"lib/Tools.lua",
+	"web-side/*"
 }
 
 loadscreen "loading/index.html"
---loadscreen_manual_shutdown "yes"
