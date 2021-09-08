@@ -24,6 +24,7 @@ function cRP.paymentMethod(status)
 		else
 			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 		end
-		TriggerClientEvent("sound:source",source,"coin",0.5)
+		
+		TriggerClientEvent("sounds:source",source,"cash",0.5)
 	end
 end

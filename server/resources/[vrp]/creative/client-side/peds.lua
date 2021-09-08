@@ -809,6 +809,12 @@ local pedList = {
 		coords = { -1167.03,-2034.54,13.31,140.84 },
 		model = { 0x158C439C,"g_f_y_ballas_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Tacos
+		distance = 30,
+		coords = { 21.98,-1602.79,29.39,227.54 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------

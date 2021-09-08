@@ -23,7 +23,9 @@ local itemList = {
 	{ item = "joint", priceMin = 35, priceMax = 85, randMin = 1, randMax = 3 },
 	{ item = "meth", priceMin = 105, priceMax = 170, randMin = 1, randMax = 3 },
 	{ item = "ecstasy", priceMin = 65, priceMax = 95, randMin = 1, randMax = 3 },
-	{ item = "lean", priceMin = 75, priceMax = 135, randMin = 1, randMax = 3 }
+	{ item = "lean", priceMin = 75, priceMax = 135, randMin = 1, randMax = 3 },
+	{ item = "heroine", priceMin = 95, priceMax = 195, randMin = 1, randMax = 3 },
+	{ item = "vest2", priceMin = 95, priceMax = 185, randMin = 1, randMax = 1 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKAMOUNT

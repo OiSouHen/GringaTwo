@@ -43,7 +43,7 @@ function cRP.withdrawMoney(vehPlate,vehNet)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if stockadePlates[vehPlate] == nil then
-			if vRP.getInventoryItemAmount(user_id,"WEAPON_CROWBAR",1) and vRP.getInventoryItemAmount(user_id,"lockpick",1) then
+			if vRP.getInventoryItemAmount(user_id,"WEAPON_CROWBAR") >= 1 and vRP.getInventoryItemAmount(user_id,"lockpick") >= 1 then
 				local taskResult = vTASKBAR.taskThree(source)
 				if taskResult then
 					stockadePlates[vehPlate] = 30

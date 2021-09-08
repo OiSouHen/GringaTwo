@@ -632,16 +632,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.20
 	},
-	["tomate"] = {
-		index = "tomate",
-		name = "Tomate",
-		desc = "Usado para fazer Hamburguer",
-		tipo = "Usável",
-		unity = "Não",
-		economy = "S/E",
-		type = "use",
-		weight = 0.25
-	},
 	["emptybottle"] = {
 		index = "emptybottle",
 		name = "Garrafa Vazia",
