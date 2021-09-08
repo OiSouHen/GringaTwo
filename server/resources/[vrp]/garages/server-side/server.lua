@@ -100,7 +100,7 @@ local garages = {
 	[148] = { ["name"] = "Impound", ["payment"] = false, ["public"] = true },
 	[149] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
 	[151] = { ["name"] = "Kart", ["payment"] = false, ["public"] = true },
-	[152] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
+	[152] = { ["name"] = "Tacos", ["payment"] = false, ["public"] = true },
 	[153] = { ["name"] = "Taxiaereo", ["payment"] = false, ["public"] = true },
 	[154] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
 	[155] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
@@ -421,6 +421,9 @@ local workgarage = {
 	},
 	["Taxiaereo"] = {
 		"maverick"
+	},
+	["Tacos"] = {
+		"taco"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
