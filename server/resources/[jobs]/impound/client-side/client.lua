@@ -49,27 +49,6 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- IMPOUND
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("impound",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Police") then
-			local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,7)
-			if vehicle then
-				local x,y,z = vRPclient.getPositions(source)
-				if impoundVehs[vehName.."-"..vehPlate] == nil then
-					impoundVehs[vehName.."-"..vehPlate] = true
-					TriggerEvent("towdriver:alertPlayers",x,y,z,vRP.vehicleName(vehName).." - "..vehPlate)
-					TriggerClientEvent("Notify",source,"verde","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi registrado no <b>DMV</b>.",5000)
-				else
-					TriggerClientEvent("Notify",source,"amarelo","Veículo <b>"..vRP.vehicleName(vehName).."</b> já está na lista do <b>DMV</b>.",5000)
-				end
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- TIMESECONDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
