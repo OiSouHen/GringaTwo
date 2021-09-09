@@ -19,9 +19,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("chestClose",function(data)
-	SetNuiFocus(false,false)
+RegisterNUICallback("invClose",function(data)
 	SendNUIMessage({ action = "hideMenu" })
+	SetNuiFocus(false,false)
 	vSERVER.resetInspect()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -68,9 +68,9 @@ AddEventHandler("inspect:Update",function(action)
 	SendNUIMessage({ action = action })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTCHEST
+-- updateChest
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestChest",function(data,cb)
+RegisterNUICallback("updateChest",function(data,cb)
 	local inventario,inventario2,peso,maxpeso,peso2,maxpeso2,infos = vSERVER.openChest()
 	if inventario then
 		cb({ inventario = inventario, inventario2 = inventario2, peso = peso, maxpeso = maxpeso, peso2 = peso2, maxpeso2 = maxpeso2, infos = infos })

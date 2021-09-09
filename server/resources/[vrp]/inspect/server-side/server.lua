@@ -24,7 +24,6 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
 			local nuser_id = vRP.getUserId(nplayer)
-			if not vRP.hasPermission(nuser_id,"Police") then
 				if vRP.hasPermission(user_id,"Police") then
 					vCLIENT.toggleCarry(nplayer,source)
 
@@ -36,13 +35,12 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 						end
 					end
 
-					-- vRPclient.updateWeapons(nplayer)
 					opened[user_id] = parseInt(nuser_id)
 					vCLIENT.openInspect(source)
 				else
 					if not vRP.wantedReturn(nuser_id) then
 						local policia = vRP.numPermission("Police")
-						--if parseInt(#policia) > 2 then
+						if parseInt(#policia) >= 0 then
 							if vRPclient.getHealth(nplayer) > 101 then
 								local request = vRP.request(nplayer,"Você está sendo revistado, você permite?",60)
 								if request then
@@ -57,20 +55,18 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 										end
 									end
 
-									vRP.wantedTimer(user_id,600) -- old is 60 need try
-									-- vRPclient.updateWeapons(nplayer)
+									vRP.wantedTimer(user_id,60)
 									opened[user_id] = parseInt(nuser_id)
 									vCLIENT.openInspect(source)
 								else
-									TriggerClientEvent("Notify",source,"negado","Pedido de revista recusado.",5000)
+									TriggerClientEvent("Notify",source,"amarelo","Pedido de revista recusado.",5000)
 								end
 							end
-						--else
-						--	TriggerClientEvent("Notify",source,"negado","Sistema indisponível no momento.",5000)
-						--end
+						else
+							TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
+						end
 					end
 				end
-			end
 		end
 	end
 end)
@@ -86,15 +82,37 @@ function cRP.openChest()
 			local ninventory = {}
 			local myInv = vRP.getInventory(user_id)
 			for k,v in pairs(myInv) do
-				if string.sub(v.item,1,9) == "toolboxes" then
-					local advFile = LoadResourceFile("logsystem","toolboxes.json")
-					local advDecode = json.decode(advFile)
+				if string.sub(v.item,1,9) == v.item then
+						local advFile = LoadResourceFile("logsystem","toolboxes.json")
+						local advDecode = json.decode(advFile)
 
-					v.durability = advDecode[v.item]
-				end
+						v.durability = advDecode[v.item]
+					end
+					if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
+				v.desc = vRP.itemDescList(v.item)
+				v.tipo = vRP.itemTipoList(v.item)
+				v.unity = vRP.itemUnityList(v.item)
+				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)
 				v.index = vRP.itemIndexList(v.item)
 				v.key = v.item
@@ -106,15 +124,37 @@ function cRP.openChest()
 			local uinventory = {}
 			local othInv = vRP.getInventory(opened[user_id])
 			for k,v in pairs(othInv) do
-				if string.sub(v.item,1,9) == "toolboxes" then
-					local advFile = LoadResourceFile("logsystem","toolboxes.json")
-					local advDecode = json.decode(advFile)
+				if string.sub(v.item,1,9) == v.item then
+						local advFile = LoadResourceFile("logsystem","toolboxes.json")
+						local advDecode = json.decode(advFile)
 
-					v.durability = advDecode[v.item]
-				end
+						v.durability = advDecode[v.item]
+					end
+					if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						if porcentage then
+							v.durability = porcentage
+						end
+					end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
+				v.desc = vRP.itemDescList(v.item)
+				v.tipo = vRP.itemTipoList(v.item)
+				v.unity = vRP.itemUnityList(v.item)
+				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)
 				v.index = vRP.itemIndexList(v.item)
 				v.key = v.item
@@ -217,7 +257,7 @@ function cRP.storeItem(itemName,slot,amount,target)
 			if vRP.computeInvWeight(opened[user_id]) + vRP.itemWeightList(itemName) * parseInt(amount) <= vRP.getBackpack(opened[user_id]) then
 				if vRP.itemSubTypeList(itemName) then
 					if vRP.getInventoryItemAmount(opened[user_id],itemName) > 0 then
-						TriggerClientEvent("Notify",source,"negado","O jogador já possui esse tipo de item.",5000)
+						TriggerClientEvent("Notify",source,"amarelo","O jogador já possui esse tipo de item.",5000)
 					else
 						local durability = vRP.getInventoryItemDurability(user_id,itemName)
 						if vRP.tryGetInventoryItem(user_id,itemName,amount,true,slot) then
