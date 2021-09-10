@@ -3,45 +3,27 @@
 	<startFrom value="4001" />
 	<filePathHash value="0" />
 	<proxies>
+		<Item>vw_lodlights_small024</Item>
+		<Item>vw_distlodlights_small024</Item>
+		<Item>vb_occl_01</Item>
+		<Item>vb_03_strm_0</Item>
+		<Item>hei_vb_rd_strm_0</Item>
+		<Item>hei_vb_03_strm_0</Item>
+		<Item>hei_vb_03</Item>
+		<Item>hei_sm_19</Item>
+		<Item>bs_streetlights</Item>
+		<Item>bs_lodlights</Item>
+		<Item>bs_int_lod1</Item>
+		<Item>bs_int</Item>
+		<Item>bs_extprops</Item>
+		<Item>bs_distantlights</Item>
 		<Item>bkr_id1_33_strm_0</Item>
-		<Item>creative_methlab01</Item>
 		<Item>pablito_eb_milo_</Item>
+		<Item>hei_cs1_16_strm_0</Item>
 		<Item>int_genstore_milo_</Item>
-		<Item>bkr_id1_05_strm_0</Item>
-		<Item>bkr_id1_rd_strm_1</Item>
-		<Item>carmeet_milo_</Item>
-		<Item>tr_int_placement_tr_interior_1_tuner_car_meet_milo_</Item>
-		<Item>courthouse</Item>
-		<Item>cs6_occl_02</Item>
-		<Item>lr_cs6_04</Item>
-		<Item>lr_cs6_04_strm_3</Item>
-		<Item>lr_cs6_04_strm_4</Item>
-		<Item>prison_cafeteria_milo_</Item>
-		<Item>prison_cells_doors</Item>
-		<Item>prison_cells_milo_</Item>
-		<Item>prison_garage_details</Item>
-		<Item>prison_visit_milo_</Item>
-		<Item>clawles_int_placement</Item>
-		<Item>cls_sherifff_lodinterior</Item>
-		<Item>cs1_16_sheriff_cap</Item>
-		<Item>cs1_17_sheriff_cap</Item>
-		<Item>cs1_occl_09</Item>
-		<Item>cs1_occl_10</Item>
-		<Item>hei_cs1_16_interior_v_sheriff2_milo_</Item>
-		<Item>int_clawles_sheriff_milo_</Item>
-		<Item>apa_ch2_04_strm_2</Item>
-		<Item>apa_ch2_04_strm_3</Item>
-		<Item>apa_ch2_occl_06</Item>
-		<Item>int_parkrls_milo_</Item>
-		<Item>tiwabs_illegal_hospital_milo</Item>
-		<Item>int_palpills_milo_</Item>
-		<Item>apa_distlodlights_small023</Item>
-		<Item>lr_sc1_occl_00</Item>
-		<Item>lr_sc1_occl_02</Item>
-		<Item>sc1_occl_02</Item>
-		<Item>taco_milo_</Item>
-		<Item>cs1_occl_10</Item>
-		<Item>v_clinick</Item>
+		<Item>karting_gigz_ext_2a</Item>
+		<Item>sp1_11_long_0</Item>
+		<Item>sp1_11_strm_0</Item>
 		<Item>apa_distlodlights_medium034</Item>
 		<Item>hei_id2_21_strm_1</Item>
 		<Item>hei_id2_occl_03</Item>
@@ -51,9 +33,29 @@
 		<Item>k4mb1_mirrorparkauto2_milo_</Item>
 		<Item>mirrorparkbackyardfence</Item>
 		<Item>mirrorparklift</Item>
+		<Item>lr_cs6_08_strm_0</Item>
+		<Item>cs6_occl_02</Item>
+		<Item>lr_cs6_04</Item>
+		<Item>lr_cs6_04_strm_3</Item>
+		<Item>lr_cs6_04_strm_4</Item>
+		<Item>prison_cafeteria_milo_</Item>
+		<Item>prison_cells_doors</Item>
+		<Item>prison_cells_milo_</Item>
+		<Item>prison_garage_details</Item>
+		<Item>prison_visit_milo_</Item>
+		<Item>creative_methlab01</Item>
 		<Item>denis3d_hayes_auto_exterior</Item>
 		<Item>denis3d_hayes_auto_milo_</Item>
 		<Item>hei_sm_occl_03</Item>
 		<Item>hei_sm_rd_strm_1</Item>
+		<Item>tiwabs_illegal_hospital_milo</Item>
+		<Item>cs1_occl_10</Item>
+		<Item>v_clinick</Item>
+		<Item>int_palpills_milo_</Item>
+		<Item>apa_ch2_04_strm_2</Item>
+		<Item>apa_ch2_04_strm_3</Item>
+		<Item>apa_ch2_occl_06</Item>
+		<Item>int_parkrls_milo_</Item>
+		<Item>courthouse</Item>
 	</proxies>
 </SInteriorOrderData>
