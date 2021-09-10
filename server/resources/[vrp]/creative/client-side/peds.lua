@@ -810,10 +810,16 @@ local pedList = {
 		model = { 0x158C439C,"g_f_y_ballas_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
-	{ -- Tacos
+	{ -- Burgershot
 		distance = 30,
-		coords = { 21.98,-1602.79,29.39,227.54 },
-		model = { 0x0F977CEB,"s_m_y_chef_01" },
+		coords = { -1164.31,-896.73,14.03,62.94 },
+		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Comercialização
+		distance = 30,
+		coords = { -1174.62,-898.65,13.98,227.54 },
+		model = { 0x5C366C83,"s_m_m_drugprocess_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	}
 }

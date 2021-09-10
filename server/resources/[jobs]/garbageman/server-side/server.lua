@@ -41,29 +41,32 @@ function cRP.searchTrash(id)
 		    else
 				
 				local random = math.random(100)
-				if parseInt(random) >= 87 then
+				if parseInt(random) >= 89 then
 					vRP.giveInventoryItem(user_id,"glassbottle",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 76 and parseInt(random) <= 86 then
+				elseif parseInt(random) >= 76 and parseInt(random) <= 88 then
 					vRP.giveInventoryItem(user_id,"elastic",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 56 and parseInt(random) <= 75 then
+				elseif parseInt(random) >= 68 and parseInt(random) <= 75 then
 					vRP.giveInventoryItem(user_id,"plasticbottle",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 45 and parseInt(random) <= 55 then
+				elseif parseInt(random) >= 59 and parseInt(random) <= 67 then
 					vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 34 and parseInt(random) <= 44 then
+				elseif parseInt(random) >= 46 and parseInt(random) <= 58 then
 					vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 23 and parseInt(random) <= 33 then
+				elseif parseInt(random) >= 35 and parseInt(random) <= 45 then
 					vRP.giveInventoryItem(user_id,"scrapmetal",math.random(3),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 12 and parseInt(random) <= 22 then
+				elseif parseInt(random) >= 22 and parseInt(random) <= 34 then
 					vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
 					timers[id] = 600
-				elseif parseInt(random) >= 6 and parseInt(random) <= 11 then
+				elseif parseInt(random) >= 12 and parseInt(random) <= 21 then
 					vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
+					timers[id] = 600
+					elseif parseInt(random) >= 6 and parseInt(random) <= 11 then
+					vRP.giveInventoryItem(user_id,"syringe",math.random(1),true)
 					timers[id] = 600
 				elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
 					vRP.giveInventoryItem(user_id,"fabric",math.random(1),true)

@@ -354,6 +354,20 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
+	
+	AddCircleZone("drugsToggle",vector3(-1174.62,-898.65,13.98),0.75,{
+		name = "drugsToggle",
+		heading = 227.54
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService",
+				label = "Comercialização",
+				tunnel = "client"
+			}
+		}
+	})
 
 	AddTargetModel({ 1158960338,1281992692 },{
 		options = {
