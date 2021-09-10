@@ -8,15 +8,15 @@ vRP = Proxy.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("tacos",cRP)
-vSERVER = Tunnel.getInterface("tacos")
+Tunnel.bindInterface("burgershot",cRP)
+vSERVER = Tunnel.getInterface("burgershot")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local selected = 0
 local blipDelivery = nil
 local deSelected = 0
-local vehModel = 1951180813
+local vehModel = -1842748181
 local timeSeconds = 0
 local currentStatus = false
 local serviceStatus = false
@@ -441,7 +441,7 @@ Citizen.CreateThread(function()
 							makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
 						end
 					else
-						TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Tacos</b>.",3000)
+						TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>BurgerShot</b>.",3000)
 						end
 					end
 				end

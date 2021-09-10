@@ -9,8 +9,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("tacos",cRP)
-vCLIENT = Tunnel.getInterface("tacos")
+Tunnel.bindInterface("burgershot",cRP)
+vCLIENT = Tunnel.getInterface("burgershot")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -19,10 +19,10 @@ local paymentMin = 85
 local paymentMax = 115
 local consumeItem = "foodbox"
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TACOS:FOODBURGER
+-- BURGERSHOT:FOODBURGER
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tacos:foodBurger")
-AddEventHandler("tacos:foodBurger",function(foodBurger)
+RegisterNetEvent("burgershot:foodBurger")
+AddEventHandler("burgershot:foodBurger",function(foodBurger)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -38,10 +38,10 @@ AddEventHandler("tacos:foodBurger",function(foodBurger)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TACOS:FOODJUICE
+-- BURGERSHOT:FOODJUICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tacos:foodJuice")
-AddEventHandler("tacos:foodJuice",function(foodJuice)
+RegisterNetEvent("burgershot:foodJuice")
+AddEventHandler("burgershot:foodJuice",function(foodJuice)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -57,10 +57,10 @@ AddEventHandler("tacos:foodJuice",function(foodJuice)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TACOS:FOODBOX
+-- BURGERSHOT:FOODBOX
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tacos:foodBox")
-AddEventHandler("tacos:foodBox",function(foodBox)
+RegisterNetEvent("burgershot:foodBox")
+AddEventHandler("burgershot:foodBox",function(foodBox)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -77,7 +77,7 @@ AddEventHandler("tacos:foodBox",function(foodBox)
 					itemCheck[locate] = true
 					locates[locate][7] = nil
 
-					TriggerClientEvent("tacos:updateItem",-1,locates)
+					TriggerClientEvent("burgershot:updateItem",-1,locates)
 				else
 				    TriggerClientEvent("Notify",source,"amarelo","Você não o necessário para fazer um combo.",5000)
 				end

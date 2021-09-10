@@ -306,7 +306,7 @@ Citizen.CreateThread(function()
 		distance = 1.25,
 		options = {
 			{
-				event = "tacos:foodJuice",
+				event = "burgershot:foodJuice",
 				label = "Encher Copo",
 				tunnel = "server"
 			}
@@ -320,7 +320,7 @@ Citizen.CreateThread(function()
 		distance = 1.35,
 		options = {
 			{
-				event = "tacos:foodBurger",
+				event = "burgershot:foodBurger",
 				label = "Montar Lanche",
 				tunnel = "server"
 			}
@@ -334,7 +334,7 @@ Citizen.CreateThread(function()
 		distance = 1.25,
 		options = {
 			{
-				event = "tacos:foodBox",
+				event = "burgershot:foodBox",
 				label = "Montar Caixa",
 				tunnel = "server"
 			}
