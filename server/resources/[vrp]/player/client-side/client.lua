@@ -1384,6 +1384,17 @@ AddEventHandler("onResourceStop",function(resource)
 	TriggerServerEvent("player:hackerDisplay","deu stop no resource **"..resource.."**")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SETDISCORD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.setDiscord(status)
+    SetDiscordAppId(867398054348849202)
+    SetDiscordRichPresenceAsset("logo")
+    SetDiscordRichPresenceAssetText("Gringa Roleplay")
+    SetDiscordRichPresenceAssetSmall("logo")
+    SetDiscordRichPresenceAssetSmallText("Gringa Roleplay")
+    SetRichPresence(status)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DrawText3D(x,y,z,text)

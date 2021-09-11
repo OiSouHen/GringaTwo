@@ -956,17 +956,3 @@ Citizen.CreateThread(function()
 		Citizen.Wait(timeDistance)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- RICHPRESENCE
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-    while true do
-		SetDiscordAppId(848976568952029184)
-		SetDiscordRichPresenceAsset("gringapresence")
-		SetDiscordRichPresenceAssetSmall("gringa")
---		SetRichPresence(user_id.." - Gringa Roleplay")
-		SetDiscordRichPresenceAssetText("Gringa Roleplay")
-		SetDiscordRichPresenceAssetSmallText("Gringa Roleplay")
-        Citizen.Wait(60000)
-    end
-end)

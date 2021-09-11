@@ -644,6 +644,17 @@ AddEventHandler("skinshop:setGlasses",function()
 	vRP.removeObjects("one")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SETARMS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("skinshop:setArms")
+AddEventHandler("skinshop:setArms", function()
+	if GetPedDrawableVariation(PlayerPedId(),3) == skinData["arms"]["item"] then
+		SetPedComponentVariation(PlayerPedId(),3,15,0,1)
+	else
+		SetPedComponentVariation(PlayerPedId(),3,skinData["arms"]["item"],skinData["arms"]["texture"],1)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GETHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.getHat()

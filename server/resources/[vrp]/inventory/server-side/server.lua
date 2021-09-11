@@ -692,6 +692,26 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						TriggerClientEvent("hunting:animalCalling",source)
 					end
 					
+					if itemName == "hat" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("skinshop:setHat",source)
+					end
+
+					if itemName == "glasses" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("skinshop:setGlasses",source)
+					end
+
+					if itemName == "mask" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("skinshop:setMask",source)
+					end
+
+					if itemName == "gloves" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("skinshop:setArms",source)
+					end
+					
 					if itemName == "teddy" then
 						vCLIENT.closeInventory(source)
 						vRPclient._createObjects(source,"impexp_int-0","mp_m_waremech_01_dual-0","v_ilev_mr_rasberryclean",49,24817,-0.20,0.46,-0.016,-180.0,-90.0,0.0)

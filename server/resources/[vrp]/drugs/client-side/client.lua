@@ -218,6 +218,7 @@ Citizen.CreateThread(function()
 								TaskTurnPedToFaceEntity(target,ped,3.0)
 								SetPedSuffersCriticalHits(target,false)
 								ClearPedTasks(target)
+								TriggerServerEvent("setPlateEveryone",plate,modelName)
 
 								RequestAnimDict("random@arrests@busted")
 								while not HasAnimDictLoaded("random@arrests@busted") do

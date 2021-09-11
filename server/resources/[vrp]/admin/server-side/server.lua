@@ -17,7 +17,6 @@ vHOMES = Tunnel.getInterface("homes")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookadmin = "YOURWEEBHOOKHERE"
 local webhookkick = "YOURWEEBHOOKHERE"
 local webhookfac = "YOURWEEBHOOKHERE"
 local webhookkeys = "YOURWEEBHOOKHERE"

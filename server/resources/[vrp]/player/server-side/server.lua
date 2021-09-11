@@ -1157,3 +1157,13 @@ RegisterCommand("cam",function(source,args,rawCommand)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SETDISCORD
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("vRP:playerSpawn",function(user_id,source)
+    local identity = vRP.getUserIdentity(user_id)
+    if identity then
+        vCLIENT.setDiscord(source,user_id.." - ".."Gringa Roleplay")
+        TriggerClientEvent(source,"active:checkcam",true)
+    end
+end)

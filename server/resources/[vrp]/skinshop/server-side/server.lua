@@ -40,7 +40,7 @@ end
 RegisterCommand("skin",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") and args[1] then
+		if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Owner") and args[1] then
 			local nplayer = vRP.getUserSource(parseInt(args[1]))
 			if nplayer then
 				vRPclient.applySkin(nplayer,GetHashKey(args[2]))
@@ -50,59 +50,78 @@ RegisterCommand("skin",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MASCARA
+-- GETUSEMASK
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("mascara",function(source,args)
-	local user_id = vRP.getUserId(source)
-	local action = args[1]
-	if user_id then
-		if action then
-			if action == "true" or action == "1" then
-				local item,texture = vCLIENT.getMask(source)
-				TriggerClientEvent("skinshop:setMask",source,{ item,texture })
-			elseif action == "false" or action == "0" then
-				TriggerClientEvent("skinshop:setMask",source)
-			end
-		else
-			TriggerClientEvent("skinshop:setMask",source)
-		end
-	end
-end)
+function cRP.getUseMask()
+    local user_id = vRP.getUserId(source)
+    local action = args[1]
+    if user_id then
+        if action then
+            if action == false then
+                local item,texture = vCLIENT.getMask(source)
+                TriggerClientEvent("skinshop:setMask",source,{ item,texture })
+            elseif action == true then
+                TriggerClientEvent("skinshop:setMask",source)
+            end
+        else
+            TriggerClientEvent("skinshop:setMask",source)
+        end
+    end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHAPEU
+-- GETUSEHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("chapeu",function(source,args)
-	local user_id = vRP.getUserId(source)
-	local action = args[1]
-	if user_id then
-		if action then
-			if action == "true" or action == "1" then
-				local item,texture = vCLIENT.getHat(source)
-				TriggerClientEvent("skinshop:setHat",source,{ item,texture })
-			elseif action == "false" or action == "0" then
-				TriggerClientEvent("skinshop:setHat",source)
-			end
-		else
-			TriggerClientEvent("skinshop:setHat",source)
-		end
-	end
-end)
+function cRP.getUseHat()
+    local user_id = vRP.getUserId(source)
+    local action = args[1]
+    if user_id then
+        if action then
+            if action == false then
+                local item,texture = vCLIENT.getHat(source)
+                TriggerClientEvent("skinshop:setHat",source,{ item,texture })
+            elseif action == true then
+                TriggerClientEvent("skinshop:setHat",source)
+            end
+        else
+            TriggerClientEvent("skinshop:setHat",source)
+        end
+    end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- OCULOS
+-- GETUSEGLASSES
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("oculos",function(source,args)
-	local user_id = vRP.getUserId(source)
-	local action = args[1]
-	if user_id then
-		if action then
-			if action == "true" or action == "1" then
-				local item,texture = vCLIENT.getGlasses(source)
-				TriggerClientEvent("skinshop:setGlasses",source,{ item,texture })
-			elseif action == "false" or action == "0" then
-				TriggerClientEvent("skinshop:setGlasses",source)
-			end
-		else
-			TriggerClientEvent("skinshop:setGlasses",source)
-		end
-	end
-end)
+function cRP.getUseGlasses()
+    local user_id = vRP.getUserId(source)
+    local action = args[1]
+    if user_id then
+        if action then
+            if action == false then
+                local item,texture = vCLIENT.getGlasses(source)
+                TriggerClientEvent("skinshop:setGlasses",source,{ item,texture })
+            elseif action == true then
+                TriggerClientEvent("skinshop:setGlasses",source)
+            end
+        else
+            TriggerClientEvent("skinshop:setGlasses",source)
+        end
+    end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETUSEGLOVES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.getUseGloves()
+    local user_id = vRP.getUserId(source)
+    local action = args[1]
+    if user_id then
+        if action then
+            if action == false then
+                local item,texture = vCLIENT.getGloves(source)
+                TriggerClientEvent("skinshop:setArms",source,{ item,texture })
+            elseif action == true then
+                TriggerClientEvent("skinshop:setArms",source)
+            end
+        else
+            TriggerClientEvent("skinshop:setArms",source)
+        end
+    end
+end
