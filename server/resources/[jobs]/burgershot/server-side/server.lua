@@ -74,10 +74,6 @@ AddEventHandler("burgershot:foodBox",function(foodBox)
 				    vRP.tryGetInventoryItem(user_id,"foodburger",1,false)
 				    vRP.tryGetInventoryItem(user_id,"foodjuice",1,false)
 				    vRP.giveInventoryItem(user_id,"foodbox",1,true)
-					itemCheck[locate] = true
-					locates[locate][7] = nil
-
-					TriggerClientEvent("burgershot:updateItem",-1,locates)
 				else
 				    TriggerClientEvent("Notify",source,"amarelo","Você não o necessário para fazer um combo.",5000)
 				end

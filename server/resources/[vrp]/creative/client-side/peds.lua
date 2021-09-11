@@ -6,6 +6,12 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
+	{ -- Heroine
+		distance = 100,
+		coords = { -801.95,-684.14,29.54,331.66 },
+		model = { 0x53B57EB0,"a_m_m_trampbeac_01" },
+		anim = { "amb@world_human_stupor@male@base","base" }
+	},
 	{ -- Black Market
 		distance = 20,
 		coords = { 2431.86,4967.66,42.34,133.23 },

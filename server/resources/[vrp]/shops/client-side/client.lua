@@ -131,9 +131,6 @@ local shopList = {
 	{ -1421.49,-455.56,35.91,"mechanicTools",false,true,{ 8,20 } },
 	{ -1414.6,-451.25,35.91,"mechanicTools",false,true,{ 8,20 } },
 	{ -1408.64,-447.52,35.91,"mechanicTools",false,true,{ 8,20 } },
-	{ -40.06,-1056.43,28.39,"mechanicTools",false,true,{ 8,20 } },
-	{ -32.09,-1039.12,28.59,"mechanicTools",false,true,{ 8,20 } },
-	{ -33.48,-1040.76,28.59,"mechanicTools",false,true,{ 8,20 } },
 	{ -216.47,-1318.95,30.89,"mechanicTools",false,true,{ 8,20 } },
 	{ -197.35,-1320.54,31.09,"mechanicTools",false,true,{ 8,20 } },
 	{ -199.41,-1319.8,31.09,"mechanicTools",false,true,{ 8,20 } },
@@ -143,7 +140,8 @@ local shopList = {
 	{ 988.24,-96.46,74.85,"mcFridge",false,false },
 	{ 128.42,-1285.49,29.27,"mcFridge",false,false },
 	{ -560.24,286.75,82.18,"mcFridge",false,false },
-	{ -1636.23,-1091.43,13.52,"oxyStore",false,true,{ 20,22 } }
+	{ -1636.23,-1091.43,13.52,"oxyStore",false,true,{ 20,22 } },
+	{ -801.91,-683.64,29.54,"heroineStore",false,true,{ 04,05 } }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTARGET
@@ -177,7 +175,7 @@ AddEventHandler("shops:openSystem",function(shopId)
 			SetNuiFocus(true,true)
 			SendNUIMessage({ action = "showNUI", name = shopList[shopId][4], type = vSERVER.getShopType(shopList[shopId][4]) })
 		else
-			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."</b> ás <b>"..shopList[shopId][7][2].."</b> horas.",5000)
+			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..shopList[shopId][7][1].."</b> ?s <b>"..shopList[shopId][7][2].."</b> horas.",5000)
 		end
 	else
 		if vSERVER.requestPerm(shopList[shopId][4]) then

@@ -285,23 +285,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("mecService10",vector3(-35.57,-1070.28,28.4),0.75,{
-		name = "mecService10",
-		heading = 161.19
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "lscustoms:serviceMechanic",
-				label = "Trabalhar",
-				tunnel = "server"
-			}
-		}
-	})
-	
-	AddCircleZone("foodJuice",vector3(13.25,-1596,29.37),0.5,{
+	AddCircleZone("foodJuice",vector3(-1198.96,-895.47,13.99),0.5,{
 		name = "foodJuice",
-		heading = 38.10
+		heading = 136.92
 	},{
 		distance = 1.25,
 		options = {
@@ -313,9 +299,9 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddCircleZone("foodBurger",vector3(11.12,-1599,29.37),0.5,{
+	AddCircleZone("foodBurger",vector3(-1199.9,-898.49,13.99),0.5,{
 		name = "foodBurger",
-		heading = 57.33
+		heading = 311.68
 	},{
 		distance = 1.35,
 		options = {
@@ -327,9 +313,9 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddCircleZone("foodBox",vector3(15.61,-1597.97,29.38),0.5,{
+	AddCircleZone("foodBox",vector3(-1197.27,-891.9,13.99),0.5,{
 		name = "foodBox",
-		heading = 320.01
+		heading = 35.38
 	},{
 		distance = 1.25,
 		options = {

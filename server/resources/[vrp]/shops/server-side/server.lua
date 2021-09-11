@@ -321,6 +321,20 @@ local shops = {
 			["WEAPON_CROWBAR"] = 725
 		}
 	},
+	["oxyStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["oxy"] = 65
+		}
+	},
+	["heroineStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["heroine"] = 3400
+		}
+	},
 	["weaponsStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",

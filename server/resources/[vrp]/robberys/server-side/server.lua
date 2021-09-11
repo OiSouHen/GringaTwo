@@ -673,10 +673,3 @@ end)
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	vCLIENT.updateVars(source,vars)
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADPLAYERSPAWN
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	Citizen.Wait(1000)
-	vCLIENT.updateVars(-1,vars)
-end)
