@@ -190,8 +190,9 @@ Citizen.CreateThread(function()
 							local coords = GetEntityCoords(ped)
 							local vehicle = GetVehiclePedIsUsing(target)
 							local speed = GetEntitySpeed(vehicle) * 2.236936
-							local plate = GetVehicleNumberPlateText(vehicle)
 							local distance = #(coords - GetEntityCoords(vehicle))
+							
+							local plate = GetVehicleNumberPlateText(vehicle)
 							local modelName = vRP.vehicleModel(GetEntityModel(vehicle))
 
 							if distance <= 10 and IsPedFacingPed(target,ped,180.0) and speed <= 5 then

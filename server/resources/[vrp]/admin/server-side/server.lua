@@ -516,7 +516,7 @@ RegisterCommand("onlines",function(source,args,rawCommand)
 		end
 
 		TriggerClientEvent("chatMessage",source,"IDS Onlines:",{1, 136, 0},players)
-		TriggerClientEvent("Notify",source,"amarelo","Atualmente <b>"..quantidade.."</b> onlines.",5000)
+		TriggerClientEvent("Notify",source,"amarelo","Atualmente <b>"..quantidade.."</b> onlines.",10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

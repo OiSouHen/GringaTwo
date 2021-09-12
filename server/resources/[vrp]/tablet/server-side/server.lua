@@ -17,6 +17,8 @@ local carros = {}
 local aluguel = {}
 local stockVeh = {}
 local lockReq = {}
+local stealVehs = {}
+local testDriveTime = 60000
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEGLOBALTHREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -274,5 +276,26 @@ function cRP.aboutInformations()
 			local identity = vRP.getUserIdentity(user_id)
 			return inventory,vRP.computeInvWeight(user_id),vRP.getBackpack(user_id),{ identity.name.." "..identity.name2,parseInt(user_id),parseInt(identity.bank),parseInt(vRP.getGmsId(user_id)),identity.phone,identity.registration }
 		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STARTDRIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.startDrive()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		return testDriveTime
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REMOVEDRIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.removeDrive()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		TriggerClientEvent("Progress",source,0,"Testando...")
+		return true
 	end
 end

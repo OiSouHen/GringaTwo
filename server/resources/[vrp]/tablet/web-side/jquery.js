@@ -355,6 +355,7 @@ const UpdateLista = (mode) => {
 					<right>
 						<br>
 						<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
+						<div id="benefactorDrive" data-name="${item["k"]}">Testar</div>
 					</right>
 				</span>`)).join('')}
 			`);
@@ -391,6 +392,7 @@ const benefactor = () => {
 				<right>
 					<br>
 					<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
+					<div id="benefactorDrive" data-name="${item["k"]}">Testar</div>
 				</right>
 			</span>`)).join('')}
 		`);
@@ -401,6 +403,7 @@ $(document).on("click","#benefactorBuy",function(e){
 	$.post("http://tablet/buyDealer",JSON.stringify({
 		name: e["target"]["dataset"]["name"]
 	}));
+	
 	UpdateLista('Carros');
 	$.post("http://tablet/closeSystem");
 });
@@ -409,6 +412,7 @@ $(document).on("click","#benefactorSell",function(e){
 	$.post("http://tablet/sellDealer",JSON.stringify({
 		name: e["target"]["dataset"]["name"]
 	}));
+	
 	UpdateLista('Carros');
 	$.post("http://tablet/closeSystem");
 });
