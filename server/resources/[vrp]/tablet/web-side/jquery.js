@@ -30,6 +30,10 @@ $(document).ready(function(){
 				updateAluguel();
 			break;
 			
+			case "updateServicos":
+				updateServicos();
+			break;
+			
 			case "aboutPage":
 				aboutPage();
 			break;
@@ -318,6 +322,7 @@ const UpdateLista = (mode) => {
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
 		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
+		<li id="benefactor" onclick="UpdateLista('Servicos');" data-id="Servicos" ${mode == "Servicos" ? "class=active":""}>SERVIÇOS</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
 		</div>
 
@@ -334,12 +339,11 @@ const UpdateLista = (mode) => {
 			$("#pageVehicles").html(`
 			${nameList.map((item) => (`<span>
 				<left>
-					${item["name"]}<br>
+					<i>${item["name"]}</i>
 					<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
 					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 				</left>
 				<right>
-				    <br>
 					<div id="benefactorSell" data-name="${item["k"]}">VENDER</div><br>
 				</right>
 			</span>`)).join('')}
@@ -348,12 +352,12 @@ const UpdateLista = (mode) => {
 			$("#pageVehicles").html(`
 				${nameList.map((item) => (`<span>
 					<left>
-						${item["name"]}<br>
+						<i>${item["name"]}</i>
 						<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
+						<b>Taxa:</b> $${format(item["tax"])}<br>
 						<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 					</left>
 					<right>
-						<br>
 						<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
 						<div id="benefactorDrive" data-name="${item["k"]}">Testar</div>
 					</right>
@@ -370,6 +374,7 @@ const benefactor = () => {
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" class="active">CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos">MOTOS</li>
 		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel">ALUGUEL</li>
+		<li id="benefactor" onclick="UpdateLista('Servicos');" data-id="Servicos">SERVIÇOS</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos">POSSUÍDOS</li>
 		</div>
 
@@ -385,12 +390,12 @@ const benefactor = () => {
 		$("#pageVehicles").html(`
 			${nameList.map((item) => (`<span>
 				<left>
-					${item["name"]}<br>
+					<i>${item["name"]}</i>
 					<b>Valor:</b> $${format(item["price"])}<br>
+					<b>Taxa:</b> $${format(item["tax"])}<br>
 					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 				</left>
 				<right>
-					<br>
 					<div id="benefactorBuy" data-name="${item["k"]}">Comprar</div>
 					<div id="benefactorDrive" data-name="${item["k"]}">Testar</div>
 				</right>

@@ -15,6 +15,7 @@ Tunnel.bindInterface("tablet",cRP)
 local motos = {}
 local carros = {}
 local aluguel = {}
+local servicos = {}
 local stockVeh = {}
 local lockReq = {}
 local stealVehs = {}
@@ -27,11 +28,13 @@ Citizen.CreateThread(function()
 	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
 	for k,v in pairs(vehicles) do
 		if v[4] == "cars" then
-			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
 		elseif v[4] == "bikes" then
-			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]) })
+			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
 		elseif v[4] == "rental" then
-			table.insert(aluguel,{ k = k, name = v[1], price = v[5], chest = parseInt(v[2]) })
+			table.insert(aluguel,{ k = k, name = v[1], price = v[5], chest = parseInt(v[2]), tax = parseInt(v[7]) })
+		elseif v[4] == "work" then
+			table.insert(servicos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
 		end
 	end
 	if #temp_stock > 0 then
@@ -56,7 +59,9 @@ function task_save_datatables()
 			end
 		end
 	end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TASKSAVEDATATABLES:STOCKVEG
+-----------------------------------------------------------------------------------------------------------------------------------------
 	for k,v in pairs(stockVeh) do
 		if temp_db[k] then
 			vRP.execute("vRP/update_ConceStock",{ estoque = tonumber(v), vehicle = k })
@@ -82,6 +87,7 @@ local hasVehicleStock = function(veh)
 			if temp_stock > 0 then return true else return false end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -96,6 +102,7 @@ local tryAddVehicleInStock = function(veh)
 			return true
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -112,13 +119,16 @@ local tryRemVehicleInStock = function(veh)
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
 local webhookdealership = ""
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATIVELOGS
+-----------------------------------------------------------------------------------------------------------------------------------------
 function creativelogs(webhook,message)
 	if webhook ~= nil and webhook ~= "" then
 		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
@@ -155,6 +165,16 @@ function cRP.Aluguel()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SERVICOS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.Servicos()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		return servicos
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- POSSUIDOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.Possuidos()
@@ -166,6 +186,7 @@ function cRP.Possuidos()
 		for k,v in pairs(vehicles) do
 			table.insert(vehList,{ k = v.vehicle, work = v.work, name = vRP.vehicleName(v.vehicle), price = parseInt(vRP.vehiclePrice(v.vehicle)*0.7), chest = parseInt(vRP.vehicleChest(v.vehicle)) })
 		end
+		
 		return vehList
 	end
 end

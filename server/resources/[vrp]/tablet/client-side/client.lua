@@ -78,6 +78,15 @@ RegisterNUICallback("requestAluguel",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- REQUESTSERVICOS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("requestServicos",function(data,cb)
+	local veiculos = vSERVER.Servicos()
+	if veiculos then
+		cb({ veiculos = veiculos })
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTPOSSUIDOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestPossuidos",function(data,cb)
@@ -102,7 +111,7 @@ RegisterNUICallback("buyDealer",function(data)
 			vSERVER.buyDealer(data.name)
 		end
 	else
-		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para efetuar a compra.",5000)
+		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para Comprar.",10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -145,7 +154,7 @@ RegisterNUICallback("requestDrive",function(data,cb)
 		if driveIn then
 			TriggerEvent("races:insertList",true)
 			TriggerEvent("player:blockCommands",true)
-			TriggerEvent("Notify","azul","Você tem <b>60 segundos</b> para testar o veículo.<br>Caso saia do veículo o teste será encerrado.",15000)
+			TriggerEvent("Notify","azul","Você tem <b>60 segundos</b> para testar o veículo.<br><br>Caso saia do veículo o teste será encerrado.",15000)
 			vehCreate(data["name"],vehPlate)
 			SetPedIntoVehicle(ped,vehDrive,-1)
 			benDrive = true
@@ -163,7 +172,7 @@ RegisterNUICallback("requestDrive",function(data,cb)
 			SetEntityCoords(ped,benCoords[1],benCoords[2],benCoords[3],1,0,0,0)
 		end
 	else
-		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para efetuar o Teste.",5000)
+		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para Testar.",10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
