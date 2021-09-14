@@ -140,9 +140,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("polService03",vector3(-449.33,6011.25,31.72),0.75,{
+	AddCircleZone("polService03",vector3(-449.36,6012.67,31.72),0.75,{
 		name = "polService03",
-		heading = 163.53
+		heading = 46.3
 	},{
 		distance = 1.0,
 		options = {

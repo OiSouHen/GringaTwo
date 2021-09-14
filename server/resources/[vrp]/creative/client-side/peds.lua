@@ -390,6 +390,12 @@ local pedList = {
 		model = { 0x18CE57D0,"mp_m_shopkeep_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
+	{ -- Departament Store
+		distance = 10,
+		coords = { 1781.02,2559.06,45.68,181.17 },
+		model = { 0x18CE57D0,"mp_m_shopkeep_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
 	{ -- Ammu-Nation Store
 		distance = 12,
 		coords = { 1692.28,3760.94,34.69,229.61 },

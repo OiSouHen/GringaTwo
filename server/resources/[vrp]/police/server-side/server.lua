@@ -170,7 +170,7 @@ RegisterCommand("rprender",function(source,args,rawCommand)
 
 			local identity = vRP.getUserIdentity(parseInt(nuser_id))
 			if identity then
-				TriggerClientEvent("Notify",source,"amarelo","<b>"..identity.name.." "..identity.name2.."</b> teve sua pena reduzida em <b>"..parseInt(services).."</b> serviços</b>.",3000)
+				TriggerClientEvent("Notify",source,"amarelo","<b>"..identity.name.." "..identity.name2.."</b> teve sua pena reduzida em <b>"..parseInt(services).."</b> serviços</b>.",5000)
 			end
 		end
 	end
@@ -206,6 +206,7 @@ function cRP.callPolice()
 			TriggerClientEvent("Notify",v,"amarelo","Encontramos um fugitivo do presídio.",5000)
 		end)
 	end
+	
 	return parseInt(race)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -227,13 +228,42 @@ function cRP.reducePrison()
 			end
 		else
 			vCLIENT.syncPrison(source,parseInt(consult[1].locate))
-			TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",3000)
+			TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
 			
-			local random = math.random(1000)
-			if parseInt(random) >= 500 then
-				vRP.giveInventoryItem(user_id,"key",1,true)
+		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
+			Wait(1)
+		else
+			local random = math.random(100)
+			if parseInt(random) >= 90 then
+				vRP.giveInventoryItem(user_id,"glassbottle",math.random(3),true)
+			elseif parseInt(random) >= 79 and parseInt(random) <= 89 then
+				vRP.giveInventoryItem(user_id,"elastic",math.random(3),true)
+			elseif parseInt(random) >= 68 and parseInt(random) <= 78 then
+				vRP.giveInventoryItem(user_id,"plasticbottle",math.random(3),true)
+			elseif parseInt(random) >= 57 and parseInt(random) <= 67 then
+				vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
+			elseif parseInt(random) >= 46 and parseInt(random) <= 56 then
+				vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
+			elseif parseInt(random) >= 40 and parseInt(random) <= 45 then
+				vRP.giveInventoryItem(user_id,"scrapmetal",math.random(3),true)
+			elseif parseInt(random) >= 34 and parseInt(random) <= 39 then
+				vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
+			elseif parseInt(random) >= 24 and parseInt(random) <= 29 then
+				vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
+			elseif parseInt(random) >= 18 and parseInt(random) <= 23 then
+				vRP.giveInventoryItem(user_id,"syringe",math.random(1),true)
+			elseif parseInt(random) >= 12 and parseInt(random) <= 17 then
+				vRP.giveInventoryItem(user_id,"fabric",math.random(2),true)
+			elseif parseInt(random) >= 6 and parseInt(random) <= 11 then
+				vRP.giveInventoryItem(user_id,"keys",math.random(1),true)
+			elseif parseInt(random) >= 1 and parseInt(random) <= 5 then
+				vRP.giveInventoryItem(user_id,"WEAPON_MACHETE",math.random(1),true)
 			end
+			return true
+		end
 			
+			vRP.upgradeStress(user_id,1)
 		end
 	end
 end
@@ -247,7 +277,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	if parseInt(consult[1].prison) <= 0 then
 		return
 	else
-		TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",3000)
+		TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
 		vCLIENT.syncPrison(source,parseInt(consult[1].locate))
 		vRPclient.teleport(source,1775.61,2495.13,50.43)
 	end

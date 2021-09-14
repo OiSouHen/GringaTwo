@@ -1677,16 +1677,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.25
 	},
-	["WEAPON_KNIFE"] = {
-		index = "knife",
-		name = "Faca",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "equip",
-		weight = 1.50
-	},
 	["WEAPON_HATCHET"] = {
 		index = "hatchet",
 		name = "Machado",
@@ -1716,16 +1706,6 @@ local itemlist = {
 		economy = "975",
 		type = "equip",
 		weight = 0.75
-	},
-	["WEAPON_BOTTLE"] = {
-		index = "bottle",
-		name = "Garrafa",
-		desc = "",
-		tipo = "",
-		unity = "",
-		economy = "",
-		type = "equip",
-		weight = 2.50
 	},
 	["WEAPON_CROWBAR"] = {
 		index = "crowbar",

@@ -40,68 +40,68 @@ function cRP.searchTrash(id)
 			    Wait(1)
 		    else
 				if vRP.hasPermission(user_id,"TheLost") then
-					local random = math.random(100)
-					if parseInt(random) >= 89 then
-						vRP.giveInventoryItem(user_id,"glassbottle",math.random(3),true)
+					local random = math.random(80)
+					if parseInt(random) >= 71 then
+						vRP.giveInventoryItem(user_id,"glassbottle",math.random(4),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 76 and parseInt(random) <= 88 then
-						vRP.giveInventoryItem(user_id,"elastic",math.random(3),true)
+					elseif parseInt(random) >= 61 and parseInt(random) <= 70 then
+						vRP.giveInventoryItem(user_id,"elastic",math.random(4),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 68 and parseInt(random) <= 75 then
-						vRP.giveInventoryItem(user_id,"plasticbottle",math.random(3),true)
+					elseif parseInt(random) >= 51 and parseInt(random) <= 60 then
+						vRP.giveInventoryItem(user_id,"plasticbottle",math.random(4),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 59 and parseInt(random) <= 67 then
-						vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
+					elseif parseInt(random) >= 41 and parseInt(random) <= 50 then
+						vRP.giveInventoryItem(user_id,"metalcan",math.random(4),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 46 and parseInt(random) <= 58 then
-						vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
+					elseif parseInt(random) >= 30 and parseInt(random) <= 40 then
+						vRP.giveInventoryItem(user_id,"battery",math.random(4),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 35 and parseInt(random) <= 45 then
-						vRP.giveInventoryItem(user_id,"scrapmetal",math.random(3),true)
+					elseif parseInt(random) >= 24 and parseInt(random) <= 29 then
+						vRP.giveInventoryItem(user_id,"scrapmetal",math.random(6),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 22 and parseInt(random) <= 34 then
-						vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
+					elseif parseInt(random) >= 18 and parseInt(random) <= 23 then
+						vRP.giveInventoryItem(user_id,"wheatflour",math.random(2),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 12 and parseInt(random) <= 21 then
-						vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
+					elseif parseInt(random) >= 12 and parseInt(random) <= 17 then
+						vRP.giveInventoryItem(user_id,"titanium",math.random(2),true)
 						timers[id] = 600
 					elseif parseInt(random) >= 6 and parseInt(random) <= 11 then
-						vRP.giveInventoryItem(user_id,"syringe",math.random(1),true)
+						vRP.giveInventoryItem(user_id,"syringe",math.random(2),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
-						vRP.giveInventoryItem(user_id,"fabric",math.random(2),true)
+					elseif parseInt(random) >= 1 and parseInt(random) <= 5 then
+						vRP.giveInventoryItem(user_id,"fabric",math.random(3),true)
 						timers[id] = 600
 					end
 				else
-					local random = math.random(100)
-					if parseInt(random) >= 89 then
+					local random = math.random(80)
+					if parseInt(random) >= 71 then
 						vRP.giveInventoryItem(user_id,"glassbottle",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 76 and parseInt(random) <= 88 then
+					elseif parseInt(random) >= 61 and parseInt(random) <= 70 then
 						vRP.giveInventoryItem(user_id,"elastic",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 68 and parseInt(random) <= 75 then
+					elseif parseInt(random) >= 51 and parseInt(random) <= 60 then
 						vRP.giveInventoryItem(user_id,"plasticbottle",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 59 and parseInt(random) <= 67 then
+					elseif parseInt(random) >= 41 and parseInt(random) <= 50 then
 						vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 46 and parseInt(random) <= 58 then
+					elseif parseInt(random) >= 30 and parseInt(random) <= 40 then
 						vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 35 and parseInt(random) <= 45 then
-						vRP.giveInventoryItem(user_id,"scrapmetal",math.random(6),true)
+					elseif parseInt(random) >= 24 and parseInt(random) <= 29 then
+						vRP.giveInventoryItem(user_id,"scrapmetal",math.random(3),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 22 and parseInt(random) <= 34 then
+					elseif parseInt(random) >= 18 and parseInt(random) <= 23 then
 						vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 12 and parseInt(random) <= 21 then
+					elseif parseInt(random) >= 12 and parseInt(random) <= 17 then
 						vRP.giveInventoryItem(user_id,"titanium",math.random(1),true)
 						timers[id] = 600
 					elseif parseInt(random) >= 6 and parseInt(random) <= 11 then
 						vRP.giveInventoryItem(user_id,"syringe",math.random(1),true)
 						timers[id] = 600
-					elseif parseInt(random) >= 0 and parseInt(random) <= 5 then
+					elseif parseInt(random) >= 1 and parseInt(random) <= 5 then
 						vRP.giveInventoryItem(user_id,"fabric",math.random(2),true)
 						timers[id] = 600
 					end
