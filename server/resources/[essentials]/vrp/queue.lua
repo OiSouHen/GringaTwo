@@ -536,11 +536,11 @@ local function playerActivated()
 
 	if not Queue.PlayerList[source] then
 		local ids = Queue:GetIds(source)
-
-		Queue.PlayerCount = Queue.PlayerCount + 1
-		Queue.PlayerList[source] = true
-		Queue:RemoveFromQueue(ids)
-		Queue:RemoveFromConnecting(ids)
+        TriggerClientEvent("vrp:playerActive",source,true)
+        Queue.PlayerCount = Queue.PlayerCount + 1
+        Queue.PlayerList[source] = true
+        Queue:RemoveFromQueue(ids)
+        Queue:RemoveFromConnecting(ids)
 	end
 end
 
