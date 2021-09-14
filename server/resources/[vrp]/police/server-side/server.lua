@@ -139,7 +139,8 @@ function cRP.searchUser(data)
         for k,v in pairs(consult) do
             fines = parseInt(fines) + parseInt(v.price)
         end
---        local data = vRP.query("vRP/get_pol",{ user_id = data.passaporte })
+		
+--      local data = vRP.query("vRP/get_pol",{ user_id = data.passaporte })
         return {identity.register, name, rg , phone , gender, 10, data }
     end
 end

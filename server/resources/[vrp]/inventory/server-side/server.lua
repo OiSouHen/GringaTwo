@@ -131,7 +131,9 @@ function cRP.Backpack()
 		end
 	end
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BACKPACK:DUMP
+-----------------------------------------------------------------------------------------------------------------------------------------
 function dump(o)
 	if type(o) == 'table' then
 		local s = '{ '
@@ -227,7 +229,9 @@ local weapon_ammos = {
 		"WEAPON_PETROLCAN"
 	}
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKWEAPONBYAMMO
+-----------------------------------------------------------------------------------------------------------------------------------------
 local function checkWeaponByAmmo(ammo, weapon)
 	local is_w = weapon_ammos[ammo]
 	if is_w then
@@ -237,8 +241,12 @@ local function checkWeaponByAmmo(ammo, weapon)
 			end
 		end
 	end
+	
 	return false
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETAMMOTYPEBYWEAPON
+-----------------------------------------------------------------------------------------------------------------------------------------
 local function getAmmoTypeByWeapon(wea)
 	for ammo, weapons in pairs(weapon_ammos) do
 		for _, weapon in pairs(weapons) do
@@ -247,15 +255,17 @@ local function getAmmoTypeByWeapon(wea)
 			end
 		end
 	end
+	
 	return ""
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- POPULATESLOT
+-- UPDATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:updateSlot")
 AddEventHandler("inventory:updateSlot",function(itemName,slot,target,amount)
     local source = source
     local user_id = vRP.getUserId(source)
+	local durability = vRP.getInventoryItemDurability(user_id,itemName)
     if user_id then
         if amount == nil then amount = 1 end
         if amount <= 0 then amount = 1 end
@@ -264,7 +274,7 @@ AddEventHandler("inventory:updateSlot",function(itemName,slot,target,amount)
         if inv then
             if inv[tostring(slot)] and inv[tostring(target)] and inv[tostring(slot)].item == inv[tostring(target)].item then
                 if vRP.tryGetInventoryItem(user_id,itemName,amount,false,slot) then
-                    vRP.giveInventoryItem(user_id,itemName,amount,false,target)
+                    vRP.giveInventoryItem(user_id,itemName,amount,false,target,parseInt(durability))
                 end
             else
                 vRP.swapSlot(user_id,slot,target)
@@ -295,7 +305,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 				local itemName = inv[tostring(slot)].item
 				if vRP.itemTypeList(itemName) == "use" then
 					TriggerClientEvent("inventory:Update",source,"updateBackpack")
-					-- vCLIENT.removeWeaponInHand(source)
 					if itemName == "bandage" then
 						if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 200 then
 							active[user_id] = 10

@@ -14,31 +14,23 @@ Tunnel.bindInterface("hud",cRP)
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local voice = 2
-local showHud = false
-local talking = false
 local stress = 0
-local showMovie = false
-local radioDisplay = ""
-local pauseBreak = false
 local hunger = 100
 local thirst = 100
+local showHud = false
+local talking = false
+local showMovie = false
+local pauseBreak = false
 local homeInterior = false
 local playerActive = true
+local radioDisplay = ""
 local flexDirection = "Norte"
-local updateFoods = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
 local beltSpeed = 0
 local beltLock = false
 local beltVelocity = vector3(0,0,0)
------------------------------------------------------------------------------------------------------------------------------------------
--- DIVINABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local divingMask = nil
-local divingTank = nil
-local clientOxigen = 100
-local divingTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOCKVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -52,26 +44,6 @@ local timeDate = GetGameTimer()
 RegisterNetEvent("vrp:playerActive")
 AddEventHandler("vrp:playerActive",function(user_id)
 	playerActive = true
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		if divingMask ~= nil then
-			if GetGameTimer() >= divingTimers then
-				divingTimers = GetGameTimer() + 35000
-				clientOxigen = clientOxigen - 1
-				vRPS.clientOxigen()
-
-				if clientOxigen <= 0 then
-					ApplyDamageToPed(PlayerPedId(),50,false)
-				end
-			end
-		end
-
-		Citizen.Wait(5000)
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
@@ -216,13 +188,13 @@ function updateDisplayHud()
 			showBelt = false
 		end
 
-		SendNUIMessage({ vehicle = true, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask, fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock })
+		SendNUIMessage({ vehicle = true, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = GetPlayerUnderwaterTimeRemaining(PlayerId()), fuel = fuel, speed = speed, showbelt = showBelt, seatbelt = beltLock })
 	else
 		if IsMinimapRendering() then
 			DisplayRadar(false)
 		end
 
-		SendNUIMessage({ vehicle = false, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = oxigen, suit = divingMask })
+		SendNUIMessage({ vehicle = false, talking = talking, health = GetEntityHealth(ped) - 100, armour = armour, thirst = thirst, hunger = hunger, stress = stress, street = streetName, direction = flexDirection, radio = radioDisplay, voice = voice, oxigen = GetPlayerUnderwaterTimeRemaining(PlayerId()) })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -495,93 +467,5 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(1000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- REMOVESCUBA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:removeScuba")
-AddEventHandler("hud:removeScuba",function()
-	local ped = PlayerPedId()
-	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
-		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",ObjToNet(divingMask))
-			divingMask = nil
-		end
-
-		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",ObjToNet(divingTank))
-			divingTank = nil
-		end
-
-		SetEnableScuba(ped,false)
-		SetPedMaxTimeUnderwater(ped,10.0)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HUD:SETDIVING
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("hud:setDiving")
-AddEventHandler("hud:setDiving",function()
-	local ped = PlayerPedId()
-
-	if DoesEntityExist(divingMask) or DoesEntityExist(divingTank) then
-		if DoesEntityExist(divingMask) then
-			TriggerServerEvent("tryDeleteObject",ObjToNet(divingMask))
-			divingMask = nil
-		end
-
-		if DoesEntityExist(divingTank) then
-			TriggerServerEvent("tryDeleteObject",ObjToNet(divingTank))
-			divingTank = nil
-		end
-
-		SetEnableScuba(ped,false)
-		SetPedMaxTimeUnderwater(ped,10.0)
-	else
-		local coords = GetEntityCoords(ped)
-		local maskModel = GetHashKey("p_s_scuba_mask_s")
-		local tankModel = GetHashKey("p_s_scuba_tank_s")
-
-		RequestModel(tankModel)
-		while not HasModelLoaded(tankModel) do
-			Citizen.Wait(1)
-		end
-
-		RequestModel(maskModel)
-		while not HasModelLoaded(maskModel) do
-			Citizen.Wait(1)
-		end
-
-		if HasModelLoaded(tankModel) then
-			divingTank = CreateObject(tankModel,coords["x"],coords["y"],coords["z"],true,true,false)
-			local netObjs = ObjToNet(divingTank)
-
-			SetNetworkIdCanMigrate(netObjs,true)
-
-			SetEntityAsMissionEntity(divingTank,true,false)
-			SetEntityInvincible(divingTank,true)
-
-			AttachEntityToEntity(divingTank,ped,GetPedBoneIndex(ped,24818),-0.28,-0.24,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-
-			SetModelAsNoLongerNeeded(tankModel)
-		end
-
-		if HasModelLoaded(maskModel) then
-			divingMask = CreateObject(maskModel,coords["x"],coords["y"],coords["z"],true,true,false)
-			local netObjs = ObjToNet(divingMask)
-
-			SetNetworkIdCanMigrate(netObjs,true)
-
-			SetEntityAsMissionEntity(divingMask,true,false)
-			SetEntityInvincible(divingMask,true)
-
-			AttachEntityToEntity(divingMask,ped,GetPedBoneIndex(ped,12844),0.0,0.0,0.0,180.0,90.0,0.0,1,1,0,0,2,1)
-
-			SetModelAsNoLongerNeeded(maskModel)
-		end
-
-		SetEnableScuba(ped,true)
-		SetPedMaxTimeUnderwater(ped,2000.0)
 	end
 end)
