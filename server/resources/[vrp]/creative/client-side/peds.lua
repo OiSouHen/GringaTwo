@@ -138,6 +138,12 @@ local pedList = {
 		model = { 0xDB729238,"g_m_y_famdnf_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
+	{ -- Benefactor
+		distance = 100,
+		coords = { -54.21,67.28,71.97,74.59 },
+		model = { 0xC0937202,"cs_siemonyetarian" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
 	{ -- Police
 		distance = 30,
 		coords = { 377.58,791.66,187.64,130.4 },

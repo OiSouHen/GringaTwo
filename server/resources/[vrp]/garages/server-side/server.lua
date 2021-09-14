@@ -370,17 +370,7 @@ local garages = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 local workgarage = {
     ["Police"] = {
-		"fbi",
-		"fbi2",
-		"riot",
-		"policebike",
-		"crownvictoria",
-		"dodgecharger2014",
-		"dodgecharger2015",
-		"fordexplorer",
-		"fordraptor",
-		"fordtaurus",
-		"fordmustanggt"
+		"CARNAME",
 	},
 	["Paramedic"] = {
 		"ambulance"

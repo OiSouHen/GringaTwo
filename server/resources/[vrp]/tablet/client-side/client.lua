@@ -98,7 +98,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUYDEALERVARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local benbCoords = { -59.61,68.66,71.91 }
+local benbCoords = { -55.58,67.82,71.95 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUYDEALER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ RegisterNUICallback("buyDealer",function(data)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local distance = #(coords - vector3(benbCoords[1],benbCoords[2],benbCoords[3]))
-	if distance <= 6 then
+	if distance <= 2.5 then
 		if data.name ~= nil then
 			vSERVER.buyDealer(data.name)
 		end
@@ -134,7 +134,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehDrive = nil
 local benDrive = false
-local benCoords = { -61.8,69.86,71.84 }
+local benCoords = { -55.58,67.82,71.95 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ RegisterNUICallback("requestDrive",function(data,cb)
 	local coords = GetEntityCoords(ped)
 	local distance = #(coords - vector3(benCoords[1],benCoords[2],benCoords[3]))
 	
-	if distance <= 5 then
+	if distance <= 2.5 then
 		vRP.removeObjects()
 		SetNuiFocus(false,false)
 		SetCursorLocation(0.5,0.5)

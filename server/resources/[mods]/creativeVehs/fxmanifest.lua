@@ -4,9 +4,9 @@ game "gta5"
 client_script "names.lua"
 
 files {
-	"data/*",
-	"audio/*",
-	"audio/**/*"
+    "data/*",
+    "audio/*",
+    "audio/**/*"
 }
 
 data_file "HANDLING_FILE" "data/handling.meta"
