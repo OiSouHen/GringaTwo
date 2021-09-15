@@ -1,78 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>#creative</title>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-	<style>
-		#index {
-			margin: 20px;
-			display: none;
-			letter-spacing: 1px;
-			line-height: 20px;
-			position: absolute;
-			transition: all 1s;
-		}
-
-		.spawnNow {
-			color: #8ebda3;
-			width: 300px;
-			list-style: none;
-			user-select: none;
-			padding: 25px 20px;
-			text-align: center;
-			font-size: 16px;
-			letter-spacing: 5px;
-			text-transform: uppercase;
-			border-radius: 3px;
-			margin-bottom: 10px;
-			transition: all 1s;
-			background: #2e6e4c;
-			font-family: 'Roboto',sans-serif;
-		}
-
-		.spawnNow:hover {
-			background: #1b402c;
-		}
-
-		.spawn {
-			color: #979696;
-			width: 300px;
-			list-style: none;
-			user-select: none;
-			padding: 10px 20px;
-			text-align: center;
-			letter-spacing: 3px;
-			font-size: 13px;
-			border-radius: 3px;
-			margin-bottom: 10px;
-			transition: all 1s;
-			background: #292c38;
-			text-transform: uppercase;
-			font-family: 'Roboto',sans-serif;
-		}
-
-		.spawn:hover {
-			background: #42475a;
-		}
-	</style>
-</head>
-<body>
-	<div id="index">
-		<ul>
-			<li class="spawn" data-spawn="armadillo">Armadillo Avenue</li>
-			<li class="spawn" data-spawn="duluoz">Duluoz Avenue</li>
-			<li class="spawn" data-spawn="eclipse">Eclipse Towers</li>
-			<li class="spawn" data-spawn="grapeseed">Grapeseed Avenue</li>
-			<li class="spawn" data-spawn="greatocean">Great Ocean Highway</li>
-			<li class="spawn" data-spawn="hawick">Hawick Avenue</li>
-			<li class="spawn" data-spawn="integrity">Integrity Way</li>
-			<li class="spawn" data-spawn="cenora">Senora Road</li>
-			<li class="spawnNow" data-spawn="spawn">CONFIRMAR</li>
-		</ul>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>#creative</title>
+		<link rel="stylesheet" href="css.css">
+		<script src="nui://game/ui/jquery.js"></script>
+	</head>
+	
+	<body>
+	<div id="spawnPage">
+			<button class="spawnBox" data-spawn="armadillo">Armadillo Avenue</button>
+			<button class="spawnBox" data-spawn="duluoz">Duluoz Avenue</button>
+			<button class="spawnBox" data-spawn="eclipse">Eclipse Towers</button>
+			<button class="spawnBox" data-spawn="grapeseed">Grapeseed Avenue</button>
+			<button class="spawnBox" data-spawn="greatocean">Great Ocean Highway</button>
+			<button class="spawnBox" data-spawn="hawick">Hawick Avenue</button>
+			<button class="spawnBox" data-spawn="integrity">Integrity Way</button>
+			<button class="spawnBox" data-spawn="cenora">Senora Road</button>
+			<button class="fnButton" data-spawn="spawn">CONFIRMAR</button>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 	<script>
 		$(() => {
@@ -89,5 +35,5 @@
 			});
 		})
 	</script>
-</body>
+	</body>
 </html>
