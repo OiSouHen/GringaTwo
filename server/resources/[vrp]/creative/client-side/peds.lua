@@ -6,23 +6,11 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
-	{ -- Mechanic
-		distance = 50,
-		coords = { 147.87,-3013.5,7.04,184.26 },
-		model = { 0x780C01BD,"s_f_y_bartender_01" },
-		anim = { "amb@prop_human_bum_shopping_cart@male@base","base" }
-	},
 	{ -- BurgerShot
 		distance = 50,
 		coords = { -1164.31,-896.69,14.02,76.54 },
 		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- DrugsSell
-		distance = 50,
-		coords = { 120.61,-3021.09,7.04,272.13 },
-		model = { 0xF42EE883,"g_m_y_ballaeast_01" },
-		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
 	{ -- DrugsSell
 		distance = 50,
@@ -845,18 +833,6 @@ local pedList = {
 		coords = { 911.0,3644.85,32.67,181.42 },
 		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Burgershot
-		distance = 30,
-		coords = { -1164.31,-896.73,14.03,62.94 },
-		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Comercialização
-		distance = 30,
-		coords = { -1174.62,-898.65,13.98,227.54 },
-		model = { 0x5C366C83,"s_m_m_drugprocess_01" },
-		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
