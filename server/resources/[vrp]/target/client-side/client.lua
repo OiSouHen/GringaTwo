@@ -285,9 +285,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("foodJuice",vector3(-1198.96,-895.47,13.99),0.5,{
-		name = "foodJuice",
-		heading = 136.92
+	AddCircleZone("foodJuice01",vector3(-1190.78,-904.23,13.99),0.5,{
+		name = "foodJuice01",
+		heading = 306.15
 	},{
 		distance = 1.25,
 		options = {
@@ -298,12 +298,40 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
-
-	AddCircleZone("foodBurger",vector3(-1199.9,-898.49,13.99),0.5,{
-		name = "foodBurger",
-		heading = 311.68
+	
+	AddCircleZone("foodJuice02",vector3(-1190.12,-905.16,13.99),0.5,{
+		name = "foodJuice02",
+		heading = 306.15
 	},{
-		distance = 1.35,
+		distance = 1.0,
+		options = {
+			{
+				event = "burgershot:foodJuice",
+				label = "Encher Copo",
+				tunnel = "server"
+			}
+		}
+	})
+
+	AddCircleZone("foodBurger01",vector3(-1202.08,-897.21,13.99),0.5,{
+		name = "foodBurger01",
+		heading = 124.73
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "burgershot:foodBurger",
+				label = "Montar Lanche",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("foodBurger02",vector3(-1202.55,-896.55,13.99),0.5,{
+		name = "foodBurger02",
+		heading = 124.73
+	},{
+		distance = 1.0,
 		options = {
 			{
 				event = "burgershot:foodBurger",
@@ -313,9 +341,9 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddCircleZone("foodBox",vector3(-1197.27,-891.9,13.99),0.5,{
+	AddCircleZone("foodBox",vector3(-1197.91,-892.21,13.99),0.5,{
 		name = "foodBox",
-		heading = 35.38
+		heading = 34.02
 	},{
 		distance = 1.25,
 		options = {
@@ -355,7 +383,7 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddTargetModel({ 1158960338,1281992692 },{
+	AddTargetModel({ 1281992692,1158960338,1511539537 },{
 		options = {
 		    {
 				event = "paramedic:callParamedic",

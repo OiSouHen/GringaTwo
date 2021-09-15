@@ -701,6 +701,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						TriggerClientEvent("hunting:animalCalling",source)
 					end
 					
+					if itemName == "wheelchair" then
+						vCLIENT.closeInventory(source)
+						TriggerClientEvent("inventory:wheelchair",source,"wheelchair")
+					end
+					
 					if itemName == "hat" then
 						vCLIENT.closeInventory(source)
 						TriggerClientEvent("skinshop:setHat",source)

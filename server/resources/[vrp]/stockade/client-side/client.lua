@@ -17,29 +17,23 @@ local blockStockades = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSTOCKADE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 1000
-		local ped = PlayerPedId()
-
-		if not IsPedInAnyVehicle(ped) then
-			local vehicle = getNearVehicle(11)
-			if DoesEntityExist(vehicle) and GetEntityModel(vehicle) == GetHashKey("stockade") then
-				local coordsPed = GetEntityCoords(ped)
-				local plate = GetVehicleNumberPlateText(vehicle)
-				local coords = GetOffsetFromEntityInWorldCoords(vehicle,0.0,-3.5,0.0)
-				local distance = #(coords - coordsPed)
-				if distance <= 2.5 and blockStockades[plate] == nil then
-					timeDistance = 4
-					DrawText3D(coords.x,coords.y,coords.z+1,"~g~E~w~   ROUBAR")
-					if IsControlJustPressed(1,38) and distance <= 1.5 and vSERVER.checkPolice(plate) then
-						SetEntityHeading(ped,GetEntityHeading(vehicle))
-						vSERVER.withdrawMoney(plate,VehToNet(vehicle))
-					end
+RegisterNetEvent("stockade:checkStockade")
+AddEventHandler("stockade:checkStockade",function(checkStockade)
+local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		local vehicle = getNearVehicle(11)
+		if DoesEntityExist(vehicle) and GetEntityModel(vehicle) == GetHashKey("stockade") then
+			local coordsPed = GetEntityCoords(ped)
+			local plate = GetVehicleNumberPlateText(vehicle)
+			local coords = GetOffsetFromEntityInWorldCoords(vehicle,0.0,-3.5,0.0)
+			local distance = #(coords - coordsPed)
+			if distance <= 2.5 and blockStockades[plate] == nil then
+				if distance <= 1.5 and vSERVER.checkPolice(plate) then
+					SetEntityHeading(ped,GetEntityHeading(vehicle))
+					vSERVER.withdrawMoney(plate,VehToNet(vehicle))
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

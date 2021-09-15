@@ -70,6 +70,8 @@ local garages = {
 	[19] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[20] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[21] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+	[22] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+	[23] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[43] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[44] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[45] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
@@ -105,6 +107,7 @@ local garages = {
 	[154] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
 	[155] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
 	[156] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
+	[157] = { ["name"] = "Taxi", ["payment"] = false, ["public"] = true },
 --  [Houses]
 	[501] = { ["name"] = "Middle001", ["payment"] = false, ["perm"] = false },
 	[502] = { ["name"] = "Middle002", ["payment"] = false, ["perm"] = false },

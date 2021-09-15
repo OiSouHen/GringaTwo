@@ -928,3 +928,53 @@ AddEventHandler("toggleCarry",function(source)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INVENTORY:WHEELCHAIR
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("inventory:wheelchair")
+AddEventHandler("inventory:wheelchair",function(name)
+    local ped = PlayerPedId()
+	local heading = GetEntityHeading(ped)
+	local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.75,0.0)
+	
+    local mhash = GetHashKey(name)
+    while not HasModelLoaded(mhash) do
+        RequestModel(mhash)
+        Citizen.Wait(10)
+    end
+	
+	local nveh = CreateVehicle(mhash,coords["x"],coords["y"],coords["z"],heading,true,false)
+	
+	if NetworkDoesNetworkIdExist(nveh) then
+		local vehicleNet = NetToEnt(nveh)
+		if NetworkDoesNetworkIdExist(nveh) then
+			SetVehicleOnGroundProperly(nveh)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- WHEELTREADS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local wheelChair = false
+Citizen.CreateThread(function()
+	while true do
+		local ped = PlayerPedId()
+		if IsPedInAnyVehicle(ped) then
+			local vehicle = GetVehiclePedIsUsing(ped)
+			local model = GetEntityModel(vehicle)
+			if model == -1178021069 then
+				if not IsEntityPlayingAnim(ped,"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester",3) then
+					vRP.playAnim(true,{"missfinale_c2leadinoutfin_c_int","_leadin_loop2_lester"},true)
+					wheelChair = true
+				end
+			end
+		else
+			if wheelChair then
+				vRP.removeObjects("one")
+				wheelChair = false
+			end
+		end
+
+		Citizen.Wait(1000)
+	end
+end)
