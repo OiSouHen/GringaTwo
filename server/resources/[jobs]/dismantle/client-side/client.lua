@@ -15,8 +15,7 @@ vSERVER = Tunnel.getInterface("dismantle")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inService = false
 local timeDismantle = 0
-local disX,disY,disZ = -1164.52,-2040.17,13.6
-local listX,listY,listZ = -1167.03,-2034.54,13.31
+local disX,disY,disZ = -85.3,-2223.71,7.8
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDISMANTLE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -74,22 +73,5 @@ Citizen.CreateThread(function()
 			timeDismantle = timeDismantle - 1
 		end
 		Citizen.Wait(1000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DISMANTLE:CHECKVEHICLE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("dismantle:invokeList")
-AddEventHandler("dismantle:invokeList",function(invokeList)
-	local timeDistance = 500
-	local ped = PlayerPedId()
-	if not IsPedInAnyVehicle(ped) then
-		local coords = GetEntityCoords(ped)
-		local distance = #(coords - vector3(listX,listY,listZ))
-		if distance <= 1 then
-			timeDistance = 4
-			vSERVER.acessList()
-			inService = true
-		end
 	end
 end)
