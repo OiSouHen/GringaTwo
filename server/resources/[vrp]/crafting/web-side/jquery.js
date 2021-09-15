@@ -173,15 +173,10 @@ const updateDrag = () => {
 			const desc = $(this).attr("data-desc");
 			const name = $(this).attr("data-name-key");
 			const recipe = $(this).attr("data-list");
-			var myLeg = "center top-176";
-
-			if (desc !== "undefined"){
-				myLeg = "center top-196";
-			}
-
+			
 			$(this).tooltip({
 				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${recipe}</legenda>`,
-				position: { my: myLeg, at: "center" },
+				position: { my: "center top+10", at: "center bottom", collision: "flipfit" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
 			})
@@ -253,7 +248,7 @@ const requestCrafting = () => {
 				let list = "";
 
 				for (let i in v.list){
-					list = `${list}${v.list[i].amount}x ${v.list[i].name}, `;
+					list = `${list}${v.list[i].amount}x ${v.list[i].name}<br>`;
 				}
 
 				list = list.substring(0,list.length - 2);
