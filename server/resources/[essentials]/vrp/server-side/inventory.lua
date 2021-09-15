@@ -2,13 +2,73 @@
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemlist = {
+	["coal"] = {
+	    index = "coal",
+		name = "Carvão Vegetal",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "2",
+		type = "use",
+		weight = 0.02
+	},
+	["sewingkit"] = {
+	    index = "sewingkit",
+		name = "Kit de Costura",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "16",
+		type = "use",
+		weight = 0.01
+	},
+	["metalfragments"] = {
+	    index = "metalfragments",
+		name = "Fragmento de Metal",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "4",
+		type = "use",
+		weight = 0.01
+	},
+	["gear"] = {
+	    index = "gear",
+		name = "Engrenagem",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "10",
+		type = "use",
+		weight = 0.01
+	},
+	["sulfur"] = {
+	    index = "sulfur",
+		name = "Enxofre",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "4",
+		type = "use",
+		weight = 0.01
+	},
+	["gunpowder"] = {
+	    index = "gunpowder",
+		name = "Pólvora",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "20",
+		type = "use",
+		weight = 0.01
+	},
     ["scrapmetal"] = {
 	    index = "scrapmetal",
 		name = "Sucata de Metal",
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "5",
+		economy = "20",
 		type = "use",
 		weight = 0.05
 	},
@@ -472,13 +532,63 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
-	["heroine"] = {
-		index = "heroine",
-		name = "Heroína",
+	["heroinea"] = {
+		index = "heroinea",
+		name = "Heroína 25%",
 		desc = "",
 		tipo = "Comum",
 		unity = "Não",
-		economy = "3500",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["heroineb"] = {
+		index = "heroineb",
+		name = "Heroína 40%",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["heroinec"] = {
+		index = "heroinec",
+		name = "Heroína 55%",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["heroined"] = {
+		index = "heroined",
+		name = "Heroína 70%",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["heroinee"] = {
+		index = "heroinee",
+		name = "Heroína 85%",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "125",
+		type = "use",
+		weight = 0.50
+	},
+	["heroine"] = {
+		index = "heroine",
+		name = "Heroína 100%",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "275",
 		type = "use",
 		weight = 0.50
 	},
@@ -488,7 +598,7 @@ local itemlist = {
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "2225",
+		economy = "2750",
 		type = "use",
 		weight = 4.25
 	},

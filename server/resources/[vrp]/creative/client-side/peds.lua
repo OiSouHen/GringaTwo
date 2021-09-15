@@ -6,11 +6,29 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
-	{ -- Heroine
-		distance = 100,
-		coords = { -801.95,-684.14,29.54,331.66 },
-		model = { 0x53B57EB0,"a_m_m_trampbeac_01" },
-		anim = { "amb@world_human_stupor@male@base","base" }
+	{ -- Mechanic
+		distance = 50,
+		coords = { 147.87,-3013.5,7.04,184.26 },
+		model = { 0x780C01BD,"s_f_y_bartender_01" },
+		anim = { "amb@prop_human_bum_shopping_cart@male@base","base" }
+	},
+	{ -- BurgerShot
+		distance = 50,
+		coords = { -1164.31,-896.69,14.02,76.54 },
+		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- DrugsSell
+		distance = 50,
+		coords = { 120.61,-3021.09,7.04,272.13 },
+		model = { 0xF42EE883,"g_m_y_ballaeast_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- DrugsSell
+		distance = 50,
+		coords = { -1174.66,-898.58,13.97,215.44 },
+		model = { 0xF42EE883,"g_m_y_ballaeast_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
 	{ -- Black Market
 		distance = 20,
@@ -777,6 +795,12 @@ local pedList = {
 	{ -- Taxista
 		distance = 30,
 		coords = { 894.9,-179.15,74.7,240.95 },
+		model = { 0x8674D5FC,"a_m_y_stlat_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Taxista
+		distance = 30,
+		coords = { 1696.19,4785.25,42.02,93.55 },
 		model = { 0x8674D5FC,"a_m_y_stlat_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},

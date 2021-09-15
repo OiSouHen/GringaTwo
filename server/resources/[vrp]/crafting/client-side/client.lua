@@ -67,7 +67,7 @@ end)
 -- CRAFTLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local craftList = {
-	{ 2431.48,4967.33,42.34,314.65,"blackMarket",{ 1,5 } },
+	{ 2431.48,4967.33,42.34,314.65,"blackMarket" },
 	{ 82.45,-1553.26,29.59,229.61,"lixeiroShop" },
 	{ 287.36,2843.6,44.7,306.15,"lixeiroShop" },
 	{ -413.68,6171.99,31.48,136.07,"lixeiroShop" },
@@ -92,6 +92,7 @@ local craftList = {
 	{ 1181.02,2635.52,37.74,184.26,"mechanicShop" },
 	{ 102.99,6625.73,31.78,42.52,"mechanicShop" },
 	{ -37.37,-1036.48,28.59,70.87,"mechanicShop" },
+	{ 128.7,-3008.95,7.04,0.0,"mechanicShop" },
 	{ 47.16,-1748.32,29.64,235.28,"legalShop" },
 	{ 2747.36,3471.78,55.67,62.37,"legalShop" }
 }
@@ -122,20 +123,9 @@ end)
 -- CRAFTING:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("crafting:openSystem",function(shopId)
-	if craftList[shopId][6] then
-		if GetClockHours() >= craftList[shopId][6][1] and GetClockHours() <= (craftList[shopId][6][2] - 1) then
-			if vSERVER.requestPerm(craftList[shopId][5]) then
-				SetNuiFocus(true,true)
-				SendNUIMessage({ action = "showNUI", name = craftList[shopId][5] })
-			end
-		else
-			TriggerEvent("Notify","amarelo","Funcionamento das <b>"..craftList[shopId][6][1].."</b> às <b>"..craftList[shopId][6][2].."</b> horas.",5000)
-		end
-	else
-		if vSERVER.requestPerm(craftList[shopId][5]) then
-			SetNuiFocus(true,true)
-			SendNUIMessage({ action = "showNUI", name = craftList[shopId][5] })
-		end
+	if vSERVER.requestPerm(craftList[shopId][5]) then
+		SetNuiFocus(true,true)
+		SendNUIMessage({ action = "showNUI", name = craftList[shopId][5] })
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -146,13 +136,13 @@ AddEventHandler("crafting:fuelShop",function()
 	SendNUIMessage({ action = "showNUI", name = "fuelShop" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CRAFTING:COMMAND
+-- CRAFTING:OPENSOURCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("craft",function(source,args)
 	if GetEntityHealth(PlayerPedId()) > 101 and not blockButtons then
 		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPlayerFreeAiming(PlayerId()) then
 			SetNuiFocus(true,true)
-			SendNUIMessage({ action = "showNUI", name = "craftCommand" })
+			SendNUIMessage({ action = "showNUI", name = "craftShop" })
 		end
 	end
 end)

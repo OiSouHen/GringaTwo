@@ -327,15 +327,29 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("drugsToggle",vector3(-1174.62,-898.65,13.98),0.75,{
-		name = "drugsToggle",
-		heading = 227.54
+	AddCircleZone("drugsToggle01",vector3(-1174.37,-898.99,13.75),0.5,{
+		name = "drugsToggle01",
+		heading = 31.19
 	},{
 		distance = 1.0,
 		options = {
 			{
 				event = "drugs:toggleService",
-				label = "Comercialização",
+				label = "Comercializar",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("drugsToggle02",vector3(121.11,-3021.05,7.04),0.5,{
+		name = "drugsToggle02",
+		heading = 90.71
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService",
+				label = "Comercializar",
 				tunnel = "client"
 			}
 		}
@@ -504,44 +518,16 @@ Citizen.CreateThread(function()
 		},
 		distance = 0.75
 	})
-
-	AddTargetModel({ -2007231801,1339433404,1694452750,1933174915,-462817101,-469694731,-164877493 },{
+	
+	AddTargetModel({ 322493792,-273279397,10106915,1120812170,-915224107,591265130,929870599,-896997473,2090224559,-1366478936,-52638650,-1748303324,1069797899,1898296526,1434516869 },{
 		options = {
 			{
-				event = "crafting:fuelShop",
-				label = "Combustível",
+				event = "garbageman:verifyObjects",
+				label = "Sucatear",
 				tunnel = "client"
 			}
 		},
 		distance = 0.75
-	})
-
-	AddCircleZone("contractSystem",vector3(465.12,-1672.85,29.28),0.5,{
-		name = "contractSystem",
-		heading = 243.78
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "moneys:initSystem",
-				label = "Assinar",
-				tunnel = "client"
-			}
-		}
-	})
-
-	AddCircleZone("casinoWhell",vector3(1112.46,228.33,-49.64),0.5,{
-		name = "casinoWhell",
-		heading = 325.99
-	},{
-		distance = 0.75,
-		options = {
-			{
-				event = "luckywheel:targetRoll",
-				label = "Roda da Fortuna",
-				tunnel = "client"
-			}
-		}
 	})
 
 	AddCircleZone("jewelry01",vector3(-626.67,-238.58,38.05),0.75,{
@@ -952,6 +938,26 @@ local playerVeh = {
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- STOCKADEVEH
+-----------------------------------------------------------------------------------------------------------------------------------------
+local stockadeVeh = {
+	{
+		event = "inventory:applyPlate",
+		label = "Trocar Placa",
+		tunnel = "server"
+	},
+	{
+		event = "player:enterTrunk",
+		label = "Entrar no Porta-Malas",
+		tunnel = "client"
+	},
+	{
+		event = "stockade:checkStockade",
+		label = "Vasculhar",
+		tunnel = "client"
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- DISMANTLEVEH
 -----------------------------------------------------------------------------------------------------------------------------------------
 local dismantleVeh = {
@@ -1043,14 +1049,20 @@ function playerTargetEnable()
 						if #(coords - entCoords) <= 1.0 then
 							success = true
 
-							innerEntity = { GetVehicleNumberPlateText(entity),vRP.vehicleModel(GetEntityModel(entity)),entity }
+							innerEntity = { GetVehicleNumberPlateText(entity),vRP.vehicleModel(GetEntityModel(entity)),entity,VehToNet(entity) }
 
 							if policeService then
 								SendNUIMessage({ response = "validTarget", data = policeVeh })
 							else
-								local distance = #(coords - vector3(-1164.52,-2040.17,13.6))
+								local distance = #(coords - vector3(-85.3,-2223.71,7.8))
 								if distance > 20 then
-									SendNUIMessage({ response = "validTarget", data = playerVeh })
+									local varMenu = playerVeh
+
+									if GetEntityModel(entity) == 1747439474 then
+										varMenu = stockadeVeh
+									end
+
+									SendNUIMessage({ response = "validTarget", data = varMenu })
 								else
 									SendNUIMessage({ response = "validTarget", data = dismantleVeh })
 								end
@@ -1147,21 +1159,24 @@ function playerTargetEnable()
 										if GetPedType(entity) == 28 then
 											innerEntity = { entity,k,nil,GetEntityCoords(entity) }
 										else
-											NetworkRegisterEntityAsNetworked(entity)
-											while not NetworkGetEntityIsNetworked(entity) do
+											local netObjects = nil
+											if k ~= 1281992692 and k ~= 1158960338 and k ~= 1511539537 then
 												NetworkRegisterEntityAsNetworked(entity)
-												Citizen.Wait(1)
-											end
+												while not NetworkGetEntityIsNetworked(entity) do
+													NetworkRegisterEntityAsNetworked(entity)
+													Citizen.Wait(1)
+												end
 
-											while not NetworkHasControlOfEntity(entity) do
-												NetworkRequestControlOfEntity(entity)
-												Citizen.Wait(1)
-											end
+												while not NetworkHasControlOfEntity(entity) do
+													NetworkRequestControlOfEntity(entity)
+													Citizen.Wait(1)
+												end
 
-											local netObjects = ObjToNet(entity)
-											SetNetworkIdCanMigrate(netObjects,true)
-											NetworkSetNetworkIdDynamic(netObjects,false)
-											SetNetworkIdExistsOnAllMachines(netObjects,true)
+												netObjects = ObjToNet(entity)
+												SetNetworkIdCanMigrate(netObjects,true)
+												NetworkSetNetworkIdDynamic(netObjects,false)
+												SetNetworkIdExistsOnAllMachines(netObjects,true)
+											end
 
 											innerEntity = { entity,k,netObjects,GetEntityCoords(entity) }
 										end

@@ -205,7 +205,7 @@ local blips = {
 	{ -428.56,-1728.33,19.79,467,11,"Reciclagem",0.6 },
 	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
 	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
-	{ 409.41,-1623.11,29.3,357,9,"Impound",0.6 },
+	{ 409.05,-1622.78,29.28,357,9,"Impound",0.6 },
 	{ 1724.84,3715.31,34.22,357,9,"Impound",0.6 },
 	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
 	{ -1178.37,-2845.97,13.93,402,26,"Mecânica",0.7 },
@@ -225,10 +225,11 @@ local blips = {
 	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
 	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
 	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
-	{ -1183.86,-884.57,13.99,106,62,"BurgerShot",0.5 },
+	{ -1177.72,-880.41,13.93,106,62,"BurgerShot",0.4 },
 	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
 	{ -69.95,62.06,71.88,225,62,"Benefactor",0.4 },
-	{ 895.36,-179.36,74.7,198,62,"Taxista",0.5 },
+	{ 894.9,-179.15,74.7,198,62,"Taxista",0.5 },
+	{ 1696.19,4785.25,42.02,198,62,"Taxista",0.5 },
 	{ -1031.05,-2965.67,13.95,307,62,"Táxi Aéreo",0.7 },
 	{ -680.9,5832.41,17.32,141,62,"Cabana do Caçador",0.7 },
 	{ -773.55,298.51,85.71,475,31,"Eclipse Towers",0.5 },
@@ -426,7 +427,6 @@ Citizen.CreateThread(function()
 		RemoveAllPickupsOfType("PICKUP_WEAPON_SAWNOFFSHOTGUN")
 
 		HideHudComponentThisFrame(1)
-		
 		HideHudComponentThisFrame(3)
 		HideHudComponentThisFrame(4)
 		HideHudComponentThisFrame(5)
@@ -438,13 +438,9 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(11)
 		HideHudComponentThisFrame(12)
 		HideHudComponentThisFrame(13)
-		
 		HideHudComponentThisFrame(15)
-		
 		HideHudComponentThisFrame(17)
 		HideHudComponentThisFrame(18)
-		
-		
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
@@ -471,7 +467,7 @@ Citizen.CreateThread(function()
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
-    SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
+	SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
 	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
 	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)
 	SetScenarioTypeEnabled("WORLD_VEHICLE_STREETRACE",false)
@@ -492,11 +488,11 @@ Citizen.CreateThread(function()
 	SetAudioFlag("DisableFlightMusic",true)
 	AddTextEntry("FE_THDR_GTAO","GG RP")
 	SetPlayerCanUseCover(PlayerId(),false)
+	SetRandomEventFlag(false)
 	SwitchTrainTrack(0, true)
 	SwitchTrainTrack(3, true)
 	N_0x21973bbf8d17edfa(0, 120000)
 	SetRandomTrains(1)
-	SetRandomEventFlag(false)
 	SetDeepOceanScaler(0.0)
 	SetRadarZoom(1100)
 end)

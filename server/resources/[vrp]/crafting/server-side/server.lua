@@ -53,7 +53,7 @@ local craftList = {
 			}
 		}
 	},
-	["craftCommand"] = {
+	["craftShop"] = {
 		["list"] = {
 			["backpack"] = {
 				["amount"] = 1,
