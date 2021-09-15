@@ -327,20 +327,6 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("dismantleCall",vector3(-1167.03,-2034.54,13.31),0.75,{
-		name = "dismantleCall",
-		heading = 309.99
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "dismantle:invokeList",
-				label = "Pegar lista",
-				tunnel = "client"
-			}
-		}
-	})
-	
 	AddCircleZone("drugsToggle",vector3(-1174.62,-898.65,13.98),0.75,{
 		name = "drugsToggle",
 		heading = 227.54

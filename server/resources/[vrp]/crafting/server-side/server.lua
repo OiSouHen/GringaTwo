@@ -53,26 +53,8 @@ local craftList = {
 			}
 		}
 	},
-	["dressMaker"] = {
+	["craftCommand"] = {
 		["list"] = {
-			["credential"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["dollars2"] = 250
-				}
-			},
-			["lockpick"] = {
-				["amount"] = 1,
-				["destroy"] = true,
-				["require"] = {
-					["aluminum"] = 5,
-					["plastic"] = 4,
-					["rubber"] = 4,
-					["glass"] = 4,
-					["copper"] = 5
-				}
-			},
 			["backpack"] = {
 				["amount"] = 1,
 				["destroy"] = true,
@@ -87,11 +69,7 @@ local craftList = {
 					["animalpelt"] = 4,
 					["rubber"] = 5
 				}
-			}
-		}
-	},
-	["makeFoods"] = {
-		["list"] = {
+			},
 			["ketchup"] = {
 				["amount"] = 1,
 				["destroy"] = true,

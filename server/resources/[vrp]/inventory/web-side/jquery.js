@@ -405,6 +405,7 @@ const updateBackpack = () => {
 				$(".invRight").append(item);
 			}
 		}
+		
 		updateDrag();
 	});
 }

@@ -822,12 +822,6 @@ local pedList = {
 		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Desmanche
-		distance = 30,
-		coords = { -1167.03,-2034.54,13.31,140.84 },
-		model = { 0x158C439C,"g_f_y_ballas_01" },
-		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
-	},
 	{ -- Burgershot
 		distance = 30,
 		coords = { -1164.31,-896.73,14.03,62.94 },

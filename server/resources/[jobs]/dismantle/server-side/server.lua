@@ -16,7 +16,7 @@ vRPRAGE = Tunnel.getInterface("garages")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local timeList = 0
-local maxVehlist = 10
+local maxVehlist = 20
 local vehListActived = {}
 local userList = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -157,13 +157,21 @@ local vehList = {
 	[132] = "stanier",
 	[133] = "tornado5"
 }
-
-local itensList = {
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NORMALITENSLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+local normalItensList = {
 	[1] = "plastic",
 	[2] = "glass",
 	[3] = "copper",
 	[4] = "rubber",
 	[5] = "aluminum"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SPECIALITENSLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+local specialItensList = {
+	[1] = "scrapmetal"
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GENERATEVEHLIST
@@ -205,7 +213,7 @@ function cRP.checkVehlist()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getInventoryItemAmount(user_id,"lockpick") >= 1 then
+		if vRP.getInventoryItemAmount(user_id,"toolbox") >= 1 then
 			local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,11)
 			if vehicle then
 				local plateId = vRP.getVehiclePlate(vehPlate)
@@ -215,10 +223,13 @@ function cRP.checkVehlist()
 						return true,vehicle
 					end
 				else
-					TriggerClientEvent("Notify",source,"vermelho","Este veículo é protegido pela seguradora.",5000)
+					TriggerClientEvent("Notify",source,"vermelho","Veículo protegido pela seguradora.",10000)
 				end
 			end
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Você não tem uma <b>Caixa de Ferramentas</b>.",5000)
 		end
+		
 		return false
 	end
 end
@@ -234,20 +245,8 @@ function cRP.paymentMethod(vehicle)
 
 		vRPRAGE.deleteVehicle(source,vehicle)
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
-		vRP.giveInventoryItem(user_id,itensList[math.random(#itensList)],math.random(6,16),true)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- GETLIST
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.acessList()
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if userList[user_id] == nil then
-			userList[user_id] = true
-			TriggerClientEvent("Notify",source,"amarelo","Você pegou uma lista de veículos.",5000)
-		end
+		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(6,12),true)
+		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(12,24),true)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -255,14 +254,19 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("dismantle:invokeDismantle")
 AddEventHandler("dismantle:invokeDismantle",function(invokeDismantle)
+    local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
+		if userList[user_id] == nil then
+			userList[user_id] = true
+		end
+		
 		if timeList > 0 and userList[user_id] then
 			local vehListNames = ""
 			for k,v in pairs(vehListActived) do
 				vehListNames = vehListNames.."<b>"..vRP.vehicleName(k).."</b>, "
 			end
-
+			
 			if vehListNames ~= "" then
 				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista atual.",30000)
 			else

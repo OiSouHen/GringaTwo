@@ -68,8 +68,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local craftList = {
 	{ 2431.48,4967.33,42.34,314.65,"blackMarket",{ 1,5 } },
-	{ -1196.82,-901.51,13.99,216.02,"makeFoods" },
-	{ 713.95,-961.54,30.4,0.0,"dressMaker" },
 	{ 82.45,-1553.26,29.59,229.61,"lixeiroShop" },
 	{ 287.36,2843.6,44.7,306.15,"lixeiroShop" },
 	{ -413.68,6171.99,31.48,136.07,"lixeiroShop" },
@@ -146,4 +144,15 @@ end)
 AddEventHandler("crafting:fuelShop",function()
 	SetNuiFocus(true,true)
 	SendNUIMessage({ action = "showNUI", name = "fuelShop" })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CRAFTING:COMMAND
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("craft",function(source,args)
+	if GetEntityHealth(PlayerPedId()) > 101 and not blockButtons then
+		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPlayerFreeAiming(PlayerId()) then
+			SetNuiFocus(true,true)
+			SendNUIMessage({ action = "showNUI", name = "craftCommand" })
+		end
+	end
 end)
