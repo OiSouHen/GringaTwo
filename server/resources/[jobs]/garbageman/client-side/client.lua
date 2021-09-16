@@ -14,20 +14,21 @@ vSERVER = Tunnel.getInterface("garbageman")
 -- VARIABLESTRASHS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local trashCans = {
-    {"prop_bin_01a"},
-    {"prop_bin_03a"},
-    {"prop_bin_05a"},
-    {"prop_bin_08a"},
-    {"prop_dumpster_01a"},
     {"prop_dumpster_02a"},
+    {"prop_dumpster_01a"},
     {"prop_dumpster_02b"},
-    {"prop_dumpster_4a"},
-    {"prop_dumpster_4b"},
-    {"prop_cs_dumpster_01a"},
-    {"prop_bin_07a"},
-    {"prop_bin_07b"},
     {"prop_bin_07c"},
-    {"prop_bin_07d"}
+    {"prop_bin_07a"},
+    {"prop_bin_01a"},
+    {"prop_bin_08a"},
+    {"prop_dumpster_4a"},
+    {"prop_bin_07b"},
+    {"prop_bin_06a"},
+    {"prop_bin_12a"},
+    {"prop_dumpster_4b"},
+    {"prop_recyclebin_01a"},
+    {"prop_bin_05a"},
+    {"prop_bin_03a"}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSEARCHTRASH
@@ -75,6 +76,7 @@ AddEventHandler("garbageman:searchTrash",function(searchTrash)
             end
         end
     end
+	
     Citizen.Wait(idle)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -135,5 +137,75 @@ AddEventHandler("garbageman:searchObject",function(searchObject)
             end
         end
     end
+	
+    Citizen.Wait(idle)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLESWASTE
+-----------------------------------------------------------------------------------------------------------------------------------------
+local wasteCans = {
+    {"prop_rub_carwreck_7"},
+    {"prop_rub_carwreck_5"},
+    {"prop_rub_carwreck_8"},
+    {"prop_rub_carwreck_9"},
+    {"prop_rub_carwreck_3"},
+    {"prop_rub_carwreck_2"},
+    {"prop_rub_buswreck_06"},
+    {"prop_rub_carwreck_13"},
+    {"prop_rub_carwreck_16"},
+    {"prop_rub_carwreck_15"},
+    {"prop_rub_carwreck_17"},
+    {"prop_rub_carwreck_14"},
+    {"prop_rub_carwreck_11"},
+    {"prop_rub_carwreck_10"},
+    {"prop_rub_carwreck_12"}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSEARCHWASTE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("garbageman:verifyWaste")
+AddEventHandler("garbageman:verifyWaste",function(verifyWaste)
+    local idle = 1000
+    local ped = GetPlayerPed(-1)
+    local pedCoords = GetEntityCoords(ped, 0)
+    local objectEmpty = false
+    
+    for k,v in pairs(wasteCans) do
+        local object = GetClosestObjectOfType(pedCoords["x"], pedCoords["y"], pedCoords["z"], 1.0, GetHashKey(v[1]), true, true, true)
+        SetEntityAsMissionEntity(object, true, true)
+        if DoesEntityExist(object) then
+            wasteCoords = GetEntityCoords(object, 0)
+        end
+    end
+    
+    if wasteCoords ~= nil then
+        local distance = GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], wasteCoords["x"], wasteCoords["y"], wasteCoords["z"])
+        if distance < 1.5 then
+            idle = 5   
+        end
+
+        if distance > 2 then
+            wasteCoords = nil
+        end
+    end
+    
+    if wasteCoords ~= nil then
+        if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], wasteCoords["x"], wasteCoords["y"], wasteCoords["z"] < 1)) and (not IsPedInAnyVehicle(ped)) then
+            
+            if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
+                if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], wasteCoords["x"], wasteCoords["y"], wasteCoords["z"] < 0.5)) then
+                    TriggerEvent("cancelando",true)
+                    vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+                    TriggerEvent("Progress",5000,"Vasculhando...")
+                    Wait(5000)
+                    if vSERVER.verifyWaste(wasteCoords["x"]) then
+                    end
+                    TriggerEvent("cancelando",false)
+                    ClearPedTasks(ped)
+                end
+            end
+        end
+    end
+	
     Citizen.Wait(idle)
 end)
