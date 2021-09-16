@@ -399,18 +399,6 @@ RegisterCommand("hash",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DELNPCS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("delnpcs",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
-			vCLIENT.deleteNpcs(source)
-			TriggerClientEvent("Notify",source,"amarelo","NPCs próximos deletados.",5000)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- TUNING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tuning",function(source,args,rawCommand)
@@ -496,6 +484,17 @@ AddEventHandler("admin:clearArea",function(clearArea)
 		local x,y,z = vRPclient.getPositions(source)
 		TriggerClientEvent("syncarea",-1,x,y,z,100)
 		TriggerClientEvent("Notify",source,"amarelo","Área próxima limpada.",5000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADMIN:CLEARNPCS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("admin:clearNpcs")
+AddEventHandler("admin:clearNpcs",function(clearNpcs)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		vCLIENT.deleteNpcs(source)
+		TriggerClientEvent("Notify",source,"amarelo","NPCs próximos deletados.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

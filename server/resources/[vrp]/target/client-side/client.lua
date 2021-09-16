@@ -879,64 +879,6 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
-
-	AddCircleZone("systemHacker",vector3(1275.76,-1710.39,54.76),0.5,{
-		name = "systemHacker",
-		heading = 297.64
-	},{
-		distance = 0.75,
-		options = {
-			{
-				event = "stockade:initHacker",
-				label = "Hackear Carro Forte",
-				tunnel = "client"
-			},
-			{
-				event = "robberys:Departament",
-				label = "Hackear Loja de Departamento",
-				tunnel = "client"
-			},
-			{
-				event = "robberys:Ammunation",
-				label = "Hackear Loja de Armas",
-				tunnel = "client"
-			},
-			{
-				event = "robberys:Fleecas",
-				label = "Hackear Fleeca",
-				tunnel = "client"
-			},
-			{
-				event = "robberys:Barbershop",
-				label = "Hackear Barbearia",
-				tunnel = "client"
-			},
-			{
-				event = "robberys:Banks",
-				label = "Hackear Bancos",
-				tunnel = "client"
-			}
-		}
-	})
-
-	AddCircleZone("divingStore",vector3(2768.18,1392.51,24.53),0.5,{
-		name = "divingStore",
-		heading = 297.64
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "shops:divingSuit",
-				label = "Comprar Traje",
-				tunnel = "server"
-			},
-			{
-				event = "hud:rechargeOxigen",
-				label = "Reabastecer Oxigênio",
-				tunnel = "client"
-			}
-		}
-	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADMINMENU
@@ -950,6 +892,11 @@ local adminMenu = {
 	{
 		event = "admin:clearArea",
 		label = "Limpar Área",
+		tunnel = "admin"
+	},
+	{
+		event = "admin:clearNpcs",
+		label = "Limpar NPCS",
 		tunnel = "admin"
 	},
 	{
