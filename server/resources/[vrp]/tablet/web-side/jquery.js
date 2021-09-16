@@ -29,11 +29,7 @@ $(document).ready(function(){
 			case "updateAluguel":
 				updateAluguel();
 			break;
-			
-			case "updateServicos":
-				updateServicos();
-			break;
-			
+
 			case "aboutPage":
 				aboutPage();
 			break;
@@ -322,7 +318,6 @@ const UpdateLista = (mode) => {
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
 		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
-		<li id="benefactor" onclick="UpdateLista('Servicos');" data-id="Servicos" ${mode == "Servicos" ? "class=active":""}>SERVIÇOS</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
 		</div>
 
@@ -374,7 +369,6 @@ const benefactor = () => {
 		<li id="benefactor" onclick="UpdateLista('Carros');" data-id="Carros" class="active">CARROS</li>
 		<li id="benefactor" onclick="UpdateLista('Motos');" data-id="Motos">MOTOS</li>
 		<li id="benefactor" onclick="UpdateLista('Aluguel');" data-id="Aluguel">ALUGUEL</li>
-		<li id="benefactor" onclick="UpdateLista('Servicos');" data-id="Servicos">SERVIÇOS</li>
 		<li id="benefactor" onclick="UpdateLista('Possuidos');" data-id="Possuidos">POSSUÍDOS</li>
 		</div>
 

@@ -42591,7 +42591,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>elegyx</audioNameHash>
+			<audioNameHash>r35sound</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -42696,7 +42696,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>elegyx</audioNameHash>
+			<audioNameHash>r35sound</audioNameHash>
 			<layout>LAYOUT_LOW_RHD</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -42801,7 +42801,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>elegyx</audioNameHash>
+			<audioNameHash>r35sound</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -42906,7 +42906,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>elegyx</audioNameHash>
+			<audioNameHash>r35sound</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -43243,7 +43243,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>casco</audioNameHash>
+			<audioNameHash>r34sound</audioNameHash>
 			<layout>LAYOUT_LOW_RHD</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -43352,7 +43352,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>casco</audioNameHash>
+			<audioNameHash>r34sound</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>ELEGY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -43581,7 +43581,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>reaper</audioNameHash>
+			<audioNameHash>huracanv10</audioNameHash>
 			<layout>LAYOUT_LOW_RESTRICTED</layout>
 			<coverBoundOffsets>NINEF_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -46021,7 +46021,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>COQUETTE</audioNameHash>
+			<audioNameHash>carrerav10</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>FUTO_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -47001,7 +47001,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>null</ptfxAssetName>
-			<audioNameHash>schwarzer</audioNameHash>
+			<audioNameHash>carrerav10</audioNameHash>
 			<layout>LAYOUT_STD_HIGHWINDOW</layout>
 			<coverBoundOffsets>GRESLEY_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>
@@ -47776,7 +47776,7 @@
 			<animConvRoofName>null</animConvRoofName>
 			<animConvRoofWindowsAffected />
 			<ptfxAssetName>veh_ba_oppressor2</ptfxAssetName>
-			<audioNameHash>elegyx</audioNameHash>
+			<audioNameHash>r35sound</audioNameHash>
 			<layout>LAYOUT_LOW</layout>
 			<coverBoundOffsets>ELEGYRETRO_COVER_OFFSET_INFO</coverBoundOffsets>
 			<explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>

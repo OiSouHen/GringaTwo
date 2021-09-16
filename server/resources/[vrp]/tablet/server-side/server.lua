@@ -15,11 +15,10 @@ Tunnel.bindInterface("tablet",cRP)
 local motos = {}
 local carros = {}
 local aluguel = {}
-local servicos = {}
 local stockVeh = {}
 local lockReq = {}
 local stealVehs = {}
-local testDriveTime = 60000
+local testDriveTime = 15000
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEGLOBALTHREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -33,8 +32,6 @@ Citizen.CreateThread(function()
 			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
 		elseif v[4] == "rental" then
 			table.insert(aluguel,{ k = k, name = v[1], price = v[5], chest = parseInt(v[2]), tax = parseInt(v[7]) })
-		elseif v[4] == "work" then
-			table.insert(servicos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
 		end
 	end
 	if #temp_stock > 0 then
@@ -162,16 +159,6 @@ function cRP.Aluguel()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		return aluguel
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SERVICOS
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.Servicos()
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		return servicos
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -306,7 +293,8 @@ function cRP.startDrive()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		return testDriveTime
+		return
+--		return testDriveTime
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -316,7 +304,6 @@ function cRP.removeDrive()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		TriggerClientEvent("Progress",source,0,"Testando...")
 		return true
 	end
 end

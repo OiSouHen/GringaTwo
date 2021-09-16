@@ -20,6 +20,7 @@ local innerEntity = {}
 local setDistance = 10.0
 local playerActive = true
 local targetActive = false
+local policeService = false
 local adminService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADMIN:ONSERVICE
@@ -41,6 +42,13 @@ end
 RegisterNetEvent("vrp:playerActive")
 AddEventHandler("vrp:playerActive",function()
 	playerActive = true
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:updateService")
+AddEventHandler("police:updateService",function(status)
+	policeService = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM

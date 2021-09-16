@@ -11,6 +11,12 @@ cRP = {}
 Tunnel.bindInterface("tablet",cRP)
 vSERVER = Tunnel.getInterface("tablet")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DRIVEABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local vehDrive = nil
+local benDrive = false
+local benCoords = { -55.51,67.8,71.95 }
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
@@ -78,15 +84,6 @@ RegisterNUICallback("requestAluguel",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTSERVICOS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestServicos",function(data,cb)
-	local veiculos = vSERVER.Servicos()
-	if veiculos then
-		cb({ veiculos = veiculos })
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTPOSSUIDOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestPossuidos",function(data,cb)
@@ -96,22 +93,18 @@ RegisterNUICallback("requestPossuidos",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- BUYDEALERVARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local benbCoords = { -55.58,67.82,71.95 }
------------------------------------------------------------------------------------------------------------------------------------------
 -- BUYDEALER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("buyDealer",function(data)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
-	local distance = #(coords - vector3(benbCoords[1],benbCoords[2],benbCoords[3]))
-	if distance <= 2.5 then
+	local distance = #(coords - vector3(benCoords[1],benCoords[2],benCoords[3]))
+	if distance <= 3 then
 		if data.name ~= nil then
 			vSERVER.buyDealer(data.name)
 		end
 	else
-		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para Comprar.",10000)
+		TriggerEvent("Notify","amarelo","Dirija-se até a <b>Benefactor</b> para efetuar a compra.",2000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -130,49 +123,39 @@ RegisterNUICallback("RequestSell",function(data,cb)
 	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DRIVEVARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local vehDrive = nil
-local benDrive = false
-local benCoords = { -55.58,67.82,71.95 }
------------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestDrive",function(data,cb)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local distance = #(coords - vector3(benCoords[1],benCoords[2],benCoords[3]))
-	
-	if distance <= 2.5 then
+
+	if distance <= 3 then
 		vRP.removeObjects()
 		SetNuiFocus(false,false)
 		SetCursorLocation(0.5,0.5)
 		SendNUIMessage({ action = "closeSystem" })
-		vRP.removeObjects()
-		
+
 		local driveIn,vehPlate = vSERVER.startDrive()
 		if driveIn then
 			TriggerEvent("races:insertList",true)
 			TriggerEvent("player:blockCommands",true)
-			TriggerEvent("Notify","azul","Você tem <b>60 segundos</b> para testar o veículo.<br><br>Caso saia do veículo o teste será encerrado.",15000)
+			TriggerEvent("Notify","azul","Teste iniciado, para finalizar saia do veículo.",5000)
+
+			Citizen.Wait(1000)
+
 			vehCreate(data["name"],vehPlate)
-			SetPedIntoVehicle(ped,vehDrive,-1)
-			benDrive = true
-			
 			local plate = GetVehicleNumberPlateText(vehDrive)
 			local modelName = vRP.vehicleModel(GetEntityModel(vehDrive))
 			TriggerServerEvent("setPlateEveryone",plate,modelName)
-			TriggerEvent("Progress",60000,"Testando...")
-			Citizen.Wait(60000)
-			benDrive = false
-			vSERVER.removeDrive()
-			DeleteEntity(vehDrive)
-			TriggerEvent("races:insertList",false)
-			TriggerEvent("player:blockCommands",false)
-			SetEntityCoords(ped,benCoords[1],benCoords[2],benCoords[3],1,0,0,0)
+
+			Citizen.Wait(1000)
+
+			SetPedIntoVehicle(ped,vehDrive,-1)
+			benDrive = true
 		end
 	else
-		TriggerEvent("Notify","amarelo","Vá até a <b>Benefactor</b> para Testar.",10000)
+		TriggerEvent("Notify","amarelo","Dirija-se até a <b>Benefactor</b> para efetuar o teste.",2000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -187,22 +170,17 @@ function vehCreate(vehName,vehPlate)
 	end
 
 	if HasModelLoaded(mHash) then
-		vehDrive = CreateVehicle(mHash,-72.49,84.59,71.6,64.87,false,false)
-		SetVehicleDoorsLockedForAllPlayers(vehDrive,4)
-        SetVehicleNumberPlateText(vehDrive,"GRINGARP") 
-        SetVehicleDirtLevel(vehDrive,0.0)
-        SetVehRadioStation(vehDrive,"OFF")
-        SetVehicleFuelLevel(vehDrive,100.0)
+		vehDrive = CreateVehicle(mHash,-68.29,82.77,71.21,65.2,false,false)
         SetEntityInvincible(vehDrive,true)
         vSERVER.startDrive()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADREQUESTDRIVE
+-- THREADDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		if benDrive then
 			timeDistance = 1
 			DisableControlAction(1,69,false)
