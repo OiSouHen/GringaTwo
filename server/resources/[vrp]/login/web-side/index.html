@@ -24,13 +24,13 @@
 		$(() => {
 			window.addEventListener('message',(event) => {
 				if (event.data.display) {
-					$('#index').show();
+					$('#spawnPage').show();
 				} else {
-					$('#index').hide();
+					$('#spawnPage').hide();
 				}
 			})
 
-			$('li').click(function(){
+			$('button').click(function(){
 				$.post('http://login/spawn',JSON.stringify({ choice: $(this).data('spawn') }));
 			});
 		})
