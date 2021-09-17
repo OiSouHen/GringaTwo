@@ -96,3 +96,33 @@ function cRP.searchObject(id)
 		end
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHWASTEITENS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local searchWasteItens = {
+	[1] = "newspaper"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHWASTE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.searchWaste(id)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+	    if timers[id] == 0 or not timers[id] then
+		    if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+			    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
+			    Wait(1)
+		    else
+				vRP.giveInventoryItem(user_id,searchWasteItens[math.random(#searchWasteItens)],math.random(3,6),true)
+				timers[id] = 600
+				
+				vRP.upgradeStress(user_id,3)
+				return true
+			end
+			return false
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
+		end
+	end
+end
