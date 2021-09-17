@@ -293,8 +293,7 @@ function cRP.startDrive()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		return
---		return testDriveTime
+		return testDriveTime
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

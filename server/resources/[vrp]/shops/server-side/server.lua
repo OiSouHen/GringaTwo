@@ -314,10 +314,10 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["toolbox"] = 500,
+			["toolbox"] = 825,
 			["WEAPON_WRENCH"] = 725,
-			["lockpick"] = 400,
-			["tires"] = 275,
+			["lockpick"] = 625,
+			["tires"] = 425,
 			["WEAPON_CROWBAR"] = 725
 		}
 	},

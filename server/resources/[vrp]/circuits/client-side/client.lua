@@ -476,3 +476,10 @@ function dwText2(text,s1,s2,x,y,alpha,shadow)
 		DrawText(x-0.012,y)
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CIRCUITS:INATIVERACES
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("circuits:insertList")
+AddEventHandler("circuits:insertList",function(status)
+	inRunners = status
+end)

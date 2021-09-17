@@ -196,8 +196,8 @@ AddEventHandler("garbageman:verifyWaste",function(verifyWaste)
                 if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], wasteCoords["x"], wasteCoords["y"], wasteCoords["z"] < 0.5)) then
                     TriggerEvent("cancelando",true)
                     vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-                    TriggerEvent("Progress",5000,"Vasculhando...")
-                    Wait(5000)
+                    TriggerEvent("Progress",60000,"Vasculhando...")
+                    Wait(60000)
                     if vSERVER.verifyWaste(wasteCoords["x"]) then
                     end
                     TriggerEvent("cancelando",false)

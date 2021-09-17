@@ -15,7 +15,7 @@ vSERVER = Tunnel.getInterface("tablet")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehDrive = nil
 local benDrive = false
-local benCoords = { -55.51,67.8,71.95 }
+local benCoords = { -56.67,-1096.97,26.43 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -123,6 +123,30 @@ RegisterNUICallback("RequestSell",function(data,cb)
 	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ABOUTINFORMATIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("aboutInformations",function(data,cb)
+	local inventario,peso,maxpeso,infos = vSERVER.aboutInformations()
+	if inventario then
+		cb({ inventario = inventario, drop = dropItems, peso = peso, maxpeso = maxpeso, infos = infos })
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATEMEDIA
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("tablet:updateMedia")
+AddEventHandler("tablet:updateMedia",function(media,data)
+	SendNUIMessage({ action = "messageMedia", media = media, data = data })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SYNCAREA
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("syncarea")
+AddEventHandler("syncarea",function(x,y,z,distance)
+	ClearAreaOfVehicles(x,y,z,distance + 0.0,false,false,false,false,false)
+	ClearAreaOfEverything(x,y,z,distance + 0.0,false,false,false,false)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestDrive",function(data,cb)
@@ -138,7 +162,7 @@ RegisterNUICallback("requestDrive",function(data,cb)
 
 		local driveIn,vehPlate = vSERVER.startDrive()
 		if driveIn then
-			TriggerEvent("races:insertList",true)
+			TriggerEvent("circuits:insertList",true)
 			TriggerEvent("player:blockCommands",true)
 			TriggerEvent("Notify","azul","Teste iniciado, para finalizar saia do veículo.",5000)
 
@@ -170,7 +194,7 @@ function vehCreate(vehName,vehPlate)
 	end
 
 	if HasModelLoaded(mHash) then
-		vehDrive = CreateVehicle(mHash,-68.29,82.77,71.21,65.2,false,false)
+		vehDrive = CreateVehicle(mHash,-49.87,-1080.25,26.92,69.92,false,false)
         SetEntityInvincible(vehDrive,true)
         vSERVER.startDrive()
 	end
@@ -192,7 +216,7 @@ Citizen.CreateThread(function()
 				benDrive = false
 				vSERVER.removeDrive()
 				DeleteEntity(vehDrive)
-				TriggerEvent("races:insertList",false)
+				TriggerEvent("circuits:insertList",false)
 				TriggerEvent("player:blockCommands",false)
 				SetEntityCoords(ped,benCoords[1],benCoords[2],benCoords[3],1,0,0,0)
 			end
@@ -200,28 +224,4 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(timeDistance)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- ABOUTINFORMATIONS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("aboutInformations",function(data,cb)
-	local inventario,peso,maxpeso,infos = vSERVER.aboutInformations()
-	if inventario then
-		cb({ inventario = inventario, drop = dropItems, peso = peso, maxpeso = maxpeso, infos = infos })
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEMEDIA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tablet:updateMedia")
-AddEventHandler("tablet:updateMedia",function(media,data)
-	SendNUIMessage({ action = "messageMedia", media = media, data = data })
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SYNCAREA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("syncarea")
-AddEventHandler("syncarea",function(x,y,z,distance)
-	ClearAreaOfVehicles(x,y,z,distance + 0.0,false,false,false,false,false)
-	ClearAreaOfEverything(x,y,z,distance + 0.0,false,false,false,false)
 end)

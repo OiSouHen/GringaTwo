@@ -55,11 +55,35 @@ local craftList = {
 	},
 	["craftShop"] = {
 		["list"] = {
+			["gear"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["coal"] = 1,
+					["metalfragments"] = 2
+				}
+			},
+			["sewingkit"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["fabric"] = 5,
+					["metalfragments"] = 2
+				}
+			},
 			["backpack"] = {
 				["amount"] = 1,
 				["destroy"] = true,
 				["require"] = {
-					["fabric"] = 25
+					["sewingkit"] = 4
+				}
+			},
+			["gunpowder"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["sulfur"] = 3,
+					["coal"] = 3
 				}
 			},
 			["fabric"] = {
