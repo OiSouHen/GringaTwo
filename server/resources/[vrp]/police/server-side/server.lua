@@ -91,7 +91,7 @@ function cRP.initPrison(data)
         if nplayer then
             vRP.setFines(parseInt(data.passaporte),parseInt(data.fines),parseInt(user_id),tostring(data.reason))
             vRP.execute("vRP/set_prison",{ user_id = parseInt(data.passaporte), prison = parseInt(data.services), locate = parseInt(2) })
-            vCLIENT.syncPrison(nplayer,1775.61,2495.13,50.43)
+            vCLIENT.syncPrison(nplayer,1679.94,2513.07,45.56)
         end
 		
 		if identity then
@@ -224,7 +224,7 @@ function cRP.reducePrison()
 			TriggerClientEvent("Notify",source,"verde","Você está fora da prisão.",3000)
 			
 			if parseInt(consult[1].locate) == 2 then
-				vRPclient.teleport(source,1843.63,2594.67,46.02)
+				vRPclient.teleport(source,1846.49,2584.38,45.66)
 			end
 		else
 			vCLIENT.syncPrison(source,parseInt(consult[1].locate))
@@ -279,7 +279,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	else
 		TriggerClientEvent("Notify",source,"azul","Ainda restam <b>"..parseInt(consult[1].prison).." serviços</b>.",5000)
 		vCLIENT.syncPrison(source,parseInt(consult[1].locate))
-		vRPclient.teleport(source,1775.61,2495.13,50.43)
+		vRPclient.teleport(source,1679.94,2513.07,45.56)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -58,17 +58,12 @@ Citizen.CreateThread(function()
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Target","keyboard","LMENU")
 
-    AddCircleZone("treatment01",vector3(1147.09,-1543.0,35.39),0.75,{  
+    AddCircleZone("treatment01",vector3(1146.57,-1542.65,35.39),0.75,{
 		name = "treatment01",
-		heading = 152.31
+		heading = 136.07
 	},{
 		distance = 1.0,
 		options = {
-		    {
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
-			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -76,18 +71,13 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
-
-	AddCircleZone("treatment02",vector3(1766.74,2514.26,45.83),0.75,{
+	
+	AddCircleZone("treatment02",vector3(-253.92,6331.07,32.42),0.75,{
 		name = "treatment02",
-		heading = 29.0
+		heading = 136.07
 	},{
 		distance = 1.0,
 		options = {
-		    {
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
-			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -96,17 +86,12 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("treatment03",vector3(-253.72,6330.93,32.43),0.75,{
+	AddCircleZone("treatment03",vector3(1768.67,2570.59,45.73),0.75,{
 		name = "treatment03",
-		heading = 136.43
+		heading = 314.65
 	},{
 		distance = 1.0,
 		options = {
-		    {
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
-			},
 			{
 				event = "checkin:initCheck",
 				label = "Tratamento",
@@ -115,9 +100,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("polService01",vector3(1841.72,2577.98,46.02),0.75,{
+	AddCircleZone("polService01",vector3(387.18,797.12,190.5),0.75,{
 		name = "polService01",
-		heading = 9.53
+		heading = 358.25
 	},{
 		distance = 1.0,
 		options = {
@@ -125,18 +110,13 @@ Citizen.CreateThread(function()
 				event = "police:servicePolice",
 				label = "Trabalhar",
 				tunnel = "server"
-			},
-			{
-				event = "corrections:initService",
-				label = "Transportar Presidiário",
-				tunnel = "client"
 			}
 		}
 	})
 	
-	AddCircleZone("polService02",vector3(1853.35,3689.78,34.27),0.75,{
+	AddCircleZone("polService02",vector3(1853.33,3689.93,34.26),0.75,{
 		name = "polService02",
-		heading = 9.53
+		heading = 303.31
 	},{
 		distance = 1.0,
 		options = {
@@ -148,9 +128,9 @@ Citizen.CreateThread(function()
 		}
 	})
 	
-	AddCircleZone("polService03",vector3(-449.36,6012.67,31.72),0.75,{
+	AddCircleZone("polService03",vector3(-449.32,6012.61,31.71),0.75,{
 		name = "polService03",
-		heading = 46.3
+		heading = 42.52
 	},{
 		distance = 1.0,
 		options = {
@@ -158,23 +138,60 @@ Citizen.CreateThread(function()
 				event = "police:servicePolice",
 				label = "Trabalhar",
 				tunnel = "server"
-			},
+			}
+		}
+	})
+	
+	AddCircleZone("polService04",vector3(1840.28,2579.19,46.02),0.75,{
+		name = "polService04",
+		heading = 181.42
+	},{
+		distance = 1.0,
+		options = {
 			{
 				event = "corrections:initService",
-				label = "Transportar Presidiário",
-				tunnel = "client"
+				label = "Trabalhar",
+				tunnel = "server"
 			}
 		}
 	})
 	
-	AddCircleZone("polService04",vector3(387.18,797.08,190.5),0.75,{
-		name = "polService04",
-		heading = 339.48
+	AddCircleZone("paraService01",vector3(1144.08,-1543.43,35.39),0.75,{
+		name = "paraService01",
+		heading = 317.49
 	},{
 		distance = 1.0,
 		options = {
 			{
-				event = "police:servicePolice",
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService02",vector3(1147.46,-1545.73,35.39),0.75,{
+		name = "paraService02",
+		heading = 317.49
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService03",vector3(-255.44,6330.36,32.42),0.75,{
+		name = "paraService03",
+		heading = 317.49
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
 				label = "Trabalhar",
 				tunnel = "server"
 			}

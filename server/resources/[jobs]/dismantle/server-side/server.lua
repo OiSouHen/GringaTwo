@@ -240,8 +240,8 @@ function cRP.paymentMethod(vehicle)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.upgradeStress(user_id,25)
-		local value = math.random(12000,24000)
+		vRP.upgradeStress(user_id,15)
+		local value = math.random(5000,10000)
 
 		vRPRAGE.deleteVehicle(source,vehicle)
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)

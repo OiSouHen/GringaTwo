@@ -33,16 +33,6 @@
 		<Item>k4mb1_mirrorparkauto2_milo_</Item>
 		<Item>mirrorparkbackyardfence</Item>
 		<Item>mirrorparklift</Item>
-		<Item>lr_cs6_08_strm_0</Item>
-		<Item>cs6_occl_02</Item>
-		<Item>lr_cs6_04</Item>
-		<Item>lr_cs6_04_strm_3</Item>
-		<Item>lr_cs6_04_strm_4</Item>
-		<Item>prison_cafeteria_milo_</Item>
-		<Item>prison_cells_doors</Item>
-		<Item>prison_cells_milo_</Item>
-		<Item>prison_garage_details</Item>
-		<Item>prison_visit_milo_</Item>
 		<Item>creative_methlab01</Item>
 		<Item>denis3d_hayes_auto_exterior</Item>
 		<Item>denis3d_hayes_auto_milo_</Item>
@@ -56,6 +46,10 @@
 		<Item>apa_ch2_04_strm_3</Item>
 		<Item>apa_ch2_occl_06</Item>
 		<Item>int_parkrls_milo_</Item>
+		<Item>sanhje_prison_reception_placement</Item>
+		<Item>sanhje_Prison_placement</Item>
+		<Item>sanhje_Prison_infirmary_placement</Item>
+		<Item>sanhje_Prison_cafeteria_placement</Item>
 		<Item>courthouse</Item>
 	</proxies>
 </SInteriorOrderData>
