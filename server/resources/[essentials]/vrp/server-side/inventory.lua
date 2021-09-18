@@ -2376,6 +2376,27 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
+	["WEAPON_SMG_MK2"] = {
+		index = "evo3",
+		name = "Evo-3",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "12225",
+		type = "equip",
+		ammo = "WEAPON_SMG_MK2_AMMO",
+		weight = 5.25
+	},
+	["TOKEN_WEAPON_SMG_MK2"] = {
+		index = "tokensmg",
+		name = "Token - Evo-3",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "12225",
+		type = "use",
+		weight = 0.50
+	},
 	["WEAPON_ASSAULTSMG"] = {
 		index = "steyraug",
 		name = "Steyr AUG",
@@ -2479,6 +2500,16 @@ local itemlist = {
 		type = "recharge",
 		weight = 0.03
 	},
+	["WEAPON_SMG_MK2_AMMO"] = {
+		index = "smgammo",
+		name = "Munição de Evo-3",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "24",
+		type = "recharge",
+		weight = 0.03
+	},
 	["WEAPON_ASSAULTSMG_AMMO"] = {
 		index = "smgammo",
 		name = "Munição de MTAR-21",
@@ -2521,6 +2552,39 @@ local itemlist = {
 		economy = "5250",
 		type = "equip",
 		ammo = "WEAPON_CARBINERIFLE_AMMO",
+		weight = 7.75
+	},
+	["WEAPON_SPECIALCARBINE"] = {
+		index = "g36c",
+		name = "G36C",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "17775",
+		type = "equip",
+		ammo = "WEAPON_SPECIALCARBINE_AMMO",
+		weight = 8.25
+	},
+	["WEAPON_SPECIALCARBINE_MK2"] = {
+		index = "sigsauer556",
+		name = "Sig Sauer 556",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "18775",
+		type = "equip",
+		ammo = "WEAPON_SPECIALCARBINE_MK2_AMMO",
+		weight = 8.25
+	},
+	["WEAPON_BULLPUPRIFLE_MK2"] = {
+		index = "l85",
+		name = "L85",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "18775",
+		type = "equip",
+		ammo = "WEAPON_BULLPUPRIFLE_MK2_AMMO",
 		weight = 7.75
 	},
 	["TOKEN_WEAPON_CARBINERIFLE"] = {
@@ -2586,6 +2650,28 @@ local itemlist = {
 		ammo = "WEAPON_ASSAULTRIFLE_MK2_AMMO",
 		weight = 7.75
 	},
+	["WEAPON_BULLPUPRIFLE"] = {
+		index = "qbz95",
+		name = "QBZ-95",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "17775",
+		type = "equip",
+		ammo = "WEAPON_BULLPUPRIFLE_AMMO",
+		weight = 7.75
+	},
+	["WEAPON_ADVANCEDRIFLE"] = {
+		index = "tar21",
+		name = "Tar-21",
+		desc = "",
+		tipo = "Armamento",
+		unity = "Não",
+		economy = "17775",
+		type = "equip",
+		ammo = "WEAPON_ADVANCEDRIFLE_AMMO",
+		weight = 7.75
+	},
 	["TOKEN_WEAPON_ASSAULTRIFLE_MK2"] = {
 		index = "tokenrifle",
 		name = "Token - AK-74",
@@ -2599,6 +2685,36 @@ local itemlist = {
 	["WEAPON_CARBINERIFLE_AMMO"] = {
 		index = "rifleammo",
 		name = "Munição de M4A1",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "25",
+		type = "recharge",
+		weight = 0.04
+	},
+	["WEAPON_SPECIALCARBINE_AMMO"] = {
+		index = "rifleammo",
+		name = "Munição de G36C",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "25",
+		type = "recharge",
+		weight = 0.04
+	},
+	["WEAPON_SPECIALCARBINE_MK2_AMMO"] = {
+		index = "rifleammo",
+		name = "Munição de Sig Sauer 556",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "25",
+		type = "recharge",
+		weight = 0.04
+	},
+	["WEAPON_BULLPUPRIFLE_MK2_AMMO"] = {
+		index = "rifleammo",
+		name = "Munição de L85",
 		desc = "",
 		tipo = "Munição",
 		unity = "Não",
@@ -2629,6 +2745,26 @@ local itemlist = {
 	["WEAPON_ASSAULTRIFLE_MK2_AMMO"] = {
 		index = "rifleammo",
 		name = "Munição de AK-74",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "25",
+		type = "recharge",
+		weight = 0.04
+	},
+	["WEAPON_BULLPUPRIFLE_AMMO"] = {
+		index = "rifleammo",
+		name = "Munição de QBZ-95",
+		desc = "",
+		tipo = "Munição",
+		unity = "Não",
+		economy = "25",
+		type = "recharge",
+		weight = 0.04
+	},
+	["WEAPON_ADVANCEDRIFLE_AMMO"] = {
+		index = "rifleammo",
+		name = "Munição de Tar-21",
 		desc = "",
 		tipo = "Munição",
 		unity = "Não",
@@ -2741,6 +2877,16 @@ local itemlist = {
 		tipo = "Comum",
 		unity = "Não",
 		economy = "10775",
+		type = "use",
+		weight = 0.50
+	},
+	["TOKEN_WEAPON_SAWNOFFSHOTGUN"] = {
+		index = "tokenrifle",
+		name = "Token - G36C",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "17775",
 		type = "use",
 		weight = 0.50
 	},
@@ -3237,6 +3383,16 @@ local itemlist = {
 		tipo = "Comum",
 		unity = "Não",
 		economy = "40",
+		type = "use",
+		weight = 0.25
+	},
+	["dish"] = {
+		index = "dish",
+		name = "Prato",
+		desc = "",
+		tipo = "Comum",
+		unity = "Não",
+		economy = "85",
 		type = "use",
 		weight = 0.25
 	},

@@ -558,7 +558,7 @@ Citizen.CreateThread(function()
 	AddTargetModel({ 322493792,-273279397,10106915,1120812170,-915224107,591265130,929870599,-896997473,2090224559,-1366478936,-52638650,-1748303324,1069797899,1898296526,1434516869 },{
 		options = {
 			{
-				event = "garbageman:verifyWaste",
+				event = "garbageman:searchWaste",
 				label = "Sucatear",
 				tunnel = "client"
 			}

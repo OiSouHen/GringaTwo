@@ -335,7 +335,7 @@ local shops = {
 			["heroine"] = 3400
 		}
 	},
-	["weaponsStore"] = {
+	["tokensStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
@@ -365,6 +365,105 @@ local shops = {
 			["TOKEN_WEAPON_PUMPSHOTGUN"] = 4250,
 			["TOKEN_WEAPON_PUMPSHOTGUN_MK2"] = 16775,
 			["TOKEN_WEAPON_SAWNOFFSHOTGUN"] = 10775
+		}
+	},
+	["weaponsStore"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["WEAPON_ASSAULTRIFLE"] = 40250,
+			["WEAPON_ASSAULTRIFLE_MK2"] = 42250,
+			["WEAPON_SNSPISTOL"] = 10250,
+			["WEAPON_PISTOL50"] = 15250,
+			["WEAPON_SMG_MK2"] = 30250,
+			["WEAPON_PISTOL_MK2"] = 12250,
+			["WEAPON_SPECIALCARBINE"] = 40250,
+			["WEAPON_SNSPISTOL_MK2"] = 12250,
+			["WEAPON_APPISTOL"] = 14250,
+			["WEAPON_BULLPUPRIFLE_MK2"] = 42250,
+			["WEAPON_PISTOL"] = 12250,
+			["WEAPON_VINTAGEPISTOL"] = 10250,
+			["WEAPON_REVOLVER"] = 15250,
+			["WEAPON_SAWNOFFSHOTGUN"] = 26250,
+			["WEAPON_PUMPSHOTGUN"] = 38250,
+			["WEAPON_BULLPUPRIFLE"] = 40250,
+			["WEAPON_SPECIALCARBINE_MK2"] = 42250,
+			["WEAPON_MINISMG"] = 28250,
+			["WEAPON_ASSAULTSMG"] = 30250,
+			["WEAPON_ADVANCEDRIFLE"] = 40250,
+			["WEAPON_MACHINEPISTOL"] = 14250,
+			["WEAPON_GUSENBERG"] = 30250,
+			["WEAPON_MICROSMG"] = 28250
+		}
+	},
+	["ilegalToys"] = {
+		["mode"] = "Buy",
+		["type"] = "Sell",
+		["list"] = {
+			["eraser"] = 75,
+			["deck"] = 75,
+			["vest2"] = 125,
+			["credential"] = 250,
+			["dices"] = 40,
+			["floppy"] = 55,
+			["domino"] = 65,
+			["horseshoe"] = 85,
+			["legos"] = 85,
+			["ominitrix"] = 85
+		}
+	},
+	["ilegalHouse"] = {
+		["mode"] = "Buy",
+		["type"] = "Sell",
+		["list"] = {
+			["lampshade"] = 115,
+			["cup"] = 125,
+			["switch"] = 35,
+			["blender"] = 85,
+			["mouse"] = 85,
+			["pan"] = 125,
+			["playstation"] = 100,
+			["dish"] = 85,
+			["keyboard"] = 85,
+			["brick"] = 30,
+			["fan"] = 85,
+			["xbox"] = 100
+		}
+	},
+	["ilegalCosmetics"] = {
+		["mode"] = "Buy",
+		["type"] = "Sell",
+		["list"] = {
+			["goldring"] = 125,
+			["silverring"] = 85,
+			["spray02"] = 85,
+			["bracelet"] = 95,
+			["slipper"] = 75,
+			["spray01"] = 85,
+			["spray03"] = 85,
+			["spray04"] = 85,
+			["brush"] = 85,
+			["watch"] = 100,
+			["rimel"] = 85,
+			["soap"] = 75,
+			["sneakers"] = 115,
+			["dildo"] = 85
+		}
+	},
+	["ilegalCriminal"] = {
+		["mode"] = "Buy",
+		["type"] = "Sell",
+		["list"] = {
+			["pliers"] = 75,
+			["goldbar"] = 875,
+			["card05"] = 625,
+			["card01"] = 525,
+			["card02"] = 525,
+			["card03"] = 575,
+			["card04"] = 425,
+			["lockpick2"] = 75,
+			["pager"] = 225,
+			["pendrive"] = 575
 		}
 	}
 }

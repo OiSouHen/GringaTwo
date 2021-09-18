@@ -780,6 +780,21 @@ local weapon_ammos = {
 	},
 	["WEAPON_PETROLCAN_AMMO"] = {
 		"WEAPON_PETROLCAN"
+	},
+	["WEAPON_SPECIALCARBINE_AMMO"] = {
+		"WEAPON_SPECIALCARBINE"
+	},
+	["WEAPON_BULLPUPRIFLE_MK2_AMMO"] = {
+		"WEAPON_BULLPUPRIFLE_MK2"
+	},
+	["WEAPON_SPECIALCARBINE_MK2_AMMO"] = {
+		"WEAPON_SPECIALCARBINE_MK2"
+	},
+	["WEAPON_ADVANCEDRIFLE_AMMO"] = {
+		"WEAPON_ADVANCEDRIFLE"
+	},
+	["WEAPON_SMG_MK2_AMMO"] = {
+		"WEAPON_SMG_MK2"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
