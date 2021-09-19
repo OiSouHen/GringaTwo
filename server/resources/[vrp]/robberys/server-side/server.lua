@@ -645,7 +645,8 @@ function cRP.paymentRobbery(robberyId)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.wantedTimer(user_id,600)
+		vRP.wantedTimer(user_id,60)
+		
 		for k,v in pairs(vars[robberyId].itens) do
 			vRP.giveInventoryItem(user_id,v.item,parseInt(math.random(v.min,v.max)),true)
 		end
@@ -664,6 +665,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(1000)
 	end
 end)
