@@ -101,7 +101,7 @@ Citizen.CreateThread(function()
 					DrawMarker(1,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3] - 3,0,0,0,0,0,0,5.0,5.0,3.0,255,255,255,25,0,0,0,0)
 					DrawMarker(21,stopVehicle[selectPosition][1],stopVehicle[selectPosition][2],stopVehicle[selectPosition][3],0,0,0,0,180.0,130.0,1.5,1.5,1.0,42,137,255,100,0,0,0,1)
 
-					if IsControlJustPressed(1,38) and distance <= 2.5 and GetEntityModel(vehicle) == -2007026063 then
+					if IsControlJustPressed(1,38) and distance <= 2.5 and GetEntityModel(vehicle) == 1954121213 then
 										
 						if currentStatus then
 							FreezeEntityPosition(vehicle,true)

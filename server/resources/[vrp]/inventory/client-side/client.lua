@@ -339,7 +339,7 @@ function cRP.checkBurstTyres(index)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REPAIRVEHICLE
+-- INVENTORY:REPAIRVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:repairVehicle")
 AddEventHandler("inventory:repairVehicle",function(index,status)
@@ -374,7 +374,7 @@ AddEventHandler("inventory:repairVehicle",function(index,status)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REPAIRTIRES
+-- INVENTORY:REPAIRTIRES
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:repairTires")
 AddEventHandler("inventory:repairTires",function(index)

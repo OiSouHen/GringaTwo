@@ -487,17 +487,6 @@ AddEventHandler("admin:clearArea",function(clearArea)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADMIN:CLEARNPCS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("admin:clearNpcs")
-AddEventHandler("admin:clearNpcs",function(clearNpcs)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		vCLIENT.deleteNpcs(source)
-		TriggerClientEvent("Notify",source,"amarelo","NPCs próximos deletados.",5000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- ONLINES
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("onlines",function(source,args,rawCommand)

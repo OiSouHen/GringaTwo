@@ -146,7 +146,7 @@ local pedList = {
 	},
 	{ -- Benefactor
 		distance = 100,
-		coords = { -54.21,67.28,71.97,74.59 },
+		coords = { -57.0,-1098.9,26.43,20.55 },
 		model = { 0xC0937202,"cs_siemonyetarian" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},

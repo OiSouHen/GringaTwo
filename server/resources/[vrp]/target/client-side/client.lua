@@ -151,7 +151,7 @@ Citizen.CreateThread(function()
 			{
 				event = "corrections:initService",
 				label = "Trabalhar",
-				tunnel = "server"
+				tunnel = "client"
 			}
 		}
 	})
@@ -909,11 +909,6 @@ local adminMenu = {
 	{
 		event = "admin:clearArea",
 		label = "Limpar Área",
-		tunnel = "admin"
-	},
-	{
-		event = "admin:clearNpcs",
-		label = "Limpar NPCS",
 		tunnel = "admin"
 	},
 	{

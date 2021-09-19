@@ -81,7 +81,7 @@ local garages = {
 	[65] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[66] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[67] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[68] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Bolingbroke" },
+	[68] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Police" },
 	[69] = { ["name"] = "RangerPolice", ["payment"] = true, ["perm"] = "RangerPolice" },
 	[104] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
 	[106] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
@@ -379,10 +379,11 @@ local workgarage = {
 		"ambulance"
 	},
 	["Bolingbroke"] = {
-		"pbus"
+		"nspeedo"
 	},
 	["RangerPolice"] = {
-		""
+		"polmesa",
+		"sanchez3"
 	},
 	["Boats"] = {
 		"marquis",

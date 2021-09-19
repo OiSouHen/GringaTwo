@@ -163,8 +163,8 @@ local wasteCans = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSEARCHWASTE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("garbageman:verifyWaste")
-AddEventHandler("garbageman:verifyWaste",function(verifyWaste)
+RegisterNetEvent("garbageman:searchWaste")
+AddEventHandler("garbageman:searchWaste",function(searchWaste)
     local idle = 1000
     local ped = GetPlayerPed(-1)
     local pedCoords = GetEntityCoords(ped, 0)
@@ -198,7 +198,7 @@ AddEventHandler("garbageman:verifyWaste",function(verifyWaste)
                     vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
                     TriggerEvent("Progress",60000,"Vasculhando...")
                     Wait(60000)
-                    if vSERVER.verifyWaste(wasteCoords["x"]) then
+                    if vSERVER.searchWaste(wasteCoords["x"]) then
                     end
                     TriggerEvent("cancelando",false)
                     ClearPedTasks(ped)
