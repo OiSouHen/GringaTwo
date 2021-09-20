@@ -688,6 +688,11 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 					
+					if itemName == "notebook" then
+						TriggerClientEvent("notebook:openSystem",source)
+						vCLIENT.closeInventory(source)
+					end
+					
 					if itemName == "tablet" then
 						TriggerClientEvent("tablet:openSystem",source)
 						vCLIENT.closeInventory(source)

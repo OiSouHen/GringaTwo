@@ -374,14 +374,55 @@ AddEventHandler("inventory:repairVehicle",function(index,status)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- INVENTORY:REPAIRTIRES
+-- REPAIRPLAYER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("inventory:repairPlayer")
+AddEventHandler("inventory:repairPlayer",function(index)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			SetVehicleEngineHealth(v,1000.0)
+			SetVehicleBodyHealth(v,1000.0)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REPAIRADMIN
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("inventory:repairAdmin")
+AddEventHandler("inventory:repairAdmin",function(index)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			local fuel = GetVehicleFuelLevel(v)
+
+			SetVehicleFixed(v)
+			SetVehicleFuelLevel(v,fuel)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHICLEALARM
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("inventory:vehicleAlarm")
+AddEventHandler("inventory:vehicleAlarm",function(index)
+	if NetworkDoesNetworkIdExist(index) then
+		local v = NetToEnt(index)
+		if DoesEntityExist(v) then
+			SetVehicleAlarm(v,true)
+			StartVehicleAlarm(v)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REPAIRTIRES
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:repairTires")
 AddEventHandler("inventory:repairTires",function(index)
 	if NetworkDoesNetworkIdExist(index) then
 		local v = NetToEnt(index)
 		if DoesEntityExist(v) then
-			for i = 0,8 do
+			for i = 0,7 do
 				SetVehicleTyreFixed(v,i)
 			end
 		end
@@ -403,13 +444,13 @@ AddEventHandler("inventory:lockpickVehicle",function(index)
 				SetVehicleDoorsLocked(v,true)
 				SetVehicleDoorsLockedForAllPlayers(v,true)
 			end
-			SetVehicleLights(v,2)
-			Wait(200)
-			SetVehicleLights(v,0)
-			Wait(200)
-			SetVehicleLights(v,2)
-			Wait(200)
-			SetVehicleLights(v,0)
+				SetVehicleLights(v,2)
+				Wait(200)
+				SetVehicleLights(v,0)
+				Wait(200)
+				SetVehicleLights(v,2)
+				Wait(200)
+				SetVehicleLights(v,0)
 		end
 	end
 end)
@@ -989,5 +1030,29 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(1000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INVENTORY:STEALTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("inventory:stealTrunk")
+AddEventHandler("inventory:stealTrunk",function(entity)
+	if useWeapon == "WEAPON_CROWBAR" then
+		if GetVehicleDoorsLockedForPlayer(entity[3],PlayerId()) ~= 1 then
+			local trunk = GetEntityBoneIndexByName(entity[3],"boot")
+			if trunk ~= -1 then
+				local ped = PlayerPedId()
+				local coords = GetEntityCoords(ped)
+				local coordsEnt = GetWorldPositionOfEntityBone(entity[3],trunk)
+				local distance = #(coords - coordsEnt)
+				if distance <= 2.0 then
+					if GetVehicleDoorAngleRatio(entity[3],5) < 0.9 then
+						vSERVER.stealTrunk(entity)
+					end
+				end
+			end
+		end
+	else
+		TriggerEvent("Notify","amarelo","<b>Pé de Cabra</b> não encontrado.",5000)
 	end
 end)

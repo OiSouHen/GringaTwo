@@ -22,6 +22,10 @@ end)
 -- BLOCKS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function blocks()
+	if exports["player"]:handCuff() then
+		return false
+	end
+
 	return blockCommands
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -516,33 +520,30 @@ end)
 -- PLAYER:ENTERTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("player:enterTrunk")
-AddEventHandler("player:enterTrunk",function()
-	local ped = PlayerPedId()
-
-	if not IsPedInAnyVehicle(ped) then
-		if not inTrunk then
-			local vehicle,vehNet,vehPlate = vRP.vehList(10)
-			if DoesEntityExist(vehicle) and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-				local trunk = GetEntityBoneIndexByName(vehicle,"boot")
-				local speed = GetEntitySpeed(vehicle) * 2.236936
-				if trunk ~= -1 and speed <= 3 then
-					local coords = GetEntityCoords(ped)
-					local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
-					local distance = #(coords - coordsEnt)
-					if distance <= 3.0 then
-						if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-							trunkPlate = vehPlate
-							playerInvisible = true
-							SetCarBootOpen(vehicle)
-							TriggerEvent("hud:toggleHood")
-							SetEntityVisible(ped,false,false)
-							Citizen.Wait(750)
-							AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
-							Citizen.Wait(500)
-							SetVehicleDoorShut(vehicle,5)
-							blockCommands = true
-							inTrunk = true
-						end
+AddEventHandler("player:enterTrunk",function(entity)
+	if not inTrunk then
+		local vehicle = entity[3]
+		local vehPlate = entity[1]
+		if GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
+			local trunk = GetEntityBoneIndexByName(vehicle,"boot")
+			if trunk ~= -1 then
+				local ped = PlayerPedId()
+				local coords = GetEntityCoords(ped)
+				local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
+				local distance = #(coords - coordsEnt)
+				if distance <= 2.0 then
+					if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 then
+						trunkPlate = vehPlate
+						playerInvisible = true
+						SetCarBootOpen(vehicle)
+						TriggerEvent("hud:toggleHood")
+						SetEntityVisible(ped,false,false)
+						Citizen.Wait(750)
+						AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
+						Citizen.Wait(500)
+						SetVehicleDoorShut(vehicle,5)
+						blockCommands = true
+						inTrunk = true
 					end
 				end
 			end
@@ -1354,24 +1355,22 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if playerActive then
-			local ped = PlayerPedId()
+		local ped = PlayerPedId()
 
-			if not IsEntityVisible(ped) and not playerInvisible then
-				TriggerServerEvent("player:hackerDisplay","está invisível")
-			end
+		if not IsEntityVisible(ped) and not playerInvisible then
+			TriggerServerEvent("player:hackerDisplay","está invisível")
+		end
 
-			if ForceSocialClubUpdate == nil then
-				TriggerServerEvent("player:hackerDisplay","forçou a social club.")
-			end
+		if ForceSocialClubUpdate == nil then
+			TriggerServerEvent("player:hackerDisplay","forçou a social club.")
+		end
 
-			if ShutdownAndLaunchSinglePlayerGame == nil then
-				TriggerServerEvent("player:hackerDisplay","entrou no modo single player.")
-			end
+		if ShutdownAndLaunchSinglePlayerGame == nil then
+			TriggerServerEvent("player:hackerDisplay","entrou no modo single player.")
+		end
 
-			if ActivateRockstarEditor == nil then
-				TriggerServerEvent("player:hackerDisplay","ativou o rockstar editor.")
-			end
+		if ActivateRockstarEditor == nil then
+			TriggerServerEvent("player:hackerDisplay","ativou o rockstar editor.")
 		end
 
 		Citizen.Wait(10000)

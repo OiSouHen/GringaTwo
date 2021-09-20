@@ -851,9 +851,9 @@ function vRP.vehicleGems(vname)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VEHICLEPRESTIGE
+-- VEHICLETAX
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.vehiclePrestige(vname)
+function vehicleTax(vname)
 	if vehglobal[vname] then
 		return vehglobal[vname][6]
 	end
