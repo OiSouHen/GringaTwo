@@ -16,6 +16,19 @@ vCLIENT = Tunnel.getInterface("harvest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local collect = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- COLLECTITENS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local collectItens = {
+	[1] = "orange",
+	[2] = "strawberry",
+	[3] = "grape",
+	[4] = "tange",
+	[5] = "banana",
+	[6] = "passion",
+	[7] = "tomato",
+	[8] = "coffee2"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.collectMethod()
@@ -26,24 +39,7 @@ function cRP.collectMethod()
 			TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 			Wait(1)
 		else
-
-			local random = math.random(100)
-			if parseInt(random) >= 76 then
-				vRP.giveInventoryItem(user_id,"orange",math.random(3),true)
-			elseif parseInt(random) >= 66 and parseInt(random) <= 75 then
-				vRP.giveInventoryItem(user_id,"strawberry",math.random(3),true)
-			elseif parseInt(random) >= 56 and parseInt(random) <= 65 then
-				vRP.giveInventoryItem(user_id,"grape",math.random(3),true)
-			elseif parseInt(random) >= 46 and parseInt(random) <= 55 then
-				vRP.giveInventoryItem(user_id,"tange",math.random(3),true)
-			elseif parseInt(random) >= 36 and parseInt(random) <= 45 then
-				vRP.giveInventoryItem(user_id,"banana",math.random(3),true)
-			elseif parseInt(random) >= 26 and parseInt(random) <= 35 then
-				vRP.giveInventoryItem(user_id,"passion",math.random(3),true)
-			elseif parseInt(random) >= 1 and parseInt(random) <= 25 then
-				vRP.giveInventoryItem(user_id,"tomato",math.random(4),true)
-			end
-			
+			vRP.giveInventoryItem(user_id,collectItens[math.random(#collectItens)],math.random(1,3),true)
 			vRP.upgradeStress(user_id,1)
 			
 			collect[source] = nil

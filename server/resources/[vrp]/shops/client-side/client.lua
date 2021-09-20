@@ -103,8 +103,8 @@ local shopList = {
 	{ 311.97,-597.66,43.29,"pharmacyParamedic",false },
 	{ 1825.6,3667.98,34.27,"pharmacyParamedic",false },
 	{ -254.64,6326.95,32.82,"pharmacyParamedic",false },
-	{ 45.17,-1750.7,29.64,"mercadoCentral",false },
-	{ 2748.22,3473.94,55.67,"mercadoCentral",false },
+	{ 46.21,-1749.45,29.64,"mercadoCentral",false },
+	{ 2747.81,3472.91,55.67,"mercadoCentral",false },
 	{ -428.57,-1728.35,19.78,"recyclingSell",false },
 	{ 487.3,-997.08,30.68,"policeStore",false },
 	{ 1845.67,3692.58,34.26,"policeStore",false },
@@ -112,31 +112,27 @@ local shopList = {
 	{ 385.5,799.94,190.49,"policeStore",false },
 	{ -620.99,-228.69,38.05,"minerShop",false },
 	{ -732.76,-1737.74,29.17,"ilegalHouse",false },
-	{ -653.12,-1502.67,5.22,"ilegalHouse",false },
 	{ -1250.21,-640.39,25.9,"ilegalCosmetics",false },
-	{ 389.71,-942.61,29.42,"ilegalCosmetics",false },
 	{ -41.3,-706.57,32.27,"ilegalToys",false },
-	{ 154.98,-1472.47,29.35,"ilegalToys",false },
 	{ 1085.31,-1282.5,20.19,"ilegalCriminal",false },
+	{ -653.12,-1502.67,5.22,"ilegalHouse",false },
+	{ 389.71,-942.61,29.42,"ilegalCosmetics",false },
+	{ 154.98,-1472.47,29.35,"ilegalToys",false },
 	{ 488.1,-1456.11,29.28,"ilegalCriminal",false },
 	{ 169.76,-1535.88,29.25,"weaponsStore",false },
 	{ 301.14,-195.75,61.57,"weaponsStore",false },
-	{ 1154.64,-792.42,57.61,"mechanicTools",false },
 	{ -345.4,-130.64,39.01,"mechanicTools",false },
-	{ 737.7,-1089.15,22.16,"mechanicTools",false },
-	{ 732.52,-1064.08,22.16,"mechanicTools",false },
+	{ 737.85,-1077.98,22.16,"mechanicTools",false },
 	{ -1146.69,-2002.6,13.18,"mechanicTools",false },
 	{ 1188.84,2640.88,38.4,"mechanicTools",false },
 	{ 101.12,6616.41,32.44,"mechanicTools",false },
-	{ -1421.49,-455.56,35.91,"mechanicTools",false },
-	{ -1414.6,-451.25,35.91,"mechanicTools",false },
-	{ -1408.64,-447.52,35.91,"mechanicTools",false },
-	{ -216.47,-1318.93,30.89,"mechanicTools",false },
-	{ -197.35,-1320.54,31.09,"mechanicTools",false },
+	{ -216.47,-1318.91,30.89,"mechanicTools",false },
+	{ -197.35,-1320.55,31.09,"mechanicTools",false },
 	{ -199.41,-1319.8,31.09,"mechanicTools",false },
 	{ 121.8,-3024.81,7.04,"mechanicTools",false },
 	{ 128.7,-3050.9,7.04,"mechanicTools",false },
 	{ 1523.69,3782.48,34.51,"fishDepartament",true },
+	{ 563.32,2751.7,42.87,"animalStore",false },
 	{ 1112.05,211.53,-49.44,"mcFridge",false },
 	{ 1109.0,206.14,-49.44,"mcFridge",false },
 	{ 1115.2,206.59,-49.44,"mcFridge",false },
@@ -194,13 +190,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("shops:sodaMachine",function()
 	SendNUIMessage({ action = "showNUI", name = "sodaMachine", type = vSERVER.getShopType("sodaMachine") })
-	SetNuiFocus(true,true)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SHOPS:COLAMACHINE
------------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("shops:colaMachine",function()
-	SendNUIMessage({ action = "showNUI", name = "colaMachine", type = vSERVER.getShopType("colaMachine") })
 	SetNuiFocus(true,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

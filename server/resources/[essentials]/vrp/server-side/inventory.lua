@@ -112,6 +112,16 @@ local itemlist = {
 		type = "use",
 		weight = 0.10
 	},
+	["notebook"] = {
+	    index = "notebook",
+		name = "Notebook",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5225",
+		type = "use",
+		weight = 7.25
+	},
     ["tablet"] = {
 	    index = "tablet",
 		name = "Tablet Particular",
@@ -492,9 +502,39 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
+	["joint2"] = {
+		index = "joint2",
+		name = "Semente",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.10
+	},
 	["lean"] = {
 		index = "lean",
 		name = "Lean",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "30",
+		type = "use",
+		weight = 0.50
+	},
+	["lean2"] = {
+		index = "lean2",
+		name = "Codeína",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.10
+	},
+	["ecstasy"] = {
+		index = "ecstasy",
+		name = "Ecstasy",
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
@@ -512,15 +552,35 @@ local itemlist = {
 		type = "use",
 		weight = 0.50
 	},
+	["ecstasy2"] = {
+		index = "ecstasy2",
+		name = "Anfetamina",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.10
+	},
 	["cocaine"] = {
 		index = "cocaine",
 		name = "Cocaína",
 		desc = "",
 		tipo = "Usável",
 		unity = "Não",
-		economy = "35",
+		economy = "30",
 		type = "use",
 		weight = 0.50
+	},
+	["cocaine2"] = {
+		index = "cocaine2",
+		name = "Folha de Coca",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.10
 	},
 	["meth"] = {
 		index = "meth",
@@ -531,6 +591,16 @@ local itemlist = {
 		economy = "35",
 		type = "use",
 		weight = 0.50
+	},
+	["meth2"] = {
+		index = "meth2",
+		name = "Acetona",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "5",
+		type = "use",
+		weight = 0.10
 	},
 	["heroinea"] = {
 		index = "heroinea",
@@ -692,6 +762,16 @@ local itemlist = {
 		type = "use",
 		weight = 0.25
 	},
+	["energetic2"] = {
+		index = "energetic2",
+		name = "Energético +",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "20",
+		type = "use",
+		weight = 0.25
+	},
 	["battery"] = {
 		index = "battery",
 		name = "Pilhas",
@@ -829,7 +909,7 @@ local itemlist = {
 		weight = 0.15
 	},
 	["badcola"] = {
-		index = "badcola",
+		index = "cola",
 		name = "Cola vencida",
 		desc = "",
 		tipo = "Usável",
@@ -852,7 +932,7 @@ local itemlist = {
 		weight = 0.15
 	},
 	["badsoda"] = {
-		index = "badsoda",
+		index = "soda",
 		name = "Sprunk vencida",
 		desc = "",
 		tipo = "Usável",
@@ -874,8 +954,18 @@ local itemlist = {
 		durability = 1500,
 		weight = 0.15
 	},
+	["coffee2"] = {
+		index = "coffee2",
+		name = "Café",
+		desc = "",
+		tipo = "Usável",
+		unity = "Não",
+		economy = "6",
+		type = "use",
+		weight = 0.10
+	},
 	["badcoffee"] = {
-		index = "badcoffee",
+		index = "coffee",
 		name = "Café vencido",
 		desc = "",
 		tipo = "Usável",
@@ -898,7 +988,7 @@ local itemlist = {
 		weight = 0.35
 	},
 	["badhamburger"] = {
-		index = "badhamburger",
+		index = "hamburger",
 		name = "Hambúrguer vencido",
 		desc = "",
 		tipo = "Comum",
@@ -921,7 +1011,7 @@ local itemlist = {
 		weight = 0.55
 	},
 	["badhamburger2"] = {
-		index = "badhamburger2",
+		index = "hamburger2",
 		name = "X-Burguer vencido",
 		desc = "",
 		tipo = "Comum",
@@ -944,7 +1034,7 @@ local itemlist = {
 		weight = 0.55
 	},
 	["badhamburger3"] = {
-		index = "badhamburger3",
+		index = "hamburger3",
 		name = "X-Salada vencido",
 		desc = "",
 		tipo = "Comum",
@@ -967,7 +1057,7 @@ local itemlist = {
 		weight = 0.55
 	},
 	["badhamburger4"] = {
-		index = "badhamburger4",
+		index = "hamburger4",
 		name = "X-Bacon vencido",
 		desc = "",
 		tipo = "Comum",
@@ -990,7 +1080,7 @@ local itemlist = {
 		weight = 0.55
 	},
 	["badhamburger5"] = {
-		index = "badhamburger5",
+		index = "hamburger5",
 		name = "X-Picanha vencido",
 		desc = "",
 		tipo = "Comum",
@@ -1013,7 +1103,7 @@ local itemlist = {
 		weight = 0.35
 	},
 	["badhotdog"] = {
-		index = "badhotdog",
+		index = "hotdog",
 		name = "Cachorro-Quente vencido",
 		desc = "",
 		tipo = "Comum",
@@ -1036,7 +1126,7 @@ local itemlist = {
 		weight = 0.25
 	},
 	["badsandwich"] = {
-		index = "badsandwich",
+		index = "sandwich",
 		name = "Sanduiche vencido",
 		desc = "",
 		tipo = "Comum",
@@ -1069,7 +1159,7 @@ local itemlist = {
 		weight = 0.25
 	},
 	["baddonut"] = {
-		index = "baddonut",
+		index = "donut",
 		name = "Rosquinha vencida",
 		desc = "",
 		tipo = "Comum",
@@ -1092,7 +1182,7 @@ local itemlist = {
 		weight = 0.25
 	},
 	["badtacos"] = {
-		index = "badtacos",
+		index = "tacos",
 		name = "Tacos vencido",
 		desc = "",
 		tipo = "Comum",

@@ -97,7 +97,8 @@ end
 -- BLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blips = {
-	{ 1148.78,-1532.84,35.39,80,38,"Hospital",0.5 },
+	{ 280.38,-584.45,43.29,80,38,"Hospital",0.5 },
+	{ 1839.43,3672.86,34.27,80,38,"Hospital",0.5 },
 	{ -247.42,6331.39,32.42,80,38,"Hospital",0.5 },
 	{ 55.43,-876.19,30.66,357,65,"Garagem",0.6 },
 	{ 598.04,2741.27,42.07,357,65,"Garagem",0.6 },
@@ -119,10 +120,10 @@ local blips = {
 	{ 101.22,-1073.68,29.38,357,65,"Garagem",0.6 },
 	{ 1725.21,4711.77,42.11,357,65,"Garagem",0.6 },
 	{ 1624.05,3566.14,35.15,357,65,"Garagem",0.6 },
-	{ 1856.54,2607.32,45.68,60,18,"Departamento LSPD",0.6 },
-	{ 1851.45,3686.71,34.26,60,16,"Departamento Sheriff",0.6 },
-	{ -442.5,6017.18,31.72,60,16,"Departamento Sheriff",0.6 },
-	{ 387.0,787.88,187.47,60,43,"Departamento Ranger",0.6 },
+	{ 426.57,-981.71,30.7,60,18,"Departamento | LSPD",0.6 },
+	{ 1851.45,3686.71,34.26,60,16,"Departamento | SHERIFF",0.6 },
+	{ -448.18,6011.68,31.71,60,16,"Departamento | SHERIFF",0.6 },
+	{ 387.0,787.88,187.47,60,43,"Departamento | RANGER",0.6 },
 	{ 25.68,-1346.6,29.5,52,36,"Loja de Departamento",0.5 },
 	{ 2556.47,382.05,108.63,52,36,"Loja de Departamento",0.5 },
 	{ 1163.55,-323.02,69.21,52,36,"Loja de Departamento",0.5 },
@@ -176,6 +177,16 @@ local blips = {
 	{ -1101.42,2710.63,19.11,366,62,"Loja de Roupas",0.5 },
 	{ 425.6,-806.25,29.5,366,62,"Loja de Roupas",0.5 },
 	{ -1082.22,-247.54,37.77,439,73,"Life Invader",0.6 },
+	{ 2679.43,3443.93,55.81,38,13,"Circuito",0.5 },
+	{ -566.72,-2117.39,5.98,38,13,"Circuito",0.5 },
+	{ 1679.4,-1564.53,112.57,38,13,"Circuito",0.5 },
+	{ -1732.07,-727.34,10.4,38,13,"Circuito",0.5 },
+	{ -1367.59,15.04,53.38,38,13,"Circuito",0.5 },
+	{ 636.43,649.9,128.9,38,13,"Circuito",0.5 },
+	{ 364.86,-543.57,28.75,38,13,"Circuito",0.5 },
+	{ 247.31,-1513.38,29.10,38,13,"Circuito",0.5 },
+	{ -324.69,-1098.09,23.03,38,13,"Circuito",0.5 },
+	{ 844.67,-1985.39,29.31,38,13,"Circuito",0.5 },
 	{ -1728.06,-1050.69,1.71,266,62,"Embarcações",0.5 },
 	{ 1966.36,3975.86,31.51,266,62,"Embarcações",0.5 },
 	{ -776.72,-1495.02,2.29,266,62,"Embarcações",0.5 },
@@ -189,16 +200,6 @@ local blips = {
 	{ 1690.07,3581.68,35.62,403,5,"Farmácia",0.7 },
 	{ 315.12,-1068.58,29.39,403,5,"Farmácia",0.7 },
 	{ 114.45,-4.89,67.82,403,5,"Farmácia",0.7 },
-	{ 2679.43,3443.93,55.81,38,13,"Circuito",0.5 },
-	{ -566.72,-2117.39,5.98,38,13,"Circuito",0.5 },
-	{ 1679.4,-1564.53,112.57,38,13,"Circuito",0.5 },
-	{ -1732.07,-727.34,10.4,38,13,"Circuito",0.5 },
-	{ -1367.59,15.04,53.38,38,13,"Circuito",0.5 },
-	{ 636.43,649.9,128.9,38,13,"Circuito",0.5 },
-	{ 364.86,-543.57,28.75,38,13,"Circuito",0.5 },
-	{ 247.31,-1513.38,29.10,38,13,"Circuito",0.5 },
-	{ -324.69,-1098.09,23.03,38,13,"Circuito",0.5 },
-	{ 844.67,-1985.39,29.31,38,13,"Circuito",0.5 },
 	{ 46.66,-1749.79,29.64,78,11,"Mercado Central",0.5 },
 	{ 2747.28,3473.04,55.67,78,11,"Mercado Central",0.5 },
 	{ 82.54,-1553.28,29.59,318,62,"Lixeiro",0.6 },
@@ -211,14 +212,13 @@ local blips = {
 	{ 1724.84,3715.31,34.22,357,9,"Impound",0.6 },
 	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
 	{ -1178.37,-2845.97,13.93,402,26,"Mecânica",0.7 },
-	{ 1144.38,-770.17,57.58,402,26,"Mecânica",0.7 },
-	{ -1425.48,-436.4,35.79,402,26,"Mecânica",0.7 },
 	{ -206.22,-1303.12,31.27,402,26,"Mecânica",0.7 },
 	{ -359.81,-133.38,38.67,402,26,"Mecânica",0.7 },
 	{ 717.04,-1087.21,22.34,402,26,"Mecânica",0.7 },
 	{ -1144.02,-1989.42,13.16,402,26,"Mecânica",0.7 },
 	{ 1178.0,2657.85,37.98,402,26,"Mecânica",0.7 },
 	{ 116.38,6620.89,31.88,402,26,"Mecânica",0.7 },
+	{ 164.48,-3028.6,6.45,402,30,"Mecânica",0.7 },
 	{ -594.85,2090.27,131.6,617,62,"Minerador",0.6 },
 	{ 1322.93,-1652.29,52.27,75,13,"Loja de Tatuagem",0.5 },
 	{ -1154.42,-1425.9,4.95,75,13,"Loja de Tatuagem",0.5 },
@@ -226,19 +226,19 @@ local blips = {
 	{ -3169.62,1075.8,20.83,75,13,"Loja de Tatuagem",0.5 },
 	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
 	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
+	{ 1536.11,3769.84,34.05,86,62,"Fishing Planet",0.4 },
 	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
 	{ -1177.72,-880.41,13.93,106,62,"BurgerShot",0.4 },
+	{ 1239.91,-3257.19,7.09,67,62,"Caminhoneiro",0.5 },
 	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
-	{ -56.67,-1096.97,26.43,225,62,"Benefactor",0.4 },
+	{ -57.0,-1109.59,26.44,225,62,"Benefactor",0.4 },
 	{ 894.9,-179.15,74.7,198,62,"Taxista",0.5 },
 	{ 1696.19,4785.25,42.02,198,62,"Taxista",0.5 },
 	{ -1031.05,-2965.67,13.95,307,62,"Táxi Aéreo",0.7 },
 	{ -680.9,5832.41,17.32,141,62,"Cabana do Caçador",0.7 },
 	{ -773.55,298.51,85.71,475,31,"Eclipse Towers",0.5 },
-	{ -1816.74,-1193.84,14.31,68,62,"Pescador",0.5 },
-	{ -325.88,6228.43,31.49,68,62,"Pescador",0.5 },
-	{ 911.0,3644.85,32.67,68,62,"Pescador",0.5 },
-	{ -117.24,-604.57,36.28,408,62,"Escritório",0.6 }
+--	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
+	{ -604.39,-933.23,23.86,184,62,"Weazel News",0.6 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBLIPS
@@ -259,8 +259,6 @@ end)
 -- ALPHAS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local alphas = {
-	{ -3418.14,967.56,8.34,25,2 },
-	{ -273.63,6633.67,7.4,25,2 },
 	{ 713.39,4101.04,35.79,25,2 },
 	{ 1343.03,2233.61,88.43,200,3 },
 	{ -1171.5,1454.58,185.28,300,3 },
@@ -286,87 +284,34 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RECOIL
+-- THREADINIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-
-		if IsPedArmed(ped,6) then
-			DisableControlAction(1,140,true)
-			DisableControlAction(1,141,true)
-			DisableControlAction(1,142,true)
-			Citizen.Wait(1)
-		else
-			Citizen.Wait(1000)
-		end
-
-		if IsPedShooting(ped) then
-			local cam = GetFollowPedCamViewMode()
-			local veh = IsPedInAnyVehicle(ped)
-			
-			local speed = math.ceil(GetEntitySpeed(ped))
-			if speed > 70 then
-				speed = 70
-			end
-
-			local _,wep = GetCurrentPedWeapon(ped)
-			local class = GetWeapontypeGroup(wep)
-			local p = GetGameplayCamRelativePitch()
-			local camDist = #(GetGameplayCamCoord() - GetEntityCoords(ped))
-
-			local recoil = math.random(110,120+(math.ceil(speed*0.5)))/100
-			local rifle = false
-
-			if class == 970310034 or class == 1159398588 then
-				rifle = true
-			end
-
-			if camDist < 5.3 then
-				camDist = 1.5
-			else
-				if camDist < 8.0 then
-					camDist = 4.0
-				else
-					camDist =  7.0
-				end
-			end
-
-			if veh then
-				recoil = recoil + (recoil * camDist)
-			else
-				recoil = recoil * 0.1
-			end
-
-			if cam == 4 then
-				recoil = recoil * 0.6
-				if rifle then
-					recoil = recoil * 0.1
-				end
-			end
-
-			if rifle then
-				recoil = recoil * 0.6
-			end
-
-			local spread = math.random(4)
-			local h = GetGameplayCamRelativeHeading()
-			local hf = math.random(10,40+speed) / 100
-
-			if veh then
-				hf = hf * 2.0
-			end
-
-			if spread == 1 then
-				SetGameplayCamRelativeHeading(h+hf)
-			elseif spread == 2 then
-				SetGameplayCamRelativeHeading(h-hf)
-			end
-
-			local set = p + recoil
-			SetGameplayCamRelativePitch(set,0.8)
-		end
-	end
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_STREETRACE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON_DIRT_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_NEXT_TO_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_SMALL",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_BIG",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MECHANIC",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_EMPTY",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BUSINESSMEN",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BIKE_OFF_ROAD_RACE",false)
+	StartAudioScene("FBI_HEIST_H5_MUTE_AMBIENCE_SCENE")
+	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
+	SetAudioFlag("PoliceScannerDisabled",true)
+	SetAudioFlag("DisableFlightMusic",true)
+	SetPlayerCanUseCover(PlayerId(),false)
+	SetRandomEventFlag(false)
+	SetDeepOceanScaler(0.0)
+	SetRadarZoom(1100)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
@@ -451,52 +396,16 @@ Citizen.CreateThread(function()
 		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
 
-		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
-		SetParkedVehicleDensityMultiplierThisFrame(0.5)
-		SetRandomVehicleDensityMultiplierThisFrame(0.5)
-		SetVehicleDensityMultiplierThisFrame(0.5)
-		SetPedDensityMultiplierThisFrame(0.5)
-		SetGarbageTrucks(false)
-		SetRandomBoats(false)
+		-- SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
+		-- SetParkedVehicleDensityMultiplierThisFrame(0.5)
+		-- SetRandomVehicleDensityMultiplierThisFrame(0.5)
+		-- SetVehicleDensityMultiplierThisFrame(0.5)
+		-- SetPedDensityMultiplierThisFrame(0.5)
+		--SetGarbageTrucks(false)
+		--SetRandomBoats(false)
 
 		Citizen.Wait(0)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADINIT
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
-	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
-	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
-	SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
-	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
-	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_STREETRACE",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON_DIRT_BIKE",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_NEXT_TO_CAR",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_CAR",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_BIKE",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_SMALL",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_BIG",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_MECHANIC",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_EMPTY",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_BUSINESSMEN",false)
-	SetScenarioTypeEnabled("WORLD_VEHICLE_BIKE_OFF_ROAD_RACE",false)
-	StartAudioScene("FBI_HEIST_H5_MUTE_AMBIENCE_SCENE")
-	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
-	SetAudioFlag("PoliceScannerDisabled",true)
-	SetAudioFlag("DisableFlightMusic",true)
-	AddTextEntry("FE_THDR_GTAO","GG RP")
-	SetPlayerCanUseCover(PlayerId(),false)
-	SetRandomEventFlag(false)
-	SwitchTrainTrack(0, true)
-	SwitchTrainTrack(3, true)
-	N_0x21973bbf8d17edfa(0, 120000)
-	SetRandomTrains(1)
-	SetDeepOceanScaler(0.0)
-	SetRadarZoom(1100)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL:REMOVEVEHICLESFROMSPAWN
@@ -542,13 +451,18 @@ local ipList = {
 			"layer_whiskey",
 			"swap_sofa_A"
 		},
-		coords = { -1150.7,-1520.7,10.6 }
+		coords = { -1150.70,-1520.70,10.60 }
 	},{
 		props = {
 			"csr_beforeMission",
 			"csr_inMission"
 		},
-		coords = { -47.1,-1115.3,26.5 }
+		coords = { -47.10,-1115.30,26.50 }
+	},{
+		props = {
+			"balcony"
+		},
+		coords = { 137.70,-3029.30,11.79 }
 	},{
 		props = {
 			"V_Michael_bed_tidy",
@@ -557,7 +471,7 @@ local ipList = {
 			"V_Michael_S_items",
 			"V_Michael_L_Items"
 		},
-		coords = { -802.3,175.0,72.8 }
+		coords = { -802.30,175.00,72.80 }
 	},{
 		props = {
 			"v_gabz_mrpd_rm1",
@@ -592,55 +506,35 @@ local ipList = {
 			"v_gabz_mrpd_rm30",
 			"v_gabz_mrpd_rm31"
 		},
-		coords = { 451.0129,-993.3741,29.1718 }
+		coords = { 451.01,-993.37,29.17 }
 	},{
-		coords = { -69.18748,72.87926,77.17023 } -- Benefactor
+		coords = { 1174.96,2641.39,36.75 } -- Harmony
 	},{
-		coords = { -1685.06,-277.2893,60.31789 } -- Church
+		coords = { 338.86,-582.84,29.63 } -- Pillbox
 	},{
-		coords = { 1129.451,-782.8797,59.21406 } -- Rockets
+		coords = { 311.25,-592.42,42.32 } -- Pillbox
 	},{
-		coords = { 1152.216,-786.5847,59.33324 } -- Rockets
+		coords = { -675.31,5836.14,17.70 } -- Hunting
 	},{
-		coords = { 322.113,-1075.958,28.3984 } -- Pharmacy Santos
+		coords = { -255.97,6321.40,33.11 } -- Paleto Hospital
 	},{
-		coords = { 1174.968,2641.397,36.75007 } -- Harmony
+		coords = { 562.80,2745.72,41.87 } -- Petshop
 	},{
-		coords = { -1419.976,-447.8622,36.62567 } -- Hayes
+		coords = { 1783.90,2555.33,46.70 } -- Prison
 	},{
-		coords = { 338.8661,-582.8466,29.63187 } -- Pillbox
+		coords = { 1597.62,2553.45,45.81 } -- Prison
 	},{
-		coords = { 311.2546,-592.4204,42.32737 } -- Pillbox
+		coords = { 1758.08,2486.69,48.78 } -- Prison
 	},{
-		coords = { -675.3189,5836.144,17.70478 } -- Hunting
+		coords = { 1767.28,2583.53,46.59 } -- Prison
 	},{
-		coords = { -175.6765,6385.318,30.5772 } -- Pharmacy Paleto
+		coords = { 1832.21,2582.68,47.01 } -- Prison
 	},{
-		coords = { -255.972,6321.406,33.116 } -- Paleto Hospital
+		coords = { 1830.50,3679.62,33.27 } -- Sandypital
 	},{
-		coords = { 562.8,2745.72,41.87698 } -- Petshop
+		coords = { -551.01,-193.85,45.22 } -- Towhall
 	},{
-		coords = { 1783.901,2555.33,46.70935 } -- Prison
-	},{
-		coords = { 1597.629,2553.452,45.81208 } -- Prison
-	},{
-		coords = { 1758.084,2486.698,48.78679 } -- Prison
-	},{
-		coords = { 1767.281,2583.534,46.59865 } -- Prison
-	},{
-		coords = { 1832.21,2582.68,47.0143 } -- Prison
-	},{
-		coords = { 1959.688,3844.558,34.54492 } -- Sandy Bar
-	},{
-		coords = { 1959.688,3844.558,34.54492 } -- Sandy Bar
-	},{
-		coords = { 1830.509,3679.626,33.2749 } -- Sandypital
-	},{
-		coords = { -551.0138,-193.8526,45.22602 } -- Towhall
-	},{
-		coords = { -372.7785,268.4121,85.78004 } -- Train
-	},{
-		coords = { -582.9611,-922.9904,21.54857 } -- Benefactor
+		coords = { -582.96,-922.99,21.54 } -- Weazel News
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -937,6 +831,89 @@ function HandleZoom(cam)
 
 	SetCamFov(cam,current_fov + (fov - current_fov) * 0.05)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RECOIL
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local ped = PlayerPedId()
+
+		if IsPedArmed(ped,6) then
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,141,true)
+			DisableControlAction(1,142,true)
+			Citizen.Wait(1)
+		else
+			Citizen.Wait(1000)
+		end
+
+		if IsPedShooting(ped) then
+			local cam = GetFollowPedCamViewMode()
+			local veh = IsPedInAnyVehicle(ped)
+			
+			local speed = math.ceil(GetEntitySpeed(ped))
+			if speed > 70 then
+				speed = 70
+			end
+
+			local _,wep = GetCurrentPedWeapon(ped)
+			local class = GetWeapontypeGroup(wep)
+			local p = GetGameplayCamRelativePitch()
+			local camDist = #(GetGameplayCamCoord() - GetEntityCoords(ped))
+
+			local recoil = math.random(110,120+(math.ceil(speed*0.5)))/100
+			local rifle = false
+
+			if class == 970310034 or class == 1159398588 then
+				rifle = true
+			end
+
+			if camDist < 5.3 then
+				camDist = 1.5
+			else
+				if camDist < 8.0 then
+					camDist = 4.0
+				else
+					camDist =  7.0
+				end
+			end
+
+			if veh then
+				recoil = recoil + (recoil * camDist)
+			else
+				recoil = recoil * 0.1
+			end
+
+			if cam == 4 then
+				recoil = recoil * 0.6
+				if rifle then
+					recoil = recoil * 0.1
+				end
+			end
+
+			if rifle then
+				recoil = recoil * 0.6
+			end
+
+			local spread = math.random(4)
+			local h = GetGameplayCamRelativeHeading()
+			local hf = math.random(10,40+speed) / 100
+
+			if veh then
+				hf = hf * 2.0
+			end
+
+			if spread == 1 then
+				SetGameplayCamRelativeHeading(h+hf)
+			elseif spread == 2 then
+				SetGameplayCamRelativeHeading(h-hf)
+			end
+
+			local set = p + recoil
+			SetGameplayCamRelativePitch(set,0.8)
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUNNYHOP
 -----------------------------------------------------------------------------------------------------------------------------------------

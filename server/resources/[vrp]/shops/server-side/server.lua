@@ -245,13 +245,7 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["soda"] = 15
-		}
-	},
-	["colaMachine"] = {
-		["mode"] = "Buy",
-		["type"] = "Cash",
-		["list"] = {
+			["soda"] = 15,
 			["cola"] = 15
 		}
 	},

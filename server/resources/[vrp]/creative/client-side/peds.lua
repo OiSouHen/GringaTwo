@@ -6,11 +6,53 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
+	{ -- Bloods
+		distance = 100,
+		coords = { 232.65,-1750.86,29.02,232.45 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Aztecas
+		distance = 100,
+		coords = { 512.18,-1803.46,28.51,246.62 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Vagos
+		distance = 100,
+		coords = { 353.1,-2055.03,21.72,269.3 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Families
+		distance = 100,
+		coords = { -155.52,-1642.99,36.85,325.99 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Ballas
+		distance = 100,
+		coords = { 98.42,-1959.73,20.73,51.03 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Mechanic
+		distance = 50,
+		coords = { 147.87,-3013.5,7.04,184.26 },
+		model = { 0x780C01BD,"s_f_y_bartender_01" },
+		anim = { "amb@prop_human_bum_shopping_cart@male@base","base" }
+	},
 	{ -- BurgerShot
 		distance = 50,
 		coords = { -1164.31,-896.69,14.02,76.54 },
 		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- DrugsSell
+		distance = 50,
+		coords = { 120.61,-3021.09,7.04,272.13 },
+		model = { 0xF42EE883,"g_m_y_ballaeast_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
 	{ -- DrugsSell
 		distance = 50,
@@ -144,12 +186,6 @@ local pedList = {
 		model = { 0xDB729238,"g_m_y_famdnf_01" },
 		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
 	},
-	{ -- Benefactor
-		distance = 100,
-		coords = { -57.0,-1098.9,26.43,20.55 },
-		model = { 0xC0937202,"cs_siemonyetarian" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Police
 		distance = 30,
 		coords = { 377.58,791.66,187.64,130.4 },
@@ -244,42 +280,6 @@ local pedList = {
 		distance = 50,
 		coords = { -940.79,-2960.2,13.93,59.53 },
 		model = { 0x3AE4A33B,"ig_fbisuit_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Ballas
-		distance = 10,
-		coords = { 106.37,-1993.93,14.88,164.41 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Vagos
-		distance = 10,
-		coords = { 426.4,-2052.29,18.74,323.15 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Bloods
-		distance = 10,
-		coords = { 228.49,-1755.92,25.24,48.19 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Families
-		distance = 10,
-		coords = { -196.56,-1700.45,29.39,130.4 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Aztecas
-		distance = 10,
-		coords = { 468.74,-1742.5,25.54,249.45 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Crips
-		distance = 10,
-		coords = { -1120.62,-1555.22,0.98,308.98 },
-		model = { 0xE52E126C,"ig_ramp_gang" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Departament Store
@@ -402,12 +402,6 @@ local pedList = {
 		model = { 0x18CE57D0,"mp_m_shopkeep_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Departament Store
-		distance = 10,
-		coords = { 1781.02,2559.06,45.68,181.17 },
-		model = { 0x18CE57D0,"mp_m_shopkeep_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Ammu-Nation Store
 		distance = 12,
 		coords = { 1692.28,3760.94,34.69,229.61 },
@@ -480,12 +474,6 @@ local pedList = {
 		model = { 0x2F8845A3,"ig_barry" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Prestige
-		distance = 15,
-		coords = { -72.19,-814.45,243.38,161.58 },
-		model = { 0x2F8845A3,"ig_barry" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
 	{ -- Pharmacy Store
 		distance = 30,
 		coords = { -172.89,6381.32,31.48,223.94 },
@@ -512,26 +500,14 @@ local pedList = {
 	},
 	{ -- Mercado Central
 		distance = 30,
-		coords = { 45.64,-1750.97,29.62,48.19 },
+		coords = { 46.65,-1749.7,29.62,51.03 },
 		model = { 0xE6631195,"ig_cletus" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Mercado Central
 		distance = 30,
-		coords = { 47.61,-1748.62,29.62,48.19 },
-		model = { 0x3273A285,"g_m_y_salvagoon_02" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Mercado Central
-		distance = 30,
-		coords = { 2747.73,3474.08,55.67,252.29 },
+		coords = { 2747.31,3473.07,55.67,249.45 },
 		model = { 0xE6631195,"ig_cletus" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Mercado Central
-		distance = 30,
-		coords = { 2746.88,3471.96,55.67,252.29 },
-		model = { 0x3273A285,"g_m_y_salvagoon_02" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Recycling Sell
@@ -595,27 +571,15 @@ local pedList = {
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Mergulhador
-		distance = 30,
-		coords = { 2768.92,1391.19,24.53,82.21 },
+		distance = 20,
+		coords = { 1520.56,3780.08,34.46,274.97 },
 		model = { 0xC79F6928,"a_f_y_beach_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Mergulhador
-		distance = 30,
-		coords = { 2768.62,1392.77,24.53,116.23 },
-		model = { 0x4A8E5536,"s_f_y_baywatch_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Mergulhador
-		distance = 30,
-		coords = { 1308.91,4362.12,41.53,255.12 },
+	{ -- Garagem Fishing Planet
+		distance = 50,
+		coords = { 1509.64,3788.7,33.51,266.46 },
 		model = { 0xC79F6928,"a_f_y_beach_01" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Mergulhador
-		distance = 30,
-		coords = { 1310.68,4364.39,41.06,215.44 },
-		model = { 0x4A8E5536,"s_f_y_baywatch_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Colheita
@@ -818,19 +782,7 @@ local pedList = {
 	},
 	{ -- Pescador
 		distance = 30,
-		coords = { -1816.76,-1193.97,14.31,334.49 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Pescador
-		distance = 30,
-		coords = { -326.29,6228.74,31.49,226.78 },
-		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
-		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
-	{ -- Pescador
-		distance = 30,
-		coords = { 911.0,3644.85,32.67,181.42 },
+		coords = { 1524.77,3783.84,34.49,187.09 },
 		model = { 0x51C03FA4,"a_f_y_eastsa_03" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	}
@@ -846,36 +798,34 @@ Citizen.CreateThread(function()
 		for k,v in pairs(pedList) do
 			local distance = #(coords - vector3(v["coords"][1],v["coords"][2],v["coords"][3]))
 			if distance <= v["distance"] then
-				if not IsPedInAnyVehicle(ped) then
-					if localPeds[k] == nil then
-						local mHash = GetHashKey(v["model"][2])
+				if localPeds[k] == nil then
+					local mHash = GetHashKey(v["model"][2])
 
-						RequestModel(mHash)
-						while not HasModelLoaded(mHash) do
-							Citizen.Wait(1)
-						end
+					RequestModel(mHash)
+					while not HasModelLoaded(mHash) do
+						Citizen.Wait(1)
+					end
 
-						if HasModelLoaded(mHash) then
-							localPeds[k] = CreatePed(4,v["model"][1],v["coords"][1],v["coords"][2],v["coords"][3] - 1,3374176,false,false)
-							SetPedArmour(localPeds[k],100)
-							SetEntityInvincible(localPeds[k],true)
-							FreezeEntityPosition(localPeds[k],true)
-							SetEntityHeading(localPeds[k],v["coords"][4])
-							SetBlockingOfNonTemporaryEvents(localPeds[k],true)
+					if HasModelLoaded(mHash) then
+						localPeds[k] = CreatePed(4,v["model"][1],v["coords"][1],v["coords"][2],v["coords"][3] - 1,3374176,false,false)
+						SetPedArmour(localPeds[k],100)
+						SetEntityInvincible(localPeds[k],true)
+						FreezeEntityPosition(localPeds[k],true)
+						SetEntityHeading(localPeds[k],v["coords"][4])
+						SetBlockingOfNonTemporaryEvents(localPeds[k],true)
 
-							SetModelAsNoLongerNeeded(mHash)
+						SetModelAsNoLongerNeeded(mHash)
 
-							if v["anim"][1] ~= nil then
-								if v["anim"][1] == "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" then
-									TaskStartScenarioAtPosition(localPeds[k],"PROP_HUMAN_SEAT_CHAIR_MP_PLAYER",v["coords"][1],v["coords"][2],v["coords"][3],v["coords"][4],-1,1,false)
-								else
-									RequestAnimDict(v["anim"][1])
-									while not HasAnimDictLoaded(v["anim"][1]) do
-										Citizen.Wait(1)
-									end
-
-									TaskPlayAnim(localPeds[k],v["anim"][1],v["anim"][2],8.0,0.0,-1,1,0,0,0,0)
+						if v["anim"][1] ~= nil then
+							if v["anim"][1] == "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" then
+								TaskStartScenarioAtPosition(localPeds[k],"PROP_HUMAN_SEAT_CHAIR_MP_PLAYER",v["coords"][1],v["coords"][2],v["coords"][3],v["coords"][4],-1,1,false)
+							else
+								RequestAnimDict(v["anim"][1])
+								while not HasAnimDictLoaded(v["anim"][1]) do
+									Citizen.Wait(1)
 								end
+
+								TaskPlayAnim(localPeds[k],v["anim"][1],v["anim"][2],8.0,0.0,-1,1,0,0,0,0)
 							end
 						end
 					end
