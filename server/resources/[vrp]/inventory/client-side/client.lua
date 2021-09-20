@@ -1037,7 +1037,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("inventory:stealTrunk")
 AddEventHandler("inventory:stealTrunk",function(entity)
-	if useWeapon == "WEAPON_CROWBAR" then
+	local ped = PlayerPedId()
+	if GetSelectedPedWeapon(ped) == GetHashKey("WEAPON_CROWBAR") then
 		if GetVehicleDoorsLockedForPlayer(entity[3],PlayerId()) ~= 1 then
 			local trunk = GetEntityBoneIndexByName(entity[3],"boot")
 			if trunk ~= -1 then

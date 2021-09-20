@@ -2436,3 +2436,39 @@ AddEventHandler("inventory:applyPlate",function()
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INVENTORY:STEALTRUNK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.stealTrunk(entity)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if not vRP.wantedReturn(user_id) then
+			local taskResult = vTASKBAR.stealTrunk(source)
+			if taskResult then
+				local random = math.random(30)
+				if parseInt(random) >= 21 then
+				    vRP.giveInventoryItem(user_id,"dollars",math.random(300),true)
+				elseif parseInt(random) >= 11 and parseInt(random) <= 20 then
+				    vRP.giveInventoryItem(user_id,"cellphone",math.random(1),true)
+				elseif parseInt(random) >= 1 and parseInt(random) <= 10 then
+				    vRP.giveInventoryItem(user_id,"notebook",math.random(1),true)
+				end
+				
+				vRP.upgradeStress(user_id,2)
+				vRP.wantedTimer(user_id,300)
+				
+				local x,y,z = vRPclient.getPositions(source)
+				local copAmount = vRP.numPermission("Police")
+				for k,v in pairs(copAmount) do
+					async(function()
+						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Roubo a Porta-Malas", x = x, y = y, z = z, rgba = {105,52,136} })
+					end)
+				end
+			else
+				TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
+			end
+		end
+		return false
+	end
+end
