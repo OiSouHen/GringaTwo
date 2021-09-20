@@ -2,22 +2,27 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 cRP = Tunnel.getInterface("lscustoms")
+vSERVER = Tunnel.getInterface("lscustoms")
 
 local inside = false
 local currentpos = nil
 local currentgarage = 0
 
 local garages = {
-	[1] = { locked = false, drivein = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }, outside = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }, inside = { x = -326.47, y = -137.41, z = 38.66, heading = 91.74 }},
-	[2] = { locked = false, drivein = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }, outside = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }, inside = { x = -1160.44, y = -2016.27, z = 12.84, heading = 334.52 }},
-	[3] = { locked = false, drivein = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }, outside = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }, inside = { x = 1174.72, y = 2639.99, z = 37.42, heading = 0.44 }},
-	[4] = { locked = false, drivein = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }, outside = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }, inside = { x = 1182.51, y = 2638.42, z = 37.45, heading = 359.72 }},
-	[5] = { locked = false, drivein = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }, outside = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }, inside = { x = 110.54, y = 6627.15, z = 31.44, heading = 223.79 }},
-	[6] = { locked = false, drivein = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }, outside = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }, inside = { x = 103.9, y = 6622.51, z = 31.48, heading = 223.65 }},
-	[7] = { locked = false, drivein = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }, outside = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }, inside = { x = 731.57, y = -1088.77, z = 21.82, heading = 89.71 }},
-	[8] = { locked = false, drivein = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }, outside = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }, inside = { x = -1178.31, y = -2845.67, z = 13.6, heading = 149.95 }},
-	[9] = { locked = false, drivein = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }, outside = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }, inside = { x = -222.66, y = -1329.25, z = 30.55, heading = 270.22 }},
-	[10] = { locked = false, drivein = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }, outside = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }, inside = { x = -32.53, y = -1066.36, z = 28.05, heading = 340.56 }}
+	[1] = { locked = false, drivein = { x = 450.4, y = -975.81, z = 25.7, heading = 90.00 }, outside = { x = 450.4, y = -975.81, z = 25.7, heading = 90.00 }, inside = { x = 450.4, y = -975.81, z = 25.7, heading = 90.00 }},
+	[2] = { locked = false, drivein = { x = 435.28, y = -975.86, z = 25.7, heading = 90.00 }, outside = { x = 435.28, y = -975.86, z = 25.7, heading = 90.00 }, inside = { x = 435.28, y = -975.86, z = 25.7, heading = 90.00 }},
+	[3] = { locked = false, drivein = { x = 333.34, y = -574.76, z = 28.80, heading = 340.00 }, outside = { x = 333.34, y = -574.76, z = 28.80, heading = 340.00 }, inside = { x = 333.34, y = -574.76, z = 28.80, heading = 340.00 }},
+	[4] = { locked = false, drivein = { x = -339.15, y = -136.66, z = 39.01, heading = 87.88 }, outside = { x = -339.15, y = -136.66, z = 39.01, heading = 87.88 }, inside = { x = -339.15, y = -136.66, z = 39.01, heading = 87.88 }},
+	[5] = { locked = false, drivein = { x = -1155.12, y = -2005.7, z = 13.18, heading = 334.49 }, outside = { x = -1155.12, y = -2005.7, z = 13.18, heading = 334.49 }, inside = { x = -1155.12, y = -2005.7, z = 13.18, heading = 334.49 }},
+	[6] = { locked = false, drivein = { x = 1174.98, y = 2640.4, z = 37.74, heading = 1.0 }, outside = { x = 1174.98, y = 2640.4, z = 37.74, heading = 1.0 }, inside = { x = 1174.98, y = 2640.4, z = 37.74, heading = 1.0 }},
+	[7] = { locked = false, drivein = { x = 1182.14, y = 2639.94, z = 37.74, heading = 1.0 }, outside = { x = 1182.14, y = 2639.94, z = 37.74, heading = 1.0 }, inside = { x = 1182.14, y = 2639.94, z = 37.74, heading = 1.0 }},
+	[8] = { locked = false, drivein = { x = 110.63, y = 6626.54, z = 31.78, heading = 224.94 }, outside = { x = 110.63, y = 6626.54, z = 31.78, heading = 224.94 }, inside = { x = 110.63, y = 6626.54, z = 31.78, heading = 224.94 }},
+	[9] = { locked = false, drivein = { x = 105.26, y = 6621.59, z = 31.78, heading = 223.94 }, outside = { x = 105.26, y = 6621.59, z = 31.78, heading = 223.94 }, inside = { x = 105.26, y = 6621.59, z = 31.78, heading = 223.94 }},
+	[10] = { locked = false, drivein = { x = 731.7, y = -1088.84, z = 21.84, heading = 87.88 }, outside = { x = 731.7, y = -1088.84, z = 21.84, heading = 87.88 }, inside = { x = 731.7, y = -1088.84, z = 21.84, heading = 87.88 }},
+	[11] = { locked = false, drivein = { x = -1178.37, y = -2845.97, z = 13.93, heading = 331.66 }, outside = { x = -1178.37, y = -2845.97, z = 13.93, heading = 331.66 }, inside = { x = -1178.37, y = -2845.97, z = 13.93, heading = 331.66 }},
+	[12] = { locked = false, drivein = { x = -222.63, y = -1330.03, z = 30.57, heading = 272.13 }, outside = { x = -222.63, y = -1330.03, z = 30.57, heading = 272.13 }, inside = { x = -222.63, y = -1330.03, z = 30.57, heading = 272.13 }},
+	[13] = { locked = false, drivein = { x = 135.92, y = -3030.48, z = 6.71, heading = 0.0 }, outside = { x = 135.92, y = -3030.48, z = 6.71, heading = 0.0 }, inside = { x = 135.92, y = -3030.48, z = 6.71, heading = 0.0 }},
+	[14] = { locked = false, drivein = { x = 144.95, y = -3030.51, z = 6.71, heading = 178.59 }, outside = { x = 144.95, y = -3030.51, z = 6.71, heading = 178.59 }, inside = { x = 144.95, y = -3030.51, z = 6.71, heading = 178.59 }}
 }
 
 local Menu = SetMenu()
@@ -500,6 +505,8 @@ local function tableContains(t,val)
 end
 
 Citizen.CreateThread(function()
+	local source = source
+	local user_id = vRP.getUserId(source)
 	while true do
 		local timeDistance = 500
 		if not inside then
@@ -515,17 +522,17 @@ Citizen.CreateThread(function()
 						if distance <= 15 then
 							timeDistance = 4
 							
-							DrawMarker(23,outside["x"],outside["y"],outside["z"] - 0.55,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
+							DrawMarker(23,outside["x"],outside["y"],outside["z"]-0.95,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
 							
 							if not v.locked then
-								if distance <= 2.5 and IsControlJustPressed(1,38) then
+								if distance <= 2.5 and IsControlJustPressed(1,38) and vSERVER.checkItem() then
 									if cRP.checkPermission() then
 										inside = true
 										currentpos = v
 										currentgarage = k
 										DriveInGarage()
 									else
-										TriggerEvent("Notify","vermelho","Apenas mecânicos podem tunar veículos.",5000)
+										TriggerEvent("Notify","amarelo","Sistema indisponível no momento.",5000)
 									end
 								end
 							end

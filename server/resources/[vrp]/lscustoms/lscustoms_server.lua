@@ -10,6 +10,7 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("lscustoms",cRP)
 vRPclient = Tunnel.getInterface("vRP")
+vCLIENT = Tunnel.getInterface("lscustoms")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -18,6 +19,20 @@ function cRP.checkPermission()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		return vRP.hasPermission(user_id,"Mechanic")
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKCONSUME
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.checkItem()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.getInventoryItemAmount(user_id,"notebook") >= 1 then
+			return true
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Você precisa de um <b>Notebook</b>.",3000)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +110,11 @@ local tbl = {
 	[7] = { locked = false, player = nil },
 	[8] = { locked = false, player = nil },
 	[9] = { locked = false, player = nil },
-	[10] = { locked = false, player = nil }
+	[10] = { locked = false, player = nil },
+	[11] = { locked = false, player = nil },
+	[12] = { locked = false, player = nil },
+	[13] = { locked = false, player = nil },
+	[14] = { locked = false, player = nil }
 }
 
 RegisterServerEvent("lockGarage")

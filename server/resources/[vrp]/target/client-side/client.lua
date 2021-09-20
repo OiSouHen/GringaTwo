@@ -20,22 +20,9 @@ local innerEntity = {}
 local setDistance = 10.0
 local playerActive = true
 local targetActive = false
-local policeService = false
 local adminService = false
------------------------------------------------------------------------------------------------------------------------------------------
--- ADMIN:ONSERVICE
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.toggleService()
-	if adminService then
-		setDistance = 10.0
-		adminService = false
-		TriggerEvent("Notify","amarelo","Sistema desativado.",3000)
-	else
-		setDistance = 99.0
-		adminService = true
-		TriggerEvent("Notify","verde","Sistema ativado.",3000)
-	end
-end
+local policeService = false
+local paramedicService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP:PLAYERACTIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -44,12 +31,19 @@ AddEventHandler("vrp:playerActive",function()
 	playerActive = true
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- POLICE:UPDATESERVICE
+-- TARGET:TOGGLEADMIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("police:updateService")
-AddEventHandler("police:updateService",function(status)
-	policeService = status
-end)
+function cRP.toggleService()
+	if adminService then
+		setDistance = 10.0
+		adminService = false
+		TriggerEvent("Notify","amarelo","Sistema desativado.",5000)
+	else
+		setDistance = 99.0
+		adminService = true
+		TriggerEvent("Notify","verde","Sistema ativado.",5000)
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -57,52 +51,10 @@ Citizen.CreateThread(function()
 	RegisterCommand("+entityTarget",playerTargetEnable)
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Target","keyboard","LMENU")
-
-    AddCircleZone("treatment01",vector3(1146.57,-1542.65,35.39),0.75,{
-		name = "treatment01",
-		heading = 136.07
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "checkin:initCheck",
-				label = "Tratamento",
-				tunnel = "client"
-			}
-		}
-	})
 	
-	AddCircleZone("treatment02",vector3(-253.92,6331.07,32.42),0.75,{
-		name = "treatment02",
-		heading = 136.07
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "checkin:initCheck",
-				label = "Tratamento",
-				tunnel = "client"
-			}
-		}
-	})
-	
-	AddCircleZone("treatment03",vector3(1768.67,2570.59,45.73),0.75,{
-		name = "treatment03",
-		heading = 314.65
-	},{
-		distance = 1.0,
-		options = {
-			{
-				event = "checkin:initCheck",
-				label = "Tratamento",
-				tunnel = "client"
-			}
-		}
-	})
-	
-	AddCircleZone("polService01",vector3(387.18,797.12,190.5),0.75,{
+	AddCircleZone("polService01",vector3(441.28,-981.95,30.68),0.75,{
 		name = "polService01",
-		heading = 358.25
+		heading = 266.46
 	},{
 		distance = 1.0,
 		options = {
@@ -151,49 +103,147 @@ Citizen.CreateThread(function()
 			{
 				event = "corrections:initService",
 				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("polService05",vector3(384.84,794.0,187.45),0.75,{
+		name = "polService05",
+		heading = 240.95
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "police:servicePolice",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService01",vector3(312.98,-594.52,43.29),0.75,{
+		name = "paraService01",
+		heading = 331.66
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService02",vector3(1830.57,3676.32,34.27),0.75,{
+		name = "paraService02",
+		heading = 212.6
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService03",vector3(349.94,-586.64,28.8),0.75,{
+		name = "paraService03",
+		heading = 252.29
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("paraService04",vector3(-255.44,6330.36,32.42),0.75,{
+		name = "paraService04",
+		heading = 317.49
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "paramedic:serviceParamedic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
+	AddCircleZone("treatment01",vector3(-253.92,6331.07,32.42),0.75,{
+		name = "treatment01",
+		heading = 136.07
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
 				tunnel = "client"
 			}
 		}
 	})
 	
-	AddCircleZone("paraService01",vector3(1144.08,-1543.43,35.39),0.75,{
-		name = "paraService01",
-		heading = 317.49
+	AddCircleZone("treatment02",vector3(1832.67,3677.03,34.27),0.75,{
+		name = "treatment02",
+		heading = 65.2
 	},{
 		distance = 1.0,
 		options = {
 			{
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
 			}
 		}
 	})
-	
-	AddCircleZone("paraService02",vector3(1147.46,-1545.73,35.39),0.75,{
-		name = "paraService02",
-		heading = 317.49
+
+	AddCircleZone("treatment03",vector3(307.03,-595.12,43.29),0.75,{
+		name = "treatment03",
+		heading = 249.45
 	},{
 		distance = 1.0,
 		options = {
 			{
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
 			}
 		}
 	})
-	
-	AddCircleZone("paraService03",vector3(-255.44,6330.36,32.42),0.75,{
-		name = "paraService03",
-		heading = 317.49
+
+	AddCircleZone("treatment04",vector3(350.92,-587.68,28.8),0.75,{
+		name = "treatment04",
+		heading = 70.87
 	},{
 		distance = 1.0,
 		options = {
 			{
-				event = "paramedic:serviceParamedic",
-				label = "Trabalhar",
-				tunnel = "server"
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("treatment05",vector3(1768.67,2570.59,45.73),0.75,{
+		name = "treatment05",
+		heading = 314.65
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "client"
 			}
 		}
 	})
@@ -379,10 +429,24 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
-	
+
 	AddCircleZone("drugsToggle01",vector3(-1174.37,-898.99,13.75),0.5,{
 		name = "drugsToggle01",
 		heading = 31.19
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService",
+				label = "Comercializar",
+				tunnel = "client"
+			}
+		}
+	})
+
+	AddCircleZone("drugsToggle02",vector3(121.11,-3021.05,7.04),0.5,{
+		name = "drugsToggle02",
+		heading = 90.71
 	},{
 		distance = 1.0,
 		options = {
@@ -440,7 +504,7 @@ Citizen.CreateThread(function()
 		distance = 1.00
 	})
 
-	AddTargetModel({ -171943901,-109356459,1805980844,-99500382,1262298127,1737474779,2040839490,1037469683,867556671,-1521264200,-741944541,-591349326,-293380809,-628719744,-1317098115,1630899471,38932324,-523951410,725259233,764848282,2064599526,536071214,589738836,146905321,47332588,-1118419705,538002882,-377849416,96868307,-1195678770 },{
+	AddTargetModel({ -171943901,-109356459,1805980844,-99500382,1262298127,1737474779,2040839490,1037469683,867556671,-1521264200,-741944541,-591349326,-293380809,-628719744,-1317098115,1630899471,38932324,-523951410,725259233,764848282,2064599526,536071214,589738836,146905321,47332588,-1118419705,538002882,-377849416,96868307,-1195678770,-853526657,652816835 },{
 		options = {
 			{
 				event = "target:animSentar",
@@ -462,7 +526,7 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 
-	AddTargetModel({ -654402915 },{
+	AddTargetModel({ -654402915,1421582485 },{
 		options = {
 			{
 				event = "shops:donutMachine",
@@ -473,21 +537,10 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 
-	AddTargetModel({ 1114264700 },{
+	AddTargetModel({ 992069095,1114264700 },{
 		options = {
 			{
 				event = "shops:sodaMachine",
-				label = "Comprar",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75
-	})
-
-	AddTargetModel({ 992069095 },{
-		options = {
-			{
-				event = "shops:colaMachine",
 				label = "Comprar",
 				tunnel = "client"
 			}
@@ -550,7 +603,7 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911 },{
+	AddTargetModel({ 666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },{
 		options = {
 			{
 				event = "garbageman:searchTrash",

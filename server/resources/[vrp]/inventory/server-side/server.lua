@@ -529,10 +529,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "vape" then
-						active[user_id] = 60
+						active[user_id] = 30
 						vCLIENT.closeInventory(source)
 						vCLIENT.blockButtons(source,true)
-						TriggerClientEvent("Progress",source,60000,"Fumando...")
+						TriggerClientEvent("Progress",source,30000,"Fumando...")
 						vRPclient._createObjects(source,"anim@heists@humane_labs@finale@keycards","ped_a_enter_loop","ba_prop_battle_vape_01",49,18905,0.08,-0.00,0.03,-150.0,90.0,-10.0)
 
 						repeat
