@@ -15,7 +15,7 @@ vSERVER = Tunnel.getInterface("tablet")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehDrive = nil
 local benDrive = false
-local benCoords = { -56.67,-1096.97,26.43 }
+local benCoords = { -56.47,-1096.97,26.42 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -194,7 +194,7 @@ function vehCreate(vehName,vehPlate)
 	end
 
 	if HasModelLoaded(mHash) then
-		vehDrive = CreateVehicle(mHash,-49.87,-1080.25,26.92,69.92,false,false)
+		vehDrive = CreateVehicle(mHash,-57.0,-1109.59,26.44,68.04,false,false)
         SetEntityInvincible(vehDrive,true)
         vSERVER.startDrive()
 	end
