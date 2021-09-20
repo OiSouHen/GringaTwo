@@ -980,6 +980,11 @@ local playerVeh = {
 		tunnel = "server"
 	},
 	{
+		event = "inventory:stealTrunk",
+		label = "Arrombar Porta-Malas",
+		tunnel = "client"
+	},
+	{
 		event = "player:enterTrunk",
 		label = "Entrar no Porta-Malas",
 		tunnel = "client"
@@ -993,6 +998,11 @@ local stockadeVeh = {
 		event = "inventory:applyPlate",
 		label = "Trocar Placa",
 		tunnel = "server"
+	},
+	{
+		event = "inventory:stealTrunk",
+		label = "Arrombar Porta-Malas",
+		tunnel = "client"
 	},
 	{
 		event = "player:enterTrunk",
@@ -1013,6 +1023,11 @@ local dismantleVeh = {
 		event = "inventory:applyPlate",
 		label = "Trocar Placa",
 		tunnel = "server"
+	},
+	{
+		event = "inventory:stealTrunk",
+		label = "Arrombar Porta-Malas",
+		tunnel = "client"
 	},
 	{
 		event = "player:enterTrunk",
