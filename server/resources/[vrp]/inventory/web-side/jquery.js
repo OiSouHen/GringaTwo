@@ -298,7 +298,7 @@ const updateDrag = () => {
 			}
 
 			$(this).tooltip({
-				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+economy:economy}</r></legenda>`,
 				position: { my: myLeg, at: "center" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
@@ -362,7 +362,7 @@ const updateBackpack = () => {
 						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 
@@ -394,7 +394,7 @@ const updateBackpack = () => {
 						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 
@@ -405,7 +405,7 @@ const updateBackpack = () => {
 				$(".invRight").append(item);
 			}
 		}
-		
+
 		updateDrag();
 	});
 }
@@ -422,7 +422,7 @@ const formatarNumero = n => {
 
 	return r.split("").reverse().join("");
 }
-
+/* ----------SOMENTENUMEROS---------- */
 function somenteNumeros(e){
 	var charCode = e.charCode ? e.charCode : e.keyCode;
 	if (charCode != 8 && charCode != 9){
@@ -434,7 +434,7 @@ function somenteNumeros(e){
 		}
 	}
 }
-
+/* ----------CTRLCONTROL---------- */
 $(document).ready(function() {
     var ctrlDown = false,
         ctrlKey = 17,
