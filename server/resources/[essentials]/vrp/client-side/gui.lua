@@ -11,7 +11,15 @@ local crouch = false
 local celular = false
 local cancelando = false
 local animActived = false
+local playerActive = false
 local cdBtns = GetGameTimer()
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:PLAYERACTIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vrp:playerActive")
+AddEventHandler("vrp:playerActive",function()
+	playerActive = true
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STATUS:CELULAR
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +62,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 999
-		if celular or animActived then
+		if (celular or animActived) then
 			timeDistance = 1
 			DisableControlAction(1,18,true)
 			DisableControlAction(1,24,true)
@@ -277,7 +285,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
---		DisableControlAction(1,37,false)
 		DisableControlAction(1,99,false)
 		DisableControlAction(1,100,false)
 		DisableControlAction(1,157,false)
@@ -296,7 +303,7 @@ Citizen.CreateThread(function()
 		DisableControlAction(1,349,false)
 		DisableControlAction(1,192,false)
 
-		Citizen.Wait(4)
+		Citizen.Wait(1)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

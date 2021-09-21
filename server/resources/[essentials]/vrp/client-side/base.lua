@@ -17,6 +17,8 @@ Proxy.addInterface("vRP",tvRP)
 local animFlags = 0
 local animDict = nil
 local animName = nil
+local blipsPlayers = {}
+local blipsAdmin = false
 local animActived = false
 local showPassports = false
 local players = {}
@@ -27,6 +29,46 @@ function tvRP.teleport(x,y,z)
 	SetEntityCoords(PlayerPedId(),x + 0.0001,y + 0.0001,z + 0.0001,1,0,0,0)
 	vRPS._updatePositions(x,y,z)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLIPSADMIN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.blipsAdmin()
+	blipsAdmin = not blipsAdmin
+
+	while blipsAdmin do
+		blipsPlayers = vRPS.userPlayers()
+		Citizen.Wait(10000)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADBLIPS
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		if blipsAdmin then
+			timeDistance = 1
+
+			local ped = PlayerPedId()
+			local userPlayers = GetPlayers()
+			local coords = GetEntityCoords(ped)
+
+			for k,v in pairs(userPlayers) do
+				local uPlayer = GetPlayerFromServerId(k)
+				if uPlayer ~= PlayerId() and NetworkIsPlayerConnected(uPlayer) then
+					local uPed = GetPlayerPed(uPlayer)
+					local uCoords = GetEntityCoords(uPed)
+					local distance = #(coords - uCoords)
+					if distance <= 1000 and blipsPlayers[k] ~= nil then
+						DrawText3D(uCoords["x"],uCoords["y"],uCoords["z"] + 1.10,"~o~P:~w~ "..blipsPlayers[k].."     ~g~H:~w~ "..GetEntityHealth(uPed).."     ~y~C:~w~ "..GetPedArmour(uPed),0.275)
+					end
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYERS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -253,7 +295,7 @@ function passportEnable()
 				local uCoords = GetEntityCoords(uPed)
 				local distance = #(coords - uCoords)
 				if distance <= 5 then
-					DrawText3D(uCoords["x"],uCoords["y"],uCoords["z"] + 1.10,playerList[k])
+					DrawText3D(uCoords["x"],uCoords["y"],uCoords["z"] + 1.10,playerList[k],0.45)
 				end
 			end
 		end
@@ -276,7 +318,7 @@ RegisterKeyMapping("+showPassports","Visualizar Passaportes","keyboard","F7")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
+function DrawText3D(x,y,z,text,weight)
 	local onScreen,_x,_y = GetScreenCoordFromWorldCoord(x,y,z)
 
 	if onScreen then
@@ -288,7 +330,7 @@ function DrawText3D(x,y,z,text)
 		SetTextCentre(1)
 		EndTextCommandDisplayText(_x,_y)
 
-		local width = (string.len(text) + 4) / 160 * 0.45
+		local width = (string.len(text) + 4) / 160 * weight
 		DrawRect(_x,_y + 0.0125,width,0.03,38,42,56,200)
 	end
 end

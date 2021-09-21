@@ -16,13 +16,8 @@ client_scripts {
 }
 
 files {
-	"loading/index.html",	
-    "loading/script.js",
-    "loading/style.css",
-	"lib/Tunnel.lua",
-	"lib/Proxy.lua",
-	"lib/Luaseq.lua",
-	"lib/Tools.lua",
+	"loading/*",
+	"lib/*",
 	"web-side/*"
 }
 

@@ -9,15 +9,15 @@
 	
 	<body>
 	<div id="spawnPage">
-			<button class="spawnBox" data-spawn="armadillo">Armadillo Avenue</button>
-			<button class="spawnBox" data-spawn="duluoz">Duluoz Avenue</button>
-			<button class="spawnBox" data-spawn="eclipse">Eclipse Towers</button>
-			<button class="spawnBox" data-spawn="grapeseed">Grapeseed Avenue</button>
-			<button class="spawnBox" data-spawn="greatocean">Great Ocean Highway</button>
-			<button class="spawnBox" data-spawn="hawick">Hawick Avenue</button>
-			<button class="spawnBox" data-spawn="integrity">Integrity Way</button>
-			<button class="spawnBox" data-spawn="cenora">Senora Road</button>
-			<button class="fnButton" data-spawn="spawn">CONFIRMAR</button>
+		<div class="spawnBox" data-spawn="armadillo">Armadillo Avenue</div>
+		<div class="spawnBox" data-spawn="duluoz">Duluoz Avenue</div>
+		<div class="spawnBox" data-spawn="eclipse">Eclipse Towers</div>
+		<div class="spawnBox" data-spawn="grapeseed">Grapeseed Avenue</div>
+		<div class="spawnBox" data-spawn="greatocean">Great Ocean Highway</div>
+		<div class="spawnBox" data-spawn="hawick">Hawick Avenue</div>
+		<div class="spawnBox" data-spawn="integrity">Integrity Way</div>
+		<div class="spawnBox" data-spawn="cenora">Senora Road</div>
+		<div id="spawnNew" data-spawn="spawn">Confirmar</div>
 	</div>
 
 	<script>
@@ -30,7 +30,7 @@
 				}
 			})
 
-			$('button').click(function(){
+			$('div').click(function(){
 				$.post('http://login/spawn',JSON.stringify({ choice: $(this).data('spawn') }));
 			});
 		})

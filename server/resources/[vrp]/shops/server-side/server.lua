@@ -37,6 +37,15 @@ local shops = {
 			["tacos"] = 22
 		}
 	},
+	["fishDepartament"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["chocolate"] = 15,
+			["bait"] = 4,
+			["fishingrod"] = 725
+		}
+	},
 	["ammunationStore"] = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
@@ -138,14 +147,6 @@ local shops = {
 			["tange"] = 6,
 			["tomato"] = 8,
 			["grape"] = 6
-		}
-	},
-	["departamentFishs"] = {
-		["mode"] = "Buy",
-		["type"] = "Cash",
-		["list"] = {
-			["bait"] = 7,
-			["fishingrod"] = 725
 		}
 	},
 	["fishingSell"] = {
@@ -565,7 +566,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 
 							if vRP.itemSubTypeList(shopItem) then
 								if vRP.getInventoryItemAmount(user_id,shopItem) > 0 then
-									TriggerClientEvent("Notify",source,"vermelho","Você já possui esse tipo de item.",5000) return
+									TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
 								end
 							end
 							if vRP.paymentBank(parseInt(user_id),parseInt(shops[shopType]["list"][shopItem]*shopAmount)) then

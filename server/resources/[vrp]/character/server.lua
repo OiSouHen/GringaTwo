@@ -14,17 +14,17 @@ local userlogin = {}
 -- 	end
 -- end)
 
-RegisterServerEvent("CharacterSpawn")
-AddEventHandler("CharacterSpawn", function(source,user_id) 
+RegisterServerEvent("character:characterSpawn")
+AddEventHandler("character:characterSpawn", function(source,user_id)
+	local source = source
 	if user_id then
-			local data = vRP.getUData(user_id,"spawnController")
-			local sdata = json.decode(data) or 0
-			if sdata then
-				Citizen.Wait(1000)
-				processSpawnController(source,sdata,user_id)
-			end
+		local data = vRP.getUData(user_id,"spawnController")
+		local sdata = json.decode(data) or 0
+		if sdata then
+			Citizen.Wait(1000)
+			processSpawnController(source,sdata,user_id)
+		end
 	end
-
 end)
 
 function processSpawnController(source,statusSent,user_id)

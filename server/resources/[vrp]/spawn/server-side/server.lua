@@ -10,46 +10,30 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("spawn",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SETUPCHARS
+-- INITSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.setupChars()
+function cRP.initSystem()
 	local source = source
 	local steam = vRP.getSteam(source)
-
-	Citizen.Wait(1000)
-
-	return getPlayerCharacters(steam)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DELETECHAR
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.deleteChar(id)
-	local source = source
-	local steam = vRP.getSteam(source)
-
-	vRP.execute("vRP/remove_characters",{ id = parseInt(id) })
-  
-	Citizen.Wait(1000)
-
 	return getPlayerCharacters(steam)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHARCHOSEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local spawnLogin = {}
+function cRP.characterChosen(id)
+	local source = source
+	TriggerClientEvent("hudActived",source,true)
+	TriggerEvent("baseModule:idLoaded",source,id,nil)
+	TriggerEvent("character:characterSpawn",source,id)
+end
+
 RegisterServerEvent("spawn:charChosen")
 AddEventHandler("spawn:charChosen",function(id)
 	local source = source
 	TriggerClientEvent("hudActived",source,true)
 	TriggerEvent("baseModule:idLoaded",source,id,nil)
-
-	-- if spawnLogin[parseInt(id)] then
-	-- 	-- TriggerClientEvent("spawn:spawnChar",source,false)
-	-- else
-	-- 	spawnLogin[parseInt(id)] = true
-	-- 	-- TriggerClientEvent("spawn:spawnChar",source,true)	
-	-- end
-	TriggerEvent("CharacterSpawn", source, id)
+	TriggerEvent("character:characterSpawn",source,id)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATECHAR
@@ -83,13 +67,13 @@ AddEventHandler("spawn:createChar",function(name,name2,sex)
 		model = "mp_f_freemode_01"
 	end
 
-	Citizen.Wait(1000)
-
 	spawnLogin[parseInt(newId)] = true
-	TriggerClientEvent("hudActived",source,true)
-	-- TriggerClientEvent("spawn:spawnChar",source,true)
 	TriggerEvent("baseModule:idLoaded",source,newId,model)
-	TriggerEvent("CharacterSpawn", source, newId)
+	
+	Citizen.Wait(1000)
+	
+	TriggerEvent("character:characterSpawn",source,newId)
+	TriggerClientEvent("hudActived",source,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETPLAYERCHARACTERS

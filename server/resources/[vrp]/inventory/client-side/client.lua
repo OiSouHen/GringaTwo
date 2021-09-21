@@ -28,6 +28,10 @@ end)
 -- BLOCKSINVENTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function blockInvents()
+	if exports["player"]:handCuff() then
+		return false
+	end
+
 	return blockButtons
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -196,7 +200,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
         local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
 		
@@ -205,8 +209,8 @@ Citizen.CreateThread(function()
             local distance = #(coords - vector3(v.x,v.y,cdz))
             if distance <= 50 then
 				timeDistance = 1
-				DrawMarker(23,v.x,v.y,cdz+ 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
-				DrawMarker(21,v.x,v.y,cdz+ 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
+				DrawMarker(23,v.x,v.y,cdz + 0.05,0.0,0.0,0.0,0.0,180.0,0.0,0.15,0.15,0.0,255,255,255,50,0,0,0,0)
+				DrawMarker(21,v.x,v.y,cdz + 0.25,0.0,0.0,0.0,0.0,180.0,0.0,0.20,0.20,0.20,42,137,255,125,0,0,0,1)
 			end
         end
 

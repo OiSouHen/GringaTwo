@@ -13,98 +13,63 @@ vSERVER = Tunnel.getInterface("spawn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-cam = nil
-
-function removeCamActive()
-    if cam and IsCamActive(cam) then
-        SetCamCoord(cam, GetGameplayCamCoords())
-        SetCamRot(cam, GetGameplayCamRot(2), 2)
-        RenderScriptCams(0, 0, 0, 0, 0)
-        EnableGameplayCam(true)
-        SetCamActive(cam, false)
-        DestroyCam(cam)
-        cam = nil
-    end
-end
+local spawnLocates = {}
+local brokenCamera = false
+local characterCamera = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SETUPCHARS
+-- SPAWN:GENERATEJOIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("spawn:setupChars")
-AddEventHandler("spawn:setupChars",function()
-	SetEntityVisible(PlayerPedId(),false,false)
-	FreezeEntityPosition(PlayerPedId(),true)
-	SetEntityInvincible(PlayerPedId(),true)
+RegisterNetEvent("spawn:generateJoin")
+AddEventHandler("spawn:generateJoin",function()
+	DoScreenFadeOut(0)
 
-	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
-	SetCamActive(cam,true)
+	Citizen.Wait(1000)
+
+	local ped = PlayerPedId()
+	characterCamera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
+	SetCamActive(characterCamera,true)
 	RenderScriptCams(true,false,1,true,true)
-
-	Citizen.Wait(1000)
-
-	SendNUIMessage({ action = "show" })
+	SendNUIMessage({ action = "openSystem" })
+	TriggerEvent("player:playerInvisible",true)
+	SetEntityVisible(ped,false,false)
 	SetNuiFocus(true,true)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SETUPMAXCHARS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("spawn:maxChars")
-AddEventHandler("spawn:maxChars",function()
-	SendNUIMessage({ action = "show" })
-	SetNuiFocus(true,true)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SPAWNCHAR
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("spawn:spawnChar")
-AddEventHandler("spawn:spawnChar",function(status)
-	DoScreenFadeOut(1000)
-	Citizen.Wait(1000)
-	SetEntityVisible(PlayerPedId(),true,true)
-	FreezeEntityPosition(PlayerPedId(),false)
-	SetEntityInvincible(PlayerPedId(),false)
-	removeCamActive()
 
-	TriggerEvent("login:Spawn",status)
+	DoScreenFadeIn(0)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETCHARACTERS
+-- GENERATEDISPLAY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("GetCharacters",function(data,cb)
-	local chars = vSERVER.setupChars()
-	Citizen.Wait(1000)
-	cb(chars)
+RegisterNUICallback("generateDisplay",function(data,cb)
+	cb({ result = vSERVER.initSystem() })
 end)
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHARACTERCHOSEN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("CharacterChosen",function(data,cb)
+RegisterNUICallback("characterChosen",function(data)
+	vSERVER.characterChosen(data["id"])
+	SetNuiFocus(false,false)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NEWCHARACTER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("newCharacter",function(data,cb)
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "closeNew" })
+	TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex)
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
 	SetEntityInvincible(PlayerPedId(),false)
-	TriggerServerEvent("spawn:charChosen",tonumber(data.id))
-	SetNuiFocus(false,false)
-	removeCamActive()
 	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHARACTERCREATED
+-- GENERATESPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("CharacterCreated",function(data,cb)
-	SetEntityVisible(PlayerPedId(),true,true)
-	FreezeEntityPosition(PlayerPedId(),false)
-	SetEntityInvincible(PlayerPedId(),false)	
-	TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex)
-	SetNuiFocus(false,false)
-	removeCamActive()
-
-	cb("ok")
+RegisterNUICallback("generateSpawn",function(data,cb)
+	cb({ result = spawnLocates })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DELETECHARACTER
+-- CLOSENEW
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("DeleteCharacter",function(data,cb)
-	local chars = vSERVER.deleteChar(tonumber(data.id))
-	cb(chars)
-end)
+function cRP.closeNew()
+	SendNUIMessage({ action = "closeNew" })
+end

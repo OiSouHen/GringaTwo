@@ -1,0 +1,232 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap);
+
+*,
+body {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	font-family: Montserrat;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+:focus, body:focus {
+	outline: 0;
+}
+
+#charPage, #createPage, #spawnPage {
+	top: 60px;
+	left: 60px;
+	display: none;
+	position: absolute;
+}
+
+#spawnPage {
+	min-width: 300px;
+}
+
+#spawnPage .spawnBox {
+	border: 0;
+	width: 300px;
+	height: 50px;
+	display: flex;
+	color: #fafafa;
+	font-size: 13px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	letter-spacing: 1px;
+	background: #303442;
+	align-items: center;
+	justify-content: center;
+	text-transform: uppercase;
+	text-shadow: 0 1px #232630;
+	box-shadow: 0 1px 0 #232630;
+}
+
+#spawnPage .spawnBox:hover {
+	background-color: #1d1f27;
+}
+
+#spawnPage #spawnNew {
+	border: 0;
+	width: 300px;
+	height: 60px;
+	display: flex;
+	cursor: pointer;
+	color: #fafafa;
+	font-size: 16px;
+	border-radius: 4px;
+	align-items: center;
+	letter-spacing: 2px;
+	background: #2e6e4c;
+	justify-content: center;
+	text-transform: uppercase;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
+}
+
+#charPage .charBox, #charPage .charNew {
+	margin-bottom: 10px;
+}
+
+#charPage .charNew {
+	width: 260px;
+	height: 80px;
+	display: flex;
+	color: #fafafa;
+	padding: 0 20px;
+	cursor: pointer;
+	border-radius: 4px;
+	background: #2e6e4c;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
+}
+
+#charPage .charNew p {
+	font-size: 13px;
+	letter-spacing: 1px;
+}
+
+#charPage .charNew o {
+	font-size: 11px;
+	opacity: 0.75;
+}
+
+#charPage .charNew p:first-child {
+	font-weight: 600;
+}
+
+#charPage .charBox {
+	height: 80px;
+	display: flex;
+	color: #fafafa;
+	padding: 0 20px;
+	cursor: pointer;
+	min-width: 230px;
+	border-radius: 4px;
+	flex-direction: row;
+	background: #292c38;
+	align-items: center;
+	text-shadow: 0 1px #232630;
+	box-shadow: 0 1px 0 #232630;
+	justify-content: space-between;
+}
+
+#charPage .charBox .playerInfo {
+	display: flex;
+	line-height: 20px;
+	margin-right: 10px;
+	letter-spacing: 1px;
+	flex-direction: column;
+}
+
+#charPage .charBox .playerInfo p {
+	font-size: 11px;
+}
+
+#charPage .charBox .playerInfo p b {
+	font-weight: 600;
+}
+
+#charPage .charBox .playerInfo p:last-child {
+	padding-bottom: 0;
+}
+
+#charPage .charBox .playerButton {
+	color: #8ebda3;
+	font-size: 11px;
+	font-weight: 600;
+	border-radius: 4px;
+	padding: 10px 10px;
+	letter-spacing: 1px;
+	background: #2e6e4c;
+	text-transform: uppercase;
+	text-shadow: 0 1px #1b402c;
+}
+
+#createCharForm {
+	display: flex;
+	flex-direction: column;
+}
+
+#createCharForm .formInput {
+	border: 0;
+	width: 260px;
+	height: 50px;
+	color: #fafafa;
+	padding: 0 20px;
+	margin-top: 10px;
+	border-radius: 4px;
+	background: #303442;
+	letter-spacing: 2px;
+	text-shadow: 0 1px #232630;
+	box-shadow: 0 1px 0 #232630;
+}
+
+#createCharForm .formInput::placeholder {
+	color: #fafafa;
+}
+
+#createCharForm .fnButton {
+	border: 0;
+	width: 300px;
+	height: 50px;
+	color: #fafafa;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 4px;
+	letter-spacing: 2px;
+}
+
+#createCharForm .fnButton#createNew {
+	background: #2e6e4c;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
+}
+
+#createCharForm .fnButton#createBack {
+	background: #7c344d;
+	text-shadow: 0 1px #522132;
+	box-shadow: 0 1px 0 #522132;
+}
+
+#createCharForm .buttonGroup {
+	width: 300px;
+	margin-top: 10px;
+}
+
+#createCharForm .buttonGroup:first-child {
+	margin-top: 0;
+}
+
+#createCharForm .buttonGroup .buttonsBox {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#createCharForm .buttonGroup .buttonsBox button {
+	border: 0;
+	width: 145px;
+	height: 50px;
+	color: #fafafa;
+	cursor: pointer;
+	border-radius: 4px;
+	background: #303442;
+	letter-spacing: 2px;
+	text-shadow: 0 1px #232630;
+	box-shadow: 0 1px 0 #232630;
+}
+
+#createCharForm .buttonGroup .buttonsBox button.active {
+	background-color: #1d1f27;
+}

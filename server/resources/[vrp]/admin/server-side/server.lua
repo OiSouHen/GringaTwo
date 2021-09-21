@@ -527,11 +527,27 @@ RegisterCommand("announce",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
+			local messagetype = vRP.prompt(source,"Tipo da mensagem: (default, azul, amarelo, verde, vermelho)","")
+			if messagetype == "" then
+				return
+			end
+			
 			local message = vRP.prompt(source,"Mensagem:","")
 			if message == "" then
 				return
 			end
-			TriggerClientEvent("Notify",-1,"default",message,60000)
+			
+			local author = vRP.prompt(source,"Enviado por:","")
+			if author == "" then
+				return
+			end
+			
+			local timer = vRP.prompt(source,"Duração da mensagem:","")
+			if timer == "" then
+				return
+			end
+			
+			TriggerClientEvent("Notify",-1,messagetype,"<b>Mensagem:</b> "..message.."<br><br><b>Enviado por:</b> "..author.."",timer)
 			TriggerClientEvent("sounds:source",-1,"announce",0.5)
 		end
 	end

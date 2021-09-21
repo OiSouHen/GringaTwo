@@ -23,10 +23,25 @@ body {
 	left: 60px;
 	display: none;
 	position: absolute;
+	min-width: 300px;
 }
 
-#spawnPage {
-	min-width: 300px;
+#spawnPage #spawnNew {
+	border: 0;
+	width: 300px;
+	height: 60px;
+	display: flex;
+	cursor: pointer;
+	color: #fafafa;
+	font-size: 16px;
+	border-radius: 4px;
+	align-items: center;
+	letter-spacing: 2px;
+	background: #2e6e4c;
+	justify-content: center;
+	text-transform: uppercase;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
 }
 
 #spawnPage .spawnBox {

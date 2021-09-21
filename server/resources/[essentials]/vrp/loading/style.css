@@ -1,7 +1,7 @@
 @import "compass/css3";
 
 body {
-  background: #efefef;
+  background: #323644;
 }
 
 .preloader {
@@ -53,7 +53,7 @@ path {
 
 #sun path {
   stroke-width: 0.18;
-  fill: #9ea1a4;
+  fill: #f7ff35;
 }
 
 
