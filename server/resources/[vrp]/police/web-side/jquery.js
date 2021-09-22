@@ -51,7 +51,7 @@ $(document).on("click","#mainMenu li",function(){
 /* ----------FUNCTIONSEARCH---------- */
 const functionSearch = (passaporte) => {
 	if (passaporte != ""){
-		$.post("http://police/searchUser", JSON.stringify({ passaporte: parseInt(passaporte) }), (data) => {
+		$.post("http://police/searchUser",JSON.stringify({ passaporte: parseInt(passaporte) }),(data) => {
 			if(data["result"][0] == true){
 				$('#content').html(`
 					<div id="titleContent">${data["result"][1]}</div>

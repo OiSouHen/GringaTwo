@@ -128,14 +128,15 @@ end
 function cRP.searchUser(data)
     local source = source
     local user_id = vRP.getUserId(source)
-    local identity = vRP.getUserIdentity(data.passaporte)
+    local identity = vRP.getUserIdentity(parseInt(data.passaporte))
     if data.passaporte and user_id then
         local name =  identity.name.." "..identity.name2
         local rg = identity.registration
         local phone = identity.phone
         local gender = "M"
         local fines = 0
-        local consult = vRP.getFines(data.passaporte)
+        local consult = vRP.getFines(parseInt(data.passaporte))
+		
         for k,v in pairs(consult) do
             fines = parseInt(fines) + parseInt(v.price)
         end

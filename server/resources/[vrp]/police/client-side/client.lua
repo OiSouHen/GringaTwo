@@ -236,7 +236,7 @@ local polyPrison = PolyZone:Create({
 	vector2(1655.68,2396.55)
 },{ name = "Prison" })
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSYSTEM
+-- THREAD - SYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
@@ -260,8 +260,8 @@ Citizen.CreateThread(function()
 					SetEntityHeading(ped,inLocates[inSelect][4])
 					vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
 					SetEntityCoords(ped,inLocates[inSelect][1],inLocates[inSelect][2],inLocates[inSelect][3] - 1,1,0,0,0)
+					
 					TriggerEvent("Progress",10000,"Vasculhando...")
-
 					Citizen.Wait(10000)
 
 					TriggerEvent("player:blockCommands",false)
@@ -312,7 +312,7 @@ Citizen.CreateThread(function()
 			local coords = GetEntityCoords(ped)
 			local distance = #(coords - vector3(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3]))
 
-			if distance <= 5 then
+			if distance <= 1.5 then
 				timeDistance = 1
 				DrawText3D(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3],"~g~E~w~   FUGIR")
 
