@@ -18,9 +18,9 @@ local itemList = {
 	{ item = "credential" }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHECKCONSUME
+-- CHECKTICKET
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkConsume()
+function cRP.checkTicket()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

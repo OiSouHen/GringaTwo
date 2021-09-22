@@ -296,25 +296,10 @@ Citizen.CreateThread(function()
 				SoftPoints = (GetGameTimer() - Points)
 				CountPoints = (SoftPoints / 1000)
 				
-				if raceTime > 0 then
-					dwText("VOLTAS~w~ ",0.40,0.40,0.68,0.80,180)
-					dwText(inLaps.."  /  "..runners[inSelected]["laps"],0.50,0.50,0.725,0.795,240,true)
-					dwText("CHECKPOINT~w~ ",0.40,0.45,0.66,0.83,180)
-					dwText(inCheckpoint.."  /  "..#runners[inSelected]["coords"],0.50,0.50,0.725,0.827,240,true)
-					dwText("PONTOS~w~ ",0.40,0.40,0.679,0.86,180)
-					dwText2(SoftPoints,0.50,0.50,0.731,0.857,240,true)
-					dwText("TEMPO ~b~",0.40,0.40,0.683,0.89,180)
-					dwText(raceTime,0.50,0.50,0.726,0.886,240,true)
+				SendNUIMessage({ show = true })
+				SendNUIMessage({ laps = Laps, maxlaps = runners[inSelected]["laps"], checkpoint = inCheckpoint, maxcheckpoint = #runners[inSelected]["coords"], points = SoftPoints, explosive = raceTime })
 
-				else
-					dwText("VOLTAS~w~ ",0.40,0.40,0.68,0.88,180)
-					dwText(inLaps.."  /  "..runners[inSelected]["laps"],0.50,0.50,0.725,0.877,240,true)
-					dwText("CHECKPOINT~w~ ",0.45,0.45,0.66,0.91,180)
-					dwText(inCheckpoint.."  /  "..#runners[inSelected]["coords"],0.50,0.50,0.725,0.907,240,true)
-					dwText("PONTOS~w~ ",0.40,0.40,0.68,0.94,180)
-					dwText2(SoftPoints,0.50,0.50,0.725,0.937,240,true)
-				end
-
+		
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
 				if distance <= 200 then
 						DrawMarker(1,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3] - 3,0,0,0,0,0,0,12.0,12.0,8.0,255,255,255,25,0,0,0,0)
@@ -323,7 +308,8 @@ Citizen.CreateThread(function()
 					if distance <= 10 then
 						if inCheckpoint >= #runners[inSelected]["coords"] then
 							if inLaps >= runners[inSelected]["laps"] then
-								PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
+								PlaySoundFrontend(-1,"CHECKPOINT_UNDER_THE_BRIDGE","HUD_MINI_GAME_SOUNDSET",false)
+								SendNUIMessage({ show = false })
 								
 								vSERVER.finishRaces()
 								vSERVER.finishRacesDatabase(inSelected,SoftPoints / 10)
@@ -336,6 +322,7 @@ Citizen.CreateThread(function()
 								inCheckpoint = 1
 								inLaps = inLaps + 1
 								makeBlips()
+								SendNUIMessage({ show = true })
 							end
 						else
 							inCheckpoint = inCheckpoint + 1
@@ -347,10 +334,10 @@ Citizen.CreateThread(function()
 				for k,v in pairs(runners) do
 					local distance = #(coords - vector3(v["init"][1],v["init"][2],v["init"][3]))
 					if distance <= 50 then
-						timeDistance = 4
+						timeDistance = 1
 						DrawMarker(23,v["init"][1],v["init"][2],v["init"][3]-1,0.0,0.0,0.0,0.0,0.0,0.0,10.0,10.0,0.0,42,137,255,100,0,0,0,0)
 
-						if IsControlJustPressed(1,38) and distance <= 5 and vSERVER.checkConsume() then
+						if IsControlJustPressed(1,38) and distance <= 5 and vSERVER.checkTicket() then
 							inSelected = parseInt(k)
 							Points = GetGameTimer()
 							SoftPoints = 0
@@ -359,7 +346,6 @@ Citizen.CreateThread(function()
 							inTimers = 0
 							inLaps = 1
 							raceTime = parseInt(runners[inSelected]["raceTimers"])
---							TriggerEvent("Notify","amarelo","Autoridades foram notificadas.",3000)
 							makeBlips()
 						end
 					end
@@ -399,6 +385,7 @@ Citizen.CreateThread(function()
 					Points = 0
 					cleanBlips()
 					inRunners = false
+					SendNUIMessage({ show = false })
 
 					Citizen.Wait(3000)
 					AddExplosion(GetEntityCoords(GetPlayersLastVehicle()),2,1.0,true,true,true)
@@ -435,45 +422,6 @@ function cleanBlips()
 	if DoesBlipExist(CheckBlip) then
 		RemoveBlip(CheckBlip)
 		CheckBlip = nil
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DWTEXT
------------------------------------------------------------------------------------------------------------------------------------------
-function dwText(text,s1,s2,x,y,alpha,shadow)
-	SetTextFont(6)
-	SetTextScale(s1,s2)
-	SetTextColour(255,255,255,alpha)
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	if shadow then
-		SetTextDropShadow(1)
-	end
-	DrawText(x,y)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DWTEXT2
------------------------------------------------------------------------------------------------------------------------------------------
-function dwText2(text,s1,s2,x,y,alpha,shadow)
-	SetTextFont(6)
-	SetTextScale(s1,s2)
-	SetTextColour(255,255,255,alpha)
-	BeginTextCommandDisplayText("STRING")
-	AddTextComponentFormattedInteger(text, true)
-	if shadow then
-		SetTextDropShadow(1)
-	end
-	
-	if parseInt(text) < 999  then
-		DrawText(x,y)
-	elseif parseInt(text) > 999 and parseInt(text) < 9999 then
-		DrawText(x-0.003,y)
-	elseif parseInt(text) > 9999 and parseInt(text) < 99999 then
-		DrawText(x-0.006,y)
-	elseif parseInt(text) > 99999 and parseInt(text) < 999999 then
-		DrawText(x-0.009,y)
-	elseif parseInt(text) > 999999 and parseInt(text) < 9999999 then
-		DrawText(x-0.012,y)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
