@@ -92,7 +92,19 @@ local itemlist = {
 	    index = "notebook",
 		name = "Notebook",
 		tipo = "Usável",
+		unity = "Sim",
 		economy = "5225",
+		type = "use",
+		subtype = "comida",
+		transform = "nbnotebook",
+		durability = 10800,
+		weight = 7.25
+	},
+	["nbnotebook"] = {
+	    index = "notebook",
+		name = "Notebook descarregado",
+		tipo = "Usável",
+		economy = "4885",
 		type = "use",
 		weight = 7.25
 	},

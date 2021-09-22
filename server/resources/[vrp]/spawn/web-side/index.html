@@ -1,29 +1,23 @@
-<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>#creative</title>
-		<link rel="stylesheet" href="css.css">
 		<script src="nui://game/ui/jquery.js"></script>
+		<link href="css.css" rel="stylesheet" type="text/css"/>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	</head>
-
 	<body>
 		<div id="charPage"></div>
+
+		<div id="spawnPage"></div>
+
 		<div id="createPage">
-			<div id="createCharForm">
-				<div class="buttonGroup" id="gender">
-					<div class="buttonsBox">
-						<button type="button" class="active" id="M">Masculino</button>
-						<button type="button" id="F">Feminino</button>
-					</div>
-				</div>
-
-				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charNome" placeholder="Nome">
-				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charSobrenome" placeholder="Sobrenome">
-
-				<button class="fnButton" id="createNew">CONFIRMAR</button>
-				<button class="fnButton" id="createBack">CANCELAR</button>
-			</div>
+			<input class="createInput" id="charNome" onKeyPress="if(this.value.length==16) return false;" value="" placeholder="NOME"></input>
+			<input class="createInput" id="charSobrenome" onKeyPress="if(this.value.length==16) return false;" value="" placeholder="SOBRENOME"></input>
+			<input class="createInput" id="charSexo" onKeyPress="if(this.value.length==1) return false;" value="" placeholder="SEXO: M/F"></input>
+			<div id="createNew">CONFIRMAR</div>
+			<div id="createBack">VOLTAR</div>
 		</div>
 
 		<script src="jquery.js"></script>

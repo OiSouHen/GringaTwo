@@ -101,9 +101,6 @@ function TriggerCamController(statusSent)
 			Citizen.Wait(10)
 		end
 	elseif statusSent == -2 then
-		-- SetCamActive(cam,false)
-		-- StopCamPointing(cam)
-		-- RenderScriptCams(0,0,0,0,0,0)
 		SetFocusEntity(PlayerPedId())
 		removeCamActive()
 	elseif statusSent == 1 then

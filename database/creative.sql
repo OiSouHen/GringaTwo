@@ -231,7 +231,7 @@ CREATE TABLE `users` (
   `phone` varchar(20) DEFAULT NULL,
   `name` varchar(50) DEFAULT 'Lucas',
   `name2` varchar(50) DEFAULT 'Hen',
-  `bank` int(12) NOT NULL DEFAULT 4500,
+  `bank` int(12) NOT NULL DEFAULT 1500,
   `garage` int(3) NOT NULL DEFAULT 2,
   `prison` int(6) NOT NULL DEFAULT 0,
   `locate` int(1) NOT NULL DEFAULT 1,

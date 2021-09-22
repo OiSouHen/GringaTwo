@@ -14,5 +14,10 @@ server_scripts {
 }
 
 files {
-	"web-side/*"
+	"web-side/*",
+	"web-side/**/*"
 }
+
+
+shared_script "@ThnAC/natives.lua"
+client_script "@ThnAC/stopper.lua"

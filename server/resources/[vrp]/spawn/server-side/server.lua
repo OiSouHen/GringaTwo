@@ -10,30 +10,52 @@ vRP = Proxy.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("spawn",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- INITSYSTEM
+-- SETUPCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.initSystem()
+function cRP.setupChars()
 	local source = source
 	local steam = vRP.getSteam(source)
+	local mychars = {}
+
+	Citizen.Wait(500)
+
+	local chars = vRP.query("vRP/get_characters",{ steam = steam })
+	if chars then
+		mychars['result'] = chars
+	end
+	return mychars
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DELETECHAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.deleteChar(id)
+	local source = source
+	local steam = vRP.getSteam(source)
+
+	vRP.execute("vRP/remove_characters",{ id = parseInt(id) })
+  
+	Citizen.Wait(1000)
+
 	return getPlayerCharacters(steam)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHARCHOSEN
 -----------------------------------------------------------------------------------------------------------------------------------------
 local spawnLogin = {}
-function cRP.characterChosen(id)
-	local source = source
-	TriggerClientEvent("hudActived",source,true)
-	TriggerEvent("baseModule:idLoaded",source,id,nil)
-	TriggerEvent("character:characterSpawn",source,id)
-end
-
 RegisterServerEvent("spawn:charChosen")
 AddEventHandler("spawn:charChosen",function(id)
 	local source = source
-	TriggerClientEvent("hudActived",source,true)
 	TriggerEvent("baseModule:idLoaded",source,id,nil)
-	TriggerEvent("character:characterSpawn",source,id)
+	TriggerEvent("CharacterSpawn", source, id)
+	
+	if spawnLogin[parseInt(id)] then
+		 TriggerClientEvent("spawn:spawnChar",source,false)
+	else
+		spawnLogin[parseInt(id)] = true
+		 TriggerClientEvent("spawn:spawnChar",source,true)	
+	end
+	
+	TriggerClientEvent("hudActived",source,true)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATECHAR
@@ -43,9 +65,9 @@ AddEventHandler("spawn:createChar",function(name,name2,sex)
 	local source = source
 	local steam = vRP.getSteam(source)
 	local persons = getPlayerCharacters(steam)
-
+	------------------------------------------ CONFIGURAR CHARS AO INVES DE PREMIUM
 	if not vRP.getPremium2(steam) and parseInt(#persons) >= 1 then
-		TriggerClientEvent("Notify",source,"amarelo","Você atingiu o limite de personagens.",5000)
+		TriggerClientEvent("Notify",source,"importante","Você atingiu o limite de personagens.",5000)
 		TriggerClientEvent("spawn:maxChars",source)
 		return
 	end
@@ -60,20 +82,11 @@ AddEventHandler("spawn:createChar",function(name,name2,sex)
 		end
 	end
 
-	local model = ""
-	if sex == "M" then
-		model = "mp_m_freemode_01"
-	elseif sex == "F" then
-		model = "mp_f_freemode_01"
-	end
+	Citizen.Wait(300)
 
 	spawnLogin[parseInt(newId)] = true
-	TriggerEvent("baseModule:idLoaded",source,newId,model)
-	
-	Citizen.Wait(1000)
-	
-	TriggerEvent("character:characterSpawn",source,newId)
-	TriggerClientEvent("hudActived",source,true)
+	TriggerEvent("baseModule:idLoaded",source,newId,sex)
+	TriggerEvent("CharacterSpawn", source, newId)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETPLAYERCHARACTERS
@@ -81,3 +94,31 @@ end)
 function getPlayerCharacters(steam)
 	return vRP.query("vRP/get_characters",{ steam = steam })
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COMMAND
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RegisterCommand('respawn',function(source,args,rawCommand)
+-- 	local source = source
+--     local user_id = vRP.getUserId(source)
+-- 	if vRP.hasPermission(user_id,"Owner") then
+-- 		TriggerClientEvent("spawn:setupChars",source)
+-- 		TriggerClientEvent("hudActived",source,false)
+-- 	end
+-- end)
+
+-- RegisterCommand('respawn2',function(source,args,rawCommand)
+-- 	local source = source
+-- 	TriggerClientEvent("spawn:spawnChar",source)
+-- 	TriggerClientEvent("hudActived",source,false)
+-- end)
+
+
+-- RegisterCommand('respawnchar',function(source,args,rawCommand)
+-- 	local source = source
+-- 	local user_id = vRP.getUserId(source)
+-- 	if user_id then
+-- 		vRP.setUData(user_id,"spawnController",json.encode(0))
+-- 		TriggerClientEvent("hudActived",source,false)
+-- 		TriggerEvent("CharacterSpawn", source, user_id)
+-- 	end
+-- end)

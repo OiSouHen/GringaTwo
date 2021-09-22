@@ -3,20 +3,9 @@ local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 
 local userlogin = {}
--- AddEventHandler("vRP:playerSpawn",function(user_id,source,first_spawn)
--- 	if first_spawn then
--- 		local data = vRP.getUData(user_id,"vRP:spawnController")
--- 		local sdata = json.decode(data) or 0
--- 		if sdata then
--- 			Citizen.Wait(1000)
--- 			processSpawnController(source,sdata,user_id)
--- 		end
--- 	end
--- end)
 
-RegisterServerEvent("character:characterSpawn")
-AddEventHandler("character:characterSpawn", function(source,user_id)
-	local source = source
+RegisterServerEvent("CharacterSpawn")
+AddEventHandler("CharacterSpawn", function(source,user_id) 
 	if user_id then
 		local data = vRP.getUData(user_id,"spawnController")
 		local sdata = json.decode(data) or 0
@@ -51,8 +40,6 @@ AddEventHandler("character:finishedCharacter",function(currentCharacterMode)
 	if user_id then
 		vRP.setUData(user_id,"currentCharacterMode",json.encode(currentCharacterMode))
 		vRP.setUData(user_id,"spawnController",json.encode(2))
-		-- vRP.varyExp(user_id,"physical","strength",650)
-		-- vRP.execute("vRP/update_user_first_spawn",{ user_id = user_id, firstname = characterSobrenome, name = characterNome, age = characterAge })
 		doSpawnPlayer(source,user_id,true)
 	end
 end)
