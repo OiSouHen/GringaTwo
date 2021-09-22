@@ -388,6 +388,7 @@ Citizen.CreateThread(function()
 					SendNUIMessage({ show = false })
 
 					Citizen.Wait(3000)
+					
 					AddExplosion(GetEntityCoords(GetPlayersLastVehicle()),2,1.0,true,true,true)
 				end
 			end
