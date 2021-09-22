@@ -46,7 +46,7 @@ RegisterServerEvent("spawn:charChosen")
 AddEventHandler("spawn:charChosen",function(id)
 	local source = source
 	TriggerEvent("baseModule:idLoaded",source,id,nil)
-	TriggerEvent("CharacterSpawn", source, id)
+	TriggerEvent("characterSpawn", source, id)
 	
 	if spawnLogin[parseInt(id)] then
 		 TriggerClientEvent("spawn:spawnChar",source,false)
@@ -86,7 +86,7 @@ AddEventHandler("spawn:createChar",function(name,name2,sex)
 
 	spawnLogin[parseInt(newId)] = true
 	TriggerEvent("baseModule:idLoaded",source,newId,sex)
-	TriggerEvent("CharacterSpawn", source, newId)
+	TriggerEvent("characterSpawn", source, newId)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETPLAYERCHARACTERS
@@ -94,31 +94,3 @@ end)
 function getPlayerCharacters(steam)
 	return vRP.query("vRP/get_characters",{ steam = steam })
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- COMMAND
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand('respawn',function(source,args,rawCommand)
--- 	local source = source
---     local user_id = vRP.getUserId(source)
--- 	if vRP.hasPermission(user_id,"Owner") then
--- 		TriggerClientEvent("spawn:setupChars",source)
--- 		TriggerClientEvent("hudActived",source,false)
--- 	end
--- end)
-
--- RegisterCommand('respawn2',function(source,args,rawCommand)
--- 	local source = source
--- 	TriggerClientEvent("spawn:spawnChar",source)
--- 	TriggerClientEvent("hudActived",source,false)
--- end)
-
-
--- RegisterCommand('respawnchar',function(source,args,rawCommand)
--- 	local source = source
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		vRP.setUData(user_id,"spawnController",json.encode(0))
--- 		TriggerClientEvent("hudActived",source,false)
--- 		TriggerEvent("CharacterSpawn", source, user_id)
--- 	end
--- end)

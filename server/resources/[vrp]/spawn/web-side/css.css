@@ -1,232 +1,194 @@
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap);
+:focus { outline: 0; }
+img { border: none; }
+::-webkit-scrollbar { width: 0; }
+::selection { background: transparent; }
+::-moz-selection { background: transparent; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 
-*,
 body {
 	margin: 0;
 	padding: 0;
-	text-decoration: none;
-	font-family: Montserrat;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	color: #666;
+	font-size: 11px;
+	font-family: Roboto;
+}
+
+* {
+	overflow: hidden;
 	user-select: none;
+	box-sizing: border-box;
 }
 
-:focus, body:focus {
-	outline: 0;
-}
-
-#charPage, #createPage, #spawnPage {
-	top: 60px;
-	left: 60px;
+#charPage, #spawnPage, #createPage {
+	margin: 50px;
+	width: 300px;
 	display: none;
+	letter-spacing: 1px;
+	line-height: 20px;
 	position: absolute;
 }
 
-#spawnPage {
-	min-width: 300px;
-}
-
-#spawnPage .spawnBox {
-	border: 0;
+#charNew {
+	float: left;
 	width: 300px;
-	height: 50px;
-	display: flex;
-	color: #fafafa;
-	font-size: 13px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 4px;
-	margin-bottom: 10px;
-	letter-spacing: 1px;
-	background: #303442;
-	align-items: center;
-	justify-content: center;
-	text-transform: uppercase;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
-}
-
-#spawnPage .spawnBox:hover {
-	background-color: #1d1f27;
-}
-
-#spawnPage #spawnNew {
-	border: 0;
-	width: 300px;
-	height: 60px;
-	display: flex;
-	cursor: pointer;
-	color: #fafafa;
-	font-size: 16px;
-	border-radius: 4px;
-	align-items: center;
-	letter-spacing: 2px;
-	background: #2e6e4c;
-	justify-content: center;
-	text-transform: uppercase;
-	text-shadow: 0 1px #1b402c;
-	box-shadow: 0 1px 0 #235239;
-}
-
-#charPage .charBox, #charPage .charNew {
-	margin-bottom: 10px;
-}
-
-#charPage .charNew {
-	width: 260px;
-	height: 80px;
-	display: flex;
-	color: #fafafa;
-	padding: 0 20px;
-	cursor: pointer;
-	border-radius: 4px;
-	background: #2e6e4c;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	text-shadow: 0 1px #1b402c;
-	box-shadow: 0 1px 0 #235239;
-}
-
-#charPage .charNew p {
-	font-size: 13px;
-	letter-spacing: 1px;
-}
-
-#charPage .charNew o {
-	font-size: 11px;
-	opacity: 0.75;
-}
-
-#charPage .charNew p:first-child {
-	font-weight: 600;
-}
-
-#charPage .charBox {
-	height: 80px;
-	display: flex;
-	color: #fafafa;
-	padding: 0 20px;
-	cursor: pointer;
-	min-width: 230px;
-	border-radius: 4px;
-	flex-direction: row;
-	background: #292c38;
-	align-items: center;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
-	justify-content: space-between;
-}
-
-#charPage .charBox .playerInfo {
-	display: flex;
-	line-height: 20px;
-	margin-right: 10px;
-	letter-spacing: 1px;
-	flex-direction: column;
-}
-
-#charPage .charBox .playerInfo p {
-	font-size: 11px;
-}
-
-#charPage .charBox .playerInfo p b {
-	font-weight: 600;
-}
-
-#charPage .charBox .playerInfo p:last-child {
-	padding-bottom: 0;
-}
-
-#charPage .charBox .playerButton {
+	padding: 20px;
 	color: #8ebda3;
-	font-size: 11px;
-	font-weight: 600;
-	border-radius: 4px;
-	padding: 10px 10px;
-	letter-spacing: 1px;
+	transition: all 1s;
+	border-radius: 3px;
 	background: #2e6e4c;
-	text-transform: uppercase;
-	text-shadow: 0 1px #1b402c;
-}
-
-#createCharForm {
-	display: flex;
-	flex-direction: column;
-}
-
-#createCharForm .formInput {
-	border: 0;
-	width: 260px;
-	height: 50px;
-	color: #fafafa;
-	padding: 0 20px;
-	margin-top: 10px;
-	border-radius: 4px;
-	background: #303442;
-	letter-spacing: 2px;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
-}
-
-#createCharForm .formInput::placeholder {
-	color: #fafafa;
-}
-
-#createCharForm .fnButton {
-	border: 0;
-	width: 300px;
-	height: 50px;
-	color: #fafafa;
-	cursor: pointer;
-	margin-top: 10px;
-	border-radius: 4px;
-	letter-spacing: 2px;
-}
-
-#createCharForm .fnButton#createNew {
-	background: #2e6e4c;
+	margin-bottom: 20px;
 	text-shadow: 0 1px #1b402c;
 	box-shadow: 0 1px 0 #235239;
 }
 
-#createCharForm .fnButton#createBack {
+#charNew b {
+	color: #bddccb;
+	display: block;
+	font-size: 15px;
+	font-weight: 300;
+}
+
+#charNew:hover {
+	background: #39875e;
+}
+
+#charBox {
+	float: left;
+	width: 300px;
+	padding: 20px;
+	color: #979696;
+	transition: all 1s;
+	position: relative;
+	border-radius: 3px;
+	background: #292c38;
+	margin-bottom: 20px;
+	text-shadow: 0 1px #232630;
+	box-shadow: 0 1px 0 #232630;
+}
+
+#charBox b {
+	color: #fff;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+#charBox:hover {
+	background: #323644;
+}
+
+#charBox float {
+	right: 20px;
+	bottom: 20px;
+	color: #8ebda3;
+	padding: 5px 10px;
+	border-radius: 3px;
+	background: #2e6e4c;
+	position: absolute;
+	text-shadow: 0 1px #1b402c;
+}
+
+#spawnBox {
+	float: left;
+	width: 300px;
+	color: #979696;
+	padding: 12px 0;
+	font-size: 13px;
+	transition: all 1s;
+	text-align: center;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	background: #292c38;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	text-shadow: 0 1px #44464d;
+	box-shadow: 0 1px 0 #232630;
+}
+
+#spawnNew {
+	float: left;
+	width: 300px;
+	padding: 20px;
+	color: #8ebda3;
+	font-size: 16px;
+	font-weight: 300;
+	transition: all 1s;
+	text-align: center;
+	border-radius: 3px;
+	background: #2e6e4c;
+	letter-spacing: 5px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
+}
+
+#spawnNew:hover {
+	background: #39875e;
+}
+
+.createInput {
+	border: 0;
+	float: left;
+	width: 300px;
+	color: #979696;
+	padding: 12px 0;
+	font-size: 13px;
+	text-align: center;
+	transition: all 1s;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	background: #292c38;
+	letter-spacing: 3px;
+	text-shadow: 0 1px #232630;
+}
+
+.createInput:focus {
+	border: 0;
+}
+
+#createNew {
+	float: left;
+	width: 300px;
+	color: #8ebda3;
+	padding: 20px 0;
+	font-size: 16px;
+	font-weight: 300;
+	transition: all 1s;
+	text-align: center;
+	border-radius: 3px;
+	background: #2e6e4c;
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	text-shadow: 0 1px #1b402c;
+	box-shadow: 0 1px 0 #235239;
+}
+
+#createNew:hover {
+	background: #39875e;
+}
+
+#createBack {
+	float: left;
+	width: 300px;
+	color: #d898ae;
+	padding: 10px 0;
+	font-size: 13px;
+	margin-top: 10px;
+	transition: all 1s;
+	text-align: center;
+	border-radius: 3px;
 	background: #7c344d;
+	letter-spacing: 5px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
 	text-shadow: 0 1px #522132;
 	box-shadow: 0 1px 0 #522132;
 }
 
-#createCharForm .buttonGroup {
-	width: 300px;
-	margin-top: 10px;
-}
-
-#createCharForm .buttonGroup:first-child {
-	margin-top: 0;
-}
-
-#createCharForm .buttonGroup .buttonsBox {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#createCharForm .buttonGroup .buttonsBox button {
-	border: 0;
-	width: 145px;
-	height: 50px;
-	color: #fafafa;
-	cursor: pointer;
-	border-radius: 4px;
-	background: #303442;
-	letter-spacing: 2px;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
-}
-
-#createCharForm .buttonGroup .buttonsBox button.active {
-	background-color: #1d1f27;
+#createBack:hover {
+	background: #913e5b;
 }

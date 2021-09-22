@@ -1,3 +1,18 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Tunnel = module("vrp","lib/Tunnel")
+local Proxy = module("vrp","lib/Proxy")
+vRP = Proxy.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+cRP = {}
+Tunnel.bindInterface("character",cRP)
+vSERVER = Tunnel.getInterface("character")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NETEVENTS
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("character:normalSpawn")
 RegisterNetEvent("character:characterCreate")
 
@@ -101,6 +116,9 @@ function TriggerCamController(statusSent)
 			Citizen.Wait(10)
 		end
 	elseif statusSent == -2 then
+		-- SetCamActive(cam,false)
+		-- StopCamPointing(cam)
+		-- RenderScriptCams(0,0,0,0,0,0)
 		SetFocusEntity(PlayerPedId())
 		removeCamActive()
 	elseif statusSent == 1 then
@@ -116,6 +134,7 @@ AddEventHandler('ToogleBackCharacter',function()
 	doStatus = 2
 end)
 
+RegisterNetEvent("character:characterCreate")
 AddEventHandler("character:characterCreate",function(pedModelHash)
 	doStatus = 1
 	SetTimeout(1000,function()
@@ -123,6 +142,7 @@ AddEventHandler("character:characterCreate",function(pedModelHash)
 	end)
 end)
 
+RegisterNetEvent("character:normalSpawn")
 AddEventHandler("character:normalSpawn",function(firstspawn)
 	if not firstspawn then
 		TriggerCamController(-1)
@@ -132,7 +152,7 @@ AddEventHandler("character:normalSpawn",function(firstspawn)
 	else
 		freezedOnTop = true
 		doStatus = 2				
-		TriggerEvent("login:Spawn",firstspawn)		
+		TriggerEvent("spawn:SpawnNui",false)		
 	end
 end)
 

@@ -1,15 +1,24 @@
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP
+-----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-
+vRPclient = Tunnel.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
 local userlogin = {}
-
-RegisterServerEvent("CharacterSpawn")
-AddEventHandler("CharacterSpawn", function(source,user_id) 
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETUSERINFO
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("characterSpawn")
+AddEventHandler("characterSpawn", function(source,user_id) 
 	if user_id then
 		local data = vRP.getUData(user_id,"spawnController")
 		local sdata = json.decode(data) or 0
 		if sdata then
+			TriggerClientEvent("spawn:spawnChar",source,false)
 			Citizen.Wait(1000)
 			processSpawnController(source,sdata,user_id)
 		end
@@ -41,6 +50,7 @@ AddEventHandler("character:finishedCharacter",function(currentCharacterMode)
 		vRP.setUData(user_id,"currentCharacterMode",json.encode(currentCharacterMode))
 		vRP.setUData(user_id,"spawnController",json.encode(2))
 		doSpawnPlayer(source,user_id,true)
+		TriggerClientEvent("hudActived",source,true)
 	end
 end)
 
