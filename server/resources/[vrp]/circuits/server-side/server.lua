@@ -55,8 +55,8 @@ function cRP.finishRaces()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 	local identity = vRP.getUserIdentity(user_id)
-		vRP.wantedTimer(user_id,600)
-		vRP.giveInventoryItem(user_id,"dollars2",math.random(1500,2500),true)
+		vRP.wantedTimer(user_id,5)
+		vRP.giveInventoryItem(user_id,"dollars2",math.random(1000),true)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
