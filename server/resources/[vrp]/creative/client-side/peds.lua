@@ -6,6 +6,18 @@ local localPeds = {}
 -- PEDLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local pedList = {
+	{ -- Rares
+		distance = 100,
+		coords = { 921.67,-1179.04,25.95,0.0 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Rares
+		distance = 100,
+		coords = { -275.56,-602.63,33.55,184.26 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
 	{ -- Bloods
 		distance = 100,
 		coords = { 232.65,-1750.86,29.02,232.45 },

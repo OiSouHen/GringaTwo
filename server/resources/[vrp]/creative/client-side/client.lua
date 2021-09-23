@@ -260,11 +260,17 @@ end)
 -- ALPHAS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local alphas = {
-	{ 713.39,4101.04,35.79,25,2 },
-	{ 1343.03,2233.61,88.43,200,3 },
-	{ -1171.5,1454.58,185.28,300,3 },
-	{ -852.1,4940.38,235.63,300,3 },
-	{ 1311.92,4610.54,131.21,200,3 }
+	{ 713.39,4101.04,35.79,25,2,175 },
+	{ 1343.03,2233.61,88.43,200,3,50 },
+	{ -1171.5,1454.58,185.28,300,3,50 },
+	{ -852.1,4940.38,235.63,300,3,50 },
+	{ 1311.92,4610.54,131.21,200,3,50 },
+	{ 156.44,-1065.79,30.04,15,66,175 },
+	{ -1188.13,-1574.47,4.35,15,66,175 },
+	{ -777.44,5593.64,33.63,15,66,175 },
+	{ 435.06,-647.39,28.73,15,66,175 },
+	{ -896.38,-779.06,15.91,15,66,175 },
+	{ -1668.56,-998.63,7.38,15,66,175 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADALPHA
@@ -272,7 +278,7 @@ local alphas = {
 Citizen.CreateThread(function()
 	for _,v in pairs(alphas) do
 		local blip = AddBlipForRadius(v[1],v[2],v[3],v[4] + 0.0)
-		SetBlipAlpha(blip,100)
+		SetBlipAlpha(blip,v[6])
 		SetBlipColour(blip,v[5])
 	end
 end)
@@ -461,6 +467,8 @@ local ipList = {
 		coords = { -47.10,-1115.30,26.50 }
 	},{
 		props = {
+			"ipl_by_haitux_3",
+			"ipl_by_haitux_4",
 			"balcony"
 		},
 		coords = { 137.70,-3029.30,11.79 }
@@ -715,11 +723,32 @@ Citizen.CreateThread(function()
 	TriggerEvent("hoverfy:insertTable",{{ 254.01,225.21,101.87,1.5,"E","Porta do Cofre","Pressione para abrir/fechar" }})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- BUNNYHOP
+-----------------------------------------------------------------------------------------------------------------------------------------
+local bunnyHope = GetGameTimer()
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		if not IsPedInAnyVehicle(ped) then
+			if GetGameTimer() <= bunnyHope then
+				timeDistance = 1
+				DisableControlAction(1,22,true)
+			else
+				if IsPedJumping(ped) then
+					bunnyHope = GetGameTimer() + 5000
+				end
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHCAMERA
 -----------------------------------------------------------------------------------------------------------------------------------------
 local fov_max = 80.0
 local fov_min = 10.0
-local speed_lr = 3.0
 local speed_ud = 3.0
 local zoomspeed = 2.0
 local vehCamera = false
@@ -729,10 +758,10 @@ local fov = (fov_max + fov_min) * 0.5
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
+		local waitPacket = 500
 		local ped = PlayerPedId()
 		if IsPedInAnyHeli(ped) then
-			timeDistance = 1
+			waitPacket = 4
 
 			local veh = GetVehiclePedIsUsing(ped)
 			SetVehicleRadioEnabled(veh,false)
@@ -797,7 +826,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Citizen.Wait(waitPacket)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -913,27 +942,5 @@ Citizen.CreateThread(function()
 			local set = p + recoil
 			SetGameplayCamRelativePitch(set,0.8)
 		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- BUNNYHOP
------------------------------------------------------------------------------------------------------------------------------------------
-local bunnyHope = GetGameTimer()
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 999
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			if GetGameTimer() <= bunnyHope then
-				timeDistance = 1
-				DisableControlAction(1,22,true)
-			else
-				if IsPedJumping(ped) then
-					bunnyHope = GetGameTimer() + 5000
-				end
-			end
-		end
-
-		Citizen.Wait(timeDistance)
 	end
 end)
