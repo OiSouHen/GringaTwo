@@ -105,8 +105,7 @@ end
 -- TASKONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskOne()
-	local rand = math.random(6,10)
-	local finished = taskBar(1500,rand)
+	local finished = taskBar(1500,12)
 	if finished then
 		return true
 	end
@@ -117,10 +116,9 @@ end
 -- TASKTWO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskTwo()
-	local rand = math.random(6,10)
-	local finished = taskBar(2000,rand)
+	local finished = taskBar(2000,12)
 	if finished then
-		local finished = taskBar(1500,rand)
+		local finished = taskBar(1500,10)
 		if finished then
 			return true
 		end
@@ -132,12 +130,11 @@ end
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskThree()
-	local rand = math.random(6,10)
-	local finished = taskBar(2500,rand)
+	local finished = taskBar(2500,14)
 	if finished then
-		local finished = taskBar(2000,rand)
+		local finished = taskBar(2000,12)
 		if finished then
-			local finished = taskBar(1500,rand)
+			local finished = taskBar(1500,10)
 			if finished then
 				return true
 			end
@@ -150,14 +147,13 @@ end
 -- TASKMECHANIC
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskMechanic()
-	local rand = math.random(6,10)
-	local finished = taskBar(7500,rand)
+	local finished = taskBar(7500,16)
 	if finished then
-		local finished = taskBar(5000,rand)
+		local finished = taskBar(5000,14)
 		if finished then
-			local finished = taskBar(2500,rand)
+			local finished = taskBar(2500,12)
 			if finished then
-				local finished = taskBar(1000,rand)
+				local finished = taskBar(1000,10)
 				if finished then
 					return true
 				end
@@ -171,8 +167,7 @@ end
 -- TASKFISHING
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskFishing()
-	local rand = math.random(6,10)
-	local finished = taskBar(20000,rand)
+	local finished = taskBar(20000,10)
 	if finished then
 		return true
 	end
@@ -183,8 +178,7 @@ end
 -- TASKHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskHandcuff()
-	local rand = math.random(6,10)
-	local finished = taskBar(1000,rand)
+	local finished = taskBar(1000,10)
 	if finished then
 		return true
 	end
@@ -195,12 +189,11 @@ end
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskLockpick()
-	local rand = math.random(6,10)
-	local finished = taskBar(2500,rand)
+	local finished = taskBar(2500,14)
 	if finished then
-		local finished = taskBar(2000,rand)
+		local finished = taskBar(2000,12)
 		if finished then
-			local finished = taskBar(1500,rand)
+			local finished = taskBar(1500,10)
 			if finished then
 				return true
 			end
@@ -213,13 +206,13 @@ end
 -- STEALTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.stealTrunk()
-	local finished = taskBar(4500,9)
+	local finished = taskBar(4500,16)
 	if finished then
-		local finished = taskBar(3500,8)
+		local finished = taskBar(3500,14)
 		if finished then
-			local finished = taskBar(2500,7)
+			local finished = taskBar(2500,12)
 			if finished then
-				local finished = taskBar(1500,6)
+				local finished = taskBar(1500,10)
 				if finished then
 					return true
 				end
@@ -233,12 +226,11 @@ end
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function taskThree()
-	local rand = math.random(6,10)
-	local finished = taskBar(2500,rand)
+	local finished = taskBar(2500,14)
 	if finished then
-		local finished = taskBar(2000,rand)
+		local finished = taskBar(2000,12)
 		if finished then
-			local finished = taskBar(1500,rand)
+			local finished = taskBar(1500,10)
 			if finished then
 				return true
 			end
@@ -251,12 +243,11 @@ end
 -- TASKHOMES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function taskHomes()
-	local rand = math.random(6,10)
-	local finished = taskBar(4500,rand)
+	local finished = taskBar(4500,14)
 	if finished then
-		local finished = taskBar(3500,rand)
+		local finished = taskBar(3500,12)
 		if finished then
-			local finished = taskBar(2500,rand)
+			local finished = taskBar(2500,10)
 			if finished then
 				return true
 			end
@@ -269,8 +260,7 @@ end
 -- TASKDOORS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.taskDoors()
-	local rand = math.random(6,10)
-	local finished = taskBar(1000,rand)
+	local finished = taskBar(1000,10)
 	if finished then
 		return true
 	end

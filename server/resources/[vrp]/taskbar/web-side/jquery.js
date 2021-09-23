@@ -1,10 +1,10 @@
-$(document).ready(function(){
+$(document).ready(() => {
 	var percent = 0;
 
 	document.onkeydown = function (data){
 		if (data["which"] == 69){
 			$.post("http://taskbar/taskEnd",JSON.stringify({ taskResult: percent }));
-			$(".divwrap").css("display","none");
+			$(".circlewrap").css("display","none");
 		}
 	}
 
@@ -13,27 +13,24 @@ $(document).ready(function(){
 
 		if (item["runProgress"] === true){
 			percent = 0;
-
-			$("#progress-bar").css("width","0");
-			$(".divwrap").css("display","block");
-			$(".skillprogress").css("left",item["chance"] + "%")
-			$(".skillprogress").css("width",item["skillGap"] + "%");
+			$(".circlewrap").css("display","flex")
+			$("#skillgap").css("transform", `rotate(${(item["chance"] * 360)/100}deg`);
+			$("#skillgap").css("--val",item["skillGap"]);
 		}
 
 		if (item["runUpdate"] === true){
-			percent = item["Length"];
-
-			$("#progress-bar").css("width",item["Length"] + "%");
+			percent = item["Length"]
+			$("#skillprogress").css("--val",item["Length"]);
 
 			if (item["Length"] < (item["chance"] + item["skillGap"]) && item["Length"] > (item["chance"])){
-				$(".skillprogress").css("background-color","#6b3434");
+				$("#skillgap").css("stroke","#6b3434");
 			} else {
-				$(".skillprogress").css("background-color","#68708c");
+				$("#skillgap").css("stroke","#68708c");
 			}
 		}
 
 		if (item["closeProgress"] === true){
-			$(".divwrap").css("display","none");
+			$(".circlewrap").css("display","none");
 		}
 	});
 });

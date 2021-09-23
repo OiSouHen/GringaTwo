@@ -840,7 +840,7 @@ Citizen.CreateThread(function()
 				coolTimers = 3
 
 				local coords = GetEntityCoords(ped)
-				if (losSantos:isPointInside(coords) or sandyShores:isPointInside(coords) or paletoBay:isPointInside(coords)) and not policeService then
+				if (losSantos:isPointInside(coords) or sandyShores:isPointInside(coords) or paletoBay:isPointInside(coords)) then
 					vSERVER.shotsFired()
 				end
 			end
