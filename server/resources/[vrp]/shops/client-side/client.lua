@@ -126,6 +126,8 @@ local shopList = {
 	{ 389.71,-942.61,29.42,"ilegalCosmetics",false },
 	{ 154.98,-1472.47,29.35,"ilegalToys",false },
 	{ 488.1,-1456.11,29.28,"ilegalCriminal",false },
+	{ -275.53,-603.13,33.55,"ilegalRares",false },
+	{ 921.66,-1178.51,25.93,"ilegalRares",false },
 	{ 169.76,-1535.88,29.25,"weaponsStore",false },
 	{ 301.14,-195.75,61.57,"weaponsStore",false },
 	{ -345.4,-130.64,39.01,"mechanicTools",false },

@@ -462,7 +462,7 @@ function cRP.shotsFired()
 					local comAmount = vRP.numPermission("Police")
 					for k,v in pairs(comAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 10, title = "Confronto em andamento", x = x, y = y, z = z, criminal = "Disparos de arma de fogo", rgba = {105,52,136} })
+							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 10, title = "Confronto em andamento", x = x, y = y, z = z, rgba = {105,52,136} })
 						end)
 					end
 				end
@@ -1080,17 +1080,6 @@ RegisterCommand("rem",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TRUNKIN
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("trunkin",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
--- 			TriggerClientEvent("player:EnterTrunk",source)
--- 		end
--- 	end
--- end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("checktrunk",function(source,args,rawCommand)
@@ -1100,48 +1089,6 @@ RegisterCommand("checktrunk",function(source,args,rawCommand)
 			local nplayer = vRPclient.nearestPlayer(source,2)
 			if nplayer then
 				TriggerClientEvent("player:CheckTrunk",nplayer)
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SEAT
------------------------------------------------------------------------------------------------------------------------------------------
--- RegisterCommand("p",function(source,args,rawCommand)
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
--- 			TriggerClientEvent("player:SeatPlayer",source,args[1])
--- 		end
--- 	end
--- end)
------------------------------------------------------------------------------------------------------------------------------------------
--- ONDUTY
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("onduty",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
-			if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Mechanic") then
-				local onDuty = ""
-				local service = {}
-
-				if vRP.hasPermission(user_id,"Police") then
-					service = vRP.numPermission("Police")
-				elseif vRP.hasPermission(user_id,"Paramedic") then
-					service = vRP.numPermission("Paramedic")
-				elseif vRP.hasPermission(user_id,"Mechanic") then
-					service = vRP.numPermission("Mechanic")
-				end
-
-				for k,v in pairs(service) do
-					local nuser_id = vRP.getUserId(v)
-					local identity = vRP.getUserIdentity(nuser_id)
-
-					onDuty = onDuty.."<b>Passaporte:</b> "..vRP.format(parseInt(nuser_id)).."   -   <b>Nome:</b> "..identity.name.." "..identity.name2.."<br>"
-				end
-
-				TriggerClientEvent("Notify",source,"importante",onDuty,30000)
 			end
 		end
 	end

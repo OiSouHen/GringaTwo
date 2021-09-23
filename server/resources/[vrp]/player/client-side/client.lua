@@ -775,80 +775,140 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SHOTDISTANCE
+-- BLACKWEAPONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local losSantos = PolyZone:Create({
-	vector2(-2153.08,-3131.33),
-	vector2(-1581.58,-2092.38),
-	vector2(-3271.05,275.85),
-	vector2(-3460.83,967.42),
-	vector2(-3202.39,1555.39),
-	vector2(-1642.50,993.32),
-	vector2(312.95,1054.66),
-	vector2(1313.70,341.94),
-	vector2(1739.01,-1280.58),
-	vector2(1427.42,-3440.38),
-	vector2(-737.90,-3773.97)
-},{ name="santos" })
-
-local sandyShores = PolyZone:Create({
-	vector2(-375.38,2910.14),
-	vector2(307.66,3664.47),
-	vector2(2329.64,4128.52),
-	vector2(2349.93,4578.50),
-	vector2(1680.57,4462.48),
-	vector2(1570.01,4961.27),
-	vector2(1967.55,5203.67),
-	vector2(2387.14,5273.98),
-	vector2(2735.26,4392.21),
-	vector2(2512.33,3711.16),
-	vector2(1681.79,3387.82),
-	vector2(258.85,2920.16)
-},{ name="sandy" })
-
-local paletoBay = PolyZone:Create({
-	vector2(-529.40,5755.14),
-	vector2(-234.39,5978.46),
-	vector2(278.16,6381.84),
-	vector2(672.67,6434.39),
-	vector2(699.56,6877.77),
-	vector2(256.59,7058.49),
-	vector2(17.64,7054.53),
-	vector2(-489.45,6449.50),
-	vector2(-717.59,6030.94)
-},{ name="paleto" })
+local blackWeapons = {
+	"WEAPON_UNARMED",
+	"WEAPON_FLASHLIGHT",
+	"WEAPON_NIGHTSTICK",
+	"WEAPON_STUNGUN",
+	"GADGET_PARACHUTE",
+	"WEAPON_PETROLCAN",
+	"WEAPON_FIREEXTINGUISHER",
+	"WEAPON_BAT",
+	"WEAPON_BATTLEAXE",
+	"WEAPON_BOTTLE",
+	"WEAPON_CROWBAR",
+	"WEAPON_DAGGER",
+	"WEAPON_GOLFCLUB",
+	"WEAPON_HAMMER",
+	"WEAPON_MACHETE",
+	"WEAPON_POOLCUE",
+	"WEAPON_STONE_HATCHET",
+	"WEAPON_SWITCHBLADE",
+	"WEAPON_WRENCH",
+	"WEAPON_KNUCKLE"
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSHOTSFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
+local gsrTime = 0
 local coolTimers = 0
-local residual = false
-local policeService = false
+local bWeapons = false
 local sprayTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSHOT
+-- THREADSHOTSFIRED - THREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
-		if IsPedArmed(ped,6) and GetGameTimer() >= sprayTimers then
+		if GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_UNARMED") and GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_PETROLCAN") then
 			timeDistance = 1
-
+			
 			if IsPedShooting(ped) then
-				sprayTimers = GetGameTimer() + 60000
-				residual = true
-				coolTimers = 3
-
-				local coords = GetEntityCoords(ped)
-				if (losSantos:isPointInside(coords) or sandyShores:isPointInside(coords) or paletoBay:isPointInside(coords)) then
-					vSERVER.shotsFired()
+				for k,v in ipairs(blackWeapons) do
+					if GetSelectedPedWeapon(ped) == GetHashKey(v) then
+						bWeapons = true
+					end
 				end
+
+				if not bWeapons and GetGameTimer() >= sprayTimers then
+					vSERVER.shotsFired()
+					gsrTime = 60
+					coolTimers = 3
+					sprayTimers = GetGameTimer() + 60000
+				end
+
+				bWeapons = false
 			end
 		end
-
 		Citizen.Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GSRTIME
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if gsrTime > 0 then
+			gsrTime = gsrTime - 1
+		end
+		Citizen.Wait(10000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GSRCHECK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.gsrCheck()
+	return gsrTime
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOTDISTANCE
+-----------------------------------------------------------------------------------------------------------------------------------------
+local shotDistance = {
+--  {losSantos}
+	{ -2154.0,-3132.0,-0.39 },
+	{ -1581.99,-2092.99,-0.63 },
+	{ -3272.0,275.0,-0.85 },
+	{ -3461.0,967.0,-0.59 },
+	{ -3203.0,1555.0,-0.8 },
+	{ -1648.5,995.5,152.8 },
+	{ 305.94,1055.38,212.4 },
+	{ 1258.5,270.25,81.85 },
+	{ 1740.5,-1280.0,85.37 },
+	{ 1427.01,-3440.99,-0.46 },
+	{ -738.0,-3774.0,-0.41 },
+	{ -186.99,-894.0,29.34 },
+--  {sandyShores}
+	{ -374.25,2910.5,34.04 },
+	{ 309.39,3667.43,29.58 },
+	{ 2325.69,4126.47,29.61 },
+	{ 2348.24,4572.29,29.49 },
+	{ 1699.83,4471.91,30.75 },
+	{ 1567.54,4957.51,65.51 },
+	{ 1972.0,5137.25,43.17 },
+	{ 2381.75,5217.25,56.41 },
+	{ 2727.5,4388.75,48.26, },
+	{ 2416.5,3747.0,41.78 },
+	{ 1671.01,3390.0,37.9 },
+	{ 254.51,2920.25,43.06 },
+--  {paletoBay}
+	{ -542.24,5750.25,36.26 },
+	{ -275.24,6035.75,31.58 },
+	{ 269.76,6416.25,32.16 },
+	{ 666.0,6452.75,31.7 },
+	{ 699.01,6877.01,-0.22 },
+	{ 256.01,7058.01,1.24 },
+	{ 17.0,7053.98,1.39 },
+	{ -489.51,6453.2,1.57 },
+	{ -714.67,6033.24,3.65 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SHOTDISTANCE - THREAD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.shotDistance(x,y,z)
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
+	for k,v in pairs(shotDistance) do
+		local distance = #(coords - vector3(v[1],v[2],v[3]))
+		if distance <= 2500 then
+			return true
+		end
+	end
+	
+	return false
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDISABLECTRL
 -----------------------------------------------------------------------------------------------------------------------------------------
