@@ -250,15 +250,10 @@ const updateDrag = () => {
 			var weight = $(this).attr("data-peso");
 			var tipo = $(this).attr("data-tipo");
 			var unity = $(this).attr("data-unity");
-			var myLeg = "center top-196";
-
-			if (desc !== "undefined"){
-				myLeg = "center top-219";
-			}
 
 			$(this).tooltip({
 				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${(weight * amounts).toFixed(2)}</r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
-				position: { my: myLeg, at: "center" },
+				position: { my: "center top+10", at: "center bottom", collision: "flipfit" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
 			})

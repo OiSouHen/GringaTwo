@@ -1046,12 +1046,12 @@ AddEventHandler("inventory:stealTrunk",function(entity)
 		if GetVehicleDoorsLockedForPlayer(entity[3],PlayerId()) ~= 1 then
 			local trunk = GetEntityBoneIndexByName(entity[3],"boot")
 			if trunk ~= -1 then
-				local ped = PlayerPedId()
-				local coords = GetEntityCoords(ped)
-				local coordsEnt = GetWorldPositionOfEntityBone(entity[3],trunk)
-				local distance = #(coords - coordsEnt)
-				if distance <= 2.0 then
-					if GetVehicleDoorAngleRatio(entity[3],5) < 0.9 then
+				if GetVehicleDoorAngleRatio(entity[3],5) < 0.9 then
+					local ped = PlayerPedId()
+					local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.5,0.0)
+					local coordsEnt = GetWorldPositionOfEntityBone(entity[3],trunk)
+					local distance = #(coords - coordsEnt)
+					if distance <= 2.0 then
 						vSERVER.stealTrunk(entity)
 					end
 				end

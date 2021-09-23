@@ -527,12 +527,12 @@ AddEventHandler("player:enterTrunk",function(entity)
 		if GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
 			local trunk = GetEntityBoneIndexByName(vehicle,"boot")
 			if trunk ~= -1 then
-				local ped = PlayerPedId()
-				local coords = GetEntityCoords(ped)
-				local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
-				local distance = #(coords - coordsEnt)
-				if distance <= 2.0 then
-					if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 then
+				if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 then
+					local ped = PlayerPedId()
+					local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.5,0.0)
+					local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
+					local distance = #(coords - coordsEnt)
+					if distance <= 2.0 then
 						trunkPlate = vehPlate
 						playerInvisible = true
 						SetCarBootOpen(vehicle)
@@ -567,7 +567,7 @@ AddEventHandler("player:checkTrunk",function()
 			DetachEntity(ped,false,false)
 			TriggerEvent("hud:toggleHood")
 			SetEntityVisible(ped,true,false)
-			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
 			Citizen.Wait(500)
 			SetVehicleDoorShut(vehicle,5)
 		end
@@ -602,7 +602,7 @@ Citizen.CreateThread(function()
 					DetachEntity(ped,false,false)
 					TriggerEvent("hud:toggleHood")
 					SetEntityVisible(ped,true,false)
-					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
 					Citizen.Wait(500)
 					SetVehicleDoorShut(vehicle,5)
 				end
@@ -613,7 +613,7 @@ Citizen.CreateThread(function()
 				DetachEntity(ped,false,false)
 				TriggerEvent("hud:toggleHood")
 				SetEntityVisible(ped,true,false)
-				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
+				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
 			end
 		end
 
