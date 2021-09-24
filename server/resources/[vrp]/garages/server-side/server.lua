@@ -72,10 +72,14 @@ local garages = {
 	[21] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[22] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[23] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
+	[41] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
+	[42] = { ["name"] = "HeliParamedic", ["payment"] = true, ["perm"] = "Paramedic" },
 	[43] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[44] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[45] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[46] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
+	[61] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
+	[62] = { ["name"] = "HeliPolice", ["payment"] = true, ["perm"] = "Police" },
 	[63] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[64] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[65] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
@@ -83,15 +87,17 @@ local garages = {
 	[67] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[68] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Police" },
 	[69] = { ["name"] = "RangerPolice", ["payment"] = true, ["perm"] = "RangerPolice" },
-	[104] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
-	[106] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
-	[107] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
-	[108] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
-	[110] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
+	[101] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
+	[102] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
+	[103] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
+	[104] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
+	[105] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
+	[106] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
 	[121] = { ["name"] = "Boats", ["payment"] = false, ["public"] = true },
 	[122] = { ["name"] = "Boats", ["payment"] = false, ["public"] = true },
 	[123] = { ["name"] = "Boats", ["payment"] = false, ["public"] = true },
 	[124] = { ["name"] = "Boats", ["payment"] = false, ["public"] = true },
+	[125] = { ["name"] = "Boats", ["payment"] = false, ["public"] = true },
 	[141] = { ["name"] = "Lumberman", ["payment"] = false, ["public"] = true },
 	[142] = { ["name"] = "Driver", ["payment"] = false, ["public"] = true },
 	[143] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
@@ -102,12 +108,12 @@ local garages = {
 	[148] = { ["name"] = "Impound", ["payment"] = false, ["public"] = true },
 	[149] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
 	[151] = { ["name"] = "Kart", ["payment"] = false, ["public"] = true },
-	[152] = { ["name"] = "Burgershot", ["payment"] = false, ["public"] = true },
-	[153] = { ["name"] = "Taxiaereo", ["payment"] = false, ["public"] = true },
+	[152] = { ["name"] = "Taxiaereo", ["payment"] = false, ["public"] = true },
+	[153] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
 	[154] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
-	[155] = { ["name"] = "Garbageman", ["payment"] = false, ["public"] = true },
-	[156] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
-	[157] = { ["name"] = "Taxi", ["payment"] = false, ["public"] = true },
+	[155] = { ["name"] = "Taxi", ["payment"] = false, ["public"] = true },
+	[156] = { ["name"] = "Burgershot", ["payment"] = false, ["public"] = true },
+	[157] = { ["name"] = "Mechanic", ["payment"] = true, ["perm"] = "Mechanic" },
 --  [Houses]
 	[501] = { ["name"] = "Middle001", ["payment"] = false, ["perm"] = false },
 	[502] = { ["name"] = "Middle002", ["payment"] = false, ["perm"] = false },
@@ -372,11 +378,17 @@ local garages = {
 -- GARAGES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local workgarage = {
+    ["Paramedic"] = {
+		"ambulance"
+	},
+	["HeliParamedic"] = {
+		"ambulance"
+	},
     ["Police"] = {
 		"CARNAME",
 	},
-	["Paramedic"] = {
-		"ambulance"
+	["HeliPolice"] = {
+		"CARNAME",
 	},
 	["Bolingbroke"] = {
 		"nspeedo"
@@ -395,6 +407,7 @@ local workgarage = {
 		"ratloader"
 	},
 	["Driver"] = {
+		"coach",
 		"bus"
 	},
 	["Garbageman"] = {
@@ -418,6 +431,12 @@ local workgarage = {
 	},
 	["Burgershot"] = {
 		"faggio"
+	},
+	["Bikes"] = {
+		"towtruck"
+	},
+	["Mechanic"] = {
+		"towtruck"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -769,7 +788,7 @@ end
 RegisterCommand("car",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
  	if user_id then
-		if vRP.hasPermission(user_id,"Admin") and args[1] then
+		if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Owner") and args[1] then
 			local plate = "1A3B5C7D"
 			TriggerClientEvent("adminVehicle",source,args[1],plate)
       		TriggerEvent("setPlateEveryone",plate)

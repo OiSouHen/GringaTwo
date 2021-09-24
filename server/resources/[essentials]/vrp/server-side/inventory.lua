@@ -2006,7 +2006,7 @@ local itemlist = {
 		weight = 0.03
 	},
 	["WEAPON_MACHINEPISTOL_AMMO"] = {
-		index = "tec9ammo",
+		index = "pistolammo",
 		name = "Munição de Tec-9",
 		tipo = "Munição",
 		economy = "24",
