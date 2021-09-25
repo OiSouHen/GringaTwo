@@ -70,9 +70,9 @@ RegisterNUICallback("sumSlot",function(data,cb)
 	TriggerServerEvent("trunkchest:sumSlot",data.item,data.slot,data.amount)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTBACKPACK
+-- REQUESTMOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestBackpack",function(data,cb)
+RegisterNUICallback("requestMochila",function(data,cb)
 	local inventario,inventario2,peso,maxpeso,peso2,maxpeso2,infos = vSERVER.Mochila()
 	if inventario then
 		cb({ inventario = inventario, inventario2 = inventario2, peso = peso, maxpeso = maxpeso, peso2 = peso2, maxpeso2 = maxpeso2, infos = infos })

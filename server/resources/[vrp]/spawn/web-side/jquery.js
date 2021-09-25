@@ -23,6 +23,16 @@ $(document).ready(function(){
 			case "closeSpawn":
 				$("#spawnPage").css("display","none");
 			break;
+			
+			$(".buttonGroup > .buttonsBox > button").on("click",function(){
+			$(this).parent().find("button").removeClass("active")
+			$(this).addClass("active");
+			});
+			
+			$(".spawnBox").on("click",function(){
+			$(".spawnBox").removeClass("active");
+			$(this).addClass("active");
+			});
 		};
 	});
 });
@@ -33,13 +43,18 @@ const generateDisplay = () => {
 		var characterList = data["result"].sort((a,b) => (a["id"] > b["id"]) ? 1: -1);
 
 		$("#charPage").html(`
-			<div id="charNew"><b>Novo Personagem</b>Pressione para criar um novo personagem.</div>
+			<div class="charNew" id="charNew"><p>NOVO PERSONAGEM</p><o>Criar um novo personagem</o></div>
 
-			${characterList.map((item) => (`<div id="charBox" data-id="${item["id"]}">
-				<b>Passaporte:</b> ${item["id"]}<br>
-				<b>Nome:</b> ${item["name"] + " " + item["name2"]}
-				<float>CONECTAR</float>
-			</div>`)).join('')}
+			${characterList.map((item) => (`
+				<div class="charBox" id="charBox" data-id="${item["id"]}">
+					<div class="playerInfo">
+						<p><b>Passaporte:</b> ${item["id"]}</p>
+						<p><b>Nome:</b> ${item["name"]}</p>
+					</div>
+					<div class="playerButton">
+						<p>Entrar</p>
+					</div>
+			</div>`)).join("")}
 		`);
 	});
 }
@@ -65,9 +80,10 @@ const generateSpawn = () => {
 		var characterList = data["result"].sort((a,b) => (a["name"] > b["name"]) ? 1: -1);
 
 		$("#spawnPage").html(`
-			${characterList.map((item) => (`<div id="spawnBox" data-hash="${item["hash"]}">
-				${item["name"]}
-			</div>`)).join('')}
+			${characterList.map((item) => (`
+				<div class="spawnBox" id="spawnBox" data-hash="${item["hash"]}">
+					${item["name"]}
+				</div>`)).join("")}
 
 			<div id="spawnNew" data-hash="spawn">Confirmar</div>
 		`);
@@ -90,6 +106,7 @@ $(document).on("click","#createNew",function(e){
 	var sexo = $("#charSexo").val();
 	if (nome != "" && sobrenome != "" && (sexo == "M" || sexo == "F")){
 		if (sexo == "M"){ sexo = "mp_m_freemode_01" } else { sexo = "mp_f_freemode_01" }
+		
 		$.post("http://spawn/newCharacter",JSON.stringify({ name: nome, name2: sobrenome, sex: sexo }));
 	}
 });

@@ -55,6 +55,15 @@ local craftList = {
 	},
 	["craftShop"] = {
 		["list"] = {
+			["energetic2"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["coal"] = 1,
+					["sulfur"] = 3,
+					["coffee"] = 5
+				}
+			},
 			["gear"] = {
 				["amount"] = 1,
 				["destroy"] = true,
