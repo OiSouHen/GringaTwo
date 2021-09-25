@@ -113,6 +113,8 @@ local shopList = {
 	{ 46.21,-1749.45,29.64,"mercadoCentral",false },
 	{ 2747.81,3472.91,55.67,"mercadoCentral",false },
 	{ -428.57,-1728.35,19.78,"recyclingSell",false },
+	{ 180.55,2793.45,45.65,"recyclingSell",false },
+	{ -195.79,6264.95,31.49,"recyclingSell",false },
 	{ 487.3,-997.08,30.68,"policeStore",false },
 	{ 1845.67,3692.58,34.26,"policeStore",false },
 	{ -449.8,6010.25,31.71,"policeStore",false },

@@ -2,7 +2,7 @@
 	window.addEventListener("message",function(event){
 		switch(event["data"]["action"]){
 			case "showMenu":
-				updateBackpack();
+				updateMochila();
 				$(".inventory").css("display","flex");
 			break;
 
@@ -11,8 +11,8 @@
 				$(".ui-tooltip").hide();
 			break;
 
-			case "updateBackpack":
-				updateBackpack();
+			case "updateMochila":
+				updateMochila();
 			break;
 		}
 	});
@@ -320,8 +320,8 @@ const colorPicker = (percent) => {
 	return colorPercent;
 }
 
-const updateBackpack = () => {
-	$.post("http://inventory/requestBackpack",JSON.stringify({}),(data) => {
+const updateMochila = () => {
+	$.post("http://inventory/requestMochila",JSON.stringify({}),(data) => {
   		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
 
 		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);

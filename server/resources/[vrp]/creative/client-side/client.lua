@@ -207,6 +207,8 @@ local blips = {
 	{ 287.36,2843.6,44.7,318,62,"Lixeiro",0.6 },
 	{ -413.97,6171.58,31.48,318,62,"Lixeiro",0.6 },
 	{ -428.56,-1728.33,19.79,467,11,"Reciclagem",0.6 },
+	{ 180.07,2793.29,45.65,467,11,"Reciclagem",0.6 },
+	{ -195.42,6264.62,31.49,467,11,"Reciclagem",0.6 },
 	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
 	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
 	{ 409.05,-1622.78,29.28,357,9,"Impound",0.6 },
@@ -415,39 +417,6 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL:REMOVEVEHICLESFROMSPAWN
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(5)
-		RemoveVehiclesFromGeneratorsInArea(65.95 - 5.0,-1719.34 - 5.0,29.32 - 5.0,65.95 + 5.0,-1719.34 + 5.0,29.32 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(115.57 - 5.0,-1758.6 - 5.0,29.34 - 5.0,115.57 + 5.0,-1758.6 + 5.0,29.34 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(-4.02 - 5.0,-1533.7 - 5.0,29.63 - 5.0,-4.02 + 5.0,-1533.7 + 5.0,29.63 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(100.79 - 5.0,-1605.9 - 5.0,29.52 - 5.0,100.79 + 5.0,-1605.9 + 5.0,29.52 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(43.77 - 5.0,-1288.61 - 5.0,29.15 - 5.0,43.77 + 5.0,-1288.61 + 5.0,29.15 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(326.7 - 5.0,-1473.25 - 5.0,29.8 - 5.0,326.7 + 5.0,-1473.25 + 5.0,29.8 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(366.15 - 5.0,-1453.25 - 5.0,29.44 - 5.0,366.15 + 5.0,-1453.25 + 5.0,29.44 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(403.49 - 5.0,-1425.3 - 5.0,29.46 - 5.0,403.49 + 5.0,-1425.3 + 5.0,29.46 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(296.23 - 5.0,-607.61 - 5.0,43.34 - 5.0,296.23 + 5.0,-607.61 + 5.0,43.34 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(394.52 - 5.0,-570.99 - 5.0,28.69 - 5.0,394.52 + 5.0,-570.99 + 5.0,28.69 + 5.0)
-		RemoveVehiclesFromGeneratorsInArea(459.25 - 10.0,-604.23 - 10.0,28.5 - 10.0,459.25 + 10.0,-604.23 + 10.0,28.5 + 10.0)
-		RemoveVehiclesFromGeneratorsInArea(-449.8 - 10.0,5998.04 - 10.0,31.35 - 10.0,-449.8 + 10.0,5998.04 + 10.0,31.35 + 10.0)
-		RemoveVehiclesFromGeneratorsInArea(-476.6 - 10.0,6030.53 - 10.0,31.34 - 10.0,-476.6 + 10.0,6030.53 + 10.0,31.34 + 10.0)
-		RemoveVehiclesFromGeneratorsInArea(407.85 - 10.0,-996.92 - 10.0,29.27 - 10.0,407.85 + 10.0,-996.92 + 10.0,29.27 + 10.0)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HEADSHOT
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-    while true do
-	    local ped = PlayerPedId()
-		
-        Citizen.Wait(5)
-        SetPedSuffersCriticalHits(PlayerPedId(-1), true)
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- IPLOADER
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ipList = {
@@ -647,29 +616,6 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(timeDistance)
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- NPCNOGUNDROP
------------------------------------------------------------------------------------------------------------------------------------------
-function SetWeaponDrops()
-    local handle, ped = FindFirstPed()
-    local finished = false
-
-    repeat
-        if not IsEntityDead(ped) then
-            SetPedDropsWeaponsWhenDead(ped, false)
-        end
-        finished, ped = FindNextPed(handle)
-    until not finished
-
-    EndFindPed(handle)
-end
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(1000)
-        SetWeaponDrops()
-    end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENOBJECTS

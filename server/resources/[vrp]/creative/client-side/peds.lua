@@ -523,8 +523,20 @@ local pedList = {
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Recycling Sell
-		distance = 15,
+		distance = 50,
 		coords = { -428.54,-1728.29,19.78,70.87 },
+		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Recycling Sell
+		distance = 50,
+		coords = { 180.07,2793.29,45.65,283.47 },
+		model = { 0xEE75A00F,"s_m_y_garbage" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Recycling Sell
+		distance = 50,
+		coords = { -195.42,6264.62,31.49,42.52 },
 		model = { 0xEE75A00F,"s_m_y_garbage" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},

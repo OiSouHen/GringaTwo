@@ -250,9 +250,9 @@ RegisterNUICallback("updateSlot",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTBACKPACK
+-- REQUESTMOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("requestBackpack",function(data,cb)
+RegisterNUICallback("requestMochila",function(data,cb)
 	local ped = PlayerPedId()
 	local x,y,z = table.unpack(GetEntityCoords(ped))
 	local dropItems = {}
@@ -263,7 +263,7 @@ RegisterNUICallback("requestBackpack",function(data,cb)
 		end
 	end
 
-	local inventario,peso,maxpeso,infos = vSERVER.Backpack()
+	local inventario,peso,maxpeso,infos = vSERVER.Mochila()
 	if inventario then
 		cb({ inventario = inventario, drop = dropItems, peso = peso, maxpeso = maxpeso, infos = infos })
 	end

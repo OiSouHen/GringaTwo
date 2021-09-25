@@ -116,9 +116,7 @@ function TriggerCamController(statusSent)
 			Citizen.Wait(10)
 		end
 	elseif statusSent == -2 then
-		-- SetCamActive(cam,false)
-		-- StopCamPointing(cam)
-		-- RenderScriptCams(0,0,0,0,0,0)
+
 		SetFocusEntity(PlayerPedId())
 		removeCamActive()
 	elseif statusSent == 1 then
@@ -209,7 +207,7 @@ function TriggerCreateCharacter(pedModelHash)
 	StartFade()
 	continuousFadeOutNetwork = true
 	TriggerCamController(-2)
-	-- changeGender("mp_m_freemode_01")
+	
 	if pedModelHash then
 		local i = 0
 		while not HasModelLoaded(pedModelHash) and i < 10000 do
@@ -222,6 +220,7 @@ function TriggerCreateCharacter(pedModelHash)
 			SetModelAsNoLongerNeeded(pedModelHash)
 		end
 	end
+	
 	refreshDefaultCharacter()
 	TaskUpdateSkinOptions()
 	TaskUpdateFaceOptions()
@@ -444,8 +443,8 @@ RegisterNUICallback('cDoneSave',function(data,cb)
 		SetPedPropIndex(PlayerPedId(),7,-1,0,2)]]
 	end
 
-	SetEntityCoordsNoOffset(PlayerPedId(),-1038.16,-2738.70,13.81,true,true,true)
-	SetEntityHeading(PlayerPedId(),f(158.62))
+	SetEntityCoordsNoOffset(PlayerPedId(),-26.99,-145.99,56.98,true,true,true)
+	SetEntityHeading(PlayerPedId(),f(23.38))
 	continuousFadeOutNetwork = false
 
 	for id = 0,256 do
