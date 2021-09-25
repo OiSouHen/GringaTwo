@@ -49,14 +49,14 @@ AddEventHandler("vRP:playerSpawn",function(user_id, source)
 		Citizen.Wait(1000)
 
 		-- BARBERSHOP
-		-- local barberData = vRP.query("vRP/selectSkin",{ user_id = parseInt(user_id) })
-		-- if barberData[1] then
-		-- 	TriggerClientEvent("barbershop:apply",source,{ parseInt(barberData[1].fathers),parseInt(barberData[1].mothers),parseInt(barberData[1].kinship),parseInt(barberData[1].eyecolor),parseInt(barberData[1].skincolor),parseInt(barberData[1].acne),parseInt(barberData[1].stains),parseInt(barberData[1].freckles),parseInt(barberData[1].aging),parseInt(barberData[1].hair),parseInt(barberData[1].haircolor),parseInt(barberData[1].haircolor2),parseInt(barberData[1].makeup),parseInt(barberData[1].makeupintensity),parseInt(barberData[1].makeupcolor),parseInt(barberData[1].lipstick),parseInt(barberData[1].lipstickintensity),parseInt(barberData[1].lipstickcolor),parseInt(barberData[1].eyebrow),parseInt(barberData[1].eyebrowintensity),parseInt(barberData[1].eyebrowcolor),parseInt(barberData[1].beard),parseInt(barberData[1].beardintentisy),parseInt(barberData[1].beardcolor),parseInt(barberData[1].blush),parseInt(barberData[1].blushintentisy),parseInt(barberData[1].blushcolor),parseInt(barberData[1].face00),parseInt(barberData[1].face01),parseInt(barberData[1].face04),parseInt(barberData[1].face06),parseInt(barberData[1].face08),parseInt(barberData[1].face09),parseInt(barberData[1].face10),parseInt(barberData[1].face12),parseInt(barberData[1].face13),parseInt(barberData[1].face14),parseInt(barberData[1].face15),parseInt(barberData[1].face16),parseInt(barberData[1].face17),parseInt(barberData[1].face19) })
-		-- else
-		-- 	vRP.execute("vRP/insertSkin",{ user_id = parseInt(user_id) })
-		-- end
+		local barberData = vRP.query("vRP/selectSkin",{ user_id = parseInt(user_id) })
+		if barberData[1] then
+			TriggerClientEvent("barbershop:setCustomization",source,{ parseInt(barberData[1].maxHair),parseInt(barberData[1].fathers),parseInt(barberData[1].mothers),parseInt(barberData[1].kinship),parseInt(barberData[1].eyecolor),parseInt(barberData[1].skincolor),parseInt(barberData[1].acne),parseInt(barberData[1].stains),parseInt(barberData[1].freckles),parseInt(barberData[1].aging),parseInt(barberData[1].hair),parseInt(barberData[1].haircolor),parseInt(barberData[1].haircolor2),parseInt(barberData[1].makeup),parseInt(barberData[1].makeupintensity),parseInt(barberData[1].makeupcolor),parseInt(barberData[1].lipstick),parseInt(barberData[1].lipstickintensity),parseInt(barberData[1].lipstickcolor),parseInt(barberData[1].eyebrow),parseInt(barberData[1].eyebrowintensity),parseInt(barberData[1].eyebrowcolor),parseInt(barberData[1].beard),parseInt(barberData[1].beardintentisy),parseInt(barberData[1].beardcolor),parseInt(barberData[1].blush),parseInt(barberData[1].blushintentisy),parseInt(barberData[1].blushcolor),parseInt(barberData[1].face00),parseInt(barberData[1].face01),parseInt(barberData[1].face04),parseInt(barberData[1].face06),parseInt(barberData[1].face08),parseInt(barberData[1].face09),parseInt(barberData[1].face10),parseInt(barberData[1].face12),parseInt(barberData[1].face13),parseInt(barberData[1].face14),parseInt(barberData[1].face15),parseInt(barberData[1].face16),parseInt(barberData[1].face17),parseInt(barberData[1].face19) })
+		else
+			vRP.execute("vRP/insertSkin",{ user_id = parseInt(user_id) })
+		end
 
-		-- Citizen.Wait(1000)
+		Citizen.Wait(1000)
 
 		-- SKINSHOP
 		local playerData = vRP.getUData(user_id,"Clothings")

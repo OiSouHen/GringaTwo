@@ -12,37 +12,57 @@ $(document).ready(function(){
 	}
 
 	window.addEventListener('message',function(event){
+		$("#hair").attr("max",event.data.maxHair);
 
-		var opt = event.data.myclothes
+		document.getElementById("fathers").value = event.data.fathers;
+		document.getElementById("mothers").value = event.data.mothers;
+		document.getElementById("kinship").value = event.data.kinship;
+		document.getElementById("eyecolor").value = event.data.eyecolor;
+		document.getElementById("skincolor").value = event.data.skincolor;
+		document.getElementById("acne").value = event.data.acne;
+		document.getElementById("stains").value = event.data.stains;
+		document.getElementById("freckles").value = event.data.freckles;
+		document.getElementById("aging").value = event.data.aging;
+		document.getElementById("hair").value = event.data.hair;
+		document.getElementById("haircolor").value = event.data.haircolor;
+		document.getElementById("haircolor2").value = event.data.haircolor2;
+		document.getElementById("makeup").value = event.data.makeup;
+		document.getElementById("makeupintensity").value = event.data.makeupintensity;
+		document.getElementById("makeupcolor").value = event.data.makeupcolor;
+		document.getElementById("lipstick").value = event.data.lipstick;
+		document.getElementById("lipstickintensity").value = event.data.lipstickintensity;
+		document.getElementById("lipstickcolor").value = event.data.lipstickcolor;
+		document.getElementById("eyebrow").value = event.data.eyebrow;
+		document.getElementById("eyebrowintensity").value = event.data.eyebrowintensity;
+		document.getElementById("eyebrowcolor").value = event.data.eyebrowcolor;
+		document.getElementById("beard").value = event.data.beard;
+		document.getElementById("beardintentisy").value = event.data.beardintentisy;
+		document.getElementById("beardcolor").value = event.data.beardcolor;
+		document.getElementById("blush").value = event.data.blush;
+		document.getElementById("blushintentisy").value = event.data.blushintentisy;
+		document.getElementById("blushcolor").value = event.data.blushcolor;
 
-		if (opt) {
-			$(".skinColor").val(opt.skinColor);
-			$(".eyesColor").val(opt.eyesColor);
-			$(".complexionModel").val(opt.complexionModel);
-			$(".blemishesModel").val(opt.blemishesModel);
-			$(".frecklesModel").val(opt.frecklesModel);
-			$(".ageingModel").val(opt.ageingModel);
-			$(".hairModel").val(opt.hairModel);
-			$(".firstHairColor").val(opt.firstHairColor);
-			$(".secondHairColor").val(opt.secondHairColor);
-			$(".makeupModel").val(opt.makeupModel);
-			$(".blushModel").val(opt.blushModel);
-			$(".blushColor").val(opt.blushColor);
-			$(".lipstickModel").val(opt.lipstickModel);
-			$(".lipstickColor").val(opt.lipstickColor);
-			$(".eyebrowsModel").val(opt.eyebrowsModel);
-			$(".eyebrowsColor").val(opt.eyebrowsColor);
-			$(".beardModel").val(opt.beardModel);
-			$(".beardColor").val(opt.beardColor);
-		}
+		document.getElementById("face00").value = event.data.face00;
+		document.getElementById("face01").value = event.data.face01;
+		document.getElementById("face04").value = event.data.face04;
+		document.getElementById("face06").value = event.data.face06;
+		document.getElementById("face08").value = event.data.face08;
+		document.getElementById("face09").value = event.data.face09;
+		document.getElementById("face10").value = event.data.face10;
+		document.getElementById("face12").value = event.data.face12;
+		document.getElementById("face13").value = event.data.face13;
+		document.getElementById("face14").value = event.data.face14;
+		document.getElementById("face15").value = event.data.face15;
+		document.getElementById("face16").value = event.data.face16;
+		document.getElementById("face17").value = event.data.face17;
+		document.getElementById("face19").value = event.data.face19;
+
+    updateSlider();
 
 		if(event.data.openBarbershop == true){
-			$(".openBarbershop").css("display","block");
+			$(".openBarbershop").css("display","flex");
 
-			$('.input .label-value').each(function(){
-				var max = $(this).attr('data-legend'), val = $(this).next().find('input').val();
-				$(this).parent().find('.label-value').text(val+' / '+max);
-			});
+      updateSlider();
 		}
 
 		if(event.data.openBarbershop == false){
@@ -54,81 +74,100 @@ $(document).ready(function(){
 		}
 	});
 
-
-	$('input').change(function () {
-		$.post('http://barbershop/updateSkin', JSON.stringify({
+	$('input').on('input', function(){
+    updateSlider();
+		$.post('http://barbershop/updateSkin',JSON.stringify({
 			value: false,
-			skinColor: $('.skinColor').val(),
-			eyesColor: $('.eyesColor').val(),
-			complexionModel: $('.complexionModel').val(),
-			blemishesModel: $('.blemishesModel').val(),
-			frecklesModel: $('.frecklesModel').val(),
-			ageingModel: $('.ageingModel').val(),
-			hairModel: $('.hairModel').val(),
-			firstHairColor: $('.firstHairColor').val(),
-			secondHairColor: $('.secondHairColor').val(),
-			makeupModel: $('.makeupModel').val(),
-			blushModel: $('.blushModel').val(),
-			blushColor: $('.blushColor').val(),
-			lipstickModel: $('.lipstickModel').val(),
-			lipstickColor: $('.lipstickColor').val(),
-			eyebrowsModel: $('.eyebrowsModel').val(),
-			eyebrowsColor: $('.eyebrowsColor').val(),
-			beardModel: $('.beardModel').val(),
-			beardColor: $('.beardColor').val(),
-
+			fathers: $('#fathers').val(),
+			mothers: $('#mothers').val(),
+			kinship: $('#kinship').val(),
+			eyecolor: $('#eyecolor').val(),
+			skincolor: $('#skincolor').val(),
+			acne: $('#acne').val(),
+			stains: $('#stains').val(),
+			freckles: $('#freckles').val(),
+			aging: $('#aging').val(),
+			hair: $('#hair').val(),
+			haircolor: $('#haircolor').val(),
+			haircolor2: $('#haircolor2').val(),
+			makeup: $('#makeup').val(),
+			makeupintensity: $('#makeupintensity').val(),
+			makeupcolor: $('#makeupcolor').val(),
+			lipstick: $('#lipstick').val(),
+			lipstickintensity: $('#lipstickintensity').val(),
+			lipstickcolor: $('#lipstickcolor').val(),
+			eyebrow: $('#eyebrow').val(),
+			eyebrowintensity: $('#eyebrowintensity').val(),
+			eyebrowcolor: $('#eyebrowcolor').val(),
+			beard: $('#beard').val(),
+			beardintentisy: $('#beardintentisy').val(),
+			beardcolor: $('#beardcolor').val(),
+			blush: $('#blush').val(),
+			blushintentisy: $('#blushintentisy').val(),
+			blushcolor: $('#blushcolor').val(),
+			face00: $('#face00').val(),
+			face01: $('#face01').val(),
+			face04: $('#face04').val(),
+			face06: $('#face06').val(),
+			face08: $('#face08').val(),
+			face09: $('#face09').val(),
+			face10: $('#face10').val(),
+			face12: $('#face12').val(),
+			face13: $('#face13').val(),
+			face14: $('#face14').val(),
+			face15: $('#face15').val(),
+			face16: $('#face16').val(),
+			face17: $('#face17').val(),
+			face19: $('#face19').val()
 		}));
 	});
 
-	$('.arrow').on('click', function (e) {
+	$('.submit-button').on('click',function(e){
 		e.preventDefault();
-		$.post('http://barbershop/updateSkin', JSON.stringify({
-			value: false,
-			skinColor: $('.skinColor').val(),
-			eyesColor: $('.eyesColor').val(),
-			complexionModel: $('.complexionModel').val(),
-			blemishesModel: $('.blemishesModel').val(),
-			frecklesModel: $('.frecklesModel').val(),
-			ageingModel: $('.ageingModel').val(),
-			hairModel: $('.hairModel').val(),
-			firstHairColor: $('.firstHairColor').val(),
-			secondHairColor: $('.secondHairColor').val(),
-			makeupModel: $('.makeupModel').val(),
-			blushModel: $('.blushModel').val(),
-			blushColor: $('.blushColor').val(),
-			lipstickModel: $('.lipstickModel').val(),
-			lipstickColor: $('.lipstickColor').val(),
-			eyebrowsModel: $('.eyebrowsModel').val(),
-			eyebrowsColor: $('.eyebrowsColor').val(),
-			beardModel: $('.beardModel').val(),
-			beardColor: $('.beardColor').val(),
-		}));
-	});
 
-	$('.submit').on('click', function (e) {
-		e.preventDefault();
-		$.post('http://barbershop/updateSkin', JSON.stringify({
+		$.post('http://barbershop/updateSkin',JSON.stringify({
 			value: true,
-			skinColor: $('.skinColor').val(),
-			eyesColor: $('.eyesColor').val(),
-			complexionModel: $('.complexionModel').val(),
-			blemishesModel: $('.blemishesModel').val(),
-			frecklesModel: $('.frecklesModel').val(),
-			ageingModel: $('.ageingModel').val(),
-			hairModel: $('.hairModel').val(),
-			firstHairColor: $('.firstHairColor').val(),
-			secondHairColor: $('.secondHairColor').val(),
-			makeupModel: $('.makeupModel').val(),
-			blushModel: $('.blushModel').val(),
-			blushColor: $('.blushColor').val(),
-			lipstickModel: $('.lipstickModel').val(),
-			lipstickColor: $('.lipstickColor').val(),
-			eyebrowsModel: $('.eyebrowsModel').val(),
-			eyebrowsColor: $('.eyebrowsColor').val(),
-			beardModel: $('.beardModel').val(),
-			beardColor: $('.beardColor').val(),
-
-
+			fathers: $('#fathers').val(),
+			mothers: $('#mothers').val(),
+			kinship: $('#kinship').val(),
+			eyecolor: $('#eyecolor').val(),
+			skincolor: $('#skincolor').val(),
+			acne: $('#acne').val(),
+			stains: $('#stains').val(),
+			freckles: $('#freckles').val(),
+			aging: $('#aging').val(),
+			hair: $('#hair').val(),
+			haircolor: $('#haircolor').val(),
+			haircolor2: $('#haircolor2').val(),
+			makeup: $('#makeup').val(),
+			makeupintensity: $('#makeupintensity').val(),
+			makeupcolor: $('#makeupcolor').val(),
+			lipstick: $('#lipstick').val(),
+			lipstickintensity: $('#lipstickintensity').val(),
+			lipstickcolor: $('#lipstickcolor').val(),
+			eyebrow: $('#eyebrow').val(),
+			eyebrowintensity: $('#eyebrowintensity').val(),
+			eyebrowcolor: $('#eyebrowcolor').val(),
+			beard: $('#beard').val(),
+			beardintentisy: $('#beardintentisy').val(),
+			beardcolor: $('#beardcolor').val(),
+			blush: $('#blush').val(),
+			blushintentisy: $('#blushintentisy').val(),
+			blushcolor: $('#blushcolor').val(),
+			face00: $('#face00').val(),
+			face01: $('#face01').val(),
+			face04: $('#face04').val(),
+			face06: $('#face06').val(),
+			face08: $('#face08').val(),
+			face09: $('#face09').val(),
+			face10: $('#face10').val(),
+			face12: $('#face12').val(),
+			face13: $('#face13').val(),
+			face14: $('#face14').val(),
+			face15: $('#face15').val(),
+			face16: $('#face16').val(),
+			face17: $('#face17').val(),
+			face19: $('#face19').val()
 		}));
 	});
 
@@ -140,4 +179,18 @@ $(document).ready(function(){
 			$.post('http://barbershop/rotate',JSON.stringify("left"));
 		}
 	}
+
+  function updateSlider() {
+    $('input').each(function(){
+      var max = $(this).attr('max'), val = $(this).val();
+      $(this).parent().parent().find('label').find('p:last-child').text(val+' / '+max);
+    });
+
+    for (let e of document.querySelectorAll('input[type="range"].slider-progress')) {
+      e.style.setProperty('--value', e.value);
+      e.style.setProperty('--min', e.min == '' ? '0' : e.min);
+      e.style.setProperty('--max', e.max == '' ? '100' : e.max);
+      e.addEventListener('input', () => e.style.setProperty('--value', e.value));
+    }
+  }
 });
