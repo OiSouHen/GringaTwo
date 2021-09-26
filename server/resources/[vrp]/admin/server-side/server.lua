@@ -537,18 +537,14 @@ RegisterCommand("announce",function(source,args,rawCommand)
 				return
 			end
 			
-			local author = vRP.prompt(source,"Enviado por:","")
-			if author == "" then
-				return
-			end
 			
 			local timer = vRP.prompt(source,"Duração da mensagem:","")
 			if timer == "" then
 				return
 			end
 			
-			TriggerClientEvent("Notify",-1,messagetype,"<b>Mensagem:</b> "..message.."<br><br><b>Enviado por:</b> "..author.."",timer)
-			TriggerClientEvent("sounds:source",-1,"announce",0.5)
+			TriggerClientEvent("Notify",-1,messagetype,""..message.."",timer)
+			TriggerClientEvent("sounds:source",-1,"notification",0.5)
 		end
 	end
 end)
