@@ -411,3 +411,28 @@ function DrawText3Ds(x,y,z, text)
     local factor = (string.len(text)) / 370
     DrawRect(_x,_y+0.0125, 0.015+ factor, 0.03, 41, 11, 41, 68)
 end
+
+-- Citizen.CreateThread(function()
+-- 	while true do
+-- 		if IsControlJustPressed(1,38) then
+-- 			vSERVER.buttonTxt()
+-- 		end
+-- 		Citizen.Wait(1)
+-- 	end
+-- end)
+
+-- Citizen.CreateThread(function()
+-- 	while true do
+-- 		if IsControlJustPressed(1,38) then
+-- 			local ped = PlayerPedId()
+-- 			local vehicle = GetVehiclePedIsUsing(ped)
+-- 			local vehCoords = GetEntityCoords(vehicle)
+-- 			local leftCoords = GetOffsetFromEntityInWorldCoords(vehicle,5.0,0.0,0.0)
+-- 			local rightCoords = GetOffsetFromEntityInWorldCoords(vehicle,-5.0,0.0,0.0)
+
+-- 			vSERVER.raceCoords(vehCoords,leftCoords,rightCoords)
+-- 		end
+
+-- 		Citizen.Wait(1)
+-- 	end
+-- end)

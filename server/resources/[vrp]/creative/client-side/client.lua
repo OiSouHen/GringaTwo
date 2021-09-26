@@ -23,6 +23,32 @@ RegisterCommand("volume", function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DRIFT
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local ped = PlayerPedId()
+		if IsPedInAnyVehicle(ped) then
+			local vehicle = GetVehiclePedIsIn(ped)
+			if GetPedInVehicleSeat(vehicle,-1) == ped then
+				local vehClass = GetVehicleClass(vehicle)
+				if (vehClass >= 0 and vehClass <= 7) or vehClass == 9 then
+					if IsControlPressed(1,21) then
+						local speed = GetEntitySpeed(vehicle) * 2.236936
+						if speed <= 100.0 then
+							SetVehicleReduceGrip(vehicle,true)
+						end
+					else
+						SetVehicleReduceGrip(vehicle,false)
+					end
+				end
+			end
+		end
+
+		Citizen.Wait(100)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- TYREBURST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local oldSpeed = 0
