@@ -1,0 +1,17 @@
+**CHANGELOG 14.09:**
+
+1: Ajustado o trabalho na **Prisão**.
+     Agora quando vasculhando em serviço presidiário você consegue os mesmos itens das lixeiras, mas incluindo Chaves e Armamentos.
+2: Adicionado **Loja de Departamento** dentro da **Prisão**.
+3: Corrigido local de **spawn** quando preso.
+4: Corrigido loja policial e ponto de serviço de Paleto.
+5: Corrigido chance da entrega de items dos serviços de **Lixeiros** e **Sucateiros**(TheLost).
+6: Removido antigas viaturas da **Polícia**:
+     crownvictoria, dodgecharger2014, fordexplorer, fordraptor, fordtaurus e fordmustanggt.
+7: Adicionado **12** novas viaturas para **Polícia**:
+     tahoe, sanchez3, polmesa, nspeedo, audia3, audirs62, audirs6avant, audirs5, audiq8, ducati1200, audia4 e fordraptor.
+8: Adicionado **31** novos carros para VIPs:
+     lancerevolution9, mazdarx72, nissangtr3, skyliner342, subarubrz, toyotasupra2, acuransx, golfgti, escaladegt900, escalade2021, dodgecharger1970, bmwm5e34, golfmk7, jeepcherokee, porsche911, 350z, urbandevil, bloodline, shelbygt500, bmwm1wb, lamborghinihuracanlw, panameramansory, wheelchair, ferrarif40, astonmartindbs, nissangtr50, dodgechargerrt69, mercedesamg63, r1, r6 e s1000rr.
+9: Corrigido **textura** da **Ambulância** e do **Taxi**.
+10: Corrigido **mapa em círculo** da hud.
+11: Adicionado ped na **Benefactor** e ajustado cordenadas necessárias para Testar/Comprar um veículo.

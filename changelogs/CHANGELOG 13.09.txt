@@ -1,0 +1,5 @@
+**CHANGELOG 13.09:**
+
+1: Adicionado **trens**.
+     Agora você pode pegar carona nos trens e metros, melhorando o seu RP.
+2: Adicionado a marcação da **Benefactor** no mapa.

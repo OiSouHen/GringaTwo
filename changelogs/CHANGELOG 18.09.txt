@@ -1,0 +1,10 @@
+**CHANGELOG 18.09:**
+
+1: Adicionado novas **Armas**.
+     WEAPON_SMG_MK2, WEAPON_SPECIALCARBINE, WEAPON_BULLPUPRIFLE_MK2, WEAPON_SPECIALCARBINE_MK2 e WEAPON_ADVANCEDRIFLE.
+2: Corrigido local de **venda** dos **Itens Ilegais** roubados em residências ou **quebrados**.
+     ilegalHouse, ilegalCosmetics, ilegalToys, ilegalCriminal e weaponsStore.
+3: Adicionado nova **Prisão**.
+     A mesma contem novo **hospital interno**, **cafeteria**, e nova **vegetação**.
+4: Modificado locais de **trabalhos** quando está **preso**.
+5: Ajustado locais de **tratamento** e **ponto de serviço**.

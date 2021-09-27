@@ -1,0 +1,11 @@
+**CHANGELOG 10.9:**
+
+1: Removido a customizações da **mecânica** e do **impound** próximo a praça.
+2: Removido o **Tacos** e adicionado o **BurgerShot**.
+     Principal filial de vendas de comidas e bebidas na cidade.
+3: Removido a marcação do **Tacos** e adicionado a do **BurgerShot** no mapa.
+4: Removido mapa de encontro de carros.
+5: Removido mapa da polícia de Paleto.
+6: Removido inicialização das vendas de drogas do Painel Dinâmico **F9**.
+7: Realocado o local de inicialização das vendas de drogas para o **BurgerShot**.
+8: Adicionado a chance de receber o item **Seringa** nas lixeiras.

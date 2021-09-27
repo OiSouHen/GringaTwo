@@ -1,0 +1,8 @@
+**CHANGELOG 17.09:**
+
+1: Modificado o local da **Benefactor**.
+2: Modificado o valor dos itens **Caixa de Ferramentas**, **Pneu** e **Lockpick**.
+     Valor modificado dando enfase para as pessoas comprarem com os mecânicos.
+3: Modificado a função de retirar sucata dos veículos queimados no aeroporto.
+     Agora o mesmo é publico, podendo qualquer pessoa ir fazer a retirada das sucatas.
+4: Adicionado novos itens no **Lixeiro** e no **/craft**.

@@ -1,0 +1,12 @@
+**CHANGELOG 27.09:**
+
+1: Modificado a velocidade limite do modo **Drift** de **100Mph** para **75Mph**.
+2: Adicionado a marcação de **Hotel** no **GPS** em **Sandy Shores**.
+3: Modificado todos os itens recebidos no **Roubo** a **Americano**.
+4: Adicionado os veículos **Chevrolet Camaro 2021** e **Ford Mustang 1969** na **Benefactor**.
+     Spawnados como camaro e mustang1969.
+5: Modificado o emprego de **Minerador** de local.
+6: Removido a necessidade de estar algemado para utilizar o **Kit Residual**.
+7: Ajustado o valor dos **Minérios** e dos **Peixes**.
+8: Adicionado a chance de receber uma **Placa** após desmanchar um veículo.
+9: Modificado a **Tela de Carregamento**.

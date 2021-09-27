@@ -1,0 +1,13 @@
+**CHANGELOG 11.09:**
+
+1: Ajustado o local da produção dos **Hamburgers** e **Sucos**.
+2: Ajustado a estrutura para o recebimento das novas comidas.
+3: Ajustado a quantidade de **sucatas** rebecidas pelo **Motoclub**.
+4: Ajustado as lojas ilegais de **Heroína** e **Oxy**.
+5: Ajustado o **interiorproxy** dos novos interiores para evitar conflitos vísuais.
+6: Corrigido o **roubo a carros** ameaçando americanos com arma dentro de seus veículos.
+     Mirando arma para o americano que está dentro do veículo você irá roubar o veículo sem necessidade de usar uma Lockpick.
+7: Corrigido os itens **Chapéu**, **Luvas**, **Máscara**, **Óculos**.
+     Os mesmos servem para colocar/remover os mesmos.
+8: Ajustado o **Discord Rich Presence**.
+9: Adicionado arquivo aonde mostra os **grupos padrões** da base.

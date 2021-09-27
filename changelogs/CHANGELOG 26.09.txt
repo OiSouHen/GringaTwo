@@ -1,0 +1,8 @@
+**CHANGELOG 26.09:**
+
+1: Adicionado a reciclagem em **Sandy Shores** e **Paleto Bay**.
+2: Adicionado o modo **Drift** nos veículos segurando o **Shift**.
+3: Reduzido o valor dos veículos **Importados** em Gemas.
+4: Adicionado a função de modificar a cor do item na mochila de acordo com a raridade do mesmo.
+     Itens únicos/eventos vão passar a ter destaques na mochila a partir de agora.
+5: Ajustado o valor das **Caixas de Ferramentas** e **Pneus** do acesso ao público.
