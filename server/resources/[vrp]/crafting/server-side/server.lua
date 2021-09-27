@@ -621,6 +621,7 @@ function cRP.requestCrafting(craftType)
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
 				v.peso = vRP.itemWeightList(v.item)
+				v.color = vRP.itemColor(v.item)
 				v.index = vRP.itemIndexList(v.item)
 				v.key = v.item
 				v.slot = k

@@ -490,7 +490,7 @@ function cRP.requestShop(name)
 	if user_id then
 		local inventoryShop = {}
 		for k,v in pairs(shops[name]["list"]) do
-			table.insert(inventoryShop,{ price = parseInt(v), name = vRP.itemNameList(k), desc = vRP.itemDescList(k), tipo = vRP.itemTipoList(k), unity = vRP.itemUnityList(k), economy = vRP.itemEconomyList(k), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k) })
+			table.insert(inventoryShop,{ price = parseInt(v), name = vRP.itemNameList(k), desc = vRP.itemDescList(k), tipo = vRP.itemTipoList(k), color = vRP.itemColor(k), unity = vRP.itemUnityList(k), economy = vRP.itemEconomyList(k), index = vRP.itemIndexList(k), key = k, weight = vRP.itemWeightList(k) })
 		end
 
 		local inventoryUser = {}
@@ -526,6 +526,7 @@ function cRP.requestShop(name)
 				v.name = vRP.itemNameList(v.item)
 				v.desc = vRP.itemDescList(v.item)
 				v.tipo = vRP.itemTipoList(v.item)
+				v.color = vRP.itemColor(v.item)
 				v.unity = vRP.itemUnityList(v.item)
 				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)

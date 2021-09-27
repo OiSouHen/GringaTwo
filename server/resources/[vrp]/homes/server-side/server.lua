@@ -1323,7 +1323,7 @@ function cRP.openChest(homeName)
 		local result = json.decode(data) or {}
 		if data then
 			for k,v in pairs(result) do
-				table.insert(hmInventory,{economy = vRP.itemEconomyList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), desc = vRP.itemDescList(k), amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+				table.insert(hmInventory,{economy = vRP.itemEconomyList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), color = vRP.itemColor(k), desc = vRP.itemDescList(k), amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
 			end
 		end
 
@@ -1359,6 +1359,7 @@ function cRP.openChest(homeName)
 				v.name = vRP.itemNameList(v.item)
 				v.desc = vRP.itemDescList(v.item)
 				v.tipo = vRP.itemTipoList(v.item)
+				v.color = vRP.itemColor(v.item)
 				v.unity = vRP.itemUnityList(v.item)
 				v.economy = vRP.itemEconomyList(v.item)
 				v.peso = vRP.itemWeightList(v.item)

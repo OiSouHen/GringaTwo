@@ -549,6 +549,7 @@ local itemlist = {
 		tipo = "Usável",
 		economy = "22500",
 		type = "use",
+		color = "186,85,211,0.5",
 		weight = 0.00
 	},
 	["premium02"] = {

@@ -122,6 +122,7 @@ function cnVRP.openChest()
 					v.name = vRP.itemNameList(v.item)
 					v.desc = vRP.itemDescList(v.item)
 					v.tipo = vRP.itemTipoList(v.item)
+					v.color = vRP.itemColor(v.item)
 					v.unity = vRP.itemUnityList(v.item)
 					v.economy = vRP.itemEconomyList(v.item)
 					v.peso = vRP.itemWeightList(v.item)
@@ -137,7 +138,7 @@ function cnVRP.openChest()
 			local sdata = json.decode(data) or {}
 			if data then
 				for k,v in pairs(sdata) do
-					table.insert(mychestopen,{desc = vRP.itemDescList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), economy = vRP.itemEconomyList(k),amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+					table.insert(mychestopen,{desc = vRP.itemDescList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), color = vRP.itemColor(k), economy = vRP.itemEconomyList(k),amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
 				end
 			end
 			local consult = vRP.query("vRP/getExistChest",{ name = mychestname })
