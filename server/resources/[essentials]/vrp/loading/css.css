@@ -35,5 +35,5 @@ video {
 	width: 655px;
 	height: 291px;
 	position: absolute;
-	background: url("halloween.png");
+	background: url("halloween.png") no-repeat;
 }
