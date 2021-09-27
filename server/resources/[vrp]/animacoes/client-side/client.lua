@@ -602,7 +602,7 @@ local animacoes = {
 	["yoga"] = { dict = "missfam5_yoga", anim = "f_yogapose_a", andar = false, loop = true },
 	["yoga2"] = { dict = "amb@world_human_yoga@male@base", anim = "base_a", andar = false, loop = true },
 	["abdominal"] = { dict = "amb@world_human_sit_ups@male@base", anim = "base", andar = false, loop = true },
-	["bixa"] = { anim = "WORLD_HUMAN_PROSTITUTE_LOW_CLASS" },
+	["pensativo"] = { anim = "WORLD_HUMAN_PROSTITUTE_LOW_CLASS" },
 	["britadeira"] = { dict = "amb@world_human_const_drill@male@drill@base", anim = "base", prop = "prop_tool_jackham", flag = 15, mao = 28422 },
 	["cerveja"] = { anim = "WORLD_HUMAN_PARTYING" },
 	["churrasco"] = { anim = "PROP_HUMAN_BBQ" },
