@@ -6514,6 +6514,26 @@
             PED::_0x5F5D1665E352A839(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("mpbeach_overlays"), MISC::GET_HASH_KEY("fm_hair_fuzz"))
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.ADD_STATE_BAG_CHANGE_HANDLER">
+            <summary>
+            Adds a handler for changes to a state bag.
+            
+            The function called expects to match the following signature:
+            
+            ```ts
+            function StateBagChangeHandler(bagName: string, key: string, value: any, reserved: number, replicated: boolean);
+            ```
+            
+            *   **bagName**: The internal bag ID for the state bag which changed. This is usually `player:Source`, `entity:NetID`
+                or `localEntity:Handle`.
+            *   **key**: The changed key.
+            *   **value**: The new value stored at key. The old value is still stored in the state bag at the time this callback executes.
+            *   **reserved**: Currently unused.
+            *   **replicated**: Whether the set is meant to be replicated.
+            
+            At this time, the change handler can't opt to reject changes.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.APPLY_FORCE_TO_ENTITY">
             <summary>
             Applies a force to the specified entity.
@@ -7052,6 +7072,12 @@
             Returns the first owner ID of the specified entity.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.PRINT_STRUCTURED_TRACE">
+            <summary>
+            Prints 'structured trace' data to the server `file descriptor 3` channel. This is not generally useful outside of
+            server monitoring utilities.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.PROFILER_ENTER_SCOPE">
             <summary>
             Scope entry for profiler.
@@ -7140,6 +7166,13 @@
             Remove blip will currently crash your game, just artificially remove the blip by setting the sprite to a id that is 'invisible'.
             --
             It crashes my game.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.REMOVE_STATE_BAG_CHANGE_HANDLER">
+            <summary>
+            **Experimental**: This native may be altered or removed in future versions of CitizenFX without warning.
+            
+            Removes a handler for changes to a state bag.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.REMOVE_WEAPON_FROM_PED">
@@ -7753,18 +7786,6 @@
             12              Add Body Blemishes    0 - 1, 255
             </summary>
         </member>
-        <member name="F:CitizenFX.Core.Native.Hash.SET_PED_INTO_VEHICLE">
-            <summary>
-            Ped: The ped to warp.  
-            vehicle: The vehicle to warp the ped into.  
-            Seat_Index: [-1 is driver seat, -2 first free passenger seat]  
-            Moreinfo of Seat Index  
-            DriverSeat = -1  
-            Passenger = 0  
-            Left Rear = 1  
-            RightRear = 2
-            </summary>
-        </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_PROP_INDEX">
             <summary>
             This native is used to set prop variation on a ped. Components, drawables and textures IDs are related to the ped model.
@@ -7938,11 +7959,9 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_VEHICLE_COLOURS">
             <summary>
-            colorPrimary &amp; colorSecondary are the paint index for the vehicle.  
-            For a list of valid paint indexes, view: pastebin.com/pwHci0xK  
-            -------------------------------------------------------------------------  
-            Use this to get the number of color indices: pastebin.com/RQEeqTSM  
-            Note: minimum color index is 0, maximum color index is (numColorIndices - 1)
+            colorPrimary &amp; colorSecondary are the paint indexes for the vehicle.
+            
+            For a list of valid paint indexes, view: pastebin.com/pwHci0xK
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_VEHICLE_COLOUR_COMBINATION">
@@ -7988,16 +8007,6 @@
             See eDoorId declared in [`SET_VEHICLE_DOOR_SHUT`](#\_0x93D9BD300D7789E5)
             </summary>
         </member>
-        <member name="F:CitizenFX.Core.Native.Hash.SET_VEHICLE_NUMBER_PLATE_TEXT">
-            <summary>
-            Sets a vehicle's license plate text.  8 chars maximum.  
-            Example:  
-            Ped playerPed = PLAYER::PLAYER_PED_ID();  
-            Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);  
-            char *plateText = "KING";  
-            VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(veh, plateText);
-            </summary>
-        </member>
         <member name="F:CitizenFX.Core.Native.Hash.TASK_COMBAT_PED">
             <summary>
             Makes the specified ped attack the target ped.  
@@ -8019,14 +8028,7 @@
             <summary>
             speed 1.0 = walk, 2.0 = run  
             p5 1 = normal, 3 = teleport to vehicle, 16 = teleport directly into vehicle  
-            p6 is always 0  
-            Usage of seat   
-            -1 = driver  
-            0 = passenger  
-            1 = left back seat  
-            2 = right back seat  
-            3 = outside left  
-            4 = outside right
+            p6 is always 0
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.TASK_GO_TO_COORD_ANY_MEANS">
@@ -8143,18 +8145,6 @@
             TASK::TASK_SHOOT_AT_ENTITY(bg[i], aimedentity, 5000, MISC::GET_HASH_KEY("FIRING_PATTERN_FULL_AUTO"));
             in practical usage, getting the entity the player is aiming at and then task the peds to shoot at the entity, at a button press event would be better.
             Firing Pattern Hash Information: https://pastebin.com/Px036isB
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Core.Native.Hash.TASK_WARP_PED_INTO_VEHICLE">
-            <summary>
-            Seat Numbers  
-            -------------------------------  
-            Driver = -1  
-            Any = -2  
-            Left-Rear = 1  
-            Right-Front = 0  
-            Right-Rear = 2  
-            Extra seats = 3-14(This may differ from vehicle type e.g. Firetruck Rear Stand, Ambulance Rear)
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.TRIGGER_CLIENT_EVENT_INTERNAL">
@@ -8351,6 +8341,34 @@
             Code:
             PED::_0x5F5D1665E352A839(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("mpbeach_overlays"), MISC::GET_HASH_KEY("fm_hair_fuzz"))
             </summary>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.AddStateBagChangeHandler(System.String,System.String,CitizenFX.Core.Native.InputArgument)">
+            <summary>
+            Adds a handler for changes to a state bag.
+            The function called expects to match the following signature:
+            ```ts
+            function StateBagChangeHandler(bagName: string, key: string, value: any, reserved: number, replicated: boolean);
+            ```
+            *   **bagName**: The internal bag ID for the state bag which changed. This is usually `player:Source`, `entity:NetID`
+            or `localEntity:Handle`.
+            *   **key**: The changed key.
+            *   **value**: The new value stored at key. The old value is still stored in the state bag at the time this callback executes.
+            *   **reserved**: Currently unused.
+            *   **replicated**: Whether the set is meant to be replicated.
+            At this time, the change handler can't opt to reject changes.
+            </summary>
+            <param name="keyFilter">
+            The key to check for, or null.
+            </param>
+            <param name="bagFilter">
+            The bag ID to check for, or null.
+            </param>
+            <param name="handler">
+            The handler function.
+            </param>
+            <returns>
+            A cookie to remove the change handler.
+            </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.ApplyForceToEntity(System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
@@ -9388,6 +9406,15 @@
             The server ID of the first entity owner.
             </returns>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.PrintStructuredTrace(System.String)">
+            <summary>
+            Prints 'structured trace' data to the server `file descriptor 3` channel. This is not generally useful outside of
+            server monitoring utilities.
+            </summary>
+            <param name="jsonString">
+            JSON data to submit as `payload` in the `script_structured_trace` event.
+            </param>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.ProfilerEnterScope(System.String)">
             <summary>
             Scope entry for profiler.
@@ -9506,6 +9533,15 @@
             --
             It crashes my game.
             </summary>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.RemoveStateBagChangeHandler(System.Int32)">
+            <summary>
+            **Experimental**: This native may be altered or removed in future versions of CitizenFX without warning.
+            Removes a handler for changes to a state bag.
+            </summary>
+            <param name="cookie">
+            The cookie.
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.RemoveWeaponFromPed(System.Int32,System.UInt32)">
             <summary>
@@ -10274,18 +10310,6 @@
             Called after SET_PED_HEAD_OVERLAY().
             </summary>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.SetPedIntoVehicle(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Ped: The ped to warp.
-            vehicle: The vehicle to warp the ped into.
-            Seat_Index: [-1 is driver seat, -2 first free passenger seat]
-            Moreinfo of Seat Index
-            DriverSeat = -1
-            Passenger = 0
-            Left Rear = 1
-            RightRear = 2
-            </summary>
-        </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedPropIndex(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             This native is used to set prop variation on a ped. Components, drawables and textures IDs are related to the ped model.
@@ -10538,11 +10562,8 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetVehicleColours(System.Int32,System.Int32,System.Int32)">
             <summary>
-            colorPrimary &amp; colorSecondary are the paint index for the vehicle.
+            colorPrimary &amp; colorSecondary are the paint indexes for the vehicle.
             For a list of valid paint indexes, view: pastebin.com/pwHci0xK
-            -------------------------------------------------------------------------
-            Use this to get the number of color indices: pastebin.com/RQEeqTSM
-            Note: minimum color index is 0, maximum color index is (numColorIndices - 1)
             </summary>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetVehicleCustomPrimaryColour(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -10587,16 +10608,6 @@
             };
             </summary>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.SetVehicleNumberPlateText(System.Int32,System.String)">
-            <summary>
-            Sets a vehicle's license plate text.  8 chars maximum.
-            Example:
-            Ped playerPed = PLAYER::PLAYER_PED_ID();
-            Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-            char *plateText = "KING";
-            VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(veh, plateText);
-            </summary>
-        </member>
         <member name="M:CitizenFX.Core.Native.API.TaskCombatPed(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             Makes the specified ped attack the target ped.
@@ -10619,14 +10630,10 @@
             speed 1.0 = walk, 2.0 = run
             p5 1 = normal, 3 = teleport to vehicle, 16 = teleport directly into vehicle
             p6 is always 0
-            Usage of seat
-            -1 = driver
-            0 = passenger
-            1 = left back seat
-            2 = right back seat
-            3 = outside left
-            4 = outside right
             </summary>
+            <param name="seatIndex">
+            See eSeatPosition declared in [`IS_VEHICLE_SEAT_FREE`](#\_0x22AC59A870E6A669).
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.TaskGoToCoordAnyMeans(System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32,System.Boolean,System.Int32,System.Single)">
             <summary>
@@ -10779,18 +10786,6 @@
             TASK::TASK_SHOOT_AT_ENTITY(bg[i], aimedentity, 5000, MISC::GET_HASH_KEY("FIRING_PATTERN_FULL_AUTO"));
             in practical usage, getting the entity the player is aiming at and then task the peds to shoot at the entity, at a button press event would be better.
             Firing Pattern Hash Information: https://pastebin.com/Px036isB
-            </summary>
-        </member>
-        <member name="M:CitizenFX.Core.Native.API.TaskWarpPedIntoVehicle(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Seat Numbers
-            -------------------------------
-            Driver = -1
-            Any = -2
-            Left-Rear = 1
-            Right-Front = 0
-            Right-Rear = 2
-            Extra seats = 3-14(This may differ from vehicle type e.g. Firetruck Rear Stand, Ambulance Rear)
             </summary>
         </member>
         <member name="M:CitizenFX.Core.Native.API.TriggerClientEventInternal(System.String,System.String,System.String,System.Int32)">

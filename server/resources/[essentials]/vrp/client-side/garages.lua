@@ -1,4 +1,49 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GETNEARVEHICLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getNearVehicles(radius)
+	local r = {}
+	local coords = GetEntityCoords(PlayerPedId())
+
+	local vehs = {}
+	local it,veh = FindFirstVehicle()
+	if veh then
+		table.insert(vehs,veh)
+	end
+	local ok
+	repeat
+		ok,veh = FindNextVehicle(it)
+		if ok and veh then
+			table.insert(vehs,veh)
+		end
+	until not ok
+	EndFindVehicle(it)
+
+	for _,veh in pairs(vehs) do
+		local coordsVeh = GetEntityCoords(veh)
+		local distance = #(coords - coordsVeh)
+		if distance <= radius then
+			r[veh] = distance
+		end
+	end
+	return r
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETNEARVEHICLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getNearVehicle(radius)
+	local veh
+	local vehs = tvRP.getNearVehicles(radius)
+	local min = radius + 0.0001
+	for _veh,dist in pairs(vehs) do
+		if dist < min then
+			min = dist
+			veh = _veh
+		end
+	end
+	return veh 
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function nearVehicle(radius)
@@ -863,6 +908,23 @@ local vehList = {
 	[-188978926] = { "r6",false },
 	[436874758] = { "s1000rr",false }
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getvehList(radius)
+	local veh = nil
+	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped) then
+		veh = GetVehiclePedIsUsing(ped)
+	else
+		veh = tvRP.getNearVehicle(radius)
+	end
+
+	if IsEntityAVehicle(veh) then
+		local model = GetEntityModel(veh)
+		return veh,VehToNet(veh),GetVehicleNumberPlateText(veh),vehList[model][1],GetVehicleDoorsLockedForPlayer(veh,PlayerId()),vehList[model][2],GetVehicleBodyHealth(veh),model,GetVehicleClass(veh)
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------

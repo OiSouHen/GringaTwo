@@ -20,6 +20,7 @@ local inLaps = 1
 local inTimers = 0
 local raceTimers = 0
 local Points = 0
+local raceTyres = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -316,6 +317,7 @@ Citizen.CreateThread(function()
 
 		if IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
+			local veh = GetVehiclePedIsUsing(ped)
 
 			if inRunners then
 				timeDistance = 4
@@ -325,14 +327,13 @@ Citizen.CreateThread(function()
 				
 				SendNUIMessage({ show = true })
 				SendNUIMessage({ laps = Laps, maxlaps = runners[inSelected]["laps"], checkpoint = inCheckpoint, maxcheckpoint = #runners[inSelected]["coords"], points = SoftPoints, explosive = raceTime })
-
 		
 				local distance = #(coords - vector3(runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3]))
-				if distance <= 200 then
+				if distance <= 100 then
 						DrawMarker(1,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3] - 3,0,0,0,0,0,0,12.0,12.0,8.0,255,255,255,25,0,0,0,0)
 						DrawMarker(21,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3] + 1,0,0,0,0,180.0,130.0,3.0,3.0,2.0,42,137,255,100,0,0,0,1)
 
-					if distance <= 10 then
+					if distance <= 5 then
 						if inCheckpoint >= #runners[inSelected]["coords"] then
 							if inLaps >= runners[inSelected]["laps"] then
 								PlaySoundFrontend(-1,"CHECKPOINT_UNDER_THE_BRIDGE","HUD_MINI_GAME_SOUNDSET",false)
@@ -343,16 +344,19 @@ Citizen.CreateThread(function()
 								
 								SoftPoints = 0
 								Points = 0
+								cleanObjects()
 								cleanBlips()
 								inRunners = false
 							else
 								inCheckpoint = 1
 								inLaps = inLaps + 1
+--								makeObjects()
 								makeBlips()
 								SendNUIMessage({ show = true })
 							end
 						else
 							inCheckpoint = inCheckpoint + 1
+--							makeObjects()
 							makeBlips()
 						end
 					end
@@ -360,20 +364,23 @@ Citizen.CreateThread(function()
 			else
 				for k,v in pairs(runners) do
 					local distance = #(coords - vector3(v["init"][1],v["init"][2],v["init"][3]))
-					if distance <= 50 then
+					if distance <= 100 then
 						timeDistance = 1
 						DrawMarker(23,v["init"][1],v["init"][2],v["init"][3]-1,0.0,0.0,0.0,0.0,0.0,0.0,10.0,10.0,0.0,42,137,255,100,0,0,0,0)
 
 						if IsControlJustPressed(1,38) and distance <= 5 and vSERVER.checkTicket() then
-							inSelected = parseInt(k)
-							Points = GetGameTimer()
-							SoftPoints = 0
-							inRunners = true
-							inCheckpoint = 1
-							inTimers = 0
-							inLaps = 1
-							raceTime = parseInt(runners[inSelected]["raceTimers"])
-							makeBlips()
+						    if GetPedInVehicleSeat(veh,-1) == ped then
+							    inSelected = parseInt(k)
+							    Points = GetGameTimer()
+							    SoftPoints = 0
+							    inRunners = true
+							    inCheckpoint = 1
+							    inTimers = 0
+							    inLaps = 1
+							    raceTime = parseInt(runners[inSelected]["raceTimers"])
+--							    makeObjects()
+							    makeBlips()
+							end
 						end
 					end
 				end
@@ -410,6 +417,7 @@ Citizen.CreateThread(function()
 					TriggerServerEvent("raceTime:explosivePlayers")
 					raceTime = 0
 					Points = 0
+					cleanObjects()
 					cleanBlips()
 					inRunners = false
 					SendNUIMessage({ show = false })
@@ -425,7 +433,7 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- makeBlips
+-- MAKEBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function makeBlips()
 	if DoesBlipExist(CheckBlip) then
@@ -444,12 +452,50 @@ function makeBlips()
 	EndTextCommandSetBlipName(CheckBlip)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- MAKEOBJECTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function makeObjects()
+	for k,objects in pairs(raceTyres) do
+		if DoesEntityExist(objects) then
+			DeleteEntity(objects)
+			raceTyres[k] = nil
+		end
+	end
+
+	local mHash = GetHashKey("prop_offroad_tyres02")
+
+	RequestModel(mHash)
+	while not HasModelLoaded(mHash) do
+		Citizen.Wait(1)
+	end
+
+	raceTyres[1] = CreateObjectNoOffset(mHash,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3],false,false,false)
+	raceTyres[2] = CreateObjectNoOffset(mHash,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3],false,false,false)
+
+	PlaceObjectOnGroundProperly(raceTyres[1])
+	PlaceObjectOnGroundProperly(raceTyres[2])
+
+	SetEntityLodDist(raceTyres[1],0xFFFF)
+	SetEntityLodDist(raceTyres[2],0xFFFF)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEANBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cleanBlips()
 	if DoesBlipExist(CheckBlip) then
 		RemoveBlip(CheckBlip)
 		CheckBlip = nil
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CLEANOBJECTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cleanObjects()
+	for k,objects in pairs(raceTyres) do
+		if DoesEntityExist(objects) then
+			DeleteEntity(objects)
+			raceTyres[k] = nil
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
