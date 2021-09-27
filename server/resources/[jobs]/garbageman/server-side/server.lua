@@ -60,6 +60,7 @@ function cRP.searchTrash(id)
 				vRP.upgradeStress(user_id,1)
 				return true
 			end
+			
 			return false
 		else
 			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
@@ -90,6 +91,7 @@ function cRP.searchObject(id)
 				vRP.upgradeStress(user_id,1)
 				return true
 			end
+			
 			return false
 		else
 			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
@@ -120,6 +122,7 @@ function cRP.searchWaste(id)
 				vRP.upgradeStress(user_id,3)
 				return true
 			end
+			
 			return false
 		else
 			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)

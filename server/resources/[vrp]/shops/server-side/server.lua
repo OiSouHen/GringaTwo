@@ -567,6 +567,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 									TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
 								end
 							end
+							
 							if vRP.paymentBank(parseInt(user_id),parseInt(shops[shopType]["list"][shopItem]*shopAmount)) then
 								if inv[tostring(slot)] then
 									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)

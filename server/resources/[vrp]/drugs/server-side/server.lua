@@ -76,23 +76,33 @@ function cRP.paymentMethod()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHTRASHITENS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local robberyItens = {
+	[1] = "dollars"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTROBBERY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.paymentRobbery()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local random = math.random(100)
-		if parseInt(random) >= 50 then
-			vRP.giveInventoryItem(user_id,"dollars",math.random(500),true)
-		elseif parseInt(random) >= 0 and parseInt(random) <= 49 then
-			vRP.giveInventoryItem(user_id,"dollars2",math.random(500),true)
+		if vRP.itemSubTypeList(robberyItens) then
+			if vRP.getInventoryItemAmount(user_id,robberyItens) > 0 then
+				TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
+			end
+		else
+			
+			if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
+				TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
+				Wait(1)
+			else
+				vRP.giveInventoryItem(user_id,robberyItens[math.random(#robberyItens)],math.random(1,3),true)
+				vRP.wantedTimer(user_id,10)
+				vRP.upgradeStress(user_id,4)
+			end
 		end
-		
-		vRP.wantedTimer(user_id,10)
-		vRP.upgradeStress(user_id,4)
-		
-		TriggerClientEvent("sounds:source",source,"cash",0.5)
 		
 		local x,y,z = vRPclient.getPositions(source)
 		local copAmount = vRP.numPermission("Police")
