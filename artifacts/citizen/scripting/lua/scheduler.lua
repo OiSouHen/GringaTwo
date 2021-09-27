@@ -1247,19 +1247,10 @@ end
 
 GlobalState = NewStateBag('global')
 
-local function GetEntityStateBagId(entityGuid)
-	if isDuplicityVersion or NetworkGetEntityIsNetworked(entityGuid) then
-		return ('entity:%d'):format(NetworkGetNetworkIdFromEntity(entityGuid))
-	else
-		EnsureEntityStateBag(entityGuid)
-		return ('localEntity:%d'):format(entityGuid)
-	end
-end
-
 local entityTM = {
 	__index = function(t, s)
 		if s == 'state' then
-			local es = GetEntityStateBagId(t.__data)
+			local es = ('entity:%d'):format(NetworkGetNetworkIdFromEntity(t.__data))
 			
 			if isDuplicityVersion then
 				EnsureEntityStateBag(t.__data)

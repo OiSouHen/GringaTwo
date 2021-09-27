@@ -6514,26 +6514,6 @@
             PED::_0x5F5D1665E352A839(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("mpbeach_overlays"), MISC::GET_HASH_KEY("fm_hair_fuzz"))
             </summary>
         </member>
-        <member name="F:CitizenFX.Core.Native.Hash.ADD_STATE_BAG_CHANGE_HANDLER">
-            <summary>
-            Adds a handler for changes to a state bag.
-            
-            The function called expects to match the following signature:
-            
-            ```ts
-            function StateBagChangeHandler(bagName: string, key: string, value: any, reserved: number, replicated: boolean);
-            ```
-            
-            *   **bagName**: The internal bag ID for the state bag which changed. This is usually `player:Source`, `entity:NetID`
-                or `localEntity:Handle`.
-            *   **key**: The changed key.
-            *   **value**: The new value stored at key. The old value is still stored in the state bag at the time this callback executes.
-            *   **reserved**: Currently unused.
-            *   **replicated**: Whether the set is meant to be replicated.
-            
-            At this time, the change handler can't opt to reject changes.
-            </summary>
-        </member>
         <member name="F:CitizenFX.Core.Native.Hash.APPLY_FORCE_TO_ENTITY">
             <summary>
             Applies a force to the specified entity.
@@ -7166,13 +7146,6 @@
             Remove blip will currently crash your game, just artificially remove the blip by setting the sprite to a id that is 'invisible'.
             --
             It crashes my game.
-            </summary>
-        </member>
-        <member name="F:CitizenFX.Core.Native.Hash.REMOVE_STATE_BAG_CHANGE_HANDLER">
-            <summary>
-            **Experimental**: This native may be altered or removed in future versions of CitizenFX without warning.
-            
-            Removes a handler for changes to a state bag.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.REMOVE_WEAPON_FROM_PED">
@@ -8342,34 +8315,6 @@
             PED::_0x5F5D1665E352A839(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("mpbeach_overlays"), MISC::GET_HASH_KEY("fm_hair_fuzz"))
             </summary>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.AddStateBagChangeHandler(System.String,System.String,CitizenFX.Core.Native.InputArgument)">
-            <summary>
-            Adds a handler for changes to a state bag.
-            The function called expects to match the following signature:
-            ```ts
-            function StateBagChangeHandler(bagName: string, key: string, value: any, reserved: number, replicated: boolean);
-            ```
-            *   **bagName**: The internal bag ID for the state bag which changed. This is usually `player:Source`, `entity:NetID`
-            or `localEntity:Handle`.
-            *   **key**: The changed key.
-            *   **value**: The new value stored at key. The old value is still stored in the state bag at the time this callback executes.
-            *   **reserved**: Currently unused.
-            *   **replicated**: Whether the set is meant to be replicated.
-            At this time, the change handler can't opt to reject changes.
-            </summary>
-            <param name="keyFilter">
-            The key to check for, or null.
-            </param>
-            <param name="bagFilter">
-            The bag ID to check for, or null.
-            </param>
-            <param name="handler">
-            The handler function.
-            </param>
-            <returns>
-            A cookie to remove the change handler.
-            </returns>
-        </member>
         <member name="M:CitizenFX.Core.Native.API.ApplyForceToEntity(System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Applies a force to the specified entity.
@@ -9533,15 +9478,6 @@
             --
             It crashes my game.
             </summary>
-        </member>
-        <member name="M:CitizenFX.Core.Native.API.RemoveStateBagChangeHandler(System.Int32)">
-            <summary>
-            **Experimental**: This native may be altered or removed in future versions of CitizenFX without warning.
-            Removes a handler for changes to a state bag.
-            </summary>
-            <param name="cookie">
-            The cookie.
-            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.RemoveWeaponFromPed(System.Int32,System.UInt32)">
             <summary>
