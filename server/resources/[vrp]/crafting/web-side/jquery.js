@@ -222,7 +222,7 @@ const requestCrafting = () => {
 				const newDurability = (maxDurability - v["durability"]) / maxDurability;
 				const actualPercent = newDurability * 100;
 
-				const item = `<div class="item populated" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
+				const item = `<div class="item populated" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -252,7 +252,7 @@ const requestCrafting = () => {
 				}
 
 				list = list.substring(0,list.length - 2);
-				const item = `<div class="item populated" title="" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}" data-desc="${v["desc"]}">
+				const item = `<div class="item populated" title="" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}" data-desc="${v["desc"]}">
 					<div class="top">
 						<div class="itemWeight">${v.weight.toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
