@@ -25,6 +25,10 @@ data_file "AUDIO_WAVEPACK" "audio/carrerav10/dlc_carrerav10"
 data_file "AUDIO_GAMEDATA" "audio/carrerav10/carrerav10_game.dat"
 data_file "AUDIO_SOUNDDATA" "audio/carrerav10/carrerav10_sounds.dat"
 
+data_file "AUDIO_WAVEPACK" "audio/chevroletlt4/dlc_chevroletlt4"
+data_file "AUDIO_GAMEDATA" "audio/chevroletlt4/chevroletlt4_game.dat"
+data_file "AUDIO_SOUNDDATA" "audio/chevroletlt4/chevroletlt4_sounds.dat"
+
 data_file "AUDIO_WAVEPACK" "audio/hemisound/dlc_hemisound"
 data_file "AUDIO_GAMEDATA" "audio/hemisound/hemisound_game.dat"
 data_file "AUDIO_SOUNDDATA" "audio/hemisound/hemisound_sounds.dat"

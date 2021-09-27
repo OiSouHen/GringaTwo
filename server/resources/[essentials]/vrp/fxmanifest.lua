@@ -5,9 +5,9 @@ ui_page "web-side/index.html"
 
 server_scripts {
 	"lib/utils.lua",
-	"server-side/*",
 	"base.lua",
-	"queue.lua"
+	"queue.lua",
+	"server-side/*"
 }
 
 client_scripts {
@@ -16,9 +16,9 @@ client_scripts {
 }
 
 files {
-    "web-side/*",
 	"loading/*",
-	"lib/*"
+	"lib/*",
+	"web-side/*"
 }
 
 loadscreen "loading/index.html"
