@@ -1,5 +1,5 @@
 vRP.prepare("vRP/get_infos","SELECT * FROM infos WHERE steam = @steam")
-vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM users WHERE steam = @steam and deleted = 0")
+vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,loc FROM users WHERE steam = @steam and deleted = 0")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE RACES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ vRP.prepare("vRP/show_winrace","SELECT * FROM races WHERE raceid = @id ORDER BY 
 vRP.prepare("vRP/get_users","SELECT * FROM users WHERE id = @id")
 vRP.prepare("vRP/get_registration","SELECT id FROM users WHERE registration = @registration")
 vRP.prepare("vRP/get_phone","SELECT id FROM users WHERE phone = @phone")
-vRP.prepare("vRP/create_characters","INSERT INTO users(steam,name,name2) VALUES(@steam,@name,@name2)")
+vRP.prepare("vRP/create_characters","INSERT INTO users(steam,name,name2,loc) VALUES(@steam,@name,@name2,@loc)")
 vRP.prepare("vRP/remove_characters","UPDATE users SET deleted = 1 WHERE id = @id")
 vRP.prepare("vRP/update_characters","UPDATE users SET registration = @registration, phone = @phone WHERE id = @id")
 vRP.prepare("vRP/rename_characters","UPDATE users SET name = @name, name2 = @name2 WHERE id = @id")
@@ -118,7 +118,7 @@ vRP.prepare("vRP/del_weapon","DELETE FROM weapons WHERE user_id = @user_id AND w
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/selectSkin","SELECT * FROM barbershop WHERE user_id = @user_id")
 vRP.prepare("vRP/insertSkin","INSERT INTO barbershop(user_id) VALUES(@user_id)")
-vRP.prepare("vRP/updateSkin","UPDATE barbershop SET maxHair = @maxHair, fathers = @fathers, mothers = @mothers, kinship = @kinship, eyecolor = @eyecolor, skincolor = @skincolor, acne = @acne, stains = @stains, freckles = @freckles, aging = @aging, hair = @hair, haircolor = @haircolor, haircolor2 = @haircolor2, makeup = @makeup, makeupintensity = @makeupintensity, makeupcolor = @makeupcolor, lipstick = @lipstick, lipstickintensity = @lipstickintensity, lipstickcolor = @lipstickcolor, eyebrow = @eyebrow, eyebrowintensity = @eyebrowintensity, eyebrowcolor = @eyebrowcolor, beard = @beard, beardintentisy = @beardintentisy, beardcolor = @beardcolor, blush = @blush, blushintentisy = @blushintentisy, blushcolor = @blushcolor, face00 = @face00, face01 = @face01, face04 = @face04, face06 = @face06, face08 = @face08, face09 = @face09, face10 = @face10, face12 = @face12, face13 = @face13, face14 = @face14, face15 = @face15, face16 = @face16, face17 = @face17, face19 = @face19 WHERE user_id = @user_id")
+vRP.prepare("vRP/updateSkin","UPDATE barbershop SET fathers = @fathers, kinship = @kinship, eyecolor = @eyecolor, skincolor = @skincolor, acne = @acne, stains = @stains, freckles = @freckles, aging = @aging, hair = @hair, haircolor = @haircolor, haircolor2 = @haircolor2, makeup = @makeup, makeupintensity = @makeupintensity, makeupcolor = @makeupcolor, lipstick = @lipstick, lipstickintensity = @lipstickintensity, lipstickcolor = @lipstickcolor, eyebrow = @eyebrow, eyebrowintensity = @eyebrowintensity, eyebrowcolor = @eyebrowcolor, beard = @beard, beardintentisy = @beardintentisy, beardcolor = @beardcolor, blush = @blush, blushintentisy = @blushintentisy, blushcolor = @blushcolor WHERE user_id = @user_id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE PRISON
 -----------------------------------------------------------------------------------------------------------------------------------------

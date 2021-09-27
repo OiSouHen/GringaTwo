@@ -23,6 +23,7 @@ function cRP.setupChars()
 	if chars then
 		mychars['result'] = chars
 	end
+	
 	return mychars
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -61,18 +62,18 @@ end)
 -- CREATECHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("spawn:createChar")
-AddEventHandler("spawn:createChar",function(name,name2,sex)
+AddEventHandler("spawn:createChar",function(name,name2,sex,loc)
 	local source = source
 	local steam = vRP.getSteam(source)
 	local persons = getPlayerCharacters(steam)
-	------------------------------------------ CONFIGURAR CHARS AO INVES DE PREMIUM
+
 	if not vRP.getPremium2(steam) and parseInt(#persons) >= 1 then
 		TriggerClientEvent("Notify",source,"importante","Você atingiu o limite de personagens.",5000)
 		TriggerClientEvent("spawn:maxChars",source)
 		return
 	end
 
-	vRP.execute("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
+	vRP.execute("vRP/create_characters",{ steam = steam, name = name, name2 = name2, loc = loc })
 
 	local newId = 0
 	local chars = getPlayerCharacters(steam)

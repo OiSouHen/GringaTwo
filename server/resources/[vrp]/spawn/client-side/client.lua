@@ -13,9 +13,14 @@ vSERVER = Tunnel.getInterface("spawn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
+local cam1 = nil
+local new = false
+local weight = 270.0
 cam = nil
 initial_pos = {}
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REMOVECAMACTIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
 function removeCamActive()
     if cam and IsCamActive(cam) then
         SetCamCoord(cam, GetGameplayCamCoords())
@@ -57,24 +62,23 @@ AddEventHandler("spawn:maxChars",function()
 	SendNUIMessage({ action = "openSystem" })
 	SetNuiFocus(true,true)
 end)
-
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHARACTERCREATED
+-- NEWCHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("newCharacter",function(data)
-	-- SetTimeout(2000,function() -- EM TESTE, TEM QUE COLOCAR PRA VER
-		DoScreenFadeOut(1000)
-		Citizen.Wait(1000)
-		removeCamActive()
-		SetEntityVisible(PlayerPedId(),true,true)
-		FreezeEntityPosition(PlayerPedId(),false)
-		SetEntityInvincible(PlayerPedId(),false)
-		TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex)
-		SetNuiFocus(false,false)
-		SendNUIMessage({ action = "closeNew" })
-	-- end)
+	DoScreenFadeOut(1000)
+	Citizen.Wait(1000)
+	removeCamActive()
+	SetEntityVisible(PlayerPedId(),true,true)
+	FreezeEntityPosition(PlayerPedId(),false)
+	SetEntityInvincible(PlayerPedId(),false)
+	TriggerServerEvent("spawn:createChar",data.name,data.name2,data.sex,data.loc)
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "closeNew" })
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SPAWN:CLEARCAM
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("spawn:clearcam")
 AddEventHandler("spawn:clearcam",function()
 	SetEntityVisible(PlayerPedId(),true,true)
@@ -84,9 +88,8 @@ AddEventHandler("spawn:clearcam",function()
 	DoScreenFadeOut(1000)
 	Citizen.Wait(1000)	
 end)
-
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETCHARACTERS
+-- GENERATEDISPLAY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("generateDisplay",function(data,cb)
 	local chars = vSERVER.setupChars()
@@ -106,9 +109,8 @@ RegisterNUICallback("characterChosen",function(data)
 	SendNUIMessage({ action = "closeSystem" })
 	SetNuiFocus(false,false)
 end)
-
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SPAWNCHAR
+-- SPAWN:SPAWNCHAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("spawn:spawnChar")
 AddEventHandler("spawn:spawnChar",function(status)
@@ -128,12 +130,8 @@ RegisterNUICallback("DeleteCharacter",function(data,cb)
 	cb(chars)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- SPAWN:SPAWNNUI
 -----------------------------------------------------------------------------------------------------------------------------------------
-local cam1 = nil
-local new = false
-local weight = 270.0
-
 RegisterNetEvent("spawn:SpawnNui")
 AddEventHandler("spawn:SpawnNui",function(status)
 	local ped = PlayerPedId()
@@ -164,7 +162,7 @@ AddEventHandler("spawn:SpawnNui",function(status)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- generateSpawn
+-- SPAWNCONFIG
 -----------------------------------------------------------------------------------------------------------------------------------------
 local config = {
 	[1] = { name = "Great Ocean Highway", hash = "Great"},
@@ -176,7 +174,9 @@ local config = {
 	[7] = { name = "Hawick Avenue", hash = "Hawick"},
 	[8] = { name = "Integrity Way", hash = "Integrity"}
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SPAWNLOC
+-----------------------------------------------------------------------------------------------------------------------------------------
 local loc = {
 	["Great"] = { -2205.92,-370.48,13.29 },
 	["Duluoz"] = { -250.35,6209.71,31.49 },
@@ -187,7 +187,9 @@ local loc = {
 	["Hawick"] = { 308.33,-232.25,54.07 },
 	["Integrity"] = { 449.71,-659.27,28.48 }
 }
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GENERATESPAWN
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("generateSpawn",function(data,cb)
 	local coords = {}
 	if config then
@@ -195,7 +197,9 @@ RegisterNUICallback("generateSpawn",function(data,cb)
 	end
 	cb(coords)
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SPAWNCHOSEN
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("spawnChosen",function(data)
 	local ped = PlayerPedId()
 	if data.hash == "spawn" then

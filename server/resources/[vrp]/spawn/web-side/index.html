@@ -12,9 +12,22 @@
 		<div id="spawnPage"></div>
 		<div id="createPage">
 			<div id="createCharForm">
-				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==1) return false;" value="" type="text" id="charSexo" placeholder="Sexo: M/F"></input>
-				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charNome" placeholder="Nome:">
-				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charSobrenome" placeholder="Sobrenome:">
+				<div class="buttonGroup" id="gender">
+					<div class="buttonsBox">
+						<button type="button" class="active" id="mp_m_freemode_01">Masculino</button>
+						<button type="button" id="mp_f_freemode_01">Feminino</button>
+					</div>
+				</div>
+
+				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charNome" placeholder="Nome">
+				<input class="formInput" autocomplete="off" onKeyPress="if(this.value.length==16) return false;" value="" type="text" id="charSobrenome" placeholder="Sobrenome">
+
+				<div class="buttonGroup" id="loc">
+					<div class="buttonsBox">
+						<button type="button" class="active" id="Sul">Sul</button>
+						<button type="button" id="Norte">Norte</button>
+					</div>
+				</div>
 
 				<button class="fnButton" id="createNew">CONFIRMAR</button>
 				<button class="fnButton" id="createBack">CANCELAR</button>
