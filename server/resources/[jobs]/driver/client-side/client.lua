@@ -133,13 +133,15 @@ function startthreadservice()
 					local veh = GetVehiclePedIsUsing(ped)
 					local coordsPed = GetEntityCoords(ped)
 					local distance = #(coordsPed - vector3(coords[driverPosition][1],coords[driverPosition][2],coords[driverPosition][3]))
-					if distance <= 300 and IsVehicleModel(veh,GetHashKey("bus")) then
+					if distance <= 150 and IsVehicleModel(veh,GetHashKey("bus")) or IsVehicleModel(veh,GetHashKey("coach")) then
 						timeDistance = 4
 						DrawMarker(21,coords[driverPosition][1],coords[driverPosition][2],coords[driverPosition][3]+0.60,0,0,0,0,180.0,130.0,2.0,2.0,1.0,121,206,121,100,1,0,0,1)
 						if distance <= 15 then
 							local speed = GetEntitySpeed(veh) * 2.236936
-							if IsControlJustPressed(1,38) and speed <= 20 and timeSeconds <= 0 then
+							
+							if IsControlJustPressed(1,38) and speed <= 15 and timeSeconds <= 0 then
 								timeSeconds = 2
+								
 								if driverPosition == #coords then
 									driverPosition = 1
 									vSERVER.paymentMethod(true)
@@ -147,12 +149,14 @@ function startthreadservice()
 									driverPosition = driverPosition + 1
 									vSERVER.paymentMethod(false)
 								end
+								
 								makeBlipMarked()
 							end
 						end
 					end
 				end
 			end
+			
 			Citizen.Wait(timeDistance)
 		end
 	end)
@@ -166,6 +170,7 @@ function startthreadtimeseconds()
 			if timeSeconds > 0 then
 				timeSeconds = timeSeconds - 1
 			end
+			
 			Citizen.Wait(1000)
 		end
 	end)
@@ -186,7 +191,7 @@ function makeBlipMarked()
 	SetBlipAsShortRange(blip,false)
 	SetBlipRoute(blip,true)
 	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Parada de Ônibus")
+	AddTextComponentString("Parada")
 	EndTextCommandSetBlipName(blip)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

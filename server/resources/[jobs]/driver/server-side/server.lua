@@ -17,7 +17,7 @@ function cRP.paymentMethod(status)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local value = math.random(95,155)
+		local value = math.random(105,175)
 
 		if not status then
 			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)

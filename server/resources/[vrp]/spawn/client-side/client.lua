@@ -177,7 +177,7 @@ local config = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNLOC
 -----------------------------------------------------------------------------------------------------------------------------------------
-local loc = {
+local cds = {
 	["Great"] = { -2205.92,-370.48,13.29 },
 	["Duluoz"] = { -250.35,6209.71,31.49 },
 	["Eclipse"] = { -774.14,307.75,85.7 },
@@ -195,6 +195,7 @@ RegisterNUICallback("generateSpawn",function(data,cb)
 	if config then
 		coords['result'] = config
 	end
+	
 	cb(coords)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -236,17 +237,17 @@ RegisterNUICallback("spawnChosen",function(data)
 
 		DoScreenFadeIn(500)
 
-		SetEntityCoords(ped,loc[data.hash][1],loc[data.hash][2],loc[data.hash][3]+0.5)
+		SetEntityCoords(ped,cds[data.hash][1],cds[data.hash][2],cds[data.hash][3]+0.5)
 		local x,y,z = table.unpack(GetEntityCoords(ped))
 
 		SetCamCoord(cam1,x,y,z+200.0)
 		local i = z + 200.0
 
-		while i > loc[data.hash][3] + 1.5 do
+		while i > cds[data.hash][3] + 1.5 do
 			i = i - speed
 			SetCamCoord(cam1,x,y,i)
 
-			if i <= loc[data.hash][3] + 35.0 and weight < 360.0 then
+			if i <= cds[data.hash][3] + 35.0 and weight < 360.0 then
 				if speed - 0.0078 >= 0.05 then
 					speed = speed - 0.0078
 				end

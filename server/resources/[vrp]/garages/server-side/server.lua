@@ -73,20 +73,20 @@ local garages = {
 	[22] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[23] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[41] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
-	[42] = { ["name"] = "HeliParamedic", ["payment"] = true, ["perm"] = "Paramedic" },
+	[42] = { ["name"] = "ParamedicHelicopter", ["payment"] = true, ["perm"] = "Paramedic" },
 	[43] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[44] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[45] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[46] = { ["name"] = "Paramedic", ["payment"] = true, ["perm"] = "Paramedic" },
 	[61] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
-	[62] = { ["name"] = "HeliPolice", ["payment"] = true, ["perm"] = "Police" },
+	[62] = { ["name"] = "PoliceHelicopter", ["payment"] = true, ["perm"] = "Police" },
 	[63] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[64] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[65] = { ["name"] = "Garage", ["payment"] = true, ["public"] = true },
 	[66] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[67] = { ["name"] = "Police", ["payment"] = true, ["perm"] = "Police" },
 	[68] = { ["name"] = "Bolingbroke", ["payment"] = true, ["perm"] = "Police" },
-	[69] = { ["name"] = "RangerPolice", ["payment"] = true, ["perm"] = "RangerPolice" },
+	[69] = { ["name"] = "Ranger", ["payment"] = true, ["perm"] = "Ranger" },
 	[101] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
 	[102] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
 	[103] = { ["name"] = "Bikes", ["payment"] = true, ["public"] = true },
@@ -379,29 +379,55 @@ local garages = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 local workgarage = {
     ["Paramedic"] = {
-		"ambulance"
+		"ambulance",
+		"lguard",
+		"firetruk",
+		"fordexplorer"
 	},
-	["HeliParamedic"] = {
-		"ambulance"
+	["ParamedicHelicopter"] = {
+		"supervolito"
 	},
     ["Police"] = {
-		"CARNAME",
+		"crownvictoria",
+		"dodgecharger2014",
+		"fordexplorer",
+		"fordraptor",
+		"fordtaurus"
 	},
-	["HeliPolice"] = {
-		"CARNAME",
+	["PoliceHelicopter"] = {
+		"polmav",
 	},
 	["Bolingbroke"] = {
-		"nspeedo"
+		"pbus",
+		"fordexplorer"
 	},
-	["RangerPolice"] = {
-		"polmesa",
-		"sanchez3"
+	["Sheriff"] = {
+		"crownvictoria",
+		"dodgecharger2014",
+		"fordexplorer",
+		"fordraptor",
+		"fordtaurus"
+	},
+	["Ranger"] = {
+		"crownvictoria",
+		"dodgecharger2014",
+		"fordexplorer",
+		"fordraptor",
+		"fordtaurus"
+	},
+	["Trooper"] = {
+		"crownvictoria",
+		"dodgecharger2014",
+		"fordexplorer",
+		"fordraptor",
+		"fordtaurus"
 	},
 	["Boats"] = {
 		"marquis",
 		"seashark",
-		"predator",
-		"dinghy"
+		"squalo",
+		"tug",
+		"toro"
 	},
 	["Lumberman"] = {
 		"ratloader"
@@ -433,10 +459,17 @@ local workgarage = {
 		"faggio"
 	},
 	["Bikes"] = {
-		"towtruck"
+		"bmx",
+		"cruiser",
+		"fixter",
+		"scorcher",
+		"tribike",
+		"tribike2",
+		"tribike3"
 	},
 	["Mechanic"] = {
-		"towtruck"
+		"towtruck",
+		"flatbed"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
