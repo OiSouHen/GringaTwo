@@ -109,13 +109,13 @@ local shops = {
 		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["amethyst"] = 43,
-			["diamond"] = 97,
-			["emerald"] = 125,
-			["ruby"] = 52,
-			["sapphire"] = 48,
-			["turquoise"] = 33,
-			["amber"] = 37
+			["amethyst"] = 25,
+			["diamond"] = 55,
+			["emerald"] = 75,
+			["ruby"] = 35,
+			["sapphire"] = 30,
+			["turquoise"] = 15,
+			["amber"] = 20
 		}
 	},
 	["huntingStore"] = {
@@ -153,9 +153,17 @@ local shops = {
 		["mode"] = "Sell",
 		["type"] = "Cash",
 		["list"] = {
-			["shrimp"] = 50,
-			["octopus"] = 45,
-			["carp"] = 40
+			["codfish"] = 24,
+			["catfish"] = 24,
+			["shrimp"] = 22,
+			["carp"] = 20,
+			["horsefish"] = 20,
+			["goldenfish"] = 25,
+			["pacu"] = 26,
+			["pirarucu"] = 25,
+			["octopus"] = 22,
+			["tambaqui"] = 25,
+			["tilapia"] = 22
 		}
 	},
 	["recyclingSell"] = {
@@ -226,13 +234,16 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["energetic"] = 15,
+			["absolut"] = 11,
+			["chandon"] = 15,
 			["cola"] = 15,
-			["soda"] = 15,
-			["absolut"] = 20,
-			["chandon"] = 20,
-			["dewars"] = 20,
-			["hennessy"] = 20
+			["dewars"] = 10,
+			["energetic"] = 15,
+			["fries"] = 15,
+			["hennessy"] = 13,
+			["donut"] = 15,
+			["sandwich"] = 15,
+			["soda"] = 15
 		}
 	},
 	["coffeeMachine"] = {
@@ -309,11 +320,20 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Cash",
 		["list"] = {
-			["toolbox"] = 825,
+			["toolbox"] = 475,
 			["WEAPON_WRENCH"] = 725,
-			["lockpick"] = 625,
-			["tires"] = 425,
+			["lockpick"] = 525,
+			["tires"] = 325,
 			["WEAPON_CROWBAR"] = 725
+		}
+	},
+	["mechanicBuy"] = {
+		["mode"] = "Buy",
+		["type"] = "Cash",
+		["list"] = {
+			["toolbox"] = 425,
+			["lockpick"] = 325,
+			["tires"] = 225
 		}
 	},
 	["oxyStore"] = {

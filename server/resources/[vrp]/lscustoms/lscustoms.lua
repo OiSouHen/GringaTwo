@@ -525,7 +525,7 @@ Citizen.CreateThread(function()
 							DrawMarker(23,outside["x"],outside["y"],outside["z"]-0.95,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
 							
 							if not v.locked then
-								if distance <= 2.5 and IsControlJustPressed(1,38) and vSERVER.checkItem() then
+								if distance <= 2.5 and IsControlJustPressed(1,38) then
 									if cRP.checkPermission() then
 										inside = true
 										currentpos = v

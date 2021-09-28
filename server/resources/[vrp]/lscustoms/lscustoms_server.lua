@@ -22,20 +22,6 @@ function cRP.checkPermission()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHECKCONSUME
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkItem()
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.getInventoryItemAmount(user_id,"notebook") >= 1 then
-			return true
-		else
-			TriggerClientEvent("Notify",source,"amarelo","Você precisa de um <b>Notebook</b>.",3000)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local servicelog = ""

@@ -235,6 +235,7 @@ CREATE TABLE `users` (
   `garage` int(3) NOT NULL DEFAULT 2,
   `prison` int(6) NOT NULL DEFAULT 0,
   `locate` int(1) NOT NULL DEFAULT 1,
+  `loc` varchar(5) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Sul',
   `deleted` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)

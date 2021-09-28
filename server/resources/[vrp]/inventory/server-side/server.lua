@@ -1390,7 +1390,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                             end
 
                             if vTASKBAR.taskFishing(source) then
-                                local rand = parseInt(math.random(11))
+                                local rand = parseInt(math.random(3))
                                 local fishs = { "octopus","shrimp","carp","codfish","catfish","goldenfish","horsefish","tilapia","pacu","pirarucu","tambaqui" }
 
                                 if vRP.computeInvWeight(user_id) + vRP.itemWeightList(fishs[rand]) * rand <= vRP.getBackpack(user_id) then
