@@ -75,6 +75,16 @@ AddEventHandler("player:identityFunctions",function(identityFunctions)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- NORTE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("norte",function(source,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		vRP.execute("vRP/update_nationality",{ id = user_id })
+		TriggerClientEvent("Notify",source,"amarelo","Nacionalidade alterada para <b>Norte</b>.",5000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLOR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("wecolor",function(source,args,rawCommand)
@@ -110,7 +120,7 @@ RegisterCommand("e",function(source,args,rawCommand)
 				local nplayer = vRPclient.nearestPlayer(source,2)
 				if nplayer then
 					if vRPclient.getHealth(nplayer) > 101 and not vCLIENT.getHandcuff(nplayer) then
-						local request = vRP.request(nplayer,"Você aceita o pedido de <b>"..identity.name.." da animação <b>"..args[1].."</b>?",30)
+						local request = vRP.request(nplayer,"Aceitar animação de <b>"..identity.name.."?",60)
 						if request then
 							TriggerClientEvent("emotes",nplayer,args[1])
 							TriggerClientEvent("emotes",source,args[1])
@@ -129,7 +139,7 @@ end)
 RegisterCommand("e2",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Paramedic") then
+		if vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Admin") then
 			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
 				local nplayer = vRPclient.nearestPlayer(source,2)
 				if nplayer then
@@ -149,7 +159,9 @@ RegisterCommand("premium",function(source,args,rawCommand)
 		if identity then
 			local consult = vRP.getInfos(identity.steam)
 			if consult[1] and parseInt(os.time()) <= parseInt(consult[1].premium+24*consult[1].predays*60*60) then
-				TriggerClientEvent("Notify",source,"amarelo","Você ainda tem "..vRP.getTimers(parseInt(86400*consult[1].predays-(os.time()-consult[1].premium))).." de benefícios <b>Premium</b>.",5000)
+				TriggerClientEvent("Notify",source,"azul",""..vRP.getTimers(parseInt(86400*consult[1].predays-(os.time()-consult[1].premium)))..".",10000)
+			else
+				TriggerClientEvent("Notify",source,"amarelo","Você não tem benefícios ativos.",5000)
 			end
 		end
 	end

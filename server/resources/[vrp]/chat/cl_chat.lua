@@ -16,104 +16,96 @@ local isRDR = not TerraingridActivate and true or false
 local chatInputActive = false
 local chatInputActivating = false
 local chatLoaded = false
+local chatActive = true
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INTERNALEVENTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent('chatMessage')
 RegisterNetEvent('chat:addTemplate')
-RegisterNetEvent('chat:addMessage')
-RegisterNetEvent('chat:addSuggestion')
 RegisterNetEvent('chat:addSuggestions')
 RegisterNetEvent('chat:addMode')
 RegisterNetEvent('chat:removeMode')
-RegisterNetEvent('chat:removeSuggestion')
-RegisterNetEvent('chat:clear')
 RegisterNetEvent('__cfx_internal:serverPrint')
 RegisterNetEvent('_chat:messageEntered')
 -----------------------------------------------------------------------------------------------------------------------------------------
--- chatMessage
+-- CHATMESSAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("chatMessage")
 AddEventHandler("chatMessage",function(author,color,text)
 	if not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
-		local args = { text }
-		if author ~= "" then
-			table.insert(args,1,author)
-		end
+		if chatActive then
+			local args = { text }
+			if author ~= "" then
+				table.insert(args,1,author)
+			end
 
-		SendNUIMessage({ type = "ON_MESSAGE", message = { color = color, multiline = true, args = args } })
-		SendNUIMessage({ type = "ON_SCREEN_STATE_CHANGE", shouldHide = false })
+			SendNUIMessage({ type = "ON_MESSAGE", message = { color = color, multiline = true, args = args } })
+			SendNUIMessage({ type = "ON_SCREEN_STATE_CHANGE", shouldHide = false })
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHATME
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("chatME")
+AddEventHandler("chatME",function(text)
+	if not exports["player"]:blockCommands() and not exports["player"]:handCuff() then
+		if chatActive then
+			SendNUIMessage({ type = "ON_MESSAGE", message = { color = {}, multiline = true, args = { text } } })
+			SendNUIMessage({ type = "ON_SCREEN_STATE_CHANGE", shouldHide = false })
+		end
 	end
 end)
 
 AddEventHandler('__cfx_internal:serverPrint', function(msg)
 	SendNUIMessage({type = 'ON_MESSAGE',message = {templateId = 'print', multiline = true, args = { msg } }})
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADDMESSAGE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("chat:addMessage")
+AddEventHandler("chat:addMessage",function(message)
+	SendNUIMessage({ type = "ON_MESSAGE", message = message })
+end)
 
--- addMessage
-local addMessage = function(message)
-  if type(message) == 'string' then
-    message = {args = { message }}
-  end
-
-  SendNUIMessage({ type = "ON_MESSAGE", message = message })
-end
-
-exports('addMessage', addMessage)
-AddEventHandler('chat:addMessage', addMessage)
-
+--exports('addMessage', addMessage)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SUGGESTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local addSuggestion = function(name, help, params)
-  SendNUIMessage({
-    type = 'ON_SUGGESTION_ADD',
-    suggestion = {
-      name = name,
-      help = help,
-      params = params or nil
-    }
-  })
+  SendNUIMessage({ type = "ON_SUGGESTION_ADD", suggestion = { name = name, help = help, params = params or nil } })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADDSUGGESTIONS
+-- ADDSUGGESTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-exports('addSuggestion', addSuggestion)
-AddEventHandler('chat:addSuggestion', addSuggestion)
-
-AddEventHandler('chat:addSuggestions', function(suggestions)
-  for _, suggestion in ipairs(suggestions) do
-    SendNUIMessage({
-      type = 'ON_SUGGESTION_ADD',
-      suggestion = suggestion
-    })
-  end
+RegisterNetEvent("chat:addSuggestion")
+AddEventHandler("chat:addSuggestion",function(suggestions)
+	for _,v in ipairs(suggestions) do
+		SendNUIMessage({ type = "ON_SUGGESTION_ADD", suggestion = v })
+	end
 end)
+
+--exports('addSuggestion', addSuggestion)
+--AddEventHandler('chat:addSuggestion', addSuggestion)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REMOVESUGGESTIONS
+-- CLEARSUGGESTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler('chat:removeSuggestion', function(name)
-  SendNUIMessage({
-    type = 'ON_SUGGESTION_REMOVE',
-    name = name
-  })
+RegisterNetEvent("chat:clearSuggestions")
+AddEventHandler("chat:clearSuggestions",function()
+	SendNUIMessage({ type = "ON_SUGGESTIONS_REMOVE" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDMODE
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler('chat:addMode', function(mode)
-  SendNUIMessage({
-    type = 'ON_MODE_ADD',
-    mode = mode
-  })
+RegisterNetEvent("chat:addMode")
+AddEventHandler("chat:addMode", function(mode)
+	SendNUIMessage({ type = "ON_MODE_ADD", mode = mode })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEMODE
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler('chat:removeMode', function(name)
-  SendNUIMessage({
-    type = 'ON_MODE_REMOVE',
-    name = name
-  })
+RegisterNetEvent("chat:removeMode")
+AddEventHandler("chat:removeMode", function(name)
+	SendNUIMessage({ type = "ON_MODE_REMOVE", name = name })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDTEMPLATE
@@ -128,32 +120,28 @@ AddEventHandler('chat:addTemplate', function(id, html)
   })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHAT:CLEAR
+-- CLEAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler('chat:clear', function(name)
-  SendNUIMessage({ type = "ON_CLEAR" })
+RegisterNetEvent("chat:clear")
+AddEventHandler("chat:clear",function(name)
+	SendNUIMessage({ type = "ON_CLEAR" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHATRESULT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback('chatResult', function(data, cb)
-  chatInputActive = false
-  SetNuiFocus(false)
+RegisterNUICallback("chatResult",function(data,cb)
+    chatInputActive = false
+	SetNuiFocus(false)
 
-  if not data.canceled then
-    local id = PlayerId()
+	if data["message"] then
+		if data["message"]:sub(1,1) == "/" then
+			ExecuteCommand(data["message"]:sub(2))
+		else
+			TriggerServerEvent('chat:messageEntered',GetPlayerName(id),{ r, g, b },data["message"],data["mode"])
+		end
+	end
 
-    --deprecated
-    local r, g, b = 0, 0x99, 255
-
-    if data.message:sub(1, 1) == '/' then
-      ExecuteCommand(data.message:sub(2))
-    else
-      TriggerServerEvent('_chat:messageEntered', GetPlayerName(id), { r, g, b }, data.message, data.mode)
-    end
-  end
-
-  cb('ok')
+	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REFRESHCOMMANDS
@@ -206,10 +194,10 @@ local function refreshThemes()
   })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- EVENTS
+-- ONCLIENTRESOURCESTART
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("onClientResourceStart",function(resName)
-	if (GetCurrentResourceName() ~= resName) then
+AddEventHandler("onClientResourceStart",function(resourceName)
+	if (GetCurrentResourceName() ~= resourceName) then
 		return
 	end
 
@@ -221,13 +209,8 @@ AddEventHandler("onClientResourceStart",function(resName)
 	end
 
 	if HasModelLoaded(mHash) then
-		SetPlayerModel(PlayerId(),mHash)
-		SetModelAsNoLongerNeeded(mHash)
 		FreezeEntityPosition(PlayerPedId(),false)
 	end
-	
-	refreshCommands()
-	refreshThemes()
 
 	TriggerEvent("spawn:generateJoin")
 	TriggerServerEvent("Queue:playerConnect")
@@ -235,22 +218,23 @@ AddEventHandler("onClientResourceStart",function(resName)
 	ShutdownLoadingScreen()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ONCLIENTRESOURCESTOP
+-----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("onClientResourceStop", function(resName)
-  Citizen.Wait(1)
-
-  refreshCommands()
-  refreshThemes()
+	Citizen.Wait(1)
+	refreshCommands()
+	refreshThemes()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback('loaded', function(data, cb)
-  TriggerServerEvent('chat:init')
-
-  refreshCommands()
-  refreshThemes()
-
-  chatLoaded = true
-
-  cb('ok')
+-- LOADED
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("loaded",function(data,cb)
+	TriggerServerEvent("chat:init")
+	refreshCommands()
+	refreshThemes()
+	chatLoaded = true
+	chatActive = true
+	cb("ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local CHAT_HIDE_STATES = {

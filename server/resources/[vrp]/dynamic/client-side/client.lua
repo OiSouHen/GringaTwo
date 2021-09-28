@@ -65,7 +65,8 @@ RegisterCommand("globalFunctions",function(source,args)
 		if GetEntityHealth(ped) > 101 then
 			menuOpen = true
 
-			exports["dynamic"]:AddButton("Remover","Remover a roupa atual.","player:outfitFunctions","remover","outfit",true)
+			exports["dynamic"]:AddButton("Propriedades","Ativa/Desativa as propriedades no mapa.","homes:togglePropertys","","others",false)
+			exports["dynamic"]:AddButton("Remover","Remover a roupa atual.","player:outfitFunctions","remover","others",true)
 			exports["dynamic"]:AddButton("Desmanche","Listagem dos veículos.","dismantle:invokeDismantle","","others",true)
 			exports["dynamic"]:AddButton("Ferimentos","Verificar ferimentos no corpo.","paramedic:myInjuries","","others",false)
 
@@ -85,9 +86,6 @@ RegisterCommand("globalFunctions",function(source,args)
 				exports["dynamic"]:SubMenu("Veículo","Funções do veículo.","vehicle")
 			end
 
-			exports["dynamic"]:AddButton("Propriedades","Ativa/Desativa as propriedades no mapa.","homes:togglePropertys","","propertys",false)
-			exports["dynamic"]:SubMenu("Roupas","Mudança de roupas rápidas.","outfit")
-			exports["dynamic"]:SubMenu("Propriedades","Todas as funções das propriedades.","propertys")
 			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others")
 		end
 	end

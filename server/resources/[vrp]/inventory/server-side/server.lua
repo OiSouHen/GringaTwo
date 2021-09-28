@@ -1956,7 +1956,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerEvent("blipsystem:serviceExit",nplayer)
 									vRP.removePermission(vRP.getUserSource(nuser_id),"Police")
 									vRP.execute("vRP/upd_group",{ user_id = nuser_id, permiss = "Police", newpermiss = "waitPolice" })
-									TriggerClientEvent("Notify",source,"verde","Comunicações da polícia foram retiradas.",5000)
+									TriggerClientEvent("Notify",source,"amarelo","Comunicações da polícia foram retiradas.",5000)
 								end
 							end
 						end
@@ -1975,6 +1975,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						for k,v in pairs(weaponsList) do
 							if has_value(pistols, k) then
 								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>pistola</b> equipada.",5000)
+								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								return
 							end
 						end
@@ -1983,6 +1984,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						for k,v in pairs(weaponsList) do
 							if has_value(submachine, k) then
 								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>submachine</b> equipada.",5000)
+								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								return
 							end
 						end
@@ -1991,6 +1993,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						for k,v in pairs(weaponsList) do
 							if has_value(shotgun, k) then
 								TriggerClientEvent("Notify",source,"amarelo","Você já possui uma <b>shotgun</b> equipada.",5000)
+								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								return
 							end
 						end
@@ -1999,6 +2002,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						for k,v in pairs(weaponsList) do
 							if has_value(rifles, k) then
 								TriggerClientEvent("Notify",source,"amarelo","Você já possui um <b>rifle</b> equipada.",5000)
+								TriggerClientEvent("inventory:Update",source,"updateMochila")
 								return
 							end
 						end
@@ -2008,6 +2012,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						local weapons = {}
 						weapons[string.gsub(itemName,"wbody|","")] = { ammo = 0 }
 						vRPclient._giveWeapons(source,weapons)
+						TriggerClientEvent("inventory:Update",source,"updateMochila")
                     end
                 end
 
@@ -2054,6 +2059,8 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+			TriggerClientEvent("inventory:Update",source,"updateMochila")
+			
 			if vRPclient.getArmour(source) == 0 then
 				TriggerClientEvent("Notify",source,"vermelho","Você não tem um colete.",5000)
 			elseif vRPclient.getArmour(source) <= 50 and vRPclient.getArmour(source) > 1 then    
@@ -2106,6 +2113,8 @@ RegisterCommand("garmas",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
     if user_id then
         if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+		    TriggerClientEvent("inventory:Update",source,"updateMochila")
+			
             local weapons = vRPclient.replaceWeapons(source)
             for k,v in pairs(weapons) do
                 vRP.giveInventoryItem(user_id,k,1)

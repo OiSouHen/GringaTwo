@@ -9,12 +9,12 @@ RegisterServerEvent('chat:addTemplate')
 RegisterServerEvent('chat:addMessage')
 RegisterServerEvent('chat:addSuggestion')
 RegisterServerEvent('chat:removeSuggestion')
-RegisterServerEvent('_chat:messageEntered')
+RegisterServerEvent("chat:messageEntered")
 RegisterServerEvent('chat:clear')
 RegisterServerEvent('__cfx_internal:commandFallback')
 
 
-AddEventHandler('_chat:messageEntered',function(author,color,message)
+AddEventHandler("chat:messageEntered",function(author,color,message)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
@@ -24,11 +24,11 @@ AddEventHandler('_chat:messageEntered',function(author,color,message)
 	end
 
 	if not WasEventCanceled() then
-		TriggerClientEvent("chatMessage",source,identity.name.." "..identity.name2,{131,174,0},message)
+		TriggerClientEvent("chatMessage",source,identity.name.." "..identity.name2,{245,245,245},message)
 
-		local players = vRPclient.nearestPlayers(source,10)
+		local players = vRPclient.nearestPlayers(source,15)
 		for k,v in pairs(players) do
-			TriggerClientEvent("chatMessage",k,identity.name.." "..identity.name2,{131,174,0},message)
+			TriggerClientEvent("chatMessage",k,identity.name.." "..identity.name2,{245,245,245},message)
 		end
 	end
 end)
