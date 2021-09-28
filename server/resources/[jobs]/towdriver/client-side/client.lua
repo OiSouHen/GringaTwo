@@ -539,7 +539,7 @@ Citizen.CreateThread(function()
 							spawnSelect = parseInt(math.random(#vehModels))
 							spawnCoords = parseInt(math.random(#vehRescue[serviceLocate]))
 
-							TriggerEvent("NotifyPush",{ code = 20, title = "Registro de Veículo", x = vehRescue[serviceLocate][spawnCoords][1], y = vehRescue[serviceLocate][spawnCoords][2], z = vehRescue[serviceLocate][spawnCoords][3], name = "Aguardando reboque.", blipColor = 2 })
+							TriggerEvent("NotifyPush",{ code = 51, title = "Registro de Veículo.", x = vehRescue[serviceLocate][spawnCoords][1], y = vehRescue[serviceLocate][spawnCoords][2], z = vehRescue[serviceLocate][spawnCoords][3], name = "Precisa-se de guincho.", blipColor = 2 })
 						end
 					end
 				end
@@ -621,7 +621,7 @@ Citizen.CreateThread(function()
 
 							TriggerServerEvent("garages:deleteVehicle",vehNet,vehPlate)
 
-							TriggerEvent("NotifyPush",{ code = 20, title = "Registro de Veículo", x = vehRescue[serviceLocate][spawnCoords][1], y = vehRescue[serviceLocate][spawnCoords][2], z = vehRescue[serviceLocate][spawnCoords][3], name = "Aguardando reboque.", blipColor = 2 })
+							TriggerEvent("NotifyPush",{ code = 51, title = "Registro de Veículo.", x = vehRescue[serviceLocate][spawnCoords][1], y = vehRescue[serviceLocate][spawnCoords][2], z = vehRescue[serviceLocate][spawnCoords][3], name = "Precisa-se de guincho.", blipColor = 2 })
 						end
 					end
 				end

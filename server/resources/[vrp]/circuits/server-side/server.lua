@@ -35,7 +35,7 @@ function cRP.checkTicket()
 					local copAmount = vRP.numPermission("Police")
 					for k,v in pairs(copAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 20, title = "Denúncia de Corrida Ilegal", x = x, y = y, z = z, rgba = {41,76,119} })
+							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 94, title = "Corrida ilegal.", x = x, y = y, z = z, rgba = {41,76,119} })
 						end)
 					end
 				end

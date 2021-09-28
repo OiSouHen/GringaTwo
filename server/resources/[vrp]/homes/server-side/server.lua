@@ -1907,7 +1907,7 @@ function cRP.paymentTheft(mobile)
 			local copAmount = vRP.numPermission("Police")
 			for k,v in pairs(copAmount) do
 				async(function()
-					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S"), code = 'QTH', title = "Roubo a Residência", x = x, y = y, z = z, criminal = "Alarme de segurança", rgba = {160,108,15} })
+					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S"), code = "31", title = "Crime em Progresso.", criminal = "Denúncia de Roubo a Residência.", x = x, y = y, z = z, criminal = "Alarme de segurança", rgba = {160,108,15} })
 				end)
 			end
 		end

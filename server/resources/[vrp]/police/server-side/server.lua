@@ -71,7 +71,7 @@ AddEventHandler("police:callPolice",function()
 		else
 			for k,v in pairs(amountCops) do
 				async(function()
-					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Ligação de um orelhão.", x = x, y = y, z = z, rgba = {0,150,90} })
+					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 20, title = "Ligação de um orelhão.", criminal = "Precia-se de um policial ou uma viatura.", x = x, y = y, z = z, rgba = {0,150,90} })
 				end)
 			end
 		end

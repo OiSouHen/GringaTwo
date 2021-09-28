@@ -17,15 +17,6 @@ local policeRadar = false
 local policeFreeze = false
 local policeService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
--- NOTIFYPUSH
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("notifyShooting")
-AddEventHandler("notifyShooting",function(coords)
-	if policeService then
-		TriggerEvent("NotifyPush",{ code = 10, title = "Confronto em andamento", x = coords["x"], y = coords["y"], z = coords["z"], criminal = "Disparos de arma de fogo", blipColor = 6 })
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeSystem",function(data)

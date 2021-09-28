@@ -224,61 +224,6 @@ function cRP.deleteChar()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CALL
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("call",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if not vCLIENT.getHandcuff(source) then
-			local service = vRP.prompt(source,"911: Polícia     |     112: Paramédico     |     443: Mecânico","")
-			if service == "" or (parseInt(service) ~= 911 and parseInt(service) ~= 112 and parseInt(service) ~= 443) then
-				return
-			end
-
-			local description = vRP.prompt(source,"Descrição do ocorrido:","")
-			if description == "" then
-				return
-			end
-
-			local players = {}
-			local answered = false
-			if parseInt(service) == 911 then
-				players = vRP.numPermission("Police")
-			elseif parseInt(service) == 112 then
-				players = vRP.numPermission("Paramedic")
-			elseif parseInt(service) == 443 then
-				players = vRP.numPermission("Mechanic")
-			end
-
-			TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso, aguarde no local.",5000)
-
-			local x,y,z = vRPclient.getPositions(source)
-			local identity = vRP.getUserIdentity(user_id)
-
-			for k,v in pairs(players) do
-				local nuser_id = vRP.getUserId(v)
-				local identitys = vRP.getUserIdentity(nuser_id)
-				if v and v ~= source then
-					async(function()
-						TriggerClientEvent("NotifyPush",v,{ code = 20, title = "Chamado", x = x, y = y, z = z, name = identity.name.." "..identity.name2, phone = identity.phone, rgba = {69,115,41} })
-						local request = vRP.request(v,"Aceitar o chamado de <b>"..identity.name.." "..identity.name2.."</b>?",30)
-						if request then
-							if not answered then
-								answered = true
-								vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
-								TriggerClientEvent("Notify",source,"importante","Chamado atendido por <b>"..identitys.name.." "..identitys.name2.."</b>, aguarde no local.",10000)
-							else
-								TriggerClientEvent("Notify",v,"negado","Chamado já foi atendido por outra pessoa.",5000)
-								vRPclient.playSound(v,"CHECKPOINT_MISSED","HUD_MINI_GAME_SOUNDSET")
-							end
-						end
-					end)
-				end
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- PR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("pr",function(source,args,rawCommand)
@@ -474,7 +419,7 @@ function cRP.shotsFired()
 					local comAmount = vRP.numPermission("Police")
 					for k,v in pairs(comAmount) do
 						async(function()
-							TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 10, title = "Confronto em andamento", x = x, y = y, z = z, rgba = {105,52,136} })
+							TriggerClientEvent("NotifyPush",v,{ code = 10, title = "Confronto em andamento.", x = x, y = y, z = z, criminal = "Disparos de arma de fogo.", blipColor = 6 })
 						end)
 					end
 				end

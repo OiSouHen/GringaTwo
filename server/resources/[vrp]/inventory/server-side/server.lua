@@ -991,7 +991,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										local copAmount = vRP.numPermission("Police")
 										for k,v in pairs(copAmount) do
 											async(function()
-												TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Roubo de Veículo", x = x, y = y, z = z, vehicle = vRP.vehicleName(vehName).." - "..vehPlate, rgba = {15,110,110} })
+												TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Denúncia de Roubo de Veículo.", x = x, y = y, z = z, vehicle = vRP.vehicleName(vehName).." - "..vehPlate, rgba = {15,110,110} })
 											end)
 										end
 									end
@@ -1030,7 +1030,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										local copAmount = vRP.numPermission("Police")
 										for k,v in pairs(copAmount) do
 											async(function()
-												TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Roubo de Veículo", x = x, y = y, z = z, vehicle = vRP.vehicleName(vehName).." - "..vehPlate, rgba = {15,110,110} })
+												TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Denúncia de Roubo de Veículo.", x = x, y = y, z = z, vehicle = vRP.vehicleName(vehName).." - "..vehPlate, rgba = {15,110,110} })
 											end)
 										end
 									end
@@ -1097,7 +1097,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 												local copAmount = vRP.numPermission("Police")
 												for k,v in pairs(copAmount) do
 													async(function()
-														TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 20, title = "Roubo a Caixa Registradora", x = x, y = y, z = z, rgba = {170,80,25} })
+														TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Crime em Progresso.", criminal = "Denúncia de Roubo a Caixa Registradora.", x = x, y = y, z = z, rgba = {170,80,25} })
 													end)
 												end
 											end
@@ -2472,7 +2472,7 @@ function cRP.stealTrunk(entity)
 				local copAmount = vRP.numPermission("Police")
 				for k,v in pairs(copAmount) do
 					async(function()
-						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Roubo a Porta-Malas", x = x, y = y, z = z, rgba = {105,52,136} })
+						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Denúncia de Roubo a Porta-Malas.", x = x, y = y, z = z, rgba = {105,52,136} })
 					end)
 				end
 			else
