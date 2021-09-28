@@ -38,9 +38,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
-
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
@@ -65,6 +64,48 @@ end)
 RegisterNUICallback("bankClose",function(data)
 	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hideMenu" })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BANKCLOSEEVENT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("bankCloseEvent")
+AddEventHandler("bankCloseEvent", function()
+	SetNuiFocus(false,false)
+	SendNUIMessage({ action = "hideMenu" })
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLOCKBUTTONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local blockButtons = false
+function cRP.blockButtons(status)
+	blockButtons = status
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADBUTTONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 300
+		if blockButtons then
+			timeDistance = 4
+			DisableControlAction(1,73,true)
+			DisableControlAction(1,38,true)
+			DisableControlAction(1,75,true)
+			DisableControlAction(1,29,true)
+			DisableControlAction(1,47,true)
+			DisableControlAction(1,105,true)
+			DisableControlAction(1,187,true)
+			DisableControlAction(1,189,true)
+			DisableControlAction(1,190,true)
+			DisableControlAction(1,188,true)
+			DisableControlAction(1,311,true)
+			DisableControlAction(1,245,true)
+			DisableControlAction(1,257,true)
+			DisableControlAction(1,288,true)
+			DisablePlayerFiring(PlayerPedId(),true)
+		end
+		Citizen.Wait(timeDistance)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUESTBANK
@@ -101,7 +142,7 @@ RegisterNUICallback("finesPayment",function(data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REQUESTSALARY
+-- REQUESTMYSALARYS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestMySalarys",function(data,cb)
 	local resultado = vSERVER.requestMySalarys()
@@ -115,7 +156,7 @@ RegisterNUICallback("requestMySalarys",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SALARYPAYMENT
+-- SALARYRECIPE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("salaryRecipe",function(data)
 	if data.id ~= nil then

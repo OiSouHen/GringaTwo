@@ -54,11 +54,11 @@ $(document).ready(function(){
 		}
 	};
 });
-
+/* ----------ACTIONBUTTON---------- */
 $('#actionbutton').click(function(e){
 	$.post("http://bank/bankClose");
 });
-
+/* ----------FORMATARNUMERO---------- */
 const formatarNumero = (n) => {
 	var n = n.toString();
 	var r = '';
@@ -71,7 +71,7 @@ const formatarNumero = (n) => {
 
 	return r.split('').reverse().join('');
 }
-
+/* ----------CARREGARMENU---------- */
 const carregarMenu = (name) => {
 	return new Promise((resolve) => {
 		$("#bank-right").load(name+".html",function(){
@@ -79,13 +79,13 @@ const carregarMenu = (name) => {
 		});
 	});
 }
-
+/* ----------REQUESTBANK---------- */
 const requestBank = () => {
 	$.post("http://bank/requestBank",JSON.stringify({}),function(data){
 		$("#bank-top").html('Bem-vindo Novamente,<br> Seu saldo disponível <white>$' + formatarNumero(data.resultado) +'</white> dólares');
 	});
 }
-
+/* ----------REQUESTFINES---------- */
 const requestFines = () => {
 	$.post("http://bank/requestFines",JSON.stringify({}),(data) => {
 		let i = 0;
@@ -102,7 +102,7 @@ const requestFines = () => {
 		`);
 	});
 }
-
+/* ----------MULTAS---------- */
 $(document).on("click",".multas",debounce(function(){
 	let $el = $('.format.active');
 	$.post("http://bank/finesPayment",JSON.stringify({
@@ -110,7 +110,7 @@ $(document).on("click",".multas",debounce(function(){
 		price: $el.attr('data-price-key')
 	}));
 }));
-
+/* ----------REQUESTINVOICES---------- */
 const requestInvoices = () => {
 	$.post("http://bank/requestInvoices",JSON.stringify({}),(data) => {
 		let i = 0;
@@ -127,7 +127,7 @@ const requestInvoices = () => {
 		`);
 	});
 }
-
+/* ----------FATURAS---------- */
 $(document).on("click",".faturas",debounce(function(){
 	let $el = $('.format.active');
 	$.post("http://bank/invoicesPayment",JSON.stringify({
@@ -136,14 +136,14 @@ $(document).on("click",".faturas",debounce(function(){
 		nuser_id: $el.attr('data-nuser_id-key')
 	}));
 }));
-
+/* ----------FORMAT---------- */
 $(document).on("click",".format",function(){
 	let $el = $(this);
 	let isActive = $el.hasClass('active');
 	$('.format').removeClass('active');
 	if(!isActive) $el.addClass('active');
 });
-
+/* ----------REQUESTMYINVOICES---------- */
 const requestMyInvoices = () => {
 	$.post("http://bank/requestMyInvoices",JSON.stringify({}),(data) => {
 		let i = 0;
@@ -159,8 +159,7 @@ const requestMyInvoices = () => {
 		`);
 	});
 }
-
-
+/* ----------REQUESTMYSALARYS---------- */
 const requestMySalarys = () => {
 	$.post("http://bank/requestMySalarys",JSON.stringify({}),(data) => {
 		let i = 0;
@@ -177,7 +176,7 @@ const requestMySalarys = () => {
 		`);
 	});
 }
-
+/* ----------SALARIO---------- */
 $(document).on("click",".salario",debounce(function(){
 	let $el = $('.format.active');
 	$.post("http://bank/salaryRecipe",JSON.stringify({
@@ -185,30 +184,31 @@ $(document).on("click",".salario",debounce(function(){
 		price: $el.attr('data-price-key')
 	}));
 }));
-
+/* ----------REQUESTINICIO---------- */
 const requestInicio = () => {
 	$('#bank-right').html(`
 		<div class="menu-depositar">
 			<div class="title-sacar"><b>DEPOSITAR</b><br>Faça um depósito rápido na sua conta bancária.</div>
-			<input id="deposito" class="deposito" maxlength="9" spellcheck="false" value="" placeholder="VALOR...">
+			<input id="deposito" class="deposito" maxlength="9" spellcheck="false" value="" placeholder="VALOR..">
 			<div class="depositar">ENVIAR</div>
 		</div>
 		<div class="menu-space">
 		</div>
 		<div class="menu-sacar">
 			<div class="title-sacar"><b>SACAR</b><br>Retire rapidamente sua conta bancária.</div>
-			<input id="saque" class="saque" maxlength="9" spellcheck="false" value="" placeholder="VALOR...">
-			<div class="sacar">ENVIAR</div>
-		</div>`);
+			<input id="saque" class="saque" maxlength="9" spellcheck="false" value="" placeholder="VALOR..">
+			<div class="sacar">SACAR</div>
+		</div>
+	`);
 }
-
+/* ----------DEPOSITAR---------- */
 $(document).on("click",".depositar",debounce(function(){
 	let deposito = parseInt($('#deposito').val());
 	if(deposito > 0){
 		$.post("http://bank/bankDeposit",JSON.stringify({ deposito }));
 	}
 }));
-
+/* ----------SACAR---------- */
 $(document).on("click",".sacar",debounce(function(){
 	let saque = parseInt($('#saque').val());
 	if(saque > 0){
