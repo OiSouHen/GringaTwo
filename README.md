@@ -1,10 +1,12 @@
 # Creative v4 - GG Edition
 
+> about: Pasta com arquivos sobre Setagem de grupos, Regras/Leis padrões, Tencode e Penal da Polícia.
+
 > artifacts: Pasta com os Artefatos do FiveM(build).
 
-> changelogs: Pasta com as Modificações efetuadas na Base.
+> changelogs: Pasta com as changelogs(histórico de modificações) efetuadas na Base.
 
-> database: Pasta com o banco de dados da Base.
+> database: Pasta com o banco de Dados(db/sql) da Base.
 
 > server: Pasta com todos os arquivos da Base.
 
