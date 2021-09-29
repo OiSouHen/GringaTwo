@@ -203,7 +203,7 @@ const requestShop = () => {
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
-		for (let x=1; x <= mySlots; x++) {
+		for (let x = 1; x <= data["maxweight"]; x++){
 			const slot = x.toString();
 
 			if (data.inventoryUser[slot] !== undefined){
@@ -240,7 +240,7 @@ const requestShop = () => {
 
 		const nameList2 = data.inventoryShop.sort((a,b) => (a.name > b.name) ? 1: -1);
 
-		for (let x=1; x <= mySlots; x++) {
+		for (let x = 1; x <= 100; x++){
 			const slot = x.toString();
 
 			if (nameList2[x-1] !== undefined){
@@ -254,7 +254,7 @@ const requestShop = () => {
 					actualPercent = v["durability"] * 100;
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-price="${v["price"]}" data-peso="${v["weight"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-price="${v["price"]}" data-peso="${v["weight"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">
 						<div class="itemWeight">${(v["weight"]).toFixed(2)}</div>
 						<div class="itemPrice">$${formatarNumero(v["price"])}</div>

@@ -306,7 +306,7 @@ const updateChest = () => {
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= data["maxpeso"]; x++){
 			const slot = x.toString();
 
 			if (data.inventario[slot] !== undefined){
@@ -328,7 +328,7 @@ const updateChest = () => {
 			}
 		}
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= data["maxpeso2"]; x++){
 			const slot = x.toString();
 
 			if (data.inventario2[slot] !== undefined) {

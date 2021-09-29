@@ -292,7 +292,7 @@ const updateChest = () => {
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= data["maxpeso"]; x++){
 			const slot = x.toString();
 
 			if (data.inventario[slot] !== undefined) {
@@ -309,7 +309,7 @@ const updateChest = () => {
 					}
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}"  data-economy="${v["economy"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}"  data-economy="${v["economy"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -327,7 +327,7 @@ const updateChest = () => {
 			}
 		}
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= data["maxpeso2"]; x++){
 			const slot = x.toString();
 
 			if (nameList2[x-1] !== undefined) {
@@ -341,7 +341,7 @@ const updateChest = () => {
 					actualPercent = v["durability"] * 100;
 				}
 				
-				const item = `<div class="item populated" title="" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}" data-economy="${v["economy"]}" data-unity="${v["unity"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
+				const item = `<div class="item populated" title="" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}" data-economy="${v["economy"]}" data-unity="${v["unity"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>

@@ -272,7 +272,7 @@ const commandsPage = () => {
 		</div>
 		<div id="pageDiv">
 			<b>/e abdominal</b> - Performar abdominais<br>
-			<b>/e bixa</b> - Posar como uma striper<br>
+			<b>/e pensativo</b> - Posar como uma striper<br>
 			<b>/e britadeira</b> - Usar um britadeira<br>
 			<b>/e cerveja</b> - Beber cerveja<br>
 			<b>/e churrasco</b> - Usar uma churrasqueira<br>

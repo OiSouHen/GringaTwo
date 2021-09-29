@@ -507,7 +507,6 @@ end)
 -- TRUNKABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local inTrunk = false
-local trunkPlate = ""
 local playerInvisible = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYER:PLAYERINVISIBLE
@@ -533,7 +532,6 @@ AddEventHandler("player:enterTrunk",function(entity)
 					local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
 					local distance = #(coords - coordsEnt)
 					if distance <= 2.0 then
-						trunkPlate = vehPlate
 						playerInvisible = true
 						SetCarBootOpen(vehicle)
 						TriggerEvent("hud:toggleHood")

@@ -92,6 +92,7 @@ function cRP.Mochila()
 
 						v.durability = advDecode[v.item]
 					end
+					
 					if v.item and v.timestamp then
 						local actualTime = os.time()
 						local finalTime = v.timestamp
@@ -106,6 +107,7 @@ function cRP.Mochila()
 						elseif porcentage >= 100.0 then
 							porcentage = 100.0
 						end
+						
 						if porcentage then
 							v.durability = porcentage
 						end
@@ -2233,7 +2235,7 @@ RegisterServerEvent("itemdrop:Create")
 AddEventHandler("itemdrop:Create",function(item,count,source,durability)
     local id = idgens:gen()
     local x,y,z = vRPclient.getPositions(source)
-	droplist[id] = { item = item, count = count, x = x, y = y, z = z, economy = vRP.itemEconomyList(item),tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability,  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
+	droplist[id] = { item = item, count = count, x = x, y = y, z = z, economy = vRP.itemEconomyList(item),tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability,  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
 	TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	TriggerClientEvent("inventory:Update",source,"updateMochila")
 
@@ -2248,7 +2250,7 @@ end)
 RegisterServerEvent("vrp_itemdrop:Create")
 AddEventHandler("vrp_itemdrop:Create",function(item,count,x,y,z,source)
     local id = idgens:gen()
-    droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
+    droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	TriggerClientEvent("inventory:Update",source,"updateMochila")
 	
