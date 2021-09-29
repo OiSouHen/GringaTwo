@@ -77,7 +77,7 @@ AddEventHandler("lscustoms:callMechanic",function()
 		else
 			for k,v in pairs(amountMecs) do
 				async(function()
-					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Ligação de um orelhão.", x = x, y = y, z = z, rgba = {0,150,90} })
+					TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 51, title = "Ligação de um orelhão.", criminal = "Precisa-se de guincho ou mecânico.", x = x, y = y, z = z, rgba = {0,150,90} })
 				end)
 			end
 		end
