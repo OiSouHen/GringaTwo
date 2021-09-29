@@ -1178,11 +1178,13 @@ function cRP.checkPermissions(homeName)
 							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
 						end
 					end
+					
 					return false
 				end
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1191,7 +1193,6 @@ end
 function cRP.tryUnlock(homeName)
 	local source = source
 	local user_id = vRP.getUserId(source)
-
 	if user_id then
 		if not vRP.wantedReturn(user_id) then
 			local homeResult = vRP.query("vRP/get_homepermissions",{ home = tostring(homeName) })

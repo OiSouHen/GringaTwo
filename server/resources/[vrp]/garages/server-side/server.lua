@@ -718,10 +718,10 @@ function cRP.vehicleLock()
 
 				if vehLock == 1 then
 					TriggerClientEvent("Notify",source,"unlocked","Veículo destrancado.",3000)
-					TriggerClientEvent("sounds:source",source,"unlock",0.5)
+					TriggerClientEvent("sounds:source",source,"unlocked",0.5)
 				else
 					TriggerClientEvent("Notify",source,"locked","Veículo trancado.",3000)
-					TriggerClientEvent("sounds:source",source,"lock",0.5)
+					TriggerClientEvent("sounds:source",source,"locked",0.5)
 				end
 
 				if not vRPclient.inVehicle(source) then
@@ -805,13 +805,14 @@ function cRP.returnHouses(nome,garage)
 			else
 				local getFines = vRP.getFines(user_id)
 				if getFines[1] then
-					TriggerClientEvent("Notify",source,"amarelo","Você tem multas pendentes.",3000)
+					TriggerClientEvent("Notify",source,"amarelo","Encontramos multas pendentes.",3000)
 					return false
 				end
 
 				return vCLIENT.openGarage(source,nome,garage)
 			end
 		end
+		
 		return false
 	end
 end

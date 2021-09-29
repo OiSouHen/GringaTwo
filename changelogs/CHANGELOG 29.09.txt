@@ -1,0 +1,6 @@
+**CHANGELOG 29.09:**
+
+1: Modificado o sistema de **Entrar**, **Comprar**, e **Trancar** propriedades.
+2: Ajustado as **marcações** de propriedades no **GPS**.
+3: Modificado **valor** e **baú** das propriedades.
+4: Ajustado alguns **sons** do jogo.

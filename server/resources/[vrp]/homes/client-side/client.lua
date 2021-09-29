@@ -22,27 +22,12 @@ local internHouses = {}
 local theftOpen = false
 local theftLocker = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-    while true do
-        local timeDistance = 999
-        local innerTable = {}
-        for k,v in pairs(homesList) do
-            table.insert(innerTable,{ v[5],v[6],v[7],1.25,"!","Informação de Acesso","/entrar ou /porta" })
-        end
-		
-		Citizen.Wait(timeDistance)
-        TriggerEvent("hoverfy:insertTable",innerTable)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("chestClose",function(data)
 	vSERVER.chestClose()
-	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hideMenu" })
+	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM
@@ -91,67 +76,91 @@ RegisterNUICallback("requestVault",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PORTA
+-- PORTACOMMAND
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("porta",function(source,args)
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(homesList) do
 		local distance = #(coords - vector3(v[5],v[6],v[7]))
-		if distance <= 1.5 then
+		if distance <= 1.25 then
 			vSERVER.tryUnlock(k)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ENTRAR
+-- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("entrar",function(source,args)
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(homesList) do
-		local distance = #(coords - vector3(v[5],v[6],v[7]))
-		if distance <= 1.5 and vSERVER.checkPermissions(k) then
-			removeObjectHomes()
-			DoScreenFadeOut(1000)
-			houseOpen = tostring(k)
-			vSERVER.setNetwork(tostring(k))
-			vSERVER.applyHouseOpen(tostring(k))
-			TriggerEvent("sounds:source","enterhouse",0.7)
-			Citizen.Wait(1000)
-
-			if v[1] == "Hotel" then
-				createHotel(ped,v[5],v[6],1500.0)
+Citizen.CreateThread(function()
+    while true do
+        local timeDistance = 999
+        local innerTable = {}
+        for k,v in pairs(homesList) do
+			table.insert(innerTable,{ v[5],v[6],v[7],1.25,"E","Porta de Acesso","Pressione para entrar" })
+        end
+		
+		Citizen.Wait(timeDistance)
+        TriggerEvent("hoverfy:insertTable",innerTable)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADENTER
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		local ped = PlayerPedId()
+		local coords = GetEntityCoords(ped)
+		for k,v in pairs(homesList) do
+			local distance = #(coords - vector3(v[5],v[6],v[7]))
+			
+			if distance <= 1.25 then
+				timeDistance = 1
+				
+				if IsControlJustPressed(1,38) and vSERVER.checkPermissions(k) then
+					removeObjectHomes()
+					DoScreenFadeOut(1000)
+					houseOpen = tostring(k)
+					vSERVER.setNetwork(tostring(k))
+					vSERVER.applyHouseOpen(tostring(k))
+					TriggerEvent("sounds:source","enterhouse",0.7)
+					Citizen.Wait(1000)
+					
+					if v[1] == "Hotel" then
+						createHotel(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Middle" then
+						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					SetTimecycleModifier("AmbientPUSH")
+					Citizen.Wait(1000)
+					
+					if v[1] == "Hotel" then
+						SetEntityCoords(ped,v[5]-1.65,v[6]-4.02,1501.0)
+						table.insert(internHouses,{ v[5]-1.65,v[6]-4.02,1501.0,"exit","SAIR" })
+						table.insert(internHouses,{ v[5]-1.73,v[6]+0.96,1500.7,"vault","ABRIR" })
+					end
+					
+					if v[1] == "Middle" then
+						SetEntityCoords(ped,v[5]+3.63,v[6]-15.43,1502.0)
+						table.insert(internHouses,{ v[5]+3.63,v[6]-15.43,1502.3,"exit","SAIR" })
+						table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
+					end
+					
+					TriggerEvent("homes:Hours",true)
+					FreezeEntityPosition(ped,true)
+					SetEntityInvincible(ped,true)
+					Citizen.Wait(3000)
+					FreezeEntityPosition(ped,false)
+					SetEntityInvincible(ped,false)
+					DoScreenFadeIn(1000)
+				end
 			end
-
-			if v[1] == "Middle" then
-				createMiddle(ped,v[5],v[6],1500.0)
-			end
-
-			SetTimecycleModifier("AmbientPUSH")
-
-			Citizen.Wait(1000)
-
-			if v[1] == "Hotel" then
-				SetEntityCoords(ped,v[5]-1.65,v[6]-4.02,1501.0)
-				table.insert(internHouses,{ v[5]-1.65,v[6]-4.02,1501.0,"exit","SAIR" })
-				table.insert(internHouses,{ v[5]-1.73,v[6]+0.96,1500.7,"vault","ABRIR" })
-			end
-
-			if v[1] == "Middle" then
-				SetEntityCoords(ped,v[5]+3.63,v[6]-15.43,1502.0)
-				table.insert(internHouses,{ v[5]+3.63,v[6]-15.43,1502.3,"exit","SAIR" })
-				table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
-			end
-
-			TriggerEvent("homes:Hours",true)
-			FreezeEntityPosition(ped,true)
-			SetEntityInvincible(ped,true)
-			Citizen.Wait(3000)
-			FreezeEntityPosition(ped,false)
-			SetEntityInvincible(ped,false)
-			DoScreenFadeIn(1000)
 		end
+	
+		Citizen.Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -166,6 +175,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(1000)
 	end
 end)
@@ -177,6 +187,7 @@ Citizen.CreateThread(function()
 		if houseOpen ~= "" then
 			houseNetwork = vSERVER.getNetwork(tostring(houseOpen))
 		end
+		
 		Citizen.Wait(1000)
 	end
 end)
@@ -200,6 +211,7 @@ function cRP.getHomesRejoin()
 		vSERVER.removeNetwork(tostring(houseOpen))
 		return true
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -212,21 +224,25 @@ end
 -- HOMES:TOGGLEPROPERTYS:LOCAL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local blips = {}
-local casas = false
+local housesmarker = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HOMES:TOGGLEPROPERTYS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("homes:togglePropertys")
 AddEventHandler("homes:togglePropertys",function()
-	casas = not casas
+	housesmarker = not housesmarker
 
-	if casas then
+	if housesmarker then
 		TriggerEvent("Notify","amarelo","Marcações ativadas.",3000)
 		
 		for k,v in pairs(homesList) do
-			blips[k] = AddBlipForRadius(v[5],v[6],v[7],5.0)
-			SetBlipAlpha(blips[k],255)
-			SetBlipColour(blips[k],82)
+			blips[k] = AddBlipForCoord(v[5],v[6],v[7])
+			SetBlipSprite(blips[k],40)
+			SetBlipColour(blips[k],37)
+			SetBlipScale(blips[k],0.4)
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString("Propriedade")
+			EndTextCommandSetBlipName(blips[k])
 		end
 	else
 		TriggerEvent("Notify","amarelo","Marcações desativadas.",3000)
@@ -277,6 +293,7 @@ function createHotel(ped,x,y,z)
 	FreezeEntityPosition(homeObjects[11],true)
 	FreezeEntityPosition(homeObjects[13],true)
 	FreezeEntityPosition(homeObjects[14],true)
+	
 	SetEntityHeading(homeObjects[10],GetEntityHeading(homeObjects[10])+270)
 	SetEntityHeading(homeObjects[11],GetEntityHeading(homeObjects[11])+180)
 	SetEntityHeading(homeObjects[12],GetEntityHeading(homeObjects[12])+90)
@@ -517,6 +534,7 @@ function cRP.checkHomesTheft()
 			return true,tostring(k)
 		end
 	end
+	
 	return false,nil
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -596,10 +614,11 @@ Citizen.CreateThread(function()
 								TriggerEvent("cancelando",true)
 								
 								if k == "LOCKER" then
-										local safeCracking = exports["safecrack"]:safeCraking(3)
-										if safeCracking then
+									local safeCracking = exports["safecrack"]:safeCraking(3)
+									if safeCracking then
 										vSERVER.paymentTheft(k)
 									end
+									
 									theftPlayers[k] = true
 								else
 									TriggerEvent("cancelando",true)
@@ -618,6 +637,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -672,6 +692,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
