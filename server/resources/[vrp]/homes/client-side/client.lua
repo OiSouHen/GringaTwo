@@ -126,20 +126,44 @@ Citizen.CreateThread(function()
 					TriggerEvent("sounds:source","enterhouse",0.7)
 					Citizen.Wait(1000)
 					
-					if v[1] == "Mansion" then
-						createMansion(ped,v[5],v[6],1499.0)
+					if v[1] == "Middle" then
+						createMiddle(ped,v[5],v[6],1500.0)
 					end
 					
-					if v[1] == "Container" then
-						createContainer(ped,v[5],v[6],1500.0)
+					if v[1] == "Mansion" then
+						createMiddle(ped,v[5],v[6],1499.0)
+					end
+					
+					if v[1] == "Trailer" then
+						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Beach" then
+						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Simple" then
+						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Motel" then
+						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Modern" then
+						createMiddle(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Hotel" then
-						createHotel(ped,v[5],v[6],1500.0)
+						createMiddle(ped,v[5],v[6],1500.0)
 					end
 					
-					if v[1] == "Middle" then
+					if v[1] == "Franklin" then
 						createMiddle(ped,v[5],v[6],1500.0)
+					end
+					
+					if v[1] == "Container" then
+						createMiddle(ped,v[5],v[6],1499.0)
 					end
 					
 					SetTimecycleModifier("AmbientPUSH")
@@ -147,62 +171,62 @@ Citizen.CreateThread(function()
 					
 					if v[1] == "Middle" then
 						SetEntityCoords(ped,v[5] + 1.36,v[6] - 14.23,1500.0 - 1,1,0,0,0)
-						table.insert(internHouses,{ v[5]+3.63,v[6]-15.43,1502.3,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+9,v[6]-1.41,1502.0,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] + 1.36,v[6] - 14.23,1499.5,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] + 7.15,v[6] - 1.00,1499.0,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Mansion" then
 						SetEntityCoords(ped,v[5] - 8.68,v[6] - 3.43,1501.0 - 0.5,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 8.68,v[6] - 3.43,1501.0,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] - 3.97,v[6] - 13.58,1500.5,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Trailer" then
 						SetEntityCoords(ped,v[5] - 1.44,v[6] - 2.02,1500.0 - 1,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 1.44,v[6] - 2.02,1499.5,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] - 4.36,v[6] - 1.97,1499.2,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Beach" then
 						SetEntityCoords(ped,v[5] + 0.11,v[6] - 3.68,1500.0 - 1,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] + 0.11,v[6] - 3.68,1499.5,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] + 8.36,v[6] - 3.60,1499.8,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Simple" then
 						SetEntityCoords(ped,v[5] - 4.89,v[6] - 4.15,1501.0 - 0.5,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 4.89,v[6] - 4.15,1501.0,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] + 1.43,v[6] - 2.11,1501.2,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Motel" then
 						SetEntityCoords(ped,v[5] + 4.6,v[6] - 6.36,1498.5 - 0.5,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] + 4.6,v[6] - 6.36,1498.5,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] + 5.08,v[6] + 2.05,1500.3,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Modern" then
 						SetEntityCoords(ped,v[5] - 1.63,v[6] - 5.94,1500.0 - 0.75,1,0,0,0)
-						table.insert(internHouses,{ v[5]-8.68,v[6]-3.43,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+5.81,v[6]-11.88,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 1.63,v[6] - 5.94,1499.7,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] - 0.59,v[6] + 2.95,1499.8,"vault","ABRIR" })
 					end
 
 					if v[1] == "Hotel" then
 						SetEntityCoords(ped,v[5] - 1.69,v[6] - 3.91,1500.0 - 0.5,1,0,0,0)
-						table.insert(internHouses,{ v[5]-1.65,v[6]-4.02,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]-1.73,v[6]+0.96,1500.7,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 1.69,v[6] - 3.91,1499.8,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] - 2.25,v[6] + 0.95,1499.4,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Franklin" then
 						SetEntityCoords(ped,v[5] - 0.47,v[6] - 5.91,1500.0 - 1,1,0,0,0)
-						table.insert(internHouses,{ v[5]-1.65,v[6]-4.02,1501.0,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]-1.73,v[6]+0.96,1500.7,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 0.47,v[6] - 5.91,1499.6,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] - 2.60,v[6] - 5.59,1499.3,"vault","ABRIR" })
 					end
 					
 					if v[1] == "Container" then
 						SetEntityCoords(ped,v[5] - 1.14,v[6] - 1.38,1500.0,1,0,0,0)
-						table.insert(internHouses,{ v[5]-1.14,v[6]-1.38,1500.5,"exit","SAIR" })
-						table.insert(internHouses,{ v[5]+4.47,v[6]-1.32,1500.5,"vault","ABRIR" })
+						table.insert(internHouses,{ v[5] - 1.14,v[6] - 1.38,1500.5,"exit","SAIR" })
+						table.insert(internHouses,{ v[5] + 4.47,v[6] - 1.32,1500.5,"vault","ABRIR" })
 					end
 					
 					TriggerEvent("homes:Hours",true)
@@ -311,6 +335,14 @@ AddEventHandler("homes:togglePropertys",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATEMIDDLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createMiddle(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_middle"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATEMANSION
 -----------------------------------------------------------------------------------------------------------------------------------------
 function createMansion(ped,x,y,z)
@@ -319,10 +351,42 @@ function createMansion(ped,x,y,z)
 	FreezeEntityPosition(homeObjects[1],true)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CREATECONTAINER
+-- CREATETRAILER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function createContainer(ped,x,y,z)
-	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_container"),x,y,z,false,false,false)
+function createTrailer(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_trailer"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATEBEACH
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createBeach(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_beach"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATESIMPLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createSimple(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_simple"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATEMOTEL
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createMotel(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_motel"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATEMODERN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createModern(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_modern"),x,y,z,false,false,false)
 
 	FreezeEntityPosition(homeObjects[1],true)
 end
@@ -330,15 +394,23 @@ end
 -- CREATEHOTEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 function createHotel(ped,x,y,z)
-	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_hotel"),x-0.7,y-0.4,z-1.42,false,false,false)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_hotel"),x,y,z,false,false,false)
 
 	FreezeEntityPosition(homeObjects[1],true)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CREATEMIDDLE
+-- CREATEFRANKLIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function createMiddle(ped,x,y,z)
-	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_middle"),x,y,z,false,false,false)
+function createFranklin(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_franklin"),x,y,z,false,false,false)
+
+	FreezeEntityPosition(homeObjects[1],true)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATECONTAINER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function createContainer(ped,x,y,z)
+	homeObjects[1] = CreateObjectNoOffset(GetHashKey("creative_container"),x,y,z,false,false,false)
 
 	FreezeEntityPosition(homeObjects[1],true)
 end
