@@ -83,7 +83,7 @@ RegisterCommand("porta",function(source,args)
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(homesList) do
 		local distance = #(coords - vector3(v[5],v[6],v[7]))
-		if distance <= 1.25 then
+		if distance <= 1.5 then
 			vSERVER.tryUnlock(k)
 		end
 	end
@@ -93,10 +93,10 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-        local timeDistance = 999
+        local timeDistance = 500
         local innerTable = {}
         for k,v in pairs(homesList) do
-			table.insert(innerTable,{ v[5],v[6],v[7],1.25,"E","Porta de Acesso","Pressione para entrar" })
+			table.insert(innerTable,{ v[5],v[6],v[7],1.5,"E","Porta de Acesso","Pressione para entrar" })
         end
 		
 		Citizen.Wait(timeDistance)
@@ -114,7 +114,7 @@ Citizen.CreateThread(function()
 		for k,v in pairs(homesList) do
 			local distance = #(coords - vector3(v[5],v[6],v[7]))
 			
-			if distance <= 1.25 then
+			if distance <= 1.5 then
 				timeDistance = 1
 				
 				if IsControlJustPressed(1,38) and vSERVER.checkPermissions(k) then
@@ -131,39 +131,39 @@ Citizen.CreateThread(function()
 					end
 					
 					if v[1] == "Mansion" then
-						createMiddle(ped,v[5],v[6],1499.0)
+						createMansion(ped,v[5],v[6],1499.0)
 					end
 					
 					if v[1] == "Trailer" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createTrailer(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Beach" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createBeach(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Simple" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createSimple(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Motel" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createMotel(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Modern" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createModern(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Hotel" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createHotel(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Franklin" then
-						createMiddle(ped,v[5],v[6],1500.0)
+						createFranklin(ped,v[5],v[6],1500.0)
 					end
 					
 					if v[1] == "Container" then
-						createMiddle(ped,v[5],v[6],1499.0)
+						createContainer(ped,v[5],v[6],1499.0)
 					end
 					
 					SetTimecycleModifier("AmbientPUSH")
@@ -317,9 +317,9 @@ AddEventHandler("homes:togglePropertys",function()
 		
 		for k,v in pairs(homesList) do
 			blips[k] = AddBlipForCoord(v[5],v[6],v[7])
-			SetBlipSprite(blips[k],414)
-			SetBlipColour(blips[k],2)
-			SetBlipScale(blips[k],0.3)
+			SetBlipSprite(blips[k],v[8])
+			SetBlipColour(blips[k],v[9])
+			SetBlipScale(blips[k],v[10])
 			SetBlipAsShortRange(blips[k],true)
 		end
 	else
