@@ -22,22 +22,19 @@ local internHouses = {}
 local theftOpen = false
 local theftLocker = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADENTER
+-- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
-        local timeDistance = 500
-        local ped = PlayerPedId()
-        local coords = GetEntityCoords(ped)
+        local timeDistance = 999
+        local innerTable = {}
         for k,v in pairs(homesList) do
-            local distance = #(coords - vector3(v[5],v[6],v[7]))
-            if distance <= 1.5 then
-                timeDistance = 5
-                DrawText3D(v[5],v[6],v[7],"~w~/ENTRAR    |    /PORTA")
-            end
+            table.insert(innerTable,{ v[5],v[6],v[7],1.25,"!","Informação de Acesso","/entrar ou /porta" })
         end
-        Citizen.Wait(timeDistance)
-    end
+		
+		Citizen.Wait(timeDistance)
+        TriggerEvent("hoverfy:insertTable",innerTable)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
@@ -590,28 +587,31 @@ Citizen.CreateThread(function()
 				for k,v in pairs(theftLocal) do
 					if not theftPlayers[k] then
 						local distance = #(coords - vector3(theftHomesX+v[1],theftHomesY+v[2],1502.0))
-						if distance <= 1.5 then
+						
+						if distance <= 1.25 then
 							timeDistance = 1
-							DrawText3D(theftHomesX+v[1],theftHomesY+v[2],1502.0+v[3],"~g~E~w~  VASCULHAR")
-							if distance <= 0.8 and IsControlJustPressed(1,38) then
+							DrawText3D(theftHomesX+v[1],theftHomesY+v[2],1500.0+v[3],"~g~E~w~   VASCULHAR")
+							
+							if IsControlJustPressed(1,38) then
 								TriggerEvent("cancelando",true)
-
+								
 								if k == "LOCKER" then
---									local homeLocker = exports["safelocker"]:createSafe({ math.random(0,99),math.random(0,99) })
-									local safeCracking = exports["safecrack"]:safeCraking(1)
-									if safeCracking then
+										local safeCracking = exports["safecrack"]:safeCraking(3)
+										if safeCracking then
 										vSERVER.paymentTheft(k)
 									end
 									theftPlayers[k] = true
 								else
-									local taskBar = exports["taskbar"]:taskThree()
+									TriggerEvent("cancelando",true)
+								
+									local taskBar = exports["taskbar"]:taskHomes()
 									if taskBar then
 										vSERVER.paymentTheft(k)
 										theftPlayers[k] = true
 									end
+									
+									TriggerEvent("cancelando",false)
 								end
-
-								TriggerEvent("cancelando",false)
 							end
 						end
 					end
