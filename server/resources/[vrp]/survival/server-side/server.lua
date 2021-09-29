@@ -24,7 +24,7 @@ RegisterCommand("god",function(source,args,rawCommand)
 					vCLIENT._revivePlayer(nplayer,200)
 					vRP.upgradeThirst(parseInt(args[1]),100)
 					vRP.upgradeHunger(parseInt(args[1]),100)
-					vRP.downgradeStress(parseInt(args[1]),100)
+					vRP.downgradeStress(parseInt(args[1]),-100)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
 				end
@@ -32,7 +32,7 @@ RegisterCommand("god",function(source,args,rawCommand)
 				vRP.upgradeThirst(user_id,100)
 				vRP.upgradeHunger(user_id,100)
 				vRPclient.setArmour(source,100)
-				vRP.downgradeStress(user_id,100)
+				vRP.downgradeStress(user_id,-100)
 				vCLIENT._revivePlayer(source,200)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
@@ -52,14 +52,14 @@ RegisterCommand("good",function(source,args,rawCommand)
 				if nplayer then
 					vRP.upgradeThirst(parseInt(args[1]),100)
 					vRP.upgradeHunger(parseInt(args[1]),100)
-					vRP.downgradeStress(parseInt(args[1]),100)
+					vRP.downgradeStress(parseInt(args[1]),-100)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
 				end
 			else
 				vRP.upgradeThirst(user_id,100)
 				vRP.upgradeHunger(user_id,100)
-				vRP.downgradeStress(user_id,100)
+				vRP.downgradeStress(user_id,-100)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
 			end
@@ -122,19 +122,19 @@ AddEventHandler("upgradeStress",function(number)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RE
+-- REVIVERCOMMAND
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("re",function(source,args,rawCommand)
+RegisterCommand("reviver",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") then
+		if vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") then
 			local nplayer = vRPclient.nearestPlayer(source,2)
 			if nplayer then
 				if vCLIENT.deadPlayer(nplayer) then
-					TriggerClientEvent("Progress",source,10000,"Revivendo...")
+					TriggerClientEvent("Progress",source,60000,"Revivendo...")
 					TriggerClientEvent("cancelando",source,true)
 					vRPclient._playAnim(source,false,{"mini@cpr@char_a@cpr_str","cpr_pumpchest"},true)
-					SetTimeout(10000,function()
+					SetTimeout(60000,function()
 						vRPclient._removeObjects(source)
 						vCLIENT._revivePlayer(nplayer,110)
 						TriggerClientEvent("resetBleeding",nplayer)
