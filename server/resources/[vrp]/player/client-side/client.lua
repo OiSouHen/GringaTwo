@@ -1012,41 +1012,41 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.removeVehicle()
 	local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped) then
-		if iCarry then
-			iCarry = false
-			DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
-		end
-
+	if IsPedSittingInAnyVehicle(ped) then
+		iCarry = false
+		DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
 		TaskLeaveVehicle(ped,GetVehiclePedIsUsing(ped),4160)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.putVehicle(vehIndex)
-	if NetworkDoesNetworkIdExist(vehIndex) then
-		local v = NetToEnt(vehIndex)
-		if DoesEntityExist(v) then
-			local vehSeats = 5
-			local ped = PlayerPedId()
+function cRP.putVehicle(seat)
+	local veh = vRP.getNearVehicle(11)
+	if IsEntityAVehicle(veh) then
+		if parseInt(seat) <= 1 or seat == nil then
+			seat = -1
+		elseif parseInt(seat) == 2 then
+			seat = 0
+		elseif parseInt(seat) == 3 then
+			seat = 1
+		elseif parseInt(seat) == 4 then
+			seat = 2
+		elseif parseInt(seat) == 5 then
+			seat = 3
+		elseif parseInt(seat) == 6 then
+			seat = 4
+		elseif parseInt(seat) == 7 then
+			seat = 5
+		elseif parseInt(seat) >= 8 then
+			seat = 6
+		end
 
-			repeat
-				vehSeats = vehSeats - 1
-
-				if IsVehicleSeatFree(v,vehSeats) then
-					ClearPedTasks(ped)
-					ClearPedSecondaryTask(ped)
-					SetPedIntoVehicle(ped,v,vehSeats)
-
-					if iCarry then
-						iCarry = false
-						DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
-					end
-
-					vehSeats = true
-				end
-			until vehSeats == true or vehSeats == 0
+		local ped = PlayerPedId()
+		if IsVehicleSeatFree(veh,seat) then
+			ClearPedTasks(ped)
+			ClearPedSecondaryTask(ped)
+			SetPedIntoVehicle(ped,veh,seat)
 		end
 	end
 end

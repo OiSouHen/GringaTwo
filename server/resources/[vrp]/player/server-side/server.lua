@@ -399,6 +399,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(10000)
 	end
 end)
@@ -466,7 +467,7 @@ end)
 RegisterCommand("rv",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
+		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") and vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
 			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) and not vRPclient.inVehicle(source) then
 				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
 				if vehicle then

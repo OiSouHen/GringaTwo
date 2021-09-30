@@ -24,16 +24,16 @@ RegisterCommand("god",function(source,args,rawCommand)
 					vCLIENT._revivePlayer(nplayer,200)
 					vRP.upgradeThirst(parseInt(args[1]),100)
 					vRP.upgradeHunger(parseInt(args[1]),100)
-					vRP.downgradeStress(parseInt(args[1]),-100)
+					vRP.downgradeStress(parseInt(args[1]),100)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
 				end
 			else
 				vRP.upgradeThirst(user_id,100)
 				vRP.upgradeHunger(user_id,100)
-				vRPclient.setArmour(source,100)
-				vRP.downgradeStress(user_id,-100)
-				vCLIENT._revivePlayer(source,200)
+				vRPclient.setArmour(user_id,100)
+				vRP.downgradeStress(user_id,100)
+				vCLIENT._revivePlayer(user_id,200)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
 			end
@@ -52,14 +52,14 @@ RegisterCommand("good",function(source,args,rawCommand)
 				if nplayer then
 					vRP.upgradeThirst(parseInt(args[1]),100)
 					vRP.upgradeHunger(parseInt(args[1]),100)
-					vRP.downgradeStress(parseInt(args[1]),-100)
+					vRP.downgradeStress(parseInt(args[1]),100)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
 				end
 			else
 				vRP.upgradeThirst(user_id,100)
 				vRP.upgradeHunger(user_id,100)
-				vRP.downgradeStress(user_id,-100)
+				vRP.downgradeStress(user_id,100)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
 			end
