@@ -336,6 +336,7 @@ const UpdateLista = (mode) => {
 				<left>
 					<i>${item["name"]}</i>
 					<b>Valor:</b> ${mode == "Aluguel" ? format(item["price"])+" Gemas":"$"+format(item["price"])}<br>
+					<b>Taxa:</b> ${item["tax"]}<br>
 					<b>Porta-Malas:</b> ${format(item["chest"])}Kg
 				</left>
 				<right>

@@ -26,7 +26,13 @@ local collectItens = {
 	[5] = "amethyst",
 	[6] = "amber",
 	[7] = "ruby",
-	[8] = "sulfur"
+	[8] = "sulfur",
+	[9] = "coal",
+	[10] = "metalfragments",
+	[11] = "gunpowder",
+	[12] = "aluminum",
+	[13] = "copper",
+	[14] = "titanium"
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COLLECTMETHOD

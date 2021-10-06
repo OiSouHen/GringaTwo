@@ -604,7 +604,7 @@ function cRP.spawnVehicles(name,use)
 			end
 
 			if parseInt(os.time()) <= parseInt(vehicle[1].time+24*60*60) then
-				local status = vRP.request(source,"Veículo detido, deseja acionar o seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.5)).."</b> dólares?",60)
+				local status = vRP.request(source,"Acionar seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.5)).." dólares</b>?",60)
 				if status then
 					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(name)*0.5)) then
 						vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = name, arrest = 0, time = 0 })
@@ -613,21 +613,21 @@ function cRP.spawnVehicles(name,use)
 					end
 				end
 			elseif parseInt(vehicle[1].arrest) >= 1 then
-				local status = vRP.request(source,"Veículo detido, deseja acionar o seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.1)).."</b> dólares?",60)
+				local status = vRP.request(source,"Acionar seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.1)).." dólares</b>?",60)
 				if status then
 					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(name)*0.1)) then
 						vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = name, arrest = 0, time = 0 })
 					else
-						TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
+						TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
 					end
 				end
-			elseif vRP.vehicleType(tostring(name)) == "donate" and vRP.getCarPremium(name,user_id)then
-				local status = vRP.request(source,"Este veículo está atrasado, deseja renovar este veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name))).." Coins</b>?",60)
+			elseif vRP.vehicleType(tostring(name)) == "rental" and vRP.getCarPremium(name,user_id)then
+				local status = vRP.request(source,"Renovar veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name))).." Gemas</b>?",60)
 				if status then
 					if vRP.remGmsId(user_id,parseInt(vRP.vehiclePrice(name))) then
 						vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = name, premiumtime = parseInt(os.time()) })
 					else
-						TriggerClientEvent("Notify",source,"vermelho","Diamantes insuficientes.",5000)
+						TriggerClientEvent("Notify",source,"vermelho","Gemas insuficientes.",3000)
 					end
 				end
 			else
@@ -640,14 +640,16 @@ function cRP.spawnVehicles(name,use)
 				end
 
 				if garages[use].payment and not vRP.getPremium(parseInt(user_id)) then
-                     if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*0.01) then
-                        local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
-                        if status and vRP.paymentBank(parseInt(user_id),parseInt(vRP.vehiclePrice(name)*0.01)) then
-                            vehlist[vehid] = { parseInt(user_id),name }
-                            spanwedVehs[name..user_id] = true
-
-                            TriggerEvent("setPlateEveryone",vehicle[1].plate)
-                        end
+					if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name)) then
+						local status = vRP.request(source,"Retirar veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))).." Dólares</b>?",60)
+						if status then
+							local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
+							if status and vRP.paymentBank(parseInt(user_id),parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))) then
+								vehlist[vehid] = { parseInt(user_id),name }
+								spanwedVehs[name..user_id] = true
+								TriggerEvent("setPlateEveryone",vehicle[1].plate)
+							end
+						end
                     else
                         TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
                     end
@@ -666,7 +668,7 @@ function cRP.spawnVehicles(name,use)
                 end
             end
         else
-            TriggerClientEvent("Notify",source,"amarelo","Você já tem um veículo deste modelo fora da garagem.",5000)
+            TriggerClientEvent("Notify",source,"amarelo","Você já tem um veículo deste fora da garagem.",5000)
         end
     end
 end

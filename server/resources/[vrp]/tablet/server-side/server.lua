@@ -24,101 +24,16 @@ local testDriveTime = 15000
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	local vehicles = vRP.vehicleGlobal()
-	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
 	for k,v in pairs(vehicles) do
 		if v[4] == "cars" then
-			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
+			table.insert(carros,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt((v[3])*(v[6])) })
 		elseif v[4] == "bikes" then
-			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt(v[7]) })
+			table.insert(motos,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt((v[3])*(v[6])) })
 		elseif v[4] == "rental" then
-			table.insert(aluguel,{ k = k, name = v[1], price = v[5], chest = parseInt(v[2]), tax = parseInt(v[7]) })
-		end
-	end
-	if #temp_stock > 0 then
-		for k,v in pairs(temp_stock) do
-			if v.vehicle then
-				stockVeh[string.lower(v.vehicle)] = v.estoque
-			end
+			table.insert(aluguel,{ k = k, name = v[1], price = v[3], chest = parseInt(v[2]), tax = parseInt((v[3])*(v[6])) })
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TASKSAVEDATATABLES
------------------------------------------------------------------------------------------------------------------------------------------
-function task_save_datatables()
-	SetTimeout(60000,task_save_datatables)
-	local temp_stock = vRP.query("vRP/get_ConceStock",{ user_id = parseInt(user_id) })
-	local temp_db = {}
-	if #temp_stock > 0 then
-		for k,v in pairs(temp_stock) do
-			if v.vehicle then
-				temp_db[string.lower(v.vehicle)] = v.estoque
-			end
-		end
-	end
------------------------------------------------------------------------------------------------------------------------------------------
--- TASKSAVEDATATABLES:STOCKVEG
------------------------------------------------------------------------------------------------------------------------------------------
-	for k,v in pairs(stockVeh) do
-		if temp_db[k] then
-			vRP.execute("vRP/update_ConceStock",{ estoque = tonumber(v), vehicle = k })
-		else
-			vRP.execute("vRP/insert_ConceStock",{ estoque = tonumber(v), vehicle = k })
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- ASYNC
------------------------------------------------------------------------------------------------------------------------------------------
-async(function()
-	task_save_datatables()
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HASVEHICLESTOCK
------------------------------------------------------------------------------------------------------------------------------------------
-local hasVehicleStock = function(veh)
-	if stockVeh and veh then
-		veh = tostring(veh)
-		if stockVeh[veh] then
-			local temp_stock = stockVeh[veh]
-			if temp_stock > 0 then return true else return false end
-		end
-	end
-	
-	return false
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TRYADDVEHICLEINSTOCK
------------------------------------------------------------------------------------------------------------------------------------------
-local tryAddVehicleInStock = function(veh)
-	if stockVeh and veh then
-		veh = tostring(veh)
-		if stockVeh[veh] then
-			local temp_stock = stockVeh[veh]
-			stockVeh[veh] = temp_stock + 1
-			return true
-		end
-	end
-	
-	return false
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TRYREMVEHICLEINSTOCK
------------------------------------------------------------------------------------------------------------------------------------------
-local tryRemVehicleInStock = function(veh)
-	if stockVeh and veh then
-		veh = tostring(veh)
-		if stockVeh[veh] then
-			local temp_stock = stockVeh[veh]
-			if temp_stock > 0 then
-				stockVeh[veh] = temp_stock - 1
-				return true
-			end
-		end
-	end
-	
-	return false
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOK
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -171,7 +86,7 @@ function cRP.Possuidos()
 		local vehList = {}
 		local vehicles = vRP.query("vRP/get_vehicle",{ user_id = parseInt(user_id) })
 		for k,v in pairs(vehicles) do
-			table.insert(vehList,{ k = v.vehicle, work = v.work, name = vRP.vehicleName(v.vehicle), price = parseInt(vRP.vehiclePrice(v.vehicle)*0.7), chest = parseInt(vRP.vehicleChest(v.vehicle)) })
+			table.insert(vehList,{ k = v.vehicle, work = v.work, name = vRP.vehicleName(v.vehicle), price = parseInt(vRP.vehiclePrice(v.vehicle)*0.7), chest = parseInt(vRP.vehicleChest(v.vehicle)), tax = parseInt(vRP.vehiclePrice(v.vehicle)*vRP.vehicleTax(v.vehicle)) })
 		end
 		
 		return vehList
@@ -186,51 +101,32 @@ function cRP.buyDealer(name)
 	local identity = vRP.getUserIdentity(user_id)
 	if user_id then
 		local vehName = tostring(name)
-		if hasVehicleStock(vehName) then
-			if tryRemVehicleInStock(vehName) then
-				local maxVehs = vRP.query("vRP/con_maxvehs",{ user_id = parseInt(user_id) })
-				local myGarages = vRP.getInformation(user_id)
-				
-				if vRP.getPremium(user_id) then
-					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
-						TriggerClientEvent("Notify",source,"amarelo","Máximo de veículos atingido.",3000)
-						return
-					end
-				else
-					if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
-						TriggerClientEvent("Notify",source,"amarelo","Máximo de veículos atingido.",3000)
-						return
-					end
-				end
-				
-				local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
-				if vehicle[1] then
-					TriggerClientEvent("Notify",source,"amarelo","Você já possui um <b>"..vRP.vehicleName(vehName).."</b>.",5000)
-					return
-				else
-					
-					if vRP.vehicleType(name) == "rental" then
-						if vRP.remGmsId(user_id,parseInt(vRP.vehicleGems(vehName))) then
-							vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
-							vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = vehName, premiumtime = parseInt(os.time()+30*24*60*60) })
-							TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)
-						else
-							TriggerClientEvent("Notify",source,"vermelho","Gemas insuficientes.",3000)
-						end
-					else
-						if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName))) then
-							vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
-							TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)
-							creativelogs(webhookdealership,"```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[COMPROU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-						else
-							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
-						end
-					end
-				end
+		local maxVehs = vRP.query("vRP/con_maxvehs",{ user_id = parseInt(user_id) })
+		local myGarages = vRP.getInformation(user_id)
+		if vRP.getPremium(user_id) then
+			if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
+				TriggerClientEvent("Notify",source,"amarelo","Você atingiu o máximo de veículos em sua garagem.",5000)
+				return
 			end
 		else
-			TriggerClientEvent("Notify",source,"vermelho","Estoque insuficiente desse veiculo.",5000)
+			if parseInt(maxVehs[1].qtd) >= parseInt(myGarages[1].garage) then
+				TriggerClientEvent("Notify",source,"amarelo","Você atingiu o máximo de veículos em sua garagem.",5000)
+				return
+			end
+		end
+
+		local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
+		if vehicle[1] then
+			TriggerClientEvent("Notify",source,"amarelo","Você já possui um <b>"..vRP.vehicleName(vehName).."</b>.",5000)
 			return
+		else
+			if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName))) then
+				vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
+				TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)
+				creativelogs(webhookdealership,"```[NOME]: "..identity.name.." "..identity.name2.." \n[ID]: "..user_id.." \n[COMPROU]: "..vRP.vehicleName(name).." [POR]: R$ "..vRP.format(parseInt(vRP.vehiclePrice(name)*0.75)).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			else
+				TriggerClientEvent("Notify",source,"vermelho","Dinheiro insuficiente na sua conta bancária.",5000)
+			end
 		end
 	end
 end
@@ -248,7 +144,7 @@ function cRP.sellDealer(name)
 				local vehName = tostring(name)
 				local getInvoice = vRP.getInvoice(user_id)
 				if getInvoice[1] ~= nil then
-					TriggerClientEvent("Notify",source,"vermelho","Encontramos faturas pendentes.",3000)
+					TriggerClientEvent("Notify",source,"amarelo","Encontramos faturas pendentes.",5000)
 					return
 				end
 				
@@ -263,7 +159,7 @@ function cRP.sellDealer(name)
 				TriggerClientEvent("Notify",source,"azul","Aguarde 5 minutos para vender novamente.",5000)
 			end
 		else
-			TriggerClientEvent("Notify",source,"vermelho","Você não pode vender este veículo.",3000)
+			TriggerClientEvent("Notify",source,"amarelo","Você não pode vender este veículo.",5000)
 		end
 	end
 end
