@@ -40,10 +40,11 @@ AddEventHandler("spawn:setupChars",function()
 	SetEntityVisible(PlayerPedId(),false,false)
 	FreezeEntityPosition(PlayerPedId(),true)
 	SetEntityInvincible(PlayerPedId(),true)
-	SetEntityCoords(PlayerPedId(),689.48,1076.96,335.36,true,false,false,true)
-	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
+
+	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",232.42,-419.45,224.98,360.0,0.0,140.0,60.0,false,0)
 	SetCamActive(cam,true)
 	RenderScriptCams(true,false,1,true,true)
+
 	SendNUIMessage({ action = "openSystem" })
 	SetNuiFocus(true,true)
 end)
@@ -55,10 +56,11 @@ AddEventHandler("spawn:maxChars",function()
 	SetEntityVisible(PlayerPedId(),false,false)
 	FreezeEntityPosition(PlayerPedId(),true)
 	SetEntityInvincible(PlayerPedId(),true)
-	SetEntityCoords(PlayerPedId(),689.48,1076.96,335.36,true,false,false,true)
-	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
+
+	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",232.42,-419.45,224.98,360.0,0.0,140.0,60.0,false,0)
 	SetCamActive(cam,true)
 	RenderScriptCams(true,false,1,true,true)
+
 	SendNUIMessage({ action = "openSystem" })
 	SetNuiFocus(true,true)
 end)
@@ -177,7 +179,7 @@ local config = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNLOC
 -----------------------------------------------------------------------------------------------------------------------------------------
-local cds = {
+local loc = {
 	["Great"] = { -2205.92,-370.48,13.29 },
 	["Duluoz"] = { -250.35,6209.71,31.49 },
 	["Eclipse"] = { -774.14,307.75,85.7 },
@@ -193,7 +195,7 @@ local cds = {
 RegisterNUICallback("generateSpawn",function(data,cb)
 	local coords = {}
 	if config then
-		coords['result'] = config
+		coords["result"] = config
 	end
 	
 	cb(coords)
@@ -220,15 +222,13 @@ RegisterNUICallback("spawnChosen",function(data)
 		cam1 = nil
 
 		Citizen.Wait(1000)
-		
 		DoScreenFadeIn(1000)
 	else
     	new = false
 		local speed = 0.7
 
-		DoScreenFadeOut(0)
-
-		Citizen.Wait(1000)
+		DoScreenFadeOut(500)
+		Citizen.Wait(500)
 
 		SetCamRot(cam1,270.0)
 		SetCamActive(cam1,true)
@@ -237,17 +237,18 @@ RegisterNUICallback("spawnChosen",function(data)
 
 		DoScreenFadeIn(500)
 
-		SetEntityCoords(ped,cds[data.hash][1],cds[data.hash][2],cds[data.hash][3]+0.5)
+		SetEntityCoords(ped,loc[data.hash][1],loc[data.hash][2],loc[data.hash][3]+0.5)
 		local x,y,z = table.unpack(GetEntityCoords(ped))
 
 		SetCamCoord(cam1,x,y,z+200.0)
 		local i = z + 200.0
 
-		while i > cds[data.hash][3] + 1.5 do
+		while i > loc[data.hash][3] + 1.5 do
+			Citizen.Wait(5)
 			i = i - speed
 			SetCamCoord(cam1,x,y,i)
 
-			if i <= cds[data.hash][3] + 35.0 and weight < 360.0 then
+			if i <= loc[data.hash][3] + 35.0 and weight < 360.0 then
 				if speed - 0.0078 >= 0.05 then
 					speed = speed - 0.0078
 				end

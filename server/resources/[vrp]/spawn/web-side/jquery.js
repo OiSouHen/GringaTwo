@@ -55,7 +55,8 @@ $(document).ready(() => {
 	});
 
 	$(document).on("click",".spawnBox",function(e){
-		$.post("http://spawn/spawnChosen",JSON.stringify({ hash: parseInt(e["currentTarget"]["dataset"]["hash"]) }));
+//		$.post("http://spawn/spawnChosen",JSON.stringify({ hash: parseInt(e["currentTarget"]["dataset"]["hash"]) }));
+		$.post("http://spawn/spawnChosen",JSON.stringify({ hash: e["currentTarget"]["dataset"]["hash"] }));
 	});
 
 	$(document).on("click","#spawnNew",function(e){
@@ -103,7 +104,7 @@ const generateSpawn = () => {
 
 		$("#spawnPage").html(`
 			${characterList.map((item) => (`
-				<div class="spawnBox" data-hash="${item["hash"]}">
+				<div class="spawnBox" id="spawnBox" data-hash="${item["hash"]}">
 					${item["name"]}
 				</div>`)).join("")}
 
