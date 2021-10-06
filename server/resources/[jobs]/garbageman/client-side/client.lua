@@ -195,7 +195,7 @@ AddEventHandler("garbageman:searchWaste",function(searchWaste)
             if not IsPauseMenuActive() and not exports["inventory"]:blockInvents() and not exports["player"]:blockCommands() and not exports["player"]:handCuff() and GetEntityHealth(ped) > 101 and not IsEntityInWater(ped) then
                 if (GetDistanceBetweenCoords(pedCoords["x"], pedCoords["y"], pedCoords["z"], wasteCoords["x"], wasteCoords["y"], wasteCoords["z"] < 0.5)) then
                     TriggerEvent("cancelando",true)
-                    vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+					vRP.playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
                     TriggerEvent("Progress",60000,"Vasculhando...")
                     Wait(60000)
                     if vSERVER.searchWaste(wasteCoords["x"]) then

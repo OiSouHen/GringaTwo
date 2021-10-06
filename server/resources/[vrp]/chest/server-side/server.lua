@@ -4,89 +4,53 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("chest",cnVRP)
+cRP = {}
+Tunnel.bindInterface("chest",cRP)
 vCLIENT = Tunnel.getInterface("chest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local chestOpen = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CREATE CHEST
+-- CHEST
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('createChest',function(source, args, rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id and vRP.hasPermission(user_id,"Admin") then
-		local x,y,z = vRPclient.getPositions(source)
-
-		local nome = vRP.prompt(source,"Nome do chest?","")
-		if nome == "" then
-			return
-		end
-
-		local perm = vRP.prompt(source,"Permissao do chest?","")
-		if perm == "" then
-			return
-		end
-
-		local tamanho = vRP.prompt(source,"Tamanho do chest?","")
-		if tamanho == "" then
-			return
-		end
-
-		vCLIENT.insertTable(-1,nome, { x,y,z } )
-		vRP.execute("vRP/addChest", { permiss = perm, name = nome, x = x, y = y, z = z, weight = tamanho })
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PLAYERSPAWN
------------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	local rows = vRP.query("vRP/get_alltable")
-    if #rows > 0 then
-		for k,v in pairs(rows) do
-			vCLIENT.insertTable(source,rows[k].name, { rows[k].x,rows[k].y,rows[k].z } )
-		end
-	end
-end)
-
--- Citizen.CreateThread(function()
--- 	Citizen.Wait(2000)
--- 	local rows = vRP.query("vRP/get_alltable")
---     if #rows > 0 then
--- 		for k,v in pairs(rows) do
--- 			vCLIENT.insertTable(-1,rows[k].name, { rows[k].x,rows[k].y,rows[k].z } )
--- 		end
--- 	end
--- end)
+local chest = {
+	["Police"] = { 350,"Police" },
+	["Police"] = { 350,"Police" },
+	["Police"] = { 350,"Police" },
+	["Police"] = { 350,"Police" },
+	["Corrections"] = { 100,"Police" },
+	["Paramedic"] = { 250,"Paramedic" },
+	["Paramedic"] = { 250,"Paramedic" },
+	["Paramedic"] = { 250,"Paramedic" },
+	["Mechanic"] = { 500,"Mechanic" }
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINTPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkIntPermissions(chestName)
+function cRP.checkIntPermissions(chestName)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.wantedReturn(parseInt(user_id)) then
 			return false
 		end
-		local consult = vRP.query("vRP/getExistChest",{ name = chestName })
-		if consult[1].name == chestName then
-			if vRP.hasPermission(parseInt(user_id),consult[1].permiss) then
-				chestOpen[user_id] = chestName
-				return true
-			end
+
+		if vRP.hasPermission(parseInt(user_id),chest[chestName][2]) then
+			chestOpen[user_id] = chestName
+			return true
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.chestClose()
+function cRP.chestClose()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -98,7 +62,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENCHEST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.openChest()
+function cRP.openChest()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
@@ -111,11 +75,31 @@ function cnVRP.openChest()
 			local inv = vRP.getInventory(parseInt(user_id))
 			if inv then
 				for k,v in pairs(inv) do
-					if string.sub(v.item,1,9) == "toolboxes" then
+					if string.sub(v.item,1,9) == v.item then
 						local advFile = LoadResourceFile("logsystem","toolboxes.json")
 						local advDecode = json.decode(advFile)
 
 						v.durability = advDecode[v.item]
+					end
+					
+					if v.item and v.timestamp then
+						local actualTime = os.time()
+						local finalTime = v.timestamp
+						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+						local startTime = (v.timestamp - durabilityInSeconds)
+						
+						local actualTimeInSeconds = (actualTime - startTime)
+						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+						if porcentage < 0 then porcentage = porcentage*-1 end
+						if porcentage <= 0.0 then
+							porcentage = 0.0
+						elseif porcentage >= 100.0 then
+							porcentage = 100.0
+						end
+						
+						if porcentage then
+							v.durability = porcentage
+						end
 					end
 
 					v.amount = parseInt(v.amount)
@@ -138,31 +122,39 @@ function cnVRP.openChest()
 			local sdata = json.decode(data) or {}
 			if data then
 				for k,v in pairs(sdata) do
-					table.insert(mychestopen,{desc = vRP.itemDescList(k), unity = vRP.itemUnityList(k), tipo = vRP.itemTipoList(k), color = vRP.itemColor(k), economy = vRP.itemEconomyList(k),amount = parseInt(v.amount), name = vRP.itemNameList(k), index = vRP.itemIndexList(k), key = k, peso = vRP.itemWeightList(k) })
+					table.insert(mychestopen,{ amount = parseInt(v.amount), name = vRP.itemNameList(k), desc = vRP.itemDescList(k), tipo = vRP.itemTipoList(k), index = vRP.itemIndexList(k), unity = vRP.itemUnityList(k), economy = vRP.itemEconomyList(k), key = k, peso = vRP.itemWeightList(k) })
 				end
 			end
-			local consult = vRP.query("vRP/getExistChest",{ name = mychestname })
-			if consult[1].name == mychestname then
-				return myinventory,mychestopen,vRP.computeInvWeight(user_id),vRP.getBackpack(user_id),vRP.computeChestWeight(sdata),consult[1].weight,{ identity.name.." "..identity.name2,parseInt(user_id),identity.phone,identity.registration,vRP.getBank(user_id) }
-			end
+
+			return myinventory,mychestopen,vRP.computeInvWeight(user_id),vRP.getBackpack(user_id),vRP.computeChestWeight(sdata),chest[mychestname][1],{ identity.name.." "..identity.name2,parseInt(user_id),identity.phone,identity.registration }
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NOSTORE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local noStore = {
-	["cola"] = true,
-	["soda"] = true,
-	["coffee"] = true,
 	["water"] = true,
 	["dirtywater"] = true,
-	["emptybottle"] = true,
+	["coffee"] = true,
 	["hamburger"] = true,
+	["cola"] = true,
 	["tacos"] = true,
+	["fries"] = true,
+	["soda"] = true,
+	["hotdog"] = true,
+	["sandwich"] = true,
 	["chocolate"] = true,
-	["donut"] = true
+	["donut"] = true,
+	["ritmoneury"] = true,
+	["sinkalmy"] = true,
+	["absolut"] = true,
+	["chandon"] = true,
+	["dewars"] = true,
+	["hennessy"] = true,
+	["identity"] = true
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POPULATESLOT
@@ -227,20 +219,18 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOREITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.storeItem(itemName,slot,amount)
+function cRP.storeItem(itemName,slot,amount)
 	if itemName then
 		local source = source
 		local user_id = vRP.getUserId(source)
 		if user_id then
-			if noStore[itemName] or vRP.itemSubTypeList(itemName) then
-				TriggerClientEvent("Notify",source,"importante","Você não pode armazenar este item em baús.",5000)
+			if noStore[itemName] then
+				TriggerClientEvent("Notify",source,"importante","Você não pode armazenar este item em baús.",500)
 				return
 			end
-			local consult = vRP.query("vRP/getExistChest",{ name = tostring(chestOpen[parseInt(user_id)]) })
-			if consult[1].name == tostring(chestOpen[parseInt(user_id)]) then
-				if vRP.storeChestItem(user_id,"chest:"..tostring(chestOpen[parseInt(user_id)]),itemName,amount,consult[1].weight,slot) then
-					TriggerClientEvent("chest:Update",source,"updateChest")
-				end
+
+			if vRP.storeChestItem(user_id,"chest:"..tostring(chestOpen[parseInt(user_id)]),itemName,amount,chest[tostring(chestOpen[parseInt(user_id)])][1],slot) then
+				TriggerClientEvent("chest:Update",source,"updateChest")
 			end
 		end
 	end
@@ -248,7 +238,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.takeItem(itemName,slot,amount)
+function cRP.takeItem(itemName,slot,amount)
 	if itemName then
 		local source = source
 		local user_id = vRP.getUserId(source)

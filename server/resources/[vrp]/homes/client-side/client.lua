@@ -92,16 +92,12 @@ end)
 -- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-    while true do
-        local timeDistance = 500
-        local innerTable = {}
-        for k,v in pairs(homesList) do
-			table.insert(innerTable,{ v[5],v[6],v[7],1.5,"E","Porta de Acesso","Pressione para entrar" })
-        end
-		
-		Citizen.Wait(timeDistance)
-        TriggerEvent("hoverfy:insertTable",innerTable)
+	local innerTable = {}
+	for k,v in pairs(homesList) do
+		table.insert(innerTable,{ v[5],v[6],v[7],1.5,"E","Porta de Acesso","Pressione para entrar" })
 	end
+
+	TriggerEvent("hoverfy:insertTable",innerTable)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADENTER

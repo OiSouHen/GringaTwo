@@ -1,10 +1,8 @@
 let shiftPressed = false;
   
-$(() => {
-	$(".inventory").hide();
-
+$(document).ready(function(){
 	window.addEventListener("message",function(event){
-		switch(event.data.action){
+		switch(event["data"]["action"]){
 			case "showMenu":
 				updateChest();
 				$(".inventory").css("display","flex");
@@ -18,29 +16,29 @@ $(() => {
 			case "updateChest":
 				updateChest();
 			break;
+			
+			case "updateWeight":
+				$("#weightTextLeft").html(`${(event["data"]["peso"]).toFixed(2)}   /   ${(event["data"]["maxpeso"]).toFixed(2)}`);
+				$("#weightTextRight").html(`${(event["data"]["peso2"]).toFixed(2)}   /   ${(event["data"]["maxpeso2"]).toFixed(2)}`);
+
+				$("#weightBarLeft").html(`<div id="weightContent" style="width: ${event["data"]["peso"] / event["data"]["maxpeso"] * 100}%"></div>`);
+				$("#weightBarRight").html(`<div id="weightContent" style="width: ${event["data"]["peso2"] / event["data"]["maxpeso2"] * 100}%"></div>`);
+			break;
 		}
 	});
 
-	document.onkeydown = data => {
-		const key = data.key;
-		if (key === "Shift") {
-			shiftPressed = true;
-		}
-	}
-
 	document.onkeyup = data => {
-		const key = data.key;
-		if (key === "Escape"){
-			$.post("http://chest/chestClose",JSON.stringify({}));
-		} else if (key === "Shift") {
-			shiftPressed = false;
+		if (data["key"] === "Escape"){
+			$.post("http://chest/chestClose");
+			$(".invRight").html("");
+			$(".invLeft").html("");
 		}
-	}
+	};
 });
 
 const updateDrag = () => {
-	$('.populated').draggable({
-		helper: 'clone'
+	$(".populated").draggable({
+		helper: "clone"
 	});
 
 	$('.empty').droppable({
@@ -108,7 +106,7 @@ const updateDrag = () => {
 			updateDrag();
 
 			if (tInv === "invLeft") {
-				if (origin === "invLeft") {
+				if (origin === "invLeft" && tInv === "invLeft"){
 					$.post("http://chest/populateSlot",JSON.stringify({
 						item: itemData.key,
 						slot: itemData.slot,
@@ -117,7 +115,7 @@ const updateDrag = () => {
 					}))
 
 					$('.amount').val("");
-				} else if (origin === "invRight") {
+				} else if (origin === "invRight" && tInv === "invLeft"){
 					$.post("http://chest/takeItem",JSON.stringify({
 						item: itemData.key,
 						slot: target,
@@ -217,7 +215,7 @@ const updateDrag = () => {
 					}));
 
 					$('.amount').val("");
-				} else if (origin === "invRight"){
+				} else if (origin === "invRight" && tInv === "invLeft"){
 					$.post("http://chest/sumSlot",JSON.stringify({
 						item: itemData.key,
 						slot: target,
@@ -287,16 +285,19 @@ const updateChest = () => {
 		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);
 		$("#weightBarRight").html(`<div id="weightContent" style="width: ${data["peso2"] / data["maxpeso2"] * 100}%"></div>`);
 
-		const nameList2 = data.inventario2.sort((a,b) => (a.name > b.name) ? 1: -1);
-
 		$(".invLeft").html("");
 		$(".invRight").html("");
+		
+		if (data["maxpeso"] > 100)
+			data["maxpeso"] = 100;
+
+		const nameList2 = data.inventario2.sort((a,b) => (a.name > b.name) ? 1: -1);
 
 		for (let x = 1; x <= data["maxpeso"]; x++){
 			const slot = x.toString();
 
-			if (data.inventario[slot] !== undefined) {
-				const v = data.inventario[slot];
+			if (data["inventario"][slot] !== undefined){
+				const v = data["inventario"][slot];
 				let actualPercent
 				if (v["days"]) {
 					const maxDurability = 86400 * v["days"];
@@ -309,13 +310,13 @@ const updateChest = () => {
 					}
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}"  data-economy="${v["economy"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v.name}</div>
 				</div>`;
 
@@ -327,11 +328,11 @@ const updateChest = () => {
 			}
 		}
 
-		for (let x = 1; x <= data["maxpeso2"]; x++){
+		for (let x = 1; x <= 100; x++){
 			const slot = x.toString();
 
-			if (nameList2[x-1] !== undefined) {
-				const v = nameList2[x-1];
+			if (nameList2[x - 1] !== undefined){
+				const v = nameList2[x - 1];
 				let actualPercent
 				if (v["days"]) {
 					const maxDurability = 86400 * v["days"];
@@ -341,14 +342,14 @@ const updateChest = () => {
 					actualPercent = v["durability"] * 100;
 				}
 				
-				const item = `<div class="item populated" title="" data-tipo="${v["tipo"]}" data-desc="${v["desc"] !== "undefined" ? "<br><description>"+v["desc"]+"</description>":""}" data-economy="${v["economy"]}" data-unity="${v["unity"]}" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}"">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"] !== "undefined" ? v["desc"]:""}" data-economy="${v["economy"]}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
-					<div class="nameItem">${v.name}</div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
+					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 
 				$(".invRight").append(item);
@@ -362,21 +363,19 @@ const updateChest = () => {
 	});
 }
 /* ----------FORMATARNUMERO---------- */
-const formatarNumero = (n) => {
-	if (n == undefined) {n = "RODRIGO GATAO"}
-	console.log(n)
+const formatarNumero = n => {
 	var n = n.toString();
-	var r = '';
+	var r = "";
 	var x = 0;
 
-	for (var i = n.length; i > 0; i--){
-		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? '.' : '');
+	for (var i = n["length"]; i > 0; i--) {
+		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? "." : "");
 		x = x == 2 ? 0 : x + 1;
 	}
 
-	return r.split('').reverse().join('');
+	return r.split("").reverse().join("");
 }
-
+/* ----------SOMENTENUMEROS---------- */
 function somenteNumeros(e){
 	var charCode = e.charCode ? e.charCode : e.keyCode;
 	if (charCode != 8 && charCode != 9){
@@ -388,7 +387,7 @@ function somenteNumeros(e){
 		}
 	}
 }
-
+/* ----------CTRLCONTROL---------- */
 $(document).ready(function() {
     var ctrlDown = false,
         ctrlKey = 17,

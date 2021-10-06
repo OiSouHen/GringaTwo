@@ -1,0 +1,8 @@
+**CHANGELOG 05.10:**
+
+1: Adicionado novas **Casas** e **Interiores**.
+     Agora possuindo **30 Mansões**, **12 Hotéis modernos**, **40 Containers** e **22 Casas de Praia**.
+2: Modificado o local após sair da prisão para um local afastado nos americanos da porta.
+3: Ajustado a configuração de alguns americanos do presídio.
+4: Adicionado a chance de receber o item **Fragmento de Metal** no emprego de **Minerador**.
+5: Corrigido a lista do desmanche que estava travando por causa de um veículo inexistente.

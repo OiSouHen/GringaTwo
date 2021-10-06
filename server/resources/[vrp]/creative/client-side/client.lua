@@ -323,6 +323,7 @@ end)
 -- THREADINIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
+	SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
@@ -432,13 +433,13 @@ Citizen.CreateThread(function()
 		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
 
-		-- SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
-		-- SetParkedVehicleDensityMultiplierThisFrame(0.5)
-		-- SetRandomVehicleDensityMultiplierThisFrame(0.5)
-		-- SetVehicleDensityMultiplierThisFrame(0.5)
-		-- SetPedDensityMultiplierThisFrame(0.5)
-		--SetGarbageTrucks(false)
-		--SetRandomBoats(false)
+		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
+		SetParkedVehicleDensityMultiplierThisFrame(0.5)
+		SetRandomVehicleDensityMultiplierThisFrame(0.5)
+		SetVehicleDensityMultiplierThisFrame(0.5)
+		SetPedDensityMultiplierThisFrame(0.5)
+		SetGarbageTrucks(false)
+		SetRandomBoats(false)
 
 		Citizen.Wait(0)
 	end

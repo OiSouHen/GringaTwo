@@ -160,7 +160,7 @@ local bones = {
 RegisterCommand("sangramento",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
     if vRP.hasPermission(user_id,"Paramedic") then
-        local nplayer = vRPclient.nearestPlayer(source,2)
+        local nplayer = vRPclient.nearestPlayer(source,5)
         if nplayer then
             TriggerClientEvent("resetBleeding",nplayer)
             TriggerClientEvent("Notify",source,"verde","Sangramento estancado.",3000)
@@ -173,7 +173,7 @@ end)
 RegisterCommand("diagnostico",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Paramedic") then
-		local nplayer = vRPclient.nearestPlayer(source,2)
+		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
 			local hurt = false
 			local diagnostic,bleeding = vCLIENT.getDiagnostic(nplayer)
@@ -216,15 +216,13 @@ end)
 RegisterCommand("tratamento",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if vRP.hasPermission(user_id,"Paramedic") then
-		local nplayer = vRPclient.nearestPlayer(source,2)
+		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
 			if not vSURVIVAL.deadPlayer(nplayer) then
 				vSURVIVAL._startCure(nplayer)
 				TriggerClientEvent("resetBleeding",nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)
-				
-				TriggerClientEvent("Notify",nplayer,"azul","Você está recebendo um tratamento.",5000)
-				TriggerClientEvent("Notify",source,"azul","Tratamento iniciado.",3000)
+				TriggerClientEvent("Notify",source,"amarelo","Tratamento iniciado.",3000)
 			end
 		end
 	end

@@ -11,7 +11,7 @@ vRPclient = Tunnel.getInterface("vRP")
 cRP = {}
 Tunnel.bindInterface("dismantle",cRP)
 vCLIENT = Tunnel.getInterface("dismantle")
-vRPRAGE = Tunnel.getInterface("garages")
+vGARAGE = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -19,6 +19,7 @@ local timeList = 0
 local maxVehlist = 20
 local vehListActived = {}
 local userList = {}
+local serviceStatus = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -224,11 +225,11 @@ function cRP.checkVehlist()
 						return true,vehicle
 					end
 				else
-					TriggerClientEvent("Notify",source,"vermelho","Veículo protegido pela seguradora.",10000)
+					TriggerClientEvent("Notify",source,"default","Veículo protegido pela seguradora.",5000)
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"amarelo","Você não tem uma <b>Caixa de Ferramentas</b>.",5000)
+			TriggerClientEvent("Notify",source,"amarelo","<b>Caixa de Ferramentas</b> não encontrada.",5000)
 		end
 		
 		return false
@@ -241,13 +242,27 @@ function cRP.paymentMethod(vehicle)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.upgradeStress(user_id,15)
-		local value = math.random(5000,10000)
-
-		vRPRAGE.deleteVehicle(source,vehicle)
-		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
+		local value = math.random(4500,8500)
+		vGARAGE.deleteVehicle(source,vehicle)
+		vRP.giveInventoryItem(user_id,"dollars2",parseInt(value),true)
 		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(6,12),true)
 		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(12,24),true)
+		vRP.upgradeStress(user_id,12)
+		vRP.wantedTimer(user_id,250)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.acessList()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if userList[user_id] == nil then
+			userList[user_id] = true
+			serviceStatus = true
+			TriggerClientEvent("Notify",source,"verde","Lista disponível.",3000)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -258,22 +273,22 @@ AddEventHandler("dismantle:invokeDismantle",function(invokeDismantle)
     local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if userList[user_id] == nil then
-			userList[user_id] = true
-		end
-		
+	if serviceStatus then
 		if timeList > 0 and userList[user_id] then
 			local vehListNames = ""
 			for k,v in pairs(vehListActived) do
 				vehListNames = vehListNames.."<b>"..vRP.vehicleName(k).."</b>, "
 			end
-			
+
 			if vehListNames ~= "" then
-				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista atual.",30000)
+				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista.",30000)
 			else
-				TriggerClientEvent("Notify",source,"azul","Nenhum veículo encontrado na lista, aguarde <b>"..parseInt(timeList).." minutos</b>.",5000)
+				TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(timeList).." minutos</b>.",10000)
 			end
 		end
+	else
+	TriggerClientEvent("Notify",source,"amarelo","Você precisa iniciar o serviço.",5000)
+	end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

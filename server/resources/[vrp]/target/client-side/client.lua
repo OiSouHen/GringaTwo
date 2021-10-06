@@ -458,15 +458,15 @@ Citizen.CreateThread(function()
 		}
 	})
 
-	AddCircleZone("drugsToggle02",vector3(121.11,-3021.05,7.04),0.5,{
-		name = "drugsToggle02",
+	AddCircleZone("dismantleToggle01",vector3(-86.96,-2233.3,7.82),0.5,{
+		name = "dismantleToggle01",
 		heading = 90.71
 	},{
 		distance = 1.0,
 		options = {
 			{
-				event = "drugs:toggleService",
-				label = "Comercializar",
+				event = "dismantle:invokeList",
+				label = "Desmanche",
 				tunnel = "client"
 			}
 		}

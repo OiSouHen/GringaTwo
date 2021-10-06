@@ -13,7 +13,7 @@ local idgens = Tools.newIDGenerator()
 cRP = {}
 Tunnel.bindInterface("inventory",cRP)
 vCLIENT = Tunnel.getInterface("inventory")
-vRPRAGE = Tunnel.getInterface("garages")
+vGARAGE = Tunnel.getInterface("garages")
 vSURVIVAL = Tunnel.getInterface("survival")
 vPLAYER = Tunnel.getInterface("player")
 vHOMES = Tunnel.getInterface("homes")
@@ -40,6 +40,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(10000)
 	end
 end)
@@ -56,6 +57,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(30000)
 	end
 end)
@@ -69,6 +71,7 @@ Citizen.CreateThread(function()
 				active[k] = active[k] - 1
 			end
 		end
+		
 		Citizen.Wait(1000)
 	end
 end)
@@ -148,7 +151,7 @@ function dump(o)
 	else
 		return tostring(o)
 	end
-  end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEAPON_AMMOS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -973,7 +976,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vRPclient.stopActived(source)
 								vCLIENT.closeInventory(source)
 								vCLIENT.blockButtons(source,true)
-								vRPRAGE.startAnimHotwired(source)
+								vGARAGE.startAnimHotwired(source)
 																						  
 
 								local taskResult = vTASKBAR.taskLockpick(source)
@@ -1006,7 +1009,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								end
 
 								vCLIENT.blockButtons(source,false)
-								vRPRAGE.stopAnimHotwired(source,vehicle)
+								vGARAGE.stopAnimHotwired(source,vehicle)
 								active[user_id] = nil
 							else
 								active[user_id] = 100
@@ -1866,14 +1869,13 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "rope" then
 						local nplayer = vRPclient.nearestPlayer(source,2)
 						if nplayer and not vRPclient.inVehicle(source) then
-							-- local taskResult = vTASKBAR.taskHandcuff(nplayer)
-							-- if not taskResult then
+							local taskResult = vTASKBAR.taskHandcuff(nplayer)
+							if not taskResult then
 								TriggerClientEvent("rope:toggleRope",source,nplayer)
-							-- else
-							-- 	TriggerClientEvent("Notify",source,"amarelo","O cidadão resistiu ao ser carregado.",5000)
-							--end
+							else
+								TriggerClientEvent("Notify",source,"amarelo","Resistiu de ser carregado.",3000)
+							end
 						end
-						
 					end
 
 					if itemName == "premium01" then
@@ -2369,7 +2371,7 @@ AddEventHandler("inventory:Cancel",function()
 			SetTimeout(1000,function()
 				vRPclient._removeObjects(source)
 				vCLIENT.blockButtons(source,false)
-				vRPRAGE.updateHotwired(source,false)
+				vGARAGE.updateHotwired(source,false)
 			end)
 		else
 			vRPclient._removeObjects(source)
@@ -2449,6 +2451,32 @@ AddEventHandler("inventory:applyPlate",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- STEALTRUNKITENS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local stealTrunk = {
+		[1] = { "joint",math.random(5,10) },
+		[2] = { "dollars",math.random(500,800) },
+		[3] = { "plastic",math.random(10,15) },
+		[4] = { "glass",math.random(10,15) },
+		[5] = { "rubber",math.random(10,15) },
+		[6] = { "aluminum",math.random(10,15) },
+		[7] = { "copper",math.random(10,15) },
+		[8] = { "keyboard",1 },
+		[9] = { "cellphone",1 },
+		[10] = { "watch",1 },
+		[11] = { "notebook",1 },
+		[12] = { "xbox",1 },
+		[13] = { "legos",5 },
+		[14] = { "ominitrix",1 },
+		[15] = { "bracelet",1 },
+		[16] = { "dildo",1 },
+		[17] = { "lean",3 },
+		[18] = { "heroine",1 },
+		[19] = { "vape",1 },
+		[20] = { "oxy",5 },
+		[21] = { "chocolate",3 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- INVENTORY:STEALTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.stealTrunk(entity)
@@ -2456,19 +2484,31 @@ function cRP.stealTrunk(entity)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if not vRP.wantedReturn(user_id) then
+			vGARAGE.startAnimHotwired(source)
+			
 			local taskResult = vTASKBAR.stealTrunk(source)
 			if taskResult then
-				local random = math.random(30)
-				if parseInt(random) >= 21 then
-				    vRP.giveInventoryItem(user_id,"dollars",math.random(300),true)
-				elseif parseInt(random) >= 11 and parseInt(random) <= 20 then
-				    vRP.giveInventoryItem(user_id,"cellphone",math.random(1),true)
-				elseif parseInt(random) >= 1 and parseInt(random) <= 10 then
-				    vRP.giveInventoryItem(user_id,"notebook",math.random(1),true)
+				local randItem = math.random(#stealTrunk)
+				
+				if vRP.itemSubTypeList((stealTrunk[randItem][1])) then
+					if vRP.getInventoryItemAmount(user_id,(stealTrunk[randItem][1])) > 0 then
+						TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
+					end
+				end
+
+				if vRP.computeInvWeight(user_id) + vRP.itemWeightList(stealTrunk[randItem][1]) * parseInt(stealTrunk[randItem][2]) <= vRP.getBackpack(user_id) then
+					if math.random(100) <= 90 then
+						vRP.giveInventoryItem(user_id,stealTrunk[randItem][1],parseInt(stealTrunk[randItem][2]),true)
+					else
+						TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
+					end
+				else
+					TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				end
 				
-				vRP.upgradeStress(user_id,2)
-				vRP.wantedTimer(user_id,300)
+				vRP.upgradeStress(user_id,5)
+				vRP.wantedTimer(user_id,150)
+				vGARAGE.stopAnimHotwired(source)
 				
 				local x,y,z = vRPclient.getPositions(source)
 				local copAmount = vRP.numPermission("Police")
@@ -2478,9 +2518,19 @@ function cRP.stealTrunk(entity)
 					end)
 				end
 			else
+				local x,y,z = vRPclient.getPositions(source)
+				local copAmount = vRP.numPermission("Police")
+				for k,v in pairs(copAmount) do
+					async(function()
+						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Tentativa de Roubo a Porta-Malas.", x = x, y = y, z = z, rgba = {105,52,136} })
+					end)
+				end
+				
 				TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
+				vGARAGE.stopAnimHotwired(source)
 			end
 		end
+		
 		return false
 	end
 end

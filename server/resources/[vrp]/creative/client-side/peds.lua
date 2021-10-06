@@ -139,6 +139,12 @@ local pedList = {
 		anim = { "amb@prop_human_parking_meter@female@idle_a","idle_a_female" }
 	},
 	{ -- Ilegal
+		distance = 20,
+		coords = { -86.96,-2233.3,7.82,2.81 },
+		model = { 0x158C439C,"g_f_y_ballas_01" },
+		anim = { "amb@lo_res_idles@","world_human_lean_male_foot_up_lo_res_base" }
+	},
+	{ -- Ilegal
 		distance = 100,
 		coords = { 301.4,-195.29,61.57,158.75 },
 		model = { 0x158C439C,"g_f_y_ballas_01" },

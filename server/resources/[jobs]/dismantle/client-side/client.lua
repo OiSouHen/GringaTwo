@@ -62,6 +62,8 @@ AddEventHandler("dismantle:checkVehicle",function(checkVehicle)
 				end
 			end
 		end
+	else
+		TriggerEvent("Notify","amarelo","Você precisa iniciar o serviço.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -73,5 +75,18 @@ Citizen.CreateThread(function()
 			timeDismantle = timeDismantle - 1
 		end
 		Citizen.Wait(1000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DISMANTLE:INVOKELIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("dismantle:invokeList")
+AddEventHandler("dismantle:invokeList",function(invokeList)
+    local timeDistance = 500
+	local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+			timeDistance = 4
+			vSERVER.acessList()
+			inService = true
 	end
 end)

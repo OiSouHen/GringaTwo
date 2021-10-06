@@ -7,53 +7,101 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("chest",cnVRP)
+cRP = {}
+Tunnel.bindInterface("chest",cRP)
 vSERVER = Tunnel.getInterface("chest")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- STARTFOCUS
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local chestOpen = ""
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHESTCOORDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local chestCoords = {
+	{ "Police",486.52,-995.23,30.68,357.17,"1" },
+	{ "Police",1848.85,3687.97,34.26,121.89,"1" },
+	{ "Police",-446.32,6008.84,31.71,226.78,"1" },
+	{ "Police",386.76,799.75,187.45,0.0,"1" },
+	{ "Corrections",1844.3,2574.15,46.02,184.26,"1" },
+	{ "Paramedic",306.62,-601.85,43.29,161.58,"1" },
+	{ "Paramedic",1831.1,3678.57,34.27,22.68,"1" },
+	{ "Paramedic",-258.01,6332.26,32.42,45.36,"1" },
+	{ "Mechanic",128.52,-3013.67,7.04,184.26,"1" }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHESTINFOS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local chestInfos = {
+	["1"] = {
+		{
+			event = "chest:openSystem",
+			label = "Abrir",
+			tunnel = "shop"
+		}
+	},
+	["2"] = {
+		{
+			event = "chest:openSystem",
+			label = "Abrir",
+			tunnel = "shop"
+		}
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
+
+	for k,v in pairs(chestCoords) do
+		exports["target"]:AddCircleZone("chest:"..k,vector3(v[2],v[3],v[4]),0.5,{
+			name = "chest:"..k,
+			heading = v[5]
+		},{
+			shop = k,
+			distance = 1.0,
+			options = chestInfos[v[6]]
+		})
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("chestClose",function(data)
 	vSERVER.chestClose()
-	TransitionFromBlurred(1000)
-	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hideMenu" })
+	SetNuiFocus(false,false)
+	chestOpen = ""
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("takeItem",function(data)
-	vSERVER.takeItem(data.item,data.slot,data.amount)
+	vSERVER.takeItem(data.item,data.slot,data.amount,chestOpen)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOREITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("storeItem",function(data)
-	vSERVER.storeItem(data.item,data.slot,data.amount)
+	vSERVER.storeItem(data.item,data.slot,data.amount,chestOpen)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POPULATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("populateSlot",function(data,cb)
-	TriggerServerEvent("chest:populateSlot",data.item,data.slot,data.target,data.amount)
+	TriggerServerEvent("chest:populateSlot",data.item,data.slot,data.target,data.amount,chestOpen)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("updateSlot",function(data,cb)
-	TriggerServerEvent("chest:updateSlot",data.item,data.slot,data.target,data.amount)
+	TriggerServerEvent("chest:updateSlot",data.item,data.slot,data.target,data.amount,chestOpen)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("sumSlot",function(data,cb)
-	TriggerServerEvent("chest:sumSlot",data.item,data.slot,data.amount)
+	TriggerServerEvent("chest:sumSlot",data.item,data.slot,data.amount,chestOpen)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- chest:UPDATE
@@ -72,67 +120,19 @@ RegisterNUICallback("requestChest",function(data,cb)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETGRIDCHUNK
+-- CHEST:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function gridChunk(x)
-	return math.floor((x + 8192) / 128)
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TOCHANNEL
------------------------------------------------------------------------------------------------------------------------------------------
-function toChannel(v)
-	return (v.x << 8) | v.y
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- CHEST
------------------------------------------------------------------------------------------------------------------------------------------
-local chestCoords = {}
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADOPEN
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			local x,y,z = table.unpack(GetEntityCoords(ped))
-			for k,v in pairs(chestCoords) do
-				local distance = #(coords - vector3(parseInt(v.x),parseInt(v.y),parseInt(v.z)))
-				if distance <= 2 then
-					timeDistance = 4
-					DrawText3Ds(v.x,v.y,v.z,"~g~E~w~  BAÚ")
-					if IsControlJustPressed(1,38) and vSERVER.checkIntPermissions(v.chestname) and distance <= 2 then
-						SetNuiFocus(true,true)
-						SendNUIMessage({ action = "showMenu" })
-						TransitionToBlurred(1000)
-						TriggerEvent("sounds:source","zipper",0.5)
-					end
-				end
-			end
-		end
-		Citizen.Wait(timeDistance)
+AddEventHandler("chest:openSystem",function(shopId)
+	if vSERVER.checkIntPermissions(chestCoords[shopId][1]) then
+		SetNuiFocus(true,true)
+		chestOpen = chestCoords[shopId][1]
+		SendNUIMessage({ action = "showMenu" })
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- FUNCTION ADD IN TABLE
+-- CHEST:UPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.insertTable(chestname,coords)
-	local x,y,z = table.unpack(coords)
-	table.insert(chestCoords,{ chestname = chestname, x = x, y = y, z = z })
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3Ds(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(176,180,193,150)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,50,55,67,200)
-end
+RegisterNetEvent("chest:Update")
+AddEventHandler("chest:Update",function(action)
+	SendNUIMessage({ action = action })
+end)
