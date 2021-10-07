@@ -518,14 +518,26 @@ local pedList = {
 	},
 	{ -- Mercado Central
 		distance = 30,
-		coords = { 46.65,-1749.7,29.62,51.03 },
+		coords = { 45.64,-1750.97,29.62,48.19 },
 		model = { 0xE6631195,"ig_cletus" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Mercado Central
 		distance = 30,
-		coords = { 2747.31,3473.07,55.67,249.45 },
+		coords = { 47.61,-1748.62,29.62,48.19 },
+		model = { 0x3273A285,"g_m_y_salvagoon_02" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Mercado Central
+		distance = 30,
+		coords = { 2747.73,3474.08,55.67,252.29 },
 		model = { 0xE6631195,"ig_cletus" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- Mercado Central
+		distance = 30,
+		coords = { 2746.88,3471.96,55.67,252.29 },
+		model = { 0x3273A285,"g_m_y_salvagoon_02" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
 	{ -- Recycling Sell

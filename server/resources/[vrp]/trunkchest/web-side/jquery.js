@@ -1,5 +1,3 @@
-const mySlots = 50;
-const inSlots = 100;
 let shiftPressed = false;
 
 $(document).ready(function () {
@@ -228,7 +226,7 @@ const updateChest = () => {
 			}
 		}
 
-		for (let x = 1; x <= data["maxpeso2"]; x++){
+		for (let x = 1; x <= 100; x++){
 			const slot = x.toString();
 
 			if (nameList2[x - 1] !== undefined) {
@@ -253,16 +251,51 @@ const updateChest = () => {
 		updateDrag();
 	});
 }
-
-const formatarNumero = (n) => {
+/* ----------FORMATARNUMERO---------- */
+const formatarNumero = n => {
 	var n = n.toString();
-	var r = '';
+	var r = "";
 	var x = 0;
 
-	for (var i = n.length; i > 0; i--) {
-		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? '.' : '');
+	for (var i = n["length"]; i > 0; i--) {
+		r += n.substr(i - 1, 1) + (x == 2 && i != 1 ? "." : "");
 		x = x == 2 ? 0 : x + 1;
 	}
 
-	return r.split('').reverse().join('');
+	return r.split("").reverse().join("");
 }
+/* ----------SOMENTENUMEROS---------- */
+function somenteNumeros(e){
+	var charCode = e.charCode ? e.charCode : e.keyCode;
+	if (charCode != 8 && charCode != 9){
+		var max = 9;
+		var num = $(".amount").val();
+
+		if ((charCode < 48 || charCode > 57)||(num.length >= max)){
+			return false;
+		}
+	}
+}
+/* ----------CTRLCONTROL---------- */
+$(document).ready(function() {
+    var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        vKey = 86,
+        cKey = 67;
+
+    $(document).keydown(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+    });
+
+    $(".amount").keydown(function(e) {
+        if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+    });
+    
+    $(document).keydown(function(e) {
+        if (ctrlDown && (e.keyCode == cKey)) console.log("Document catch Ctrl+C");
+        if (ctrlDown && (e.keyCode == vKey)) console.log("Document catch Ctrl+V");
+    });
+});

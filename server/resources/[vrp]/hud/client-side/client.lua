@@ -36,7 +36,7 @@ local beltVelocity = vector3(0,0,0)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local clockHours = 13
 local clockMinutes = 0
-local weatherSync = "RAIN"
+local weatherSync = "CLEAR"
 local timeDate = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP:PLAYERACTIVE
@@ -100,9 +100,9 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		if homeInterior then
-			SetWeatherTypeNow("RAIN")
-			SetWeatherTypePersist("RAIN")
-			SetWeatherTypeNowPersist("RAIN")
+			SetWeatherTypeNow("CLEAR")
+			SetWeatherTypePersist("CLEAR")
+			SetWeatherTypeNowPersist("CLEAR")
 			NetworkOverrideClockTime(00,00,00)
 		else
 			SetWeatherTypeNow(weatherSync)

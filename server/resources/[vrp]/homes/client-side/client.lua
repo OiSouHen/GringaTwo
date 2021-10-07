@@ -444,20 +444,19 @@ local theftPlayers = {}
 -- THEFTLOCAL
 -----------------------------------------------------------------------------------------------------------------------------------------
 local theftLocal = {
-	["MOBILE01"] = { 3.26,-4.29,0.1 },
-	["MOBILE02"] = { 1.27,-3.78,0.4 },
-	["MOBILE03"] = { 1.35,-5.46,0.3 },
-	["MOBILE04"] = { -1.95,-6.21,0.2 },
-	["MOBILE05"] = { -3.56,-6.0,0.1 },
-	["MOBILE06"] = { -4.67,0.85,-0.1 },
-	["MOBILE07"] = { -2.14,1.22,-0.1 },
-	["MOBILE08"] = { 2.59,1.66,0.5 },
-	["MOBILE09"] = { 8.39,-1.86,0.0 },
-	["MOBILE10"] = { 9.16,-1.43,-0.1 },
-	["MOBILE11"] = { 6.38,2.64,0.0 },
-	["MOBILE12"] = { 4.43,3.32,0.1 },
-	["MOBILE13"] = { 8.48,3.93,0.4 },
-	["LOCKER"] = { 7.16,-1.89,0.1 }
+	["MOBILE01"] = { 0.45,-2.87,-0.8 },
+	["MOBILE02"] = { -4.26,-5.36,-0.3 },
+	["MOBILE03"] = { -5.61,-5.21,-0.8 },
+	["MOBILE04"] = { -7.57,2.04,-1.0 },
+	["MOBILE05"] = { -3.91,2.08,-1.0 },
+	["MOBILE06"] = { 0.77,2.96,0.1 },
+	["MOBILE07"] = { 5.68,-1.13,-0.8 },
+	["MOBILE08"] = { 7.15,-1.00,-1.0 },
+	["MOBILE09"] = { 6.38,5.78,-0.3 },
+	["MOBILE10"] = { 3.59,3.83,-0.9 },
+	["MOBILE11"] = { 1.60,4.58,-0.7 },
+	["MOBILE12"] = { -0.54,-2.46,-0.3 },
+	["LOCKER"] = { 4.47,-1.00,-0.9 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKHOMESTHEFT
@@ -544,11 +543,11 @@ Citizen.CreateThread(function()
 				local coords = GetEntityCoords(ped)
 				for k,v in pairs(theftLocal) do
 					if not theftPlayers[k] then
-						local distance = #(coords - vector3(theftHomesX+v[1],theftHomesY+v[2],1502.0))
+						local distance = #(coords - vector3(theftHomesX + v[1],theftHomesY + v[2],1500.0))
 						
 						if distance <= 1.25 then
 							timeDistance = 1
-							DrawText3D(theftHomesX+v[1],theftHomesY+v[2],1500.0+v[3],"~g~E~w~   VASCULHAR")
+							DrawText3D(theftHomesX + v[1],theftHomesY + v[2],1500.0 + v[3],"~g~E~w~   VASCULHAR")
 							
 							if IsControlJustPressed(1,38) then
 								TriggerEvent("cancelando",true)

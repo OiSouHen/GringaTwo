@@ -14,6 +14,8 @@ vCLIENT = Tunnel.getInterface("evidence")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local dnaList = {}
+local resultTimers = 0
+local dnaResult = "Nenhum"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DROPDNA
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -56,14 +58,13 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKDNA
 -----------------------------------------------------------------------------------------------------------------------------------------
-local resultTimers = 0
-local dnaResult = "Nenhum"
 RegisterCommand("evidence",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -79,6 +80,7 @@ RegisterCommand("evidence",function(source,args,rawCommand)
 					else
 						dnaResult = "Individuo Indigente"
 					end
+					
 					TriggerClientEvent("evidence:lastResult",-1,"teste em andamento")
 				end
 			end
@@ -100,6 +102,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+		
 		Citizen.Wait(10000)
 	end
 end)
