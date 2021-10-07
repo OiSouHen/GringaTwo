@@ -650,6 +650,19 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					if itemName == "cellphone" then
 						TriggerClientEvent("gcPhone:activePhone",source)
 					end
+					
+					if vRP.tryGetInventoryItem(user_id,"mbattery",1) and vRP.tryGetInventoryItem(user_id,"nbcellphone",1) then
+                        vCLIENT.closeInventory(source)
+                        TriggerClientEvent("Progress",source,60000,"Recarregando...")
+                        vCLIENT.blockButtons(source,true)
+                        vRPclient._playAnim(source,true,{"amb@world_human_clipboard@male@idle_a","idle_c"},true)
+                        Citizen.Wait(60000)
+                        vRP.giveInventoryItem(user_id,"cellphone",1,false)
+                        vRP.upgradeStress(user_id,5)
+						vRPclient._stopAnim(source,false)
+						vCLIENT.blockButtons(source,false)
+                        TriggerClientEvent("Notify",source,"verde","Celular recarregado.",5000)
+                    end
 
 					if itemName == "adrenaline" then
 						local distance = vCLIENT.adrenalineDistance(source)
@@ -687,6 +700,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 												TriggerClientEvent("resetBleeding",nplayer)
 											end
 										end
+										
 										Citizen.Wait(0)
 									until active[user_id] == nil
 								end
@@ -695,22 +709,22 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 					
 					if itemName == "notebook" then
+						    vCLIENT.closeInventory(source)
 						TriggerClientEvent("notebook:openSystem",source)
-						vCLIENT.closeInventory(source)
 					end
 					
 					if itemName == "tablet" then
+						    vCLIENT.closeInventory(source)
 						TriggerClientEvent("tablet:openSystem",source)
-						vCLIENT.closeInventory(source)
 					end
 					
 					if itemName == "coptablet" then
 					    if vRP.hasPermission(user_id,"Police") then
+						    vCLIENT.closeInventory(source)
 						    TriggerClientEvent("police:openSystem",source)
-							vCLIENT.closeInventory(source)
 						else
+						    vCLIENT.closeInventory(source)
 						    TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível para você.",5000)
-							vCLIENT.closeInventory(source)
 						end
 					end
 					
@@ -986,12 +1000,13 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									if iddoroubado and math.random(100) >= 50 then
 										TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> disparou o alarme.",5000)
 									end
+									
 									if math.random(100) >= 20 then
 										TriggerEvent("setPlateEveryone",vehPlate)
 										TriggerEvent("setPlatePlayers",vehPlate,user_id)
 									end
 
-									if math.random(100) >= 75 then
+									if math.random(100) >= 50 then
 										local x,y,z = vRPclient.getPositions(source)
 										local copAmount = vRP.numPermission("Police")
 										for k,v in pairs(copAmount) do
@@ -1023,14 +1038,14 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeStress(user_id,4)
 									local iddoroubado = vRP.getVehiclePlate(vehPlate)
 									if iddoroubado then
-										TriggerClientEvent("Notify",source,"verde","<b>"..vRP.vehicleName(vehName).."</b> foi roubado.",5000)
+										TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> foi roubado.",5000)
 									end
 									if math.random(100) >= 50 then
 										TriggerEvent("setPlateEveryone",vehPlate)
 										TriggerClientEvent("inventory:lockpickVehicle",-1,vehNet)
 									end
 
-									if math.random(100) >= 75 then
+									if math.random(100) >= 50 then
 										local x,y,z = vRPclient.getPositions(source)
 										local copAmount = vRP.numPermission("Police")
 										for k,v in pairs(copAmount) do
@@ -1062,9 +1077,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
-									vRP.upgradeStress(user_id,4)
+									vRP.upgradeStress(user_id,5)
 									vHOMES.enterHomesTheft(source,homeName)
-									TriggerEvent("vrp:homes:ApplyTime",homeName)
+--									TriggerEvent("vrp:homes:ApplyTime",homeName)
+									TriggerEvent("homes:ApplyTime",homeName)
 								
 								else
 									TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)

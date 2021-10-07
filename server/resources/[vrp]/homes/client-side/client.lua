@@ -520,8 +520,8 @@ function cRP.enterHomesTheft(homeName)
 
 		Citizen.Wait(1000)
 
-		SetEntityCoords(ped,theftHomesX+3.63,theftHomesY-15.43,1502.0)
-		table.insert(internHouses,{ theftHomesX+3.63,theftHomesY-15.43,1502.3,"exit","SAIR" })
+		SetEntityCoords(ped,theftHomesX,theftHomesY,1500.0)
+		table.insert(internHouses,{ theftHomesX + 1.36,theftHomesY - 14.23,1499.5,"exit","SAIR" })
 
 		TriggerEvent("homes:Hours",true)
 		FreezeEntityPosition(ped,true)
