@@ -34,7 +34,7 @@ Citizen.CreateThread(function()
 							local hasCoords = GetEntityCoords(hasPed)
 							local distance = #(coords - hasCoords)
 
-							if distance <= 1.5 then
+							if distance <= 1.5 and not hasList[PedToNet(hasPed)] then
 								timeDistance = 1
 								DrawText3D(hasCoords["x"],hasCoords["y"],hasCoords["z"],"~g~E~w~  OFERECER")
 
@@ -48,6 +48,7 @@ Citizen.CreateThread(function()
 										end
 
 										PlayAmbientSpeech1(hasPed,"GENERIC_HI","SPEECH_PARAMS_STANDARD")
+										vSERVER.insertPedlist(PedToNet(hasPed),false,true)
 										TaskSetBlockingOfNonTemporaryEvents(hasPed,true)
 										SetBlockingOfNonTemporaryEvents(hasPed,true)
 										SetPedDropsWeaponsWhenDead(hasPed,false)
@@ -67,8 +68,6 @@ Citizen.CreateThread(function()
 														PlayAmbientSpeech1(hasPed,"GENERIC_THANKS","SPEECH_PARAMS_STANDARD")
 														TaskWanderStandard(hasPed,10.0,10)
 														vSERVER.paymentMethod()
-														SetPedKeepTask(hasPed,true)
-														Wait(30000)
 														hasTimer = -1
 														break
 													end
@@ -87,6 +86,7 @@ Citizen.CreateThread(function()
 										end
 									else
 										PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
+										vSERVER.insertPedlist(PedToNet(hasPed),true,true)
 										TaskWanderStandard(hasPed,10.0,10)
 										TaskReactAndFleePed(hasPed,ped)
 										SetPedKeepTask(hasPed,true)
@@ -150,6 +150,15 @@ Citizen.CreateThread(function()
 		Citizen.Wait(1000)
 	end
 end)
+--------------------------------------------------------------------------------------------------------------
+-- THREADCLEARLIST
+--------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(30*60000)
+		TriggerEvent("drugs:clearList",source,false)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -179,83 +188,80 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 
 		if not actionRobbery then
-			if not IsPedInAnyVehicle(ped) and GetSelectedPedWeapon(ped) ~= GetHashKey("WEAPON_UNARMED") then
+			if not IsPedInAnyVehicle(ped) and IsPedArmed(ped,6) then
 				local aim,target = GetEntityPlayerIsFreeAimingAt(PlayerId())
 
 				if aim and not IsPedAPlayer(target) and GetPedArmour(target) <= 0 and GetPedType(target) ~= 28 then
 					if IsPedInAnyVehicle(target) then
-						if IsPedArmed(ped,6) then
-							timeDistance = 1
+						timeDistance = 1
 
-							local coords = GetEntityCoords(ped)
-							local vehicle = GetVehiclePedIsUsing(target)
-							local speed = GetEntitySpeed(vehicle) * 2.236936
-							local distance = #(coords - GetEntityCoords(vehicle))
-							
-							local plate = GetVehicleNumberPlateText(vehicle)
-							local modelName = vRP.vehicleModel(GetEntityModel(vehicle))
+						local coords = GetEntityCoords(ped)
+						local vehicle = GetVehiclePedIsUsing(target)
+						local speed = GetEntitySpeed(vehicle) * 2.236936
+						local plate = GetVehicleNumberPlateText(vehicle)
+						local distance = #(coords - GetEntityCoords(vehicle))
+						local modelName = vRP.vehicleModel(GetEntityModel(vehicle))
 
-							if distance <= 10 and IsPedFacingPed(target,ped,180.0) and speed <= 5 then
-								actionRobbery = true
+						if distance <= 10 and IsPedFacingPed(target,ped,180.0) and speed <= 5 and not hasList[PedToNet(target)] then
+							actionRobbery = true
 
-								SetVehicleForwardSpeed(vehicle,0)
-								TaskLeaveVehicle(target,vehicle,256)
-								SetEntityAsMissionEntity(target,true,false)
+							SetVehicleForwardSpeed(vehicle,0)
+							TaskLeaveVehicle(target,vehicle,256)
+							SetEntityAsMissionEntity(target,true,false)
 
-								while IsPedInAnyVehicle(target) do
-									Citizen.Wait(1)
-								end
-
-								Citizen.Wait(250)
-
-								while not NetworkHasControlOfEntity(target) and DoesEntityExist(target) do
-									NetworkRequestControlOfEntity(target)
-									Citizen.Wait(100)
-								end
-
-								TaskSetBlockingOfNonTemporaryEvents(target,true)
-								SetBlockingOfNonTemporaryEvents(target,true)
-								SetPedDropsWeaponsWhenDead(target,false)
-								TaskTurnPedToFaceEntity(target,ped,3.0)
-								SetPedSuffersCriticalHits(target,false)
-								ClearPedTasks(target)
-								TriggerServerEvent("setPlateEveryone",plate,modelName)
-
-								RequestAnimDict("random@arrests@busted")
-								while not HasAnimDictLoaded("random@arrests@busted") do
-									Citizen.Wait(1)
-								end
-
-								TaskPlayAnim(target,"random@arrests@busted","idle_a",3.0,3.0,-1,49,0,0,0,0)
-
-								local timeAim = 0
-								while IsPlayerFreeAiming(PlayerId()) do
-									timeAim = timeAim + 1
-
-									local ped = PlayerPedId()
-									local coords = GetEntityCoords(ped)
-									local distance = #(coords - GetEntityCoords(target))
-									if timeAim >= 1000 or IsEntityDead(target) or distance > 10 then
-										break
-									end
-
-									Citizen.Wait(1)
-								end
-
-								if timeAim >= 1000 then
-									RequestAnimDict("mp_common")
-									while not HasAnimDictLoaded("mp_common") do
-										Citizen.Wait(1)
-									end
-
-									TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
-								end
-
-								ClearPedTasks(target)
-								TaskWanderStandard(target,10.0,10)
-								TaskReactAndFleePed(target,ped)
-								SetPedKeepTask(target,true)
+							while IsPedInAnyVehicle(target) do
+								Citizen.Wait(1)
 							end
+
+							Citizen.Wait(250)
+
+							while not NetworkHasControlOfEntity(target) and DoesEntityExist(target) do
+								NetworkRequestControlOfEntity(target)
+								Citizen.Wait(100)
+							end
+
+							TaskSetBlockingOfNonTemporaryEvents(target,true)
+							SetBlockingOfNonTemporaryEvents(target,true)
+							SetPedDropsWeaponsWhenDead(target,false)
+							TaskTurnPedToFaceEntity(target,ped,3.0)
+							SetPedSuffersCriticalHits(target,false)
+							ClearPedTasks(target)
+
+							RequestAnimDict("random@arrests@busted")
+							while not HasAnimDictLoaded("random@arrests@busted") do
+								Citizen.Wait(1)
+							end
+
+							TaskPlayAnim(target,"random@arrests@busted","idle_a",3.0,3.0,-1,49,0,0,0,0)
+
+							local timeAim = 0
+							while IsPlayerFreeAiming(PlayerId()) do
+								timeAim = timeAim + 1
+
+								local ped = PlayerPedId()
+								local coords = GetEntityCoords(ped)
+								local distance = #(coords - GetEntityCoords(target))
+								if timeAim >= 1000 or IsEntityDead(target) or distance > 10 then
+									break
+								end
+
+								Citizen.Wait(1)
+							end
+
+							if timeAim >= 1000 then
+								RequestAnimDict("mp_common")
+								while not HasAnimDictLoaded("mp_common") do
+									Citizen.Wait(1)
+								end
+
+								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
+								TriggerServerEvent("plateRobberys",plate,modelName)
+							end
+
+							ClearPedTasks(target)
+							TaskWanderStandard(target,10.0,10)
+							TaskReactAndFleePed(target,ped)
+							SetPedKeepTask(target,true)
 						end
 					else
 						timeDistance = 1
@@ -263,8 +269,14 @@ Citizen.CreateThread(function()
 						local coords = GetEntityCoords(ped)
 						local distance = #(coords - GetEntityCoords(target))
 
-						if distance < 5 and IsPedFacingPed(target,ped,180.0) then
+						if distance < 5 and IsPedFacingPed(target,ped,180.0) and not hasList[PedToNet(target)] then
 							actionRobbery = true
+
+							if math.random(100) >= 90 then
+								vSERVER.insertPedlist(PedToNet(target),true,false)
+							else
+								vSERVER.insertPedlist(PedToNet(target),true,false)
+							end
 
 							SetEntityAsMissionEntity(target,true,false)
 
@@ -314,7 +326,6 @@ Citizen.CreateThread(function()
 							TaskWanderStandard(target,10.0,10)
 							TaskReactAndFleePed(target,ped)
 							SetPedKeepTask(target,true)
-							Wait(15000)
 						end
 					end
 

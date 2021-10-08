@@ -225,7 +225,7 @@ local itemlist = {
 		index = "credential",
 		name = "Credencial",
 		tipo = "Usável",
-		economy = "225",
+		economy = "125",
 		type = "use",
 		weight = 0.75
 	},
@@ -556,7 +556,7 @@ local itemlist = {
 		index = "premium02",
 		name = "Premium 7 Dias",
 		tipo = "Usável",
-		economy = "45000",
+		economy = "62500",
 		type = "use",
 		weight = 0.00
 	},
@@ -564,7 +564,7 @@ local itemlist = {
 		index = "premium03",
 		name = "Premium 15 Dias",
 		tipo = "Usável",
-		economy = "67500",
+		economy = "75000",
 		type = "use",
 		weight = 0.00
 	},
@@ -572,7 +572,7 @@ local itemlist = {
 		index = "premium04",
 		name = "Premium 1 Mês",
 		tipo = "Usável",
-		economy = "90000",
+		economy = "87500",
 		type = "use",
 		weight = 0.00
 	},
@@ -581,7 +581,7 @@ local itemlist = {
 		name = "Troca de nome",
 		desc = "Troca o nome do personagem.",
 		tipo = "Usável",
-		economy = "75000",
+		economy = "62500",
 		type = "use",
 		weight = 0.00
 	},
@@ -590,7 +590,16 @@ local itemlist = {
 		name = "+1 Personagem",
 		desc = "Limite de personagem em +1.",
 		tipo = "Usável",
-		economy = "150000",
+		economy = "100000",
+		type = "use",
+		weight = 0.00
+	},
+	["chip"] = {
+		index = "chip",
+		name = "Chip Telefônico",
+		desc = "Troca o número telefônico.",
+		tipo = "Usável",
+		economy = "75000",
 		type = "use",
 		weight = 0.00
 	},
@@ -599,7 +608,7 @@ local itemlist = {
 		name = "+1 Garagem",
 		desc = "Limite de garagem em +1.",
 		tipo = "Usável",
-		economy = "75000",
+		economy = "50000",
 		type = "use",
 		weight = 0.00
 	},
@@ -608,7 +617,7 @@ local itemlist = {
 		name = "Placa Premium",
 		desc = "Troca a placa de registro do veículo.",
 		tipo = "Usável",
-		economy = "45000",
+		economy = "50000",
 		type = "use",
 		weight = 0.50
 	},
@@ -702,7 +711,7 @@ local itemlist = {
 		type = "use",
 		subtype = "comida",
 		transform = "nbcellphone",
-		durability = 28800,
+		durability = 54000,
 		weight = 0.75
 	},
 	["nbcellphone"] = {
@@ -710,7 +719,6 @@ local itemlist = {
         name = "Celular Descarregado",
 		desc = "Celular sem bateria",
 		tipo = "Comum",
-		economy = "325",
         type = "use",
         weight = 0.75
     },
@@ -1017,18 +1025,17 @@ local itemlist = {
 		index = "lockpick",
 		name = "Lockpick",
 		tipo = "Usável",
-		economy = "400",
+		economy = "525",
 		type = "use",
 		subtype = "comida",
 		transform = "lockpick2",
-		durability = 28800,
+		durability = 10800,
 		weight = 1.25
 	},
 	["lockpick2"] = {
 		index = "lockpick2",
 		name = "Lockpick Quebrada",
 		tipo = "Comum",
-		economy = "65",
 		type = "use",
 		weight = 1.25
 	},
@@ -1040,7 +1047,7 @@ local itemlist = {
 		type = "use",
 		subtype = "comida",
 		transform = "vest2",
-		durability = 28800,
+		durability = 10800,
 		weight = 2.25
 	},
 	["vest2"] = {
@@ -1055,7 +1062,7 @@ local itemlist = {
 		index = "toolbox",
 		name = "Caixa de Ferramentas",
 		tipo = "Ferramentas",
-		economy = "500",
+		economy = "475",
 		type = "use",
 		weight = 1.75
 	},
@@ -1071,7 +1078,7 @@ local itemlist = {
 		index = "tires",
 		name = "Pneus",
 		tipo = "Material",
-		economy = "250",
+		economy = "325",
 		type = "use",
 		weight = 1.50
 	},
@@ -1576,7 +1583,7 @@ local itemlist = {
 		index = "crowbar",
 		name = "Pé de Cabra",
 		tipo = "Armamento",
-		economy = "975",
+		economy = "725",
 		type = "equip",
 		weight = 0.75
 	},
@@ -1651,7 +1658,7 @@ local itemlist = {
 		index = "wrench",
 		name = "Chave Inglesa",
 		tipo = "Armamento",
-		economy = "975",
+		economy = "725",
 		type = "equip",
 		weight = 0.75
 	},
@@ -1799,7 +1806,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. M1911",
 		tipo = "Munição",
-		economy = "20",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1807,7 +1813,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Five Seven",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1815,7 +1820,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Koch Vp9",
 		tipo = "Munição",
-		economy = "22",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1823,14 +1827,12 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Ati FX45",
 		tipo = "Munição",
-		economy = "20",
 		type = "recharge",
 		weight = 0.02
 	},
 	["WEAPON_SNSPISTOL_AMMO"] = {
 		index = "pistolammo",
 		name = "M. AMT 380",
-		tipo = "Munição",
 		economy = "25",
 		type = "recharge",
 		weight = 0.02
@@ -1839,7 +1841,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. HK P7M10",
 		tipo = "Munição",
-		economy = "23",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1847,7 +1848,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. M1922",
 		tipo = "Munição",
-		economy = "20",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1855,7 +1855,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Desert Eagle",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1863,7 +1862,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Magnum 44",
 		tipo = "Munição",
-		economy = "22",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1871,7 +1869,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "M. Glock",
 		tipo = "Munição",
-		economy = "21",
 		type = "recharge",
 		weight = 0.02
 	},
@@ -1954,7 +1951,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de AK Compact",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -1962,7 +1958,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "M. Uzi",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -1970,7 +1965,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "M. Skorpion V61",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -1978,7 +1972,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "Munição de MP5",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -1986,7 +1979,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "Munição de Evo-3",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -1994,7 +1986,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "Munição de MTAR-21",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -2002,7 +1993,6 @@ local itemlist = {
 		index = "smgammo",
 		name = "Munição de Thompson",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -2010,7 +2000,6 @@ local itemlist = {
 		index = "pistolammo",
 		name = "Munição de Tec-9",
 		tipo = "Munição",
-		economy = "24",
 		type = "recharge",
 		weight = 0.03
 	},
@@ -2102,7 +2091,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de M4A1",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2110,7 +2098,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de G36C",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2118,7 +2105,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de Sig Sauer 556",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2126,7 +2112,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de L85",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2134,7 +2119,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de M4A4",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2142,7 +2126,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de AK-103",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2150,7 +2133,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de AK-74",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2158,7 +2140,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de QBZ-95",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2166,7 +2147,6 @@ local itemlist = {
 		index = "rifleammo",
 		name = "Munição de Tar-21",
 		tipo = "Munição",
-		economy = "25",
 		type = "recharge",
 		weight = 0.04
 	},
@@ -2222,7 +2202,6 @@ local itemlist = {
 		index = "musketammo",
 		name = "Munição de Mosquete",
 		tipo = "Munição",
-		economy = "10",
 		type = "recharge",
 		weight = 0.05
 	},
@@ -2230,7 +2209,6 @@ local itemlist = {
 		index = "musketammo",
 		name = "Munição de Sauer",
 		tipo = "Munição",
-		economy = "12",
 		type = "recharge",
 		weight = 0.07
 	},
@@ -2238,7 +2216,6 @@ local itemlist = {
 		index = "remingtonammo",
 		name = "Munição de Mossberg 590",
 		tipo = "Munição",
-		economy = "45",
 		type = "recharge",
 		weight = 0.05
 	},
@@ -2246,7 +2223,6 @@ local itemlist = {
 		index = "remingtonammo",
 		name = "Munição de Mossberg 590A1",
 		tipo = "Munição",
-		economy = "45",
 		type = "recharge",
 		weight = 0.05
 	},
@@ -2254,7 +2230,6 @@ local itemlist = {
 		index = "shotgunammo",
 		name = "Munição de Mossberg 500",
 		tipo = "Munição",
-		economy = "45",
 		type = "recharge",
 		weight = 0.05
 	},
@@ -2823,20 +2798,6 @@ function vRP.itemMaxAmount(item)
 	return nil
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ITEMCOLOR
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.itemColor(item)
-	local splitName = splitString(item,"-")
-
-	if itemlist[splitName[1]] then
-		if itemlist[splitName[1]]["color"] ~= nil then
-			return itemlist[splitName[1]]["color"]
-		end
-	end
-
-	return { 26,27,30,0.5 }
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMECONOMYLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.itemEconomyList(item)
@@ -2879,6 +2840,20 @@ function vRP.itemDurabilityList(item)
 	end
 
 	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ITEMCOLOR
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.itemColor(item)
+	local splitName = splitString(item,"-")
+
+	if itemlist[splitName[1]] then
+		if itemlist[splitName[1]]["color"] ~= nil then
+			return itemlist[splitName[1]]["color"]
+		end
+	end
+
+	return { 26,27,30,0.5 }
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMTYPELIST

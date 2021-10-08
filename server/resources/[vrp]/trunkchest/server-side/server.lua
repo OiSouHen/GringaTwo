@@ -325,7 +325,7 @@ local source = source
                 local plateUserId = vRP.getVehiclePlate(vehPlate)
                 if plateUserId then
                     chestOpen[user_id] = vehPlate
-                    RemoveAllPedWeapons(source, true)
+--                    RemoveAllPedWeapons(source, true)
                     vCLIENT.trunkOpen(source)
                     if not vRPclient.inVehicle(source) then
                         TriggerClientEvent("player:syncDoors",-1,vehNet,"5")
