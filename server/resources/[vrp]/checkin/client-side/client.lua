@@ -131,6 +131,7 @@ function nearestPlayers(x2,y2,z2)
 			end
 		end
 	end
+	
 	return r
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -146,5 +147,6 @@ function nearestPlayer(x,y,z)
 			p = k
 		end
 	end
+	
 	return p
 end
