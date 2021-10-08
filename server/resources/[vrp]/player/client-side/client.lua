@@ -33,6 +33,21 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 exports("blockCommands",blocks)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- RECEIVESALARY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	local salaryTimers = GetGameTimer()
+
+	while true do
+		if GetGameTimer() >= salaryTimers then
+			salaryTimers = GetGameTimer() + (30 * 60000)
+			TriggerServerEvent("player:salary")
+		end
+
+		Citizen.Wait(10000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- AWAYSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 local awayTimers = GetGameTimer()
@@ -83,44 +98,6 @@ Citizen.CreateThread(function()
 		end
 
 		Citizen.Wait(100)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PERMADEATH
------------------------------------------------------------------------------------------------------------------------------------------
-local dX,dY,dZ = 294.78,-1351.17,24.54
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			local distance = #(coords - vector3(dX,dY,dZ))
-			if distance <= 2.5 then
-				timeDistance = 4
-				DrawText3D(dX,dY,dZ,"~r~E~w~  COMETER SUICÍDIO")
-				DrawMarker(23,dX,dY,dZ-0.98,0,0,0,0,0,0,5.0,5.0,1.0,255,0,0,25,0,0,0,0)
-				if IsControlJustPressed(1,38) then
-					vSERVER.deleteChar()
-				end
-			end
-		end
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- RECEIVESALARY
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local salaryTimers = GetGameTimer()
-
-	while true do
-		if GetGameTimer() >= salaryTimers then
-			salaryTimers = GetGameTimer() + (30 * 60000)
-			TriggerServerEvent("player:salary")
-		end
-
-		Citizen.Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

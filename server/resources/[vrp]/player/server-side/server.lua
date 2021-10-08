@@ -189,22 +189,22 @@ AddEventHandler("player:salary",function()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.getPremium(parseInt(user_id)) then
-			vRP.setSalary(parseInt(user_id),875)
+			vRP.addBank(parseInt(user_id),875)
 			TriggerClientEvent("Notify",source,"azul","Salário de <b>$875</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Police") then
-			vRP.setSalary(parseInt(user_id),1655)
+			vRP.addBank(parseInt(user_id),1655)
 			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1655</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Mechanic") then
-			vRP.setSalary(parseInt(user_id),1125)
+			vRP.addBank(parseInt(user_id),1125)
 			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1125</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Paramedic") then
-			vRP.setSalary(parseInt(user_id),1845)
+			vRP.addBank(parseInt(user_id),1845)
 			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1845</b> recebido.",5000)
 		end
 	end

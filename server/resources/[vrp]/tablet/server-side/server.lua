@@ -166,7 +166,6 @@ function cRP.sellDealer(name)
 					return
 				end
 				
-				tryAddVehicleInStock(vehName)
 				vRP.execute("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..vehName })
 				vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..vehName })
 				vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = vehName })
