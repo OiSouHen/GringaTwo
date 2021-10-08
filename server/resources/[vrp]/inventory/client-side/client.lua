@@ -253,9 +253,10 @@ end)
 -- REQUESTMOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("requestMochila",function(data,cb)
+    local dropItems = {}
 	local ped = PlayerPedId()
 	local x,y,z = table.unpack(GetEntityCoords(ped))
-	local dropItems = {}
+	
 	for k,v in pairs(droplist) do
 		local bowz,cdz = GetGroundZFor_3dCoord(v.x,v.y,v.z)
 		if GetDistanceBetweenCoords(v.x,v.y,cdz,x,y,z,true) <= 1.5 then
@@ -291,6 +292,7 @@ function cRP.plateDistance()
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -658,9 +660,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTWEAPONHANDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.putWeaponHands(weaponName,weaponAmmo)
+function cRP.putWeaponHands(weapon,ammo)
 	if not putWeaponHands then
-		if weaponAmmo > 0 then
+		if ammo > 0 then
 			weaponActive = true
 		end
 
@@ -683,17 +685,17 @@ function cRP.putWeaponHands(weaponName,weaponAmmo)
 
 			Citizen.Wait(200)
 
-			GiveWeaponToPed(ped,weaponName,weaponAmmo,false,true)
+			GiveWeaponToPed(ped,weapon,ammo,false,true)
 
 			Citizen.Wait(300)
 
 			ClearPedTasks(ped)
 		else
-			GiveWeaponToPed(ped,weaponName,weaponAmmo,true,true)
+			GiveWeaponToPed(ped,weapon,ammo,true,true)
 		end
 
 		TriggerEvent("cancelando",false)
-		useWeapon = weaponName
+		useWeapon = weapon
 		putWeaponHands = false
 
 		return true
@@ -711,7 +713,7 @@ function cRP.storeWeaponHands()
 
 		local ped = PlayerPedId()
 		local lastWeapon = useWeapon
-		local weaponAmmo = GetAmmoInPedWeapon(ped,useWeapon)
+		local ammo = GetAmmoInPedWeapon(ped,useWeapon)
 
 		if not IsPedInAnyVehicle(ped) then
 			loadAnimDict("weapons@pistol@")
@@ -737,7 +739,7 @@ function cRP.storeWeaponHands()
 		storeWeaponHands = false
 		TriggerEvent("cancelando",false)
 
-		return true,weaponAmmo,lastWeapon
+		return true,ammo,lastWeapon
 	end
 
 	return false
@@ -877,8 +879,8 @@ end
 function cRP.rechargeWeapon2(ammoType,ammoAmount)
 	local ped = PlayerPedId()
 	local targetWeapon = GetSelectedPedWeapon(ped)
-	local targetWeaponAmmo = GetAmmoInPedWeapon(ped, targetWeapon)
-	local currentAmmo = targetWeaponAmmo
+	local targetAmmo = GetAmmoInPedWeapon(ped, targetWeapon)
+	local currentAmmo = targetAmmo
 	local ped = PlayerPedId()
 	SetPedAmmo(ped, targetWeapon, ammoAmount)
 	return true
