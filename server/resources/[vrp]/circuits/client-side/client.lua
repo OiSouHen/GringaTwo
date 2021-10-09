@@ -380,6 +380,8 @@ Citizen.CreateThread(function()
 							    raceTime = parseInt(runners[inSelected]["raceTimers"])
 --							    makeObjects()
 							    makeBlips()
+							else
+							    TriggerEvent("Notify","amarelo","Você precisa estar dirigindo.",5000)
 							end
 						end
 					end

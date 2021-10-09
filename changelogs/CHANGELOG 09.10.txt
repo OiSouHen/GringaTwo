@@ -1,0 +1,5 @@
+**CHANGELOG 09.10:**
+
+1: Aumentado a quantidade de alguns itens recebidos no emprego do **Lixeiro**.
+2: Aumentado a quantidade de **Sucatas** recebidas das carcaças dos veículos de **4/5** para **5/6**.
+3: Modificado o valor recebido no **Roubo** ao **Carro Forte**.

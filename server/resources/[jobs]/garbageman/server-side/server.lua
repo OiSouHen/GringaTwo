@@ -31,16 +31,16 @@ end)
 -- SEARCHTRASHITENS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local searchTrashItens = {
-	[1] = "glassbottle",
-	[2] = "elastic",
-	[3] = "plasticbottle",
-	[4] = "metalcan",
-	[5] = "battery",
-	[6] = "scrapmetal",
-	[7] = "titanium",
-	[8] = "syringe",
-	[9] = "fabric",
-	[10] = "metalfragments"
+	[1] = { "glassbottle",math.random(3,4) },
+	[2] = { "elastic",math.random(3,4) },
+	[3] = { "plasticbottle",math.random(3,4) },
+	[4] = { "metalcan",math.random(3,4) },
+	[5] = { "battery",math.random(3,4) },
+	[6] = { "scrapmetal",math.random(1) },
+	[7] = { "titanium",math.random(2) },
+	[8] = { "syringe",math.random(1) },
+	[9] = { "fabric",math.random(2) },
+	[10] = { "metalfragments",math.random(2) }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEARCHTRASH
@@ -54,9 +54,14 @@ function cRP.searchTrash(id)
 			    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 			    Wait(1)
 		    else
-			    vRP.giveInventoryItem(user_id,searchTrashItens[math.random(#searchTrashItens)],math.random(1,3),true)
-				timers[id] = 600
+			    local randItem = math.random(#searchTrashItens)
+				if math.random(100) <= 90 then
+					vRP.giveInventoryItem(user_id,searchTrashItens[randItem][1],parseInt(searchTrashItens[randItem][2]),true)
+				else
+					TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
+				end
 				
+				timers[id] = 600
 				vRP.upgradeStress(user_id,1)
 				return true
 			end
@@ -116,7 +121,7 @@ function cRP.searchWaste(id)
 			    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 			    Wait(1)
 		    else
-				vRP.giveInventoryItem(user_id,searchWasteItens[math.random(#searchWasteItens)],math.random(3,6),true)
+				vRP.giveInventoryItem(user_id,searchWasteItens[math.random(#searchWasteItens)],math.random(5,6),true)
 				timers[id] = 600
 				
 				vRP.upgradeStress(user_id,3)

@@ -82,16 +82,10 @@ function cRP.withdrawMoney(vehPlate,vehNet)
 				    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				    Wait(1)
 				else
-			
-				local random = math.random(100)
-				if parseInt(random) >= 51 then
-				    vRP.giveInventoryItem(user_id,"dollars",math.random(1000),true)
-				elseif parseInt(random) >= 0 and parseInt(random) <= 50 then
-				    vRP.giveInventoryItem(user_id,"dollars2",math.random(1000),true)
-				end
-			
-				    vRP.upgradeStress(user_id,2)
-				    return true
+
+				vRP.giveInventoryItem(user_id,"dollars",math.random(1000),true)
+				vRP.upgradeStress(user_id,3)
+				return true
 				end
 			else
 				TriggerClientEvent("Notify",source,"amarelo","O carro forte está vázio.",5000)

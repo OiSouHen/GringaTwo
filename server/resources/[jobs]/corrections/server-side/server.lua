@@ -20,7 +20,6 @@ function cRP.checkPermission()
 	if user_id then
 		return vRP.hasPermission(user_id,"Police")
 	else
-	
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
