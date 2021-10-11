@@ -94,15 +94,15 @@ local shops = {
 		["mode"] = "Buy",
 		["type"] = "Premium",
 		["list"] = {
-			["premium01"] = 15,
-			["premium02"] = 25,
-			["premium03"] = 35,
-			["premium04"] = 45,
-			["premiumplate"] = 25,
-			["premiumname"] = 25,
-			["premiumgarage"] = 25,
-			["premiumpersonagem"] = 25,
-			["gemstone"] = 1
+			["newgarage"] = 40,
+--			["chip"] = 60,
+			["gemstone"] = 1,
+			["premiumplate"] = 40,
+			["premium01"] = 40,
+			["premium03"] = 60,
+			["premium04"] = 70,
+			["premium02"] = 50,
+			["namechange"] = 50
 		}
 	},
 	["minerShop"] = {

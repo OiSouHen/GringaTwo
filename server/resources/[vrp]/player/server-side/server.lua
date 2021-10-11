@@ -188,24 +188,39 @@ AddEventHandler("player:salary",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getPremium(parseInt(user_id)) then
-			vRP.addBank(parseInt(user_id),875)
-			TriggerClientEvent("Notify",source,"azul","Salário de <b>$875</b> recebido.",5000)
+		if vRP.hasPermission(parseInt(user_id),"premium01") then
+			vRP.addBank(parseInt(user_id),525)
+			TriggerClientEvent("Notify",source,"azul","Bônus de <b>$525</b> recebido.",5000)
+		end
+		
+		if vRP.hasPermission(parseInt(user_id),"premium02") then
+			vRP.addBank(parseInt(user_id),625)
+			TriggerClientEvent("Notify",source,"azul","Bônus de <b>$625</b> recebido.",5000)
+		end
+		
+		if vRP.hasPermission(parseInt(user_id),"premium03") then
+			vRP.addBank(parseInt(user_id),725)
+			TriggerClientEvent("Notify",source,"azul","Bônus de <b>$725</b> recebido.",5000)
+		end
+		
+		if vRP.hasPermission(parseInt(user_id),"premium04") then
+			vRP.addBank(parseInt(user_id),825)
+			TriggerClientEvent("Notify",source,"azul","Bônus de <b>$825</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Police") then
-			vRP.addBank(parseInt(user_id),1655)
-			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1655</b> recebido.",5000)
+			vRP.addBank(parseInt(user_id),1235)
+			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1235</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Mechanic") then
-			vRP.addBank(parseInt(user_id),1125)
-			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1125</b> recebido.",5000)
+			vRP.addBank(parseInt(user_id),1085)
+			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1085</b> recebido.",5000)
 		end
 
 		if vRP.hasPermission(parseInt(user_id),"Paramedic") then
-			vRP.addBank(parseInt(user_id),1845)
-			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1845</b> recebido.",5000)
+			vRP.addBank(parseInt(user_id),1475)
+			TriggerClientEvent("Notify",source,"azul","Salário de <b>$1475</b> recebido.",5000)
 		end
 	end
 end)

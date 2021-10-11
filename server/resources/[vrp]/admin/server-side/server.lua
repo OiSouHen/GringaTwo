@@ -95,7 +95,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("skin",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Owner") then
+	if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 		TriggerClientEvent("skinmenu",args[1],args[2])
 		TriggerClientEvent("Notify",source,"amarelo","Setada skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
     end
@@ -136,7 +136,7 @@ RegisterCommand("admindebug",function(source,args,rawCommand)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") or  vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			TriggerClientEvent("ToggleDebug",source)
 		end
 	end
@@ -161,7 +161,7 @@ RegisterCommand("addcar",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") and args[1] and args[2] then
 			vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[1]), vehicle = args[2], plate = vRP.generatePlateNumber(), phone = vRP.getPhone(args[1]), work = tostring(false) })
 			TriggerClientEvent("Notify",args[1],"azul","Recebido <b>"..args[2].."</b> em sua garagem.",5000)
-			TriggerClientEvent("Notify",source,"amarelo","Adicionado <b>"..args[2].."</b> na garagem de ID <b>"..args[1].."</b>.",10000)
+			TriggerClientEvent("Notify",source,"amarelo","Adicionado <b>"..args[2].."</b> na garagem de ID <b>"..parseInt(args[1]).."</b>.",5000)
 		end
 	end
 end)
@@ -316,6 +316,7 @@ RegisterCommand("group",function(source,args,rawCommand)
 			if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.insertPermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/add_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
+				TriggerClientEvent("Notify",source,"default","Adicionado ID <b>"..parseInt(args[2]).."</b> no grupo <b>"..args[1].."</b>.",5000)
 			end
 		end
 	end
@@ -330,6 +331,7 @@ RegisterCommand("ungroup",function(source,args,rawCommand)
 			if vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.removePermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
+				TriggerClientEvent("Notify",source,"default","Removido ID <b>"..parseInt(args[2]).."</b> no grupo de <b>"..args[1].."</b>.",5000)
 			end
 		end
 	end
@@ -390,7 +392,7 @@ end)
 RegisterCommand("hash",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Owner") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			local vehicle = vRPclient.nearVehicle(source,7)
 			if vehicle then
 				vCLIENT.vehicleHash(source,vehicle)
@@ -503,7 +505,7 @@ RegisterCommand("onlines",function(source,args,rawCommand)
 			quantidade = quantidade + 1
 		end
 
-		TriggerClientEvent("chatMessage",source,"IDS Onlines:",{1, 136, 0},players)
+		TriggerClientEvent("chatMessage",source,"IDs Onlines:",{207, 180, 1},players)
 		TriggerClientEvent("Notify",source,"amarelo","Atualmente <b>"..quantidade.."</b> onlines.",10000)
 	end
 end)
@@ -543,7 +545,7 @@ RegisterCommand("announce",function(source,args,rawCommand)
 				return
 			end
 			
-			TriggerClientEvent("Notify",-1,messagetype,""..message.."",timer)
+			TriggerClientEvent("Notify",-1,messagetype,message,timer)
 			TriggerClientEvent("sounds:source",-1,"notification",0.5)
 		end
 	end

@@ -73,6 +73,7 @@ function vRP.updateTxt(archive,text)
 	if archive then
 		archive:write(text.."\n")
 	end
+	
 	archive:close()
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -179,6 +180,7 @@ function vRP.getInventory(user_id)
         end
         return data.inventorys
     end
+	
     return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -200,6 +202,7 @@ function vRP.getUserId(source)
 			return vRP.users[ids[1]]
 		end
 	end
+	
 	return nil
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -210,6 +213,7 @@ function vRP.getUsers()
 	for k,v in pairs(vRP.user_sources) do
 		users[k] = v
 	end
+	
 	return users
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -227,6 +231,7 @@ AddEventHandler("playerDropped",function()
 	if addPlayer[source] then
 		addPlayer[source] = nil
 	end
+	
 	TriggerClientEvent("vRP:updateList",-1,addPlayer)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -241,10 +246,11 @@ function vRP.kick(user_id,reason)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DROPPLAYER
+-- REJOINSERVER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.rejoinServer(source)
 	local source = source
+	local ped = PlayerPedId()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
@@ -267,13 +273,12 @@ end
 function vRP.clearInventory(user_id)
 	local data = vRP.user_tables[user_id]
 	if vRP.getPremium(user_id) then
-		data.backpack = 15
+		data.backpack = 60
 	else
 		data.backpack = 30
 	end
+	
 	vRP.user_tables[user_id].inventorys = {}
-	vRP.upgradeThirst(user_id,100)
-	vRP.upgradeHunger(user_id,100)
 	return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -359,7 +364,6 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 		end
 		
 		TriggerEvent("vRP:playerSpawn",user_id,source)
-
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

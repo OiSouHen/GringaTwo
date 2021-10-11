@@ -255,7 +255,7 @@ Citizen.CreateThread(function()
 								end
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
-								TriggerServerEvent("plateRobberys",plate,modelName)
+								TriggerServerEvent("setPlateEveryone",plate,modelName)
 							end
 
 							ClearPedTasks(target)

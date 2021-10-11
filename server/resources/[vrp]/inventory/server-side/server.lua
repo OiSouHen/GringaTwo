@@ -607,13 +607,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "newgarage" then
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-						    vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
-						    TriggerClientEvent("Notify",source,"vermelho","Voce adicionou uma vaga na garagem.",5000)
-						end
-					end
-
 					if itemName == "binoculars" then
 						active[user_id] = 2
 						vCLIENT.closeInventory(source)
@@ -1748,16 +1741,15 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "backpack" then
+						vCLIENT.closeInventory(source)
 						local exp = vRP.getBackpack(user_id)
-						if exp <= 50 then
+						if exp <= 60 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								vRP.setBackpack(user_id,100)
 								TriggerClientEvent("inventory:Update",source,"updateMochila")
-								vCLIENT.closeInventory(source)
 							end
 						else
-							TriggerClientEvent("Notify",source,"vermelho","No momento você não pode usar essa mochila.",5000)
-							vCLIENT.closeInventory(source)
+							TriggerClientEvent("Notify",source,"amarelo","Você não pode usar essa mochila.",5000)
 						end
 					end
 
@@ -1787,7 +1779,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 					if itemName == "premiumplate" then
 						vCLIENT.closeInventory(source)
-
 						local vehModel = vRP.prompt(source,"Nome de Spawn do veículo:","")
 						if vehModel == "" then
 							return
@@ -1810,10 +1801,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							if plateCheck and string.len(plateCheck) == 8 then
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 									vRP.execute("vRP/update_plate_vehicle",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), plate = string.upper(tostring(vehPlate)) })
-									TriggerClientEvent("Notify",source,"sucesso","Placa atualizada com sucesso.",5000)
+									TriggerClientEvent("Notify",source,"verde","Placa atualizada.",3000)
 								end
 							else
-								TriggerClientEvent("Notify",source,"importante","O nome da definição para placas deve conter no máximo 8 caracteres e podem ser usados números e letras minúsculas.",5000)
+								TriggerClientEvent("Notify",source,"amarelo","O nome da definição para placas deve conter no máximo 8 caracteres e podem ser usados números e letras minúsculas.",10000)
 							end
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Modelo de veículo não encontrado em sua garagem.",5000)
@@ -1836,7 +1827,8 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						end
 						
 						vRP.execute("vRP/rename_characters",{ id = user_id, name = newName, name2 = newLastName })
-					end
+						TriggerClientEvent("Notify",source,"amarelo","Nome alterado.",3000)
+					    end
 					end
 
 					if itemName == "radio" then
@@ -1898,58 +1890,99 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 					end
 
 					if itemName == "premium01" then
+					    vCLIENT.closeInventory(source)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 3, priority = 15 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 20 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium01" })
+									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Bronze</b>.",3000)
 								else
-									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 3 })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium04" })
+									Wait(500)
+									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 20 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium01" })
+									TriggerClientEvent("Notify",source,"azul","<b>Premium Bronze</b> atualizado.",5000)
 								end
 							end
 						end
 					end
 
 					if itemName == "premium02" then
+						vCLIENT.closeInventory(source)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 7, priority = 30 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 40 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium02" })
+									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Prata</b>.",3000)
 								else
-									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 7 })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium04" })
+									Wait(500)
+									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 40 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium02" })
+									TriggerClientEvent("Notify",source,"azul","<b>Premium Prata</b> atualizado.",5000)
 								end
 							end
 						end
 					end
 
 					if itemName == "premium03" then
+						vCLIENT.closeInventory(source)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 15, priority = 45 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 60 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium03" })
+									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Ouro</b>.",3000)
 								else
-									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 15 })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium04" })
+									Wait(500)
+									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 60 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium03" })
+									TriggerClientEvent("Notify",source,"azul","<b>Premium Ouro</b> atualizado.",5000)
 								end
 							end
 						end
 					end
 
 					if itemName == "premium04" then
+						vCLIENT.closeInventory(source)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
 								if not vRP.getPremium(user_id) then
-									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 30, priority = 60 })
+									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 90 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium04" })
+									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Platina</b>.",3000)
 								else
-									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 30 })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium04" })
+									Wait(500)
+									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 90 })
+									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium04" })
+									TriggerClientEvent("Notify",source,"azul","<b>Premium Platina</b> atualizado.",5000)
 								end
 							end
 						end
 	                end
 					
 					if itemName == "newchars" then
+						vCLIENT.closeInventory(source)
 						local identity = vRP.getUserIdentity(user_id)
 						if identity then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
@@ -1968,6 +2001,14 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 							end
 						end
 	                end
+					
+					if itemName == "newgarage" then
+						vCLIENT.closeInventory(source)
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						    vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
+						    TriggerClientEvent("Notify",source,"amarelo","Adicionado <b>+1</b> vaga na garagem.",5000)
+						end
+					end
 
 					if itemName == "pager" then
 						local nplayer = vRPclient.nearestPlayer(source,2)

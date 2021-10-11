@@ -23,18 +23,6 @@ function cRP.insertPedlist(npc)
     TriggerClientEvent("drugs:insertList",source,npc)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GIVEKEY
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.giveKey(plate)
-    local source = source
-    local user_id = vRP.getUserId(source)
-	if user_id then
-		TriggerEvent("setPlateEveryone",plate)
-		TriggerEvent("setPlatePlayers",plate,user_id)
-		return true
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local itemList = {

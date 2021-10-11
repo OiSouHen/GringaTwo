@@ -17,6 +17,8 @@ vCLIENT = Tunnel.getInterface("target")
 RegisterCommand("admon",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vCLIENT.toggleService(source)
+	    if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
+		    vCLIENT.toggleService(source)
+		end
 	end
 end)

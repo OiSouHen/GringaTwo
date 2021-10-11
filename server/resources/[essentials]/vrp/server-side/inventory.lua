@@ -545,16 +545,16 @@ local itemlist = {
 	},
 	["premium01"] = {
 		index = "premium01",
-		name = "Premium 3 Dias",
+		name = "Premium Bronze",
 		tipo = "Usável",
-		economy = "22500",
+		economy = "50000",
 		type = "use",
 		color = "186,85,211,0.5",
 		weight = 0.00
 	},
 	["premium02"] = {
 		index = "premium02",
-		name = "Premium 7 Dias",
+		name = "Premium Prata",
 		tipo = "Usável",
 		economy = "62500",
 		type = "use",
@@ -562,7 +562,7 @@ local itemlist = {
 	},
 	["premium03"] = {
 		index = "premium03",
-		name = "Premium 15 Dias",
+		name = "Premium Ouro",
 		tipo = "Usável",
 		economy = "75000",
 		type = "use",
@@ -570,36 +570,9 @@ local itemlist = {
 	},
 	["premium04"] = {
 		index = "premium04",
-		name = "Premium 1 Mês",
+		name = "Premium Platina",
 		tipo = "Usável",
 		economy = "87500",
-		type = "use",
-		weight = 0.00
-	},
-	["namechange"] = {
-		index = "namechange",
-		name = "Troca de nome",
-		desc = "Troca o nome do personagem.",
-		tipo = "Usável",
-		economy = "62500",
-		type = "use",
-		weight = 0.00
-	},
-	["newchars"] = {
-		index = "newchars",
-		name = "+1 Personagem",
-		desc = "Limite de personagem em +1.",
-		tipo = "Usável",
-		economy = "100000",
-		type = "use",
-		weight = 0.00
-	},
-	["chip"] = {
-		index = "chip",
-		name = "Chip Telefônico",
-		desc = "Troca o número telefônico.",
-		tipo = "Usável",
-		economy = "75000",
 		type = "use",
 		weight = 0.00
 	},
@@ -619,7 +592,43 @@ local itemlist = {
 		tipo = "Usável",
 		economy = "50000",
 		type = "use",
-		weight = 0.50
+		weight = 0.00
+	},
+	["newchars"] = {
+		index = "newchars",
+		name = "+1 Personagem",
+		desc = "Limite de personagem em +1.",
+		tipo = "Usável",
+		economy = "100000",
+		type = "use",
+		weight = 0.00
+	},
+	["newprops"] = {
+		index = "newprops",
+		name = "+1 Propriedade",
+		desc = "Limite de propriedade em +1.",
+		tipo = "Usável",
+		economy = "100000",
+		type = "use",
+		weight = 0.00
+	},
+	["chip"] = {
+		index = "chip",
+		name = "Chip Telefônico",
+		desc = "Troca o número telefônico.",
+		tipo = "Usável",
+		economy = "75000",
+		type = "use",
+		weight = 0.00
+	},
+	["namechange"] = {
+		index = "namechange",
+		name = "Troca de Nome",
+		desc = "Troca o nome do personagem.",
+		tipo = "Usável",
+		economy = "62500",
+		type = "use",
+		weight = 0.00
 	},
 	["energetic"] = {
 		index = "energetic",

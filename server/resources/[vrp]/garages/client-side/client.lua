@@ -1149,102 +1149,86 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEMODS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.vehicleMods(veh,custom)
-	if custom and veh then
+function cRP.vehicleMods(veh,vehCustom)
+	if vehCustom then
 		SetVehicleModKit(veh,0)
 
-		if custom.color then
-			SetVehicleColours(veh,tonumber(custom.color["1"]),tonumber(custom.color["2"]))
-			SetVehicleExtraColours(veh,tonumber(custom.extracolor["1"]),tonumber(custom.extracolor["2"]))
+		if vehCustom["wheeltype"] ~= nil then
+			SetVehicleWheelType(veh,vehCustom["wheeltype"])
 		end
 
-		if custom.tyresmoke then
-			ToggleVehicleMod(veh,20,custom.tyresmoke)
-			SetVehicleTyreSmokeColor(veh,tonumber(custom.smokecolor["1"]),tonumber(custom.smokecolor["2"]),tonumber(custom.smokecolor["3"]))
-		end
-
-		if parseInt(custom.neon) == 1 then
-			SetVehicleNeonLightEnabled(veh,0,true)
-			SetVehicleNeonLightEnabled(veh,1,true)
-			SetVehicleNeonLightEnabled(veh,2,true)
-			SetVehicleNeonLightEnabled(veh,3,true)
-			SetVehicleNeonLightsColour(veh,tonumber(custom.neoncolor["1"]),tonumber(custom.neoncolor["2"]),tonumber(custom.neoncolor["3"]))
-		else
-			SetVehicleNeonLightEnabled(veh,0,false)
-			SetVehicleNeonLightEnabled(veh,1,false)
-			SetVehicleNeonLightEnabled(veh,2,false)
-			SetVehicleNeonLightEnabled(veh,3,false)
-		end
-
-		if tonumber(custom.headlights) == 1 then
-			ToggleVehicleMod(veh,22,true)
-			SetVehicleXenonLightsColour(veh,tonumber(custom.xenoncolor))
-		end
-
-		if custom.plateindex then
-			SetVehicleNumberPlateTextIndex(veh,tonumber(custom.plateindex))
-		end
-
-		if custom.windowtint then
-			SetVehicleWindowTint(veh,tonumber(custom.windowtint))
-		end
-
-		if custom.bulletProofTyres then
-			SetVehicleTyresCanBurst(veh,custom.bulletProofTyres)
-		end
-
-		if custom.wheeltype then
-			SetVehicleWheelType(veh,tonumber(custom.wheeltype))
-		end
-
-		if custom.spoiler then
-			SetVehicleMod(veh,0,tonumber(custom.spoiler))
-			SetVehicleMod(veh,1,tonumber(custom.fbumper))
-			SetVehicleMod(veh,2,tonumber(custom.rbumper))
-			SetVehicleMod(veh,3,tonumber(custom.skirts))
-			SetVehicleMod(veh,4,tonumber(custom.exhaust))
-			SetVehicleMod(veh,5,tonumber(custom.rollcage))
-			SetVehicleMod(veh,6,tonumber(custom.grille))
-			SetVehicleMod(veh,7,tonumber(custom.hood))
-			SetVehicleMod(veh,8,tonumber(custom.fenders))
-			SetVehicleMod(veh,10,tonumber(custom.roof))
-			SetVehicleMod(veh,11,tonumber(custom.engine))
-			SetVehicleMod(veh,12,tonumber(custom.brakes))
-			SetVehicleMod(veh,13,tonumber(custom.transmission))
-			SetVehicleMod(veh,14,tonumber(custom.horn))
-			SetVehicleMod(veh,15,tonumber(custom.suspension))
-			SetVehicleMod(veh,16,tonumber(custom.armor))
-			SetVehicleMod(veh,23,tonumber(custom.tires),custom.tiresvariation)
-
-			if IsThisModelABike(GetEntityModel(veh)) then
-				SetVehicleMod(veh,24,tonumber(custom.btires),custom.btiresvariation)
+		if vehCustom["mods"] then
+			for i = 0,16 do
+				if vehCustom["mods"][tostring(i)] ~= nil then
+					SetVehicleMod(veh,i,vehCustom["mods"][tostring(i)])
+				end
 			end
 
-			SetVehicleMod(veh,25,tonumber(custom.plateholder))
-			SetVehicleMod(veh,26,tonumber(custom.vanityplates))
-			SetVehicleMod(veh,27,tonumber(custom.trimdesign)) 
-			SetVehicleMod(veh,28,tonumber(custom.ornaments))
-			SetVehicleMod(veh,29,tonumber(custom.dashboard))
-			SetVehicleMod(veh,30,tonumber(custom.dialdesign))
-			SetVehicleMod(veh,31,tonumber(custom.doors))
-			SetVehicleMod(veh,32,tonumber(custom.seats))
-			SetVehicleMod(veh,33,tonumber(custom.steeringwheels))
-			SetVehicleMod(veh,34,tonumber(custom.shiftleavers))
-			SetVehicleMod(veh,35,tonumber(custom.plaques))
-			SetVehicleMod(veh,36,tonumber(custom.speakers))
-			SetVehicleMod(veh,37,tonumber(custom.trunk)) 
-			SetVehicleMod(veh,38,tonumber(custom.hydraulics))
-			SetVehicleMod(veh,39,tonumber(custom.engineblock))
-			SetVehicleMod(veh,40,tonumber(custom.camcover))
-			SetVehicleMod(veh,41,tonumber(custom.strutbrace))
-			SetVehicleMod(veh,42,tonumber(custom.archcover))
-			SetVehicleMod(veh,43,tonumber(custom.aerials))
-			SetVehicleMod(veh,44,tonumber(custom.roofscoops))
-			SetVehicleMod(veh,45,tonumber(custom.tank))
-			SetVehicleMod(veh,46,tonumber(custom.doors2))
-			SetVehicleMod(veh,48,tonumber(custom.liveries))
+			for i = 17,22 do
+				if vehCustom["mods"][tostring(i)] ~= nil then
+					ToggleVehicleMod(veh,i,vehCustom["mods"][tostring(i)])
+				end
+			end
 
-			ToggleVehicleMod(veh,18,tonumber(custom.turbo))
+			for i = 23,24 do
+				if vehCustom["mods"][tostring(i)] ~= nil then
+					if vehCustom["var"] == nil then
+						vehCustom["var"] = {}
+						vehCustom["var"][tostring(i)] = 0
+					end
+
+					SetVehicleMod(veh,i,vehCustom["mods"][tostring(i)],vehCustom["var"][tostring(i)])
+				end
+			end
+
+			for i = 25,48 do
+				if vehCustom["mods"][tostring(i)] ~= nil then
+					SetVehicleMod(veh,i,vehCustom["mods"][tostring(i)])
+				end
+			end
+		end
+
+		if vehCustom["neon"] ~= nil then
+			for i = 0,3 do
+				SetVehicleNeonLightEnabled(veh,i,vehCustom["neon"][tostring(i)])
+			end
+		end
+
+		if vehCustom["extras"] ~= nil then
+			for i = 1,12 do
+				local onoff = tonumber(vehCustom["extras"][i])
+				if onoff == 1 then
+					SetVehicleExtra(veh,i,0)
+				else
+					SetVehicleExtra(veh,i,1)
+				end
+			end
+		end
+
+		if vehCustom["liverys"] ~= nil and vehCustom["liverys"] ~= 24  then
+			SetVehicleLivery(veh,vehCustom["liverys"])
+		end
+
+		if vehCustom["plateIndex"] ~= nil and vehCustom["plateIndex"] ~= 4 then
+			SetVehicleNumberPlateTextIndex(veh,vehCustom["plateIndex"])
+		end
+
+		SetVehicleXenonLightsColour(veh,vehCustom["xenonColor"])
+		SetVehicleColours(veh,vehCustom["colors"][1],vehCustom["colors"][2])
+		SetVehicleExtraColours(veh,vehCustom["extracolors"][1],vehCustom["extracolors"][2])
+		SetVehicleNeonLightsColour(veh,vehCustom["lights"][1],vehCustom["lights"][2],vehCustom["lights"][3])
+		SetVehicleTyreSmokeColor(veh,vehCustom["smokecolor"][1],vehCustom["smokecolor"][2],vehCustom["smokecolor"][3])
+
+		if vehCustom["tint"] ~= nil then
+			SetVehicleWindowTint(veh,vehCustom["tint"])
+		end
+
+		if vehCustom["dashColour"] ~= nil then
+			SetVehicleInteriorColour(veh,vehCustom["dashColour"])
+		end
+
+		if vehCustom["interColour"] ~= nil then
+			SetVehicleDashboardColour(veh,vehCustom["interColour"])
 		end
 	end
 end

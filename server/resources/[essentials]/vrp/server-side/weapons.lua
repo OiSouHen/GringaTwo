@@ -1,12 +1,12 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GET WEAPONS ID
+-- GETWEAPONSID
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getWeaponsId(user_id)
     local infos = vRP.query("vRP/get_weapon",{ user_id = user_id })
 	return infos
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADD WEAPONS ID
+-- ADDWEAPONID
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.addWeaponId(user_id,weapon,ammo)
     local data = vRP.getWeaponsId(user_id)
@@ -36,7 +36,7 @@ function vRP.addWeaponId(user_id,weapon,ammo)
 	return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- REM AMMO ID
+-- REMAMMOWEAPONID
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.remAmmoWeaponId(user_id,weapon,ammo)
     local data = vRP.getWeaponsId(user_id)
@@ -54,18 +54,19 @@ function vRP.remAmmoWeaponId(user_id,weapon,ammo)
             vRP.execute("vRP/add_weapon",{ user_id = user_id, weapon = weapon, ammo = ammo })
         end
     end
+	
 	return true
 end
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATEWEAPONS
+-----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.updateWeapons(weapons)
     local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-
         local sdata = vRP.getUserDataTable(user_id)
         if sdata then
             sdata.weaps = weapons
         end
-
 	end
 end
