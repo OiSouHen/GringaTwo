@@ -1,6 +1,6 @@
 # Creative v4 - GG Edition
 
-> about: Pasta com arquivos sobre os Carros VIPs, Sets de grupos, Regras/Leis padrões, Tencode/Penal da Polícia.
+> about: Pasta com arquivos sobre os Carros VIPs, Sets de grupos, Regras/Leis padrões, Tencode/Penal da Polícia e Premium para informações VIPs.
 
 > artifacts: Pasta com os Artefatos do FiveM(build).
 
@@ -12,7 +12,7 @@
 
 ## Informações
 
-O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 09/2021, utilizando os Artefatos[4682].
+O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 09/2021, utilizando os Artefatos[4765].
 
 ### Direitos autorais
 
