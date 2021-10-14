@@ -567,6 +567,7 @@ function cRP.myVehicles(work)
 							nVehicle.blind = "Nível 5 / 5"
 						end
 					end
+
 					nVehicle.detido = parseInt(os.time()) <= parseInt(vehicle[k].time+24*60*60)
 
 					vehChest[parseInt(user_id)] = "chest:"..parseInt(user_id)..":"..vehicle[k].vehicle
@@ -585,6 +586,7 @@ function cRP.myVehicles(work)
 				end
 			end
 		end
+		
 		return myvehicles
 	end
 end
@@ -691,10 +693,10 @@ end
 RegisterNetEvent("garages:deleteVehicle")
 AddEventHandler("garages:deleteVehicle",function(deleteVehicle)
 	local user_id = vRP.getUserId(source)
-		local vehicle = vRPclient.nearVehicle(source,15)
-		if vehicle then
-			vCLIENT.deleteVehicle(source,vehicle)
-		end
+	local vehicle = vRPclient.nearVehicle(source,15)
+	if vehicle then
+		vCLIENT.deleteVehicle(source,vehicle)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RGARAGE

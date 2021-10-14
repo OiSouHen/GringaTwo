@@ -61,19 +61,8 @@ AddEventHandler("lscustoms:attemptPurchase",function(type,mod)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- LSCUSTOMS:PUPDATEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RegisterServerEvent("lscustoms:updateVehicle")
--- AddEventHandler("lscustoms:updateVehicle",function(mods,vehPlate,vehName)
--- 	--local plateUser = vRP.userPlate(vehPlate)
--- 	local plateUser = vRP.getVehiclePlate(vehPlate)
--- 	print(vehName)
--- 	if plateUser then
--- 		--vRP.execute("entitydata/setData",{ dkey = "custom:"..plateUser..":"..vehName, value = json.encode(mods) })
--- 		--vRP.setSData("custom:"..parseInt(plateUser)..":"..tostring(vehName),json.encode(mods))
--- 		vRP.setSData("custom:"..plateUser..":"..tostring(vehName),json.encode(mods))
--- 	end
--- end)
 RegisterServerEvent("lscustoms:updateVehicle")
 AddEventHandler("lscustoms:updateVehicle",function(mods,vehPlate,vehName)
     local plateUser = vRP.getVehiclePlate(vehPlate)
