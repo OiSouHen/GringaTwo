@@ -12,10 +12,10 @@ TokoVoipConfig = {
 	radioClickMaxChannel = 1050,
 
 	plugin_data = {
-		TSChannel = "Conectado",
-		TSPassword = "Havai@1234",
-		TSChannelWait = "Aguardando",
-		TSServer = "177.54.156.227:10010",
+		TSChannel = "TSChannel",
+		TSPassword = "TSPassword",
+		TSChannelWait = "TSChannelWait",
+		TSServer = "TSServer",
 		local_click_on = true,
 		local_click_off = true,
 		remote_click_on = true,
@@ -29,8 +29,9 @@ TokoVoipConfig = {
 AddEventHandler("onClientResourceStart", function(resource)
 	if (resource == GetCurrentResourceName()) then
 		Citizen.CreateThread(function()
-			TokoVoipConfig.plugin_data.localName = " Havaiano"
+			TokoVoipConfig.plugin_data.localName = " SERVERNAME"
 		end);
+		
 		TriggerEvent("initializeVoip");
 	end
 end)
