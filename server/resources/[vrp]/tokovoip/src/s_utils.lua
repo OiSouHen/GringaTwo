@@ -1,3 +1,6 @@
+--------------------------------------------------------------------------------
+--	Server_utils: Data system functions
+--------------------------------------------------------------------------------
 local playersData = {};
 
 function setPlayerData(playerServerId, key, data, shared)
@@ -11,6 +14,7 @@ function setPlayerData(playerServerId, key, data, shared)
 		TriggerClientEvent("Tokovoip:setPlayerData", playerServerId, playerServerId, key, data);
 	end
 end
+
 RegisterNetEvent("Tokovoip:setPlayerData");
 AddEventHandler("Tokovoip:setPlayerData", setPlayerData);
 
@@ -21,6 +25,7 @@ function refreshAllPlayerData(toEveryone)
 		TriggerClientEvent("Tokovoip:doRefreshAllPlayerData", source, playersData);
 	end
 end
+
 RegisterNetEvent("Tokovoip:refreshAllPlayerData");
 AddEventHandler("Tokovoip:refreshAllPlayerData", refreshAllPlayerData);
 

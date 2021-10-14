@@ -21,30 +21,30 @@ function cRP.activeFrequency(freq)
 			if parseInt(freq) == 911 then
 				if vRP.hasPermission(user_id,"Police") then
 					vCLIENT.startFrequency(source,911)
-					TriggerClientEvent("hud:channel",source,911)
+					TriggerClientEvent("hud:RadioDisplay",source,911)
 					TriggerClientEvent("Notify",source,"verde","Rádio <b>"..parseInt(freq)..".0Mhz</b>.",5000)
 				end
 			elseif parseInt(freq) == 912 then
 				if vRP.hasPermission(user_id,"Police") then
 					vCLIENT.startFrequency(source,912)
-					TriggerClientEvent("hud:channel",source,912)
+					TriggerClientEvent("hud:RadioDisplay",source,912)
 					TriggerClientEvent("Notify",source,"verde","Rádio <b>"..parseInt(freq)..".0Mhz</b>.",5000)
 				end
 			elseif parseInt(freq) == 112 then
 				if vRP.hasPermission(user_id,"Paramedic") then
 					vCLIENT.startFrequency(source,112)
-					TriggerClientEvent("hud:channel",source,112)
+					TriggerClientEvent("hud:RadioDisplay",source,112)
 					TriggerClientEvent("Notify",source,"verde","Rádio <b>"..parseInt(freq)..".0Mhz</b>.",5000)
 				end
 			elseif parseInt(freq) == 443 then
 				if vRP.hasPermission(user_id,"Mechanic") then
 					vCLIENT.startFrequency(source,443)
-					TriggerClientEvent("hud:channel",source,443)
+					TriggerClientEvent("hud:RadioDisplay",source,443)
 					TriggerClientEvent("Notify",source,"verde","Rádio <b>"..parseInt(freq)..".0Mhz</b>.",5000)
 				end
 			else
 				vCLIENT.startFrequency(source,parseInt(freq))
-				TriggerClientEvent("hud:channel",source,parseInt(freq))
+				TriggerClientEvent("hud:RadioDisplay",source,parseInt(freq))
 				TriggerClientEvent("Notify",source,"verde","Rádio <b>"..parseInt(freq)..".0Mhz</b>.",5000)
 			end
 		end

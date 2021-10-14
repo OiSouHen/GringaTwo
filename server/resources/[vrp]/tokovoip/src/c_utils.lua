@@ -1,19 +1,6 @@
-------------------------------------------------------------
-------------------------------------------------------------
----- Author: Dylan 'Itokoyamato' Thuillier              ----
-----                                                    ----
----- Email: itokoyamato@hotmail.fr                      ----
-----                                                    ----
----- Resource: tokovoip                          ----
-----                                                    ----
----- File: c_utils.lua                                  ----
-------------------------------------------------------------
-------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 --	Utils: Data system functions
 --------------------------------------------------------------------------------
-
 local playersData = {};
 function setPlayerData(playerServerId, key, data, shared)
 	if (not key or data == nil) then return end
@@ -25,6 +12,7 @@ function setPlayerData(playerServerId, key, data, shared)
 		TriggerServerEvent("Tokovoip:setPlayerData", playerServerId, key, data, shared);
 	end
 end
+
 RegisterNetEvent("Tokovoip:setPlayerData");
 AddEventHandler("Tokovoip:setPlayerData", setPlayerData);
 
@@ -36,6 +24,7 @@ end
 function refreshAllPlayerData(toEveryone)
 	TriggerServerEvent("Tokovoip:refreshAllPlayerData", toEveryone);
 end
+
 RegisterNetEvent("onClientPlayerReady");
 AddEventHandler("onClientPlayerReady", refreshAllPlayerData);
 
@@ -58,14 +47,12 @@ function doRefreshAllPlayerData(serverData)
 		end
 	end
 end
+
 RegisterNetEvent("Tokovoip:doRefreshAllPlayerData");
 AddEventHandler("Tokovoip:doRefreshAllPlayerData", doRefreshAllPlayerData);
-
-
 --------------------------------------------------------------------------------
 --	Utils: Drawing functions
 --------------------------------------------------------------------------------
-
 function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
 	SetTextFont(0);
 	SetTextProportional(0);
@@ -96,12 +83,9 @@ function draw3dtext(text, posX, posY, posZ, r, g, b, a)
 		end
 	end
 end
-
-
 --------------------------------------------------------------------------------
 --	Utils: Table functions
 --------------------------------------------------------------------------------
-
 function table.val_to_str (v)
 	if ("string" == type(v)) then
 		v = string.gsub(v, "\n", "\\n");
@@ -141,12 +125,9 @@ function tablelength(T)
 	for _ in pairs(T) do count = count + 1 end
 	return count
 end
-
-
 --------------------------------------------------------------------------------
 --	Utils: Printing functions
 --------------------------------------------------------------------------------
-
 function notification(str)
 	
 end
@@ -172,12 +153,9 @@ end
 function printAllFunctions()
 	printFunctions(_G,"")
 end
-
-
 --------------------------------------------------------------------------------
 --	Utils: Random functions
 --------------------------------------------------------------------------------
-
 function escape(str)
 	return str:gsub( "%W", "");
 end

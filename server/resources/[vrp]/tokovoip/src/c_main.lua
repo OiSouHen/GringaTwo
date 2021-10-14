@@ -1,7 +1,7 @@
 local targetPed;
 local useLocalPed = true;
 local isRunning = false;
-local scriptVersion = "1.2.5";
+local scriptVersion = "1.3.5";
 local animStates = {}
 local displayingPluginScreen = false;
 local HeadBone = 0x796e;
@@ -29,19 +29,19 @@ end);
 
 -- Receives data from the TS plugin on microphone toggle
 RegisterNUICallback("setPlayerTalking", function(data)
-    voip.talking = tonumber(data.state);
+	voip.talking = tonumber(data.state);
 
-    if (voip.talking == 1) then
-        TriggerEvent("hud:VoiceTalking",true)
-        setPlayerData(voip.serverId, "voip:talking", 1, true);
-        PlayFacialAnim(GetPlayerPed(PlayerId()), "mic_chatter", "mp_facial");
-        TriggerEvent("hud:playerTalking", true)
-    else
-        TriggerEvent("hud:VoiceTalking",false)
-        setPlayerData(voip.serverId, "voip:talking", 0, true);
-        PlayFacialAnim(PlayerPedId(), "mood_normal_1", "facials@gen_male@base");
-        TriggerEvent("hud:playerTalking", false)
-    end
+	if (voip.talking == 1) then
+		TriggerEvent("hud:VoiceTalking",true)
+		setPlayerData(voip.serverId, "voip:talking", 1, true);
+		PlayFacialAnim(GetPlayerPed(PlayerId()), "mic_chatter", "mp_facial");
+		TriggerEvent("hud:playerTalking", true)
+	else
+		TriggerEvent("hud:VoiceTalking",false)
+		setPlayerData(voip.serverId, "voip:talking", 0, true);
+		PlayFacialAnim(PlayerPedId(), "mood_normal_1", "facials@gen_male@base");
+		TriggerEvent("hud:playerTalking", false)
+	end
 end)
 
 local function clientProcessing()
@@ -162,7 +162,7 @@ local function clientProcessing()
 		end
 	end
 
-	voip.plugin_data.Users = usersdata; -- Update TokoVoip's data
+	voip.plugin_data.Users = usersdata;
 	voip.plugin_data.posX = 0;
 	voip.plugin_data.posY = 0;
 	voip.plugin_data.posZ = voip.plugin_data.enableStereoAudio and localPos.z or 0;
@@ -200,7 +200,7 @@ AddEventHandler("initializeVoip", function()
 	voip:initialize(); -- Initialize the websocket and controls
 	voip:loop(); -- Start TokoVoip's loop
 
-	Citizen.Trace("TokoVoip: Initialized script (" .. scriptVersion .. ")\n");
+	--Citizen.Trace("TokoVoip: Initialized script (" .. scriptVersion .. ")\n");
 
 	-- Request this stuff here only one time
 	RequestAnimDict("mp_facial");
@@ -212,16 +212,17 @@ end)
 --------------------------------------------------------------------------------
 --	Radio functions
 --------------------------------------------------------------------------------
-
 function addPlayerToRadio(channel)
 	TriggerServerEvent("TokoVoip:addPlayerToRadio", channel, voip.serverId);
 end
+
 RegisterNetEvent("TokoVoip:addPlayerToRadio");
 AddEventHandler("TokoVoip:addPlayerToRadio", addPlayerToRadio);
 
 function removePlayerFromRadio(channel)
 	TriggerServerEvent("TokoVoip:removePlayerFromRadio", channel, voip.serverId);
 end
+
 RegisterNetEvent("TokoVoip:removePlayerFromRadio");
 AddEventHandler("TokoVoip:removePlayerFromRadio", removePlayerFromRadio);
 
@@ -278,13 +279,9 @@ function isPlayerInChannel(channel)
 		return false;
 	end
 end
-
 --------------------------------------------------------------------------------
 --	Specific utils
 --------------------------------------------------------------------------------
-
--- Toggle the blocking screen with usage explanation
--- Not used
 function displayPluginScreen(toggle)
 	if (displayingPluginScreen ~= toggle) then
 		SendNUIMessage(

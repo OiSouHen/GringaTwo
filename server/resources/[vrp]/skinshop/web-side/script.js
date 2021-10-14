@@ -215,17 +215,17 @@ $(document).on('click', '.clothing-menu-header-camera-btn', function(e){
 $(document).on('keydown', function() {
 	switch(event.keyCode) {
         case 68: // D
-        $.post('http://skinshop/rotateRight');
-        break;
+			$.post('http://skinshop/rotateRight');
+			break;
         case 65: // A
-        $.post('http://skinshop/rotateLeft');
-        break;
+			$.post('http://skinshop/rotateLeft');
+			break;
         case 38: // UP
-        ChangeUp();
-        break;
+			ChangeUp();
+			break;
         case 40: // DOWN
-        ChangeDown();
-        break;
+			ChangeDown();
+			break;
     }
 });
 
@@ -280,13 +280,12 @@ cReative.SetCurrentValues = function(clothingValues) {
 
 cReative.Open = function(data) {
 	clothingCategorys = data.currentClothing;
+	$(".clothing-menu-character-container").css("display","none");
+	$(".clothing-menu-clothing-container").css("display","none");
+	$(".clothing-menu-accessoires-container").css("display","none");
 
-	$(".change-camera-buttons").fadeIn(150);
+	$(".clothing-menu-container").css("display","block");
 
-	$(".clothing-menu-character-container").css("display", "none");
-	$(".clothing-menu-clothing-container").css("display", "none");
-	$(".clothing-menu-accessoires-container").css("display", "none");
-	$(".clothing-menu-container").css({"display":"block"}).animate({right: 0,}, 200);
 	cReative.SetMaxValues(data.maxValues);
 	$(".clothing-menu-header").html("");
 	cReative.SetCurrentValues(data.currentClothing);
@@ -308,21 +307,14 @@ cReative.Open = function(data) {
 }
 
 cReative.Close = function() {
-	$.post('http://skinshop/close');
-	$(".change-camera-buttons").fadeOut(150);
-	$(".clothing-menu-character-container").css("display", "none");
-	$(".clothing-menu-clothing-container").css("display", "none");
-	$(".clothing-menu-accessoires-container").css("display", "none");
-	$(".clothing-menu-header").html("");
+	$.post("http://skinshop/close");
+	$(".clothing-menu-container").css("display","none");
 
 	$(selectedCam).removeClass('selected-cam');
 	$(selectedTab).removeClass("selected");
 	selectedCam = null;
 	selectedTab = null;
 	lastCategory = null;
-	$(".clothing-menu-container").css({"display":"block"}).animate({right: "-25vw",}, 200, function(){
-		$(".clothing-menu-container").css({"display":"none"});
-	});
 }
 
 cReative.SetMaxValues = function(maxValues) {
@@ -335,8 +327,8 @@ cReative.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		} else if (cat.type == "hair") {
 			var containers = $(".clothing-menu-clothing-container").find('[data-type="'+i+'"]');
 			var itemMax = $(containers).find('[data-headertype="item-header"]');
@@ -345,8 +337,8 @@ cReative.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		} else if (cat.type == "accessoires") {
 			var containers = $(".clothing-menu-accessoires-container").find('[data-type="'+i+'"]');
 			var itemMax = $(containers).find('[data-headertype="item-header"]');
@@ -355,8 +347,8 @@ cReative.SetMaxValues = function(maxValues) {
 			$(itemMax).data('maxItem', maxValues[containers.data('type')].item)
 			$(headerMax).data('maxTexture', maxValues[containers.data('type')].texture)
 			
-			$(itemMax).html("<p>Item: " + maxValues[containers.data('type')].item + "</p>")
-			$(headerMax).html("<p>Texture: " + maxValues[containers.data('type')].texture + "</p>")
+			$(itemMax).html("<p><b>Modelos:</b> " + maxValues[containers.data('type')].item + "</p>")
+			$(headerMax).html("<p><b>Texturas:</b> " + maxValues[containers.data('type')].texture + "</p>")
 		}
 	})
 }

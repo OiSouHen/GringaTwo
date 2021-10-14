@@ -5,7 +5,7 @@ ui_page "web-side/index.html"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
-	"client-side/*" 
+	"client-side/*"
 }
 
 server_scripts {

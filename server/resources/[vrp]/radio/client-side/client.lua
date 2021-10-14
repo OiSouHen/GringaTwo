@@ -13,8 +13,8 @@ vSERVER = Tunnel.getInterface("radio")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
+local myFrequency = 0
 local activeRadio = false
-local activeFrequencys = 0
 local timeCheck = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RADIOCLOSE
@@ -23,19 +23,18 @@ RegisterNUICallback("radioClose",function(data,cb)
 	SetNuiFocus(false,false)
 	vRP.removeObjects("one")
     SendNUIMessage({ action = "hideMenu" })
+	cb("cb")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- OPENSYSTEM
+-- /INV
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("radio:openSystem")
 AddEventHandler("radio:openSystem",function()
-	if not exports["police"]:checkPrison() then
-		SetNuiFocus(true,true)
-		SendNUIMessage({ action = "showMenu" })
+	SetNuiFocus(true,true)
+	SendNUIMessage({ action = "showMenu" })
 
-		if not IsPedInAnyVehicle(PlayerPedId()) then
-			vRP.createObjects("cellphone@","cellphone_text_in","prop_cs_hand_radio",50,28422)
-		end
+	if not IsPedInAnyVehicle(PlayerPedId()) then
+		vRP.createObjects("cellphone@","cellphone_text_in","prop_cs_hand_radio",50,28422)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -50,19 +49,21 @@ end)
 -- ACTIVEFREQUENCY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("inativeFrequency",function(data)
-	TriggerEvent("radio:outServers")
+	if myFrequency ~= 0 then
+		TriggerEvent("radio:outServers")
+		TriggerEvent("Notify","amarelo","Rádio desativado.",3000)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFREQUENCY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.startFrequency(frequency)
-	if activeFrequencys ~= 0 then
-		exports["tokovoip"]:removePlayerFromRadio(activeFrequencys)
+	if exports.tokovoip:isPlayerInChannel(myFrequency) then
+		exports.tokovoip:removePlayerFromRadio(myFrequency)
 	end
 
---	exports["tokovoip"]:addPlayerToRadio(frequency)
-	exports["tokovoip"]:setRadioChannel(frequency)
-	activeFrequencys = frequency
+	myFrequency = frequency
+	exports.tokovoip:addPlayerToRadio(myFrequency)
 	activeRadio = true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -70,11 +71,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("radio:outServers")
 AddEventHandler("radio:outServers",function()
-	if activeFrequencys ~= 0 then
+	if myFrequency ~= 0 then
 		TriggerEvent("Notify","amarelo","Rádio desativado.",5000)
-		exports["tokovoip"]:removePlayerFromRadio(activeFrequencys)
+		
+		if exports.tokovoip:isPlayerInChannel(myFrequency) then
+			exports.tokovoip:removePlayerFromRadio(myFrequency)
+		end
+		
 		TriggerEvent("hud:RadioDisplay",0)
-		activeFrequencys = 0
+		myFrequency = 0
 		activeRadio = false
 	end
 end)

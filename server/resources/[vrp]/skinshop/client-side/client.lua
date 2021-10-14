@@ -15,7 +15,6 @@ vSERVER = Tunnel.getInterface("skinshop")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local cam = -1
 local skinData = {}
-local heading = 332.219879
 local previousSkinData = {}
 local customCamLocation = nil
 local creatingCharacter = false
@@ -28,7 +27,6 @@ local skinData = {
 	["t-shirt"] = { item = 1, texture = 0, defaultItem = 1, defaultTexture = 0 },
 	["torso2"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 	["vest"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
-	["bag"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 	["shoes"] = { item = 0, texture = 0, defaultItem = 1, defaultTexture = 0 },
 	["mask"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 	["hat"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
@@ -197,7 +195,6 @@ local clothingCategorys = {
 	["pants"] = { type = "variation", id = 4 },
 	["vest"] = { type = "variation", id = 9 },
 	["shoes"] = { type = "variation", id = 6 },
-	["bag"] = { type = "variation", id = 5 },
 	["mask"] = { type = "mask", id = 1 },
 	["hat"] = { type = "prop", id = 0 },
 	["glass"] = { type = "prop", id = 1 },
@@ -220,7 +217,6 @@ function GetMaxValues()
 		["vest"] = { type = "character", item = 0, texture = 0 },
 		["accessory"] = { type = "character", item = 0, texture = 0 },
 		["decals"] = { type = "character", item = 0, texture = 0 },
-		["bag"] = { type = "character", item = 0, texture = 0 },
 		["mask"] = { type = "accessoires", item = 0, texture = 0 },
 		["hat"] = { type = "accessoires", item = 0, texture = 0 },
 		["glass"] = { type = "accessoires", item = 0, texture = 0 },
@@ -370,7 +366,6 @@ function resetClothing(data)
 	SetPedComponentVariation(ped,1,data["mask"].item,data["mask"].texture,2)
 	SetPedComponentVariation(ped,10,data["decals"].item,data["decals"].texture,2)
 	SetPedComponentVariation(ped,7,data["accessory"].item,data["accessory"].texture,2)
-	SetPedComponentVariation(ped,5,data["bag"].item,data["bag"].texture,2)
 
 	if data["hat"].item ~= -1 and data["hat"].item ~= 0 then
 		SetPedPropIndex(ped,0,data["hat"].item,data["hat"].texture,2)
@@ -466,14 +461,6 @@ function ChangeVariation(data)
 		elseif type == "texture" then
 			SetPedComponentVariation(ped,9,skinData["vest"].item,item,2)
 			skinData["vest"].texture = item
-		end
-	elseif clothingCategory == "bag" then
-		if type == "item" then
-			SetPedComponentVariation(ped,5,item,0,2)
-			skinData["bag"].item = item
-		elseif type == "texture" then
-			SetPedComponentVariation(ped,5,skinData["bag"].item,item,2)
-			skinData["bag"].texture = item
 		end
 	elseif clothingCategory == "decals" then
 		if type == "item" then

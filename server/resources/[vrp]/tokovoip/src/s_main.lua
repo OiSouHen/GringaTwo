@@ -1,3 +1,6 @@
+--------------------------------------------------------------------------------
+--	Server: radio functions
+--------------------------------------------------------------------------------
 local channels = TokoVoipConfig.channels;
 
 function addPlayerToRadio(channelId, playerServerId)
@@ -20,6 +23,7 @@ function addPlayerToRadio(channelId, playerServerId)
 		end
 	end
 end
+
 RegisterServerEvent("TokoVoip:addPlayerToRadio");
 AddEventHandler("TokoVoip:addPlayerToRadio", addPlayerToRadio);
 
@@ -43,6 +47,7 @@ function removePlayerFromRadio(channelId, playerServerId)
 		end
 	end
 end
+
 RegisterServerEvent("TokoVoip:removePlayerFromRadio");
 AddEventHandler("TokoVoip:removePlayerFromRadio", removePlayerFromRadio);
 
@@ -53,6 +58,7 @@ function removePlayerFromAllRadio(playerServerId)
 		end
 	end
 end
+
 RegisterServerEvent("TokoVoip:removePlayerFromAllRadio");
 AddEventHandler("TokoVoip:removePlayerFromAllRadio", removePlayerFromAllRadio);
 
