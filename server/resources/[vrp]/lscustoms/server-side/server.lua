@@ -76,7 +76,7 @@ end)
 RegisterCommand("vehedit",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Admin") then
+		if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
 			TriggerClientEvent("lscustoms:openAdmin",source)
 		end
 	end

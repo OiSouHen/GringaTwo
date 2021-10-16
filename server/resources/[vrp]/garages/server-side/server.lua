@@ -634,7 +634,7 @@ function cRP.spawnVehicles(name,use)
 				end
 			else
 				local tuning = vRP.getSData("custom:"..user_id..":"..name) or {}
-				local custom = json.decode(tuning) or {}
+				local vehCustom = json.decode(tuning) or {}
 
 				if vehicle[1].plate == nil then
 					vehicle[1].plate = vRP.generatePlateNumber()
@@ -645,7 +645,7 @@ function cRP.spawnVehicles(name,use)
 					if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name)) then
 						local status = vRP.request(source,"Retirar veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))).." Dólares</b>?",60)
 						if status then
-							local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
+							local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,vehCustom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
 							if status and vRP.paymentBank(parseInt(user_id),parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))) then
 								vehlist[vehid] = { parseInt(user_id),name }
 								spanwedVehs[name..user_id] = true
@@ -656,7 +656,7 @@ function cRP.spawnVehicles(name,use)
                         TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
                     end
                 else
-                    local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
+                    local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,vehCustom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
                     if status then
                         vehlist[vehid] = { parseInt(user_id),name }
                         spanwedVehs[name..user_id] = true
@@ -865,10 +865,10 @@ RegisterCommand("vehs",function(source,args,rawCommand)
 					else
 						vRP.execute("vRP/move_vehicle",{ user_id = parseInt(user_id), nuser_id = parseInt(args[3]), vehicle = tostring(args[2]) })
 
-						local custom = vRP.getSData("custom:"..parseInt(user_id)..":"..tostring(args[2]))
-						local custom2 = json.decode(custom) or {}
-						if custom and custom2 ~= nil then
-							vRP.setSData("custom:"..parseInt(args[3])..":"..tostring(args[2]),json.encode(custom2))
+						local vehCustom = vRP.getSData("custom:"..parseInt(user_id)..":"..tostring(args[2]))
+						local vehCustom2 = json.decode(vehCustom) or {}
+						if vehCustom and vehCustom2 ~= nil then
+							vRP.setSData("custom:"..parseInt(args[3])..":"..tostring(args[2]),json.encode(vehCustom2))
 							vRP.execute("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..tostring(args[2]) })
 						end
 

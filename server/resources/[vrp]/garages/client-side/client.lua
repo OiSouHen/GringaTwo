@@ -1153,7 +1153,7 @@ end
 -- VEHICLEMODS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.vehicleMods(veh,vehCustom)
-	if vehCustom then
+	if vehCustom and veh then
 		SetVehicleModKit(veh,0)
 
 		if vehCustom["wheeltype"] ~= nil then
@@ -1217,10 +1217,19 @@ function cRP.vehicleMods(veh,vehCustom)
 		end
 
 		SetVehicleXenonLightsColour(veh,vehCustom["xenonColor"])
-		SetVehicleColours(veh,vehCustom["colors"][1],vehCustom["colors"][2])
-		SetVehicleExtraColours(veh,vehCustom["extracolors"][1],vehCustom["extracolors"][2])
-		SetVehicleNeonLightsColour(veh,vehCustom["lights"][1],vehCustom["lights"][2],vehCustom["lights"][3])
-		SetVehicleTyreSmokeColor(veh,vehCustom["smokecolor"][1],vehCustom["smokecolor"][2],vehCustom["smokecolor"][3])
+		
+		if vehCustom.colors then
+			SetVehicleColours(veh,vehCustom["colors"][1],vehCustom["colors"][2])
+			SetVehicleExtraColours(veh,vehCustom["extracolors"][1],vehCustom["extracolors"][2])
+		end
+		
+		if vehCustom.lights then
+			SetVehicleNeonLightsColour(veh,vehCustom["lights"][1],vehCustom["lights"][2],vehCustom["lights"][3])
+		end
+		
+		if vehCustom.smokecolor then
+			SetVehicleTyreSmokeColor(veh,vehCustom["smokecolor"][1],vehCustom["smokecolor"][2],vehCustom["smokecolor"][3])
+		end
 
 		if vehCustom["tint"] ~= nil then
 			SetVehicleWindowTint(veh,vehCustom["tint"])
@@ -1238,7 +1247,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SPAWNVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWindows,vehDoors,vehTyres)
+function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,vehCustom,vehWindows,vehDoors,vehTyres)
 	if vehicle[vehname] == nil then
 		local checkPos = nil
 		local checkslot = 0
@@ -1270,6 +1279,7 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 					Citizen.Wait(10)
 				end
 
+			if vehDoors then
 				if json.decode(vehDoors) ~= nil then
 					for k,v in pairs(json.decode(vehDoors)) do
 						if v then
@@ -1277,7 +1287,9 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 						end
 					end
 				end
+			end
 
+			if vehWindows then
 				if json.decode(vehWindows) ~= nil then
 					for k,v in pairs(json.decode(vehWindows)) do
 						if not v then
@@ -1285,7 +1297,9 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 						end
 					end
 				end
+			end
 
+			if vehTyres then
 				if json.decode(vehTyres) ~= nil then
 					for k,v in pairs(json.decode(vehTyres)) do
 						if v < 2 then
@@ -1293,6 +1307,7 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 						end
 					end
 				end
+			end
 
 				SetEntityAsMissionEntity(nveh,true,true)
 				SetVehicleOnGroundProperly(nveh)
@@ -1309,7 +1324,7 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,custom,vehWind
 					SetVehicleFuelLevel(nveh,vehfuel+0.0)
 				end
 
-				cRP.vehicleMods(nveh,custom)
+				cRP.vehicleMods(nveh,vehCustom)
 
 				vehicle[vehname] = true
 
