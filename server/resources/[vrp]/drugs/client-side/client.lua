@@ -16,6 +16,7 @@ vSERVER = Tunnel.getInterface("drugs")
 local hasList = {}
 local hasTimer = 0
 local hasStart = false
+local legalHasStart = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Citizen.CreateThread(function()
 								timeDistance = 1
 								DrawText3D(hasCoords["x"],hasCoords["y"],hasCoords["z"],"~g~E~w~  OFERECER")
 
-								if IsControlJustPressed(1,38) and vSERVER.checkAmount() then
+								if IsControlJustPressed(1,38) and vSERVER.checkAmount1() then
 									if math.random(100) <= 90 then
 										SetEntityAsMissionEntity(hasPed,true,false)
 
@@ -107,13 +108,114 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRUGS:TOGGLESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("drugs:toggleService")
-AddEventHandler("drugs:toggleService",function()
+RegisterNetEvent("drugs:toggleService1")
+AddEventHandler("drugs:toggleService1",function()
 	if hasStart then
 		hasStart = false
 		TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
 	else
 		hasStart = true
+		TriggerEvent("Notify","verde","Vendas ativadas.",5000)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSYSTEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		local timeDistance = 999
+		if legalHasStart then
+			local ped = PlayerPedId()
+			if not IsPedInAnyVehicle(ped) and GetEntityHealth(ped) > 101 then
+				local coords = GetEntityCoords(ped)
+				local _,hasPed = FindFirstPed()
+
+				repeat
+					if DoesEntityExist(hasPed) then
+						if not IsPedDeadOrDying(hasPed) and GetPedArmour(hasPed) <= 0 and not IsPedAPlayer(hasPed) and not IsPedInAnyVehicle(hasPed) and GetPedType(hasPed) ~= 28 then
+							local hasCoords = GetEntityCoords(hasPed)
+							local distance = #(coords - hasCoords)
+
+							if distance <= 1.5 and not hasList[PedToNet(hasPed)] then
+								timeDistance = 1
+								DrawText3D(hasCoords["x"],hasCoords["y"],hasCoords["z"],"~g~E~w~  OFERECER")
+
+								if IsControlJustPressed(1,38) and vSERVER.checkAmount2() then
+									if math.random(100) <= 90 then
+										SetEntityAsMissionEntity(hasPed,true,false)
+
+										while not NetworkHasControlOfEntity(hasPed) and DoesEntityExist(hasPed) do
+											NetworkRequestControlOfEntity(hasPed)
+											Citizen.Wait(100)
+										end
+
+										PlayAmbientSpeech1(hasPed,"GENERIC_HI","SPEECH_PARAMS_STANDARD")
+										vSERVER.insertPedlist(PedToNet(hasPed),false,true)
+										TaskSetBlockingOfNonTemporaryEvents(hasPed,true)
+										SetBlockingOfNonTemporaryEvents(hasPed,true)
+										SetPedDropsWeaponsWhenDead(hasPed,false)
+										TaskTurnPedToFaceEntity(hasPed,ped,3.0)
+										SetPedSuffersCriticalHits(hasPed,false)
+										hasTimer = 15
+
+										while hasTimer >= 0 do
+											if not IsPedDeadOrDying(hasPed) and GetEntityHealth(ped) > 101 then
+												local coords = GetEntityCoords(ped)
+												local hasCoords = GetEntityCoords(hasPed)
+												local distance = #(coords - hasCoords)
+												if distance <= 2.5 then
+													DrawText3D(hasCoords["x"],hasCoords["y"],hasCoords["z"],"~w~AGUARDE  ~g~"..hasTimer.."~w~  SEGUNDOS")
+
+													if hasTimer <= 0 then
+														PlayAmbientSpeech1(hasPed,"GENERIC_THANKS","SPEECH_PARAMS_STANDARD")
+														TaskWanderStandard(hasPed,10.0,10)
+														vSERVER.paymentMethodLegal()
+														hasTimer = -1
+														break
+													end
+												else
+													PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
+													TaskWanderStandard(hasPed,10.0,10)
+													hasTimer = -1
+													break
+												end
+											else
+												hasTimer = -1
+												break
+											end
+
+											Citizen.Wait(1)
+										end
+									else
+										PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
+										vSERVER.insertPedlist(PedToNet(hasPed),true,true)
+										TaskWanderStandard(hasPed,10.0,10)
+										TaskReactAndFleePed(hasPed,ped)
+										SetPedKeepTask(hasPed,true)
+									end
+								end
+							end
+						end
+					end
+
+					searching,hasPed = FindNextPed(_)
+				until not searching EndFindPed(_)
+			end
+		end
+
+		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRUGS:TOGGLESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("drugs:toggleService2")
+AddEventHandler("drugs:toggleService2",function()
+	if legalHasStart then
+		legalHasStart = false
+		TriggerEvent("Notify","amarelo","Vendas finalizadas.",5000)
+	else
+		legalHasStart = true
 		TriggerEvent("Notify","verde","Vendas ativadas.",5000)
 	end
 end)
@@ -255,7 +357,12 @@ Citizen.CreateThread(function()
 								end
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
+								
+								local plate = GetVehicleNumberPlateText(vehicle)
+								local modelName = vRP.vehicleModel(GetEntityModel(vehicle))
 								TriggerServerEvent("setPlateEveryone",plate,modelName)
+								
+								TriggerEvent("Notify","azul","Veículo roubado.",5000)
 							end
 
 							ClearPedTasks(target)

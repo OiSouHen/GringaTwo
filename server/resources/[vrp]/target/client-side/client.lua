@@ -437,7 +437,7 @@ Citizen.CreateThread(function()
 		distance = 1.0,
 		options = {
 			{
-				event = "drugs:toggleService",
+				event = "drugs:toggleService1",
 				label = "Comercializar",
 				tunnel = "client"
 			}
@@ -451,7 +451,49 @@ Citizen.CreateThread(function()
 		distance = 1.0,
 		options = {
 			{
-				event = "drugs:toggleService",
+				event = "drugs:toggleService1",
+				label = "Comercializar",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("drugsToggle03",vector3(-1193.36,-893.96,13.99),0.5,{
+		name = "drugsToggle03",
+		heading = 90.71
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService2",
+				label = "Comercializar",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("drugsToggle04",vector3(-1194.39,-892.44,13.99),0.5,{
+		name = "drugsToggle04",
+		heading = 90.71
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService2",
+				label = "Comercializar",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("drugsToggle05",vector3(-1195.42,-890.94,13.99),0.5,{
+		name = "drugsToggle05",
+		heading = 90.71
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "drugs:toggleService2",
 				label = "Comercializar",
 				tunnel = "client"
 			}
@@ -630,6 +672,17 @@ Citizen.CreateThread(function()
 			{
 				event = "garbageman:searchWaste",
 				label = "Sucatear",
+				tunnel = "client"
+			}
+		},
+		distance = 0.75
+	})
+	
+	AddTargetModel({ -1940238623,2108567945 },{
+		options = {
+			{
+				event = "garbageman:searchCoins",
+				label = "Vasculhar",
 				tunnel = "client"
 			}
 		},

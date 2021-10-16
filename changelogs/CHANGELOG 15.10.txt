@@ -7,3 +7,5 @@
 5: Corrigido o problema do **Porta-Malas** que conseguia entrar no veículo estando na mala.
 6: Adicionado ao sistema de vender para os americanos:
      **Rosquinha**, **Chocolate**, **Hamburguer**, **Cachorro-Quente**, **Água**, **Cola**, **Soda** e **Café**.
+7: Adicionado roubo a **Parquímetros**.
+     O mesmo funciona igual o sistema de **Vasculhar** e aciona a polícia.
