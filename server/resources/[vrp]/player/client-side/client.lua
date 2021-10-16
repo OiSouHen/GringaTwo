@@ -529,9 +529,9 @@ end)
 -- PLAYER:CHECKTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("player:checkTrunk")
-AddEventHandler("player:checkTrunk",function()
+AddEventHandler("player:checkTrunk",function(checkTrunk)
+	local ped = PlayerPedId()
 	if inTrunk then
-		local ped = PlayerPedId()
 		local vehicle = GetEntityAttachedTo(ped)
 		if DoesEntityExist(vehicle) then
 			SetCarBootOpen(vehicle)
@@ -601,10 +601,8 @@ end)
 RegisterCommand("fps",function(source,args)
 	if args[1] == "on" then
 		SetTimecycleModifier("cinema")
-		TriggerEvent("Notify","amarelo","Gráficos otimizados.",3000)
-	elseif args[1] == "off" then
+	else
 		ClearTimecycleModifier()
-		TriggerEvent("Notify","vermelho","Gráficos normalizados.",3000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -998,33 +996,28 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.putVehicle(seat)
-	local veh = vRP.getNearVehicle(11)
+function cRP.putVehicle()
+	local veh = vRP.nearVehicle(11)
 	if IsEntityAVehicle(veh) then
-		if parseInt(seat) <= 1 or seat == nil then
-			seat = -1
-		elseif parseInt(seat) == 2 then
-			seat = 0
-		elseif parseInt(seat) == 3 then
-			seat = 1
-		elseif parseInt(seat) == 4 then
-			seat = 2
-		elseif parseInt(seat) == 5 then
-			seat = 3
-		elseif parseInt(seat) == 6 then
-			seat = 4
-		elseif parseInt(seat) == 7 then
-			seat = 5
-		elseif parseInt(seat) >= 8 then
-			seat = 6
-		end
-
+		local vehSeats = 5
 		local ped = PlayerPedId()
-		if IsVehicleSeatFree(veh,seat) then
-			ClearPedTasks(ped)
-			ClearPedSecondaryTask(ped)
-			SetPedIntoVehicle(ped,veh,seat)
-		end
+
+		repeat
+			vehSeats = vehSeats - 1
+
+			if IsVehicleSeatFree(veh,vehSeats) then
+				ClearPedTasks(ped)
+				ClearPedSecondaryTask(ped)
+				SetPedIntoVehicle(ped,veh,vehSeats)
+
+				if iCarry then
+					iCarry = false
+					DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
+				end
+
+				vehSeats = true
+			end
+		until vehSeats == true or vehSeats == 0
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1168,6 +1161,18 @@ RegisterCommand("cr",function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GAMEEVENTTRIGGERED
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("gameEventTriggered",function(name,args)
+	if name == "CEventNetworkEntityDamage" then
+		if (GetEntityHealth(args[1]) <= 101 and PlayerPedId() == args[2] and IsPedAPlayer(args[1])) then
+			local index = NetworkGetPlayerIndexFromPed(args[1])
+			local source = GetPlayerServerId(index)
+			TriggerServerEvent("player:deathLogs",source)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- WECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.weColors(number)
@@ -1285,18 +1290,6 @@ AddEventHandler("player:serviceCamera",function(num)
 				SetCamRot(camSelect,-20.0,0.0,cameras[num][4])
 				RenderScriptCams(true,false,0,1,0)
 			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- GAMEEVENTTRIGGERED
------------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("gameEventTriggered",function(name,args)
-	if name == "CEventNetworkEntityDamage" then
-		if (GetEntityHealth(args[1]) <= 101 and PlayerPedId() == args[2] and IsPedAPlayer(args[1])) then
-			local index = NetworkGetPlayerIndexFromPed(args[1])
-			local source = GetPlayerServerId(index)
-			TriggerServerEvent("player:deathLogs",source)
 		end
 	end
 end)

@@ -1897,6 +1897,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if not vRP.getPremium(user_id) then
 									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 20 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/update_garages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Bronze</b>.",3000)
 								else
 									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
@@ -1906,6 +1907,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									Wait(500)
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 20 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium01" })
+									vRP.execute("vRP/update_garages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"azul","<b>Premium Bronze</b> atualizado.",5000)
 								end
 							end
@@ -1920,6 +1922,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if not vRP.getPremium(user_id) then
 									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 40 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/update_garages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Prata</b>.",3000)
 								else
 									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
@@ -1929,6 +1932,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									Wait(500)
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 40 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium02" })
+									vRP.execute("vRP/update_garages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"azul","<b>Premium Prata</b> atualizado.",5000)
 								end
 							end
@@ -1943,6 +1947,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if not vRP.getPremium(user_id) then
 									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 60 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/update_twogarages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Ouro</b>.",3000)
 								else
 									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
@@ -1952,6 +1957,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									Wait(500)
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 60 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium03" })
+									vRP.execute("vRP/update_twogarages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"azul","<b>Premium Ouro</b> atualizado.",5000)
 								end
 							end
@@ -1966,6 +1972,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if not vRP.getPremium(user_id) then
 									vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), predays = 31, priority = 90 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium04" })
+									vRP.execute("vRP/update_twogarages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"amarelo","Ativado <b>Premium Platina</b>.",3000)
 								else
 									vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "premium01" })
@@ -1975,6 +1982,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									Wait(500)
 									vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 31, priority = 90 })
 									vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "premium04" })
+									vRP.execute("vRP/update_twogarages",{ user_id = user_id })
 									TriggerClientEvent("Notify",source,"azul","<b>Premium Platina</b> atualizado.",5000)
 								end
 							end

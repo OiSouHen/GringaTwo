@@ -85,8 +85,8 @@ AddEventHandler("dismantle:invokeList",function(invokeList)
     local timeDistance = 500
 	local ped = PlayerPedId()
 	if not IsPedInAnyVehicle(ped) then
-			timeDistance = 4
-			vSERVER.acessList()
-			inService = true
+		timeDistance = 4
+		vSERVER.acessList()
+		inService = true
 	end
 end)

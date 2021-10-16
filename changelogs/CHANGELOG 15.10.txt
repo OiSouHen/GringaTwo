@@ -1,0 +1,9 @@
+**CHANGELOG 15.10:**
+
+1: Aumentado a quantidade de alguns itens recebidos no emprego do **Lixeiro**.
+2: Aumentado a quantidade de **Sucatas** recebidas das carcaças dos veículos de **4/5** para **5/6**.
+3: Modificado o valor recebido no **Roubo** ao **Carro Forte**.
+4: Adicionado uma garagem de **Embarcações** na ilha de **Cayo Perico**.
+5: Corrigido o problema do **Porta-Malas** que conseguia entrar no veículo estando na mala.
+6: Adicionado ao sistema de vender para os americanos:
+     **Rosquinha**, **Chocolate**, **Hamburguer**, **Cachorro-Quente**, **Água**, **Cola**, **Soda** e **Café**.

@@ -13,11 +13,11 @@ vSERVER = Tunnel.getInterface("spawn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
+cam = nil
+initial_pos = {}
 local cam1 = nil
 local new = false
 local weight = 270.0
-cam = nil
-initial_pos = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVECAMACTIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ AddEventHandler("spawn:setupChars",function()
 	FreezeEntityPosition(PlayerPedId(),true)
 	SetEntityInvincible(PlayerPedId(),true)
 
-	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",232.42,-419.45,224.98,360.0,0.0,140.0,60.0,false,0)
+	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
 	SetCamActive(cam,true)
 	RenderScriptCams(true,false,1,true,true)
 
@@ -57,7 +57,7 @@ AddEventHandler("spawn:maxChars",function()
 	FreezeEntityPosition(PlayerPedId(),true)
 	SetEntityInvincible(PlayerPedId(),true)
 
-	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",232.42,-419.45,224.98,360.0,0.0,140.0,60.0,false,0)
+	cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA",667.43,1025.9,378.87,340.0,0.0,342.0,60.0,false,0)
 	SetCamActive(cam,true)
 	RenderScriptCams(true,false,1,true,true)
 

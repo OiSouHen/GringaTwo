@@ -1,5 +1,5 @@
 local Config = {}
-vRP.prepare("vRP/get_priorityqueue","SELECT steam,priority FROM infos")
+vRP.prepare("vRP/get_priorityqueue","SELECT steam,priority FROM vrp_infos")
 
 Config.Language = {
 	joining = "Entrando...",

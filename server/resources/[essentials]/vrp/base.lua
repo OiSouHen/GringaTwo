@@ -250,7 +250,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.rejoinServer(source)
 	local source = source
-	local ped = PlayerPedId()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)

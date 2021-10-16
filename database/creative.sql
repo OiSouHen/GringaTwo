@@ -1,49 +1,8 @@
 CREATE DATABASE IF NOT EXISTS `creative`;
 USE `creative`;
 
-DROP TABLE IF EXISTS `phone_chat`;
-CREATE TABLE `phone_chat` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `channel` varchar(20) NOT NULL,
-  `message` varchar(255) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `phone_calls`;
-CREATE TABLE `phone_calls` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `owner` varchar(10) NOT NULL COMMENT 'Meu número',
-  `num` varchar(10) NOT NULL COMMENT 'Número do contato',
-  `incoming` int(11) NOT NULL COMMENT 'Origem da chamada',
-  `time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `accepts` int(11) NOT NULL COMMENT 'Chamada aceita ou não',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `phone_messages`;
-CREATE TABLE `phone_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `transmitter` varchar(10) NOT NULL,
-  `receiver` varchar(10) NOT NULL,
-  `message` varchar(255) NOT NULL DEFAULT '0',
-  `time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `isRead` int(11) NOT NULL DEFAULT 0,
-  `owner` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `phone_contacts`;
-CREATE TABLE `phone_contacts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `identifier` varchar(60) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `number` varchar(10) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `display` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '-1',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `barbershop`;
-CREATE TABLE `barbershop` (
+DROP TABLE IF EXISTS `vrp_barbershop`;
+CREATE TABLE `vrp_barbershop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `fathers` int(11) NOT NULL DEFAULT 0,
@@ -75,15 +34,8 @@ CREATE TABLE `barbershop` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `benefactor`;
-CREATE TABLE `benefactor` (
-  `vehicle` varchar(50) NOT NULL,
-  `estoque` int(11) NOT NULL DEFAULT -1,
-  PRIMARY KEY (`vehicle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Estoque dos veiculos';
-
-DROP TABLE IF EXISTS `chests`;
-CREATE TABLE `chests` (
+DROP TABLE IF EXISTS `vrp_chests`;
+CREATE TABLE `vrp_chests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `permiss` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -95,8 +47,8 @@ CREATE TABLE `chests` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `fines`;
-CREATE TABLE `fines` (
+DROP TABLE IF EXISTS `vrp_fines`;
+CREATE TABLE `vrp_fines` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `nuser_id` int(11) NOT NULL DEFAULT 0,
@@ -109,8 +61,8 @@ CREATE TABLE `fines` (
   KEY `nuser_id` (`nuser_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `homes`;
-CREATE TABLE `homes` (
+DROP TABLE IF EXISTS `vrp_homes`;
+CREATE TABLE `vrp_homes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `home` varchar(50) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -121,21 +73,8 @@ CREATE TABLE `homes` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `houses`;
-CREATE TABLE `houses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL,
-  `coords` text DEFAULT NULL,
-  `owned` tinyint(2) DEFAULT 0,
-  `price` int(11) DEFAULT NULL,
-  `tier` tinyint(2) DEFAULT NULL,
-  `garage` text DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 CHECKSUM=1;
-
-DROP TABLE IF EXISTS `infos`;
-CREATE TABLE `infos` (
+DROP TABLE IF EXISTS `vrp_infos`;
+CREATE TABLE `vrp_infos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `steam` varchar(50) NOT NULL,
   `whitelist` tinyint(1) DEFAULT 0,
@@ -149,8 +88,8 @@ CREATE TABLE `infos` (
   KEY `steam` (`steam`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `invoice`;
-CREATE TABLE `invoice` (
+DROP TABLE IF EXISTS `vrp_invoice`;
+CREATE TABLE `vrp_invoice` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `nuser_id` int(11) NOT NULL DEFAULT 0,
@@ -163,16 +102,16 @@ CREATE TABLE `invoice` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `permissions`;
-CREATE TABLE `permissions` (
+DROP TABLE IF EXISTS `vrp_permissions`;
+CREATE TABLE `vrp_permissions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 1,
   `permiss` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `player_houses`;
-CREATE TABLE `player_houses` (
+DROP TABLE IF EXISTS `vrp_player_houses`;
+CREATE TABLE `vrp_player_houses` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `house` varchar(50) NOT NULL,
   `identifier` varchar(50) DEFAULT NULL,
@@ -184,8 +123,8 @@ CREATE TABLE `player_houses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 CHECKSUM=1;
 
-DROP TABLE IF EXISTS `races`;
-CREATE TABLE `races` (
+DROP TABLE IF EXISTS `vrp_races`;
+CREATE TABLE `vrp_races` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `vehicle` varchar(250) NOT NULL,
@@ -194,8 +133,8 @@ CREATE TABLE `races` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `salary`;
-CREATE TABLE `salary` (
+DROP TABLE IF EXISTS `vrp_salary`;
+CREATE TABLE `vrp_salary` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `date` varchar(25) DEFAULT NULL,
@@ -205,16 +144,16 @@ CREATE TABLE `salary` (
   KEY `id` (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `srv_data`;
-CREATE TABLE `srv_data` (
+DROP TABLE IF EXISTS `vrp_srv_data`;
+CREATE TABLE `vrp_srv_data` (
   `dkey` varchar(100) NOT NULL,
   `dvalue` text DEFAULT NULL,
   PRIMARY KEY (`dkey`),
   KEY `dkey` (`dkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `user_data`;
-CREATE TABLE `user_data` (
+DROP TABLE IF EXISTS `vrp_user_data`;
+CREATE TABLE `vrp_user_data` (
   `user_id` int(11) NOT NULL,
   `dkey` varchar(100) NOT NULL,
   `dvalue` text DEFAULT NULL,
@@ -223,8 +162,8 @@ CREATE TABLE `user_data` (
   KEY `dkey` (`dkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `vrp_users`;
+CREATE TABLE `vrp_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `steam` varchar(100) DEFAULT NULL,
   `registration` varchar(20) DEFAULT NULL,
@@ -241,8 +180,8 @@ CREATE TABLE `users` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `vehicles`;
-CREATE TABLE `vehicles` (
+DROP TABLE IF EXISTS `vrp_vehicles`;
+CREATE TABLE `vrp_vehicles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `vehicle` varchar(100) NOT NULL,
@@ -264,8 +203,8 @@ CREATE TABLE `vehicles` (
   KEY `vehicle` (`vehicle`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `weapons`;
-CREATE TABLE `weapons` (
+DROP TABLE IF EXISTS `vrp_weapons`;
+CREATE TABLE `vrp_weapons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `weapon` text NOT NULL,

@@ -55,7 +55,6 @@ $(document).ready(() => {
 	});
 
 	$(document).on("click",".spawnBox",function(e){
-//		$.post("http://spawn/spawnChosen",JSON.stringify({ hash: parseInt(e["currentTarget"]["dataset"]["hash"]) }));
 		$.post("http://spawn/spawnChosen",JSON.stringify({ hash: e["currentTarget"]["dataset"]["hash"] }));
 	});
 
@@ -87,7 +86,7 @@ const generateDisplay = () => {
 				<div class="charBox" data-id="${item["id"]}">
 					<div class="playerInfo">
 						<p><b>Passaporte:</b> ${item["id"]}</p>
-						<p><b>Nome:</b> ${item["name"]}</p>
+						<p><b>Nome:</b> ${item["name"]} ${item["name2"]}</p>
 						<p><b>Nacionalidade:</b> ${item["loc"]}</p>
 					</div>
 					<div class="playerButton">

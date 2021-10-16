@@ -60,21 +60,6 @@ AddEventHandler("player:outfitFunctions",function(outfitFunctions)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PLAYER:IDENTITYFUNCTIONS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("player:identityFunctions")
-AddEventHandler("player:identityFunctions",function(identityFunctions)
-	local source = source
-    local user_id = vRP.getUserId(source)
-	if user_id then
-		local identity = vRP.getUserIdentity(user_id)
-		if identity then
-		local infos = vRP.query("vRP/get_infos",{ steam = identity.steam })		
-			TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Gemas:</b> "..infos[1].gems.."<br><b>Máximo de Veículos:</b> "..identity.garage.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Premium:</b> "..infos[1].predays.." Dias",15000)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- NORTE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("norte",function(source,rawCommand)
@@ -482,8 +467,8 @@ end)
 RegisterCommand("rv",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") and vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
-			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) and not vRPclient.inVehicle(source) then
+		if vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
+			if not vRPclient.inVehicle(source) then
 				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
 				if vehicle then
 					if vehLock ~= 1 then
@@ -494,6 +479,8 @@ RegisterCommand("rv",function(source,args,rawCommand)
 					end
 				end
 			end
+		else
+			TriggerClientEvent("Notify",source,"amarelo","<b>Corda</b> não encontrada.",5000)
 		end
 	end
 end)
@@ -503,8 +490,8 @@ end)
 RegisterCommand("cv",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
-			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) and not vRPclient.inVehicle(source) then
+		if vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
+			if not vRPclient.inVehicle(source) then
 				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
 				if vehicle then
 					if vehLock ~= 1 then
@@ -515,6 +502,8 @@ RegisterCommand("cv",function(source,args,rawCommand)
 					end
 				end
 			end
+		else
+			TriggerClientEvent("Notify",source,"amarelo","<b>Corda</b> não encontrada.",5000)
 		end
 	end
 end)
