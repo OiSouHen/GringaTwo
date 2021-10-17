@@ -89,12 +89,12 @@ function cRP.Mochila()
 				if (parseInt(v.amount) <= 0 or vRP.itemBodyList(v.item) == nil) then
 					vRP.removeInventoryItem(user_id,v.item,parseInt(v.amount),false)
 				else
-					if string.sub(v.item,1,9) == v.item then
-						local advFile = LoadResourceFile("logsystem","toolboxes.json")
-						local advDecode = json.decode(advFile)
+					-- if string.sub(v.item,1,9) == v.item then
+						-- local advFile = LoadResourceFile("logsystem","toolboxes.json")
+						-- local advDecode = json.decode(advFile)
 
-						v.durability = advDecode[v.item]
-					end
+						-- v.durability = advDecode[v.item]
+					-- end
 					
 					if v.item and v.timestamp then
 						local actualTime = os.time()

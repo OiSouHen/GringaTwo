@@ -549,7 +549,7 @@ local itemlist = {
 		tipo = "Usável",
 		economy = "50000",
 		type = "use",
-		color = "186,85,211,0.5",
+		color = "26,27,30,0.5",
 		weight = 0.00
 	},
 	["premium02"] = {
@@ -1072,6 +1072,17 @@ local itemlist = {
 		name = "Caixa de Ferramentas",
 		tipo = "Ferramentas",
 		economy = "475",
+		type = "use",
+		subtype = "comida",
+		transform = "toolbox2",
+		durability = 10800,
+		weight = 1.75
+	},
+	["toolbox2"] = {
+		index = "toolbox",
+		name = "Caixa Enferrujada",
+		tipo = "Comum",
+		economy = "245",
 		type = "use",
 		weight = 1.75
 	},
@@ -2222,14 +2233,14 @@ local itemlist = {
 		weight = 0.07
 	},
 	["WEAPON_PUMPSHOTGUN_AMMO"] = {
-		index = "remingtonammo",
+		index = "shotgunammo",
 		name = "Munição de Mossberg 590",
 		tipo = "Munição",
 		type = "recharge",
 		weight = 0.05
 	},
 	["WEAPON_PUMPSHOTGUN_MK2_AMMO"] = {
-		index = "remingtonammo",
+		index = "shotgunammo",
 		name = "Munição de Mossberg 590A1",
 		tipo = "Munição",
 		type = "recharge",

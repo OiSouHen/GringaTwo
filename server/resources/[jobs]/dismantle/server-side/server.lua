@@ -24,139 +24,172 @@ local serviceStatus = false
 -- VEHLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local vehList = {
-	[1] = "guardian",
-	[2] = "stinger",
-	[3] = "bullet",
-	[4] = "mesa",
-	[5] = "banshee2",
-	[6] = "surfer",
-	[7] = "regina",
-	[8] = "bjxl",
-	[9] = "sandking2",
-	[10] = "picador",
-	[11] = "radi",
-	[12] = "hotknife",
-	[13] = "hermes",
-	[14] = "bobcatxl",
-	[15] = "mixer",
-	[16] = "mixer2",
-	[17] = "t20",
-	[18] = "zentorno",
-	[19] = "ellie",
-	[20] = "boxville",
-	[21] = "sentinel3",
-	[22] = "dominator",
-	[23] = "adder",
-	[24] = "cheetah",
-	[25] = "pounder",
-	[26] = "windsor",
-	[27] = "windsor2",
-	[28] = "osiris",
-	[29] = "rapidgt3",
-	[30] = "verlierer2",
-	[31] = "baller2",
-	[32] = "dominator2",
-	[33] = "ztype",
-	[34] = "btype",
-	[35] = "raptor",
-	[36] = "monroe",
-	[37] = "dubsta",
-	[38] = "serrano",
-	[39] = "rebel2",
-	[40] = "jester",
-	[41] = "tornado",
-	[42] = "tornado2",
-	[43] = "tornado3",
-	[44] = "sadler",
-	[45] = "granger",
-	[46] = "surfer2",
-	[47] = "warrener",
-	[48] = "sultanrs",
-	[49] = "carbonizzare",
-	[50] = "gauntlet2",
-	[51] = "exemplar",
-	[52] = "stockade",
-	[53] = "italigtb",
-	[54] = "gauntlet",
-	[55] = "utillitruck",
-	[56] = "bifta",
-	[57] = "yosemite",
-	[58] = "tropos",
-	[59] = "kuruma",
-	[60] = "dukes",
-	[61] = "chino",
-	[62] = "chino2",
-	[63] = "voltic",
-	[64] = "neon",
-	[65] = "raiden",
-	[66] = "scrap",
-	[67] = "toros",
-	[68] = "rhapsody",
-	[69] = "zion",
-	[70] = "zion2",
-	[71] = "blade",
-	[72] = "rebel",
-	[73] = "sentinel",
-	[74] = "deviant",
-	[75] = "jackal",
-	[76] = "romero",
-	[77] = "clique",
-	[78] = "flatbed",
-	[79] = "faction",
-	[80] = "faction2",
-	[81] = "faction3",
-	[82] = "contender",
-	[83] = "nero",
-	[84] = "primo2",
-	[85] = "casco",
-	[86] = "surano",
-	[87] = "patriot",
-	[88] = "ztype",
-	[89] = "savestra",
-	[90] = "infernus2",
-	[91] = "comet3",
-	[92] = "pfister811",
-	[93] = "turismo2",
-	[94] = "buffalo",
-	[95] = "cavalcade",
-	[96] = "asterope",
-	[97] = "tampa2",
-	[98] = "nightshade",
-	[99] = "buccaneer",
-	[100] = "buccaneer2",
-	[101] = "schlagen",
-	[102] = "prototipo",
-	[103] = "cogcabrio",
-	[104] = "swinger",
-	[105] = "manana",
-	[106] = "nero2",
-	[107] = "torero",
-	[108] = "seminole",
-	[109] = "specter",
-	[110] = "coquette2",
-	[111] = "coquette3",
-	[112] = "gburrito",
-	[113] = "gburrito2",
-	[114] = "felon",
-	[115] = "felon2",
-	[116] = "mamba",
-	[117] = "tampa2",
-	[118] = "patriot2",
-	[119] = "emperor",
-	[120] = "rancherxl",
-	[121] = "taxi",
-	[122] = "benson",
-	[123] = "tiptruck2",
-	[124] = "panto",
-	[125] = "cog55",
-	[126] = "peyote",
-	[127] = "slamvan3",
-	[128] = "cheetah2",
-	[129] = "kalahari",
-	[130] = "seven70",
-	[131] = "autarch",
-	[132] = "stanier",
-	[133] = "tornado5"
+	[1] = "benson",
+	[2] = "biff",
+	[3] = "cerberus",
+	[4] = "cerberus2",
+	[5] = "cerberus3",
+	[6] = "hauler",
+	[7] = "hauler2",
+	[8] = "mule",
+	[9] = "mule2",
+	[10] = "mule3",
+	[11] = "mule4",
+	[12] = "packer",
+	[13] = "phantom",
+	[14] = "phantom3",
+	[15] = "pounder2",
+	[16] = "terbyte",
+	[17] = "blista",
+	[18] = "brioso",
+	[19] = "dilettante",
+	[20] = "dilettante2",
+	[21] = "issi2",
+	[22] = "issi3",
+	[23] = "issi4",
+	[24] = "issi5",
+	[25] = "panto",
+	[26] = "prairie",
+	[27] = "rhapsody",
+	[28] = "cogcabrio",
+	[29] = "exemplar",
+	[30] = "f620",
+	[31] = "felon",
+	[32] = "felon2",
+	[33] = "jackal",
+	[34] = "oracle",
+	[35] = "oracle2",
+	[36] = "sentinel",
+	[37] = "sentinel2",
+	[38] = "windsor",
+	[39] = "windsor2",
+	[40] = "zion",
+	[41] = "zion2",
+	[42] = "previon",
+	[43] = "bulldozer",
+	[44] = "cutter",
+	[45] = "dump",
+	[46] = "guardian",
+	[47] = "handler",
+	[48] = "mixer",
+	[49] = "mixer2",
+	[50] = "rubble",
+	[51] = "tiptruck",
+	[52] = "tiptruck2",
+	[53] = "akuma",
+	[54] = "avarus",
+	[55] = "bagger",
+	[56] = "bati",
+	[57] = "bati2",
+	[58] = "bf400",
+	[59] = "carbonrs",
+	[60] = "chimera",
+	[61] = "cliffhanger",
+	[62] = "daemon",
+	[63] = "daemon2",
+	[64] = "defiler",
+	[65] = "deathbike",
+	[66] = "deathbike2",
+	[67] = "diablous",
+	[68] = "diablous2",
+	[69] = "double",
+	[70] = "enduro",
+	[71] = "esskey",
+	[72] = "faggio2",
+	[73] = "faggio3",
+	[74] = "fcr",
+	[75] = "fcr2",
+	[76] = "gargoyle",
+	[77] = "hakuchou",
+	[78] = "hakuchou2",
+	[79] = "hexer",
+	[80] = "innovation",
+	[81] = "lectro",
+	[82] = "manchez",
+	[83] = "nemesis",
+	[84] = "nightblade",
+	[85] = "pcj",
+	[86] = "ratbike",
+	[87] = "ruffian",
+	[88] = "sanchez",
+	[89] = "sanchez2",
+	[90] = "sanctus",
+	[91] = "sovereign",
+	[92] = "thrust",
+	[93] = "vader",
+	[94] = "vindicator",
+	[95] = "vortex",
+	[96] = "wolfsbane",
+	[97] = "zombiea",
+	[98] = "zombieb",
+	[99] = "blade",
+	[100] = "buccaneer",
+	[101] = "buccaneer2",
+	[102] = "chino",
+	[103] = "chino2",
+	[104] = "clique",
+	[105] = "coquette3",
+	[106] = "deviant",
+	[107] = "dominator",
+	[108] = "dominator2",
+	[109] = "dominator3",
+	[110] = "dominator4",
+	[111] = "dominator5",
+	[112] = "dukes",
+	[113] = "dukes2",
+	[114] = "faction",
+	[115] = "faction2",
+	[116] = "faction3",
+	[117] = "ellie",
+	[118] = "gauntlet",
+	[119] = "gauntlet2",
+	[120] = "hermes",
+	[121] = "hotknife",
+	[122] = "hustler",
+	[123] = "impaler",
+	[124] = "impaler2",
+	[125] = "impaler3",
+	[126] = "impaler4",
+	[127] = "imperator",
+	[128] = "imperator2",
+	[129] = "lurcher",
+	[130] = "moonbeam",
+	[131] = "moonbeam2",
+	[132] = "nightshade",
+	[133] = "phoenix",
+	[134] = "picador",
+	[135] = "ruiner",
+	[136] = "ruiner2",
+	[137] = "ruiner3",
+	[138] = "sabregt",
+	[139] = "sabregt2",
+	[140] = "slamvan",
+	[141] = "slamvan2",
+	[142] = "slamvan3",
+	[143] = "slamvan4",
+	[144] = "slamvan5",
+	[145] = "stalion",
+	[146] = "stalion2",
+	[147] = "tampa",
+	[148] = "tampa3",
+	[149] = "tulip",
+	[150] = "vamos",
+	[151] = "vigero",
+	[152] = "virgo",
+	[153] = "virgo2",
+	[154] = "virgo3",
+	[155] = "voodoo",
+	[156] = "voodoo2",
+	[157] = "yosemite",
+	[158] = "bfinjection",
+	[159] = "bifta",
+	[160] = "blazer",
+	[161] = "blazer2",
+	[162] = "blazer3",
+	[163] = "blazer4",
+	[164] = "blazer5",
+	[165] = "bodhi2",
+	[166] = "brawler"
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NORMALITENSLIST
@@ -242,13 +275,21 @@ function cRP.paymentMethod(vehicle)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local value = math.random(4500,8500)
-		vGARAGE.deleteVehicle(source,vehicle)
+		local value = math.random(3500,7000)
 		vRP.giveInventoryItem(user_id,"dollarsz",parseInt(value),true)
-		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(6,12),true)
-		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(12,24),true)
-		vRP.upgradeStress(user_id,12)
+		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(12,24),true)
+		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(6,12),true)
+		
+		local random = math.random(100)
+		if parseInt(random) >= 90 then
+			vRP.giveInventoryItem(user_id,"premiumplate",math.random(1),true)
+		elseif parseInt(random) >= 79 and parseInt(random) <= 89 then
+			vRP.giveInventoryItem(user_id,"plate",math.random(1),true)
+		end
+		
+		vRP.upgradeStress(user_id,6)
 		vRP.wantedTimer(user_id,250)
+		vGARAGE.deleteVehicle(source,vehicle)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -270,25 +311,25 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("dismantle:invokeDismantle")
 AddEventHandler("dismantle:invokeDismantle",function(invokeDismantle)
-    local source = source
+	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-	if serviceStatus then
-		if timeList > 0 and userList[user_id] then
-			local vehListNames = ""
-			for k,v in pairs(vehListActived) do
-				vehListNames = vehListNames.."<b>"..vRP.vehicleName(k).."</b>, "
+		if serviceStatus then
+			if timeList > 0 and userList[user_id] then
+				local vehListNames = ""
+				for k,v in pairs(vehListActived) do
+					vehListNames = vehListNames.."<b>"..vRP.vehicleName(k).."</b>, "
+				end
+				
+				if vehListNames ~= "" then
+					TriggerClientEvent("Notify",source,"azul",vehListNames.."a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da sua lista atual.",30000)
+				else
+					TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(timeList).." minutos</b>.",10000)
+				end
 			end
-
-			if vehListNames ~= "" then
-				TriggerClientEvent("Notify",source,"azul",vehListNames.." a lista é atualizada em <b>"..parseInt(timeList).." minutos</b>, cada veículo entregue o mesmo é removido da lista.",30000)
-			else
-				TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(timeList).." minutos</b>.",10000)
-			end
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Você precisa iniciar o serviço.",5000)
 		end
-	else
-	TriggerClientEvent("Notify",source,"amarelo","Você precisa iniciar o serviço.",5000)
-	end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
