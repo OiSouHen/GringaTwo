@@ -115,6 +115,7 @@ local garages = {
 	[155] = { ["name"] = "Taxi", ["payment"] = false, ["public"] = true },
 	[156] = { ["name"] = "Burgershot", ["payment"] = false, ["public"] = true },
 	[157] = { ["name"] = "Mechanic", ["payment"] = true, ["perm"] = "Mechanic" },
+	[158] = { ["name"] = "Garage", ["payment"] = false, ["public"] = true },
 --  [Houses]
 	[501] = { ["name"] = "Middle001", ["payment"] = false, ["perm"] = false },
 	[502] = { ["name"] = "Middle002", ["payment"] = false, ["perm"] = false },

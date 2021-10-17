@@ -244,7 +244,7 @@ function cRP.paymentMethod(vehicle)
 	if user_id then
 		local value = math.random(4500,8500)
 		vGARAGE.deleteVehicle(source,vehicle)
-		vRP.giveInventoryItem(user_id,"dollars2",parseInt(value),true)
+		vRP.giveInventoryItem(user_id,"dollarsz",parseInt(value),true)
 		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(6,12),true)
 		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(12,24),true)
 		vRP.upgradeStress(user_id,12)

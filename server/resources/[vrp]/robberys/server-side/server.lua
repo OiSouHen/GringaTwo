@@ -30,7 +30,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[2] = {
@@ -45,7 +45,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[3] = {
@@ -60,7 +60,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[4] = {
@@ -75,7 +75,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[5] = {
@@ -90,7 +90,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[6] = {
@@ -105,7 +105,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[7] = {
@@ -120,7 +120,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[8] = {
@@ -135,7 +135,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[9] = {
@@ -150,7 +150,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[10] = {
@@ -165,7 +165,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[11] = {
@@ -180,7 +180,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[12] = {
@@ -195,7 +195,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[13] = {
@@ -210,7 +210,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[14] = {
@@ -225,7 +225,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[15] = {
@@ -240,7 +240,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[16] = {
@@ -255,7 +255,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[17] = {
@@ -270,7 +270,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[18] = {
@@ -285,7 +285,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[19] = {
@@ -300,7 +300,7 @@ local vars = {
 		["name"] = "Loja de Departamento",
 		["required"] = "card01",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 3500, ["max"] = 7000 }
+			{ ["item"] = "dollarsz", ["min"] = 3500, ["max"] = 7000 }
 		}
 	},
 	[20] = {
@@ -315,7 +315,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[21] = {
@@ -330,7 +330,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[22] = {
@@ -345,7 +345,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[23] = {
@@ -360,7 +360,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[24] = {
@@ -375,7 +375,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[25] = {
@@ -390,7 +390,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[26] = {
@@ -405,7 +405,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[27] = {
@@ -420,7 +420,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[28] = {
@@ -435,7 +435,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[29] = {
@@ -450,7 +450,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[30] = {
@@ -465,7 +465,7 @@ local vars = {
 		["name"] = "Loja de Armas",
 		["required"] = "card02",
 		["itens"] = {
-			{ ["item"] = "dollars2", ["min"] = 5000, ["max"] = 10000 }
+			{ ["item"] = "dollarsz", ["min"] = 5000, ["max"] = 10000 }
 		}
 	},
 	[31] = {

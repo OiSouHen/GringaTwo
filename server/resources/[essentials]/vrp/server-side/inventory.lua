@@ -1338,7 +1338,7 @@ local itemlist = {
 		type = "use",
 		weight = 0.0001
 	},
-	["dollars2"] = {
+	["dollarsz"] = {
 		index = "dollarsz",
 		name = "Dólares Marcados",
 		tipo = "Comum",

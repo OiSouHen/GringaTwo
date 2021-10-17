@@ -1107,7 +1107,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											vRP.upgradeStress(user_id,1)
 											vRPclient._removeObjects(source)
 											vCLIENT.blockButtons(source,false)
-											vRP.giveInventoryItem(user_id,"dollars2",math.random(4,6),true)
+											vRP.giveInventoryItem(user_id,"dollarsz",math.random(4,6),true)
 
 											if math.random(100) >= 75 then
 												vRP.wantedTimer(user_id,30) -- old is 15 need try

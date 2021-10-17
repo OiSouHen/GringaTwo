@@ -122,7 +122,7 @@ function cRP.paymentMethod()
 			else
 			    local value = amount[user_id][3] * amount[user_id][2]
 				
-			    vRP.giveInventoryItem(user_id,"dollars2",parseInt(value),true)
+			    vRP.giveInventoryItem(user_id,"dollarsz",parseInt(value),true)
 			    TriggerClientEvent("sounds:source",source,"cash",0.5)
 			    vRP.wantedTimer(user_id,10)
 			    vRP.upgradeStress(user_id,2)

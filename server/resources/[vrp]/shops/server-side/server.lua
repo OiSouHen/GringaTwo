@@ -381,7 +381,7 @@ local shops = {
 	},
 	["ilegalRares"] = {
 		["mode"] = "Buy",
-		["type"] = "Cash",
+		["type"] = "Dirty",
 		["list"] = {
 			["credential"] = 250,
 			["WEAPON_ASSAULTRIFLE_AMMO"] = 44,
@@ -410,8 +410,8 @@ local shops = {
 		}
 	},
 	["ilegalToys"] = {
-		["mode"] = "Buy",
-		["type"] = "Sell",
+		["mode"] = "Sell",
+		["type"] = "Dirty",
 		["list"] = {
 			["eraser"] = 75,
 			["deck"] = 75,
@@ -426,8 +426,8 @@ local shops = {
 		}
 	},
 	["ilegalHouse"] = {
-		["mode"] = "Buy",
-		["type"] = "Sell",
+		["mode"] = "Sell",
+		["type"] = "Dirty",
 		["list"] = {
 			["lampshade"] = 115,
 			["cup"] = 125,
@@ -444,8 +444,8 @@ local shops = {
 		}
 	},
 	["ilegalCosmetics"] = {
-		["mode"] = "Buy",
-		["type"] = "Sell",
+		["mode"] = "Sell",
+		["type"] = "Dirty",
 		["list"] = {
 			["goldring"] = 125,
 			["silverring"] = 85,
@@ -464,8 +464,8 @@ local shops = {
 		}
 	},
 	["ilegalCriminal"] = {
-		["mode"] = "Buy",
-		["type"] = "Sell",
+		["mode"] = "Sell",
+		["type"] = "Dirty",
 		["list"] = {
 			["pliers"] = 75,
 			["goldbar"] = 875,
@@ -568,7 +568,7 @@ function cRP.getShopType(name)
     return shops[name].mode
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- FUNCTIONSHOP
+-- FUNCTIONSHOPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 	local source = source
@@ -599,6 +599,27 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 								TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
 							end
 						end
+					elseif shops[shopType]["type"] == "Dirty" then
+						if shops[shopType]["list"][shopItem] then
+
+							if vRP.itemSubTypeList(shopItem) then
+								if vRP.getInventoryItemAmount(user_id,shopItem) > 0 then
+									TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
+								end
+							end
+							
+							if vRP.tryGetInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),true) then
+								if inv[tostring(slot)] then
+									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)
+								else
+									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
+								end
+								
+								TriggerClientEvent("sounds:source",source,"cash",0.3)
+							else
+								TriggerClientEvent("Notify",source,"vermelho","Dólares Marcados insuficientes.",3000)
+							end
+						end
 					elseif shops[shopType]["type"] == "Consume" then
 						if vRP.tryGetInventoryItem(parseInt(user_id),shops[shopType]["item"],parseInt(shops[shopType]["list"][shopItem]*shopAmount)) then
 							if inv[tostring(slot)] then
@@ -618,6 +639,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 							else
 								vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
 							end
+							
 							vRP.remGmsId(user_id,parseInt(shops[shopType]["list"][shopItem]*shopAmount))
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Gemas insuficientes.",3000)
@@ -626,13 +648,19 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 				else
 					TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				end
+				
 			elseif shops[shopType]["mode"] == "Sell" then
 				if shops[shopType]["list"][shopItem] then
 					if shops[shopType]["type"] == "Cash" then
-
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then	
 							vRP.giveInventoryItem(parseInt(user_id),"dollars",parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
 						end
+						
+					elseif shops[shopType]["type"] == "Dirty" then
+						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then	
+							vRP.giveInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
+						end
+						
 					elseif shops[shopType]["type"] == "Consume" then
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then
 							vRP.giveInventoryItem(parseInt(user_id),shops[shopType]["item"],parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
@@ -646,7 +674,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- POPULATESLOT
+-- SHOPS:POPULATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("shops:populateSlot")
 AddEventHandler("shops:populateSlot",function(itemName,slot,target,amount)
@@ -663,7 +691,7 @@ AddEventHandler("shops:populateSlot",function(itemName,slot,target,amount)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- POPULATESLOT
+-- SHOPS:UPDATESLOT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("shops:updateSlot")
 AddEventHandler("shops:updateSlot",function(itemName,slot,target,amount)
