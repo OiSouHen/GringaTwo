@@ -18,10 +18,6 @@ local records = ""
 local fines = ""
 local servicelog = ""
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local policeService = false
------------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:SERVICEPOLICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("police:servicePolice")
@@ -37,7 +33,7 @@ AddEventHandler("police:servicePolice",function(servicePolice)
 			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
 			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Polícia).```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Police", newpermiss = "waitPolice" })
-			policeService = false
+			TriggerClientEvent("police:updateService",source,false)
 		elseif vRP.hasPermission(user_id,"waitPolice") then
 			vRP.insertPermission(source,"Police")
 			TriggerClientEvent("tencode:StatusService",source,true)
@@ -45,7 +41,7 @@ AddEventHandler("police:servicePolice",function(servicePolice)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
 			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Polícia).```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
-			policeService = true
+			TriggerClientEvent("police:updateService",source,true)
 		end
 	end
 end)

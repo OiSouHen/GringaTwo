@@ -12,6 +12,17 @@ cRP = {}
 Tunnel.bindInterface("police",cRP)
 vSERVER = Tunnel.getInterface("police")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local policeService = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:updateService")
+AddEventHandler("police:updateService",function(status)
+	policeService = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSESYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeSystem",function(data)
@@ -57,6 +68,37 @@ AddEventHandler("police:openSystem",function()
 		if not IsPedInAnyVehicle(ped) then
 			vRP.removeObjects()
 			vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:INSERTCONE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:insertCone")
+AddEventHandler("police:insertCone",function()
+	local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		local heading = GetEntityHeading(ped)
+		local mHash = GetHashKey("prop_roadcone01a")
+		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.5,0.0)
+
+		RequestModel(mHash)
+		while not HasModelLoaded(mHash) do
+			Citizen.Wait(1)
+		end
+
+		if HasModelLoaded(mHash) then
+			local newObject = CreateObject(mHash,coords["x"],coords["y"],coords["z"],true,true,false)
+			local netObjs = ObjToNet(newObject)
+
+			SetNetworkIdCanMigrate(netObjs,true)
+
+			PlaceObjectOnGroundProperly(newObject)
+			SetEntityAsMissionEntity(newObject,true,false)
+			SetEntityHeading(newObject,heading - 180)
+			FreezeEntityPosition(newObject,true)
+
+			SetModelAsNoLongerNeeded(mHash)
 		end
 	end
 end)

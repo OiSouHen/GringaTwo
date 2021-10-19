@@ -413,24 +413,6 @@ RegisterCommand("tuning",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CONE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("cone",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") then
-		TriggerClientEvent("cone",source,args[1])
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- BARREIRA
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("barreira",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") then
-		TriggerClientEvent("barreira",source,args[1])
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- FIXALL
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("fixall",function(source,args,rawCommand)

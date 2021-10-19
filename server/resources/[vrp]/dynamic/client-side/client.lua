@@ -121,6 +121,52 @@ RegisterCommand("globalFunctions",function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- EMERGENCYFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("emergencyFunctions",function(source,args)
+	if policeService or paramedicService then
+		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not menuOpen then
+
+			local ped = PlayerPedId()
+			if GetEntityHealth(ped) > 101 then
+				menuOpen = true
+
+				exports["dynamic"]:AddButton("Serviço","Verificar companheiros em serviço.","player:servicoFunctions","","utilitys",true)
+
+				if policeService then
+					exports["dynamic"]:AddButton("Cone","Colocar cone na frente.","police:insertCone","","utilitys",false)
+					exports["dynamic"]:AddButton("Barreira","Colocar barreira na frente.","police:insertBarrier","","utilitys",false)
+					exports["dynamic"]:AddButton("Invadir","Invadir a residência.","homes:invadeSystem","","utilitys",true)
+
+					exports["dynamic"]:AddButton("Remover Chapéu","Remover da pessoa mais próxima.","skinshop:removeProps","hat","player",true)
+					exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:removeProps","mask","player",true)
+					exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:removeProps","glasses","player",true)
+					exports["dynamic"]:AddButton("Defusar","Desativar bomba do veículo.","races:defuseBomb","","player",true)
+
+					exports["dynamic"]:AddButton("Sheriff","Fardamento de oficial.","player:presetFunctions","1","prePolice",true)
+					exports["dynamic"]:AddButton("State Police","Fardamento de oficial.","player:presetFunctions","2","prePolice",true)
+					exports["dynamic"]:AddButton("State Park","Fardamento de oficial.","player:presetFunctions","3","prePolice",true)
+					exports["dynamic"]:AddButton("Los Santos Police","Fardamento de oficial.","player:presetFunctions","4","prePolice",true)
+					exports["dynamic"]:AddButton("Los Santos Police","Fardamento de oficial.","player:presetFunctions","5","prePolice",true)
+
+					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
+					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos policiais.","utilitys")
+				elseif paramedicService then
+					exports["dynamic"]:AddButton("Medical Center","Fardamento de doutor.","player:presetFunctions","6","preMedic",true)
+					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico.","player:presetFunctions","7","preMedic",true)
+					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico interno.","player:presetFunctions","8","preMedic",true)
+					exports["dynamic"]:AddButton("Fire Departament","Fardamento de atendimentos.","player:presetFunctions","9","preMedic",true)
+					exports["dynamic"]:AddButton("Fire Departament","Fardamento de mergulhador.","player:presetFunctions","10","preMedic",true)
+
+					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
+					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos paramédicos.","utilitys")
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("globalFunctions","Abrir menu principal.","keyboard","F9")
+RegisterKeyMapping("emergencyFunctions","Abrir menu de emergência.","keyboard","F10")

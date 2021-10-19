@@ -24,6 +24,20 @@ local adminService = false
 local policeService = false
 local paramedicService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:updateService")
+AddEventHandler("police:updateService",function(status)
+	policeService = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PARAMEDIC:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:updateService")
+AddEventHandler("paramedic:updateService",function(status)
+	paramedicService = status
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP:PLAYERACTIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp:playerActive")
@@ -634,7 +648,7 @@ Citizen.CreateThread(function()
 		distance = 1.50
 	})
 
-	AddTargetModel({ -205311355 },{
+	AddTargetModel({ -205311355,-534360227 },{
 		options = {
 			{
 				event = "tryDeleteObject",
@@ -1004,23 +1018,83 @@ Citizen.CreateThread(function()
 	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADMINMENU
+-- PARAMEDICMENU
 -----------------------------------------------------------------------------------------------------------------------------------------
-local adminMenu = {
+local paramedicMenu = {
 	{
-		event = "tryDeleteObject",
-		label = "Deletar Objeto",
-		tunnel = "admin"
+		event = "paramedic:Revive",
+		label = "Reanimar",
+		tunnel = "paramedic"
 	},
 	{
-		event = "admin:clearArea",
-		label = "Limpar Área",
-		tunnel = "admin"
+		event = "paramedic:Diagnostic",
+		label = "Diagnóstico",
+		tunnel = "paramedic"
 	},
 	{
-		event = "garages:deleteVehicle",
-		label = "Deletar Veículo",
-		tunnel = "admin"
+		event = "paramedic:Treatment",
+		label = "Tratamento",
+		tunnel = "paramedic"
+	},
+	{
+		event = "paramedic:Bleeding",
+		label = "Sangramento",
+		tunnel = "paramedic"
+	},
+	{
+		event = "paramedic:Bed",
+		label = "Deitar Paciente",
+		tunnel = "paramedic"
+	},
+	{
+		event = "paramedic:presetBurn",
+		label = "Roupa de Queimadura",
+		tunnel = "paramedic"
+	},
+	{
+		event = "paramedic:presetPlaster",
+		label = "Roupa de Gesso",
+		tunnel = "paramedic"
+	},
+	{
+		event = "paramedic:extractBlood",
+		label = "Extrair Sangue",
+		tunnel = "paramedic"
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICEVEH
+-----------------------------------------------------------------------------------------------------------------------------------------
+local policeVeh = {
+	{
+		event = "inventory:applyPlate",
+		label = "Trocar Placa",
+		tunnel = "police"
+	},
+	{
+		event = "police:runPlate",
+		label = "Verificar Placa",
+		tunnel = "police"
+	},
+	{
+		event = "police:impound",
+		label = "Registrar Veículo",
+		tunnel = "police"
+	},
+	{
+		event = "garages:vehicleKey",
+		label = "Criar Chave Cópia",
+		tunnel = "police"
+	},
+	{
+		event = "police:runArrest",
+		label = "Detenção do Veículo",
+		tunnel = "police"
+	},
+	{
+		event = "player:enterTrunk",
+		label = "Entrar no Porta-Malas",
+		tunnel = "client"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1091,6 +1165,41 @@ local dismantleVeh = {
 		event = "dismantle:checkVehicle",
 		label = "Desmanchar",
 		tunnel = "client"
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICEPED
+-----------------------------------------------------------------------------------------------------------------------------------------
+local policePed = {
+	{
+		event = "police:runInspect",
+		label = "Revistar",
+		tunnel = "police"
+	},
+	{
+		event = "police:prisonClothes",
+		label = "Uniforme do Presídio",
+		tunnel = "police"
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADMINMENU
+-----------------------------------------------------------------------------------------------------------------------------------------
+local adminMenu = {
+	{
+		event = "tryDeleteObject",
+		label = "Deletar Objeto",
+		tunnel = "admin"
+	},
+	{
+		event = "admin:clearArea",
+		label = "Limpar Área",
+		tunnel = "admin"
+	},
+	{
+		event = "garages:deleteVehicle",
+		label = "Deletar Veículo",
+		tunnel = "admin"
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
