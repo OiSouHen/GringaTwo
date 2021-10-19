@@ -1,14 +1,17 @@
+const mySlots = 50;
+const inSlots = 100;
+let shiftPressed = true;
+
 $(document).ready(function(){
 	window.addEventListener("message",function(event){
 		switch(event.data.action){
 			case "showMenu":
 				updateChest();
-				$(".inventory").css("display","flex");
+				$(".inventory").css("display","flex")
 			break;
 
 			case "hideMenu":
-				$(".inventory").css("display","none");
-				$(".ui-tooltip").hide();
+				$(".inventory").css("display","none")
 			break;
 
 			case "updateChest":
@@ -17,85 +20,42 @@ $(document).ready(function(){
 		}
 	});
 
-	document.onkeyup = data => {
-		if (data["key"] === "Escape"){
-			$.post("http://inspect/chestClose");
+	document.onkeydown = data => {
+		const key = data.key;
+		if (key === "Shift") {
+			shiftPressed = false;
 		}
-	};
+	}
 
-	$('body').mousedown(e => {
-		if(e.button == 1) return false;
-	});
+	document.onkeyup = data => {
+		const key = data.key;
+		if (key === "Escape"){
+			$.post("http://inspect/chestClose",JSON.stringify({}));
+		} else if (key === "Shift") {
+			shiftPressed = true;
+		}
+	}
 });
 
 const updateDrag = () => {
-	$(".populated").draggable({
-		helper: "clone"
+	$('.populated').draggable({
+		helper: 'clone'
 	});
 
 	$('.empty').droppable({
 		hoverClass: 'hoverControl',
 		drop: function(event,ui){
-			if(ui.draggable.parent()[0] == undefined) return;
-
-			const shiftPressed = event.shiftKey;
 			const origin = ui.draggable.parent()[0].className;
 			if (origin === undefined) return;
 			const tInv = $(this).parent()[0].className;
-			
+
 			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
 			const target = $(this).data('slot');
 
 			if (itemData.key === undefined || target === undefined) return;
 
-			let amount = 0;
-			let itemAmount = parseInt(ui.draggable.data('amount'));
-
-			if (shiftPressed)
-				amount = itemAmount;
-			else if($(".amount").val() == "" | parseInt($(".amount").val()) <= 0)
-				amount = 1;
-			else
-				amount = parseInt($(".amount").val());
-
-			if(amount > itemAmount)
-				amount = itemAmount;
-
-			$('.populated, .empty').off("draggable droppable");
-
-			let clone1 = ui.draggable.clone();
-			let slot2 = $(this).data("slot"); 
-
-			if(amount == itemAmount){
-				let clone2 = $(this).clone();
-				let slot1 = ui.draggable.data("slot");
-
-				$(this).replaceWith(clone1);
-				ui.draggable.replaceWith(clone2);
-				
-				$(clone1).data("slot", slot2);
-				$(clone2).data("slot", slot1);
-			} else {
-				let newAmountOldItem = itemAmount - amount;
-				let weight = parseFloat(ui.draggable.data("peso"));
-				let newWeightClone1 = (amount*weight).toFixed(2);
-				let newWeightOldItem = (newAmountOldItem*weight).toFixed(2);
-
-				ui.draggable.data("amount",newAmountOldItem);
-
-				clone1.data("amount",amount);
-
-				$(this).replaceWith(clone1);
-				$(clone1).data("slot",slot2);
-
-				ui.draggable.children(".top").children(".itemAmount").html(formatarNumero(ui.draggable.data("amount")) + "x");
-				ui.draggable.children(".top").children(".itemWeight").html(newWeightOldItem);
-				
-				$(clone1).children(".top").children(".itemAmount").html(formatarNumero(clone1.data("amount")) + "x");
-				$(clone1).children(".top").children(".itemWeight").html(newWeightClone1);
-			}
-
-			updateDrag();
+			let amount = $(".amount").val();
+			if (shiftPressed) amount = ui.draggable.data('amount');
 
 			if (tInv === "invLeft") {
 				if (origin === "invLeft") {
@@ -144,68 +104,17 @@ const updateDrag = () => {
 	$('.populated').droppable({
 		hoverClass: 'hoverControl',
 		drop: function(event,ui){
-			if(ui.draggable.parent()[0] == undefined) return;
-
-			const shiftPressed = event.shiftKey;
 			const origin = ui.draggable.parent()[0].className;
 			if (origin === undefined) return;
 			const tInv = $(this).parent()[0].className;
-
+			
 			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
 			const target = $(this).data('slot');
 
 			if (itemData.key === undefined || target === undefined) return;
 
-			let amount = 0;
-			let itemAmount = parseInt(ui.draggable.data('amount'));
-
-			if (shiftPressed)
-				amount = itemAmount;
-			else if($(".amount").val() == "" | parseInt($(".amount").val()) <= 0)
-				amount = 1;
-			else
-				amount = parseInt($(".amount").val());
-
-			if(amount > itemAmount)
-				amount = itemAmount;
-
-			$('.populated, .empty, .use').off("draggable droppable");
-
-			if(ui.draggable.data('item-key') == $(this).data('item-key')){
-				let newSlotAmount = amount + parseInt($(this).data('amount'));
-				let newSlotWeight = ui.draggable.data("peso") * newSlotAmount;
-
-				$(this).data('amount',newSlotAmount);
-				$(this).children(".top").children(".itemAmount").html(formatarNumero(newSlotAmount) + "x");
-				$(this).children(".top").children(".itemWeight").html(newSlotWeight.toFixed(2));
-
-				if(amount == itemAmount) {
-					ui.draggable.replaceWith(`<div class="item empty" data-slot="${ui.draggable.data('slot')}"></div>`);
-				} else {
-					let newMovedAmount = itemAmount - amount;
-					let newMovedWeight = parseFloat(ui.draggable.data("peso")) * newMovedAmount;
-
-					ui.draggable.data('amount',newMovedAmount);
-					ui.draggable.children(".top").children(".itemAmount").html(formatarNumero(newMovedAmount) + "x");
-					ui.draggable.children(".top").children(".itemWeight").html(newMovedWeight.toFixed(2));
-				}
-			} else {
-				if (origin === "invRight" && tInv === "invLeft") return;
-
-				let clone1 = ui.draggable.clone();
-				let clone2 = $(this).clone();
-
-				let slot1 = ui.draggable.data("slot");
-				let slot2 = $(this).data("slot");
-
-				ui.draggable.replaceWith(clone2);
-				$(this).replaceWith(clone1);
-
-				$(clone1).data("slot",slot2);
-				$(clone2).data("slot",slot1);
-			}
-
-			updateDrag();
+			let amount = $(".amount").val();
+			if (shiftPressed) amount = ui.draggable.data('amount');
 
 
 			if ( tInv === "invLeft" ) {
@@ -251,72 +160,34 @@ const updateDrag = () => {
 			}
 		}
 	});
-
-	$(".populated").tooltip({
-		create: function(event,ui){
-			var desc = $(this).attr("data-description");
-			var amounts = $(this).attr("data-amount");
-			var name = $(this).attr("data-name-key");
-			var weight = $(this).attr("data-peso");
-			var tipo = $(this).attr("data-tipo");
-			var max = $(this).attr("data-max");
-			var myLeg = "center top-166";
-
-			if (desc !== "undefined"){
-				myLeg = "center top-187";
-			}
-
-			$(this).tooltip({
-				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>Tipo: <r>${tipo}</r> <s>|</s> Máximo: <r>${max !== "undefined" ? max:"S/L"}</r><br>Quantidade: <r>${formatarNumero(amounts)}</r> <s>|</s> Peso: <r>${(weight * amounts).toFixed(2)}</r></legenda>`,
-				position: { my: myLeg, at: "center" },
-				show: { duration: 10 },
-				hide: { duration: 10 }
-			})
-		}
-	});
-}
-
-const colorPicker = (percent) => {
-	var colorPercent = "#2e6e4c";
-
-	if (percent >= 100)
-		colorPercent = "rgba(255,255,255,0)";
-
-	if (percent >= 51 && percent <= 75)
-		colorPercent = "#fcc458";
-
-	if (percent >= 26 && percent <= 50)
-		colorPercent = "#fc8a58";
-
-	if (percent <= 25)
-		colorPercent = "#fc5858";
-
-	return colorPercent;
 }
 
 const updateChest = () => {
 	$.post("http://inspect/requestChest",JSON.stringify({}),(data) => {
-
-		$("#weightTextLeft").html(`${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}`);
-		$("#weightTextRight").html(`${(data.peso2).toFixed(2)} / ${(data.maxpeso2).toFixed(2)}`);
-
-		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data.peso/data.maxpeso*100}%"></div>`);
-		$("#weightBarRight").html(`<div id="weightContent" style="width: ${data.peso2/data.maxpeso2*100}%"></div>`);
+		$(".myInfos").html(`
+			<b>${data.infos[0]} <i>#${data.infos[1]}</i></b>
+			<div class="infosContent">
+				<span><s>TELEFONE:</s> ${data.infos[4]}</span>
+				<span><s>RG:</s> ${data.infos[5]}</span>
+				<span><s>BANCO:</s> $${formatarNumero(data.infos[2])}</span>
+				<span><s>COINS:</s> ${formatarNumero(data.infos[3])}</span>
+				<span>${(data.peso).toFixed(2)} / ${(data.maxpeso).toFixed(2)}</span>
+			</div>
+		`);
 
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
-		for (let x = 1; x <= data["maxpeso"]; x++){
+		for (let x=1; x <= mySlots; x++){
 			const slot = x.toString();
 
 			if (data.inventario[slot] !== undefined){
 				const v = data.inventario[slot];
-				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-tipo="${v["tipo"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}">
+				const item = `<div class="item populated" style="background-image: url('https://havairp.com.br/game/inventory/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
-					<div class="durability"></div>
 					<div class="itemname">${v.name}</div>
 				</div>`;
 
@@ -328,20 +199,18 @@ const updateChest = () => {
 			}
 		}
 
-		for (let x = 1; x <= data["maxpeso2"]; x++){
+		for (let x=1; x <= inSlots; x++){
 			const slot = x.toString();
 
 			if (data.inventario2[slot] !== undefined) {
 				const v = data.inventario2[slot];
-				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-tipo="${v["tipo"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}">
+				const item = `<div class="item populated" style="background-image: url('https://havairp.com.br/game/inventory/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso*v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
-					<div class="durability"></div>
 					<div class="itemname">${v.name}</div>
 				</div>`;
-
 
 				$(".invRight").append(item);
 			} else {

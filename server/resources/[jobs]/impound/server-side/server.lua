@@ -16,9 +16,11 @@ vRPRAGE = Tunnel.getInterface("garages")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local impoundVehs = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- IMPOUND
+-- IMPOUND:IMPOUND
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("impound",function(source,args,rawCommand)
+RegisterNetEvent("impound:impound")
+AddEventHandler("impound:impound",function()
+    local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
@@ -28,9 +30,9 @@ RegisterCommand("impound",function(source,args,rawCommand)
 				if impoundVehs[vehName.."-"..vehPlate] == nil then
 					impoundVehs[vehName.."-"..vehPlate] = true
 					TriggerEvent("towdriver:alertPlayers",x,y,z,vRP.vehicleName(vehName).." - "..vehPlate)
-					TriggerClientEvent("Notify",source,"verde","<b>"..vRP.vehicleName(vehName).."</b> foi registrado.",3000)
+					TriggerClientEvent("Notify",source,"verde","<b>"..vRP.vehicleName(vehName).."</b> registrado.",3000)
 				else
-					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> já está registrado.",6000)
+					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> já está registrado.",5000)
 				end
 			end
 		end

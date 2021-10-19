@@ -134,12 +134,15 @@ RegisterCommand("reviver",function(source,args,rawCommand)
 					TriggerClientEvent("Progress",source,60000,"Revivendo...")
 					TriggerClientEvent("cancelando",source,true)
 					vRPclient._playAnim(source,false,{"mini@cpr@char_a@cpr_str","cpr_pumpchest"},true)
+					
 					SetTimeout(60000,function()
 						vRPclient._removeObjects(source)
 						vCLIENT._revivePlayer(nplayer,110)
 						TriggerClientEvent("resetBleeding",nplayer)
 						TriggerClientEvent("cancelando",source,false)
 					end)
+					
+					vRP.removeObjects("one")
 				end
 			end
 		end

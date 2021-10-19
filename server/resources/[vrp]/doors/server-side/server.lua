@@ -20,8 +20,11 @@ local doors = {
 	[4] = { ["x"] = 441.42, ["y"] = -986.06, ["z"] = 30.69, ["hash"] = -96679321, ["lock"] = true, ["text"] = true, ["distance"] = 1.5, ["press"] = 1.5, ["perm"] = "Police", ["sound"] = false },
 	[5] = { ["x"] = 441.5, ["y"] = -999.05, ["z"] = 30.73, ["hash"] = -1547307588, ["lock"] = true, ["text"] = true, ["distance"] = 1.5, ["press"] = 1.5, ["perm"] = "Police", ["sound"] = false },
 	[6] = { ["x"] = 442.45, ["y"] = -999.05, ["z"] = 30.73, ["hash"] = -1547307588, ["lock"] = true, ["text"] = true, ["distance"] = 1.5, ["press"] = 1.5, ["perm"] = "Police", ["sound"] = false },
+	
+	[7] = { ["x"] = 431.54, ["y"] = -1001.31, ["z"] = 25.79, ["hash"] = 2130672747, ["lock"] = true, ["text"] = true, ["distance"] = 3, ["press"] = 3, ["perm"] = "Police", ["sound"] = false },
+	[8] = { ["x"] = 452.44, ["y"] = -1001.3, ["z"] = 25.78, ["hash"] = 2130672747, ["lock"] = true, ["text"] = true, ["distance"] = 3, ["press"] = 3, ["perm"] = "Police", ["sound"] = false },
 --  [BurgerShot]
-	[7] = { ["x"] = -1181.32, ["y"] = -894.86, ["z"] = 14.30, ["hash"] = 1042741067, ["lock"] = true, ["text"] = true, ["distance"] = 1.5, ["press"] = 1.5, ["perm"] = "BurgerShot", ["sound"] = false }
+	[9] = { ["x"] = -1181.32, ["y"] = -894.86, ["z"] = 14.30, ["hash"] = 1042741067, ["lock"] = true, ["text"] = true, ["distance"] = 1.5, ["press"] = 1.5, ["perm"] = "BurgerShot", ["sound"] = false }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DOORSSTATISTICS

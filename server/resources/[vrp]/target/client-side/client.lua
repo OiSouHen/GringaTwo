@@ -1077,13 +1077,8 @@ local policeVeh = {
 		tunnel = "police"
 	},
 	{
-		event = "police:impound",
+		event = "impound:impound",
 		label = "Registrar Veículo",
-		tunnel = "police"
-	},
-	{
-		event = "garages:vehicleKey",
-		label = "Criar Chave Cópia",
 		tunnel = "police"
 	},
 	{

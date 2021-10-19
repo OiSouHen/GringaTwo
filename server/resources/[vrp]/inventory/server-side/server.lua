@@ -2469,7 +2469,7 @@ AddEventHandler("inventory:applyPlate",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getInventoryItemAmount(user_id,"plate") >= 1 then
+		if vRP.getInventoryItemAmount(user_id,"pliers") >= 1 and vRP.getInventoryItemAmount(user_id,"plate") >= 1 then
 			if not vRPclient.inVehicle(source) then
 				local vehicle,vehNet = vRPclient.vehList(source,3)
 				if vehicle then
@@ -2493,9 +2493,9 @@ AddEventHandler("inventory:applyPlate",function()
 					vRPclient._stopAnim(source,false)
 					active[user_id] = nil
 				end
-			else
-				TriggerClientEvent("Notify",source,"amarelo","Você precisa de uma Placa.",5000)
             end
+		else
+			TriggerClientEvent("Notify",source,"amarelo","Você não possúi os itens necessários.",5000)
 		end
 	end
 end)

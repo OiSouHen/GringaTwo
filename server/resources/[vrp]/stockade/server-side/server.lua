@@ -61,7 +61,7 @@ function cRP.withdrawMoney(vehPlate,vehNet)
 					TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
 				end
 			else
-				TriggerClientEvent("Notify",source,"amarelo","Você não o necessário para roubar o carro forte.",5000)
+				TriggerClientEvent("Notify",source,"amarelo","Você não possúi os itens necessários.",5000)
 			end
 		else
 			if stockadePlates[vehPlate] > 0 then

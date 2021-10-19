@@ -12,6 +12,17 @@ cRP = {}
 Tunnel.bindInterface("inspect",cRP)
 vCLIENT = Tunnel.getInterface("inspect")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- WEBHOOK
+-----------------------------------------------------------------------------------------------------------------------------------------
+local wbhsaquearshop = "https://discord.com/api/webhooks/880338361120866314/DmBYV5FJsGOuEAcSjVfRkXANv5L9T1oed49c06KX9VD-oNtyeBrO5ynnh7gST-supv9l"
+local wbhsaqueartake = "https://discord.com/api/webhooks/880318407759777832/1neUoxXgUeBWRL5c7UWJ3LeKF7Igjy14LMcOKlA9rQKYOdrVrwLPiMraUq2-2tHh6x7s"
+
+function SendWebhookMessage(webhook,message)
+	if webhook ~= nil and webhook ~= "" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local opened = {}
@@ -24,9 +35,10 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
 			local nuser_id = vRP.getUserId(nplayer)
+			if not vRP.hasPermission(nuser_id,"Police") then
 				if vRP.hasPermission(user_id,"Police") then
 					vCLIENT.toggleCarry(nplayer,source)
-
+					
 					local weapons = vRPclient.replaceWeapons(nplayer)
 					for k,v in pairs(weapons) do
 						vRP.giveInventoryItem(nuser_id,k,1)
@@ -34,39 +46,76 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 							vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
 						end
 					end
-
+					
 					opened[user_id] = parseInt(nuser_id)
 					vCLIENT.openInspect(source)
 				else
 					if not vRP.wantedReturn(nuser_id) then
-						local policia = vRP.numPermission("Police")
-						if parseInt(#policia) >= 0 then
-							if vRPclient.getHealth(nplayer) > 101 then
-								local request = vRP.request(nplayer,"Você está sendo revistado, você permite?",60)
-								if request then
-									vRPclient._playAnim(nplayer,true,{"random@arrests@busted","idle_a"},true)
-									vCLIENT.toggleCarry(nplayer,source)
-
-									local weapons = vRPclient.replaceWeapons(nplayer)
-									for k,v in pairs(weapons) do
-										vRP.giveInventoryItem(nuser_id,k,1)
-										if v.ammo > 0 then
-											vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
-										end
+						if vRPclient.getHealth(nplayer) > 101 then
+							local request = vRP.request(nplayer,"Você está sendo revistado, você permite?",60)
+							if request then
+								vRPclient._playAnim(nplayer,true,{"random@arrests@busted","idle_a"},true)
+								vCLIENT.toggleCarry(nplayer,source)
+								
+								local weapons = vRPclient.replaceWeapons(nplayer)
+								for k,v in pairs(weapons) do
+									vRP.giveInventoryItem(nuser_id,k,1)
+									if v.ammo > 0 then
+										vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
 									end
-
-									vRP.wantedTimer(user_id,60)
-									opened[user_id] = parseInt(nuser_id)
-									vCLIENT.openInspect(source)
-								else
-									TriggerClientEvent("Notify",source,"amarelo","Pedido de revista recusado.",5000)
 								end
+								
+								vRP.wantedTimer(user_id,60)
+								opened[user_id] = parseInt(nuser_id)
+								vCLIENT.openInspect(source)
+							else
+								TriggerClientEvent("Notify",source,"negado","Pedido de revista recusado.",5000)
 							end
 						else
-							TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
+							vCLIENT.toggleCarry(nplayer,source)
+							local weapons = vRPclient.replaceWeapons(nplayer)
+							for k,v in pairs(weapons) do
+								vRP.giveInventoryItem(nuser_id,k,1)
+								vRP.execute("vRP/del_weapon", { user_id = nuser_id, weapon = k })
+								if v.ammo > 0 then
+									vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
+								end
+							end
+						
+							opened[user_id] = parseInt(nuser_id)
+							vCLIENT.openInspect(source)
 						end
 					end
 				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SAQUEAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("saquear",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local nplayer = vRPclient.nearestPlayer(source,5)
+		if nplayer then
+			local nuser_id = vRP.getUserId(nplayer)
+			if vRPclient.getHealth(nplayer) <= 101 then
+				vRPclient._playAnim(nplayer,true,{"random@arrests@busted","idle_a"},true)
+				vCLIENT.toggleCarry(nplayer,source)
+				
+				local weapons = vRPclient.replaceWeapons(nplayer)
+				for k,v in pairs(weapons) do
+					vRP.giveInventoryItem(nuser_id,k,1)
+					if v.ammo > 0 then
+						vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
+					end
+				end
+				
+				vRP.wantedTimer(user_id,120)
+				opened[user_id] = parseInt(nuser_id)
+				vCLIENT.openInspect(source)
+			end
 		end
 	end
 end)
@@ -78,34 +127,38 @@ function cRP.openChest()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if opened[user_id] ~= nil then
-
 			local ninventory = {}
 			local myInv = vRP.getInventory(user_id)
 			for k,v in pairs(myInv) do
 				if string.sub(v.item,1,9) == v.item then
-						local advFile = LoadResourceFile("logsystem","toolboxes.json")
-						local advDecode = json.decode(advFile)
+					local advFile = LoadResourceFile("logsystem","toolboxes.json")
+					local advDecode = json.decode(advFile)
+					v.durability = advDecode[v.item]
+				end
+				
+				if v.item and v.timestamp then
+					local actualTime = os.time()
+					local finalTime = v.timestamp
+					local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+					local startTime = (v.timestamp - durabilityInSeconds)
+					
+					local actualTimeInSeconds = (actualTime - startTime)
+					local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
 
-						v.durability = advDecode[v.item]
+					if porcentage < 0 then
+						porcentage = porcentage*-1
 					end
-					if v.item and v.timestamp then
-						local actualTime = os.time()
-						local finalTime = v.timestamp
-						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
-						local startTime = (v.timestamp - durabilityInSeconds)
-						
-						local actualTimeInSeconds = (actualTime - startTime)
-						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
-						if porcentage < 0 then porcentage = porcentage*-1 end
-						if porcentage <= 0.0 then
-							porcentage = 0.0
-						elseif porcentage >= 100.0 then
-							porcentage = 100.0
-						end
-						if porcentage then
-							v.durability = porcentage
-						end
+
+					if porcentage <= 0.0 then
+						porcentage = 0.0
+					elseif porcentage >= 100.0 then
+						porcentage = 100.0
 					end
+
+					if porcentage then
+						v.durability = porcentage
+					end
+				end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
@@ -125,29 +178,33 @@ function cRP.openChest()
 			local othInv = vRP.getInventory(opened[user_id])
 			for k,v in pairs(othInv) do
 				if string.sub(v.item,1,9) == v.item then
-						local advFile = LoadResourceFile("logsystem","toolboxes.json")
-						local advDecode = json.decode(advFile)
-
-						v.durability = advDecode[v.item]
+					local advFile = LoadResourceFile("logsystem","toolboxes.json")
+					local advDecode = json.decode(advFile)
+					v.durability = advDecode[v.item]
+				end
+				
+				if v.item and v.timestamp then
+					local actualTime = os.time()
+					local finalTime = v.timestamp
+					local durabilityInSeconds = vRP.itemDurabilityList(v.item)
+					local startTime = (v.timestamp - durabilityInSeconds)
+					local actualTimeInSeconds = (actualTime - startTime)
+					local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
+					
+					if porcentage < 0 then
+						porcentage = porcentage*-1
 					end
-					if v.item and v.timestamp then
-						local actualTime = os.time()
-						local finalTime = v.timestamp
-						local durabilityInSeconds = vRP.itemDurabilityList(v.item)
-						local startTime = (v.timestamp - durabilityInSeconds)
-						
-						local actualTimeInSeconds = (actualTime - startTime)
-						local porcentage = (actualTimeInSeconds/durabilityInSeconds)-1
-						if porcentage < 0 then porcentage = porcentage*-1 end
-						if porcentage <= 0.0 then
-							porcentage = 0.0
-						elseif porcentage >= 100.0 then
-							porcentage = 100.0
-						end
-						if porcentage then
-							v.durability = porcentage
-						end
+					
+					if porcentage <= 0.0 then
+						porcentage = 0.0
+					elseif porcentage >= 100.0 then
+						porcentage = 100.0
 					end
+					
+					if porcentage then
+						v.durability = porcentage
+					end
+				end
 
 				v.amount = parseInt(v.amount)
 				v.name = vRP.itemNameList(v.item)
@@ -276,6 +333,7 @@ function cRP.storeItem(itemName,slot,amount,target)
 			end
 		end
 	end
+
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

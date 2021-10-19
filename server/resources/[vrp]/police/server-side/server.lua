@@ -280,6 +280,83 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLATENAME
+-----------------------------------------------------------------------------------------------------------------------------------------
+local plateName = { "Lucas","James","John","Robert","Michael","William","David","Richard","Charles","Joseph","Thomas","Christopher","Daniel","Paul","Mark","Donald","George","Kenneth","Steven","Edward","Brian","Ronald","Anthony","Kevin","Jason","Matthew","Gary","Timothy","Jose","Larry","Jeffrey","Frank","Scott","Eric","Stephen","Andrew","Raymond","Gregory","Joshua","Jerry","Dennis","Walter","Patrick","Peter","Harold","Douglas","Henry","Carl","Arthur","Ryan","Roger","Joe","Juan","Jack","Albert","Jonathan","Justin","Terry","Gerald","Keith","Samuel","Willie","Ralph","Lawrence","Nicholas","Roy","Benjamin","Bruce","Brandon","Adam","Harry","Fred","Wayne","Billy","Steve","Louis","Jeremy","Aaron","Randy","Howard","Eugene","Carlos","Russell","Bobby","Victor","Martin","Ernest","Phillip","Todd","Jesse","Craig","Alan","Shawn","Clarence","Sean","Philip","Chris","Johnny","Earl","Jimmy","Antonio","Mary","Patricia","Linda","Barbara","Elizabeth","Jennifer","Maria","Susan","Margaret","Dorothy","Lisa","Nancy","Karen","Betty","Helen","Sandra","Donna","Carol","Ruth","Sharon","Michelle","Laura","Sarah","Kimberly","Deborah","Jessica","Shirley","Cynthia","Angela","Melissa","Brenda","Amy","Anna","Rebecca","Virginia","Kathleen","Pamela","Martha","Debra","Amanda","Stephanie","Carolyn","Christine","Marie","Janet","Catherine","Frances","Ann","Joyce","Diane","Alice","Julie","Heather","Teresa","Doris","Gloria","Evelyn","Jean","Cheryl","Mildred","Katherine","Joan","Ashley","Judith","Rose","Janice","Kelly","Nicole","Judy","Christina","Kathy","Theresa","Beverly","Denise","Tammy","Irene","Jane","Lori","Rachel","Marilyn","Andrea","Kathryn","Louise","Sara","Anne","Jacqueline","Wanda","Bonnie","Julia","Ruby","Lois","Tina","Phyllis","Norma","Paula","Diana","Annie","Lillian","Emily","Robin" }
+local plateName2 = { "Hen","Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson","Garcia","Martinez","Robinson","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez","Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans","Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox","Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson","Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander","Russell","Griffin","Diaz","Hayes" }
+local plateSave = {}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:RUNPLATE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:runPlate")
+AddEventHandler("police:runPlate",function()
+    local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Police") then
+			if vRPclient.getHealth(source) > 101 then
+				local vehicle,vehNet,vehPlate = vRPclient.vehList(source,7)
+				if vehicle then
+					local plateUser = vRP.getVehiclePlate(vehPlate)
+					if plateUser then
+						local identity = vRP.getUserIdentity(plateUser)
+						if identity then
+							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,10000)
+						end
+					else
+						if not plateSave[vehPlate] then
+							plateSave[vehPlate] = { math.random(5000,9999),plateName[math.random(#plateName)].." "..plateName2[math.random(#plateName2)],vRP.generatePhoneNumber() }
+						end
+						
+						TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..plateSave[vehPlate][1].."<br><b>RG:</b> "..vehPlate.."<br><b>Nome:</b> "..plateSave[vehPlate][2].."<br><b>Telefone:</b> "..plateSave[vehPlate][3],10000)
+					end
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:RUNARREST
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:runArrest")
+AddEventHandler("police:runArrest",function()
+    local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Police") then
+			if vRPclient.getHealth(source) > 101 then
+				local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,7)
+				if vehicle then
+					local plateUser = vRP.getVehiclePlate(vehPlate)
+					local inVehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(plateUser), vehicle = vehName })
+					if inVehicle[1] then
+						if inVehicle[1].arrest <= 0 then
+							vRP.execute("vRP/set_arrest",{ user_id = parseInt(plateUser), vehicle = vehName, arrest = 1, time = parseInt(os.time()) })
+							TriggerClientEvent("Notify",source,"verde","Veículo detido.",3000)
+						else
+							TriggerClientEvent("Notify",source,"amarelo","O veículo já está detido.",5000)
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POLICE:SERVICOFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("police:servicoFunctions")
+AddEventHandler("police:servicoFunctions",function()
+    local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+	    if vRPclient.getHealth(source) > 101 then
+		    local amountCops = vRP.numPermission("Police")
+		    TriggerClientEvent("Notify",source,"default","Atualmente <b>"..#amountCops.." Policiais</b> em serviço.",10000)
+		end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- LOGS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function creativeLogs(webhook,message)
