@@ -370,6 +370,7 @@ function cRP.cuffToggle()
 							TriggerClientEvent("sounds:source",nplayer,"uncuff",0.5)
 						else
 							poCuff[user_id] = true
+							
 							local taskResult = vTASKBAR.taskHandcuff(nplayer)
 							if not taskResult then
 								vCLIENT.toggleHandcuff(nplayer)
@@ -377,6 +378,7 @@ function cRP.cuffToggle()
 								TriggerClientEvent("sounds:source",nplayer,"cuff",0.5)
 								vRPclient._playAnim(nplayer,true,{"mp_arresting","idle"},true)
 							end
+							
 							poCuff[user_id] = nil
 						end
 					end
@@ -467,7 +469,7 @@ end)
 RegisterCommand("rv",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
+		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
 			if not vRPclient.inVehicle(source) then
 				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
 				if vehicle then
@@ -479,8 +481,6 @@ RegisterCommand("rv",function(source,args,rawCommand)
 					end
 				end
 			end
-		else
-			TriggerClientEvent("Notify",source,"amarelo","<b>Corda</b> não encontrada.",5000)
 		end
 	end
 end)
@@ -490,7 +490,7 @@ end)
 RegisterCommand("cv",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
+		if vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
 			if not vRPclient.inVehicle(source) then
 				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
 				if vehicle then
@@ -502,8 +502,6 @@ RegisterCommand("cv",function(source,args,rawCommand)
 					end
 				end
 			end
-		else
-			TriggerClientEvent("Notify",source,"amarelo","<b>Corda</b> não encontrada.",5000)
 		end
 	end
 end)
@@ -524,7 +522,7 @@ RegisterCommand("check",function(source,args,rawCommand)
 						fines = parseInt(fines) + parseInt(v.price)
 					end
 
-					TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)),20000)
+					TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)),30000)
 				end
 			else
 				local nplayer = vRPclient.nearestPlayer(source,2)
@@ -539,7 +537,7 @@ RegisterCommand("check",function(source,args,rawCommand)
 								fines = parseInt(fines) + parseInt(v.price)
 							end
 
-							TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)),20000)
+							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)),30000)
 						end
 					end
 				end
@@ -560,7 +558,7 @@ RegisterCommand("outfit",function(source,args,rawCommand)
 					local custom = vSKINSHOP.getCustomization(source)
 					if custom then
 						vRP.setSData("saveClothes:"..parseInt(user_id),json.encode(custom))
-						TriggerClientEvent("Notify",source,"sucesso","Outfit salvo com sucesso.",3000)
+						TriggerClientEvent("Notify",source,"amarelo","Outfit salvo com sucesso.",3000)
 					end
 				end
 			else
@@ -568,7 +566,7 @@ RegisterCommand("outfit",function(source,args,rawCommand)
 				local result = json.decode(consult)
 				if result then
 					TriggerClientEvent("updateRoupas",source,result)
-					TriggerClientEvent("Notify",source,"sucesso","Outfit aplicado com sucesso.",3000)
+					TriggerClientEvent("Notify",source,"amarelo","Outfit aplicado com sucesso.",3000)
 				end
 			end
 		end
@@ -587,7 +585,7 @@ RegisterCommand("premiumfit",function(source,args,rawCommand)
 					local custom = vSKINSHOP.getCustomization(source)
 					if custom then
 						vRP.setSData("premClothes:"..parseInt(user_id),json.encode(custom))
-						TriggerClientEvent("Notify",source,"sucesso","Premiumfit salvo com sucesso.",3000)
+						TriggerClientEvent("Notify",source,"amarelo","Premiumfit salvo com sucesso.",3000)
 					end
 				end
 			else
@@ -595,26 +593,7 @@ RegisterCommand("premiumfit",function(source,args,rawCommand)
 				local result = json.decode(consult)
 				if result then
 					TriggerClientEvent("updateRoupas",source,result)
-					TriggerClientEvent("Notify",source,"sucesso","Premiumfit aplicado com sucesso.",3000)
-				end
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- SETREPOSE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("setrepouso",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if vRP.hasPermission(user_id,"Paramedic") then
-		local nplayer = vRPclient.nearestPlayer(source,2)
-		if nplayer then
-			local nuser_id = vRP.getUserId(nplayer)
-			if nuser_id then
-				local identity = vRP.getUserIdentity(parseInt(nuser_id))
-				if vRP.request(source,"Deseja aplicar <b>"..parseInt(args[1]).." minutos</b>.",30) then
-					vRP.reposeTimer(nuser_id,parseInt(args[1]))
-					TriggerClientEvent("Notify",source,"sucesso","Você aplicou <b>"..parseInt(args[1]).." minutos</b> de repouso.",10000)
+					TriggerClientEvent("Notify",source,"amarelo","Premiumfit aplicado com sucesso.",3000)
 				end
 			end
 		end
@@ -689,7 +668,7 @@ local walking = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("andar",function(source,args,rawCommand)
 	if args[1] then
-		if not vCLIENT.getHandcuff(source) then
+		if vRPclient.getHealth(source) > 101 then
 			vCLIENT.movementClip(source,walking[parseInt(args[1])][1])
 		end
 	end
@@ -718,12 +697,12 @@ RegisterCommand("faturas",function(source,args,rawCommand)
 		local nplayer = vRP.getUserSource(parseInt(nuser_id))
 		if nplayer then
 			local identity = vRP.getUserIdentity(user_id)
-			local answered = vRP.request(nplayer,"Deseja aceitar a fatura no valor de <b>$"..vRP.format(parseInt(price)).." dólares</b>?",60)
+			local answered = vRP.request(nplayer,"Aceitar fatura no valor de <b>$"..vRP.format(parseInt(price)).." dólares</b>?",60)
 			if answered then
 				vRP.setInvoice(parseInt(nuser_id),parseInt(price),parseInt(user_id),tostring(reason))
-				TriggerClientEvent("Notify",source,"verde","A sua fatura foi aceita.",5000)
+				TriggerClientEvent("Notify",source,"verde","Fatura aceita.",3000)
 			else
-				TriggerClientEvent("Notify",source,"vermelho","A sua fatura foi rejeitada.",5000)
+				TriggerClientEvent("Notify",source,"vermelho","Fatura rejeitada.",3000)
 			end
 		end
 	end
@@ -731,14 +710,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LIVERY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("extras",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if (vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic")) and parseInt(args[1]) > 0 then
-			vCLIENT.toggleLivery(source,parseInt(args[1]))
-		end
-	end
-end)
+-- RegisterCommand("extras",function(source,args,rawCommand)
+	-- local user_id = vRP.getUserId(source)
+	-- if user_id then
+		-- if (vRP.hasPermission(user_id,"Police") or vRP.hasPermission(user_id,"Paramedic")) and parseInt(args[1]) > 0 then
+			-- vCLIENT.toggleLivery(source,parseInt(args[1]))
+		-- end
+	-- end
+-- end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADD
 -----------------------------------------------------------------------------------------------------------------------------------------

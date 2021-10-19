@@ -223,6 +223,26 @@ RegisterCommand("tratamento",function(source,args,rawCommand)
 				TriggerClientEvent("resetBleeding",nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)
 				TriggerClientEvent("Notify",source,"amarelo","Tratamento iniciado.",3000)
+				TriggerClientEvent("Notify",nplayer,"verde","Tratamento iniciado.",3000)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SETREPOSE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("repouso",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if vRP.hasPermission(user_id,"Paramedic") then
+		local nplayer = vRPclient.nearestPlayer(source,2)
+		if nplayer then
+			local nuser_id = vRP.getUserId(nplayer)
+			if nuser_id then
+				local identity = vRP.getUserIdentity(parseInt(nuser_id))
+				if vRP.request(source,"Deseja aplicar <b>"..parseInt(args[1]).." minutos</b>?",60) then
+					vRP.reposeTimer(nuser_id,parseInt(args[1]))
+					TriggerClientEvent("Notify",source,"azul","Aplicado <b>"..parseInt(args[1]).." minutos</b> de repouso.",10000)
+				end
 			end
 		end
 	end
