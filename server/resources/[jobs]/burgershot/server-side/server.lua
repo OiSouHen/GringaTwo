@@ -91,14 +91,23 @@ function cRP.paymentMethod()
 		if vRP.tryGetInventoryItem(user_id,tostring(consumeItem),1,true) then
 			vRP.upgradeStress(user_id,1)
 			
-			local value = math.random(paymentMin,paymentMax)
-			vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
+			local myBonus = vRP.bonusDelivery(user_id)
+			if vRP.getInventoryItemAmount(user_id,"dollarsz") >= 10 then
+				local value = math.random(paymentMin,paymentMax)
+				vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
+
+				if vRP.tryGetInventoryItem(user_id,"dollarsz",10) then
+					vRP.giveInventoryItem(user_id,"dollars",parseInt(math.random(8,10)),true)
+				end
+			else
+				local value = math.random(paymentMin,paymentMax)
+				vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
+			end
+
 			TriggerClientEvent("sounds:source",source,"cash",0.5)
 			return true
-		else
-			TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>1x "..vRP.itemNameList(consumeItem).."</b>.",5000)
 		end
-
+		
 		return false
 	end
 end
