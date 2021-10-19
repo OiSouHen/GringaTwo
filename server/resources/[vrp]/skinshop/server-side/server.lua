@@ -50,78 +50,37 @@ RegisterCommand("skin",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETUSEMASK
+-- SKINSHOP:DYNAMICMASK
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.getUseMask()
-    local user_id = vRP.getUserId(source)
-    local action = args[1]
-    if user_id then
-        if action then
-            if action == false then
-                local item,texture = vCLIENT.getMask(source)
-                TriggerClientEvent("skinshop:setMask",source,{ item,texture })
-            elseif action == true then
-                TriggerClientEvent("skinshop:setMask",source)
-            end
-        else
-            TriggerClientEvent("skinshop:setMask",source)
-        end
-    end
-end
+RegisterNetEvent("skinshop:dynamicMask")
+AddEventHandler("skinshop:dynamicMask",function(dynamicMask)
+    TriggerClientEvent("skinshop:setMask",source)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETUSEHAT
+-- SKINSHOP:DYNAMICHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.getUseHat()
-    local user_id = vRP.getUserId(source)
-    local action = args[1]
-    if user_id then
-        if action then
-            if action == false then
-                local item,texture = vCLIENT.getHat(source)
-                TriggerClientEvent("skinshop:setHat",source,{ item,texture })
-            elseif action == true then
-                TriggerClientEvent("skinshop:setHat",source)
-            end
-        else
-            TriggerClientEvent("skinshop:setHat",source)
-        end
-    end
-end
+RegisterNetEvent("skinshop:dynamicHat")
+AddEventHandler("skinshop:dynamicHat",function(dynamicHat)
+    TriggerClientEvent("skinshop:setHat",source)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETUSEGLASSES
+-- SKINSHOP:DYNAMICGLASSES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.getUseGlasses()
-    local user_id = vRP.getUserId(source)
-    local action = args[1]
-    if user_id then
-        if action then
-            if action == false then
-                local item,texture = vCLIENT.getGlasses(source)
-                TriggerClientEvent("skinshop:setGlasses",source,{ item,texture })
-            elseif action == true then
-                TriggerClientEvent("skinshop:setGlasses",source)
-            end
-        else
-            TriggerClientEvent("skinshop:setGlasses",source)
-        end
-    end
-end
+RegisterNetEvent("skinshop:dynamicGlasses")
+AddEventHandler("skinshop:dynamicGlasses",function(dynamicGlasses)
+    TriggerClientEvent("skinshop:setGlasses",source)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETUSEGLOVES
+-- SKINSHOP:dynamicTorso2
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.getUseGloves()
-    local user_id = vRP.getUserId(source)
-    local action = args[1]
-    if user_id then
-        if action then
-            if action == false then
-                local item,texture = vCLIENT.getGloves(source)
-                TriggerClientEvent("skinshop:setArms",source,{ item,texture })
-            elseif action == true then
-                TriggerClientEvent("skinshop:setArms",source)
-            end
-        else
-            TriggerClientEvent("skinshop:setArms",source)
-        end
-    end
-end
+RegisterNetEvent("skinshop:dynamicTorso2")
+AddEventHandler("skinshop:dynamicTorso2",function(dynamicTorso2)
+    TriggerClientEvent("skinshop:setTorso2",source)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SKINSHOP:DYNAMICARMS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("skinshop:dynamicArms")
+AddEventHandler("skinshop:dynamicArms",function(dynamicArms)
+    TriggerClientEvent("skinshop:setArms",source)
+end)

@@ -103,7 +103,7 @@ Citizen.CreateThread(function()
 			{
 				event = "corrections:initService",
 				label = "Trabalhar",
-				tunnel = "server"
+				tunnel = "client"
 			}
 		}
 	})

@@ -82,8 +82,17 @@ RegisterCommand("globalFunctions",function(source,args)
 			menuOpen = true
 
 			exports["dynamic"]:AddButton("Remover","Remover a roupa atual.","player:outfitFunctions","remover","outfit",true)
+			
+			exports["dynamic"]:AddButton("Chapéu","Colocar/Retirar o chapéu.","skinshop:dynamicHat","","fastoutfit",true)
+			exports["dynamic"]:AddButton("Máscara","Colocar/Retirar a máscara.","skinshop:dynamicMask","","fastoutfit",true)
+			exports["dynamic"]:AddButton("Óculos","Colocar/Retirar o óculos.","skinshop:dynamicGlasses","","fastoutfit",true)
+			exports["dynamic"]:AddButton("Jaqueta","Colocar/Retirar a jaqueta.","skinshop:dynamicTorso2","","fastoutfit",true)
+			exports["dynamic"]:AddButton("Luvas","Colocar/Retirar as luvas.","skinshop:dynamicArms","","fastoutfit",true)
+			
 			exports["dynamic"]:AddButton("Desmanche","Listagem dos veículos.","dismantle:invokeDismantle","","others",true)
 			exports["dynamic"]:AddButton("Ferimentos","Verificar ferimentos no corpo.","paramedic:myInjuries","","others",false)
+			
+			exports["dynamic"]:AddButton("Propriedades","Ativa/Desativa as propriedades no mapa.","homes:togglePropertys","","propertys",false)
 
 			if not IsPedInAnyVehicle(ped) then
 				exports["dynamic"]:AddButton("Rebocar","Colocar veículo na prancha do reboque.","towdriver:invokeTow","","others",false)
@@ -104,11 +113,9 @@ RegisterCommand("globalFunctions",function(source,args)
 				exports["dynamic"]:SubMenu("Veículo","Funções do veículo.","vehicle")
 			end
 
-			exports["dynamic"]:AddButton("Propriedades","Ativa/Desativa as propriedades no mapa.","homes:togglePropertys","","propertys",false)
-
-			exports["dynamic"]:SubMenu("Roupas","Mudança de roupas rápidas.","outfit")
+			exports["dynamic"]:SubMenu("Roupas","Colocar/Retirar roupas.","outfit")
+			exports["dynamic"]:SubMenu("Vestuário","Mudança de roupas rápidas.","fastoutfit")
 			exports["dynamic"]:SubMenu("Propriedades","Todas as funções das propriedades.","propertys")
-
 			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others")
 		end
 	end

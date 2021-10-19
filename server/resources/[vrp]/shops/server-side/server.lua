@@ -216,18 +216,14 @@ local shops = {
 			["binoculars"] = 275,
 			["cellphone"] = 575,
 			["mbattery"] = 35,
-			["hat"] = 225,
 			["rope"] = 875,
 			["camera"] = 275,
 			["firecracker"] = 100,
-			["gloves"] = 225,
-			["mask"] = 275,
 			["rose"] = 25,
 			["radio"] = 975,
 			["tablet"] = 125,
 			["teddy"] = 75,
 			["vape"] = 4750,
-			["glasses"] = 225
 		}
 	},
 	["mcFridge"] = {

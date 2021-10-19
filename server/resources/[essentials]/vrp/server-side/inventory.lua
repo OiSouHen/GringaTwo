@@ -1356,38 +1356,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.0001
 	},
-	["mask"] = {
-		index = "mask",
-		name = "Máscara",
-		tipo = "Usável",
-		economy = "275",
-		type = "use",
-		weight = 0.20
-	},
-	["gloves"] = {
-		index = "gloves",
-		name = "Luvas",
-		tipo = "Usável",
-		economy = "225",
-		type = "use",
-		weight = 0.15
-	},
-	["hat"] = {
-		index = "hat",
-		name = "Chapéu",
-		tipo = "Usável",
-		economy = "225",
-		type = "use",
-		weight = 0.25
-	},
-	["glasses"] = {
-		index = "glasses",
-		name = "Óculos",
-		tipo = "Usável",
-		economy = "225",
-		type = "use",
-		weight = 0.10
-	},
 	["card01"] = {
 		index = "card01",
 		name = "Cartão Classic",

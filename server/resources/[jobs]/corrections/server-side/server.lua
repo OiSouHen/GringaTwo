@@ -18,8 +18,11 @@ function cRP.checkPermission()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		return vRP.hasPermission(user_id,"Police")
-	else
+		if vRP.hasPermission(user_id,"waitPolice") then
+		    return true
+		else
+		    TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível para você.",5000)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
