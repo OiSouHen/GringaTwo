@@ -22,6 +22,11 @@ AddEventHandler("characterSpawn", function(source,user_id)
 			Citizen.Wait(1000)
 			processSpawnController(source,sdata,user_id)
 		end
+		
+		-- if vRP.hasPermission(user_id,"Police") then
+			-- vRP.execute("vRP/del_group",{ user_id = user_id, permiss = "Police" })
+			-- vRP.execute("vRP/add_group",{ user_id = user_id, permiss = "waitPolice" })
+		-- end
 	end
 end)
 

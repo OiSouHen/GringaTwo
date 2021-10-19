@@ -56,6 +56,12 @@ local pedList = {
 	},
 	{ -- BurgerShot
 		distance = 50,
+		coords = { -1194.92,-906.08,13.99,347.59 },
+		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	},
+	{ -- BurgerShot
+		distance = 50,
 		coords = { -1164.31,-896.69,14.02,76.54 },
 		model = { 0x8B7D3766,"u_m_y_burgerdrug_01" },
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
