@@ -48,7 +48,7 @@ function cRP.checkImpound()
 			if impoundVehs[vehName.."-"..vehPlate] == nil then
 				return
 			else
-				local value = math.random(1500,2500)
+				local value = math.random(175,255)
 
 				impoundVehs[vehName.."-"..vehPlate] = nil
 				vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)

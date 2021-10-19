@@ -22,8 +22,8 @@ local amount = {}
 local amountMin = 2
 local amountMax = 3
 
-local paymentMin = 75
-local paymentMax = 105
+local paymentMin = 95
+local paymentMax = 135
 local consumeItem = "pouch"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTCOLLECT
@@ -59,8 +59,9 @@ function cRP.collectMethod()
 			return true
 		else
 			TriggerClientEvent("Notify",source,"vermelho","Espaço insuficiente.",5000)
-			Wait(1)
+			return false
 		end
+		
 		return false
 	end
 end

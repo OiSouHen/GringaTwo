@@ -22,8 +22,8 @@ local amount = {}
 local amountMin = 3
 local amountMax = 6
 
-local paymentMin = 125
-local paymentMax = 175
+local paymentMin = 85
+local paymentMax = 125
 local consumeItem = "woodlog"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTCOLLECT
@@ -60,6 +60,7 @@ function cRP.collectMethod()
 
 			return true
 		end
+		
 		return false
 	end
 end

@@ -23,7 +23,7 @@ function cRP.paymentMethod()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		vRP.upgradeStress(user_id,1)
-		local value = math.random(220,380)
+		local value = math.random(175,255)
 
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 	end

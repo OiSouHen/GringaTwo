@@ -151,6 +151,7 @@ RegisterCommand("emergencyFunctions",function(source,args)
 
 					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
 					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos policiais.","utilitys")
+					
 				elseif paramedicService then
 					exports["dynamic"]:AddButton("Medical Center","Fardamento de doutor.","player:presetFunctions","6","preMedic",true)
 					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico.","player:presetFunctions","7","preMedic",true)
