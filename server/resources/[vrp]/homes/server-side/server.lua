@@ -1187,6 +1187,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	Citizen.Wait(1000)
 	vCLIENT.updateHomes(source,homes)
 	vCLIENT.updateHomesTheft(source,homesTheft)
+	vCLIENT.updateHoverfy(source,homesList)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADPLAYERSPAWN
@@ -1195,6 +1196,7 @@ Citizen.CreateThread(function()
 	Citizen.Wait(1000)
 	vCLIENT.updateHomes(-1,homes)
 	vCLIENT.updateHomesTheft(-1,homesTheft)
+	vCLIENT.updateHoverfy(-1,homesList)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPERMISSIONS
@@ -1322,6 +1324,13 @@ function cRP.chestClose()
 		end
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HOMES:INVADESYSTEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("homes:invadeSystem")
+AddEventHandler("homes:invadeSystem",function(invadeSystem)
+    TriggerClientEvent("homes:setInvade",source)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINTPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1647,6 +1656,7 @@ Citizen.CreateThread(function()
 				theftTimers[k] = v - 10
 			end
 		end
+		
 		Citizen.Wait(10000)
 	end
 end)
@@ -1677,7 +1687,7 @@ end
 RegisterServerEvent("vrp:homes:ApplyTime")
 AddEventHandler("vrp:homes:ApplyTime",function(homeName)
 	theftTimers[tostring(homeName)] = 3600
-end)
+end) -- Need verify
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOBILETHEFT
 -----------------------------------------------------------------------------------------------------------------------------------------

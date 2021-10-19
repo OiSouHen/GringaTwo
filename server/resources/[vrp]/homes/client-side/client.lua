@@ -89,16 +89,16 @@ RegisterCommand("porta",function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
+-- UPDATEHOMES
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+function cRP.updateHoverfy()
 	local innerTable = {}
 	for k,v in pairs(homesList) do
 		table.insert(innerTable,{ v[5],v[6],v[7],1.5,"E","Porta de Acesso","Pressione para entrar" })
 	end
 
 	TriggerEvent("hoverfy:insertTable",innerTable)
-end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADENTER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -237,6 +237,137 @@ Citizen.CreateThread(function()
 		end
 	
 		Citizen.Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HOMES:SETINVADE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("homes:setInvade")
+AddEventHandler("homes:setInvade", function()
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
+	for k,v in pairs(homesList) do
+		local distance = #(coords - vector3(v[5],v[6],v[7]))
+		if distance <= 1.5 and vSERVER.checkPolice() then
+			removeObjectHomes()
+			DoScreenFadeOut(1000)
+			houseOpen = tostring(k)
+			vSERVER.setNetwork(tostring(k))
+			vSERVER.applyHouseOpen(tostring(k))
+			TriggerEvent("sounds:source","enterhouse",0.7)
+			Citizen.Wait(1000)
+
+			if v[1] == "Middle" then
+				createMiddle(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Mansion" then
+				createMansion(ped,v[5],v[6],1499.0)
+			end
+					
+			if v[1] == "Trailer" then
+				createTrailer(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Beach" then
+				createBeach(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Simple" then
+				createSimple(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Motel" then
+				createMotel(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Modern" then
+				createModern(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Hotel" then
+				createHotel(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Franklin" then
+				createFranklin(ped,v[5],v[6],1500.0)
+			end
+					
+			if v[1] == "Container" then
+				createContainer(ped,v[5],v[6],1499.0)
+			end
+					
+			SetTimecycleModifier("AmbientPUSH")
+			Citizen.Wait(1000)
+					
+			if v[1] == "Middle" then
+				SetEntityCoords(ped,v[5] + 1.36,v[6] - 14.23,1500.0 - 1,1,0,0,0)
+				table.insert(internHouses,{ v[5] + 1.36,v[6] - 14.23,1499.5,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] + 7.15,v[6] - 1.00,1499.0,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Mansion" then
+				SetEntityCoords(ped,v[5] - 8.68,v[6] - 3.43,1501.0 - 0.5,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 8.68,v[6] - 3.43,1501.0,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] - 3.97,v[6] - 13.58,1500.5,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Trailer" then
+				SetEntityCoords(ped,v[5] - 1.44,v[6] - 2.02,1500.0 - 1,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 1.44,v[6] - 2.02,1499.5,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] - 4.36,v[6] - 1.97,1499.2,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Beach" then
+				SetEntityCoords(ped,v[5] + 0.11,v[6] - 3.68,1500.0 - 1,1,0,0,0)
+				table.insert(internHouses,{ v[5] + 0.11,v[6] - 3.68,1499.5,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] + 8.36,v[6] - 3.60,1499.8,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Simple" then
+				SetEntityCoords(ped,v[5] - 4.89,v[6] - 4.15,1501.0 - 0.5,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 4.89,v[6] - 4.15,1501.0,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] + 1.43,v[6] - 2.11,1501.2,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Motel" then
+				SetEntityCoords(ped,v[5] + 4.6,v[6] - 6.36,1498.5 - 0.5,1,0,0,0)
+				table.insert(internHouses,{ v[5] + 4.6,v[6] - 6.36,1498.5,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] + 5.08,v[6] + 2.05,1500.3,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Modern" then
+				SetEntityCoords(ped,v[5] - 1.63,v[6] - 5.94,1500.0 - 0.75,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 1.63,v[6] - 5.94,1499.7,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] - 0.59,v[6] + 2.95,1499.8,"vault","ABRIR" })
+			end
+
+			if v[1] == "Hotel" then
+				SetEntityCoords(ped,v[5] - 1.69,v[6] - 3.91,1500.0 - 0.5,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 1.69,v[6] - 3.91,1499.8,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] - 2.25,v[6] + 0.95,1499.4,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Franklin" then
+				SetEntityCoords(ped,v[5] - 0.47,v[6] - 5.91,1500.0 - 1,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 0.47,v[6] - 5.91,1499.6,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] - 2.60,v[6] - 5.59,1499.3,"vault","ABRIR" })
+			end
+					
+			if v[1] == "Container" then
+				SetEntityCoords(ped,v[5] - 1.14,v[6] - 1.38,1500.0,1,0,0,0)
+				table.insert(internHouses,{ v[5] - 1.14,v[6] - 1.38,1500.5,"exit","SAIR" })
+				table.insert(internHouses,{ v[5] + 4.47,v[6] - 1.32,1500.5,"vault","ABRIR" })
+			end
+
+			TriggerEvent("homes:Hours",true)
+			FreezeEntityPosition(ped,true)
+			SetEntityInvincible(ped,true)
+			Citizen.Wait(3000)
+			FreezeEntityPosition(ped,false)
+			SetEntityInvincible(ped,false)
+			DoScreenFadeIn(1000)
+		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
