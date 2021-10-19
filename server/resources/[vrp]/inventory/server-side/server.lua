@@ -2280,7 +2280,7 @@ RegisterServerEvent("itemdrop:Create")
 AddEventHandler("itemdrop:Create",function(item,count,source,durability)
     local id = idgens:gen()
     local x,y,z = vRPclient.getPositions(source)
-	droplist[id] = { item = item, count = count, x = x, y = y, z = z, economy = vRP.itemEconomyList(item),tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability,  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
+	droplist[id] = { item = item, count = count, x = x, y = y, z = z, economy = vRP.itemEconomyList(item),tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability, index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
 	TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	TriggerClientEvent("inventory:Update",source,"updateMochila")
 
@@ -2295,7 +2295,7 @@ end)
 RegisterServerEvent("vrp_itemdrop:Create")
 AddEventHandler("vrp_itemdrop:Create",function(item,count,x,y,z,source)
     local id = idgens:gen()
-    droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item),  index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
+    droplist[id] = { item = item, count = count, x = x, y = y, z = z,economy = vRP.itemEconomyList(item), tipo = vRP.itemTipoList(item), color = vRP.itemColor(item), unity = vRP.itemUnityList(item), desc = vRP.itemDescList(item), name = vRP.itemNameList(item), durability = durability, index = vRP.itemIndexList(item), peso = vRP.itemWeightList(item) }
     TriggerClientEvent("itemdrop:Players",-1,id,droplist[id])
 	TriggerClientEvent("inventory:Update",source,"updateMochila")
 	
@@ -2331,6 +2331,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 					local newamount = droplist[id].count - amount
 					vCLIENT.dropItem(source,droplist[id].item,newamount)
 					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					droplist[id] = nil
 					idgens:free(id)
 				end
@@ -2341,9 +2342,11 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				local newamount = droplist[id].count - amount
 				vCLIENT.dropItem(source,droplist[id].item,newamount)
 				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+				TriggerClientEvent("inventory:Update",source,"updateMochila")
 				droplist[id] = nil
 				idgens:free(id)
 			end
+			
             return
         else
 			if vRP.itemSubTypeList(droplist[id].item) then
@@ -2356,6 +2359,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 					TriggerClientEvent("itemdrop:Remove",-1,id)
 					vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
 					vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+					TriggerClientEvent("inventory:Update",source,"updateMochila")
 					droplist[id] = nil
 					idgens:free(id)
 				end
@@ -2363,6 +2367,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				TriggerClientEvent("itemdrop:Remove",-1,id)
 				vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(droplist[id].count),true,slot,parseInt(droplist[id].durability))
 				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
+				TriggerClientEvent("inventory:Update",source,"updateMochila")
 				droplist[id] = nil
 				idgens:free(id)
 			end
@@ -2370,6 +2375,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
     else
         TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",3000)
 		vCLIENT.closeInventory(source)
+		TriggerClientEvent("inventory:Update",source,"updateMochila")
         end
     end
 

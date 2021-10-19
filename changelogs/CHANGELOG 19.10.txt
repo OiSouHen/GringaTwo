@@ -1,4 +1,4 @@
-**CHANGELOG 15.10:**
+**CHANGELOG 19.10:**
 
 1: Aumentado a quantidade de alguns itens recebidos no emprego do **Lixeiro**.
 2: Aumentado a quantidade de **Sucatas** recebidas das carcaças dos veículos de **4/5** para **5/6**.
@@ -9,3 +9,5 @@
      **Rosquinha**, **Chocolate**, **Hamburguer**, **Cachorro-Quente**, **Água**, **Cola**, **Soda** e **Café**.
 7: Adicionado roubo a **Parquímetros**.
      O mesmo funciona igual o sistema de **Vasculhar** e aciona a polícia.
+8: Adicionado ao menu **F9** a função de **Retirar/Colocar** cada parte da roupa do corpo.
+9: Removido os itens **Chapéu**, **Máscara**, **Óculos** e **Luvas**.

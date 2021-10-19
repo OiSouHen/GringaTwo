@@ -322,7 +322,7 @@ const colorPicker = (percent) => {
 
 const updateMochila = () => {
 	$.post("http://inventory/requestMochila",JSON.stringify({}),(data) => {
-  		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
+		$("#weightTextLeft").html(`${(data["peso"]).toFixed(2)}   /   ${(data["maxpeso"]).toFixed(2)}`);
 
 		$("#weightBarLeft").html(`<div id="weightContent" style="width: ${data["peso"] / data["maxpeso"] * 100}%"></div>`);
 
@@ -346,12 +346,12 @@ const updateMochila = () => {
 					actualPercent = newDurability * 100;
 				} else {
 					actualPercent = v["durability"] * 100;
-					if (actualPercent < 5.0) {
-						actualPercent = 5.0
+					if (actualPercent < 1) {
+						actualPercent = 1
 					}
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
 					<div class="top">
 						<div class="itemWeight">${(v["peso"] * v["amount"]).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>
@@ -369,7 +369,7 @@ const updateMochila = () => {
 			}
 		}
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= 20; x++){
 			const slot = x.toString();
 
 			if (nameList2[x - 1] !== undefined){
@@ -381,9 +381,12 @@ const updateMochila = () => {
 					actualPercent = newDurability * 100;
 				} else {
 					actualPercent = v["durability"] * 100;
+					if (actualPercent < 1) {
+						actualPercent = 1
+					}
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"] !== "undefined" ? v["desc"]:""}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-id="${v["id"]}" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-slot="${slot}" data-desc="${v["desc"] !== "undefined" ? v["desc"]:""}" data-economy="${v["economy"]}">
 					<div class="top">
 						<div class="itemWeight">${(v["peso"] * v["amount"]).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v["amount"])}x</div>

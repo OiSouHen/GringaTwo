@@ -648,11 +648,17 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("skinshop:setTorso2")
 AddEventHandler("skinshop:setTorso2", function()
+	vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
+
+	Citizen.Wait(1000)
+
 	if GetPedDrawableVariation(PlayerPedId(),11) == skinData["torso2"]["item"] then
 		SetPedComponentVariation(PlayerPedId(),11,15,0,2)
 	else
 		SetPedComponentVariation(PlayerPedId(),11,skinData["torso2"]["item"],skinData["torso2"]["texture"],1)
 	end
+	
+	vRP.removeObjects("one")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETCUSTOMIZATION
