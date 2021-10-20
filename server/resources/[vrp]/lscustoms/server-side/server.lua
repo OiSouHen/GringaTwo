@@ -3,50 +3,48 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
-vRPC = Tunnel.getInterface("vRP")
 vRP = Proxy.getInterface("vRP")
+vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
 Tunnel.bindInterface("lscustoms",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHECKPERMISSIONS
+-- PERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkPermission(hasPerm)
+function cRP.checkPermission()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getFines(user_id) > 0 then
-			TriggerClientEvent("Notify",source,"amarelo","Multas pendentes encontradas.",3000)
-			return false
-		end
-
-		if vRP.wantedReturn(user_id) then
-			return false
-		end
-
-		if not hasPerm then
-			return true
-		else
-			if vRP.hasPermission(user_id,hasPerm) then
-				return true
-			end
+		if vRP.hasPermission(user_id,"Mechanic") then
+		    return true
 		end
 	end
-
-	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- LSCUSTOMS:UPDATEVEHICLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("lscustoms:updateVehicle")
+AddEventHandler("lscustoms:updateVehicle",function(mods,plate,name)
+    local source = source
+    local user_id = vRP.getUserId(source)
+	local vehicle,vehNet,vehPlate,vehName = vRPclient.vehList(source,2)
+    if user_id then
+        local plateUserId = vRP.getVehiclePlate(plate)
+        vRP.setSData("custom:"..parseInt(plateUserId)..":"..tostring(vehName),json.encode(mods))
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LSCUSTOMS:ATTEMPTPURCHASE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("lscustoms:attemptPurchase")
-AddEventHandler("lscustoms:attemptPurchase",function(type,mod)
+AddEventHandler("lscustoms:attemptPurchase",function(type,upgradeLevel)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if type == "engines" or type == "brakes" or type == "transmission" or type == "suspension" or type == "shield" then
-			if vRP.paymentBank(user_id,parseInt(vehicleCustomisationPrices[type][mod])) then
+			if vRP.paymentBank(user_id,parseInt(vehicleCustomisationPrices[type][upgradeLevel])) then
 				TriggerClientEvent("lscustoms:purchaseSuccessful",source)
 			else
 				TriggerClientEvent("lscustoms:purchaseFailed",source)
@@ -59,16 +57,6 @@ AddEventHandler("lscustoms:attemptPurchase",function(type,mod)
 			end
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- LSCUSTOMS:PUPDATEVEHICLE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("lscustoms:updateVehicle")
-AddEventHandler("lscustoms:updateVehicle",function(mods,vehPlate,vehName)
-    local plateUser = vRP.getVehiclePlate(vehPlate)
-    if plateUser then
-        vRP.setSData("custom:"..tostring(plateUser)..":"..tostring(vehName), json.encode(mods))
-    end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHEDIT

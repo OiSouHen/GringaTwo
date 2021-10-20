@@ -92,13 +92,11 @@ local bennysLocations = {
 	},
 	["mechanic13"] = {
 		pos = vector3(135.92,-3030.48,6.71),
-		heading = 0.0,
-		permission = "Mechanic"
+		heading = 0.0
 	},
 	["mechanic14"] = {
 		pos = vector3(144.95,-3030.51,6.71),
-		heading = 178.59,
-		permission = "Mechanic"
+		heading = 178.59
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -213,7 +211,7 @@ function GetCurrentWheel()
 	return wheel,wheelName,wheelType
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETCURRENTCHUSTOMWHEELSTATE
+-- GETCURRENTCUSTOMWHEELSTATE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function GetCurrentCustomWheelState()
 	local ped = PlayerPedId()
@@ -248,7 +246,7 @@ function GetCurrentWindowTint()
 	return GetVehicleWindowTint(vehicle)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETCURRENTVEHICLEWHEELSMOKECLOLOUR
+-- GETCURRENTVEHICLEWHEELSMOKECOLOUR
 -----------------------------------------------------------------------------------------------------------------------------------------
 function GetCurrentVehicleWheelSmokeColour()
 	local ped = PlayerPedId()
@@ -884,7 +882,9 @@ end
 function ApplyPlateIndex(index)
 	local ped = PlayerPedId()
 	local vehicle = GetVehiclePedIsUsing(ped)
+
 	originalPlateIndex = index
+
 	SetVehicleNumberPlateTextIndex(vehicle,index)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1002,7 +1002,7 @@ function disableControls()
 	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PURCHASESUCCESFUL
+-- LSCUSTOMS:PURCHASESUCCESSFUL
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("lscustoms:purchaseSuccessful")
 AddEventHandler("lscustoms:purchaseSuccessful",function()
@@ -1010,7 +1010,7 @@ AddEventHandler("lscustoms:purchaseSuccessful",function()
 	attemptingPurchase = false
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PURCHASEFAILED
+-- LSCUSTOMS:PURCHASEFAILED
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("lscustoms:purchaseFailed")
 AddEventHandler("lscustoms:purchaseFailed",function()
@@ -1035,7 +1035,7 @@ Citizen.CreateThread(function()
 						timeDistance = 1
 						DrawMarker(23,v["pos"]["x"],v["pos"]["y"],v["pos"]["z"] - 0.95,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,42,137,255,100,0,0,0,0)
 
-						if IsControlJustPressed(1,38) and distance <= 2.5 then
+						if IsControlJustPressed(1,38) and distance <= 2.5 and vSERVER.checkPermission then
 							enterLocation(bennysLocations[k])
 							activeAdmin = false
 						end
@@ -1048,7 +1048,7 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PURCHASEFAILED
+-- LSCUSTOMS:OPENADMIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("lscustoms:openAdmin")
 AddEventHandler("lscustoms:openAdmin",function()
