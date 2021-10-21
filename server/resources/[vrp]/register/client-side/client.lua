@@ -11,7 +11,11 @@ cRP = {}
 Tunnel.bindInterface("register",cRP)
 vSERVER = Tunnel.getInterface("register")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARS
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local registerStart = false
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REGISTERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local registers = {
 	{ 24.49,-1344.99,29.49,265.0 },
@@ -87,13 +91,7 @@ local registers = {
 	{ 1930.56,3727.93,32.84,205.0 },
 	{ 1211.52,-470.31,66.20,72.0 },
 	{ -30.42,-151.77,57.07,336.0 },
-	{ -277.76,6230.73,31.69,38.0 },
-	{ 162.21,6643.27,31.72,224.33 },
-	{ 160.56,6641.63,31.72,224.33 },
-	{ -161.03,6321.4,31.6,314.86 },
-	{ -2539.33,2313.86,33.42,92.34 },
-	{ -2539.18,2311.55,33.42,92.34 },
-	{ -775.71,5604.24,33.73,257.96 }
+	{ -277.76,6230.73,31.69,38.0 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTARGET
@@ -119,14 +117,38 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REGISTER:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("register:openSystem")
 AddEventHandler("register:openSystem",function(shopId)
---	if vSERVER.applyTimers(shopId) then
-		SetEntityHeading(ped,registers[shopId][4])
-		SetEntityCoords(ped,registers[shopId][1],registers[shopId][2],registers[shopId][3] - 1,1,0,0,0)
-
-		local safeCracking = exports["safecrack"]:safeCraking(1)
-		if safeCracking then
-			vSERVER.paymentMethod()
+	local ped = PlayerPedId()
+	if not registerStart then
+		if not IsPedInAnyVehicle(ped) then
+			if vSERVER.startRegister() then
+				SetEntityHeading(ped,registers[shopId][4])
+				SetEntityCoords(ped,registers[shopId][1],registers[shopId][2],registers[shopId][3] - 1,1,0,0,0)
+				
+				local safeCracking = exports["safecrack"]:safeCraking(1)
+				if safeCracking then
+					vSERVER.paymentMethod()
+				else
+					TriggerEvent("Notify","vermelho","Você falhou.",3000)
+				end
+			end
 		end
---	end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- registerTimer
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if registerStart and registerTimer > 0 then
+			registerTimer = registerTimer - 1
+			
+			if registerTimer <= 0 then
+				registerStart = false
+			end
+		end
+		
+		Citizen.Wait(1000)
+	end
 end)

@@ -607,7 +607,7 @@ function cRP.spawnVehicles(name,use)
 			end
 
 			if parseInt(os.time()) <= parseInt(vehicle[1].time+24*60*60) then
-				local status = vRP.request(source,"Acionar seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.5)).." dólares</b>?",60)
+				local status = vRP.request(source,"Acionar o seguro por <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.5)).." dólares</b>?",60)
 				if status then
 					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(name)*0.5)) then
 						vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = name, arrest = 0, time = 0 })
@@ -616,7 +616,7 @@ function cRP.spawnVehicles(name,use)
 					end
 				end
 			elseif parseInt(vehicle[1].arrest) >= 1 then
-				local status = vRP.request(source,"Acionar seguro pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.1)).." dólares</b>?",60)
+				local status = vRP.request(source,"Acionar o seguro por <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*0.1)).." dólares</b>?",60)
 				if status then
 					if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(name)*0.1)) then
 						vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = name, arrest = 0, time = 0 })
@@ -625,7 +625,7 @@ function cRP.spawnVehicles(name,use)
 					end
 				end
 			elseif vRP.vehicleType(tostring(name)) == "rental" and vRP.getCarPremium(name,user_id)then
-				local status = vRP.request(source,"Renovar veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name))).." Gemas</b>?",60)
+				local status = vRP.request(source,"Renovar o veículo por <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name))).." gemas</b>?",60)
 				if status then
 					if vRP.remGmsId(user_id,parseInt(vRP.vehiclePrice(name))) then
 						vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = name, premiumtime = parseInt(os.time()) })
@@ -643,7 +643,7 @@ function cRP.spawnVehicles(name,use)
 
 				if garages[use].payment and not vRP.getPremium(parseInt(user_id)) then
 					if vRP.getBank(parseInt(user_id)) >= parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name)) then
-						local status = vRP.request(source,"Retirar veículo pagando <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))).." Dólares</b>?",60)
+						local status = vRP.request(source,"Retirar o veículo por <b>$"..vRP.format(parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))).." Dólares</b>?",60)
 						if status then
 							local status,vehid = vCLIENT.spawnVehicle(source,name,vehicle[1].plate,vehicle[1].engine,vehicle[1].body,vehicle[1].fuel,custom,vehicle[1].windows,vehicle[1].doors,vehicle[1].tyres)
 							if status and vRP.paymentBank(parseInt(user_id),parseInt(vRP.vehiclePrice(name)*vRP.vehicleTax(name))) then

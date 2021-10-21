@@ -4,47 +4,65 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 cRP = {}
-Tunnel.bindInterface("harvest",cRP)
-vCLIENT = Tunnel.getInterface("harvest")
+Tunnel.bindInterface("register",cRP)
+vCLIENT = Tunnel.getInterface("register")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local collect = {}
+local registersGlobal = 300
+local registerStart = false
 -----------------------------------------------------------------------------------------------------------------------------------------
--- COLLECTITENS
+-- startRegister
 -----------------------------------------------------------------------------------------------------------------------------------------
-local collectItens = {
-	[1] = "orange",
-	[2] = "strawberry",
-	[3] = "grape",
-	[4] = "tange",
-	[5] = "banana",
-	[6] = "passion",
-	[7] = "tomato",
-	[8] = "coffee2"
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- COLLECTMETHOD
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.collectMethod()
+function cRP.startRegister()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
-			Wait(1)
+		if  parseInt(registersGlobal) > 0 then
+			TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(registersGlobal).."</b> segundos.",5000)
+			return false
 		else
-			vRP.giveInventoryItem(user_id,collectItens[math.random(#collectItens)],math.random(3,4),true)
-			vRP.upgradeStress(user_id,1)
-			
-			collect[source] = nil
-			return true
+			if not registerStart then
+				registerStart = true
+				registersGlobal = 300
+				vRP.upgradeStress(user_id,10)
+				return true
+			end
 		end
-		return false
+	end
+	
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PAYMENTMETHOD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.paymentMethod()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		vRP.upgradeStress(user_id,3)
+
+		local value = math.random(400,800)
+		vRP.giveInventoryItem(user_id,"dollarsz",parseInt(value),true)
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADTIMERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+Citizen.CreateThread(function()
+	while true do
+		if parseInt(registersGlobal) > 0 then
+			registersGlobal = parseInt(registersGlobal) - 1
+			
+			if parseInt(registersGlobal) <= 0 then
+				registerStart = false
+			end
+		end
+		
+		Citizen.Wait(1000)
+	end
+end)

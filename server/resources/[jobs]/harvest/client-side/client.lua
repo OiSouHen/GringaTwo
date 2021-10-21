@@ -110,16 +110,18 @@ function startthreadservice()
 					if collectDis <= 0.8 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
 						timeSeconds = 2
 						TriggerEvent("player:blockCommands",true)
+						TriggerEvent("inventory:blockButtons",true)
 						TriggerEvent("cancelando",true)
-						TriggerEvent("Progress",5000,"Colhendo...")
+						TriggerEvent("Progress",10000,"Colhendo...")
 						vRP.playAnim(true,{"amb@prop_human_movie_bulb@base","base"},true)
 						SetEntityHeading(ped,collect[coSelected][4])
 						SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
-						Citizen.Wait(5000)
+						Citizen.Wait(10000)
 						TriggerEvent("player:blockCommands",false)
-						vSERVER.collectMethod()
+						TriggerEvent("inventory:blockButtons",false)
 						TriggerEvent("cancelando",false)
-						vRP.removeObjects()
+						vSERVER.collectMethod()
+						vRP.removeObjects("one")
 						coSelected = math.random(#collect)
 					end
 				end
