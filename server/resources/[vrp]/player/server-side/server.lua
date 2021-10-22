@@ -470,34 +470,6 @@ RegisterCommand("check",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- EMERGENCY:PRESETFUNCTIONS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("emergency:presetFunctions")
-AddEventHandler("emergency:presetFunctions",function(number)
-    local source = source
-    local user_id = vRP.getUserId(source)
-    if user_id then
-        if not vRP.wantedReturn(user_id) and not vRP.reposeReturn(user_id) then
-			if vRPclient.getHealth(source) > 101 and not vPLAYER.getHandcuff(source) then
-				local model = vRPclient.getModelPlayer(source)
-				if vRP.hasPermission(user_id,"Paramedic") and preset["Paramedic"][number] then
-					if model == "mp_m_freemode_01" then
-						TriggerClientEvent("updateRoupas",source,preset["Paramedic"][number]["homem"])
-					elseif model == "mp_f_freemode_01" then
-						TriggerClientEvent("updateRoupas",source,preset["Paramedic"][number]["mulher"])
-					end
-				elseif vRP.hasPermission(user_id,"Police") and preset["Police"][number] then
-					if model == "mp_m_freemode_01" then
-						TriggerClientEvent("updateRoupas",source,preset["Police"][number]["homem"])
-					elseif model == "mp_f_freemode_01" then
-						TriggerClientEvent("updateRoupas",source,preset["Police"][number]["mulher"])
-					end
-                end
-            end
-        end
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- PRESET
 -----------------------------------------------------------------------------------------------------------------------------------------
 local preset = {
@@ -722,6 +694,34 @@ local preset = {
 		}
 	}
 }
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:PRESETFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("player:presetFunctions")
+AddEventHandler("player:presetFunctions",function(number)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if user_id then
+        if not vRP.wantedReturn(user_id) and not vRP.reposeReturn(user_id) then
+			if vRPclient.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+				local model = vRPclient.getModelPlayer(source)
+				if vRP.hasPermission(user_id,"Paramedic") and preset["Paramedic"][number] then
+					if model == "mp_m_freemode_01" then
+						TriggerClientEvent("updateRoupas",source,preset["Paramedic"][number]["homem"])
+					elseif model == "mp_f_freemode_01" then
+						TriggerClientEvent("updateRoupas",source,preset["Paramedic"][number]["mulher"])
+					end
+				elseif vRP.hasPermission(user_id,"Police") and preset["Police"][number] then
+					if model == "mp_m_freemode_01" then
+						TriggerClientEvent("updateRoupas",source,preset["Police"][number]["homem"])
+					elseif model == "mp_f_freemode_01" then
+						TriggerClientEvent("updateRoupas",source,preset["Police"][number]["mulher"])
+					end
+                end
+            end
+        end
+    end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OUTFIT
 -----------------------------------------------------------------------------------------------------------------------------------------
