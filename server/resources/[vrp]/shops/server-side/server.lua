@@ -348,7 +348,7 @@ local shops = {
 	},
 	["weaponsStore"] = {
 		["mode"] = "Buy",
-		["type"] = "Cash",
+		["type"] = "Dirty",
 		["list"] = {
 			["WEAPON_ASSAULTRIFLE"] = 40250,
 			["WEAPON_ASSAULTRIFLE_MK2"] = 42250,
@@ -578,10 +578,23 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 				if vRP.computeInvWeight(parseInt(user_id)) + vRP.itemWeightList(shopItem) * parseInt(shopAmount) <= vRP.getBackpack(parseInt(user_id)) then
 					if shops[shopType]["type"] == "Cash" then
 						if shops[shopType]["list"][shopItem] then
-
+							
 							if vRP.itemSubTypeList(shopItem) then
 								if vRP.getInventoryItemAmount(user_id,shopItem) > 0 then
 									TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
+								end
+							end
+							
+							if vRP.itemSubTypeList(shopItem) then
+								TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000)
+								
+								if vRP.paymentBank(parseInt(user_id),parseInt(shops[shopType]["list"][shopItem])) then
+									if inv[tostring(slot)] then
+										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)
+									else
+										TriggerClientEvent("shops:Update",source,"requestShop")
+										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot) return
+									end				
 								end
 							end
 							
@@ -592,7 +605,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
 								end						
 							else
-								TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",3000)
+								TriggerClientEvent("Notify",source,"vermelho","<b>Dólares</b> insuficientes.",3000)
 							end
 						end
 					elseif shops[shopType]["type"] == "Dirty" then
@@ -604,16 +617,21 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 								end
 							end
 							
-							if vRP.tryGetInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),true) then
-								if inv[tostring(slot)] then
-									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)
-								else
-									vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
-								end
+							if vRP.itemSubTypeList(shopItem) then
+								TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000)
 								
-								TriggerClientEvent("sounds:source",source,"cash",0.3)
-							else
-								TriggerClientEvent("Notify",source,"vermelho","Dólares Marcados insuficientes.",3000)
+								if vRP.tryGetInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),true) then
+									if inv[tostring(slot)] then
+										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)
+									else
+										TriggerClientEvent("shops:Update",source,"requestShop")
+										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot) return
+									end
+									
+									TriggerClientEvent("sounds:source",source,"cash",0.3)
+								else
+									TriggerClientEvent("Notify",source,"vermelho","<b>Dólares Marcados</b> insuficientes.",3000)
+								end
 							end
 						end
 					elseif shops[shopType]["type"] == "Consume" then
@@ -638,7 +656,7 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 							
 							vRP.remGmsId(user_id,parseInt(shops[shopType]["list"][shopItem]*shopAmount))
 						else
-							TriggerClientEvent("Notify",source,"vermelho","Gemas insuficientes.",3000)
+							TriggerClientEvent("Notify",source,"vermelho","<b>Gemas<b> insuficientes.",3000)
 						end
 					end
 				else

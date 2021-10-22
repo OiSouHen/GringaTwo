@@ -687,6 +687,8 @@ Citizen.CreateThread(function()
 									local safeCracking = exports["safecrack"]:safeCraking(3)
 									if safeCracking then
 										vSERVER.paymentTheft(k)
+									else
+										TriggerEvent("Notify","vermelho","Você falhou.",3000)
 									end
 									
 									theftPlayers[k] = true
@@ -697,6 +699,8 @@ Citizen.CreateThread(function()
 									if taskBar then
 										vSERVER.paymentTheft(k)
 										theftPlayers[k] = true
+									else
+										TriggerEvent("Notify","vermelho","Você falhou.",3000)
 									end
 									
 									TriggerEvent("cancelando",false)

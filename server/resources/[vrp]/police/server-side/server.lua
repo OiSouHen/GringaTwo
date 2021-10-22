@@ -14,9 +14,17 @@ vCLIENT = Tunnel.getInterface("police")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local records = ""
-local fines = ""
-local servicelog = ""
+local recordsLog = ""
+local finesLog = ""
+local serviceLog = ""
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SENDWEBHOOKMESSAGE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function SendWebhookMessage(webhook,message)
+	if webhook ~= nil and webhook ~= "" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:SERVICEPOLICE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -24,14 +32,13 @@ RegisterNetEvent("police:servicePolice")
 AddEventHandler("police:servicePolice",function(servicePolice)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local identity = vRP.getUserIdentity(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			vRP.removePermission(source,"Police")
 			TriggerEvent("blipsystem:serviceExit",source)
 			TriggerClientEvent("tencode:StatusService",source,false)
 			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
---			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Polícia).```")
+			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Saiu de serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Police", newpermiss = "waitPolice" })
 			TriggerClientEvent("police:updateService",source,false)
 		elseif vRP.hasPermission(user_id,"waitPolice") then
@@ -39,7 +46,7 @@ AddEventHandler("police:servicePolice",function(servicePolice)
 			TriggerClientEvent("tencode:StatusService",source,true)
 			TriggerEvent("blipsystem:serviceEnter",source,"Polícia",77)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
---			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Polícia).```")
+			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Entrou em serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
 			TriggerClientEvent("police:updateService",source,true)
 		end
@@ -92,7 +99,7 @@ function cRP.initPrison(data)
 		
 		if identity then
 		    TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> enviado para a prisão.",5000)
-			creativeLogs(records,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nSERVICES: "..parseInt(services).."\nCRIMES: "..data.reason.."\nBY: "..identity2.name.." "..identity2.name2.."```")
+			SendWebhookMessage(recordsLog,"```prolog\n[ID]: "..parseInt(nuser_id).."\n[NOME]: "..identity.name.." "..identity.name2.."\n[SERVIÇOS]: "..parseInt(services).."\n[CRIMES]: "..data.reason.."\n[POR]: "..identity2.name.." "..identity2.name2.." \r```")
 		end
     end
 end
@@ -114,7 +121,7 @@ function cRP.initFine(data)
 		
         if identity then
             TriggerClientEvent("Notify",source,"verde","<b>"..identity.name.." "..identity.name2.."</b> recebeu multa de <b>$"..vRP.format(parseInt(data.fines)).." dólares</b>.",5000)
-			creativeLogs(fines,"```PASSPORT: "..parseInt(nuser_id).."\nNAME: "..identity.name.." "..identity.name2.."\nVALUE: $"..vRP.format(parseInt(value)).."\nBY: "..identity2.name.." "..identity2.name2.."```")
+			SendWebhookMessage(finesLog,"```prolog\n[ID]: "..parseInt(nuser_id).."\n[NOME]: "..identity.name.." "..identity.name2.."\n[VALOR]: $"..vRP.format(parseInt(value)).."\n[POR]: "..identity2.name.." "..identity2.name2.." \r```")
         end
     end
 end
@@ -301,14 +308,14 @@ AddEventHandler("police:runPlate",function()
 					if plateUser then
 						local identity = vRP.getUserIdentity(plateUser)
 						if identity then
-							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>RG:</b> "..identity.registration.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Telefone:</b> "..identity.phone,10000)
+							TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>Nº:</b> "..identity.phone,10000)
 						end
 					else
 						if not plateSave[vehPlate] then
 							plateSave[vehPlate] = { math.random(5000,9999),plateName[math.random(#plateName)].." "..plateName2[math.random(#plateName2)],vRP.generatePhoneNumber() }
 						end
 						
-						TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..plateSave[vehPlate][1].."<br><b>RG:</b> "..vehPlate.."<br><b>Nome:</b> "..plateSave[vehPlate][2].."<br><b>Telefone:</b> "..plateSave[vehPlate][3],10000)
+						TriggerClientEvent("Notify",source,"default","<b>Passaporte:</b> "..plateSave[vehPlate][1].."<br><b>Nome:</b> "..plateSave[vehPlate][2].."<br><b>Placa:</b> "..plateSave[vehPlate][3],10000)
 					end
 				end
 			end
@@ -356,11 +363,3 @@ AddEventHandler("police:servicoFunctions",function()
 		end
     end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- LOGS
------------------------------------------------------------------------------------------------------------------------------------------
-function creativeLogs(webhook,message)
-	if webhook ~= "" then
-		PerformHttpRequest(webhook,function(err,text,headers) end,"POST",json.encode({ content = message }),{ ['Content-Type'] = "application/json" })
-	end
-end

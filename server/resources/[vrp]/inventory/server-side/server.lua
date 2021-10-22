@@ -24,26 +24,6 @@ vTASKBAR = Tunnel.getInterface("taskbar")
 local active = {}
 local weaponrechenger = {}
 local firecracker = {}
-local registerTimers = {}
------------------------------------------------------------------------------------------------------------------------------------------
--- REGISTERTIMERS
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		for k,v in pairs(registerTimers) do
-			if registerTimers[k][4] > 0 then
-				registerTimers[k][4] = registerTimers[k][4] - 1
-
-				if registerTimers[k][4] <= 0 then
-					registerTimers[k] = nil
-					TriggerClientEvent("inventory:updateRegister",-1,registerTimers)
-				end
-			end
-		end
-		
-		Citizen.Wait(10000)
-	end
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FIRECRACKER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -962,20 +942,20 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.closeInventory(source)
 								vCLIENT.blockButtons(source,true)
 								vGARAGE.startAnimHotwired(source)
-																						  
 
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
 									vRP.upgradeStress(user_id,5)
+
 									local iddoroubado = vRP.getVehiclePlate(vehPlate)
 									if iddoroubado and math.random(100) >= 50 then
 										TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> disparou o alarme.",5000)
 									end
 									
-									if math.random(100) >= 20 then
+								--	if math.random(100) >= 20 then
 										TriggerEvent("setPlateEveryone",vehPlate)
 										TriggerEvent("setPlatePlayers",vehPlate,user_id)
-									end
+								--	end
 
 									if math.random(100) >= 50 then
 										local x,y,z = vRPclient.getPositions(source)
@@ -1007,14 +987,16 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								local taskResult = vTASKBAR.taskLockpick(source)
 								if taskResult then
 									vRP.upgradeStress(user_id,4)
+
 									local iddoroubado = vRP.getVehiclePlate(vehPlate)
 									if iddoroubado then
 										TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(vehName).."</b> foi roubado.",5000)
 									end
-									if math.random(100) >= 50 then
+
+								--	if math.random(100) >= 50 then
 										TriggerEvent("setPlateEveryone",vehPlate)
 										TriggerClientEvent("inventory:lockpickVehicle",-1,vehNet)
-									end
+								--	end
 
 									if math.random(100) >= 50 then
 										local x,y,z = vRPclient.getPositions(source)
@@ -1050,7 +1032,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								if taskResult then
 									vRP.upgradeStress(user_id,5)
 									vHOMES.enterHomesTheft(source,homeName)
---									TriggerEvent("vrp:homes:ApplyTime",homeName)
 									TriggerEvent("homes:ApplyTime",homeName)
 								
 								else
@@ -1064,48 +1045,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vRPclient._stopAnim(source,false)
 								vCLIENT.blockButtons(source,false)
 								active[user_id] = nil
-							else
-								local status,x,y,z = vCLIENT.cashRegister(source)
-								if status then
-									active[user_id] = 10
-									vRPclient.stopActived(source)
-									vCLIENT.closeInventory(source)
-									vCLIENT.blockButtons(source,true)
-									table.insert(registerTimers,{ x,y,z,360 })
-									TriggerClientEvent("Progress",source,10000,"Utilizando...")
-									TriggerClientEvent("inventory:updateRegister",-1,registerTimers)
-									vRPclient._playAnim(source,false,{"oddjobs@shop_robbery@rob_till","loop"},true)
-
-									repeat
-										if active[user_id] == 0 then
-											active[user_id] = nil
-											vRP.upgradeStress(user_id,1)
-											vRPclient._removeObjects(source)
-											vCLIENT.blockButtons(source,false)
-											vRP.giveInventoryItem(user_id,"dollarsz",math.random(4,6),true)
-
-											if math.random(100) >= 75 then
-												vRP.wantedTimer(user_id,30) -- old is 15 need try
-												local copAmount = vRP.numPermission("Police")
-												for k,v in pairs(copAmount) do
-													async(function()
-														TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Crime em Progresso.", criminal = "Denúncia de Roubo a Caixa Registradora.", x = x, y = y, z = z, rgba = {170,80,25} })
-													end)
-												end
-											end
-										end
-										Citizen.Wait(0)
-									until active[user_id] == nil
-								else
-									if x ~= nil and y ~= nil and z ~= nil then
-										for k,v in pairs(registerTimers) do
-											if v[1] == x and v[2] == y and v[3] == z then
-												TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(v[4]*10))..".",5000)
-											end
-											Citizen.Wait(1)
-										end
-									end
-								end
 							end
 						end
 					end
