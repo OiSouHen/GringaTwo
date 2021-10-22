@@ -651,7 +651,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						if nplayer then
 							local nuser_id = vRP.getUserId(nplayer)
 							if nuser_id then
-								if vSURVIVAL.deadPlayer(nplayer) then
+								if vSURVIVAL.deathStatus(nplayer) then
 									active[user_id] = 10
 									vRPclient.stopActived(source)
 									vCLIENT.closeInventory(source)

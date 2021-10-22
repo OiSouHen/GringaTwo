@@ -218,7 +218,7 @@ RegisterCommand("tratamento",function(source,args,rawCommand)
 	if vRP.hasPermission(user_id,"Paramedic") then
 		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
-			if not vSURVIVAL.deadPlayer(nplayer) then
+			if not vSURVIVAL.deathStatus(nplayer) then
 				vSURVIVAL._startCure(nplayer)
 				TriggerClientEvent("resetBleeding",nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)

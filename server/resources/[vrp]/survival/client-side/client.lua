@@ -13,8 +13,8 @@ vSERVER = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local deadPlayer = false
-local deathtimer = 300
+local deathStatus = false
+local timeDeath = 300
 local blockControls = false
 local emergencyButton = false
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -24,67 +24,59 @@ Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
-		if GetEntityHealth(ped) <= 101 and deathtimer >= 0 then
-			if not deadPlayer then
+		if GetEntityHealth(ped) <= 101 and timeDeath >= 0 then
+			if not deathStatus then
 				timeDistance = 100
-				deadPlayer = true
+				deathStatus = true
 				emergencyButton = false
 				SendNUIMessage({ death = true })
 
 				local coords = GetEntityCoords(ped)
 				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 300
-
-				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-					vRP.playAnim(false,{"dead","dead_a"},true)
-				end
 				
-				if IsPedInAnyVehicle(ped) then
-					local vehicle = GetVehiclePedIsUsing(ped)
-					if GetPedInVehicleSeat(vehicle,-1) == ped then
-						SetVehicleEngineOn(vehicle,false,true,true)
-					end
-				end
-				
+				timeDeath = 300
 				SetEntityHealth(ped,101)
 				SetEntityInvincible(ped,true)
 
 				TriggerEvent("radio:outServers")
 				TriggerServerEvent("inventory:Cancel")
 			else
-				if deathtimer > 0 then
+				if timeDeath > 0 then
 					timeDistance = 4
 					emergencyButton = true
 					SetEntityHealth(ped,101)
 					TriggerEvent("hudActived",false)
-					SendNUIMessage({ deathtext = "DIGITE <color>/GG</color> PARA DESISTIR IMEDIATAMENTE<br><i>OU AGUARDE <color>"..deathtimer.." SEGUNDOS</color></i>" })
-					
-					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-						vRP.playAnim(false,{"dead","dead_a"},true)
-					end
+					SendNUIMessage({ deathtext = "NOCAUTEADO, AGUARDE <color>"..timeDeath.." SEGUNDOS</color>" })
 				else
 					timeDistance = 4
-					SendNUIMessage({ deathtext = "SEU TEMPO ACABOU, DIGITE <color>/GG</color>" })
-					
-					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-						vRP.playAnim(false,{"dead","dead_a"},true)
-					end
-				
+					SendNUIMessage({ deathtext = "DIGITE <color>/GG</color> PARA DESISTIR IMEDIATAMENTE" })
 				end
 			end
+			
+			if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
+				vRP.playAnim(false,{"dead","dead_a"},true)
+			end
+
+			if IsPedInAnyVehicle(ped) then
+				local vehicle = GetVehiclePedIsUsing(ped)
+				if GetPedInVehicleSeat(vehicle,-1) == ped then
+					SetVehicleEngineOn(vehicle,false,true,true)
+				end
+			end
+			
 		end
 		
 		Citizen.Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEATHTIMER
+-- timeDeath
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1000)
-		if deadPlayer and deathtimer > 0 then
-			deathtimer = deathtimer - 1
+		if deathStatus and timeDeath > 0 then
+			timeDeath = timeDeath - 1
 		end
 	end
 end)
@@ -92,7 +84,7 @@ end)
 -- GG
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source,args,rawCommand)
-	if deathtimer <= 300 then
+	if timeDeath <= 0 then
 		vSERVER.ResetPedToHospital()
 		TriggerEvent("hudActived",true)
 		SendNUIMessage({ death = false })
@@ -104,7 +96,7 @@ end)
 function cRP.finishDeath()
 	local ped = PlayerPedId()
 	if GetEntityHealth(ped) <= 101 then
-		deadPlayer = false
+		deathStatus = false
 		TriggerEvent("hudActived",true)
 		ClearPedBloodDamage(ped)
 		SetEntityHealth(ped,200)
@@ -130,10 +122,10 @@ Citizen.CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEADPLAYER
+-- deathStatus
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.deadPlayer()
-	return deadPlayer
+function cRP.deathStatus()
+	return deathStatus
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REVIVEPLAYER
@@ -144,8 +136,9 @@ function cRP.revivePlayer(health)
 	TriggerEvent("hudActived",true)
 	SendNUIMessage({ death = false })
 	
-	if deadPlayer then
-		deadPlayer = false
+	if deathStatus then
+		deathStatus = false
+		SendNUIMessage({ death = false })
 		ClearPedTasks(PlayerPedId())
 	end
 end
@@ -159,7 +152,7 @@ AddEventHandler("survival:CheckIn",function()
 
 	Citizen.Wait(500)
 
-	deadPlayer = false
+	deathStatus = false
 	blockControls = true
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -170,8 +163,8 @@ AddEventHandler("updatePrison",function()
 	SetEntityHealth(PlayerPedId(),110)
 	SetEntityInvincible(PlayerPedId(),false)
 
-	if deadPlayer then
-		deadPlayer = false
+	if deathStatus then
+		deathStatus = false
 		blockControls = true
 		ClearPedTasks(PlayerPedId())
 		TriggerEvent("resetBleeding")
@@ -185,7 +178,7 @@ Citizen.CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
-		if blockControls or deadPlayer then
+		if blockControls or deathStatus then
 			timeDistance = 4
 			DisablePlayerFiring(ped,true)
 			DisableControlAction(1,22,true)

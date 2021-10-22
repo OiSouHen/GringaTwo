@@ -130,19 +130,16 @@ RegisterCommand("reviver",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,"Paramedic") or vRP.hasPermission(user_id,"Police") then
 			local nplayer = vRPclient.nearestPlayer(source,2)
 			if nplayer then
-				if vCLIENT.deadPlayer(nplayer) then
+				if vCLIENT.deathStatus(nplayer) then
 					TriggerClientEvent("Progress",source,60000,"Revivendo...")
 					TriggerClientEvent("cancelando",source,true)
 					vRPclient._playAnim(source,false,{"mini@cpr@char_a@cpr_str","cpr_pumpchest"},true)
-					
 					SetTimeout(60000,function()
-						vRPclient._removeObjects(source)
 						vCLIENT._revivePlayer(nplayer,110)
 						TriggerClientEvent("resetBleeding",nplayer)
 						TriggerClientEvent("cancelando",source,false)
+						vRP.removeObjects("one")
 					end)
-					
-					vRP.removeObjects("one")
 				end
 			end
 		end
@@ -155,7 +152,7 @@ function cRP.ResetPedToHospital()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vCLIENT.deadPlayer(source) then
+		if vCLIENT.deathStatus(source) then
 			vCLIENT.finishDeath(source)
 			vRP.downgradeStress(user_id,100)
 			TriggerClientEvent("resetHandcuff",source)

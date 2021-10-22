@@ -115,6 +115,21 @@ RegisterCommand("item",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ITEMALL
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("itemall",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"Owner") then
+			local users = vRP.getUsers()
+			for k,v in pairs(users) do
+				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),parseInt(args[2]),true)
+				SendWebhookMessage(webhookgive,"```prolog\n[ID]: "..user_id.."\n[ENVIOU A TODOS]: "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDMONEY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("addmoney",function(source,args,rawCommand)
@@ -125,7 +140,7 @@ RegisterCommand("addmoney",function(source,args,rawCommand)
             local identity = vRP.getUserIdentity(parseInt(args[1]))
 
             vRP.addBank(parseInt(args[1]),parseInt(args[2]))
-            TriggerClientEvent("Notify",source,"verde","Dado <b>$"..args[2].." dólares</b> para <b>"..identity.name.." ["..args[1].."]</b>",5000)
+            TriggerClientEvent("Notify",source,"verde","Dado <b>$"..args[2].." dólares</b> para <b>"..identity.name.." "..identity.name2.." ["..args[1].."]</b>",5000)
         end
     end
 end)
@@ -316,7 +331,7 @@ RegisterCommand("group",function(source,args,rawCommand)
 			if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.insertPermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/add_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
-				TriggerClientEvent("Notify",source,"default","Adicionado ID <b>"..parseInt(args[2]).."</b> no grupo <b>"..args[1].."</b>.",5000)
+				TriggerClientEvent("Notify",source,"default","Adicionado ID <b>"..parseInt(args[1]).."</b> no grupo <b>"..args[2].."</b>.",5000)
 			end
 		end
 	end
@@ -529,20 +544,6 @@ RegisterCommand("announce",function(source,args,rawCommand)
 			
 			TriggerClientEvent("Notify",-1,messagetype,message,timer)
 			TriggerClientEvent("sounds:source",-1,"notification",0.5)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- ITEMALL
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("itemall",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"Owner") then
-			local users = vRP.getUsers()
-			for k,v in pairs(users) do
-				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),parseInt(args[2]),true)
-			end
 		end
 	end
 end)
