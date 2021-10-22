@@ -349,17 +349,3 @@ AddEventHandler("police:runArrest",function()
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- POLICE:SERVICOFUNCTIONS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("police:servicoFunctions")
-AddEventHandler("police:servicoFunctions",function()
-    local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-	    if vRPclient.getHealth(source) > 101 then
-		    local amountCops = vRP.numPermission("Police")
-		    TriggerClientEvent("Notify",source,"default","Atualmente <b>"..#amountCops.." Policiais</b> em serviço.",10000)
-		end
-    end
-end)

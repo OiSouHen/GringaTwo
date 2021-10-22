@@ -470,6 +470,28 @@ RegisterCommand("check",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYER:SERVICOFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:servicoFunctions")
+AddEventHandler("player:servicoFunctions",function()
+    local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRPclient.getHealth(source) > 101 then
+			if vRP.hasPermission(user_id,"Police") then
+				local amountCops = vRP.numPermission("Police")
+				TriggerClientEvent("Notify",source,"default","Atualmente <b>"..#amountCops.." Policiais</b> em serviço.",10000)
+			elseif vRP.hasPermission(user_id,"Paramedic") then
+				local amountMedics = vRP.numPermission("Paramedic")
+				TriggerClientEvent("Notify",source,"default","Atualmente <b>"..#amountMedics.." Médicos</b> em serviço.",10000)
+			elseif vRP.hasPermission(user_id,"Mechanic") then
+				local amountMecs = vRP.numPermission("Mechanic")
+				TriggerClientEvent("Notify",source,"default","Atualmente <b>"..#amountMecs.." Mecânicos</b> em serviço.",10000)
+			end
+		end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- PRESET
 -----------------------------------------------------------------------------------------------------------------------------------------
 local preset = {

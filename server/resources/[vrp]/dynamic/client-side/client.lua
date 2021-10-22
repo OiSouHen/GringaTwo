@@ -130,15 +130,13 @@ RegisterCommand("emergencyFunctions",function(source,args)
 			local ped = PlayerPedId()
 			if GetEntityHealth(ped) > 101 then
 				menuOpen = true
+
+				exports["dynamic"]:AddButton("Serviço","Verificar companheiros em serviço.","player:servicoFunctions","","utilitys",true)
+				
 				if policeService then
 					exports["dynamic"]:AddButton("Cone","Colocar cone na frente.","police:insertCone","","utilitys",false)
 					exports["dynamic"]:AddButton("Barreira","Colocar barreira na frente.","police:insertBarrier","","utilitys",false)
 					exports["dynamic"]:AddButton("Invadir","Invadir a residência.","homes:invadeSystem","","utilitys",true)
-
-					-- exports["dynamic"]:AddButton("Remover Chapéu","Remover da pessoa mais próxima.","skinshop:removeProps","hat","player",true)
-					-- exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:removeProps","mask","player",true)
-					-- exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:removeProps","glasses","player",true)
-					-- exports["dynamic"]:AddButton("Defusar","Desativar bomba do veículo.","races:defuseBomb","","player",true)
 
 					exports["dynamic"]:AddButton("Sheriff","Fardamento de oficial.","player:presetFunctions","1","prePolice",true)
 					exports["dynamic"]:AddButton("State Police","Fardamento de oficial.","player:presetFunctions","2","prePolice",true)
@@ -148,7 +146,6 @@ RegisterCommand("emergencyFunctions",function(source,args)
 
 					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
 					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos policiais.","utilitys")
-					exports["dynamic"]:AddButton("Serviço","Verificar companheiros em serviço.","police:servicoFunctions","","utilitys",true)
 				elseif paramedicService then
 					exports["dynamic"]:AddButton("Medical Center","Fardamento de doutor.","player:presetFunctions","6","preMedic",true)
 					exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico.","player:presetFunctions","7","preMedic",true)
@@ -158,7 +155,6 @@ RegisterCommand("emergencyFunctions",function(source,args)
 
 					exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
 					exports["dynamic"]:SubMenu("Utilidades","Todas as funções dos paramédicos.","utilitys")
-					exports["dynamic"]:AddButton("Serviço","Verificar companheiros em serviço.","paramedic:servicoFunctions","","utilitys",true)
 				end
 			end
 		end
