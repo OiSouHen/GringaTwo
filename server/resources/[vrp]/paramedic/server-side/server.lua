@@ -15,11 +15,15 @@ vSURVIVAL = Tunnel.getInterface("survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local servicelog = ""
+local serviceLog = ""
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- SENDWEBHOOKMESSAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
-local paramedicService = false
+function SendWebhookMessage(webhook,message)
+	if webhook ~= nil and webhook ~= "" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDIC:SERVICEPARAMEDIC
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,22 +31,21 @@ RegisterNetEvent("paramedic:serviceParamedic")
 AddEventHandler("paramedic:serviceParamedic",function(serviceParamedic)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local identity = vRP.getUserIdentity(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"Paramedic") then
 			vRP.removePermission(source,"Paramedic")
 			TriggerEvent("blipsystem:serviceExit",source)
 			TriggerClientEvent("Notify",source,"azul","Saiu de serviço.",3000)
-			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nSaiu de serviço(Paramédico).```")
+			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Saiu de serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "Paramedic", newpermiss = "waitParamedic" })
-			paramedicService = false
+			TriggerClientEvent("paramedic:updateService",source,false)
 		elseif vRP.hasPermission(user_id,"waitParamedic") then
 			vRP.insertPermission(source,"Paramedic")
 			TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
-			creativeLogs(servicelog,"```Passaporte: "..parseInt(user_id).."\nNome: "..identity.name.." "..identity.name2.."\nEntrou em serviço(Paramédico).```")
+			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Entrou em serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitParamedic", newpermiss = "Paramedic" })
-			paramedicService = true
+			TriggerClientEvent("paramedic:updateService",source,true)
 		end
 	end
 end)
@@ -247,11 +250,3 @@ RegisterCommand("repouso",function(source,args,rawCommand)
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- LOGS
------------------------------------------------------------------------------------------------------------------------------------------
-function creativeLogs(webhook,message)
-	if webhook ~= "" then
-		PerformHttpRequest(webhook,function(err,text,headers) end,"POST",json.encode({ content = message }),{ ['Content-Type'] = "application/json" })
-	end
-end

@@ -17,7 +17,15 @@ local damaged = {}
 local bleeding = 0
 local myInjuries = false
 local showDiagnostic = false
+local paramedicService = false
 local timeInjuries = GetGameTimer()
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PARAMEDIC:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("paramedic:updateService")
+AddEventHandler("paramedic:updateService",function(status)
+	paramedicService = status
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BONES
 -----------------------------------------------------------------------------------------------------------------------------------------
