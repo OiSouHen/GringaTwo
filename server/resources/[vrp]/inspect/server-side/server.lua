@@ -50,41 +50,40 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 					opened[user_id] = parseInt(nuser_id)
 					vCLIENT.openInspect(source)
 				else
-					if not vRP.wantedReturn(nuser_id) then
-						if vRPclient.getHealth(nplayer) > 101 then
-							local request = vRP.request(nplayer,"Você está sendo revistado, você permite?",60)
-							if request then
-								vRPclient._playAnim(nplayer,true,{"random@arrests@busted","idle_a"},true)
-								vCLIENT.toggleCarry(nplayer,source)
-								
-								local weapons = vRPclient.replaceWeapons(nplayer)
-								for k,v in pairs(weapons) do
-									vRP.giveInventoryItem(nuser_id,k,1)
-									if v.ammo > 0 then
-										vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
-									end
-								end
-								
-								vRP.wantedTimer(user_id,60)
-								opened[user_id] = parseInt(nuser_id)
-								vCLIENT.openInspect(source)
-							else
-								TriggerClientEvent("Notify",source,"negado","Pedido de revista recusado.",5000)
-							end
-						else
+					if vRPclient.getHealth(nplayer) > 101 then
+						local request = vRP.request(nplayer,"Você permite uma Revista?",30)
+						if request then
+							vRPclient._playAnim(nplayer,true,{"random@arrests@busted","idle_a"},true)
 							vCLIENT.toggleCarry(nplayer,source)
+							
 							local weapons = vRPclient.replaceWeapons(nplayer)
 							for k,v in pairs(weapons) do
 								vRP.giveInventoryItem(nuser_id,k,1)
-								vRP.execute("vRP/del_weapon", { user_id = nuser_id, weapon = k })
 								if v.ammo > 0 then
 									vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
 								end
 							end
-						
+							
+							vRP.wantedTimer(user_id,60)
 							opened[user_id] = parseInt(nuser_id)
 							vCLIENT.openInspect(source)
+						else
+							TriggerClientEvent("Notify",source,"vermelho","Pedido de revista recusado.",5000)
 						end
+					else
+						vCLIENT.toggleCarry(nplayer,source)
+						
+						local weapons = vRPclient.replaceWeapons(nplayer)
+						for k,v in pairs(weapons) do
+							vRP.giveInventoryItem(nuser_id,k,1)
+							vRP.execute("vRP/del_weapon", { user_id = nuser_id, weapon = k })
+							if v.ammo > 0 then
+								vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
+							end
+						end
+						
+						opened[user_id] = parseInt(nuser_id)
+						vCLIENT.openInspect(source)
 					end
 				end
 			end
