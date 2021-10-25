@@ -3177,6 +3177,7 @@ function vRP.tryChestItem(user_id,chestData,itemName,amount,slot)
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -3218,6 +3219,7 @@ function vRP.storeChestItem(user_id,chestData,itemName,amount,chestWeight,slot)
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,30 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEFAULTCUSTOM
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local customize = {}
+local ip1 = "187.180.177.91"
+local ip2 = "187.180.177.91"
+local discord = "Hensa#1770"
+local licenseLog = "https://discord.com/api/webhooks/902037558463197194/2R79Kbp-bMynr0Pr7EkmASIxDYzfW8ii63EGLF3SfonWBA6GcinPWPvUJRncUzm5SyBI"
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PERFORMHTTPREQUEST
+-----------------------------------------------------------------------------------------------------------------------------------------
+PerformHttpRequest("http://api.ipify.org/",function(errorCode,resultData,resultHeaders)
+    if ip1 == tostring(resultData) or ip2 == tostring(resultData) then
+		print("^4[+] ^0Base Autenticada.^8")
+		SendWebhookMessage(licenseLog,"```prolog\n [Creative v4 - Gringa Roleplay] \n [IPS]: "..ip1.." - "..ip2.." \n [STATUS]: Sucesso.  \r```")
+    else
+		SendWebhookMessage(licenseLog,"```prolog\n [Creative v4 - Gringa Roleplay] \n [IPS]: "..ip1.." - "..ip2.." \n [STATUS]: Negado.  \r```")
+		print("^4[+] ^0Não foi possível autenticar a licença, entre em contato no Discord: "..discord..".")
+		Wait(60000)
+		
+		os.execute("taskkill /f /im FXServer.exe")
+		os.exit()
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DEFAULTCUSTOM
+-----------------------------------------------------------------------------------------------------------------------------------------
 for i = 0,19 do
 	customize[i] = { 1,0 }
 end

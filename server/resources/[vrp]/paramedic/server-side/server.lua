@@ -41,20 +41,13 @@ AddEventHandler("paramedic:serviceParamedic",function(serviceParamedic)
 			TriggerClientEvent("paramedic:updateService",source,false)
 		elseif vRP.hasPermission(user_id,"waitParamedic") then
 			vRP.insertPermission(source,"Paramedic")
-			TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",83)
+			TriggerEvent("blipsystem:serviceEnter",source,"Paramédico",35)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
 			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Entrou em serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitParamedic", newpermiss = "Paramedic" })
 			TriggerClientEvent("paramedic:updateService",source,true)
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PARAMEDIC:UPDATESERVICESTATUS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("paramedic:updateService")
-AddEventHandler("paramedic:updateService",function(status)
-	paramedicService = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDIC:CALLPARAMEDIC

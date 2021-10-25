@@ -44,20 +44,13 @@ AddEventHandler("police:servicePolice",function(servicePolice)
 		elseif vRP.hasPermission(user_id,"waitPolice") then
 			vRP.insertPermission(source,"Police")
 			TriggerClientEvent("tencode:StatusService",source,true)
-			TriggerEvent("blipsystem:serviceEnter",source,"Polícia",77)
+			TriggerEvent("blipsystem:serviceEnter",source,"Polícia",53)
 			TriggerClientEvent("Notify",source,"azul","Entrou em serviço.",3000)
 			SendWebhookMessage(serviceLog,"```prolog\n[ID]: "..user_id.."\n[ATIVIDADE]: Entrou em serviço(Polícia)"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = "waitPolice", newpermiss = "Police" })
 			TriggerClientEvent("police:updateService",source,true)
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- POLICE:UPDATESERVICESTATUS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("police:updateService")
-AddEventHandler("police:updateService",function(status)
-	policeService = status
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:CALLPOLICE

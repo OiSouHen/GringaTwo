@@ -1656,15 +1656,17 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 
 					if itemName == "backpack" then
 						vCLIENT.closeInventory(source)
+						
 						local exp = vRP.getBackpack(user_id)
-						if exp <= 60 then
+						if exp <= 95 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.setBackpack(user_id,100)
-								TriggerClientEvent("inventory:Update",source,"updateMochila")
+								vRP.upgradeBackpack(user_id,5)
 							end
 						else
-							TriggerClientEvent("Notify",source,"amarelo","Você não pode usar essa mochila.",5000)
+							TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000)
 						end
+						
+						TriggerClientEvent("inventory:Update",source,"updateMochila")
 					end
 
 					if itemName == "tires" then

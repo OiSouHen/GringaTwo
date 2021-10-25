@@ -28,7 +28,7 @@ local db_initialized = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEBHOOKS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local webhookjoins = ""
+local joinsLog = "https://discord.com/api/webhooks/902037558463197194/2R79Kbp-bMynr0Pr7EkmASIxDYzfW8ii63EGLF3SfonWBA6GcinPWPvUJRncUzm5SyBI"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SENDWEBHOOKMESSAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -376,7 +376,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		if identity then
 			vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
 			TriggerClientEvent("vRP:showIds",-1,showIds)
-			SendWebhookMessage(webhookjoins,"```prolog\n[ID]: "..user_id.." \n[IP]: "..GetPlayerEndpoint(source).." \n[ENTROU NO SERVIDOR] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			SendWebhookMessage(joinsLog,"```prolog\n[ID]: "..user_id.." \n[IP]: "..GetPlayerEndpoint(source).." \n[ENTROU NO SERVIDOR] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 		end
 	end
 end)

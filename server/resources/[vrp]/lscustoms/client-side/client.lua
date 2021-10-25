@@ -38,6 +38,7 @@ local originalPoliceLivery = nil
 local originalPlateIndex = nil
 local attemptingPurchase = false
 local isPurchaseSuccessful = false
+local mechanicService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1059,4 +1060,11 @@ AddEventHandler("lscustoms:openAdmin",function()
 			enterLocation(bennysLocations["admin"])
 		end
 	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LSCUSTOMS:UPDATESERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("lscustoms:updateService")
+AddEventHandler("lscustoms:updateService",function(status)
+	mechanicService = status
 end)
