@@ -63,8 +63,7 @@ RegisterCommand("revistar",function(source,args,rawCommand)
 									vRP.giveInventoryItem(nuser_id,vRP.itemAmmoList(k),v.ammo)
 								end
 							end
-							
-							vRP.wantedTimer(user_id,60)
+
 							opened[user_id] = parseInt(nuser_id)
 							vCLIENT.openInspect(source)
 						else
