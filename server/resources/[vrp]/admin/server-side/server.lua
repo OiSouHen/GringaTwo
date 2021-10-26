@@ -331,7 +331,7 @@ RegisterCommand("group",function(source,args,rawCommand)
 			if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.insertPermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/add_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
-				TriggerClientEvent("Notify",source,"default","Adicionado ID <b>"..parseInt(args[1]).."</b> no grupo <b>"..args[2].."</b>.",5000)
+				TriggerClientEvent("Notify",source,"default","Adicionado ID <b>"..parseInt(args[1]).."</b> no grupo <b>"..args[2].."</b>.",10000)
 			end
 		end
 	end
@@ -346,7 +346,7 @@ RegisterCommand("ungroup",function(source,args,rawCommand)
 			if vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 				vRP.removePermission(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
-				TriggerClientEvent("Notify",source,"default","Removido ID <b>"..parseInt(args[2]).."</b> no grupo de <b>"..args[1].."</b>.",5000)
+				TriggerClientEvent("Notify",source,"default","Removido ID <b>"..parseInt(args[1]).."</b> no grupo de <b>"..args[2].."</b>.",10000)
 			end
 		end
 	end
