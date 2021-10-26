@@ -276,6 +276,20 @@ Citizen.CreateThread(function()
 		}
 	})
 	
+	AddCircleZone("mecService02",vector3(124.81,-3014.18,7.05),0.75,{
+		name = "mecService02",
+		heading = 87.32
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "lscustoms:serviceMechanic",
+				label = "Trabalhar",
+				tunnel = "server"
+			}
+		}
+	})
+	
 	AddCircleZone("foodJuice01",vector3(-1190.78,-904.23,13.99),0.5,{
 		name = "foodJuice01",
 		heading = 306.15
