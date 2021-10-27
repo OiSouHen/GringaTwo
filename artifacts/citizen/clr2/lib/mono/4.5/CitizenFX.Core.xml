@@ -7062,6 +7062,16 @@
             Create a permanent voice channel.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_IS_PLAYER_MUTED">
+            <summary>
+            Checks if the player is currently muted
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_SET_PLAYER_MUTED">
+            <summary>
+            Mutes or unmutes the specified player
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.NETWORK_GET_ENTITY_OWNER">
             <summary>
             Returns the owner ID of the specified entity.
@@ -9382,6 +9392,28 @@
             </summary>
             <param name="id">
             ID of the channel.
+            </param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleIsPlayerMuted(System.Int32)">
+            <summary>
+            Checks if the player is currently muted
+            </summary>
+            <param name="playerSrc">
+            The player to get the mute state for
+            </param>
+            <returns>
+            Whether or not the player is muted
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleSetPlayerMuted(System.Int32,System.Boolean)">
+            <summary>
+            Mutes or unmutes the specified player
+            </summary>
+            <param name="playerSrc">
+            The player to set the mute state of
+            </param>
+            <param name="toggle">
+            Whether to mute or unmute the player
             </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.NetworkGetEntityOwner(System.Int32)">
