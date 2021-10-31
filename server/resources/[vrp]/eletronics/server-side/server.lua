@@ -13,7 +13,7 @@ Tunnel.bindInterface("eletronics",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local machineGlobal = 1200
+local machineTimer = 35
 local machineStart = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTMACHINE
@@ -23,23 +23,23 @@ function cRP.checkSystems()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) <= 2 then
+		if parseInt(#copAmount) >= 2 then
 			TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
 			return false
-		elseif parseInt(machineGlobal) > 0 then
-			TriggerClientEvent("Notify",source,"azul","Aguarde "..vRP.getTimers(parseInt(machineGlobal)),5000)
+		elseif parseInt(machineTimer) > 0 then
+			TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(machineTimer).."</b> segundos.",5000)
 			return false
 		else
 			if not machineStart then
 				machineStart = true
-				machineGlobal = 1200
+				machineTimer = 35
 				vRP.upgradeStress(user_id,10)
 				vRP.wantedTimer(parseInt(user_id),600)
-				vRP.removeInventoryItem(user_id,"c4",1)
 				return true
 			end
 		end
 	end
+	
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,6 +64,8 @@ function cRP.paymentSystems(x,y,z)
 			machineStart = false
 			local grid = vRP.getGridzone(x,y)
 			TriggerEvent("itemdrop:Create","dollars",parseInt(math.random(15000,17500)),x,y,z,source)
+			
+			TriggerClientEvent("Notify",source,"azul","Quero dar",5000)
 
 			local random = math.random(100)
 			if parseInt(random) >= 75 then
@@ -83,9 +85,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if parseInt(machineGlobal) > 0 then
-			machineGlobal = parseInt(machineGlobal) - 1
-			if parseInt(machineGlobal) <= 0 then
+		if parseInt(machineTimer) > 0 then
+			machineTimer = parseInt(machineTimer) - 1
+			if parseInt(machineTimer) <= 0 then
 				machineStart = false
 			end
 		end

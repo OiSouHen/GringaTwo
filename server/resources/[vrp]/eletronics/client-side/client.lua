@@ -13,8 +13,11 @@ vSERVER = Tunnel.getInterface("eletronics")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inTimers = 35
-local inService = false
+local machineTimer = 0
+local atmPosX = 0.0
+local atmPosY = 0.0
+local atmPosZ = 0.0
+local machineStart = false
 local currentTimer = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ATMLIST
@@ -174,56 +177,57 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ELETRONICS:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("eletronics:openSystem")
 AddEventHandler("eletronics:openSystem",function(shopId)
-	if vSERVER.checkSystems() then
-		inTimers = 35
-		inService = true
-		TriggerEvent("Progress",36000)
-		TriggerEvent("cancelando",true)
-		TriggerEvent("player:blockCommands",true)
-		SetEntityHeading(PlayerPedId(),atmList[shopId][4])
-		vRP.playAnim(false,{"oddjobs@shop_robbery@rob_till","loop"},true)
-		SetEntityCoords(PlayerPedId(),atmList[shopId][1],atmList[shopId][2],atmList[shopId][3] - 1,1,0,0,0)
+	local ped = PlayerPedId()
+	if not machineStart then
+		if not IsPedInAnyVehicle(ped) then
+			local coords = GetEntityCoords(ped)
+			for k,v in pairs(atmList) do
+				local distance = #(coords - vector3(v[1],v[2],v[3]))
+				if distance <= 1.0 then
+					if vSERVER.checkSystems() then
+					    atmPosX = v[1]
+						atmPosY = v[2]
+						atmPosZ = v[3]
+						
+					    machineStart = true
+						
+						TriggerEvent("Progress",30000)
+						TriggerEvent("cancelando",true)
+						TriggerEvent("player:blockCommands",true)
+						SetEntityHeading(ped,atmList[shopId][4])
+						vRP.playAnim(false,{"oddjobs@shop_robbery@rob_till","loop"},true)
+						SetEntityCoords(ped,atmList[shopId][1],atmList[shopId][2],atmList[shopId][3] - 1,1,0,0,0)
 
-		while inService do
-			if inTimers > 0 and GetGameTimer() >= currentTimer then
-				inTimers = inTimers - 1
-				vSERVER.paymentSystems()
-				currentTimer = GetGameTimer() + 1000
-
-				if inTimers <= 0 then
-					TriggerEvent("player:blockCommands",false)
-					TriggerEvent("cancelando",false)
-					vRP.removeObjects()
-					inService = false
-					break
+						Citizen.Wait(30000)
+						
+						TriggerEvent("player:blockCommands",false)
+					    TriggerEvent("cancelando",false)
+					    vRP.removeObjects()
+						machineStart = false
+						machineTimer = math.random(30,40)
+						
+						vSERVER.callPolice(atmPosX,atmPosY,atmPosZ)
+					end
 				end
 			end
-
-			Citizen.Wait(1)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADCANCEL
+-- MACHINETIMER
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		local timeDistance = 999
-
-		if inService then
-			timeDistance = 1
-
-			local ped = PlayerPedId()
-			if IsControlJustPressed(1,167) or not IsEntityPlayingAnim(ped,"oddjobs@shop_robbery@rob_till","loop",3) then
-				TriggerEvent("player:blockCommands",false)
-				TriggerEvent("cancelando",false)
-				TriggerEvent("Progress",1000)
-				vRP.removeObjects()
-				inService = false
+		if machineStart and machineTimer > 0 then
+			machineTimer = machineTimer - 1
+			if machineTimer <= 0 then
+				machineStart = false
+				vSERVER.stopMachine(machinePosX,machinePosY,machinePosZ)
 			end
 		end
-
-		Citizen.Wait(timeDistance)
+		
+		Citizen.Wait(1000)
 	end
 end)
