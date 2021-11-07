@@ -12,7 +12,7 @@
 
 ## Informações
 
-O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 09/2021, utilizando os Artefatos[4800].
+O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 09/2021, utilizando os Artefatos[4939].
 
 ### Direitos autorais
 
