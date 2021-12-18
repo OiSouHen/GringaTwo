@@ -91,6 +91,7 @@ Citizen.CreateThread(function()
 				machineStart = false
 			end
 		end
+		
 		Citizen.Wait(1000)
 	end
 end)

@@ -6688,6 +6688,11 @@
             Returns the name of the currently executing resource.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_ATTACHED_TO">
+            <summary>
+            Gets the entity that this entity is attached to.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_COORDS">
             <summary>
             Gets the current coordinates for a specified entity. This native is used server side when using OneSync.
@@ -8716,6 +8721,17 @@
             </summary>
             <returns>
             The name of the resource.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetEntityAttachedTo(System.Int32)">
+            <summary>
+            Gets the entity that this entity is attached to.
+            </summary>
+            <param name="entity">
+            The entity to check.
+            </param>
+            <returns>
+            The attached entity handle. 0 returned if the entity is not attached.
             </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetEntityCoords(System.Int32)">
