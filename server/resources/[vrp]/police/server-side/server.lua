@@ -32,6 +32,7 @@ RegisterNetEvent("police:servicePolice")
 AddEventHandler("police:servicePolice",function(servicePolice)
 	local source = source
 	local user_id = vRP.getUserId(source)
+
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			vRP.removePermission(source,"Police")
@@ -60,6 +61,7 @@ AddEventHandler("police:callPolice",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local x,y,z = vRPclient.getPositions(source)
+
 	if user_id then
 		local amountCops = vRP.numPermission("Police")
 		if parseInt(#amountCops) <= 0 then
@@ -74,11 +76,16 @@ AddEventHandler("police:callPolice",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PREPARES
+-----------------------------------------------------------------------------------------------------------------------------------------
+vRP.prepare("vRP/tablet_prison","INSERT INTO vrp_prison(user_id,prison,multa,text,date,nuser_id) VALUES(@user_id,@prison,@multa,@text,@date,@nuser_id)")
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- INITPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.initPrison(data)
     local source = source
     local user_id = vRP.getUserId(source)
+
     if user_id then
         local identity = vRP.getUserIdentity(parseInt(data.passaporte))
         local identity2 = vRP.getUserIdentity(parseInt(user_id))
@@ -87,6 +94,7 @@ function cRP.initPrison(data)
         if nplayer then
             vRP.setFines(parseInt(data.passaporte),parseInt(data.fines),parseInt(user_id),tostring(data.reason))
             vRP.execute("vRP/set_prison",{ user_id = parseInt(data.passaporte), prison = parseInt(data.services), locate = parseInt(2) })
+			vRP.execute("vRP/tablet_prison",{ user_id = parseInt(data.passaporte), prison = parseInt(data.services), multa = parseInt(data.fines), text = tostring(data.reason), date = os.date("%d.%m.%Y").." ás "..os.date("%H:%M"), nuser_id = user_id })
             vCLIENT.syncPrison(nplayer,1679.94,2513.07,45.56)
         end
 		
@@ -102,6 +110,7 @@ end
 function cRP.initFine(data)
     local source = source
     local user_id = vRP.getUserId(source)
+
     if user_id then
         local identity = vRP.getUserIdentity(parseInt(data.passaporte))
         local identity2 = vRP.getUserIdentity(parseInt(user_id))
@@ -119,33 +128,86 @@ function cRP.initFine(data)
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RPRISON
+-- PREPARES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.searchUser(data)
-    local source = source
-    local user_id = vRP.getUserId(source)
-    local identity = vRP.getUserIdentity(parseInt(data.passaporte))
-    if data.passaporte and user_id then
-        local name =  identity.name.." "..identity.name2
-        local rg = identity.registration
-        local phone = identity.phone
-        local gender = "M"
-        local fines = 0
-        local consult = vRP.getFines(parseInt(data.passaporte))
+vRP.prepare("vRP/get_prison","SELECT * FROM vrp_prison WHERE user_id = @user_id ")
+vRP.prepare("vRP/update_port","UPDATE vrp_users SET porte = @porte WHERE id = @user_id")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SEARCHUSER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.searchUser(passaporte)
+	local user_id = vRP.getUserId(source)
+	local identity = vRP.getUserIdentity(parseInt(passaporte))
+	local identity2 = vRP.getUserIdentity(parseInt(user_id))
+	local rows = vRP.query("vRP/get_prison", { user_id = passaporte })
+	local result = {}
+	
+	if identity then
+		local fines = vRP.getFines(passaporte)
+		local name = identity2.name.." "..identity2.name2
+		local name2 = identity.name.." "..identity.name2
+		local result2 = 0
 		
-        for k,v in pairs(consult) do
-            fines = parseInt(fines) + parseInt(v.price)
-        end
+		for k,v in pairs(fines) do
+			result2 = result2 + v.price
+		end
 		
---      local data = vRP.query("vRP/get_pol",{ user_id = data.passaporte })
-        return {identity.register, name, rg , phone , gender, 10, data }
-    end
+		result[1] = true
+		result[2] = name
+		result[3] = identity.phone
+		result[4] = result2
+		local porte = false
+		
+		if identity.porte == "sim" then
+			porte = true
+		end
+		
+		result[6] = porte
+		result[5] = {}
+		
+		if rows then
+			for k,v in pairs(rows) do
+				local namepolice = vRP.getUserIdentity(v.nuser_id).name.." "..vRP.getUserIdentity(v.nuser_id).name2
+				table.insert(result[5],{ police = namepolice, services = v.prison, fines = v.multa, date = v.date, text = v.text })
+			end
+		end
+		
+		if vRP.wantedReturn(passaporte) then
+			result[7] = true
+		else
+			result[7] = false
+		end
+	else
+		
+		result[1] = false
+	end
+	
+	return result
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATEPORT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function cRP.updatePort(passaporte)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	
+	if user_id then
+		local identity = vRP.getUserIdentity(passaporte)
+
+		if identity.porte == "não" then
+			vRP.execute("vRP/update_port",{ user_id = passaporte, porte = "sim" })
+		else
+			vRP.execute("vRP/update_port",{ user_id = passaporte, porte = "não" })
+		end
+		TriggerClientEvent("police:Update",source,"reloadSearch",passaporte)
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("rprender",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
+
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			local nuser_id = vRP.prompt(source,"Passaporte da pessoa:","")
@@ -178,6 +240,7 @@ end)
 function cRP.checkKey()
     local source = source
     local user_id = vRP.getUserId(source)
+
     if user_id then
         if vRP.wantedReturn(user_id) then
             return false
@@ -198,6 +261,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.callPolice()
 	local copAmount = vRP.numPermission("Police")
+	
 	for k,v in pairs(copAmount) do
 		async(function()
 			TriggerClientEvent("Notify",v,"amarelo","Encontramos um fugitivo do presídio.",5000)
@@ -212,6 +276,7 @@ end
 function cRP.reducePrison()
 	local source = source
 	local user_id = vRP.getUserId(source)
+
 	if user_id then
 		vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 1 })
 
@@ -292,6 +357,7 @@ RegisterNetEvent("police:runPlate")
 AddEventHandler("police:runPlate",function()
     local source = source
 	local user_id = vRP.getUserId(source)
+
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			if vRPclient.getHealth(source) > 101 then
@@ -322,6 +388,7 @@ RegisterNetEvent("police:runArrest")
 AddEventHandler("police:runArrest",function()
     local source = source
 	local user_id = vRP.getUserId(source)
+
 	if user_id then
 		if vRP.hasPermission(user_id,"Police") then
 			if vRPclient.getHealth(source) > 101 then

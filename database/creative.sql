@@ -123,6 +123,17 @@ CREATE TABLE `vrp_player_houses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 CHECKSUM=1;
 
+CREATE TABLE `vrp_prison` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `prison` int(11) NOT NULL DEFAULT 0,
+  `multa` int(11) NOT NULL DEFAULT 0,
+  `text` varchar(200) DEFAULT NULL,
+  `date` varchar(50) DEFAULT NULL,
+  `nuser_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+
 DROP TABLE IF EXISTS `vrp_races`;
 CREATE TABLE `vrp_races` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -173,12 +184,13 @@ CREATE TABLE `vrp_users` (
   `bank` int(12) NOT NULL DEFAULT 1500,
   `garage` int(3) NOT NULL DEFAULT 2,
   `prison` int(6) NOT NULL DEFAULT 0,
+  `porte` varchar(3) DEFAULT 'não',
   `locate` int(1) NOT NULL DEFAULT 1,
   `loc` varchar(5) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT 'Sul',
   `deleted` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `vrp_vehicles`;
 CREATE TABLE `vrp_vehicles` (

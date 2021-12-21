@@ -130,6 +130,20 @@ RegisterCommand("itemall",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKRADIO
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("checkradio",function(source,args,rawCommand)
+  local user_id = vRP.getUserId(source)
+    if user_id and args[1] then
+        if vRP.hasPermission(user_id,"Owner") or vRP.hasPermission(user_id,"Admin") then
+          local frequency = vCLIENT.checkRadio(vRP.getUserSource(tonumber(args[1])))
+            if frequency then
+                TriggerClientEvent("Notify",source,"amarelo","A frequência do Passaporte <b>"..args[1].."</b> é <b>"..frequency..".0Mhz</b>.",10000)
+            end
+        end
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDMONEY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("addmoney",function(source,args,rawCommand)
