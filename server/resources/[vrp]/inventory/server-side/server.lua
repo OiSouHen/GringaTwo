@@ -18,6 +18,7 @@ vSURVIVAL = Tunnel.getInterface("survival")
 vPLAYER = Tunnel.getInterface("player")
 vHOMES = Tunnel.getInterface("homes")
 vTASKBAR = Tunnel.getInterface("taskbar")
+vPLANTS = Tunnel.getInterface("plants")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1668,6 +1669,50 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						
 						TriggerClientEvent("inventory:Update",source,"updateMochila")
 					end
+					
+					if itemName == "compost" or itemName == "bucket" or itemName == "cannabisseed" then
+						local homeEnter = vHOMES.getHomeStatistics(source)
+						if homeEnter == "" then
+							local weWater = vPLANTS.checkWater(source)
+							if weWater then
+								TriggerClientEvent("Notify",source,"negado","Só pode ser plantado em terra firme.",3000)
+								return
+							end
+
+							--local weCounts = vPLANTSS.getAmount(user_id)
+							--if parseInt(weCounts) >= 50 then
+								--TriggerClientEvent("Notify",source,"negado","O limite máximo de plantações foi atingido.",3000)
+								--return
+							--else
+								local status,x,y,z = vPLANTS.entityInWorldCoords(source)
+								if status and vRP.getInventoryItemAmount(user_id,"compost") >= 1 and vRP.getInventoryItemAmount(user_id,"bucket") >= 1 and vRP.getInventoryItemAmount(user_id,"cannabisseed") >= 1 then
+									active[user_id] = 5
+									vRPclient.stopActived(source)
+									vCLIENT.closeInventory(source)
+									vCLIENT.blockButtons(source,true)
+									TriggerClientEvent("Progress",source,5000,"Utilizando...")
+									vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+
+									repeat
+										if active[user_id] == 0 then
+											active[user_id] = nil
+											vRPclient._stopAnim(source,false)
+											vCLIENT.blockButtons(source,false)
+
+											if vRP.tryGetInventoryItem(user_id,"compost",1,true) and vRP.tryGetInventoryItem(user_id,"bucket",1,true) and vRP.tryGetInventoryItem(user_id,"cannabisseed",1,true) then
+												vRP.weedTimer(user_id,1)
+												vRP.upgradeStress(user_id,1)
+												vPLANTS.pressPlants(source,x,y,z)
+											end
+										end
+										Citizen.Wait(0)
+									until active[user_id] == nil
+								else
+									TriggerClientEvent("Notify",source,"amarelo","Você não possúi os itens necessários.",5000)
+								end
+							--end
+						end
+					end
 
 					if itemName == "tires" then
 						if not vRPclient.inVehicle(source) then
@@ -2195,13 +2240,13 @@ AddEventHandler("inventory:dropItem",function(itemName,amount,bole)
 				TriggerEvent("itemdrop:Create",itemName,parseInt(amount),source,durability)
 				vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
 				TriggerClientEvent("inventory:Update",source,"updateMochila")
-				vCLIENT.closeInventory(source)
+				--vCLIENT.closeInventory(source)
 			end
 		else
 			TriggerEvent("itemdrop:Create",itemName,parseInt(amount),source)
 			vRPclient._playAnim(source,true,{"pickup_object","pickup_low"},false)
 			TriggerClientEvent("inventory:Update",source,"updateMochila")
-			vCLIENT.closeInventory(source)
+			--vCLIENT.closeInventory(source)
 		end
 	end
 	
@@ -2258,13 +2303,13 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
     else
     if vRP.computeInvWeight(user_id) + vRP.itemWeightList(tostring(droplist[id].item)) * parseInt(droplist[id].count) <= vRP.getBackpack(user_id) then
 	TriggerClientEvent("inventory:Update",source,"updateMochila")
-	vCLIENT.closeInventory(source)
+	--vCLIENT.closeInventory(source)
         if droplist[id].count - amount >= 1 then 
 			if vRP.itemSubTypeList(droplist[id].item) then
 				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
 					TriggerClientEvent("Notify",source,"vermelho","Você já possui esse tipo de item.",5000)
 					TriggerClientEvent("inventory:Update",source,"updateMochila")
-					vCLIENT.closeInventory(source)
+				--	vCLIENT.closeInventory(source)
 					return
 				else
 					TriggerClientEvent("itemdrop:Remove",-1,id)
@@ -2278,7 +2323,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				end
 			else
 				TriggerClientEvent("itemdrop:Remove",-1,id)
-				vCLIENT.closeInventory(source)
+			--	vCLIENT.closeInventory(source)
 				vRP.giveInventoryItem(user_id,tostring(droplist[id].item),parseInt(amount),true,slot,parseInt(droplist[id].durability))
 				local newamount = droplist[id].count - amount
 				vCLIENT.dropItem(source,droplist[id].item,newamount)
@@ -2294,7 +2339,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
 				if vRP.getInventoryItemAmount(user_id,droplist[id].item) > 0 then
 					TriggerClientEvent("Notify",source,"vermelho","Você já possui esse tipo de item.",5000)
 					TriggerClientEvent("inventory:Update",source,"updateMochila")
-					vCLIENT.closeInventory(source)
+				--	vCLIENT.closeInventory(source)
 					return
 				else
 					TriggerClientEvent("itemdrop:Remove",-1,id)
@@ -2315,7 +2360,7 @@ AddEventHandler("itemdrop:Pickup",function(id,slot,amount)
         end
     else
         TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",3000)
-		vCLIENT.closeInventory(source)
+		--vCLIENT.closeInventory(source)
 		TriggerClientEvent("inventory:Update",source,"updateMochila")
         end
     end

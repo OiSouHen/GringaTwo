@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
         SetParkedVehicleDensityMultiplierThisFrame(0.2)
         SetVehicleDensityMultiplierThisFrame(0.0)
 		
-		SetArtificialLightsState(true)
+--		SetArtificialLightsState(true)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

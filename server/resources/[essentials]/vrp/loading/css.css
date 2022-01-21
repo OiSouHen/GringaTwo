@@ -16,14 +16,3 @@ video {
 	position: fixed;
 	object-fit: cover;
 }
-
-#gringa {
-	top: 75px;
-	right: 75px;
-	bottom: 0;
-	z-index: 999;
-	width: 101px;
-	height: 78px;
-	position: absolute;
-	background: url("gringa.png") no-repeat;
-}
