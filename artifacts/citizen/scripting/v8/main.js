@@ -160,7 +160,7 @@ const EXT_LOCALFUNCREF = 11;
 								cb([v], null);
 						}).catch(err => {
 							if (cb != null)
-								cb(null, err);
+								cb(null, err.message)
 						});
 					}}]);
 				}
@@ -685,6 +685,10 @@ const EXT_LOCALFUNCREF = 11;
 
 		return ent;
 	};
+
+	if (!isDuplicityVersion) {
+		global.LocalPlayer = Player(-1);
+	}
 
 	/*
 	BEGIN
