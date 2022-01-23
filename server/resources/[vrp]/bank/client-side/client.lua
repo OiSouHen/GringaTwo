@@ -11,51 +11,32 @@ cRP = {}
 Tunnel.bindInterface("bank",cRP)
 vSERVER = Tunnel.getInterface("bank")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LOCALIDADES
+-- BANKCOORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-local localidades = {
-	{ -1212.63,-330.80,37.78 },
-	{ 149.85,-1040.71,29.37 },
-	{ -2962.56,482.95,15.70 },
-	{ -111.97,6469.19,31.62 },
-	{ 1175.05,2706.90,38.09 },
-	{ -351.02,-49.97,49.04 },
-	{ 314.13,-279.09,54.17 }
+local bankcoords = {
+	{ 241.45,225.37,106.29 },
+	{ 243.2,224.79,106.29 },
+	{ 246.54,223.56,106.29 },
+	{ 248.37,222.91,106.29 },
+	{ 251.77,221.74,106.29 },
+	{ 253.54,221.11,106.29 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADHOVERFY
+-- BANK:OPENSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	local innerTable = {}
-	for k,v in pairs(localidades) do
-		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Banco Fleeca","Pressione para abrir" })
-	end
-
-	TriggerEvent("hoverfy:insertTable",innerTable)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- OPENSHOP
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	SetNuiFocus(false,false)
-	while true do
-		local timeDistance = 999
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			local coords = GetEntityCoords(ped)
-			for k,v in pairs(localidades) do
-				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1 then
-					timeDistance = 4
-					if IsControlJustPressed(1,38) then				
-						SetNuiFocus(true,true)
-						SendNUIMessage({ action = "showMenu" })
-					end
-				end
+RegisterNetEvent("bank:openSystem")
+AddEventHandler("bank:openSystem",function()
+	local ped = PlayerPedId()
+	if not IsPedInAnyVehicle(ped) then
+		local coords = GetEntityCoords(ped)
+		for k,v in pairs(bankcoords) do
+			local distance = #(coords - vector3(v[1],v[2],v[3]))
+			if distance <= 1 then
+				SetNuiFocus(true,true)
+				SendNUIMessage({ action = "showMenu" })
+				vRP._playAnim(false,{"amb@prop_human_atm@male@base","base"},true)
 			end
 		end
-
-		Citizen.Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,6 +45,7 @@ end)
 RegisterNUICallback("bankClose",function(data)
 	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hideMenu" })
+	vRP._stopAnim()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BANKCLOSEEVENT
@@ -104,6 +86,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,288,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
+		
 		Citizen.Wait(timeDistance)
 	end
 end)
@@ -115,6 +98,7 @@ RegisterNUICallback("requestBank",function(data,cb)
 	while identity do
 		Citizen.Wait(10)
 	end
+	
 	if resultado then
 		cb({ resultado = resultado })
 	end

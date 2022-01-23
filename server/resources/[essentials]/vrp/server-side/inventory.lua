@@ -396,7 +396,7 @@ local itemlist = {
 		name = "Balde",
 		tipo = "Usável",
 		type = "use",
-		weight = 2.25
+		weight = 0.50
 	},
 	["compost"] = {
 		index = "compost",
@@ -407,10 +407,10 @@ local itemlist = {
 	},
 	["weed"] = {
 		index = "weed",
-		name = "Maconha",
+		name = "Folhas de Maconha",
 		tipo = "Usável",
 		type = "use",
-		weight = 1.00
+		weight = 0.10
 	},
 	["lean"] = {
 		index = "lean",

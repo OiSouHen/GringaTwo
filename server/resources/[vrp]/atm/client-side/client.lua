@@ -33,8 +33,6 @@ end)
 RegisterNUICallback("close",function(data)
 	SetNuiFocus(false,false)
 	SendNUIMessage({ action = "hide" })
-	vRP._playAnim(false,{"amb@prop_human_atm@male@exit","exit"},false)
-	Citizen.Wait(4000)
 	vRP._stopAnim()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

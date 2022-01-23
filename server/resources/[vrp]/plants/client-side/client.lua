@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
 				end
 			else
 				if weObjects[k] then
-					TriggerEvent("weplants:removeExists",k)
+					TriggerEvent("plants:removeExists",k)
 				end
 			end
 		end
@@ -79,18 +79,18 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TABLEUPDATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("weplants:tableUpdate")
-AddEventHandler("weplants:tableUpdate",function(status)
+RegisterNetEvent("plants:tableUpdate")
+AddEventHandler("plants:tableUpdate",function(status)
 	wePlants = status
 
 	for k,v in pairs(wePlants) do
 		if DoesEntityExist(weObjects[k]) then
 			if v[4] == 40 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 			elseif v[4] == 70 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 			elseif v[4] == 100 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 			end
 		end
 	end
@@ -98,20 +98,20 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOGIN
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("weplants:tableUpdateLogin")
-AddEventHandler("weplants:tableUpdateLogin",function(status)
+RegisterNetEvent("plants:tableUpdateLogin")
+AddEventHandler("plants:tableUpdateLogin",function(status)
 	wePlants = status
 
 	for k,v in pairs(wePlants) do
 		if DoesEntityExist(weObjects[k]) then
 			if v[4] <= 40 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 				createModels(k,weHashsB,v[1],v[2],v[3])
 			elseif v[4] <= 70 and v[4] >= 40 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 				createModels(k,weHashsC,v[1],v[2],v[3])
 			elseif v[4] >= 100 then
-				TriggerEvent("weplants:removeExists",k)
+				TriggerEvent("plants:removeExists",k)
 				createModels(k,weHashsD,v[1],v[2],v[3])
 			end
 		end
@@ -138,8 +138,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEEXISTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("weplants:removeExists")
-AddEventHandler("weplants:removeExists",function(id)
+RegisterNetEvent("plants:removeExists")
+AddEventHandler("plants:removeExists",function(id)
 	if DoesEntityExist(weObjects[id]) then
 		SetEntityAsMissionEntity(weObjects[id],false,false)
 		DeleteEntity(weObjects[id])

@@ -39,11 +39,11 @@ Citizen.CreateThread(function()
 				end
 
 				wePlants[k] = nil
-				TriggerClientEvent("weplants:removeExists",-1,k)
+				TriggerClientEvent("plants:removeExists",-1,k)
 			end
 		end
 
-		TriggerClientEvent("weplants:tableUpdate",-1,wePlants)
+		TriggerClientEvent("plants:tableUpdate",-1,wePlants)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -71,15 +71,15 @@ function cRP.pressPlants(x,y,z)
 		end
 
 		wePlants[tostring(number)] = { mathLegth(x),mathLegth(y),mathLegth(z),0,parseInt(user_id) }
-		TriggerClientEvent("weplants:tableUpdate",-1,wePlants)
+		TriggerClientEvent("plants:tableUpdate",-1,wePlants)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEPLANTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.removePlants(id)
-	TriggerClientEvent("weplants:removeExists",-1,id)
-	TriggerClientEvent("weplants:tableUpdate",-1,wePlants)
+	TriggerClientEvent("plants:removeExists",-1,id)
+	TriggerClientEvent("plants:tableUpdate",-1,wePlants)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTSERVICE
@@ -97,6 +97,7 @@ function cRP.getAmount(user_id)
 	if weCounts[tostring(user_id)] then
 		return weCounts[tostring(user_id)]
 	end
+	
 	return 0
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -129,7 +130,7 @@ function cRP.checkTimers(id)
 				vRP.giveInventoryItem(user_id,"weed",parseInt(weAmount[source]),true)
 				vRP.giveInventoryItem(user_id,"bucket",1,true)
 				if math.random(100) >= 50 then
-					vRP.giveInventoryItem(user_id,"cannabisseed",1,true)
+					vRP.giveInventoryItem(user_id,"joint2",1,true)
 				end
 				weAmount[source] = nil
 				return true
@@ -137,6 +138,7 @@ function cRP.checkTimers(id)
 				TriggerClientEvent("Notify",source,"vermelho","<b>Mochila</b> cheia.",5000)
 			end
 		end
+		
 		return false
 	end
 end
@@ -144,7 +146,7 @@ end
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	TriggerClientEvent("weplants:tableUpdateLogin",source,wePlants)
+	TriggerClientEvent("plants:tableUpdateLogin",source,wePlants)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADMIN:KICKALL

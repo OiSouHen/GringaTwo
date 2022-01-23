@@ -359,6 +359,90 @@ Citizen.CreateThread(function()
 			}
 		}
 	})
+	
+	AddCircleZone("bankOpen01",vector3(241.45,225.37,106.29),0.75,{
+		name = "bankOpen01",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("bankOpen02",vector3(243.2,224.79,106.29),0.75,{
+		name = "bankOpen02",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("bankOpen03",vector3(246.54,223.56,106.29),0.75,{
+		name = "bankOpen03",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("bankOpen04",vector3(248.37,222.91,106.29),0.75,{
+		name = "bankOpen04",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("bankOpen05",vector3(251.77,221.74,106.29),0.75,{
+		name = "bankOpen05",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
+	
+	AddCircleZone("bankOpen06",vector3(253.54,221.11,106.29),0.75,{
+		name = "bankOpen06",
+		heading = 42.52
+	},{
+		distance = 1.0,
+		options = {
+			{
+				event = "bank:openSystem",
+				label = "Abrir",
+				tunnel = "client"
+			}
+		}
+	})
 
 	AddCircleZone("drugsToggle01",vector3(-1174.37,-898.99,13.75),0.5,{
 		name = "drugsToggle01",
