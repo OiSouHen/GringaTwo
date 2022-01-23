@@ -230,20 +230,22 @@ function startthreadservice()
 						timeDistance = 4
 						DrawText3D(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3],"~g~E~w~  CONTINUAR")
 						makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+						
 						if deliverDis <= 0.6 and IsControlJustPressed(1,38) and timeSeconds <= 0 then
-						    if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
+							if GetEntityModel(GetPlayersLastVehicle()) == vehModel then
 								timeSeconds = 2
-							if vSERVER.paymentMethod() then
-								deSelected = math.random(#deliver)
-								makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
-							end
+								if vSERVER.paymentMethod() then
+									deSelected = math.random(#deliver)
+									makeDeliveryMarked(deliver[deSelected][1],deliver[deSelected][2],deliver[deSelected][3])
+								end
 							else
-								TriggerEvent("Notify","amarelo","Você precisa utilizar o veículo do <b>Transportador</b>.",3000)
-							end
+								TriggerEvent("Notify","amarelo","Precisa utilizar o veículo do <b>Transportador</b>.",3000)
+								end
 						end
 					end
 				end
 			end
+			
 			Citizen.Wait(timeDistance)
 		end
 	end)

@@ -64,7 +64,7 @@ AddEventHandler("police:openSystem",function()
 		SendNUIMessage({ action = "openSystem" })
 		TriggerEvent("dynamic:closeSystem")
 		SetNuiFocus(true,true)
-
+			
 		if not IsPedInAnyVehicle(ped) then
 			vRP.removeObjects()
 			vRP.createObjects("amb@code_human_in_bus_passenger_idles@female@tablet@base","base","prop_cs_tablet",50,28422)

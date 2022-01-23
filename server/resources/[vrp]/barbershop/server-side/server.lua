@@ -35,9 +35,10 @@ function cRP.updateSkin(myClothes)
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEBUG
+-- BARBERSHOP:DEBUGSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("debug",function(source,args,rawCommand)
+RegisterNetEvent("barbershop:debugSystem")
+AddEventHandler("barbershop:debugSystem",function(debugSystem)
     local user_id = vRP.getUserId(source)
     if user_id then
         if not vRPclient.inVehicle(source) then

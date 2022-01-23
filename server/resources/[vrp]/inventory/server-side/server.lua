@@ -689,16 +689,6 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						    vCLIENT.closeInventory(source)
 						TriggerClientEvent("notebook:openSystem",source)
 					end
-
-					if itemName == "coptablet" then
-					    if vRP.hasPermission(user_id,"Police") then
-						    vCLIENT.closeInventory(source)
-						    TriggerClientEvent("police:openSystem",source)
-						else
-						    vCLIENT.closeInventory(source)
-						    TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível para você.",5000)
-						end
-					end
 					
 					if itemName == "whistle" then
 						vCLIENT.closeInventory(source)

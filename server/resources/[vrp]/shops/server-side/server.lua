@@ -176,7 +176,6 @@ local shops = {
 			["rubber"] = 8,
 			["cellphone"] = 285,
 			["nbcellphone"] = 285,
-			["cellphonedamaged"] = 240,
 			["mbattery"] = 22,
 			["key"] = 45,
 			["copper"] = 12,
@@ -221,7 +220,6 @@ local shops = {
 			["firecracker"] = 100,
 			["rose"] = 25,
 			["radio"] = 975,
-			["tablet"] = 125,
 			["teddy"] = 75,
 			["vape"] = 4750,
 		}
@@ -308,7 +306,6 @@ local shops = {
 			["WEAPON_SMG_AMMO"] = 16,
 			["WEAPON_SAWNOFFSHOTGUN"] = 4250,
 			["WEAPON_SAWNOFFSHOTGUN_AMMO"] = 17,
-			["coptablet"] = 125,
 			["WEAPON_STUNGUN"] = 2250
 		}
 	},

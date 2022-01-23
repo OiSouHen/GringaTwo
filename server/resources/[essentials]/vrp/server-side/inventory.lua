@@ -100,22 +100,6 @@ local itemlist = {
 		type = "use",
 		weight = 7.25
 	},
-    ["tablet"] = {
-	    index = "tablet",
-		name = "Tablet Particular",
-		tipo = "Usável",
-		economy = "125",
-		type = "use",
-		weight = 0.15
-	},
-	["coptablet"] = {
-		index = "coptablet",
-		name = "Tablet Policial",
-		tipo = "Usável",
-		economy = "125",
-		type = "use",
-		weight = 0.15
-	},
 	["foodburger"] = {
 		index = "foodburger",
 		name = "Caixa de Hamburger",
@@ -737,21 +721,12 @@ local itemlist = {
 		weight = 0.75
 	},
 	["nbcellphone"] = {
-        index = "nbcellphone",
+        index = "cellphone",
         name = "Celular Descarregado",
 		desc = "Celular sem bateria",
 		tipo = "Comum",
         type = "use",
         weight = 0.75
-    },
-	["cellphonedamaged"] = {
-        index = "cellphonedamaged",
-        name = "Celular Queimado",
-		desc = "Celular totalmente queimado",
-		tipo = "Eletrônico",
-		economy = "240",
-        type = "use",
-        weight = 0.85
     },
 	["mbattery"] = {
 		index = "mbattery",
