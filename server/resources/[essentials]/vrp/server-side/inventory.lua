@@ -415,6 +415,27 @@ local itemlist = {
 		type = "use",
 		weight = 0.10
 	},
+	["bucket"] = {
+		index = "bucket",
+		name = "Balde",
+		tipo = "Usável",
+		type = "use",
+		weight = 2.25
+	},
+	["compost"] = {
+		index = "compost",
+		name = "Adubo",
+		tipo = "Usável",
+		type = "use",
+		weight = 0.30
+	},
+	["weed"] = {
+		index = "weed",
+		name = "Maconha",
+		tipo = "Usável",
+		type = "use",
+		weight = 1.00
+	},
 	["lean"] = {
 		index = "lean",
 		name = "Lean",

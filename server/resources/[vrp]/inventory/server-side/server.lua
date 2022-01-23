@@ -1670,7 +1670,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						TriggerClientEvent("inventory:Update",source,"updateMochila")
 					end
 					
-					if itemName == "compost" or itemName == "bucket" or itemName == "cannabisseed" then
+					if itemName == "compost" or itemName == "bucket" or itemName == "joint2" then
 						local homeEnter = vHOMES.getHomeStatistics(source)
 						if homeEnter == "" then
 							local weWater = vPLANTS.checkWater(source)
@@ -1685,7 +1685,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								--return
 							--else
 								local status,x,y,z = vPLANTS.entityInWorldCoords(source)
-								if status and vRP.getInventoryItemAmount(user_id,"compost") >= 1 and vRP.getInventoryItemAmount(user_id,"bucket") >= 1 and vRP.getInventoryItemAmount(user_id,"cannabisseed") >= 1 then
+								if status and vRP.getInventoryItemAmount(user_id,"compost") >= 1 and vRP.getInventoryItemAmount(user_id,"bucket") >= 1 and vRP.getInventoryItemAmount(user_id,"joint2") >= 1 then
 									active[user_id] = 5
 									vRPclient.stopActived(source)
 									vCLIENT.closeInventory(source)
@@ -1699,7 +1699,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											vRPclient._stopAnim(source,false)
 											vCLIENT.blockButtons(source,false)
 
-											if vRP.tryGetInventoryItem(user_id,"compost",1,true) and vRP.tryGetInventoryItem(user_id,"bucket",1,true) and vRP.tryGetInventoryItem(user_id,"cannabisseed",1,true) then
+											if vRP.tryGetInventoryItem(user_id,"compost",1,true) and vRP.tryGetInventoryItem(user_id,"bucket",1,true) and vRP.tryGetInventoryItem(user_id,"joint2",1,true) then
 												vRP.weedTimer(user_id,1)
 												vRP.upgradeStress(user_id,1)
 												vPLANTS.pressPlants(source,x,y,z)

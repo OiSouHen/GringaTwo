@@ -13,16 +13,15 @@ vSERVER = Tunnel.getInterface("eletronics")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local machineTimer = 0
-local atmPosX = 0.0
-local atmPosY = 0.0
-local atmPosZ = 0.0
 local machineStart = false
-local currentTimer = GetGameTimer()
+local machineTimer = 0
+local machinePosX = 0.0
+local machinePosY = 0.0
+local machinePosZ = 0.0
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ATMLIST
+-- MACHINES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local atmList = {
+local machines = {
 	{ 228.18,338.4,105.56,158.75 },
 	{ 158.63,234.22,106.63,343.0 },
 	{ -57.67,-92.62,57.78,294.81 },
@@ -183,33 +182,26 @@ AddEventHandler("eletronics:openSystem",function(shopId)
 	if not machineStart then
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
-			for k,v in pairs(atmList) do
+			for k,v in pairs(machines) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1.0 then
-					if vSERVER.checkSystems() then
-					    atmPosX = v[1]
-						atmPosY = v[2]
-						atmPosZ = v[3]
-						
-					    machineStart = true
-						
-						TriggerEvent("Progress",30000)
-						TriggerEvent("cancelando",true)
-						TriggerEvent("player:blockCommands",true)
-						SetEntityHeading(ped,atmList[shopId][4])
-						vRP.playAnim(false,{"oddjobs@shop_robbery@rob_till","loop"},true)
-						SetEntityCoords(ped,atmList[shopId][1],atmList[shopId][2],atmList[shopId][3] - 1,1,0,0,0)
-
-						Citizen.Wait(30000)
-						
-						TriggerEvent("player:blockCommands",false)
-					    TriggerEvent("cancelando",false)
-					    vRP.removeObjects()
-						machineStart = false
-						machineTimer = math.random(30,40)
-						
-						vSERVER.callPolice(atmPosX,atmPosY,atmPosZ)
-					end
+				if distance <= 0.6 then
+						if vSERVER.startMachine() then
+							machinePosX = v[1]
+							machinePosY = v[2]
+							machinePosZ = v[3]
+							SetEntityHeading(ped,v[4])
+							TriggerEvent("cancelando",true)
+							SetEntityCoords(ped,v[1],v[2],v[3]-1)
+							vRP._playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+							
+							Citizen.Wait(10000)
+							
+							machineStart = true
+							vRP.removeObjects()
+							TriggerEvent("cancelando",false)
+							machineTimer = math.random(30,40)
+							vSERVER.callPolice(machinePosX,machinePosY,machinePosZ)
+						end
 				end
 			end
 		end

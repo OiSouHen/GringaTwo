@@ -13,28 +13,28 @@ Tunnel.bindInterface("eletronics",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local machineTimer = 35
+local machineGlobal = 1200
 local machineStart = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkSystems()
+function cRP.startMachine()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) >= 2 then
+		if parseInt(#copAmount) >= 3 then
 			TriggerClientEvent("Notify",source,"amarelo","Sistema indisponível no momento.",5000)
 			return false
-		elseif parseInt(machineTimer) > 0 then
-			TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(machineTimer).."</b> segundos.",5000)
+		elseif parseInt(machineGlobal) > 0 then
+			TriggerClientEvent("Notify",source,"azul","Aguarde <b>"..parseInt(machineGlobal).."</b> segundos.",5000)
 			return false
 		else
 			if not machineStart then
 				machineStart = true
-				machineTimer = 35
+				machineGlobal = 1200
 				vRP.upgradeStress(user_id,10)
-				vRP.wantedTimer(parseInt(user_id),600)
+				vRP.wantedTimer(parseInt(user_id),300)
 				return true
 			end
 		end
@@ -56,26 +56,24 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOPMACHINE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.paymentSystems(x,y,z)
+function cRP.stopMachine(x,y,z)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if machineStart then
 			machineStart = false
 			local grid = vRP.getGridzone(x,y)
-			TriggerEvent("itemdrop:Create","dollars",parseInt(math.random(15000,17500)),x,y,z,source)
-			
-			TriggerClientEvent("Notify",source,"azul","Quero dar",5000)
+			TriggerEvent("itemdrop:Create","dollars",parseInt(math.random(15000,17500)),x,y,z,grid)
 
 			local random = math.random(100)
 			if parseInt(random) >= 75 then
-				TriggerEvent("itemdrop:Create","aluminum",parseInt(math.random(10,20)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","aluminum",parseInt(math.random(10,20)),x,y,z,grid)
 			elseif parseInt(random) >= 50 and parseInt(random) <= 74 then
-				TriggerEvent("itemdrop:Create","rubber",parseInt(math.random(25,50)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","rubber",parseInt(math.random(25,50)),x,y,z,grid)
 			elseif parseInt(random) >= 25 and parseInt(random) <= 49 then
-				TriggerEvent("itemdrop:Create","plastic",parseInt(math.random(25,50)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","plastic",parseInt(math.random(25,50)),x,y,z,grid)
 			elseif parseInt(random) <= 24 then
-				TriggerEvent("itemdrop:Create","copper",parseInt(math.random(10,20)),x,y,z,source)
+				TriggerEvent("itemdrop:Create","copper",parseInt(math.random(10,20)),x,y,z,grid)
 			end
 		end
 	end
@@ -85,13 +83,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
 	while true do
-		if parseInt(machineTimer) > 0 then
-			machineTimer = parseInt(machineTimer) - 1
-			if parseInt(machineTimer) <= 0 then
+		if parseInt(machineGlobal) > 0 then
+			machineGlobal = parseInt(machineGlobal) - 1
+			if parseInt(machineGlobal) <= 0 then
 				machineStart = false
 			end
 		end
-		
 		Citizen.Wait(1000)
 	end
 end)

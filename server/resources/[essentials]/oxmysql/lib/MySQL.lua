@@ -8,12 +8,12 @@ local Store = {}
 local function safeArgs(query, parameters, cb, transaction)
 	if type(query) == 'number' then query = Store[query] end
 	if transaction then
-		assert(type(query) == 'table', ('A table was expected for the transaction, but instead received %s'):format(query))
+		assert(type(query) == 'table', ('Esperava-se uma tabela para a transação, mas, em vez disso, recebeu %s'):format(query))
 	else
-		assert(type(query) == 'string', ('A string was expected for the query, but instead received %s'):format(query))
+		assert(type(query) == 'string', ('Uma string era esperada para a consulta, mas foi recebida %s'):format(query))
 	end
 	if cb then
-		assert(type(cb) == 'function', ('A callback function was expected, but instead received %s'):format(cb))
+		assert(type(cb) == 'function', ('Uma função de retorno de chamada(callback) era esperada, mas recebeu %s'):format(cb))
 	end
 	local type = parameters and type(parameters)
 	if type and type ~= 'table' and type ~= 'function' then
@@ -171,7 +171,7 @@ end
 ---@return integer result
 ---returns the id used to reference a stored query string
 MySQL.Sync.store = function(query)
-	assert(type(query) == 'string', 'The SQL Query must be a string')
+	assert(type(query) == 'string', 'A consulta SQL deve ser uma string')
 	local store = #Store+1
 	Store[store] = query
 	return store
