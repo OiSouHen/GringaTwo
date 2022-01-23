@@ -1,13 +1,14 @@
-CHANGELOG 23.01
-1: Removido os itens Tablet e Tablet Policial.
+**CHANGELOG 23.01**
+**1:** Removido os itens **Tablet** e **Tablet Policial**.
      Os mesmos foram adicionados no F1 e F10.
-2: Removido o tablet do F1, todas as funções agora do mesmo são feitas na Concessionária.
-4: Adicionado a obrigação de utilizar o veículo Trash para vasculhar as lixeiras.
-4: Removido completamente o uso da Sucata de Metal.
-5: Ajustado a notificação dos alertas enviados pela administração.
-6: Removido o emprego de Taxi Aéreo.
-7: Removido o comando /debug, o mesmo foi colocado em Outros na função do F9.
-8: Removido o comando /vehs, todas as funções foram colocadas dentro do tablet na Concessionária.
-9: Modificado a forma que todas as consultas são feitas no banco de dados.
-10: Modificado o sistema das Corridas Clandestinas.
-     As mesmas estão espalhadas por todo o mapa, demarcados com um circulo vermelho o inicio de cada circuito. 
+**2:** Removido o tablet do **F1**, todas as funções agora do mesmo são feitas na **Concessionária**.
+**4:** Adicionado a obrigação de utilizar o veículo **Trash** para vasculhar as lixeiras.
+**4:** Removido completamente o uso da **Sucata de Metal**.
+**5:** Ajustado a notificação dos alertas enviados pela administração.
+**6:** Removido o emprego de **Taxi Aéreo**.
+**7:** Removido o comando **/debug**, o mesmo foi colocado em Outros na função do **F9**.
+**8:** Removido o comando **/vehs**, todas as funções foram colocadas dentro do tablet na **Concessionária**.
+**9:** Modificado a forma que todas as consultas são feitas no banco de dados.
+**10:** Modificado o sistema das **Corridas Clandestinas**.
+     As mesmas estão espalhadas por todo o mapa, demarcados com um circulo vermelho o inicio de cada circuito.
+**11:** Removido o **Minimapa Circular**.
