@@ -689,12 +689,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						    vCLIENT.closeInventory(source)
 						TriggerClientEvent("notebook:openSystem",source)
 					end
-					
-					if itemName == "tablet" then
-						    vCLIENT.closeInventory(source)
-						TriggerClientEvent("tablet:openSystem",source)
-					end
-					
+
 					if itemName == "coptablet" then
 					    if vRP.hasPermission(user_id,"Police") then
 						    vCLIENT.closeInventory(source)

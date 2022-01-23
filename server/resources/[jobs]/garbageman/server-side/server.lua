@@ -37,11 +37,10 @@ local searchTrashItens = {
 	[3] = { "plasticbottle",math.random(3,4) },
 	[4] = { "metalcan",math.random(3,4) },
 	[5] = { "battery",math.random(3,4) },
-	[6] = { "scrapmetal",math.random(1) },
-	[7] = { "titanium",math.random(2) },
-	[8] = { "syringe",math.random(1) },
-	[9] = { "fabric",math.random(2) },
-	[10] = { "metalfragments",math.random(2) }
+	[6] = { "titanium",math.random(2) },
+	[7] = { "syringe",math.random(1) },
+	[8] = { "fabric",math.random(2) },
+	[9] = { "metalfragments",math.random(2) }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEARCHTRASH
@@ -95,79 +94,6 @@ function cRP.searchObject(id)
 				timers[id] = 600
 				
 				vRP.upgradeStress(user_id,1)
-				return true
-			end
-			
-			return false
-		else
-			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SEARCHWASTEITENS
------------------------------------------------------------------------------------------------------------------------------------------
-local searchWasteItens = {
-	[1] = "scrapmetal"
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- SEARCHWASTE
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.searchWaste(id)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-	    if timers[id] == 0 or not timers[id] then
-		    if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
-			    return false
-		    else
-				vRP.giveInventoryItem(user_id,searchWasteItens[math.random(#searchWasteItens)],math.random(5,6),true)
-				timers[id] = 600
-				
-				vRP.upgradeStress(user_id,3)
-				return true
-			end
-			
-			return false
-		else
-			TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SEARCHCOINSITENS
------------------------------------------------------------------------------------------------------------------------------------------
-local searchCoinsItens = {
-	[1] = "silvercoin",
-	[2] = "dollars",
-	[3] = "goldcoin"
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- SEARCHCOINS
------------------------------------------------------------------------------------------------------------------------------------------
-function cRP.searchCoins(id)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-	    if timers[id] == 0 or not timers[id] then
-		    if vRP.computeInvWeight(user_id) + 1 > vRP.getBackpack(user_id) then
-			    TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
-			    return false
-		    else
-				vRP.giveInventoryItem(user_id,searchCoinsItens[math.random(#searchCoinsItens)],math.random(3,6),true)
-				timers[id] = 600
-				
-				vRP.wantedTimer(user_id,10)
-				vRP.upgradeStress(user_id,2)
-				
-				local x,y,z = vRPclient.getPositions(source)
-				local copAmount = vRP.numPermission("Police")
-				for k,v in pairs(copAmount) do
-				    async(function()
-				        TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 31, title = "Crime em Progresso.", criminal = "Roubo a Parquímetros.", x = x, y = y, z = z, rgba = {41,76,119} })
-				    end)
-				end
 				return true
 			end
 			

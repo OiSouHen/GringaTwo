@@ -50,14 +50,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.01
 	},
-    ["scrapmetal"] = {
-	    index = "scrapmetal",
-		name = "Sucata de Metal",
-		tipo = "Comum",
-		economy = "20",
-		type = "use",
-		weight = 0.05
-	},
     ["whistle"] = {
 	    index = "whistle",
 		name = "Apito Animal",

@@ -597,26 +597,15 @@ Citizen.CreateThread(function()
 		distance = 0.75
 	})
 	
-	AddTargetModel({ 322493792,-273279397,10106915,1120812170,-915224107,591265130,929870599,-896997473,2090224559,-1366478936,-52638650,-1748303324,1069797899,1898296526,1434516869 },{
+	AddTargetModel({ 829413118 },{
 		options = {
 			{
-				event = "garbageman:searchWaste",
-				label = "Sucatear",
+				event = "engine:openSystem",
+				label = "Abrir",
 				tunnel = "client"
 			}
 		},
-		distance = 0.75
-	})
-	
-	AddTargetModel({ -1940238623,2108567945 },{
-		options = {
-			{
-				event = "garbageman:searchCoins",
-				label = "Vasculhar",
-				tunnel = "client"
-			}
-		},
-		distance = 0.75
+		distance = 1.50
 	})
 	
 	AddCircleZone("workTrucker",vector3(1240.38,-3257.19,6.91),0.5,{

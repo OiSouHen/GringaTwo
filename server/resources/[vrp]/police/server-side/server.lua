@@ -307,8 +307,6 @@ function cRP.reducePrison()
 				vRP.giveInventoryItem(user_id,"metalcan",math.random(3),true)
 			elseif parseInt(random) >= 46 and parseInt(random) <= 56 then
 				vRP.giveInventoryItem(user_id,"battery",math.random(3),true)
-			elseif parseInt(random) >= 40 and parseInt(random) <= 45 then
-				vRP.giveInventoryItem(user_id,"scrapmetal",math.random(3),true)
 			elseif parseInt(random) >= 34 and parseInt(random) <= 39 then
 				vRP.giveInventoryItem(user_id,"wheatflour",math.random(1),true)
 			elseif parseInt(random) >= 24 and parseInt(random) <= 29 then
