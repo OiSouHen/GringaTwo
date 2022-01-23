@@ -151,7 +151,7 @@ local machines = {
 -- THREADTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-	for k,v in pairs(atmList) do
+	for k,v in pairs(machines) do
 		exports["target"]:AddCircleZone("eletronics:"..k,vector3(v[1],v[2],v[3]),0.5,{
 			name = "eletronics:"..k,
 			heading = v[4]

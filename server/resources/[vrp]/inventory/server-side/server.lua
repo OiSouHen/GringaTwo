@@ -2489,7 +2489,7 @@ end)
 -- STEALTRUNKITENS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local stealTrunk = {
-		[1] = { "joint",math.random(5,10) },
+		[1] = { "joint",math.random(1,3) },
 		[2] = { "dollars",math.random(500,800) },
 		[3] = { "plastic",math.random(10,15) },
 		[4] = { "glass",math.random(10,15) },
@@ -2542,7 +2542,7 @@ function cRP.stealTrunk(entity)
 				end
 				
 				vRP.upgradeStress(user_id,5)
-				vRP.wantedTimer(user_id,150)
+				vRP.wantedTimer(user_id,10)
 				vGARAGE.stopAnimHotwired(source)
 				
 				local x,y,z = vRPclient.getPositions(source)
