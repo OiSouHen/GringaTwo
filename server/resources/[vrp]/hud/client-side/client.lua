@@ -71,33 +71,6 @@ end)
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
-	DisplayRadar(false)
-
-	RequestStreamedTextureDict("circlemap",false)
-	while not HasStreamedTextureDictLoaded("circlemap") do
-		Citizen.Wait(100)
-	end
-
-	AddReplaceTexture("platform:/textures/graphics","radarmasksm","circlemap","radarmasksm")
-
-	SetMinimapClipType(1)
-
-	SetMinimapComponentPosition("minimap","L","B",0.0,0.0,0.158,0.28)
-	SetMinimapComponentPosition("minimap_mask","L","B",0.155,0.12,0.080,0.164)
-	SetMinimapComponentPosition("minimap_blur","L","B",-0.005,0.021,0.240,0.302)
-
-	Citizen.Wait(5000)
-
-	SetBigmapActive(true,false)
-
-	Citizen.Wait(100)
-
-	SetBigmapActive(false,false)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADTIMERS
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
 	while true do
 		if homeInterior then
 			SetWeatherTypeNow("CLEAR")

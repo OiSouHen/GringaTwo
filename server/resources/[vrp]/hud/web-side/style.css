@@ -371,22 +371,3 @@ svg {
 	background: #000;
 	position: absolute !important;
 }
-
-.map {
-	bottom: 4.5vh;
-	left: 2.7vh;
-	width: 28vh;
-	position: fixed;
-	overflow: hidden;
-	text-align: center;
-}
-
-.mapBorder {
-	top: 0;
-	width: 24vh;
-	height: 22vh;
-	border-radius: 50%;
-	position: relative;
-	display: inline-block;
-	border: 3px solid rgba(200,200,200,0.5);
-}
