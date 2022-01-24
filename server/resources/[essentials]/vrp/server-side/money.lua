@@ -43,7 +43,7 @@ function vRP.paymentBank(user_id,amount)
 
 				local source = vRP.getUserSource(user_id)
 				if source then
-					TriggerClientEvent("itensNotify",source,{ "-","dollars",vRP.format(amount),"Dólares" })
+					TriggerClientEvent("itensNotify",source,{ "REMOVIDO","dollars",vRP.format(amount),"Dólares" })
 					TriggerClientEvent("sounds:source",source,"cash",0.3)
 				end
 				return true

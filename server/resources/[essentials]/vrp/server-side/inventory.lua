@@ -2965,7 +2965,7 @@ end
 						end
 		
 						if notify and vRP.itemBodyList(idname) then
-							TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(1)),vRP.itemNameList(idname) })
+							TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(1)),vRP.itemNameList(idname) })
 						end
 						return true
 					end
@@ -2977,7 +2977,7 @@ end
 					end
 
 					if notify and vRP.itemBodyList(idname) then
-						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 					end
 					return true
 				end
@@ -2996,7 +2996,7 @@ end
 					end
 
 					if notify and vRP.itemBodyList(idname) then
-						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(1)),vRP.itemNameList(idname) })
+						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(1)),vRP.itemNameList(idname) })
 					end
 					return true
 				else
@@ -3010,7 +3010,7 @@ end
 					end
 
 					if notify and vRP.itemBodyList(idname) then
-						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 					end
 					return true
 				end
@@ -3033,7 +3033,7 @@ function vRP.tryGetInventoryItem(user_id,idname,amount,notify,slot)
 					end
 
 					if notify and vRP.itemBodyList(idname) then
-						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "REMOVIDO",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 					end
 					return true
 				end
@@ -3049,7 +3049,7 @@ function vRP.tryGetInventoryItem(user_id,idname,amount,notify,slot)
 				end
 
 				if notify and vRP.itemBodyList(idname) then
-					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "REMOVIDO",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 				end
 				return true
 			end
@@ -3073,7 +3073,7 @@ function vRP.removeInventoryItem(user_id,idname,amount,notify)
 				end
 
 				if notify and vRP.itemBodyList(idname) then
-					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "REMOVIDO",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 				end
 
 				break
