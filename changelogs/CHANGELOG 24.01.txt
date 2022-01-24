@@ -1,0 +1,13 @@
+**CHANGELOG 24.01**
+**1:** Removido todo o conteúdo utilizado o **Dólares Marcados**.
+     Tudo que recebia o mesmo foi modificado para receber dólares limpos.
+**2:** Ajustado as cores das mensagens flutuantes.
+**3:** Ajustado as cores do minigame da **Lockpick**.
+**4:** Adicionado novo vísual no **Inventário**.
+     O mesmo é válido aos baús e outros do mesmo conteúdo.
+**5:** Removido a função de **Economia** dos itens.
+**6:** Adicionado a numeração no inventário relacionado ao slot de itens rápidos.
+**7:** Adicionado o sistema de **Plantações**.
+     É necessário um Balde, Adubo e Sementes para plantar.
+**8:** Adicionado ao Vinewood Vault as funções de Depositar, Sacar e Receber.
+**9:** Modificado o horário dentro das residências de **20:00** para **00:00**.

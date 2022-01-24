@@ -275,7 +275,7 @@ function cRP.paymentMethod(vehicle)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local value = math.random(3500,7000)
-		vRP.giveInventoryItem(user_id,"dollarsz",parseInt(value),true)
+		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 		vRP.giveInventoryItem(user_id,normalItensList[math.random(#normalItensList)],math.random(12,24),true)
 		vRP.giveInventoryItem(user_id,specialItensList[math.random(#specialItensList)],math.random(6,12),true)
 		

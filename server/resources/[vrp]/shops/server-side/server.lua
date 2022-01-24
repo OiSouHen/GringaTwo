@@ -605,32 +605,6 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 								TriggerClientEvent("Notify",source,"vermelho","<b>Dólares</b> insuficientes.",3000)
 							end
 						end
-					elseif shops[shopType]["type"] == "Dirty" then
-						if shops[shopType]["list"][shopItem] then
-
-							if vRP.itemSubTypeList(shopItem) then
-								if vRP.getInventoryItemAmount(user_id,shopItem) > 0 then
-									TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000) return
-								end
-							end
-							
-							if vRP.itemSubTypeList(shopItem) then
-								TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",5000)
-								
-								if vRP.tryGetInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),true) then
-									if inv[tostring(slot)] then
-										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false)
-									else
-										TriggerClientEvent("shops:Update",source,"requestShop")
-										vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot) return
-									end
-									
-									TriggerClientEvent("sounds:source",source,"cash",0.3)
-								else
-									TriggerClientEvent("Notify",source,"vermelho","<b>Dólares Marcados</b> insuficientes.",3000)
-								end
-							end
-						end
 					elseif shops[shopType]["type"] == "Consume" then
 						if vRP.tryGetInventoryItem(parseInt(user_id),shops[shopType]["item"],parseInt(shops[shopType]["list"][shopItem]*shopAmount)) then
 							if inv[tostring(slot)] then
@@ -666,12 +640,6 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then	
 							vRP.giveInventoryItem(parseInt(user_id),"dollars",parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
 						end
-						
-					elseif shops[shopType]["type"] == "Dirty" then
-						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then	
-							vRP.giveInventoryItem(parseInt(user_id),"dollarsz",parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)
-						end
-						
 					elseif shops[shopType]["type"] == "Consume" then
 						if vRP.tryGetInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),true,slot) then
 							vRP.giveInventoryItem(parseInt(user_id),shops[shopType]["item"],parseInt(shops[shopType]["list"][shopItem]*shopAmount),false)

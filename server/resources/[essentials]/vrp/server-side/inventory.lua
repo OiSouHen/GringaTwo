@@ -1337,13 +1337,6 @@ local itemlist = {
 		type = "use",
 		weight = 0.0001
 	},
-	["dollarsz"] = {
-		index = "dollarsz",
-		name = "Dólares Marcados",
-		tipo = "Comum",
-		type = "use",
-		weight = 0.0001
-	},
 	["card01"] = {
 		index = "card01",
 		name = "Cartão Classic",

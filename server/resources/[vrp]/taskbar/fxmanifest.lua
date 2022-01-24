@@ -8,6 +8,11 @@ client_scripts {
 	"client-side/*"
 }
 
+server_scripts {
+	"@vrp/lib/utils.lua",
+	"server-side/*"
+}
+
 files {
 	"web-side/*"
 }
