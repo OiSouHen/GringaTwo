@@ -1,49 +1,85 @@
 .color-0 {
-	color: #c3c3c3;
+	color: #ebebeb;
 }
 
 .color-1 {
-	color: #ebebeb;
-	font-size: 14px;
+	color: #fef2b7;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 7px 3px;
+	background-color: #ab9117;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-2 {
-	color: #e0c117;
-	font-size: 14px;
+	color: #b9e5fe;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 5px 3px 7px;
+	background-color: #387191;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-3 {
-	color: #e0c117;
+	color: #a0ceb6;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 7px 3px;
+	background-color: #2e6e4c;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-4 {
-	color: #dadada;
+	color: #ffc0d0;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 7px 3px;
+	background-color: #982a46;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-5 {
-	color: #ff9293;
+	color: #dcc3ff;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 7px 3px;
+	background-color: #422865;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-6 {
-	color: #bfd863;
+	color: #ffbcbf;
+	font-size: 11px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	padding: 4px 7px 3px;
+	background-color: #7f151a;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 
 .color-7 {
-	color: #9ecdeb;
+	color: #ab9117;
 }
 
 .color-8 {
-	color: #3c3c3c;
-	font-size: 18px;
-	margin-left: 3px;
-	text-shadow: none;
+	color: #e4b433;
 }
 
 .color-9 {
-	color: #b61717;
-	font-size: 18px;
-	margin-left: 3px;
-	text-shadow: none;
+	color: #ccc;
+	font-size: 10px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	vertical-align: top;
+	padding: 4px 7px 4px;
+	font-family: "Roboto";
+	text-transform: uppercase;
+	background-color: rgba(15,15,15,.75);
 }
 
 * {
@@ -52,9 +88,9 @@
 	color: #fff;
 	font-size: 13px;
 	word-wrap: break-word;
+	font-family: "Roboto";
 	z-index: 900 !important;
-	text-shadow: 1px 1px rgba(0,0,0,1);
-	font-family: "Roboto",Arial,Helvetica,sans-serif;
+	text-shadow: 1px 1px #000;
 }
 
 .no-grow {
@@ -94,7 +130,7 @@ em {
 
 .prefix {
 	top: 7.5px;
-	color: #f0cb58;
+	color: #dac534;
 	position: absolute;
 	letter-spacing: 2.5px;
 }
@@ -116,7 +152,7 @@ textarea:focus, input:focus {
 
 .msg {
 	width: 500px;
-	line-height: 15px;
+	line-height: 20px;
 	margin-bottom: 10px;
 }
 
@@ -126,16 +162,14 @@ textarea:focus, input:focus {
 
 .suggestions {
 	width: 500px;
-	font-size: 13px;
 	margin-top: 10px;
 	line-height: 16px;
-	border-radius: 3px;
 	letter-spacing: 0.7px;
 	list-style-type: none;
 	box-sizing: border-box;
 	padding: 20px 20px 10px;
-	border-left: 5px solid #d5b44f;
-	background-color: rgba(0,0,0,0.5);
+	border-left: 5px solid #ad9d2c;
+	background-color: rgba(15,15,15,.75);
 }
 
 .help {

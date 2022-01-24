@@ -1,4 +1,4 @@
-# Creative v4 - GG Edition
+# Creative - GGRP Release
 
 > about: Pasta com arquivos sobre os Carros VIPs, Sets de grupos, Regras/Leis padrões, Tencode/Penal da Polícia e Premium para informações VIPs.
 

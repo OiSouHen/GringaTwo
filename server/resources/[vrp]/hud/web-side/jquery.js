@@ -1,3 +1,4 @@
+var lastRadio = ""
 var tickInterval = undefined;
 var lastHealth = 999;
 var lastArmour = 999;
@@ -5,26 +6,29 @@ var lastStress = 999;
 var lastHunger = 999;
 var lastOxigen = 999;
 var lastWater = 999;
-
+// -------------------------------------------------------------------------------------------
 $(document).ready(function(){
+	$(".voiceDisplay").css("--val","50");
+
 	window.addEventListener("message",function(event){
-		if (event["data"]["progress"] == true){
+		if (event["data"]["progress"] !== undefined){
 			var timeSlamp = event["data"]["progressTimer"];
 
-			if($("#progressBackground").css("display") === "block"){
-				$("#progressDisplay").css("stroke-dashoffset","100");
+			if ($("#progressBackground").css("display") === "block"){
+				$(".progressDisplay").css("--val","136");
 				$("#progressBackground").css("display","none");
+				$("#progressText").text("0");
 				clearInterval(tickInterval);
 				tickInterval = undefined;
 
 				return
 			} else {
 				$("#progressBackground").css("display","block");
-				$("#progressDisplay").css("stroke-dashoffset","100");
+				$(".progressDisplay").css("--val","136");
 			}
 
-			var tickPerc = 100;
-			var tickTimer = (timeSlamp / 100);
+			var tickPerc = 136;
+			var tickTimer = (timeSlamp / 136);
 			tickInterval = setInterval(tickFrame,tickTimer);
 
 			function tickFrame(){
@@ -34,12 +38,13 @@ $(document).ready(function(){
 					clearInterval(tickInterval);
 					tickInterval = undefined;
 					$("#progressBackground").css("display","none");
+					$("#progressText").text("0");
 				} else {
 					timeSlamp = timeSlamp - (timeSlamp / tickPerc);
 				}
 
-				$("#textProgress").html(parseInt(timeSlamp / 1000));
-				$("#progressDisplay").css("stroke-dashoffset",tickPerc);
+				$("#progressText").text(parseInt(timeSlamp / 1000));
+				$(".progressDisplay").css("--val",tickPerc);
 			}
 
 			return
@@ -75,29 +80,47 @@ $(document).ready(function(){
 			}
 		}
 
-		if (event["data"]["talking"] == true){
-			$("#voice").css("background","#333 url(images/micOn.png)");
-		} else {
-			$("#voice").css("background","#222 url(images/micOff.png)");
-
+		if (event["data"]["voice"] !== undefined){
 			if (event["data"]["voice"] == 1){
-				$(".voiceDisplay").css("stroke-dashoffset","75");
+				$(".voiceDisplay").css("--val","75");
 			} else if (event["data"]["voice"] == 2){
-				$(".voiceDisplay").css("stroke-dashoffset","50");
+				$(".voiceDisplay").css("--val","50");
 			} else if (event["data"]["voice"] == 3){
-				$(".voiceDisplay").css("stroke-dashoffset","25");
+				$(".voiceDisplay").css("--val","25");
 			} else if (event["data"]["voice"] == 4){
-				$(".voiceDisplay").css("stroke-dashoffset","0");
+				$(".voiceDisplay").css("--val","0");
 			}
 		}
 
+		if (event["data"]["talking"] !== undefined){
+			if (event["data"]["talking"] == 1){
+				$("#voice").attr("href","images/micOn.png");
+			} else {
+				$("#voice").attr("href","images/micOff.png");
+			}
+		}
+		
 		if (lastHealth !== event["data"]["health"]){
 			lastHealth = event["data"]["health"];
 
 			if (event["data"]["health"] <= 1){
-				$(".healthDisplay").css("stroke-dashoffset","100");
+				if ($("#health").css("display") === "block"){
+					$("#health").css("display","none");
+				}
 			} else {
-				$(".healthDisplay").css("stroke-dashoffset",100 - event["data"]["health"]);
+				if ($("#health").css("display") === "none"){
+					$("#health").css("display","block");
+				}
+				
+				$(".healthDisplay").css("--val",event["data"]["health"]);
+			}
+		}
+		
+		if (event["data"]["seatbelt"] !== undefined){
+			if (event["data"]["seatbelt"] == true){
+				$("#seatBelt").css("color","#70cc72");
+			} else {
+				$("#seatBelt").css("color","#939393");
 			}
 		}
 
@@ -105,46 +128,50 @@ $(document).ready(function(){
 			lastArmour = event["data"]["armour"];
 
 			if (event["data"]["armour"] <= 0){
-				if($(".armourBackground").css("display") === "block"){
-					$(".armourBackground").css("display","none");
+				if ($("#armour").css("display") === "block"){
+					$("#armour").css("display","none");
 				}
 			} else {
-				if($(".armourBackground").css("display") === "none"){
-					$(".armourBackground").css("display","block");
+				if ($("#armour").css("display") === "none"){
+					$("#armour").css("display","block");
 				}
 			}
 
-			$(".armourDisplay").css("stroke-dashoffset",100 - event["data"]["armour"]);
+			$(".armourDisplay").css("--val",event["data"]["armour"]);
 		}
 
 		if (lastStress !== event["data"]["stress"]){
 			lastStress = event["data"]["stress"];
 
 			if (event["data"]["stress"] <= 0){
-				if($(".stressBackground").css("display") === "block"){
-					$(".stressBackground").css("display","none");
+				if ($("#stress").css("display") === "block"){
+					$("#stress").css("display","none");
 				}
 			} else {
-				if($(".stressBackground").css("display") === "none"){
-					$(".stressBackground").css("display","block");
+				if ($("#stress").css("display") === "none"){
+					$("#stress").css("display","block");
 				}
 			}
 
-			$(".stressDisplay").css("stroke-dashoffset",100 - event["data"]["stress"]);
+			$(".stressDisplay").css("--val",100 - event["data"]["stress"]);
 		}
 
 		if (lastWater !== event["data"]["thirst"]){
 			lastWater = event["data"]["thirst"];
 
-			$(".waterDisplay").css("stroke-dashoffset",100 - event["data"]["thirst"]);
+			$(".waterDisplay").css("--val",event["data"]["thirst"]);
 		}
 
 		if (lastHunger !== event["data"]["hunger"]){
 			lastHunger = event["data"]["hunger"];
 
-			$(".foodDisplay").css("stroke-dashoffset",100 - event["data"]["hunger"]);
+			$(".foodDisplay").css("--val",event["data"]["hunger"]);
 		}
-
+		
+		if (event["data"]["radio"] !== undefined){
+			lastRadio = event["data"]["radio"];
+		}
+		
 		if (event["data"]["suit"] == undefined){
 			if($(".oxigenBackground").css("display") === "block"){
 				$(".oxigenBackground").css("display","none");
@@ -160,38 +187,33 @@ $(document).ready(function(){
 
 			$(".oxigenDisplay").css("stroke-dashoffset",100 - event["data"]["oxigen"]);
 		}
-
+		
 		if (event["data"]["vehicle"] !== undefined){
 			if (event["data"]["vehicle"] == true){
-				if($("#displayTop").css("display") === "none"){
-					$("#displayTop").css("display","block");
+				if ($("#displayVehicle").css("display") === "none"){
+					$("#displayVehicle").css("display","block");
 				}
 
 				if (event["data"]["showbelt"] == false){
-					if($("#seatBelt").css("display") === "block"){
+					if ($("#seatBelt").css("display") === "block"){
 						$("#seatBelt").css("display","none");
 					}
 				} else {
-					if($("#seatBelt").css("display") === "none"){
+					if ($("#seatBelt").css("display") === "none"){
 						$("#seatBelt").css("display","block");
-					}
-
-					if (event["data"]["seatbelt"] == true){
-						$("#seatBelt").css("color","#70cc72");
-					} else {
-						$("#seatBelt").css("color","#939393");
 					}
 				}
 
 				$("#gasoline").html("GAS <s>" + parseInt(event["data"]["fuel"]) + "</s>");
 				$("#mph").html("MPH <s>" + parseInt(event["data"]["speed"]) + "</s>");
+
 			} else {
-				if($("#displayTop").css("display") === "block"){
-					$("#displayTop").css("display","none");
+				if ($("#displayVehicle").css("display") === "block"){
+					$("#displayVehicle").css("display","none");
 				}
 			}
 		}
 
-		$("#displayMiddle").html("<text>" + event["data"]["radio"] + event["data"]["direction"] + "<s>:</s>" + event["data"]["street"] + "</text>");
+		$("#displayBoxes").html(lastRadio +"<text>"+ event["data"]["direction"] +"</text><text>"+ event["data"]["street"] +"</text>");
 	});
 });

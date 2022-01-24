@@ -1,4 +1,3 @@
-const mySlots = 50;
 var selectShop = "selectShop";
 var selectType = "Buy";
 /* --------------------------------------------------- */
@@ -26,6 +25,8 @@ $(document).ready(function(){
 	document.onkeyup = data => {
 		if (data["key"] === "Escape"){
 			$.post("http://shops/close");
+			$(".invRight").html("");
+			$(".invLeft").html("");
 		}
 	}
 });
@@ -154,11 +155,11 @@ const updateDrag = () => {
 			var unity = $(this).attr("data-unity");
 
 			$(this).tooltip({
-				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r><br>Peso: <r>${Number(weight).toFixed(2)}</r></r> <s>|</s> Economia: <r>${economy !== "S/V" ? "$"+formatarNumero(economy):economy}</r></legenda>`,
+				content: `<item>${name}</item>${desc !== "undefined" ? "<br><description>"+desc+"</description>":""}<br><legenda>${serial !== "undefined" ? "Serial: <r>"+serial+"</r>":"Tipo: <r>"+tipo+"</r>"} <s>|</s> Unitário: <r>${unity !== "undefined" ? unity:"S/L"}</r></legenda>`,
 				position: { my: "center top+10", at: "center bottom", collision: "flipfit" },
 				show: { duration: 10 },
 				hide: { duration: 10 }
-			})
+			});
 		}
 	});
 }
@@ -203,6 +204,9 @@ const requestShop = () => {
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
+		if (data["maxweight"] > 100)
+			data["maxweight"] = 100;
+
 		for (let x = 1; x <= data["maxweight"]; x++){
 			const slot = x.toString();
 
@@ -220,14 +224,14 @@ const requestShop = () => {
 					}
 				}
 
-				const item = `<div class="item populated" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-peso="${v["peso"]}" data-amount="${v.amount}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}" data-desc="${v["desc"]}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
-					<div class="nameItem">${v.name}</div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
+					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 
 				$(".invLeft").append(item);
@@ -254,7 +258,7 @@ const requestShop = () => {
 					actualPercent = v["durability"] * 100;
 				}
 
-				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-price="${v["price"]}" data-peso="${v["weight"]}" data-slot="${slot}" data-desc="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-price="${v["price"]}" data-slot="${slot}" data-desc="${v["desc"]}">
 					<div class="top">
 						<div class="itemWeight">${(v["weight"]).toFixed(2)}</div>
 						<div class="itemPrice">$${formatarNumero(v["price"])}</div>

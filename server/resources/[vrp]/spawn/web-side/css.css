@@ -31,44 +31,38 @@ body {
 
 #spawnPage .spawnBox {
 	border: 0;
+	color: #ccc;
 	width: 300px;
 	height: 50px;
 	display: flex;
-	color: #fafafa;
 	font-size: 13px;
 	cursor: pointer;
 	text-align: center;
-	border-radius: 4px;
 	margin-bottom: 10px;
 	letter-spacing: 1px;
-	background: #303442;
 	align-items: center;
 	justify-content: center;
 	text-transform: uppercase;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
+	background: rgba(15,15,15,.75);
 }
 
 #spawnPage .spawnBox:hover {
-	background-color: #1d1f27;
+	background-color: rgba(15,15,15,.90);
 }
 
 #spawnPage #spawnNew {
 	border: 0;
+	color: #ccc;
 	width: 300px;
 	height: 60px;
 	display: flex;
 	cursor: pointer;
-	color: #fafafa;
 	font-size: 16px;
-	border-radius: 4px;
 	align-items: center;
 	letter-spacing: 2px;
 	background: #2e6e4c;
 	justify-content: center;
 	text-transform: uppercase;
-	text-shadow: 0 1px #1b402c;
-	box-shadow: 0 1px 0 #235239;
 }
 
 #charPage .charBox, #charPage .charNew {
@@ -82,13 +76,10 @@ body {
 	color: #fafafa;
 	padding: 0 20px;
 	cursor: pointer;
-	border-radius: 4px;
 	background: #2e6e4c;
 	align-items: center;
-	justify-content: center;
 	flex-direction: column;
-	text-shadow: 0 1px #1b402c;
-	box-shadow: 0 1px 0 #235239;
+	justify-content: center;
 }
 
 #charPage .charNew p {
@@ -106,18 +97,15 @@ body {
 }
 
 #charPage .charBox {
+	color: #ccc;
 	height: 80px;
 	display: flex;
-	color: #fafafa;
 	padding: 0 20px;
 	cursor: pointer;
 	min-width: 230px;
-	border-radius: 4px;
 	flex-direction: row;
-	background: #292c38;
 	align-items: center;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
+	background: rgba(15,15,15,.90);
 	justify-content: space-between;
 }
 
@@ -145,12 +133,11 @@ body {
 	color: #8ebda3;
 	font-size: 11px;
 	font-weight: 600;
-	border-radius: 4px;
 	padding: 10px 10px;
 	letter-spacing: 1px;
 	background: #2e6e4c;
+	font-family: "Roboto";
 	text-transform: uppercase;
-	text-shadow: 0 1px #1b402c;
 }
 
 #createCharForm {
@@ -160,43 +147,35 @@ body {
 
 #createCharForm .formInput {
 	border: 0;
+	color: #ccc;
 	width: 260px;
 	height: 50px;
-	color: #fafafa;
 	padding: 0 20px;
 	margin-top: 10px;
-	border-radius: 4px;
-	background: #303442;
 	letter-spacing: 2px;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
+	background: rgba(15,15,15,.75);
 }
 
 #createCharForm .formInput::placeholder {
-	color: #fafafa;
+	color: #ccc;
 }
 
 #createCharForm .fnButton {
 	border: 0;
+	color: #ccc;
 	width: 300px;
 	height: 50px;
-	color: #fafafa;
 	cursor: pointer;
 	margin-top: 10px;
-	border-radius: 4px;
 	letter-spacing: 2px;
 }
 
 #createCharForm .fnButton#createNew {
 	background: #2e6e4c;
-	text-shadow: 0 1px #1b402c;
-	box-shadow: 0 1px 0 #235239;
 }
 
 #createCharForm .fnButton#createBack {
 	background: #7c344d;
-	text-shadow: 0 1px #522132;
-	box-shadow: 0 1px 0 #522132;
 }
 
 #createCharForm .buttonGroup {
@@ -216,17 +195,14 @@ body {
 
 #createCharForm .buttonGroup .buttonsBox button {
 	border: 0;
+	color: #ccc;
 	width: 145px;
 	height: 50px;
-	color: #fafafa;
 	cursor: pointer;
-	border-radius: 4px;
-	background: #303442;
 	letter-spacing: 2px;
-	text-shadow: 0 1px #232630;
-	box-shadow: 0 1px 0 #232630;
+	background: rgba(15,15,15,.75);
 }
 
 #createCharForm .buttonGroup .buttonsBox button.active {
-	background-color: #1d1f27;
+	background: rgba(15,15,15,.90);
 }

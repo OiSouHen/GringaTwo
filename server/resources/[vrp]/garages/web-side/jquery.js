@@ -82,7 +82,7 @@ function debounce(func,immediate){
 		}
 		var callNow = immediate && !timeout
 		clearTimeout(timeout)
-		timeout = setTimeout(later,200)
+		timeout = setTimeout(later,500)
 		if (callNow) func.apply(context,args)
 	}
 }

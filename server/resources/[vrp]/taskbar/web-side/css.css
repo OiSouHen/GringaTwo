@@ -12,7 +12,7 @@ body, * {
 	align-items: center;
 }
 
-.circlewrap>svg {
+.circlewrap > svg {
 	transform: rotate(-90deg);
 	margin-top: 30%;
 }
@@ -23,17 +23,16 @@ body, * {
 	font-size: 50px;
 	font-weight: 900;
 	position: absolute;
-	font-family: 'Roboto';
+	font-family: "Roboto";
 	color: rgba(255,255,255,0.75);
 }
 
 #backline {
-	fill: rgba(30,33,44,0.5);
-	stroke: #33384b;
+	stroke: rgba(15,15,15,0.75);
 }
 
 #skillprogress {
-	stroke: #2e6e4c;
+	stroke: #ccc;
 	stroke-dasharray: 100;
 	stroke-dashoffset: calc(100 - var(--val));
 }

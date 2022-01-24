@@ -7,6 +7,7 @@ html,body {
 	margin: 0;
 	height: 100%;
 	overflow: hidden;
+	font-family: "Roboto";
 }
 
 .console {
@@ -21,9 +22,9 @@ html,body {
 	display: flex;
 	position: absolute;
 	padding: 10px 15px;
+	font-family: "Roboto";
 	flex-direction: column;
-	background-color: rgba(0,0,0,0.7);
-	font-family: "Roboto",Arial,Helvetica,sans-serif;
+	background-color: rgba(15,15,15,.75);
 }
 
 .wprompt h1 {
@@ -41,7 +42,7 @@ html,body {
 	font-size: 15px;
 	box-sizing: border-box;
 	outline: none !important;
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(15,15,15,.50);
 	border: 1px solid rgba(255,255,255,0.2);
 }
 
@@ -63,18 +64,15 @@ html,body {
 }
 
 #NotifyBackground {
+	color: #ccc;
 	float: left;
-	width: 273px;
+	width: 303px;
 	padding: 25px;
-	color: #c0c0c0;
 	font-size: 13px;
  	line-height: 20px;
-	border-radius: 3px;
 	margin-right: 20px;
-	background: #323644;
-	box-shadow: 0 1px 0 #232630;
-	text-shadow: 1px 1px #232630;
-	font-family: "Roboto",Arial,Helvetica,sans-serif;
+	font-family: "Roboto";
+	background: rgba(15,15,15,.75);
 }
 
 #NotifyBackground b {
@@ -84,7 +82,7 @@ html,body {
 
 #NotifyText {
 	float: left;
-	width: 273px;
+	width: 303px;
 	margin-bottom: 15px;
 }
 
@@ -93,10 +91,6 @@ html,body {
 	float: left;
 	padding: 10px 15px;
 	background: #2e6e4c;
-	box-shadow: 0 1px 0 #2c303c;
-	border-top-left-radius: 3px;
-	text-shadow: 1px 1px #225138;
-	border-bottom-left-radius: 3px;
 }
 
 #NotifyU {
@@ -105,22 +99,19 @@ html,body {
 	margin-left: 20px;
 	padding: 10px 15px;
 	background: #2e6e4c;
-	box-shadow: 0 1px 0 #2c303c;
-	border-top-left-radius: 3px;
-	text-shadow: 1px 1px #225138;
-	border-bottom-left-radius: 3px;
 }
 
 #NotifyLeg {
+	white-space: nowrap;
+	width: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
 	float: left;
 	color: #a0ceb6;
-	padding: 10px 15px;
 	letter-spacing: 2px;
 	background: #275f42;
-	box-shadow: 0 1px 0 #2c303c;
-	border-top-right-radius: 3px;
-	text-shadow: 1px 1px #225138;
-	border-bottom-right-radius: 3px;
+	padding: 10px 15px;
 }
 
 #deathDiv {
@@ -136,7 +127,7 @@ html,body {
 	font-size: 20px;
 	text-align: center;
 	text-shadow: 1px 1px #000;
-	color: rgba(255,255,255,0.9);
+	color: rgba(255,255,255,0.75);
 	font-family: "Jura",sans-serif;
 }
 
@@ -154,29 +145,42 @@ html,body {
 	letter-spacing: 2px;
 }
 
-#statusDiv {
-	top: 200px;
+#identityDiv {
+	top: 175px;
 	right: 50px;
-	width: 265px;
-	position: fixed;
-	font-size: 11px;
-	line-height: 16px;
-	text-shadow: 1px 1px #000;
-	color: rgba(255,255,255,0.75);
-	font-family: "Roboto",Arial,Helvetica,sans-serif;
-}
-
-#wantedDiv, #reposeDiv {
-	float: left;
-	padding: 15px;
+	color: #ccc;
+	float: right;
 	display: none;
-	max-width: 235px;
-	margin-top: 10px;
-	border-radius: 4px;
-	background: rgba(0,0,0,0.5);
+	max-width: 345px;
+	position: absolute;
+	padding: 10px 20px 20px;
+	text-shadow: 1px 1px #000;
+	background: rgba(15,15,15,.75);
+	border-left: 5px solid #2e6e4c;
 }
 
-#reposeDiv b, #wantedDiv b {
-	color: #ffb400;
-	font-weight: 300;
+.identityLeft {
+	color: #666;
+	float: left;
+	width: 175px;
+	font-size: 11px;
+	margin-top: 10px;
+	line-height: 15px;
+}
+
+.identityRight {
+	color: #777;
+	float: left;
+	width: 150px;
+	font-size: 11px;
+	margin-top: 10px;
+	line-height: 15px;
+	margin-left: 15px;
+}
+
+.identityLeft r, .identityRight r {
+	color: #fff;
+	font-size: 13px;
+	letter-spacing: 1px;
+	font-family: "Saira";
 }

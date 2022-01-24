@@ -23,9 +23,9 @@ $(document).ready(() => {
 			$("#skillprogress").css("--val",item["Length"]);
 
 			if (item["Length"] < (item["chance"] + item["skillGap"]) && item["Length"] > (item["chance"])){
-				$("#skillgap").css("stroke","#6b3434");
+				$("#skillgap").css("stroke","#e3c80b");
 			} else {
-				$("#skillgap").css("stroke","#68708c");
+				$("#skillgap").css("stroke","#ad9d2c");
 			}
 		}
 

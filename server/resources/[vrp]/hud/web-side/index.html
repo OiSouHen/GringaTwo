@@ -1,9 +1,9 @@
-<html lang="en">
+<html lang="pt-br">
 	<head>
 		<meta charset="UTF-8" />
 		<title>#creative</title>
 		<link rel="stylesheet" href="style.css" />
-		<script src="nui://game/ui/jquery.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<link href="https://fonts.googleapis.com/css2?family=Jura:wght@600&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 		<script src="jquery.js"></script>
@@ -12,78 +12,78 @@
 		<div id="displayLogo"></div>
 
 		<div id="displayHud">
-			<div id="displayTop">
+			<div id="displayInfos">
+				<div class="icoBox" style="margin-right: 0;">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay voiceDisplay" width="34px" height="34px"></rect>
+						<image id="voice"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="oxigen">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay oxigenDisplay" width="34px" height="34px"></rect>
+						<image href="./images/oxigen.png"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="stress">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay stressDisplay" width="34px" height="34px"></rect>
+						<image href="./images/stress.png"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="food">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay foodDisplay" width="34px" height="34px"></rect>
+						<image href="./images/food.png"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="water">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay waterDisplay" width="34px" height="34px"></rect>
+						<image href="./images/water.png"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="armour">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay armourDisplay" width="34px" height="34px"></rect>
+						<image href="./images/armour.png"></image>
+					</svg>
+				</div>
+
+				<div class="icoBox" id="health">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay healthDisplay" width="34px" height="34px"></rect>
+						<image href="./images/health.png"></image>
+					</svg>
+				</div>
+				
+				<div class="icoBox" id="progressBackground">
+					<svg width="34px" height="34px">
+						<rect width="34px" height="34px"></rect>
+						<rect class="barDisplay progressDisplay" width="34px" height="34px"></rect>
+						<text id="progressText" x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"></text>
+					</svg>
+				</div>
+			</div>
+
+			<div id="displayBoxes"></div>
+
+			<div id="displayVehicle">
 				<span id="mph"></span>
 				<span id="gasoline"></span>
 				<span id="seatBelt">BELT</span>
-			</div>
-
-			<div id="displayMiddle"></div>
-
-			<div id="displayBottom">
-				<div class="voiceBackground">
-					<div class="middleIcon" id="voice"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="voiceDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="oxigenBackground">
-					<div class="middleIcon" style="background: #222 url(images/oxigen.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="oxigenDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="stressBackground">
-					<div class="middleIcon" style="background: #222 url(images/stress.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="stressDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="foodBackground">
-					<div class="middleIcon" style="background: #222 url(images/food.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="foodDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="waterBackground">
-					<div class="middleIcon" style="background: #222 url(images/water.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="waterDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="armourBackground">
-					<div class="middleIcon" style="background: #222 url(images/armour.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="armourDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div class="healthBackground">
-					<div class="middleIcon" style="background: #222 url(images/health.png);"></div>
-
-					<svg height="37px" width="37px">
-						<circle class="healthDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
-
-				<div id="progressBackground">
-					<div class="middleIcon" id="textProgress"></div>
-
-					<svg height="37px" width="37px">
-						<circle id="progressDisplay" cx="19" cy="19" r="16"/>
-					</svg>
-				</div>
 			</div>
 		</div>
 

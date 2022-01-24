@@ -5,7 +5,7 @@ body {
 	font-family: "Arial";
 	letter-spacing: 1px;
 	font-size: 11px;
-	color: #c0c0c0;
+	color: #ccc;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -23,7 +23,7 @@ body {
 	height: 100%;
 	max-height: 100%;
 	width: 420px;
-	background: #262a38;
+	background: #111;
 	padding: 20px 10px 20px 20px;
 }
 
@@ -76,7 +76,6 @@ body {
 	background: #7c344d;
 	width: 110px;
 	cursor: pointer;
-	border-radius: 4px;
 	text-transform: uppercase;
 	font-size: 12px;
 	font-weight: bold;
@@ -96,7 +95,6 @@ body {
 	width: 50px;
 	height: 50px;
 	background: #7c344d;
-	border-radius: 4px;
 	cursor: pointer;
 	float: left;
 	transition: all .1s ease-out;
@@ -179,7 +177,6 @@ body {
 	height: 50px;
 	color: #3f3f3f;
 	background: #9b9a9a;
-	border-radius: 4px;
 	cursor: pointer;
 	float: left;
 	line-height: 50px;

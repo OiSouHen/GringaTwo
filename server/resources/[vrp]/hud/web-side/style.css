@@ -1,18 +1,22 @@
+:root {
+	--val: 50
+}
+
 html,body {
 	margin: 0;
 	padding: 0;
 	font-size: 13px;
 	overflow: hidden;
+	font-family: "Roboto";
 	background: transparent;
-	font-family: "Roboto",Arial,Helvetica,sans-serif;
 }
 
 #displayLogo {
-	top: 75px;
-	right: 75px;
+	top: 50px;
+	right: 50px;
 	width: 101px;
 	height: 78px;
-	opacity: 0.5;
+	opacity: 0.25;
 	position: absolute !important;
 	animation: creative 10s ease-out infinite;
 	background: url("images/logo.png") no-repeat;
@@ -28,301 +32,126 @@ html,body {
 	right: 50px;
 	bottom: 50px;
 	display: none;
-	min-width: 400px;
-	max-width: 400px;
+	min-width: 500px;
+	max-width: 500px;
 	position: absolute !important;
 }
 
-#displayTop {
+#displayVehicle {
 	float: right;
-	min-width: 400px;
-	max-width: 400px;
+	padding-top: 15px;
 	text-align: right;
-	padding-right: 10px;
 }
 
-#displayMiddle {
+#displayBoxes {
 	float: right;
 	color: #c6c6c6;
-	padding: 15px 0;
 	font-size: 10px;
-	min-width: 400px;
-	max-width: 400px;
+	min-width: 500px;
+	max-width: 500px;
+	padding: 15px 0 0;
 	text-align: right;
 	letter-spacing: 0.5px;
 	text-shadow: 1px 1px #000;
 }
 
-#displayMiddle s {
-	opacity: 0.50;
-	padding: 0 10px;
-	text-decoration: none;
-}
-
-#displayMiddle text {
-	padding: 4px 15px;
-	border-radius: 10px;
+#displayBoxes text {
+	padding: 4px 10px;
 	text-transform: uppercase;
-	background: rgba(0,0,0,0.5);
-}
-
-#displayBottom {
-	float: right;
-	min-width: 400px;
-	max-width: 400px;
-}
-
-svg {
-	margin-top: -4px;
-	margin-left: -5px;
-	position: absolute;
-}
-
-#progressBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	display: none;
+	background: rgba(15,15,15,.75);
 	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(215,215,215,0.35);
 }
 
-#progressDisplay {
-	stroke: #eee;
-	stroke-width: 3;
-	margin-left: 5px;
+#displayBoxes text:last-child {
+	margin-right: 0;
+}
+
+#displayInfos {
+	float: right;
+	min-width: 500px;
+	max-width: 500px;
+}
+
+rect {
+	stroke-width:6px;
+	stroke: #666;
+	transform-origin: center;
+	position: absolute;
+	fill: #111
+}
+
+.icoBox {
+	float: right;
+	margin-right: 5px;
+	height: 34px;
+	width: 34px;
+}
+
+.barDisplay {
+	stroke-width:6px;
+	stroke-dasharray: 136;
 	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-}
-
-.healthBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(86,159,88,0.35);
+	transition: all 2s;
+	transform: scaleX(1) rotate(0deg);
 }
 
 .healthDisplay {
 	stroke: #70cc72;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
-}
-
-.armourBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(148,64,80,0.35);
+	stroke-dashoffset: calc((136 * (100 - var(--val))) / 100);
 }
 
 .armourDisplay {
 	stroke: #b54f62;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
-}
-
-.waterBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(80,122,179,0.35);
+	stroke-dashoffset: calc((136 * (100 - var(--val))) / 100);
 }
 
 .waterDisplay {
 	stroke: #669ae1;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
-}
-
-.foodBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(205,118,47,0.35);
+	stroke-dashoffset: calc((136 * (100 - var(--val))) / 100);
 }
 
 .foodDisplay {
 	stroke: #fc913a;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
-}
-
-.stressBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(111,92,124,0.35);
+	stroke-dashoffset: calc((136 * (100 - var(--val))) / 100);
 }
 
 .stressDisplay {
 	stroke: #947aa5;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
-}
-
-.oxigenBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	margin-right: 5px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(85,94,111,0.35);
+	stroke-dashoffset: calc((136 * var(--val)) / 100);
 }
 
 .oxigenDisplay {
 	stroke: #727e94;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
 
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
+	stroke-dashoffset: calc((136 * (100 - var(--val))) / 100);
 }
 
-.voiceBackground {
-	float: right;
-	width: 28px;
-	height: 28px;
-	position: relative;
-	border-radius: 100%;
-	border: 3px solid rgba(176,158,40,0.35);
+#oxigen {
+	display: none;
 }
 
 .voiceDisplay {
 	stroke: #d7c232;
-	stroke-width: 3;
-	margin-left: 5px;
-	fill: transparent;
-	position: absolute;
-	stroke-dasharray: 100;
-	stroke-dashoffset: 50;
-
-	-webkit-transform: rotate(270deg);
-	-ms-transform: rotate(270deg);
-	transform: rotate(270deg);
-	-webkit-transform-origin: 50% 50%;
-	-ms-transform-origin: 50% 50%;
-	transform-origin: 50% 50%;
-
-	transition: all 2s;
+	stroke-dashoffset: calc((136 * var(--val)) / 100);
 }
 
-.middleIcon {
-	color: #999;
-	width: 28px;
-	height: 22px;
-	padding: 6px 0 0;
-	background: #222;
-	position: absolute;
-	border-radius: 100%;
-	text-align: center;
-
-	background-position: center !important;
-	background-repeat: no-repeat !important;
+.progressDisplay {
+	stroke: #eee;
+	transform: scaleX(1) rotate(0deg);
+	stroke-dashoffset: calc((100 * (136 - var(--val))) / 100);
+	transition: all .5s;
 }
 
-#gasoline, #mph, #seatBelt {
+#progressBackground {
+	display: none;
+}
+
+#progressText {
+	fill: #c6c6c6;
+	font: 14px "Roboto";
+}
+
+#gasoline, #mph, #seatBelt, #nitroFuel {
 	float: right;
 	color: #939393;
 	font-size: 11px;
@@ -331,7 +160,7 @@ svg {
 	text-shadow: 1px 1px #000;
 }
 
-#seatBelt {
+#seatBelt, #nitroFuel {
 	padding-top: 17px !important;
 }
 

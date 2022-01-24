@@ -211,6 +211,9 @@ const requestCrafting = () => {
 		$(".invLeft").html("");
 		$(".invRight").html("");
 
+		if (data["maxweight"] > 100)
+			data["maxweight"] = 100;
+
 		const nameList2 = data.inventoryCraft.sort((a,b) => a.name > b.name ? 1 : -1);
 
 		for (let x = 1; x <= data["maxweight"]; x++){
@@ -220,7 +223,10 @@ const requestCrafting = () => {
 				const v = data.inventoryUser[slot];
 				const maxDurability = 86400 * v["days"];
 				const newDurability = (maxDurability - v["durability"]) / maxDurability;
-				const actualPercent = newDurability * 100;
+				var actualPercent = newDurability * 100;
+
+				if (actualPercent <= 1)
+					actualPercent = 1;
 
 				const item = `<div class="item populated" style="background-image: url('nui://inventory/web-side/images/${v.index}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
 					<div class="top">
@@ -228,7 +234,7 @@ const requestCrafting = () => {
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 					</div>
 
-					<div class="durability" style="width: ${parseInt(actualPercent)}%; background: ${colorPicker(actualPercent)};"></div>
+					<div class="durability" style="width: ${actualPercent == 1 ? "100":actualPercent}%; background: ${actualPercent == 1 ? "#fc5858":colorPicker(actualPercent)};"></div>
 					<div class="nameItem">${v.name}</div>
 				</div>`;
 
@@ -240,7 +246,7 @@ const requestCrafting = () => {
 			}
 		}
 
-		for (let x = 1; x <= 100; x++){
+		for (let x = 1; x <= 50; x++){
 			const slot = x.toString();
 
 			if (nameList2[x - 1] !== undefined){

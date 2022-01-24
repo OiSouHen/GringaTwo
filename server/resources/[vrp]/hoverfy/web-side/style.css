@@ -11,17 +11,15 @@ html,body {
 }
 
 #displayNotify {
-	right: 60px;
+	right: 50px;
 	bottom: 150px;
 	display: none;
 	color: #979696;
 	line-height: 18px;
-	border-radius: 3px;
 	position: absolute;
-	background: #323644;
-	box-shadow: 0 1px 0 #232630;
 	padding: 15px 20px 15px 15px;
 	text-shadow: 1px 1px #232630;
+	background: rgba(15,15,15,.75);
 }
 
 #displayNotify b {
@@ -31,17 +29,15 @@ html,body {
 #key {
 	float: left;
 	width: 30px;
-	height: 20px;
+	height: 18px;
 	color: #a0ceb6;
-	padding: 7px 0;
+	padding: 9px 0;
 	font-size: 20px;
-	margin-right: 10px;
 	text-align: center;
-	border-radius: 2px;
+	margin-right: 10px;
 	background: #2e6e4c;
-	box-shadow: 0 1px 0 #2c303c;
-	text-shadow: 1px 1px #225138;
-	font-family: "Jura",sans-serif;
+	text-shadow: none;
+	font-family: "Roboto";
 }
 
 #text {

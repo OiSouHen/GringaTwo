@@ -4,7 +4,7 @@
 
 .container {
 	top: 20%;
-	right: 20%;
+	right: 15%;
 	display: none;
 	position: absolute;
 	font-family: "Roboto",Arial,Helvetica,sans-serif;
@@ -14,22 +14,21 @@
 	border: none;
 	outline: none;
 	display: block;
-	color: #b7bcce;
+	color: #ccc;
 	margin-top: 5px;
 	font-size: 16px;
 	min-height: 30px;
 	max-height: 58px;
 	min-width: 280px;
-	border-radius: 4px;
-	background: #22242e;
-	transition: all 0.5s;
 	padding: 20px 20px 20px 12px;
-	border-left: 5px solid #171920;
+	border-left: 5px solid #2e6e4c;
+	background: rgba(15,15,15,.85);
 }
 
 .btn:hover {
-	background: #2d303c;
-	transition: all 0.5s;
+	color: #a0ceb6;
+	background: #2e6e4c;
+	border-left: 5px solid #225239;
 }
 
 .title {
@@ -40,9 +39,35 @@
 }
 
 .description {
-	color: #60677b;
+	color: #898989;
 	font-size: 11px;
 	margin-top: 13px;
 	text-align: left;
 	letter-spacing: 0.8px;
+}
+
+.btn:hover > .title {
+	color: #a0ceb6;
+}
+
+.btn:hover > .description {
+	color: #7ea993;
+}
+
+.titles {
+	float: left;
+	font-size: 15px;
+	margin-top: -9px;
+	text-align: left;
+}
+
+#goback {
+	height: 10px;
+	color: #ece194;
+	background: #ad9d2c;
+	border-left: 5px solid #71661c;
+}
+
+#goback:hover {
+	color: #f7efba;
 }

@@ -61,7 +61,7 @@ const updateDrag = () => {
 			if(amount > itemAmount)
 				amount = itemAmount;
 
-			$(".populated, .empty, .use").off("draggable droppable");
+			$(".populated, .empty, .use, .send").off("draggable droppable");
 
 			let clone1 = ui.draggable.clone();
 			let slot2 = $(this).data("slot"); 
@@ -153,7 +153,7 @@ const updateDrag = () => {
 			if(amount > itemAmount)
 				amount = itemAmount;
 
-			$(".populated, .empty, .use").off("draggable droppable");
+			$(".populated, .empty, .use, .send").off("draggable droppable");
 
 			if(ui.draggable.data("item-key") == $(this).data("item-key")){
 				let newSlotAmount = amount + parseInt($(this).data("amount"));
@@ -240,6 +240,30 @@ const updateDrag = () => {
 			$(".amount").val("");
 		}
 	});
+	
+	$(".send").droppable({
+		hoverClass: "hoverControl",
+		drop: function(event,ui){
+			if(ui.draggable.parent()[0] == undefined) return;
+
+			const shiftPressed = event.shiftKey;
+			const origin = ui.draggable.parent()[0].className;
+			if (origin === undefined || origin === "invRight") return;
+			itemData = { key: ui.draggable.data("item-key"), slot: ui.draggable.data("slot") };
+
+			if (itemData.key === undefined) return;
+
+			let amount = $(".amount").val();
+			if (shiftPressed) amount = ui.draggable.data("amount");
+
+			$.post("http://inventory/sendItem",JSON.stringify({
+				slot: itemData.slot,
+				amount: parseInt(amount)
+			}));
+
+			$(".amount").val("");
+		}
+	});
 
 	$(".populated").on("auxclick", e => {
 		if (e["which"] === 3){
@@ -259,25 +283,6 @@ const updateDrag = () => {
 				slot: itemData.slot,
 				amount: parseInt(amount)
 			}));
-		}
-	});
-	
-	$('.send').droppable({
-		hoverClass: 'hoverControl',
-		drop: function (event, ui) {
-			const origin = ui.draggable.parent()[0].className;
-			if (origin === undefined || origin === "invRight") return;
-			itemData = { key: ui.draggable.data('item-key'), slot: ui.draggable.data('slot') };
-
-			if (itemData.key === undefined) return;
-
-			$.post("http://inventory/sendItem", JSON.stringify({
-				item: itemData.key,
-				slot: itemData.slot,
-				amount: parseInt(parseInt($(".amount").val()))
-			}));
-
-			$('.amount').val("");
 		}
 	});
 
@@ -407,6 +412,10 @@ const updateMochila = () => {
 		updateDrag();
 	});
 }
+/* ----------OPENCRAFT---------- */
+$(document).on("click",".craft",function(e){
+	$.post("http://inventory/openCraft");
+});
 /* ----------FORMATARNUMERO---------- */
 const formatarNumero = n => {
 	var n = n.toString();

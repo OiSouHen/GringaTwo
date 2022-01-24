@@ -20,7 +20,6 @@ html,body {
 	min-height: 100%;
 	max-height: 100%;
 	position: absolute;
-	background: #323644;
 }
 
 #buttons {
@@ -39,7 +38,6 @@ html,body {
 	width: 120px;
 	padding: 15px;
 	color: #95c5ab;
-	border-radius: 4px;
 	margin-bottom: 5px;
 	background: #2e6e4c;
 	letter-spacing: .3px;
@@ -55,7 +53,6 @@ html,body {
 	padding: 15px;
 	color: #d898ae;
 	margin-left: 10px;
-	border-radius: 4px;
 	margin-bottom: 5px;
 	background: #7c344d;
 	letter-spacing: .3px;
@@ -74,35 +71,27 @@ html,body {
 }
 
 #vehicleName {
+	color: #ccc;
 	float: left;
 	width: 280px;
 	padding: 15px;
-	color: #cacaca;
 	font-size: 11px;
-	background: #393f51;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+	background: rgba(15,15,15,.85);
 }
 
 .vehicle {
 	float: left;
+	color: #999;
 	width: 270px;
-	color: #3f3f3f;
 	margin-bottom: 15px;
-	background: #9b9a9a;
 	padding: 10px 20px 20px;
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
+	background: rgba(15,15,15,.75);
 }
 
 .vehicle:last-child {
 	margin-bottom: 0;
-}
-
-.vehicle.active {
-	background: #c1bebe;
 }
 
 #vehicleLegend {
@@ -117,15 +106,21 @@ html,body {
 	height: 8px;
 	width: 200px;
 	margin-top: 14px;
+	background: #555;
 	margin-bottom: 2px;
-	border-radius: 4px;
-	background: #3f3f3f;
 }
 
 #vehicleProgress {
 	float: left;
 	height: 8px;
 	width: 100px;
-	border-radius: 4px;
-	background: #464e66;
+	background: #ccc;
+}
+
+.vehicle.active {
+	background: rgba(15,15,15,.85);
+}
+
+.vehicle.active > #vehicleBack {
+	background: #897c22;
 }
