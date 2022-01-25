@@ -7,6 +7,7 @@
 		<Item>lr_cs6_03_interior_v_carmod3_milo_</Item>
 		<Item>gabz_pillbox_milo_</Item>
 		<Item>gabz_pillbox_dlc_milo_</Item>
+		<Item>gabz_bennys</Item>
 		<Item>int_genstore_milo_</Item>
 		<Item>v_clinick</Item>
 		<Item>brown_gunshop_milo_</Item>
@@ -19,6 +20,7 @@
 		<Item>int_shosp_milo_</Item>
 		<Item>np_town_hall_milo_</Item>
 		<Item>denis3d_tunershop_milo_</Item>
+		<Item>denis3d_impound</Item>
 		<Item>weazel_milo</Item>
 	</proxies>
 </SInteriorOrderData>
