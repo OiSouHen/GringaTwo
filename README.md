@@ -12,7 +12,7 @@
 
 ## Utilitários
 
-MOD Gráfico recomendado: JayTaylorVisuals[https://bit.ly/3tWeZ3v]
+MOD Gráfico JayTaylorVisuals: https://bit.ly/3tWeZ3v
 
 ## Informações
 
