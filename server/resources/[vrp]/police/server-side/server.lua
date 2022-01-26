@@ -320,10 +320,11 @@ function cRP.reducePrison()
 			elseif parseInt(random) >= 1 and parseInt(random) <= 5 then
 				vRP.giveInventoryItem(user_id,"WEAPON_MACHETE",math.random(1),true)
 			end
-			return true
-		end
 			
 			vRP.upgradeStress(user_id,1)
+			return true
+		end
+		
 		end
 	end
 end

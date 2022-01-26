@@ -32,15 +32,14 @@ end)
 -- SEARCHTRASHITENS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local searchTrashItens = {
-	[1] = { "glassbottle",math.random(3,4) },
-	[2] = { "elastic",math.random(3,4) },
-	[3] = { "plasticbottle",math.random(3,4) },
-	[4] = { "metalcan",math.random(3,4) },
-	[5] = { "battery",math.random(3,4) },
-	[6] = { "titanium",math.random(2) },
-	[7] = { "syringe",math.random(1) },
-	[8] = { "fabric",math.random(2) },
-	[9] = { "metalfragments",math.random(2) }
+	[1] = { "glassbottle",math.random(2,3) },
+	[2] = { "elastic",math.random(2,3) },
+	[3] = { "plasticbottle",math.random(2,3) },
+	[4] = { "metalcan",math.random(2,3) },
+	[5] = { "battery",math.random(2,3) },
+	[6] = { "syringe",math.random(1) },
+	[7] = { "fabric",math.random(2) },
+	[8] = { "metalfragments",math.random(2) }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEARCHTRASH

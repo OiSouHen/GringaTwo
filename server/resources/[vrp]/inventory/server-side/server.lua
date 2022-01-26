@@ -2116,7 +2116,7 @@ RegisterCommand("gcolete",function(source,args,rawCommand)
 		
 		TriggerClientEvent("inventory:Update",source,"updateMochila")
     end
-end) 
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GARMAS:ONE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -2140,9 +2140,9 @@ RegisterCommand("garmas",function(source,args,rawCommand)
                     vRP.giveInventoryItem(user_id,vRP.itemAmmoList(k),v.ammo)
                 end
             end
+			
             vRPclient.updateWeapons(source)
-
-            TriggerClientEvent("Notify",source,"verde","Seu armamento foi guardado.",3000)
+            TriggerClientEvent("Notify",source,"amarelo","Armamento guardado.",5000)
         end
 		
 		TriggerClientEvent("inventory:Update",source,"updateMochila")
@@ -2508,6 +2508,13 @@ function cRP.stealTrunk(entity)
 			
 			local taskResult = vTASKBAR.stealTrunk(source)
 			if taskResult then
+
+				vRPclient.stopActived(source)
+				vCLIENT.blockButtons(source,true)
+				vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+				TriggerClientEvent("Progress",source,30000,"Vasculhando...")
+                Wait(30000)
+
 				local randItem = math.random(#stealTrunk)
 				
 				if vRP.itemSubTypeList((stealTrunk[randItem][1])) then
@@ -2526,17 +2533,12 @@ function cRP.stealTrunk(entity)
 					TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
 				end
 				
-				vRP.upgradeStress(user_id,5)
 				vRP.wantedTimer(user_id,10)
+				vRP.upgradeStress(user_id,6)
 				vGARAGE.stopAnimHotwired(source)
-				
-				local x,y,z = vRPclient.getPositions(source)
-				local copAmount = vRP.numPermission("Police")
-				for k,v in pairs(copAmount) do
-					async(function()
-						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Denúncia de Roubo a Porta-Malas.", x = x, y = y, z = z, rgba = {105,52,136} })
-					end)
-				end
+
+				vCLIENT.blockButtons(source,false)
+				vRPclient._stopAnim(source,false)
 			else
 				local x,y,z = vRPclient.getPositions(source)
 				local copAmount = vRP.numPermission("Police")
@@ -2545,7 +2547,9 @@ function cRP.stealTrunk(entity)
 						TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Tentativa de Roubo a Porta-Malas.", x = x, y = y, z = z, rgba = {105,52,136} })
 					end)
 				end
-				
+
+				vRP.wantedTimer(user_id,10)
+				vRP.upgradeStress(user_id,3)
 				TriggerClientEvent("Notify",source,"vermelho","Você falhou.",3000)
 				vGARAGE.stopAnimHotwired(source)
 			end

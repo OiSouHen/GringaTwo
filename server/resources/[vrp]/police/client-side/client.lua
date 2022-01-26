@@ -303,8 +303,8 @@ Citizen.CreateThread(function()
 					vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
 					SetEntityCoords(ped,inLocates[inSelect][1],inLocates[inSelect][2],inLocates[inSelect][3] - 1,1,0,0,0)
 					
-					TriggerEvent("Progress",10000,"Vasculhando...")
-					Citizen.Wait(10000)
+					TriggerEvent("Progress",5000,"Vasculhando...")
+					Citizen.Wait(5000)
 
 					TriggerEvent("player:blockCommands",false)
 					TriggerEvent("cancelando",false)
