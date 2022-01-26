@@ -276,9 +276,12 @@ end
 function cRP.reducePrison()
 	local source = source
 	local user_id = vRP.getUserId(source)
-
 	if user_id then
-		vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 1 })
+	    if not vRP.getPremium(user_id) then
+		    vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 1 })
+		else
+		    vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 2 })
+		end
 
 		local consult = vRP.getInformation(user_id)
 		if parseInt(consult[1].prison) <= 0 then
