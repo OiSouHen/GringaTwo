@@ -2474,16 +2474,16 @@ end)
 -- STEALTRUNKITENS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local stealTrunk = {
-		[1] = { "joint",math.random(1,3) },
-		[2] = { "dollars",math.random(500,800) },
-		[3] = { "plastic",math.random(10,15) },
-		[4] = { "glass",math.random(10,15) },
-		[5] = { "rubber",math.random(10,15) },
-		[6] = { "aluminum",math.random(10,15) },
-		[7] = { "copper",math.random(10,15) },
+		[1] = { "joint",math.random(3,6) },
+		[2] = { "dollars",math.random(500,1000) },
+		[3] = { "plasticbottle",math.random(15,30) },
+		[4] = { "glassbottle",math.random(15,30) },
+		[5] = { "elastic",math.random(15,30) },
+		[6] = { "metalcan",math.random(15,30) },
+		[7] = { "battery",math.random(15,30) },
 		[8] = { "keyboard",1 },
 		[9] = { "cellphone",1 },
-		[10] = { "watch",1 },
+		[10] = { "watch",2 },
 		[11] = { "notebook",1 },
 		[12] = { "xbox",1 },
 		[13] = { "legos",5 },
@@ -2492,9 +2492,28 @@ local stealTrunk = {
 		[16] = { "dildo",1 },
 		[17] = { "lean",3 },
 		[18] = { "heroine",1 },
-		[19] = { "vape",1 },
+		[19] = { "vape",2 },
 		[20] = { "oxy",5 },
-		[21] = { "chocolate",3 }
+		[21] = { "chocolate",3 },
+		[22] = { "vest",1 },
+		[23] = { "cocaine",2 },
+		[24] = { "deck",3 },
+		[25] = { "cup",3 },
+		[26] = { "goldbar",2 },
+		[27] = { "pliers",1 },
+		[28] = { "WEAPON_PISTOL",1 },
+		[29] = { "rimel",3 },
+		[30] = { "slipper",3 },
+		[31] = { "spray01",3 },
+		[32] = { "spray02",3 },
+		[33] = { "spray03",3 },
+		[34] = { "spray04",3 },
+		[35] = { "weed",5 },
+		[36] = { "gunpowder",6 },
+		[37] = { "dices",6 },
+		[38] = { "ecstasy",6 },
+		[39] = { "compost",2 },
+		[40] = { "firecracker",2 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INVENTORY:STEALTRUNK
@@ -2512,6 +2531,7 @@ function cRP.stealTrunk(entity)
 				vRPclient.stopActived(source)
 				vCLIENT.blockButtons(source,true)
 				vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+				TriggerClientEvent("inventory:vehicleAlarm",-1,entity) -- need try
 				TriggerClientEvent("Progress",source,30000,"Vasculhando...")
                 Wait(30000)
 
@@ -2524,7 +2544,7 @@ function cRP.stealTrunk(entity)
 				end
 
 				if vRP.computeInvWeight(user_id) + vRP.itemWeightList(stealTrunk[randItem][1]) * parseInt(stealTrunk[randItem][2]) <= vRP.getBackpack(user_id) then
-					if math.random(100) <= 90 then
+					if math.random(100) <= 80 then
 						vRP.giveInventoryItem(user_id,stealTrunk[randItem][1],parseInt(stealTrunk[randItem][2]),true)
 					else
 						TriggerClientEvent("Notify",source,"amarelo","Compartimento vazio.",3000)
@@ -2536,6 +2556,18 @@ function cRP.stealTrunk(entity)
 				vRP.wantedTimer(user_id,10)
 				vRP.upgradeStress(user_id,6)
 				vGARAGE.stopAnimHotwired(source)
+				
+				if math.random(100) <= 15 then
+					local x,y,z = vRPclient.getPositions(source)
+					local copAmount = vRP.numPermission("Police")
+					for k,v in pairs(copAmount) do
+					    async(function()
+						    TriggerClientEvent("NotifyPush",v,{ time = os.date("%H:%M:%S - %d/%m/%Y"), code = 90, title = "Alarme de Roubo.", criminal = "Roubo a Porta-Malas de Veículo.", x = x, y = y, z = z, rgba = {105,52,136} })
+					    end)
+					end
+					
+					TriggerClientEvent("Notify",source,"amarelo","As autoridades foram notificadas.",5000)
+				end
 
 				vCLIENT.blockButtons(source,false)
 				vRPclient._stopAnim(source,false)

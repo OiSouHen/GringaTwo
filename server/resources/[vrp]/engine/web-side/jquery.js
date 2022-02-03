@@ -2,7 +2,7 @@ var selectPage = "benefactor";
 var reversePage = "benefactor";
 /* ---------------------------------------------------------------------------------------------------------------- */
 $(document).ready(function(){
-	benefactor();
+	benefactor('Carros');
 
 	window.addEventListener("message",function(event){
 		switch (event["data"]["action"]){
