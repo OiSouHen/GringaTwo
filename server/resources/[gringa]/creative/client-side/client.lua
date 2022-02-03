@@ -62,20 +62,16 @@ Citizen.CreateThread(function()
 			SetPedHelmet(ped,false)
 			DisableControlAction(0,345,true)
 
-			local veh = GetVehiclePedIsUsing(ped)
-			if GetPedInVehicleSeat(veh,-1) == ped then
-				if GetVehicleDirtLevel(veh) ~= 0.0 then
-					SetVehicleDirtLevel(veh,0.0)
-				end
-
-				local speed = GetEntitySpeed(veh) * 2.236936
+			local vehicle = GetVehiclePedIsUsing(ped)
+			if GetPedInVehicleSeat(vehicle,-1) == ped then
+				local speed = GetEntitySpeed(vehicle) * 2.236936
 				if speed ~= oldSpeed then
 					if (oldSpeed - speed) >= 60 then
 						TriggerServerEvent("upgradeStress",10)
 
-						if GetVehicleClass(veh) ~= 8 and GetEntityModel(veh) ~= 1755270897 then
-							SetVehicleEngineOn(veh,false,true,true)
-							vehicleTyreBurst(veh)
+						if GetVehicleClass(vehicle) ~= 8 then
+							SetVehicleEngineOn(vehicle,false,true,true)
+							vehicleTyreBurst(vehicle)
 						end
 					end
 
@@ -126,9 +122,9 @@ local blips = {
 	{ 280.38,-584.45,43.29,80,38,"Hospital",0.5 },
 	{ 1839.43,3672.86,34.27,80,38,"Hospital",0.5 },
 	{ -247.42,6331.39,32.42,80,38,"Hospital",0.5 },
-	{ 55.43,-876.19,30.66,357,65,"Garagem",0.6 },
+	{ 55.43,-876.19,30.66,357,5,"Garagem",0.6 },
 	{ 598.04,2741.27,42.07,357,65,"Garagem",0.6 },
-	{ -136.36,6357.03,31.49,357,65,"Garagem",0.6 },
+	{ -136.36,6357.03,31.49,357,5,"Garagem",0.6 },
 	{ 275.23,-345.54,45.17,357,65,"Garagem",0.6 },
 	{ 596.40,90.65,93.12,357,65,"Garagem",0.6 },
 	{ -340.76,265.97,85.67,357,65,"Garagem",0.6 },
@@ -145,8 +141,7 @@ local blips = {
 	{ -1159.48,-739.32,19.89,357,65,"Garagem",0.6 },
 	{ 101.22,-1073.68,29.38,357,65,"Garagem",0.6 },
 	{ 1725.21,4711.77,42.11,357,65,"Garagem",0.6 },
-	{ 1624.05,3566.14,35.15,357,65,"Garagem",0.6 },
-	{ 5178.31,-5126.96,3.05,357,65,"Garagem",0.6 },
+	{ 1624.05,3566.14,35.15,357,5,"Garagem",0.6 },
 	{ 426.57,-981.71,30.7,60,18,"Departamento | LSPD",0.6 },
 	{ 1851.45,3686.71,34.26,60,18,"Departamento | SHERIFF",0.6 },
 	{ -448.18,6011.68,31.71,60,18,"Departamento | SHERIFF",0.6 },
@@ -171,6 +166,8 @@ local blips = {
 	{ 1166.0,2709.45,38.16,52,36,"Loja de Departamento",0.5 },
 	{ -1487.21,-378.99,40.17,52,36,"Loja de Departamento",0.5 },
 	{ -1222.76,-907.21,12.33,52,36,"Loja de Departamento",0.5 },
+	{ 159.57,6633.8,31.66,52,36,"Loja de Departamento",0.5 },
+	{ -154.2,6329.23,31.56,52,36,"Loja de Departamento",0.5 },
 	{ 1692.62,3759.50,34.70,76,6,"Loja de Armas",0.4 },
 	{ 252.89,-49.25,69.94,76,6,"Loja de Armas",0.4 },
 	{ 843.28,-1034.02,28.19,76,6,"Loja de Armas",0.4 },
@@ -189,6 +186,7 @@ local blips = {
 	{ 1214.2,-473.18,66.21,71,62,"Barbearia",0.5 },
 	{ -33.61,-154.52,57.08,71,62,"Barbearia",0.5 },
 	{ -276.65,6226.76,31.7,71,62,"Barbearia",0.5 },
+	{ -1117.26,-1438.74,5.11,366,62,"Loja de Roupas",0.5 },
 	{ 75.35,-1392.92,29.38,366,62,"Loja de Roupas",0.5 },
 	{ -710.15,-152.36,37.42,366,62,"Loja de Roupas",0.5 },
 	{ -163.73,-303.62,39.74,366,62,"Loja de Roupas",0.5 },
@@ -208,7 +206,7 @@ local blips = {
 	{ 1966.36,3975.86,31.51,266,62,"Embarcações",0.5 },
 	{ -776.72,-1495.02,2.29,266,62,"Embarcações",0.5 },
 	{ -893.97,5687.78,3.29,266,62,"Embarcações",0.5 },
-	{ 5097.7,-4623.91,2.63,266,62,"Embarcações",0.5 },
+	{ 4952.76,-5163.6,-0.3,266,62,"Embarcações",0.5 },
 	{ 452.99,-607.74,28.59,513,62,"Motorista",0.5 },
 	{ 356.42,274.61,103.14,67,62,"Transportador",0.5 },
 	{ -840.21,5399.25,34.61,285,62,"Lenhador",0.5 },
@@ -228,9 +226,12 @@ local blips = {
 	{ -195.42,6264.62,31.49,467,11,"Reciclagem",0.6 },
 	{ -741.56,5594.94,41.66,36,62,"Teleférico",0.6 },
 	{ 454.46,5571.95,781.19,36,62,"Teleférico",0.6 },
-	{ 409.05,-1622.78,29.28,357,9,"Impound",0.6 },
+	{ -191.92,-1155.04,23.05,357,9,"Impound",0.6 },
 	{ 1724.84,3715.31,34.22,357,9,"Impound",0.6 },
 	{ -364.24,6071.16,31.52,357,9,"Impound",0.6 },
+	{ 946.2,-991.64,39.14,402,26,"Mecânica",0.7 },
+	{ -1426.52,-436.65,35.76,402,26,"Mecânica",0.7 },
+	{ -48.03,-1042.28,28.24,402,26,"Mecânica",0.7 },
 	{ -1178.37,-2845.97,13.93,402,26,"Mecânica",0.7 },
 	{ -206.22,-1303.12,31.27,402,26,"Mecânica",0.7 },
 	{ -359.81,-133.38,38.67,402,26,"Mecânica",0.7 },
@@ -238,8 +239,7 @@ local blips = {
 	{ -1144.02,-1989.42,13.16,402,26,"Mecânica",0.7 },
 	{ 1178.0,2657.85,37.98,402,26,"Mecânica",0.7 },
 	{ 116.38,6620.89,31.88,402,26,"Mecânica",0.7 },
-	{ -32.62,-1065.7,28.05,402,26,"Mecânica",0.7 },
-	{ 164.48,-3028.6,6.45,402,1,"Mecânica",0.7 },
+	{ 161.44,-3028.85,6.72,402,75,"Mecânica",0.7 },
 	{ 2964.43,2752.88,43.32,617,62,"Minerador",0.6 },
 	{ 1322.93,-1652.29,52.27,75,13,"Loja de Tatuagem",0.5 },
 	{ -1154.42,-1425.9,4.95,75,13,"Loja de Tatuagem",0.5 },
@@ -247,20 +247,16 @@ local blips = {
 	{ -3169.62,1075.8,20.83,75,13,"Loja de Tatuagem",0.5 },
 	{ 1864.07,3747.9,33.03,75,13,"Loja de Tatuagem",0.5 },
 	{ -293.57,6199.85,31.48,75,13,"Loja de Tatuagem",0.5 },
-	{ 1536.11,3769.84,34.05,86,62,"Fishing Planet",0.4 },
 	{ 405.92,6526.12,27.73,89,62,"Colheita",0.4 },
-	{ -1177.72,-880.41,13.93,106,62,"BurgerShot",0.4 },
-	{ 1239.91,-3257.19,7.09,67,62,"Caminhoneiro",0.5 },
-	{ -162.8,-2130.61,16.7,483,62,"Kartodromo",0.6 },
-	{ -57.0,-1109.59,26.44,225,62,"Benefactor",0.4 },
+	{ -1178.2,-880.6,13.92,408,62,"BurgerShot",0.5 },
+	{ -70.49,-1104.59,26.12,225,62,"Concessionária",0.4 },
+	{ -604.39,-933.23,23.86,184,62,"Weazel News",0.6 },
 	{ 894.9,-179.15,74.7,198,62,"Taxista",0.5 },
 	{ 1696.19,4785.25,42.02,198,62,"Taxista",0.5 },
-	{ -1031.05,-2965.67,13.95,307,62,"Táxi Aéreo",0.7 },
 	{ -680.9,5832.41,17.32,141,62,"Cabana do Caçador",0.7 },
 	{ -772.69,312.77,85.7,475,31,"Hotel",0.5 },
-	{ 1142.33,2663.9,38.16,475,31,"Hotel",0.5 },
---	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
-	{ -604.39,-933.23,23.86,184,62,"Weazel News",0.6 }
+	{ 562.36,2741.56,42.87,273,11,"Animal Park",0.5 },
+	{ -535.04,-221.34,37.64,267,5,"Prefeitura",0.6 }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBLIPS
@@ -369,12 +365,15 @@ Citizen.CreateThread(function()
 		SetCreateRandomCopsNotOnScenarios(false)
 
 		SetVehicleModelIsSuppressed(GetHashKey("jet"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("besra"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("luxor"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("blimp"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("polmav"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("buzzard2"),true)
 		SetVehicleModelIsSuppressed(GetHashKey("mammatus"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("besra"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("luxor"),true)
+		SetPedModelIsSuppressed(GetHashKey("s_m_y_prismuscl_01"),true)
+		SetPedModelIsSuppressed(GetHashKey("u_m_y_prisoner_01"),true)
+		SetPedModelIsSuppressed(GetHashKey("s_m_y_prisoner_01"),true)
 
 		Citizen.Wait(1000)
 	end
@@ -431,16 +430,11 @@ Citizen.CreateThread(function()
 		HideHudComponentThisFrame(21)
 		HideHudComponentThisFrame(22)
 
-		SetMaxWantedLevel(0)
 		DisableVehicleDistantlights(true)
-		ClearPlayerWantedLevel(PlayerId())
 		DisablePlayerVehicleRewards(PlayerId())
 
-		SetScenarioPedDensityMultiplierThisFrame(0.5,0.5)
-		SetParkedVehicleDensityMultiplierThisFrame(0.5)
 		SetRandomVehicleDensityMultiplierThisFrame(0.5)
 		SetVehicleDensityMultiplierThisFrame(0.5)
-		SetPedDensityMultiplierThisFrame(0.5)
 		SetGarbageTrucks(false)
 		SetRandomBoats(false)
 

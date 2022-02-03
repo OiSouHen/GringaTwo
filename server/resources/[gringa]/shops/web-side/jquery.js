@@ -224,7 +224,7 @@ const requestShop = () => {
 					}
 				}
 
-				const item = `<div class="item populated" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background: rgba(${v["color"][0]},${v["color"][1]},${v["color"][2]},${v["color"][3]}) url('nui://inventory/web-side/images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}" data-desc="${v["desc"]}">
+				const item = `<div class="item populated" data-unity="${v["unity"]}" data-tipo="${v["tipo"]}" data-serial="${v["serial"]}" style="background-image: url('nui://inventory/web-side/images/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}" data-desc="${v["desc"]}">
 					<div class="top">
 						<div class="itemWeight">${(v.peso * v.amount).toFixed(2)}</div>
 						<div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -264,7 +264,7 @@ const requestShop = () => {
 						<div class="itemPrice">$${formatarNumero(v["price"])}</div>
 					</div>
 
-					<div class="durability"></div>
+					<div class="durability" style="background: transparent;"></div>
 					<div class="nameItem">${v["name"]}</div>
 				</div>`;
 

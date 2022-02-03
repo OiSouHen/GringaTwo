@@ -57,6 +57,7 @@ html,body {
 
 #displayBoxes text {
 	padding: 4px 10px;
+	border-radius: 3px;
 	text-transform: uppercase;
 	background: rgba(15,15,15,.75);
 	margin-right: 5px;

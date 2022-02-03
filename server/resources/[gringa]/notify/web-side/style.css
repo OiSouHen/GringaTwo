@@ -12,10 +12,12 @@ body {
 	right: 50px;
 	bottom: 200px;
 	display: flex;
+	z-index: 99999;
 	color: #c6c6c6;
 	font-size: 13px;
 	max-width: 400px;
 	overflow: hidden;
+	border-radius: 3px;
 	letter-spacing: .5px;
 	align-items: flex-end;
 	flex-direction: column;
@@ -41,16 +43,16 @@ body {
 #notifications > div {
 	color: #c6c6c6;
 	margin-top: 10px;
-	line-height: 16px;
+	line-height: 20px;
 	position: relative;
+	border-radius: 3px;
 	text-shadow: 1px 1px #000;
-	border-radius: 4px 4px 0 0;
 	padding: 15px 20px 15px 45px;
-	border-bottom: 5px solid rgba(0,0,0,0.25);
+	border-bottom: 5px solid #222;
 }
 
 #verde {
-	background: rgba(0,0,0,0.5) url("images/check.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/check.png") no-repeat center left 11px;
 }
 
 #verde > .timer-bar {
@@ -58,7 +60,7 @@ body {
 }
 
 #vermelho {
-	background: rgba(0,0,0,0.5) url("images/cancel.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/cancel.png") no-repeat center left 11px;
 }
 
 #vermelho > .timer-bar {
@@ -66,7 +68,7 @@ body {
 }
 
 #blood {
-	background: rgba(0,0,0,0.5) url("images/blood.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/blood.png") no-repeat center left 11px;
 }
 
 #blood > .timer-bar {
@@ -74,7 +76,7 @@ body {
 }
 
 #hunger {
-	background: rgba(0,0,0,0.5) url("images/hunger.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/hunger.png") no-repeat center left 11px;
 }
 
 #hunger > .timer-bar {
@@ -82,7 +84,7 @@ body {
 }
 
 #thirst {
-	background: rgba(0,0,0,0.5) url("images/thirst.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/thirst.png") no-repeat center left 11px;
 }
 
 #thirst > .timer-bar {
@@ -90,7 +92,7 @@ body {
 }
 
 #azul {
-	background: rgba(0,0,0,0.5) url("images/ring.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/ring.png") no-repeat center left 11px;
 }
 
 #azul > .timer-bar {
@@ -98,7 +100,7 @@ body {
 }
 
 #amarelo {
-	background: rgba(0,0,0,0.5) url("images/important.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/important.png") no-repeat center left 11px;
 }
 
 #amarelo > .timer-bar {
@@ -106,7 +108,7 @@ body {
 }
 
 #locked {
-	background: rgba(0,0,0,0.5) url("images/locked.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/locked.png") no-repeat center left 11px;
 }
 
 #locked > .timer-bar {
@@ -114,7 +116,7 @@ body {
 }
 
 #unlocked {
-	background: rgba(0,0,0,0.5) url("images/unlocked.png") no-repeat center left 11px;
+	background: rgba(15,15,15,.75) url("images/unlocked.png") no-repeat center left 11px;
 }
 
 #unlocked > .timer-bar {
@@ -124,7 +126,7 @@ body {
 #default {
 	padding: 15px 20px !important;
 	line-height: 20px !important;
-	background: rgba(0,0,0,0.5);
+	background: rgba(15,15,15,.75);
 }
 
 #default line {
@@ -133,5 +135,5 @@ body {
 }
 
 #default > .timer-bar {
-    background-color: #ffffff !important;
+    background-color: #fff !important;
 }

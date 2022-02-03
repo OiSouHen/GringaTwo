@@ -89,9 +89,9 @@ Citizen.CreateThread(function()
 	SetNuiFocus(false,false)
 
 	for k,v in pairs(craftList) do
-		exports["target"]:AddCircleZone("crafting:"..k,vector3(v[1],v[2],v[3]),1.0,{
-			name = "crafting:"..k,
-			heading = v[4]
+		exports["target"]:AddCircleZone("Crafting:"..k,vector3(v[1],v[2],v[3]),1.0,{
+			name = "Crafting:"..k,
+			heading = 3374176
 		},{
 			shop = k,
 			distance = 1.0,
@@ -124,11 +124,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CRAFTING:OPENSOURCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("craft",function(source,args)
-	if GetEntityHealth(PlayerPedId()) > 101 and not blockButtons then
-		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPlayerFreeAiming(PlayerId()) then
-			SetNuiFocus(true,true)
-			SendNUIMessage({ action = "showNUI", name = "craftShop" })
-		end
-	end
+RegisterNetEvent("crafting:openSource")
+AddEventHandler("crafting:openSource",function()
+	SetNuiFocus(true,true)
+	SendNUIMessage({ action = "showNUI", name = "craftShop" })
 end)

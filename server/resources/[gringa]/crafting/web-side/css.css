@@ -52,6 +52,7 @@ body {
 	width: 115px;
 	height: 145px;
 	display: flex;
+	border-radius: 3px;
 	flex-direction: column;
 	text-shadow: 1px 1px #000;
 	background: rgba(15,15,15,.5);
@@ -132,6 +133,7 @@ body {
 }
 
 input {
+	border-radius: 3px;
 	text-align: center;
 }
 
@@ -147,6 +149,7 @@ input::placeholder {
 	padding: 16px 0;
 	font-size: 12px;
 	text-align: center;
+	border-radius: 3px;
 	margin-bottom: 12px;
 	letter-spacing: 1px;
 	background: rgba(15,15,15,.75);
@@ -175,6 +178,7 @@ input::placeholder {
 	min-width: 596px;
 	max-width: 596px;
 	margin-bottom: 5px;
+	border-radius: 2px;
 	background: rgba(15,15,15,.75);
 }
 
@@ -197,6 +201,7 @@ input::placeholder {
 	min-width: 596px;
 	max-width: 596px;
 	margin-bottom: 5px;
+	border-radius: 2px;
 	background: rgba(15,15,15,.75);
 }
 
@@ -217,6 +222,7 @@ input::placeholder {
 	color: #ccc;
 	z-index: 9999;
 	font-size: 11px;
+	border-radius: 3px;
 	position: absolute;
 	letter-spacing: 1px;
 	padding: 20px 20px 15px;
@@ -251,6 +257,10 @@ input::placeholder {
 	font-size: 10px;
 	max-width: 250px;
 	margin-top: 5px;
+}
+
+.ui-tooltip description green {
+	color: #a0ceb6;
 }
 
 .ui-tooltip s {

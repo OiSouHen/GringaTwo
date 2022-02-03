@@ -95,6 +95,7 @@ end)
 RegisterNUICallback("invClose",function(data,cb)
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
+	TriggerEvent("hudActived",true)
 	SendNUIMessage({ action = "hideMenu" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -103,8 +104,19 @@ end)
 function cRP.closeInventory()
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
+	TriggerEvent("hudActived",true)
 	SendNUIMessage({ action = "hideMenu" })
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- OPENCRAFT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNUICallback("openCraft",function()
+	SetNuiFocus(false,false)
+	TriggerEvent("hudActived",true)
+	SendNUIMessage({ action = "hideMenu" })
+
+	TriggerEvent("crafting:openSource")
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -125,11 +137,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOC
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("moc",function(source,args)
+RegisterCommand("openBackpack",function(source,args)
 	if GetEntityHealth(PlayerPedId()) > 101 and not blockButtons then
 		if not exports["player"]:blockCommands() and not exports["player"]:handCuff() and not IsPlayerFreeAiming(PlayerId()) then
 			SetNuiFocus(true,true)
 			SetCursorLocation(0.5,0.5)
+			TriggerEvent("hudActived",false)
 			SendNUIMessage({ action = "showMenu" })
 		end
 	end
@@ -137,7 +150,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("moc","Abrir a mochila","keyboard","oem_3")
+RegisterKeyMapping("openBackpack","Manusear a mochila.","keyboard","OEM_3")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NUI:DROPITEM
 -----------------------------------------------------------------------------------------------------------------------------------------

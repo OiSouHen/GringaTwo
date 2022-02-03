@@ -5,13 +5,11 @@ window.addEventListener("message",function(event){
 
 		$(".target-label").html("");
 		$(".target").css("display","flex");
-		$(".target-eye").css("color","#fff");
 
 	} else if (item["response"] == "closeTarget"){
 
 		$(".target-label").html("");
 		$(".target").css("display","none");
-		$(".target-eye").css("color","#fff");
 
 	} else if (item["response"] == "validTarget"){
 
@@ -20,24 +18,15 @@ window.addEventListener("message",function(event){
 		$.each(item["data"],function(index,item){
 			$(".target-label").append("<div id='target-" + index + "'<li>" + item["label"] + "</li></div>");
 
-			$("#target-" + index).hover((e) => {
-				$("#target-" + index).css("color",e["type"] === "mouseenter" ? "#16ad76":"#d6d9df")
-			});
-
-			$("#target-" + index).css("padding-top","7px");
 			$("#target-" + index).data("TargetData",item["event"]);
 			$("#target-" + index).data("TunnelData",item["tunnel"]);
 			$("#target-" + index).data("ServiceData",item["service"]);
 		});
 
-		$(".target-eye").css("color","#16ad76");
-
 	} else if (item["response"] == "leftTarget"){
 
 		$(".target-label").html("");
 		$(".target").css("display","none");
-		$(".target-eye").css("color","#fff");
-
 		$.post("http://target/closeTarget");
 
 	}
@@ -46,8 +35,6 @@ window.addEventListener("message",function(event){
 		if (data["key"] === "Escape"){
 			$(".target-label").html("");
 			$(".target").css("display","none");
-			$(".target-eye").css("color","#fff");
-
 			$.post("http://target/closeTarget");
 		}
 	};
@@ -65,6 +52,5 @@ $(document).on("mousedown",(event) => {
 
 		$(".target-label").html("");
 		$(".target").css("display","none");
-		$(".target-eye").css("color","#fff");
 	}
 });

@@ -1,16 +1,13 @@
 /* ----------EVENTLISTENER---------- */
 $(document).ready(function(){
 	window.addEventListener("message",function(event){
-
 		if (event["data"]["show"] == true){
-			$("#vehicleBackground").fadeIn(250);
+			$("#vehicleMenu").css("display","block");
 		}
 
 		if (event["data"]["show"] == false){
-			$("#vehicleBackground").fadeOut(250);
-			$(".ui-tooltip").hide();
+			$("#vehicleMenu").css("display","none");
 		}
-
 	});
 
 	document.onkeyup = function(data){
@@ -18,19 +15,6 @@ $(document).ready(function(){
 			$.post("http://vehmenu/closeSystem");
 		};
 	};
-
-	$(".populated").tooltip({
-		create: function(event,ui){
-			var texto = $(this).attr("data-texto");
-
-			$(this).tooltip({
-				content: texto,
-				position: { my: "center top-74", at: "center" },
-				show: { duration: 10 },
-				hide: { duration: 10 }
-			})
-		}
-	});
 });
 /* ----------MENUACTIVE---------- */
 $(document).on("click",".vehicleButton",debounce(function(e){
