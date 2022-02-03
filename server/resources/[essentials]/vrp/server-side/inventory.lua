@@ -1395,6 +1395,62 @@ local itemlist = {
 		type = "use",
 		weight = 5.00
 	},
+	["rottweiler"] = {
+		index = "rottweiler",
+		name = "Coleira de Rottweiler",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["husky"] = {
+		index = "husky",
+		name = "Coleira de Husky",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["shepherd"] = {
+		index = "shepherd",
+		name = "Coleira de Shepherd",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["retriever"] = {
+		index = "retriever",
+		name = "Coleira de Retriever",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["poodle"] = {
+		index = "poodle",
+		name = "Coleira de Poodle",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["pug"] = {
+		index = "pug",
+		name = "Coleira de Pug",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["westy"] = {
+		index = "westy",
+		name = "Coleira de Westy",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
+	["cat"] = {
+		index = "cat",
+		name = "Coleira de Gato",
+		tipo = "Animal",
+		type = "use",
+		weight = 1.25
+	},
 	["rose"] = {
 		index = "rose",
 		name = "Rosa",

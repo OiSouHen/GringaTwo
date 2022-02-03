@@ -702,6 +702,38 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 						
 						TriggerClientEvent("hunting:animalCalling",source)
 					end
+					
+					if itemName == "rottweiler" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_rottweiler")
+					end
+
+					if itemName == "husky" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_husky")
+					end
+
+					if itemName == "shepherd" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_shepherd")
+					end
+
+					if itemName == "retriever" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_retriever")
+					end
+
+					if itemName == "poodle" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_poodle")
+					end
+
+					if itemName == "pug" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_pug")
+					end
+
+					if itemName == "westy" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_westy")
+					end
+
+					if itemName == "cat" then
+						TriggerClientEvent("dynamic:animalSpawn",source,"a_c_cat_01")
+					end
 
 					if itemName == "teddy" then
 						vCLIENT.closeInventory(source)
