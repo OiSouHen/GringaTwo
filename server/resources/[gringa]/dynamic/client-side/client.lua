@@ -17,6 +17,11 @@ local menuOpen = false
 local policeService = false
 local paramedicService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- ANIMAL
+-----------------------------------------------------------------------------------------------------------------------------------------
+local animalHahs = nil
+local animalFollow = false
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- POLICE:UPDATESERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("police:updateService")
@@ -47,7 +52,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLICKED
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("clicked",function(data,cb)
+RegisterNUICallback("clicked",function(data)
 	if data["server"] == "true" then
 		TriggerServerEvent(data["trigger"],data["param"])
 	else
@@ -57,7 +62,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("close",function(data,cb)
+RegisterNUICallback("close",function()
 	SetNuiFocus(false,false)
 	menuOpen = false
 end)
@@ -89,6 +94,12 @@ RegisterCommand("globalFunctions",function(source,args)
 			exports["dynamic"]:AddButton("Jaqueta","Colocar/Retirar a jaqueta.","skinshop:dynamicTorso2","","fastoutfit",true)
 			exports["dynamic"]:AddButton("Luvas","Colocar/Retirar as luvas.","skinshop:dynamicArms","","fastoutfit",true)
 			
+			if animalHahs ~= nil then
+				exports["dynamic"]:AddButton("Seguir","Seguir o proprietário.","dynamic:animalFunctions","seguir","animal",false)
+				exports["dynamic"]:AddButton("Colocar no Veículo","Colocar o animal no veículo.","dynamic:animalFunctions","colocar","animal",false)
+				exports["dynamic"]:AddButton("Remover do Veículo","Remover o animal no veículo.","dynamic:animalFunctions","remover","animal",false)
+			end
+			
 			exports["dynamic"]:AddButton("Desmanche","Listagem dos veículos.","dismantle:invokeDismantle","","others",true)
 			exports["dynamic"]:AddButton("Ferimentos","Verificar ferimentos no corpo.","paramedic:myInjuries","","others",false)
 			exports["dynamic"]:AddButton("Desbugar","Recarregar o personagem.","barbershop:debugSystem","","others",false)
@@ -97,12 +108,6 @@ RegisterCommand("globalFunctions",function(source,args)
 			
 			if not IsPedInAnyVehicle(ped) then
 				exports["dynamic"]:AddButton("Rebocar","Colocar veículo na prancha do reboque.","towdriver:invokeTow","","others",false)
-				
-				-- exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","otherPlayers",true)
-				-- exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","otherPlayers",true)
-				-- exports["dynamic"]:AddButton("Checar Porta-Malas","Vericar pessoa dentro do mesmo.","player:checkTrunk","vehicle","otherPlayers",true)
-
-				-- exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","otherPlayers")
 			else
 				exports["dynamic"]:AddButton("Banco Dianteiro Esquerdo","Sentar no banco do motorista.","player:seatPlayer","0","vehicle",false)
 				exports["dynamic"]:AddButton("Banco Dianteiro Direito","Sentar no banco do passageiro.","player:seatPlayer","1","vehicle",false)
@@ -117,6 +122,11 @@ RegisterCommand("globalFunctions",function(source,args)
 			exports["dynamic"]:SubMenu("Roupas","Colocar/Retirar roupas.","outfit")
 			exports["dynamic"]:SubMenu("Vestuário","Mudança de roupas rápidas.","fastoutfit")
 			exports["dynamic"]:SubMenu("Propriedades","Todas as funções das propriedades.","propertys")
+			
+			if animalHahs ~= nil then
+				exports["dynamic"]:SubMenu("Domésticos","Todas as funções dos animais domésticos.","animal")
+			end
+			
 			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others")
 		end
 	end
@@ -167,3 +177,79 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("globalFunctions","Abrir menu principal.","keyboard","F9")
 RegisterKeyMapping("emergencyFunctions","Abrir menu de emergência.","keyboard","F10")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PED
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("dynamic:animalSpawn")
+AddEventHandler("dynamic:animalSpawn",function(model)
+	if animalHahs == nil then
+		local ped = PlayerPedId()
+		local mHash = GetHashKey(model)
+
+		RequestModel(mHash)
+		while not HasModelLoaded(mHash) do
+			Citizen.Wait(1)
+		end
+
+		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,1.0,0.0)
+		animalHahs = CreatePed(28,mHash,coords["x"],coords["y"],coords["z"] - 1,GetEntityHeading(ped),true,false)
+		local netPeds = PedToNet(animalHahs)
+
+		SetNetworkIdCanMigrate(netPeds,true)
+
+		SetPedCanRagdoll(animalHahs,false)
+		SetEntityInvincible(animalHahs,true)
+		SetPedFleeAttributes(animalHahs,0,0)
+		SetEntityAsMissionEntity(animalHahs,true,false)
+		SetBlockingOfNonTemporaryEvents(animalHahs,true)
+		SetPedRelationshipGroupHash(animalHahs,GetHashKey("k9"))
+		GiveWeaponToPed(animalHahs,GetHashKey("WEAPON_ANIMAL"),200,true,true)
+
+		SetModelAsNoLongerNeeded(mHash)
+
+		TriggerEvent("dynamic:animalFunctions","seguir")
+
+		vSERVER.animalRegister(PedToNet(animalHahs))
+	else
+		vSERVER.animalCleaner()
+		animalFollow = false
+		animalHahs = nil
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DYNAMIC:ANIMALFUNCTIONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("dynamic:animalFunctions")
+AddEventHandler("dynamic:animalFunctions",function(functions)
+	if animalHahs ~= nil then
+		local ped = PlayerPedId()
+
+		if functions == "seguir" then
+			if not animalFollow then
+				TaskFollowToOffsetOfEntity(animalHahs,ped,1.0,1.0,0.0,5.0,-1,2.5,1)
+				SetPedKeepTask(animalHahs,true)
+				animalFollow = true
+			else
+				SetPedKeepTask(animalHahs,false)
+				ClearPedTasks(animalHahs)
+				animalFollow = false
+			end
+		elseif functions == "colocar" then
+			if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
+				local vehicle = GetVehiclePedIsUsing(ped)
+				if IsVehicleSeatFree(vehicle,0) then
+					TaskEnterVehicle(animalHahs,vehicle,-1,0,2.0,16,0)
+				end
+			end
+		elseif functions == "remover" then
+			if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
+				TaskLeaveVehicle(animalHahs,GetVehiclePedIsUsing(ped),256)
+				TriggerEvent("dynamic:animalFunctions","seguir")
+			end
+		elseif functions == "deletar" then
+			vSERVER.animalCleaner()
+			animalFollow = false
+			animalHahs = nil
+		end
+	end
+end)

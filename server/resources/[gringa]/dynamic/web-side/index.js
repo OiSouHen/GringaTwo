@@ -7,7 +7,7 @@ $(document).ready(function (){
 			buttons["length"] = 0;
 			submenus["length"] = 0;
 
-			$.post("http://dynamic/close",JSON.stringify({}));
+			$.post("http://dynamic/close");
 			$("button").remove();
 			$("#title").html("");
 		} else if(data["which"] == 8){

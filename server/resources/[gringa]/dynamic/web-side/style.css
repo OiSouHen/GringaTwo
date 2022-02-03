@@ -11,15 +11,16 @@
 }
 
 .btn {
+	color: #ccc;
 	border: none;
 	outline: none;
 	display: block;
-	color: #ccc;
 	margin-top: 5px;
 	font-size: 16px;
 	min-height: 30px;
 	max-height: 58px;
 	min-width: 280px;
+	border-radius: 3px;
 	padding: 20px 20px 20px 12px;
 	border-left: 5px solid #2e6e4c;
 	background: rgba(15,15,15,.85);
