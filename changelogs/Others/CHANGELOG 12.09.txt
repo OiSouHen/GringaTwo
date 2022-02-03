@@ -1,7 +1,0 @@
-**CHANGELOG 12.09:**
-
-1: Modificado o tempo referente a diminuição de vida com muita fome de **5** para **10** segundos.
-2: Adicionado a **Benefactor**.
-     Agora é obrigatório você estar dentro da benefactor para adquirir algum veículo.
-3: Adicionado a possibilidade de realizar um **Teste Drive** no veículo antes da compra.
-     É obrigatório você estar dentro da benefactor para realizar o teste drive de algum veículo.

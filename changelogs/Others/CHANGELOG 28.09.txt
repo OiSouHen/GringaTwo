@@ -1,8 +1,0 @@
-**CHANGELOG 28.09:**
-
-1: Adicionado novas roupas/cabelos **Femininos** e alguns **Masculinos**.
-2: Modificado a cor referente ao **chat** e a distância, o nome da pessoa está mais visível e mais distante.
-3: Adicionado o comando **/norte**, o mesmo muda a nacionalidade para o **Norte**.
-     Apenas utilize o comando caso você queira trocar a nacionalidade para o **Norte**.
-4: Ajustado os Bancos **Fleeca**.
-     Agora possúi o mesmo estilo dos caixas eletrônicos.
