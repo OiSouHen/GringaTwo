@@ -1,11 +1,42 @@
 var lastRadio = ""
 var tickInterval = undefined;
-var lastHealth = 999;
-var lastArmour = 999;
-var lastStress = 999;
-var lastHunger = 999;
-var lastOxigen = 999;
-var lastWater = 999;
+// -------------------------------------------------------------------------------------------
+function direction(heading){
+	var dirResult = "Sul"
+
+	if (heading >= 315 || heading < 45){
+		dirResult = "Norte"
+	} else if (heading >= 45 || heading < 135){
+		dirResult = "Oeste"
+	} else if (heading >= 135 || heading < 225){
+		dirResult = "Sul"
+	} else if (heading >= 225 || heading < 315){
+		dirResult = "Leste"
+	}
+
+	return dirResult
+}
+// -------------------------------------------------------------------------------------------
+function minimalTimers(Seconds){
+	var Days = Math.floor(Seconds / 86400)
+	Seconds = Seconds - Days * 86400
+	var Hours = Math.floor(Seconds / 3600)
+	Seconds = Seconds - Hours * 3600
+	var Minutes = Math.floor(Seconds / 60)
+	Seconds = Seconds - Minutes * 60
+
+	const [D,H,M,S] = [Days,Hours,Minutes,Seconds].map(s => s.toString().padStart(2,0))
+
+    if (Days > 0){
+        return D + ":" + H
+    } else if (Hours > 0){
+        return H + ":" + M
+    } else if (Minutes > 0){
+        return M + ":" + S
+    } else if (Seconds > 0){
+        return "00:" + S
+    }
+}
 // -------------------------------------------------------------------------------------------
 $(document).ready(function(){
 	$(".voiceDisplay").css("--val","50");
@@ -99,11 +130,9 @@ $(document).ready(function(){
 				$("#voice").attr("href","images/micOff.png");
 			}
 		}
-		
-		if (lastHealth !== event["data"]["health"]){
-			lastHealth = event["data"]["health"];
 
-			if (event["data"]["health"] <= 1){
+		if (event["data"]["health"] !== undefined){
+			if (event["data"]["health"] <= 101){
 				if ($("#health").css("display") === "block"){
 					$("#health").css("display","none");
 				}
@@ -111,11 +140,11 @@ $(document).ready(function(){
 				if ($("#health").css("display") === "none"){
 					$("#health").css("display","block");
 				}
-				
-				$(".healthDisplay").css("--val",event["data"]["health"]);
+
+				$(".healthDisplay").css("--val",event["data"]["health"] - 99);
 			}
 		}
-		
+
 		if (event["data"]["seatbelt"] !== undefined){
 			if (event["data"]["seatbelt"] == true){
 				$("#seatBelt").css("color","#70cc72");
@@ -124,25 +153,19 @@ $(document).ready(function(){
 			}
 		}
 
-		if (lastArmour !== event["data"]["armour"]){
-			lastArmour = event["data"]["armour"];
-
-			if (event["data"]["armour"] <= 0){
-				if ($("#armour").css("display") === "block"){
-					$("#armour").css("display","none");
-				}
-			} else {
-				if ($("#armour").css("display") === "none"){
-					$("#armour").css("display","block");
-				}
-			}
-
-			$(".armourDisplay").css("--val",event["data"]["armour"]);
+		if (event["data"]["thirst"] !== undefined){
+			$(".waterDisplay").css("--val",event["data"]["thirst"]);
 		}
 
-		if (lastStress !== event["data"]["stress"]){
-			lastStress = event["data"]["stress"];
+		if (event["data"]["hunger"] !== undefined){
+			$(".foodDisplay").css("--val",event["data"]["hunger"]);
+		}
 
+		if (event["data"]["radio"] !== undefined){
+			lastRadio = event["data"]["radio"];
+		}
+
+		if (event["data"]["stress"] !== undefined){
 			if (event["data"]["stress"] <= 0){
 				if ($("#stress").css("display") === "block"){
 					$("#stress").css("display","none");
@@ -156,38 +179,34 @@ $(document).ready(function(){
 			$(".stressDisplay").css("--val",100 - event["data"]["stress"]);
 		}
 
-		if (lastWater !== event["data"]["thirst"]){
-			lastWater = event["data"]["thirst"];
-
-			$(".waterDisplay").css("--val",event["data"]["thirst"]);
-		}
-
-		if (lastHunger !== event["data"]["hunger"]){
-			lastHunger = event["data"]["hunger"];
-
-			$(".foodDisplay").css("--val",event["data"]["hunger"]);
-		}
-		
-		if (event["data"]["radio"] !== undefined){
-			lastRadio = event["data"]["radio"];
-		}
-		
-		if (event["data"]["suit"] == undefined){
-			if($(".oxigenBackground").css("display") === "block"){
-				$(".oxigenBackground").css("display","none");
+		if (event["data"]["oxigen"] !== undefined){
+			if (event["data"]["oxigenShow"] === undefined){
+				if ($("#oxigen").css("display") === "block"){
+					$("#oxigen").css("display","none");
+				}
+			} else {
+				if ($("#oxigen").css("display") === "none"){
+					$("#oxigen").css("display","block");
+				}
 			}
-		} else {
-			if($(".oxigenBackground").css("display") === "none"){
-				$(".oxigenBackground").css("display","block");
+
+			$(".oxigenDisplay").css("--val",event["data"]["oxigen"]);
+		}
+
+		if (event["data"]["armour"] !== undefined){
+			if (event["data"]["armour"] <= 0){
+				if ($("#armour").css("display") === "block"){
+					$("#armour").css("display","none");
+				}
+			} else {
+				if ($("#armour").css("display") === "none"){
+					$("#armour").css("display","block");
+				}
 			}
+
+			$(".armourDisplay").css("--val",event["data"]["armour"]);
 		}
 
-		if (lastOxigen !== event["data"]["oxigen"]){
-			lastOxigen = event["data"]["oxigen"];
-
-			$(".oxigenDisplay").css("stroke-dashoffset",100 - event["data"]["oxigen"]);
-		}
-		
 		if (event["data"]["vehicle"] !== undefined){
 			if (event["data"]["vehicle"] == true){
 				if ($("#displayVehicle").css("display") === "none"){
@@ -207,13 +226,36 @@ $(document).ready(function(){
 				$("#gasoline").html("GAS <s>" + parseInt(event["data"]["fuel"]) + "</s>");
 				$("#mph").html("MPH <s>" + parseInt(event["data"]["speed"]) + "</s>");
 
+				if (event["data"]["nitro"] > 0){
+					if ($("#nitroFuel").css("display") === "none"){
+						$("#nitroFuel").css("display","block");
+					}
+
+					$("#nitroFuel").html(parseInt(event["data"]["nitro"] / 2) + "%");
+				} else {
+					if ($("#nitroFuel").css("display") === "block"){
+						$("#nitroFuel").css("display","none");
+					}
+				}
 			} else {
 				if ($("#displayVehicle").css("display") === "block"){
 					$("#displayVehicle").css("display","none");
 				}
 			}
-		}
 
-		$("#displayBoxes").html(lastRadio +"<text>"+ event["data"]["direction"] +"</text><text>"+ event["data"]["street"] +"</text>");
+			var wantedText = ""
+			var wantedTimers = parseInt((event["data"]["wanted"] - event["data"]["timer"]) / 1000)
+			if (wantedTimers > 0){
+				wantedText = "<text>"+ minimalTimers(wantedTimers) +" Procurado</text>"
+			}
+
+			var reposeText = ""
+			var reposeTimers = parseInt((event["data"]["repose"] - event["data"]["timer"]) / 1000)
+			if (reposeTimers > 0){
+				reposeText = "<text>"+ minimalTimers(reposeTimers) +" Repouso</text>"
+			}
+
+			$("#displayBoxes").html(lastRadio + reposeText + wantedText +"<text>"+ direction(event["data"]["direction"]) +"</text><text>"+ event["data"]["street"] +"</text>");
+		}
 	});
 });
