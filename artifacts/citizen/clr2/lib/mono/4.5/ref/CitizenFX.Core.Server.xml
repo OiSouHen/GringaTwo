@@ -6481,11 +6481,20 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.ADD_BLIP_FOR_ENTITY">
             <summary>
-            Returns red ( default ) blip attached to entity.
-            Example:
-            Blip blip; //Put this outside your case or option
-            blip = HUD::ADD_BLIP_FOR_ENTITY(YourPedOrBodyguardName);
-            HUD::SET_BLIP_AS_FRIENDLY(blip, true);
+            Create a blip that for default is red (enemy), you can use the [SET_BLIP_AS_FRIENDLY](#\_0xC6F43D0E) to make it blue (friend)
+            
+            Example of enemy:
+            ![enemy](https://i.imgur.com/fl78svv.png)
+            Example of friend:
+            ![friend](https://i.imgur.com/Q16ho5d.png)
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.ADD_BLIP_FOR_RADIUS">
+            <summary>
+            Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
+            
+            Example image:
+            ![example](https://i.imgur.com/9hQl3DB.png)
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.ADD_PED_DECORATION_FROM_HASHES">
@@ -6571,9 +6580,14 @@
             gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.CLEAR_PED_TASKS">
+            <summary>
+            Clear a ped's tasks. Stop animations and other tasks created by scripts.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.CLEAR_PED_TASKS_IMMEDIATELY">
             <summary>
-            Immediately stops the pedestrian from whatever it's doing. They stop fighting, animations, etc. they forget what they were doing.
+            Immediately stops the pedestrian from whatever it's doing. The difference between this and [CLEAR_PED_TASKS](#\_0xE1EF3C1216AFF2CD) is that this one teleports the ped but does not change the position of the ped.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.CLEAR_PLAYER_WANTED_LEVEL">
@@ -6744,6 +6758,7 @@
                 *   2189
                 *   2372
                 *   2545
+                *   2612
             *   RedM
                 *   1311
                 *   1355
@@ -7137,25 +7152,7 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.REMOVE_BLIP">
             <summary>
-            In the C++ SDK, this seems not to work-- the blip isn't removed immediately. I use it for saving cars.
-            E.g.:
-            Ped pped = PLAYER::PLAYER_PED_ID();
-            Vehicle v = PED::GET_VEHICLE_PED_IS_USING(pped);
-            Blip b = HUD::ADD_BLIP_FOR_ENTITY(v);
-            works fine.
-            But later attempting to delete it with:
-            Blip b = HUD::GET_BLIP_FROM_ENTITY(v);
-            if (HUD::DOES_BLIP_EXIST(b)) HUD::REMOVE_BLIP(&amp;b);
-            doesn't work. And yes, doesn't work without the DOES_BLIP_EXIST check either. Also, if you attach multiple blips to the same thing (say, a vehicle), and that thing disappears, the blips randomly attach to other things (in my case, a vehicle).
-            Thus for me, HUD::REMOVE_BLIP(&amp;b) only works if there's one blip, (in my case) the vehicle is marked as no longer needed, you drive away from it and it eventually despawns, AND there is only one blip attached to it. I never intentionally attach multiple blips but if the user saves the car, this adds a blip. Then if they delete it, it is supposed to remove the blip, but it doesn't. Then they can immediately save it again, causing another blip to re-appear.
-            -------------
-            Passing the address of the variable instead of the value works for me.
-            e.g.
-            int blip = HUD::ADD_BLIP_FOR_ENTITY(ped);
-            HUD::REMOVE_BLIP(&amp;blip);
-            Remove blip will currently crash your game, just artificially remove the blip by setting the sprite to a id that is 'invisible'.
-            --
-            It crashes my game.
+            Removes the blip from your map.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.REMOVE_STATE_BAG_CHANGE_HANDLER">
@@ -7525,7 +7522,7 @@
             	_0xB60EA2BA = 245,
             	_0x536B0950 = 246,
             	_0x0C754ACA = 247,
-            	_0x69D28F3E = 248,
+            	CPED_CONFIG_FLAG_DisableVehicleSeatRandomAnimations = 248,
             	_0x12659168 = 249,
             	_0x1BDF2F04 = 250,
             	_0x7728FAA3 = 251,
@@ -7745,20 +7742,23 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_HEAD_BLEND_DATA">
             <summary>
-            The "shape" parameters control the shape of the ped's face. The "skin" parameters control the skin tone. ShapeMix and skinMix control how much the first and second IDs contribute,(typically mother and father.) ThirdMix overrides the others in favor of the third IDs. IsParent is set for "children" of the player character's grandparents during old-gen character creation. It has unknown effect otherwise.  
-            The IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.  
-            !!!Can someone add working example for this???  
-            try this:  
-            headBlendData headData;  
-            _GET_PED_HEAD_BLEND_DATA(PLAYER_PED_ID(), &amp;headData);  
-            SET_PED_HEAD_BLEND_DATA(PLAYER_PED_ID(), headData.shapeFirst, headData.shapeSecond, headData.shapeThird, headData.skinFirst, headData.skinSecond  
-            	, headData.skinThird, headData.shapeMix, headData.skinMix, headData.skinThird, 0);  
-            For more info please refer to this topic.   
-            gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained
+            For more info please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic.
+            
+            **Other information:**
+            
+            IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.&lt;/br&gt;
+            
+            This native function is often called prior to calling natives such as:
+            
+            *   [`SetPedHairColor`](#0xBB43F090)
+            *   [`SetPedHeadOverlayColor`](#0x78935A27)
+            *   [`SetPedHeadOverlay`](#0xD28DBA90)
+            *   [`SetPedFaceFeature`](#0x6C8D4458)
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_HEAD_OVERLAY">
             <summary>
+            ```
             OverlayID ranges from 0 to 12, index from 0 to _GET_NUM_OVERLAY_VALUES(overlayID)-1, and opacity from 0.0 to 1.0.   
             overlayID       Part                  Index, to disable  
             0               Blemishes             0 - 23, 255  
@@ -7773,7 +7773,12 @@
             9               Moles/Freckles        0 - 17, 255  
             10              Chest Hair            0 - 16, 255  
             11              Body Blemishes        0 - 11, 255  
-            12              Add Body Blemishes    0 - 1, 255
+            12              Add Body Blemishes    0 - 1, 255  
+            ```
+            
+            **Note:**
+            
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_PROP_INDEX">
@@ -7793,7 +7798,7 @@
             [GET_NUMBER_OF_PED_PROP_DRAWABLE_VARIATIONS](#\_0x5FAF9754E789FB47)\
             [GET_NUMBER_OF_PED_PROP_TEXTURE_VARIATIONS](#\_0xA6E7F1CEB523E171)
             
-            [List of component/props ID](gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html) of player_two with examples
+            [List of component/props ID](https://gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html) of player_two with examples
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_PED_RANDOM_COMPONENT_VARIATION">
@@ -8017,7 +8022,7 @@
         <member name="F:CitizenFX.Core.Native.Hash.TASK_ENTER_VEHICLE">
             <summary>
             speed 1.0 = walk, 2.0 = run  
-            p5 1 = normal, 3 = teleport to vehicle, 16 = teleport directly into vehicle  
+            p5 1 = normal, 3 = teleport to vehicle, 8 = normal/carjack ped from seat, 16 = teleport directly into vehicle  
             p6 is always 0
             </summary>
         </member>
@@ -8052,7 +8057,7 @@
             Flags from decompiled scripts:  
             0 = normal exit and closes door.  
             1 = normal exit and closes door.  
-            16 = teleports outside, door kept closed.  
+            16 = teleports outside, door kept closed.  (This flag does not seem to work for the front seats in buses, NPCs continue to exit normally)
             64 = normal exit and closes door, maybe a bit slower animation than 0.  
             256 = normal exit but does not close the door.  
             4160 = ped is throwing himself out, even when the vehicle is still.  
@@ -8212,31 +8217,36 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash._SET_PED_FACE_FEATURE">
             <summary>
-            Sets the various freemode face features, e.g. nose length, chin shape. Scale ranges from -1.0 to 1.0.
-            Index can be 0 - 19
-            SET_PED_M*
-            Here is the list of names. It starts at 0 and runs in sequence
-            Face_Feature
-            Nose_Width
-            Nose_Peak_Hight
-            Nose_Peak_Lenght
-            Nose_Bone_High
-            Nose_Peak_Lowering
-            Nose_Bone_Twist
-            EyeBrown_High
-            EyeBrown_Forward
-            Cheeks_Bone_High
-            Cheeks_Bone_Width
-            Cheeks_Width
-            Eyes_Openning
-            Lips_Thickness
-            Jaw_Bone_Width: Bone size to sides
-            Jaw_Bone_Back_Lenght: Bone size to back
-            Chimp_Bone_Lowering: Go Down
-            Chimp_Bone_Lenght: Go forward
-            Chimp_Bone_Width
-            Chimp_Hole
-            Neck_Thikness
+            Sets the various freemode face features, e.g. nose length, chin shape.
+            
+            **Indexes (From 0 to 19):**
+            
+            Parentheses indicate morph scale/direction as in (-1.0 to 1.0)
+            
+            *   **0**: Nose Width (Thin/Wide)
+            *   **1**: Nose Peak (Up/Down)
+            *   **2**: Nose Length (Long/Short)
+            *   **3**: Nose Bone Curveness (Crooked/Curved)
+            *   **4**: Nose Tip (Up/Down)
+            *   **5**: Nose Bone Twist (Left/Right)
+            *   **6**: Eyebrow (Up/Down)
+            *   **7**: Eyebrow (In/Out)
+            *   **8**: Cheek Bones (Up/Down)
+            *   **9**: Cheek Sideways Bone Size (In/Out)
+            *   **10**: Cheek Bones Width (Puffed/Gaunt)
+            *   **11**: Eye Opening (Both) (Wide/Squinted)
+            *   **12**: Lip Thickness (Both) (Fat/Thin)
+            *   **13**: Jaw Bone Width (Narrow/Wide)
+            *   **14**: Jaw Bone Shape (Round/Square)
+            *   **15**: Chin Bone (Up/Down)
+            *   **16**: Chin Bone Length (In/Out or Backward/Forward)
+            *   **17**: Chin Bone Shape (Pointed/Square)
+            *   **18**: Chin Hole (Chin Bum)
+            *   **19**: Neck Thickness (Thin/Thick)
+            
+            **Note:**
+            
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash._SET_PED_HAIR_COLOR">
@@ -8246,9 +8256,14 @@
         </member>
         <member name="F:CitizenFX.Core.Native.Hash._SET_PED_HEAD_OVERLAY_COLOR">
             <summary>
-            Used for freemode (online) characters.  
-            ColorType is 1 for eyebrows, beards, and chest hair; 2 for blush and lipstick; and 0 otherwise, though not called in those cases.  
-            Called after SET_PED_HEAD_OVERLAY().
+            ```
+            Used for freemode (online) characters. 
+            Called after SET_PED_HEAD_OVERLAY().  
+            ```
+            
+            **Note:**
+            
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
         </member>
         <member name="M:CitizenFX.Core.Native.API.AddBlipForArea(System.Single,System.Single,System.Single,System.Single,System.Single)">
@@ -8299,12 +8314,40 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.AddBlipForEntity(System.Int32)">
             <summary>
-            Returns red ( default ) blip attached to entity.
-            Example:
-            Blip blip; //Put this outside your case or option
-            blip = HUD::ADD_BLIP_FOR_ENTITY(YourPedOrBodyguardName);
-            HUD::SET_BLIP_AS_FRIENDLY(blip, true);
+            Create a blip that for default is red (enemy), you can use the [SET_BLIP_AS_FRIENDLY](#\_0xC6F43D0E) to make it blue (friend)
+            Example of enemy:
+            ![enemy](https://i.imgur.com/fl78svv.png)
+            Example of friend:
+            ![friend](https://i.imgur.com/Q16ho5d.png)
             </summary>
+            <param name="entity">
+            The entity handle to create the blip.
+            </param>
+            <returns>
+            A blip handle.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.AddBlipForRadius(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
+            Example image:
+            ![example](https://i.imgur.com/9hQl3DB.png)
+            </summary>
+            <param name="posX">
+            The x position of the blip (you can also send a vector3 instead of the bulk coordinates)
+            </param>
+            <param name="posY">
+            The y position of the blip (you can also send a vector3 instead of the bulk coordinates)
+            </param>
+            <param name="posZ">
+            The z position of the blip (you can also send a vector3 instead of the bulk coordinates)
+            </param>
+            <param name="radius">
+            The number that defines the radius of the blip circle
+            </param>
+            <returns>
+            The blip handle that can be manipulated with every `SetBlip` natives
+            </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.AddPedDecorationFromHashes(System.Int32,System.UInt32,System.UInt32)">
             <summary>
@@ -8442,10 +8485,21 @@
             gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
             </summary>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.ClearPedTasks(System.Int32)">
+            <summary>
+            Clear a ped's tasks. Stop animations and other tasks created by scripts.
+            </summary>
+            <param name="ped">
+            Ped id. Use PlayerPedId() for your own character.
+            </param>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.ClearPedTasksImmediately(System.Int32)">
             <summary>
-            Immediately stops the pedestrian from whatever it's doing. They stop fighting, animations, etc. they forget what they were doing.
+            Immediately stops the pedestrian from whatever it's doing. The difference between this and [CLEAR_PED_TASKS](#\_0xE1EF3C1216AFF2CD) is that this one teleports the ped but does not change the position of the ped.
             </summary>
+            <param name="ped">
+            Ped id.
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.ClearPlayerWantedLevel(System.String)">
             <summary>
@@ -8480,7 +8534,7 @@
             False to create a door archetype (archetype flag bit 26 set) as a door. Required to be set to true to create door models in network mode.
             </param>
             <returns>
-            A script handle (fwScriptGuid index) for the object, or `0` if the object failed to be created.
+            A script handle for the object, or `0` if the object failed to be created.
             </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.CreateObjectNoOffset(System.UInt32,System.Single,System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)">
@@ -8794,6 +8848,7 @@
             *   2189
             *   2372
             *   2545
+            *   2612
             *   RedM
             *   1311
             *   1355
@@ -9495,26 +9550,11 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.RemoveBlip(System.Int32@)">
             <summary>
-            In the C++ SDK, this seems not to work-- the blip isn't removed immediately. I use it for saving cars.
-            E.g.:
-            Ped pped = PLAYER::PLAYER_PED_ID();
-            Vehicle v = PED::GET_VEHICLE_PED_IS_USING(pped);
-            Blip b = HUD::ADD_BLIP_FOR_ENTITY(v);
-            works fine.
-            But later attempting to delete it with:
-            Blip b = HUD::GET_BLIP_FROM_ENTITY(v);
-            if (HUD::DOES_BLIP_EXIST(b)) HUD::REMOVE_BLIP(&amp;b);
-            doesn't work. And yes, doesn't work without the DOES_BLIP_EXIST check either. Also, if you attach multiple blips to the same thing (say, a vehicle), and that thing disappears, the blips randomly attach to other things (in my case, a vehicle).
-            Thus for me, HUD::REMOVE_BLIP(&amp;b) only works if there's one blip, (in my case) the vehicle is marked as no longer needed, you drive away from it and it eventually despawns, AND there is only one blip attached to it. I never intentionally attach multiple blips but if the user saves the car, this adds a blip. Then if they delete it, it is supposed to remove the blip, but it doesn't. Then they can immediately save it again, causing another blip to re-appear.
-            -------------
-            Passing the address of the variable instead of the value works for me.
-            e.g.
-            int blip = HUD::ADD_BLIP_FOR_ENTITY(ped);
-            HUD::REMOVE_BLIP(&amp;blip);
-            Remove blip will currently crash your game, just artificially remove the blip by setting the sprite to a id that is 'invisible'.
-            --
-            It crashes my game.
+            Removes the blip from your map.
             </summary>
+            <param name="blip">
+            Blip handle to remove.
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.RemoveStateBagChangeHandler(System.Int32)">
             <summary>
@@ -9964,7 +10004,7 @@
             _0xB60EA2BA = 245,
             _0x536B0950 = 246,
             _0x0C754ACA = 247,
-            _0x69D28F3E = 248,
+            CPED_CONFIG_FLAG_DisableVehicleSeatRandomAnimations = 248,
             _0x12659168 = 249,
             _0x1BDF2F04 = 250,
             _0x7728FAA3 = 251,
@@ -10220,32 +10260,41 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedFaceFeature(System.Int32,System.Int32,System.Single)">
             <summary>
-            Sets the various freemode face features, e.g. nose length, chin shape. Scale ranges from -1.0 to 1.0.
-            Index can be 0 - 19
-            SET_PED_M*
-            Here is the list of names. It starts at 0 and runs in sequence
-            Face_Feature
-            Nose_Width
-            Nose_Peak_Hight
-            Nose_Peak_Lenght
-            Nose_Bone_High
-            Nose_Peak_Lowering
-            Nose_Bone_Twist
-            EyeBrown_High
-            EyeBrown_Forward
-            Cheeks_Bone_High
-            Cheeks_Bone_Width
-            Cheeks_Width
-            Eyes_Openning
-            Lips_Thickness
-            Jaw_Bone_Width: Bone size to sides
-            Jaw_Bone_Back_Lenght: Bone size to back
-            Chimp_Bone_Lowering: Go Down
-            Chimp_Bone_Lenght: Go forward
-            Chimp_Bone_Width
-            Chimp_Hole
-            Neck_Thikness
+            Sets the various freemode face features, e.g. nose length, chin shape.
+            **Indexes (From 0 to 19):**
+            Parentheses indicate morph scale/direction as in (-1.0 to 1.0)
+            *   **0**: Nose Width (Thin/Wide)
+            *   **1**: Nose Peak (Up/Down)
+            *   **2**: Nose Length (Long/Short)
+            *   **3**: Nose Bone Curveness (Crooked/Curved)
+            *   **4**: Nose Tip (Up/Down)
+            *   **5**: Nose Bone Twist (Left/Right)
+            *   **6**: Eyebrow (Up/Down)
+            *   **7**: Eyebrow (In/Out)
+            *   **8**: Cheek Bones (Up/Down)
+            *   **9**: Cheek Sideways Bone Size (In/Out)
+            *   **10**: Cheek Bones Width (Puffed/Gaunt)
+            *   **11**: Eye Opening (Both) (Wide/Squinted)
+            *   **12**: Lip Thickness (Both) (Fat/Thin)
+            *   **13**: Jaw Bone Width (Narrow/Wide)
+            *   **14**: Jaw Bone Shape (Round/Square)
+            *   **15**: Chin Bone (Up/Down)
+            *   **16**: Chin Bone Length (In/Out or Backward/Forward)
+            *   **17**: Chin Bone Shape (Pointed/Square)
+            *   **18**: Chin Hole (Chin Bum)
+            *   **19**: Neck Thickness (Thin/Thick)
+            **Note:**
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
+            <param name="ped">
+            The ped entity
+            </param>
+            <param name="index">
+            An integer ranging from 0 to 19
+            </param>
+            <param name="scale">
+            A float ranging from -1.0 to 1.0
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedHairColor(System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -10254,20 +10303,52 @@
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedHeadBlendData(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Boolean)">
             <summary>
-            The "shape" parameters control the shape of the ped's face. The "skin" parameters control the skin tone. ShapeMix and skinMix control how much the first and second IDs contribute,(typically mother and father.) ThirdMix overrides the others in favor of the third IDs. IsParent is set for "children" of the player character's grandparents during old-gen character creation. It has unknown effect otherwise.
-            The IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.
-            !!!Can someone add working example for this???
-            try this:
-            headBlendData headData;
-            _GET_PED_HEAD_BLEND_DATA(PLAYER_PED_ID(), &amp;headData);
-            SET_PED_HEAD_BLEND_DATA(PLAYER_PED_ID(), headData.shapeFirst, headData.shapeSecond, headData.shapeThird, headData.skinFirst, headData.skinSecond
-            , headData.skinThird, headData.shapeMix, headData.skinMix, headData.skinThird, 0);
-            For more info please refer to this topic.
-            gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained
+            For more info please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic.
+            **Other information:**
+            IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.&lt;/br&gt;
+            This native function is often called prior to calling natives such as:
+            *   [`SetPedHairColor`](#0xBB43F090)
+            *   [`SetPedHeadOverlayColor`](#0x78935A27)
+            *   [`SetPedHeadOverlay`](#0xD28DBA90)
+            *   [`SetPedFaceFeature`](#0x6C8D4458)
             </summary>
+            <param name="ped">
+            The ped entity
+            </param>
+            <param name="shapeFirstID">
+            Controls the shape of the first ped's face
+            </param>
+            <param name="shapeSecondID">
+            Controls the shape of the second ped's face
+            </param>
+            <param name="shapeThirdID">
+            Controls the shape of the third ped's face
+            </param>
+            <param name="skinFirstID">
+            Controls the first id's skin tone
+            </param>
+            <param name="skinSecondID">
+            Controls the second id's skin tone
+            </param>
+            <param name="skinThirdID">
+            Controls the third id's skin tone
+            </param>
+            <param name="shapeMix">
+            0.0 - 1.0 Of whose characteristics to take Mother -&gt; Father (shapeFirstID and shapeSecondID)
+            </param>
+            <param name="skinMix">
+            0.0 - 1.0 Of whose characteristics to take Mother -&gt; Father (skinFirstID and skinSecondID)
+            </param>
+            <param name="thirdMix">
+            Overrides the others in favor of the third IDs.
+            </param>
+            <param name="isParent">
+            IsParent is set for "children" of the player character's grandparents during old-gen character creation. It has unknown effect otherwise.
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedHeadOverlay(System.Int32,System.Int32,System.Int32,System.Single)">
             <summary>
+            ```
             OverlayID ranges from 0 to 12, index from 0 to _GET_NUM_OVERLAY_VALUES(overlayID)-1, and opacity from 0.0 to 1.0.
             overlayID       Part                  Index, to disable
             0               Blemishes             0 - 23, 255
@@ -10283,14 +10364,47 @@
             10              Chest Hair            0 - 16, 255
             11              Body Blemishes        0 - 11, 255
             12              Add Body Blemishes    0 - 1, 255
+            ```
+            **Note:**
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
+            <param name="ped">
+            The ped entity
+            </param>
+            <param name="overlayID">
+            The overlay id displayed up above.
+            </param>
+            <param name="index">
+            An integer representing the index (from 0 to `_GET_NUM_OVERLAY_VALUES(overlayID)-1`)
+            </param>
+            <param name="opacity">
+            A float ranging from 0.0 to 1.0
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedHeadOverlayColor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
+            ```
             Used for freemode (online) characters.
-            ColorType is 1 for eyebrows, beards, and chest hair; 2 for blush and lipstick; and 0 otherwise, though not called in those cases.
             Called after SET_PED_HEAD_OVERLAY().
+            ```
+            **Note:**
+            You may need to call [`SetPedHeadBlendData`](#0x9414E18B9434C2FE) prior to calling this native in order for it to work.
             </summary>
+            <param name="ped">
+            The ped entity
+            </param>
+            <param name="overlayID">
+            An integer representing the overlay id
+            </param>
+            <param name="colorType">
+            1 for eyebrows, beards, and chest hair; 2 for blush and lipstick; and 0 otherwise, though not called in those cases.
+            </param>
+            <param name="colorID">
+            An integer representing the primary color id
+            </param>
+            <param name="secondColorID">
+            An integer representing the secondary color id
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPedPropIndex(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
@@ -10304,7 +10418,7 @@
             ### Related and useful natives
             [GET_NUMBER_OF_PED_PROP_DRAWABLE_VARIATIONS](#\_0x5FAF9754E789FB47)\
             [GET_NUMBER_OF_PED_PROP_TEXTURE_VARIATIONS](#\_0xA6E7F1CEB523E171)
-            [List of component/props ID](gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html) of player_two with examples
+            [List of component/props ID](https://gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html) of player_two with examples
             </summary>
             <param name="ped">
             The ped handle.
@@ -10406,6 +10520,12 @@
             Set the model for a specific Player. Be aware that this will destroy the current Ped for the Player and create a new one, any reference to the old ped should be reset
             Make sure to request the model first and wait until it has loaded.
             </summary>
+            <param name="player">
+            The player to set the model for
+            </param>
+            <param name="model">
+            The hash of the model to use
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetPlayerRoutingBucket(System.String,System.Int32)">
             <summary>
@@ -10610,7 +10730,7 @@
         <member name="M:CitizenFX.Core.Native.API.TaskEnterVehicle(System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Int32,System.Int32)">
             <summary>
             speed 1.0 = walk, 2.0 = run
-            p5 1 = normal, 3 = teleport to vehicle, 16 = teleport directly into vehicle
+            p5 1 = normal, 3 = teleport to vehicle, 8 = normal/carjack ped from seat, 16 = teleport directly into vehicle
             p6 is always 0
             </summary>
             <param name="seatIndex">
@@ -10648,7 +10768,7 @@
             Flags from decompiled scripts:
             0 = normal exit and closes door.
             1 = normal exit and closes door.
-            16 = teleports outside, door kept closed.
+            16 = teleports outside, door kept closed.  (This flag does not seem to work for the front seats in buses, NPCs continue to exit normally)
             64 = normal exit and closes door, maybe a bit slower animation than 0.
             256 = normal exit but does not close the door.
             4160 = ped is throwing himself out, even when the vehicle is still.

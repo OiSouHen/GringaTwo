@@ -1,4 +1,15 @@
-# Creative - GGRP Release
+-------
+
+#### Creative
+> Connections: oxmysql, oxdrive.
+
+> DLC: 2612.
+
+> Artifacts/Build: 5598.
+
+-------
+
+### Sobre
 
 > about: Pasta com arquivos sobre os Carros VIPs, Sets de grupos, Regras/Leis padrões, Tencode/Penal da Polícia e Premium para informações VIPs.
 
@@ -10,14 +21,9 @@
 
 > server: Pasta com todos os arquivos da Base.
 
-## Utilitários
+-------
 
-MOD Gráfico JayTaylorVisuals: https://bit.ly/3tWeZ3v
+#### Crensa
+Você pode entrar em nosso grupo e ter acesso a atualizações e diversos canais informantes sobre a Base - [Discord](https://discord.gg/5BVWp7Zxpe).
 
-## Informações
-
-O conteúdo disponível aqui é totalmente baseado no servidor Creative[www.creative-rp.com], Estando em dia com a data de 09/2021, utilizando os Artefatos[5250].
-
-### Direitos autorais
-
-SummerZ, Qbus, Fedéera, Harry, Hensa, Grauzera, NoPixel Creators, FiveM Fórum.
+-------
