@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	AddTextEntryByHash(GetHashKey("raptor_csign_a0"),"0")
 	AddTextEntryByHash(GetHashKey("raptor_csign_a1"),"1")
 	AddTextEntryByHash(GetHashKey("raptor_csign_a2"),"2")

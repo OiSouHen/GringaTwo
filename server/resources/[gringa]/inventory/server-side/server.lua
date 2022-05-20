@@ -28,7 +28,7 @@ local firecracker = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FIRECRACKER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(firecracker) do
 			if firecracker[k] > 0 then
@@ -39,13 +39,13 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(30000)
+		Wait(30000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ACTIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(active) do
 			if active[k] > 0 then
@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -329,7 +329,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										vRPclient.updateHealth(source,15)
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
@@ -355,7 +355,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										vRPclient.updateHealth(source,2)
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou nocauteado.",5000)
@@ -389,7 +389,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vPLAYER.movementClip(source,"move_m@shadyped@a")
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -414,7 +414,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setMeth",source)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -438,7 +438,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setEnergetic",source,10,1.45)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -462,7 +462,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setMeth",source)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -486,7 +486,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setCocaine",source)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -514,7 +514,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.downgradeThirst(user_id,6)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -533,7 +533,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								vCLIENT.blockButtons(source,false)
 								vRPclient._removeObjects(source,"one")
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -556,7 +556,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										TriggerClientEvent("resetBleeding",source)
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						else
 							TriggerClientEvent("Notify",source,"aviso","Você não pode utilizar de vida cheia ou nocauteado.",5000)
@@ -581,7 +581,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										TriggerClientEvent("resetBleeding",source)
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Você não pode utilizar de vida cheia ou desmaiado.",5000)
@@ -599,10 +599,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								active[user_id] = nil
 								vCLIENT.blockButtons(source,false)
 								vRPclient._createObjects(source,"amb@world_human_binoculars@male@enter","enter","prop_binoc_01",50,28422)
-								Citizen.Wait(750)
+								Wait(750)
 								TriggerClientEvent("useBinoculos",source)
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -617,10 +617,10 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 								active[user_id] = nil
 								vCLIENT.blockButtons(source,false)
 								vRPclient._createObjects(source,"amb@world_human_paparazzi@male@base","base","prop_pap_camera_01",49,28422)
-								Citizen.Wait(100)
+								Wait(100)
 								TriggerClientEvent("useCamera",source)
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -633,7 +633,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
                         TriggerClientEvent("Progress",source,60000,"Recarregando...")
                         vCLIENT.blockButtons(source,true)
                         vRPclient._playAnim(source,true,{"amb@world_human_clipboard@male@idle_a","idle_c"},true)
-                        Citizen.Wait(60000)
+                        Wait(60000)
                         vRP.giveInventoryItem(user_id,"cellphone",1,false)
                         vRP.upgradeStress(user_id,5)
 						vRPclient._stopAnim(source,false)
@@ -678,7 +678,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											end
 										end
 										
-										Citizen.Wait(0)
+										Wait(0)
 									until active[user_id] == nil
 								end
 							end
@@ -790,7 +790,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										TriggerClientEvent("inventory:Firecracker",source)
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						end
 					end
@@ -818,7 +818,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											end
 										end
 									end
-									Citizen.Wait(0)
+									Wait(0)
 								until active[user_id] == nil
 							end
 						end
@@ -880,7 +880,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 											TriggerClientEvent("Notify",source,"default","<b>Químicos:</b> "..chemStr.."<br><b>Álcool:</b> "..alcoholStr.."<br><b>Drogas:</b> "..weedStr,10000)
 										end
 									end
-									Citizen.Wait(0)
+									Wait(0)
 								until active[user_id] == nil
 							end
 						end
@@ -903,7 +903,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRPclient.setArmour(source,100)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -922,7 +922,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vCLIENT.parachuteColors(source)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1086,7 +1086,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setEnergetic",source,90,1.10)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1110,7 +1110,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setDrunkTime",source,300)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1134,7 +1134,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setDrunkTime",source,300)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1158,7 +1158,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setDrunkTime",source,300)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1182,7 +1182,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									TriggerClientEvent("setDrunkTime",source,300)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1206,7 +1206,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRPclient._removeObjects(source,"one")
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1230,7 +1230,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.downgradeStress(user_id,25)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1254,7 +1254,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.downgradeStress(user_id,50)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1279,7 +1279,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.giveInventoryItem(user_id,"emptybottle",1)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1301,7 +1301,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeThirst(user_id,100)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1323,7 +1323,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeThirst(user_id,100)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1395,7 +1395,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 										end
 									end
 								end
-								Citizen.Wait(0)
+								Wait(0)
 							until active[user_id] == nil
 						end
 					end
@@ -1419,7 +1419,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 --									TriggerClientEvent("setEnergetic",source,30,1.15)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1441,7 +1441,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,20)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1463,7 +1463,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,50)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1485,7 +1485,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,50)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1507,7 +1507,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,50)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1529,7 +1529,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,50)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1551,7 +1551,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,20)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1573,7 +1573,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,20)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1595,7 +1595,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,30)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 					
@@ -1617,7 +1617,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.upgradeHunger(user_id,15)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1639,7 +1639,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.downgradeStress(user_id,6)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1661,7 +1661,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 									vRP.downgradeStress(user_id,12)
 								end
 							end
-							Citizen.Wait(0)
+							Wait(0)
 						until active[user_id] == nil
 					end
 
@@ -1722,7 +1722,7 @@ AddEventHandler("inventory:useItem",function(slot,rAmount)
 												vPLANTS.pressPlants(source,x,y,z)
 											end
 										end
-										Citizen.Wait(0)
+										Wait(0)
 									until active[user_id] == nil
 								else
 									TriggerClientEvent("Notify",source,"amarelo","Você não possúi os itens necessários.",5000)
@@ -2220,7 +2220,7 @@ AddEventHandler("inventory:sendItem",function(itemName,amount)
 										vRP.giveInventoryItem(nuser_id,itemName,amount,true,nil,parseInt(durability))
 										TriggerClientEvent("inventory:Update",nplayer,"updateMochila")
 										vRPclient._playAnim(source,true,{"pickup_object","putdown_low"},false)
-										Citizen.Wait(750)
+										Wait(750)
 										vRPclient._removeObjects(source)
 									end
 								end
@@ -2229,7 +2229,7 @@ AddEventHandler("inventory:sendItem",function(itemName,amount)
 									vRP.giveInventoryItem(nuser_id,itemName,parseInt(amount),true)
 									TriggerClientEvent("inventory:Update",nplayer,"updateMochila")
 									vRPclient._playAnim(source,true,{"pickup_object","putdown_low"},false)
-									Citizen.Wait(750)
+									Wait(750)
 									vRPclient._removeObjects(source)
 								end
 							end
@@ -2437,7 +2437,7 @@ LoadModel = function(model)
 	while not HasModelLoaded(model) do
 		RequestModel(model)
 		
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

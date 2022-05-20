@@ -17,7 +17,7 @@ function cRP.setupChars()
 	local steam = vRP.getSteam(source)
 	local mychars = {}
 
-	Citizen.Wait(500)
+	Wait(500)
 
 	local chars = vRP.query("vRP/get_characters",{ steam = steam })
 	if chars then
@@ -35,7 +35,7 @@ function cRP.deleteChar(id)
 
 	vRP.execute("vRP/remove_characters",{ id = parseInt(id) })
   
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	return getPlayerCharacters(steam)
 end
@@ -83,7 +83,7 @@ AddEventHandler("spawn:createChar",function(name,name2,sex,loc)
 		end
 	end
 
-	Citizen.Wait(300)
+	Wait(300)
 
 	spawnLogin[parseInt(newId)] = true
 	TriggerEvent("baseModule:idLoaded",source,newId,sex)

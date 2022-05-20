@@ -34,7 +34,7 @@ AddEventHandler("dismantle:checkVehicle",function(checkVehicle)
 					local status,vehicle = vSERVER.checkVehlist()
 					if status then
 						TaskTurnPedToFaceEntity(ped,vehicle,1000)
-						Citizen.Wait(2000)
+						Wait(2000)
 						SetEntityInvincible(ped,true)
 						FreezeEntityPosition(ped,true)
 						TriggerEvent("cancelando",true)
@@ -43,12 +43,12 @@ AddEventHandler("dismantle:checkVehicle",function(checkVehicle)
 						vRP._playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
 						
 						for i = 0,5 do
-							Citizen.Wait(10000)
+							Wait(10000)
 							SetVehicleDoorBroken(vehicle,i,false)
 						end
 						
 						for i = 0,7 do
-							Citizen.Wait(10000)
+							Wait(10000)
 							SetVehicleTyreBurst(vehicle,i,1,1000.01)
 						end
 						
@@ -69,12 +69,12 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if timeDismantle > 0 then
 			timeDismantle = timeDismantle - 1
 		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

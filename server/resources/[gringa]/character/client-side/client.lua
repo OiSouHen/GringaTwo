@@ -34,7 +34,7 @@ end
 local function StartFade()
 	DoScreenFadeOut(500)
 	while IsScreenFadingOut() do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end
 
@@ -42,11 +42,11 @@ local function EndFade()
 	ShutdownLoadingScreen()
 	DoScreenFadeIn(500)
 	while IsScreenFadingIn() do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 	SetEntityInvincible(PlayerPedId(),false) --mqcu
 	SetEntityVisible(PlayerPedId(),false)
@@ -71,7 +71,7 @@ Citizen.CreateThread(function()
 			SetEntityVisible(PlayerPedId(),false)
 			FreezeEntityPosition(PlayerPedId(),true)
 		end
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end)
 
@@ -113,7 +113,7 @@ function TriggerCamController(statusSent)
 				altura = altura - 2
 			end
 			setCamHeight(altura)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 	elseif statusSent == -2 then
 
@@ -212,7 +212,7 @@ function TriggerCreateCharacter(pedModelHash)
 		local i = 0
 		while not HasModelLoaded(pedModelHash) and i < 10000 do
 			RequestModel(pedModelHash)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 
 		if HasModelLoaded(pedModelHash) then
@@ -228,7 +228,7 @@ function TriggerCreateCharacter(pedModelHash)
 	SetEntityCoordsNoOffset(PlayerPedId(),402.55,-996.37,-99.01,true,true,true) 
 	SetEntityHeading(PlayerPedId(),f(180))
 	TriggerCamController(doStatus)
-	Citizen.Wait(5000)
+	Wait(5000)
 	EndFade()
 	SetNuiFocus(isInCharacterMode,isInCharacterMode)
 	SendNUIMessage({ CharacterMode = isInCharacterMode, CharacterMode2 = not isInCharacterMode, CharacterMode3 = not isInCharacterMode })
@@ -272,7 +272,7 @@ function changeGender(model)
 	local mhash = GetHashKey(model)
 	while not HasModelLoaded(mhash) do
 		RequestModel(mhash)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if HasModelLoaded(mhash) then
@@ -283,9 +283,9 @@ function changeGender(model)
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do 
-		Citizen.Wait(1)
+		Wait(1)
 		if continuousFadeOutNetwork then 
 			for id = 0,256 do
 				if id ~= PlayerId() and NetworkIsPlayerActive(id) then
@@ -293,7 +293,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		else
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end
 end)

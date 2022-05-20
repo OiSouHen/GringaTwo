@@ -96,7 +96,7 @@ local registers = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for k,v in pairs(registers) do
 		exports["target"]:AddCircleZone("register:"..k,vector3(v[1],v[2],v[3]),1.0,{
 			name = "register:"..k,
@@ -139,7 +139,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- registerTimer
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if registerStart and registerTimer > 0 then
 			registerTimer = registerTimer - 1
@@ -149,6 +149,6 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)

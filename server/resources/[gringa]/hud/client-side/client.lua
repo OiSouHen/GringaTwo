@@ -48,7 +48,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if GetGameTimer() >= timeDate then
 			timeDate = GetGameTimer() + 10000
@@ -64,13 +64,13 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(5000)
+		Wait(5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if homeInterior then
 			SetWeatherTypeNow("CLEAR")
@@ -88,7 +88,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,75,true)
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHUD
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if IsPauseMenuActive() then
 			SendNUIMessage({ hud = false })
@@ -123,7 +123,7 @@ Citizen.CreateThread(function()
 			updateDisplayHud()
 		end
 
-		Citizen.Wait(500)
+		Wait(500)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -279,7 +279,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBELT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 			local ped = PlayerPedId()
@@ -297,7 +297,7 @@ Citizen.CreateThread(function()
 							SetEntityVelocity(ped,beltVelocity["x"],beltVelocity["y"],beltVelocity["z"])
 							ApplyDamageToPed(ped,50,false)
 
-							Citizen.Wait(1)
+							Wait(1)
 
 							SetPedToRagdoll(ped,5000,5000,0,0,0,0)
 						end
@@ -316,7 +316,7 @@ Citizen.CreateThread(function()
 				end
 			end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -372,7 +372,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTHREDUCE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 			local ped = PlayerPedId()
 			if GetEntityHealth(ped) > 101 then
@@ -393,13 +393,13 @@ Citizen.CreateThread(function()
 				end
 			end
 
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSHAKESTRESS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 			local ped = PlayerPedId()
@@ -420,13 +420,13 @@ Citizen.CreateThread(function()
 				end
 			end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGPS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) and showHud then
@@ -439,6 +439,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)

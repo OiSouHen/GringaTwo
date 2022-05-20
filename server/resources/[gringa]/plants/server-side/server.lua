@@ -20,7 +20,7 @@ local weCounts = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local wePlantsFile = LoadResourceFile("logsystem","weplants.json")
 	wePlants = json.decode(wePlantsFile)
 
@@ -28,7 +28,7 @@ Citizen.CreateThread(function()
 	weCounts = json.decode(weCountsFile)
 
 	while true do
-		Citizen.Wait(36000)
+		Wait(36000)
 
 		for k,v in pairs(wePlants) do
 			v[4] = v[4] + 2
@@ -123,7 +123,7 @@ function cRP.checkTimers(id)
 				TriggerClientEvent("cancelando",source,true)
 				vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
 
-				Citizen.Wait(10000)
+				Wait(10000)
 
 				vRPclient._stopAnim(source,false)
 				TriggerClientEvent("cancelando",source,false)

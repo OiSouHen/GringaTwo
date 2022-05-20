@@ -84,7 +84,7 @@ function taskBar(difficulty,skillGapSent)
 	local maxcount = GetGameTimer() + length
 
 	while activeTasks == 1 do
-		Citizen.Wait(1)
+		Wait(1)
 
 		local curTime = GetGameTimer()
 		if curTime > maxcount then

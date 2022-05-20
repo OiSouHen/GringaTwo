@@ -130,7 +130,7 @@ function cRP.salaryPayment(id,price)
 		end
 		
 		if wage >= 1 then 
-			Citizen.Wait(5000)
+			Wait(5000)
 			wage = 0
 		end
 	end

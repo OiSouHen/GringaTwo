@@ -28,7 +28,7 @@ TokoVoipConfig = {
 
 AddEventHandler("onClientResourceStart", function(resource)
 	if (resource == GetCurrentResourceName()) then
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			TokoVoipConfig.plugin_data.localName = " SERVERNAME"
 		end);
 		

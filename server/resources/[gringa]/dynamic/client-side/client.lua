@@ -188,7 +188,7 @@ AddEventHandler("dynamic:animalSpawn",function(model)
 
 		RequestModel(mHash)
 		while not HasModelLoaded(mHash) do
-			Citizen.Wait(1)
+			Wait(1)
 		end
 
 		local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,1.0,0.0)

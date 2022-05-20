@@ -298,7 +298,7 @@ function RemovePriority(id)
 	return Queue:RemovePriority(id)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	local function playerConnect(name,setKickReason,deferrals)
 		local src = source
 		local ids = Queue:GetIds(src)
@@ -307,9 +307,9 @@ Citizen.CreateThread(function()
 
 		deferrals.defer()
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while connecting do
-				Citizen.Wait(500)
+				Wait(500)
 				if not connecting then
 					return
 				end
@@ -317,16 +317,16 @@ Citizen.CreateThread(function()
 			end
 		end)
 
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		local function done(msg)
 			connecting = false
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				if msg then
 					deferrals.update(tostring(msg) and tostring(msg) or "")
 				end
 
-				Citizen.Wait(1000)
+				Wait(1000)
 
 				if msg then
 					deferrals.done(tostring(msg) and tostring(msg) or "")
@@ -425,7 +425,7 @@ Citizen.CreateThread(function()
 
 		update(string.format(Config.Language.pos,pos,Queue:GetSize()))
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			if rejoined then
 				return
 			end
@@ -434,7 +434,7 @@ Citizen.CreateThread(function()
 			local dotCount = 0
 
 			while true do
-				Citizen.Wait(1000)
+				Wait(1000)
 				local dots = ""
 
 				dotCount = dotCount + 1
@@ -460,7 +460,7 @@ Citizen.CreateThread(function()
 				if pos <= 1 and Queue:NotFull() then
 					local added = Queue:AddToConnecting(ids)
 					data.deferrals.update(Config.Language.joining)
-					Citizen.Wait(500)
+					Wait(500)
 
 					if not added then
 						data.deferrals.done(Config.Language.connectingerr)

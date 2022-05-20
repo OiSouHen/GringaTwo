@@ -215,7 +215,7 @@ function cRP.generateVehlist()
 	local amountVehs = 0
 	local vehSelected = 0
 	repeat
-		Citizen.Wait(1)
+		Wait(1)
 		vehSelected = math.random(#vehList)
 		if vehListActived[vehList[parseInt(vehSelected)]] == nil then
 			amountVehs = amountVehs + 1
@@ -227,7 +227,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADVEHGENERATE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	cRP.generateVehlist()
 
 	while true do
@@ -237,7 +237,7 @@ Citizen.CreateThread(function()
 				cRP.generateVehlist()
 			end
 		end
-		Citizen.Wait(60000)
+		Wait(60000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

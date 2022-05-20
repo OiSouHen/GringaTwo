@@ -69,7 +69,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("newCharacter",function(data)
 	DoScreenFadeOut(1000)
-	Citizen.Wait(1000)
+	Wait(1000)
 	removeCamActive()
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
@@ -88,7 +88,7 @@ AddEventHandler("spawn:clearcam",function()
 	SetEntityInvincible(PlayerPedId(),false)
 	removeCamActive()
 	DoScreenFadeOut(1000)
-	Citizen.Wait(1000)	
+	Wait(1000)	
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GENERATEDISPLAY
@@ -102,7 +102,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("characterChosen",function(data)
 	DoScreenFadeOut(1000)
-	Citizen.Wait(1000)
+	Wait(1000)
 	removeCamActive()
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
@@ -117,7 +117,7 @@ end)
 RegisterNetEvent("spawn:spawnChar")
 AddEventHandler("spawn:spawnChar",function(status)
 	DoScreenFadeOut(1000)
-	Citizen.Wait(1000)
+	Wait(1000)
 	SetEntityVisible(PlayerPedId(),true,true)
 	FreezeEntityPosition(PlayerPedId(),false)
 	SetEntityInvincible(PlayerPedId(),false)
@@ -158,7 +158,7 @@ AddEventHandler("spawn:SpawnNui",function(status)
 		DestroyCam(cam1,true)
 		cam1 = nil
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		DoScreenFadeIn(1000)
 	end
@@ -210,7 +210,7 @@ RegisterNUICallback("spawnChosen",function(data)
 		SendNUIMessage({ action = "closeSpawn" })
 
 		DoScreenFadeOut(1000)
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		SetEntityVisible(ped,true,false)
 		FreezeEntityPosition(ped,false)
@@ -221,14 +221,14 @@ RegisterNUICallback("spawnChosen",function(data)
 		DestroyCam(cam1,true)
 		cam1 = nil
 
-		Citizen.Wait(1000)
+		Wait(1000)
 		DoScreenFadeIn(1000)
 	else
     	new = false
 		local speed = 0.7
 
 		DoScreenFadeOut(500)
-		Citizen.Wait(500)
+		Wait(500)
 
 		SetCamRot(cam1,270.0)
 		SetCamActive(cam1,true)
@@ -244,7 +244,7 @@ RegisterNUICallback("spawnChosen",function(data)
 		local i = z + 200.0
 
 		while i > loc[data.hash][3] + 1.5 do
-			Citizen.Wait(5)
+			Wait(5)
 			i = i - speed
 			SetCamCoord(cam1,x,y,i)
 

@@ -35,7 +35,7 @@ exports("blockCommands",blocks)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local salaryTimers = GetGameTimer()
 
 	while true do
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
 			TriggerServerEvent("player:salary")
 		end
 
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ end)
 local awayTimers = GetGameTimer()
 local awaySystem = { 0.0,0.0,1800 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if GetGameTimer() >= awayTimers then
 			awayTimers = GetGameTimer() + 10000
@@ -77,13 +77,13 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATSHUFFLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
@@ -97,7 +97,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCANCELANDO
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if cancelando then
@@ -135,7 +135,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,38,true)
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -192,17 +192,17 @@ AddEventHandler("setEnergetic",function(timers,number)
 	SetRunSprintMultiplierForPlayer(PlayerId(),number)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if energetic > 0 then
 			RestorePlayerStamina(PlayerId(),1.0)
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if energetic > 0 then
 			energetic = energetic - 1
@@ -213,7 +213,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +229,7 @@ AddEventHandler("setEcstasy",function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if ecstasy > 0 then
 			ecstasy = ecstasy - 1
@@ -245,7 +245,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -261,7 +261,7 @@ AddEventHandler("setMeth",function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if methanfetamine > 0 then
 			methanfetamine = methanfetamine - 1
@@ -275,7 +275,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ AddEventHandler("setCocaine",function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if cocaine > 0 then
 			cocaine = cocaine - 1
@@ -305,7 +305,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -332,13 +332,13 @@ AddEventHandler("setDrunkTime",function(timers)
 	TriggerEvent("vrp:blockDrunk",true)
 	RequestAnimSet("move_m@drunk@verydrunk")
 	while not HasAnimSetLoaded("move_m@drunk@verydrunk") do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	SetPedMovementClipset(PlayerPedId(),"move_m@drunk@verydrunk",0.25)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if drunkTime > 0 then
 			drunkTime = drunkTime - 1
@@ -349,7 +349,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -513,9 +513,9 @@ AddEventHandler("player:enterTrunk",function(entity)
 						SetCarBootOpen(vehicle)
 						TriggerEvent("hud:toggleHood")
 						SetEntityVisible(ped,false,false)
-						Citizen.Wait(750)
+						Wait(750)
 						AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
-						Citizen.Wait(500)
+						Wait(500)
 						SetVehicleDoorShut(vehicle,5)
 						blockCommands = true
 						inTrunk = true
@@ -535,7 +535,7 @@ AddEventHandler("player:checkTrunk",function(checkTrunk)
 		local vehicle = GetEntityAttachedTo(ped)
 		if DoesEntityExist(vehicle) then
 			SetCarBootOpen(vehicle)
-			Citizen.Wait(750)
+			Wait(750)
 			inTrunk = false
 			blockCommands = false
 			playerInvisible = false
@@ -543,7 +543,7 @@ AddEventHandler("player:checkTrunk",function(checkTrunk)
 			TriggerEvent("hud:toggleHood")
 			SetEntityVisible(ped,true,false)
 			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
-			Citizen.Wait(500)
+			Wait(500)
 			SetVehicleDoorShut(vehicle,5)
 		end
 	end
@@ -551,7 +551,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADINTRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 
@@ -570,7 +570,7 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					SetCarBootOpen(vehicle)
-					Citizen.Wait(750)
+					Wait(750)
 					inTrunk = false
 					blockCommands = false
 					playerInvisible = false
@@ -578,7 +578,7 @@ Citizen.CreateThread(function()
 					TriggerEvent("hud:toggleHood")
 					SetEntityVisible(ped,true,false)
 					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
-					Citizen.Wait(500)
+					Wait(500)
 					SetVehicleDoorShut(vehicle,5)
 				end
 			else
@@ -592,7 +592,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -679,7 +679,7 @@ end)
 function cRP.movementClip(dict)
 	RequestAnimSet(dict)
 	while not HasAnimSetLoaded(dict) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	SetPedMovementClipset(PlayerPedId(),dict,0.25)
@@ -687,7 +687,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -714,7 +714,7 @@ Citizen.CreateThread(function()
 			DisablePlayerFiring(ped,true)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -728,7 +728,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -736,7 +736,7 @@ Citizen.CreateThread(function()
 			if not IsEntityPlayingAnim(ped,"mp_arresting","idle",3) then
 				RequestAnimDict("mp_arresting")
 				while not HasAnimDictLoaded("mp_arresting") do
-					Citizen.Wait(1)
+					Wait(1)
 				end
 
 				TaskPlayAnim(ped,"mp_arresting","idle",3.0,3.0,-1,49,0,0,0,0)
@@ -744,7 +744,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -782,7 +782,7 @@ local sprayTimers = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSHOTSFIRED - THREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -806,18 +806,18 @@ Citizen.CreateThread(function()
 				bWeapons = false
 			end
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GSRTIME
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if gsrTime > 0 then
 			gsrTime = gsrTime - 1
 		end
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -885,7 +885,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDISABLECTRL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		if coolTimers > 0 then
@@ -893,25 +893,25 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,36,true)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COOLTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if coolTimers > 0 then
 			coolTimers = coolTimers - 1
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SHAKESHOTTING
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -923,7 +923,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1381,7 +1381,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHACKER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 
@@ -1401,7 +1401,7 @@ Citizen.CreateThread(function()
 			TriggerServerEvent("player:hackerDisplay","ativou o rockstar editor.")
 		end
 
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

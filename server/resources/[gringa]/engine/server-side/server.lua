@@ -55,7 +55,7 @@ local testDriveTime = 15000
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEGLOBALTHREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local vehicles = vRP.vehicleGlobal()
 	for k,v in pairs(vehicles) do
 		if v[4] == "cars" then

@@ -37,7 +37,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBUTTONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 
 	while true do
@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ local AllWeapons = json.decode('{"melee":{"dagger":"0x92A27487","bat":"0x958A4A8
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADUPDATEWEAPONN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local slyphe = 500
 		local ped = PlayerPedId()
@@ -86,7 +86,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(slyphe)
+		Wait(slyphe)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDROPBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
         local ped = PlayerPedId()
@@ -227,7 +227,7 @@ Citizen.CreateThread(function()
 			end
         end
 
-        Citizen.Wait(timeDistance)
+        Wait(timeDistance)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -694,11 +694,11 @@ function cRP.putWeaponHands(weapon,ammo)
 
 			TaskPlayAnim(ped,"rcmjosh4","josh_leadout_cop2",3.0,2.0,-1,48,10,0,0,0)
 
-			Citizen.Wait(200)
+			Wait(200)
 
 			GiveWeaponToPed(ped,weapon,ammo,false,true)
 
-			Citizen.Wait(300)
+			Wait(300)
 
 			ClearPedTasks(ped)
 		else
@@ -731,7 +731,7 @@ function cRP.storeWeaponHands()
 
 			TaskPlayAnim(ped,"weapons@pistol@","aim_2_holster",3.0,2.0,-1,48,10,0,0,0)
 
-			Citizen.Wait(450)
+			Wait(450)
 
 			ClearPedTasks(ped)
 		end
@@ -931,7 +931,7 @@ AddEventHandler("inventory:Firecracker",function()
 		RequestNamedPtfxAsset("scr_indep_fireworks")
 		while not HasNamedPtfxAssetLoaded("scr_indep_fireworks") do
 			RequestNamedPtfxAsset("scr_indep_fireworks")
-			Citizen.Wait(10)
+			Wait(10)
 		end
 	end
 
@@ -940,7 +940,7 @@ AddEventHandler("inventory:Firecracker",function()
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
 		RequestModel(mHash)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	local explosives = 35
@@ -952,14 +952,14 @@ AddEventHandler("inventory:Firecracker",function()
 	FreezeEntityPosition(firecracker,true)
 	SetModelAsNoLongerNeeded(mHash)
 
-	Citizen.Wait(10000)
+	Wait(10000)
 
 	repeat
 		UseParticleFxAssetNextCall("scr_indep_fireworks")
 		local explode = StartNetworkedParticleFxNonLoopedAtCoord("scr_indep_firework_trailburst",coords.x,coords.y,coords.z,0.0,0.0,0.0,2.5,false,false,false,false)
 		explosives = explosives - 1
 
-		Citizen.Wait(2000)
+		Wait(2000)
 	until explosives == 0
 
 	TriggerServerEvent("tryDeleteEntity",ObjToNet(firecracker))
@@ -1017,7 +1017,7 @@ AddEventHandler("inventory:wheelchair",function(name)
     local mhash = GetHashKey(name)
     while not HasModelLoaded(mhash) do
         RequestModel(mhash)
-        Citizen.Wait(10)
+        Wait(10)
     end
 	
 	local nveh = CreateVehicle(mhash,coords["x"],coords["y"],coords["z"],heading,true,false)
@@ -1033,7 +1033,7 @@ end)
 -- WHEELTREADS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local wheelChair = false
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
@@ -1052,7 +1052,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

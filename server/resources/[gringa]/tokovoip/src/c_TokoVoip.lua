@@ -12,9 +12,9 @@ function TokoVoip.init(self, config)
 end
 
 function TokoVoip.loop(self)
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while (true) do
-			Citizen.Wait(self.refreshRate);
+			Wait(self.refreshRate);
 			self:processFunction();
 			self:sendDataToTS3();
 
@@ -64,7 +64,7 @@ function TokoVoip.initialize(self)
 	self:updateConfig()
 	self:updatePlugin("initializeSocket",nil)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			local ped = PlayerPedId()
 
@@ -103,7 +103,7 @@ function TokoVoip.initialize(self)
 						RequestAnimDict("random@arrests")
 						while not HasAnimDictLoaded("random@arrests") do
 							RequestAnimDict("random@arrests")
-							Citizen.Wait(10)
+							Wait(10)
 						end
 
 						TaskPlayAnim(ped,"random@arrests","generic_radio_chatter",8.0,0.0,-1,49,0,0,0,0)
@@ -124,7 +124,7 @@ function TokoVoip.initialize(self)
 				end
 			end
 
-			Citizen.Wait(5)
+			Wait(5)
 		end
 	end)
 end

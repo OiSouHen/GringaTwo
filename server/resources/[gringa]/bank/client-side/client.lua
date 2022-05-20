@@ -65,7 +65,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBUTTONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 300
 		if blockButtons then
@@ -87,7 +87,7 @@ Citizen.CreateThread(function()
 			DisablePlayerFiring(PlayerPedId(),true)
 		end
 		
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ end)
 RegisterNUICallback("requestBank",function(data,cb)
 	local resultado = vSERVER.requestBank()
 	while identity do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 	
 	if resultado then
@@ -110,7 +110,7 @@ RegisterNUICallback("requestFines",function(data,cb)
 	local resultado = vSERVER.requestFines()
 	while not resultado do
 		resultado = vSERVER.requestFines()
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if resultado then
@@ -132,7 +132,7 @@ RegisterNUICallback("requestMySalarys",function(data,cb)
 	local resultado = vSERVER.requestMySalarys()
 	while not resultado do
 		resultado = vSERVER.requestMySalarys()
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if resultado then
@@ -154,7 +154,7 @@ RegisterNUICallback("requestInvoices",function(data,cb)
 	local resultado = vSERVER.requestInvoices()
 	while not resultado do
 		resultado = vSERVER.requestInvoices()
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if resultado then
@@ -168,7 +168,7 @@ RegisterNUICallback("requestMyInvoices",function(data,cb)
 	local resultado = vSERVER.requestMyInvoices()
 	while not resultado do
 		resultado = vSERVER.requestMyInvoices()
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if resultado then

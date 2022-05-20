@@ -1250,12 +1250,12 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,vehCustom,vehW
 		RequestModel(mHash)
 		while not HasModelLoaded(mHash) do
 			RequestModel(mHash)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 
 		if HasModelLoaded(mHash) then
 			repeat
-				Citizen.Wait(1)
+				Wait(1)
 				checkslot = checkslot + 1
 				if spawn[pointGarage][tostring(checkslot)] ~= nil then
 					checkPos = GetClosestVehicle(spawn[pointGarage][tostring(checkslot)][1],spawn[pointGarage][tostring(checkslot)][2],spawn[pointGarage][tostring(checkslot)][3],2.501,0,71)
@@ -1270,7 +1270,7 @@ function cRP.spawnVehicle(vehname,plate,vehengine,vehbody,vehfuel,vehCustom,vehW
 
 				NetworkRegisterEntityAsNetworked(nveh)
 				while not NetworkGetEntityIsNetworked(nveh) do
-					Citizen.Wait(10)
+					Wait(10)
 				end
 
 				if json.decode(vehDoors) ~= nil then
@@ -1471,7 +1471,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUTTONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 
 	while true do
@@ -1492,24 +1492,24 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COOLDOWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if cooldown > 0 then
 			cooldown = cooldown - 1
 		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUTTONLOCK
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if cooldown <= 0 then
@@ -1520,7 +1520,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1538,7 +1538,7 @@ function cRP.startAnimHotwired()
 
 	RequestAnimDict(animDict)
 	while not HasAnimDictLoaded(animDict) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	TaskPlayAnim(PlayerPedId(),animDict,anim,3.0,3.0,-1,49,5.0,0,0,0)
@@ -1549,7 +1549,7 @@ end
 function cRP.stopAnimHotwired(vehicle)
 	RequestAnimDict(animDict)
 	while not HasAnimDictLoaded(animDict) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	vehHotwired = false
@@ -1574,7 +1574,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOOPHOTWIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -1594,7 +1594,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

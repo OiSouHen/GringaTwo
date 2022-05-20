@@ -7,7 +7,7 @@ local dict = "swimming@first_person@diving"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
@@ -23,7 +23,7 @@ Citizen.CreateThread(function()
 					if not IsPedRagdoll(ped) then
 						RequestAnimDict(dict)
 						while not HasAnimDictLoaded(dict) do
-							Citizen.Wait(1)
+							Wait(1)
 						end
 
 						if IsEntityPlayingAnim(ped,dict,anim,3) then
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
 
 							local tackleSeconds = 3
 							while tackleSeconds > 0 do
-								Citizen.Wait(100)
+								Wait(100)
 								tackleSeconds = tackleSeconds - 1
 							end
 
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -60,13 +60,13 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if tackleSystem > 0 then
 			tackleSystem = tackleSystem - 1
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ AddEventHandler("characterSpawn", function(source,user_id)
 		local sdata = json.decode(data) or 0
 		if sdata then
 			TriggerClientEvent("spawn:spawnChar",source,false)
-			Citizen.Wait(1000)
+			Wait(1000)
 			processSpawnController(source,sdata,user_id)
 		end
 		

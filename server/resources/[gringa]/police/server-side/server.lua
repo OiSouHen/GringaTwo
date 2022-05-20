@@ -335,7 +335,7 @@ end
 -- PLAYERSPAWN
 --------------------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	local consult = vRP.getInformation(user_id)
 	if parseInt(consult[1].prison) <= 0 then

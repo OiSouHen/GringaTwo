@@ -81,7 +81,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if parseInt(machineGlobal) > 0 then
 			machineGlobal = parseInt(machineGlobal) - 1
@@ -89,6 +89,6 @@ Citizen.CreateThread(function()
 				machineStart = false
 			end
 		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)

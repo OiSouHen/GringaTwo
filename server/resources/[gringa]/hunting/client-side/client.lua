@@ -45,7 +45,7 @@ AddEventHandler("hunting:animalCalling",function()
 
 					RequestModel(mHash)
 					while not HasModelLoaded(mHash) do
-						Citizen.Wait(1)
+						Wait(1)
 					end
 
 					if HasModelLoaded(mHash) then
@@ -91,14 +91,14 @@ AddEventHandler("hunting:animalCutting",function()
 					TriggerEvent("player:blockCommands",true)
 					TriggerEvent("cancelando",true)
 
-					Citizen.Wait(1000)
+					Wait(1000)
 					
 					TriggerEvent("Progress",15000,"Esfolando...")
 
 					vRP.playAnim(true,{"anim@gangops@facility@servers@bodysearch@","player_search"},true)
 					vRP.playAnim(false,{"amb@medic@standing@kneel@base","base"},true)
 
-					Citizen.Wait(15000)
+					Wait(15000)
 
 					TriggerEvent("player:blockCommands",false)
 					vSERVER.animalPayment()
@@ -122,7 +122,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if animalHunting ~= nil and IsPedInAnyVehicle(ped) then
@@ -137,7 +137,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

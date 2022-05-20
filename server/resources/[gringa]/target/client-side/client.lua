@@ -61,7 +61,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	RegisterCommand("+entityTarget",playerTargetEnable)
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Target","keyboard","LMENU")
@@ -916,7 +916,7 @@ function playerTargetEnable()
 								NetworkRegisterEntityAsNetworked(entity)
 								while not NetworkGetEntityIsNetworked(entity) do
 									NetworkRegisterEntityAsNetworked(entity)
-									Citizen.Wait(1)
+									Wait(1)
 								end
 
 								local netObjects = ObjToNet(entity)
@@ -948,7 +948,7 @@ function playerTargetEnable()
 										success = false
 									end
 
-									Citizen.Wait(1)
+									Wait(1)
 								end
 
 								SendNUIMessage({ response = "leftTarget" })
@@ -993,7 +993,7 @@ function playerTargetEnable()
 									success = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -1023,7 +1023,7 @@ function playerTargetEnable()
 									success = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -1053,7 +1053,7 @@ function playerTargetEnable()
 									success = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -1073,12 +1073,12 @@ function playerTargetEnable()
 												NetworkRegisterEntityAsNetworked(entity)
 												while not NetworkGetEntityIsNetworked(entity) do
 													NetworkRegisterEntityAsNetworked(entity)
-													Citizen.Wait(1)
+													Wait(1)
 												end
 
 												while not NetworkHasControlOfEntity(entity) do
 													NetworkRequestControlOfEntity(entity)
-													Citizen.Wait(1)
+													Wait(1)
 												end
 
 												netObjects = ObjToNet(entity)
@@ -1108,7 +1108,7 @@ function playerTargetEnable()
 												success = false
 											end
 
-											Citizen.Wait(1)
+											Wait(1)
 										end
 
 										SendNUIMessage({ response = "leftTarget" })
@@ -1146,7 +1146,7 @@ function playerTargetEnable()
 									success = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -1155,7 +1155,7 @@ function playerTargetEnable()
 				end
 			end
 
-			Citizen.Wait(250)
+			Wait(250)
 		end
 	end
 end

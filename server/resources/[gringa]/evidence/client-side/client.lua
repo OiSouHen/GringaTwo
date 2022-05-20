@@ -49,7 +49,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDNA
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -72,7 +72,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADRESULT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -97,7 +97,7 @@ Citizen.CreateThread(function()
 				DrawText3D(dnaX,dnaY,dnaZ,"~w~"..string.upper(lastResult),300)
 			end
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

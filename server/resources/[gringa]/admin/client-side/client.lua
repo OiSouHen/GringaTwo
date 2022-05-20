@@ -37,10 +37,10 @@ function cRP.teleportWay()
 
 		RequestCollisionAtCoord(x,y,z)
 		while not HasCollisionLoadedAroundEntity(ped) do
-			Citizen.Wait(1)
+			Wait(1)
 		end
 
-		Citizen.Wait(20)
+		Wait(20)
 
 		ground,z = GetGroundZFor_3dCoord(x,y,height)
 		if ground then
@@ -57,7 +57,7 @@ function cRP.teleportWay()
 
 	RequestCollisionAtCoord(x,y,z)
 	while not HasCollisionLoadedAroundEntity(ped) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	SetEntityCoordsNoOffset(ped,x,y,z,1,0,0)
@@ -107,7 +107,7 @@ RegisterNetEvent("skinmenu")
 AddEventHandler("skinmenu",function(mhash)
     while not HasModelLoaded(mhash) do
         RequestModel(mhash)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     if HasModelLoaded(mhash) then
@@ -125,7 +125,7 @@ AddEventHandler("adminVehicle",function(name,plate)
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
 		RequestModel(mHash)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	if HasModelLoaded(mHash) then
@@ -328,9 +328,9 @@ function canPedBeUsed(ped)
 end
 
 function debugon()
-Citizen.CreateThread( function()
+CreateThread( function()
     while true do
-        Citizen.Wait(1)
+        Wait(1)
         
         if dickheaddebug then
             local pos = GetEntityCoords(GetPlayerPed(-1))
@@ -388,7 +388,7 @@ Citizen.CreateThread( function()
                 end
             end
         else
-            Citizen.Wait(5000)
+            Wait(5000)
         end
     end
 end)
@@ -426,16 +426,16 @@ function DrawText3Ds(x,y,z, text)
     DrawRect(_x,_y+0.0125, 0.015+ factor, 0.03, 41, 11, 41, 68)
 end
 
--- Citizen.CreateThread(function()
+-- CreateThread(function()
 -- 	while true do
 -- 		if IsControlJustPressed(1,38) then
 -- 			vSERVER.buttonTxt()
 -- 		end
--- 		Citizen.Wait(1)
+-- 		Wait(1)
 -- 	end
 -- end)
 
--- Citizen.CreateThread(function()
+-- CreateThread(function()
 -- 	while true do
 -- 		if IsControlJustPressed(1,38) then
 -- 			local ped = PlayerPedId()
@@ -447,6 +447,6 @@ end
 -- 			vSERVER.raceCoords(vehCoords,leftCoords,rightCoords)
 -- 		end
 
--- 		Citizen.Wait(1)
+-- 		Wait(1)
 -- 	end
 -- end)

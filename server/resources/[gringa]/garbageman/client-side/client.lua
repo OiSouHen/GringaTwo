@@ -86,7 +86,7 @@ AddEventHandler("garbageman:searchTrash",function(searchTrash)
         end
     end
 	
-    Citizen.Wait(idle)
+    Wait(idle)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLESOBJECTS
@@ -147,7 +147,7 @@ AddEventHandler("garbageman:searchObject",function(searchObject)
         end
     end
 	
-    Citizen.Wait(idle)
+    Wait(idle)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLESWASTE
@@ -216,5 +216,5 @@ AddEventHandler("garbageman:searchWaste",function(searchWaste)
         end
     end
 	
-    Citizen.Wait(idle)
+    Wait(idle)
 end)

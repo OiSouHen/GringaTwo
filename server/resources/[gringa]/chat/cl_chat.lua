@@ -205,7 +205,7 @@ AddEventHandler("onClientResourceStart",function(resourceName)
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	if HasModelLoaded(mHash) then
@@ -221,7 +221,7 @@ end)
 -- ONCLIENTRESOURCESTOP
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("onClientResourceStop", function(resName)
-	Citizen.Wait(1)
+	Wait(1)
 	refreshCommands()
 	refreshThemes()
 end)
@@ -263,7 +263,7 @@ if not isRDR then
   end, false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
   SetTextChatEnabled(false)
   SetNuiFocus(false)
   local lastChatHideState = -1

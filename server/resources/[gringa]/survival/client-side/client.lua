@@ -20,7 +20,7 @@ local emergencyButton = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
@@ -66,15 +66,15 @@ Citizen.CreateThread(function()
 			
 		end
 		
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- timeDeath
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		if deathStatus and timeDeath > 0 then
 			timeDeath = timeDeath - 1
 		end
@@ -108,7 +108,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HEALTHRECHARGE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		SetPlayerHealthRechargeMultiplier(PlayerId(),0)
 		SetPlayerHealthRechargeLimit(PlayerId(),0)
@@ -118,7 +118,7 @@ Citizen.CreateThread(function()
 			SetPedMaxHealth(PlayerPedId(),200)
 		end
 
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ AddEventHandler("survival:CheckIn",function()
 	SetEntityHealth(PlayerPedId(),102)
 	SetEntityInvincible(PlayerPedId(),false)
 
-	Citizen.Wait(500)
+	Wait(500)
 
 	deathStatus = false
 	blockControls = true
@@ -174,7 +174,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLOCKCONTROLS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 100
 		local ped = PlayerPedId()
@@ -194,7 +194,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,311,true)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -213,7 +213,7 @@ function cRP.startCure()
 
 	if cure then
 		repeat
-			Citizen.Wait(5000)
+			Wait(5000)
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped)+1)
 			end
@@ -263,6 +263,6 @@ end
 RegisterNetEvent("survival:FadeOutIn")
 AddEventHandler("survival:FadeOutIn",function()
 	DoScreenFadeOut(1000)
-	Citizen.Wait(5000)
+	Wait(5000)
 	DoScreenFadeIn(1000)
 end)

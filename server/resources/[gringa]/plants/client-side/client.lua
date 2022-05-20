@@ -22,7 +22,7 @@ local weHashsD = "bkr_prop_weed_lrg_01a"
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOBJECTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -67,7 +67,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ function createModels(id,hash,x,y,z)
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
 		RequestModel(mHash)
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	weObjects[id] = CreateObjectNoOffset(mHash,x,y,z,false,true,true)

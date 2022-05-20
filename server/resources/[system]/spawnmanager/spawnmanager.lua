@@ -152,7 +152,7 @@ function spawnPlayer(spawnIdx,cb)
 
 	spawnLock = true
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		if not spawnIdx then
 			spawnIdx = GetRandomIntInRange(1,#spawnPoints+1)
 		end
@@ -169,7 +169,7 @@ function spawnPlayer(spawnIdx,cb)
 			DoScreenFadeOut(500)
 
 			while not IsScreenFadedOut() do
-				Citizen.Wait(10)
+				Wait(10)
 			end
 		end
 
@@ -184,7 +184,7 @@ function spawnPlayer(spawnIdx,cb)
 			RequestModel(spawn.model)
 			while not HasModelLoaded(spawn.model) do
 				RequestModel(spawn.model)
-				Citizen.Wait(10)
+				Wait(10)
 			end
 
 			SetPlayerModel(PlayerId(),spawn.model)
@@ -204,7 +204,7 @@ function spawnPlayer(spawnIdx,cb)
 		local time = GetGameTimer()
 
 		while (not HasCollisionLoadedAroundEntity(ped) and (GetGameTimer() - time) < 5000) do
-			Citizen.Wait(10)
+			Wait(10)
 		end
 
 		ShutdownLoadingScreen()
@@ -213,7 +213,7 @@ function spawnPlayer(spawnIdx,cb)
 			DoScreenFadeIn(500)
 
 			while not IsScreenFadedIn() do
-				Citizen.Wait(10)
+				Wait(10)
 			end
 		end
 
@@ -232,9 +232,9 @@ function spawnPlayer(spawnIdx,cb)
 	end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		if not spawned then
 			local playerPed = PlayerPedId()
 			if playerPed and playerPed ~= -1 then

@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	--Mustang
 	AddTextEntry("0x1AC92852","RTR Spec2")
 	AddTextEntry("0x2C2380BA","Spoiler2")

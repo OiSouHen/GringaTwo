@@ -7,7 +7,7 @@ local alcohol = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WEEDTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(weed) do
 			if weed[k] > 0 and vRP.getUserSource(k) then
@@ -17,13 +17,13 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(10*60000)
+		Wait(10*60000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHEMICALTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(chemical) do
 			if chemical[k] > 0 and vRP.getUserSource(k) then
@@ -33,13 +33,13 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(10*60000)
+		Wait(10*60000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ALCOHOLTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(alcohol) do
 			if alcohol[k] > 0 and vRP.getUserSource(k) then
@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(10*60000)
+		Wait(10*60000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

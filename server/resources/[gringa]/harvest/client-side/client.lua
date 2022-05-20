@@ -51,7 +51,7 @@ local collect = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -90,14 +90,14 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function startthreadservice()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			local timeDistance = 500
 			if serviceStatus then
@@ -116,7 +116,7 @@ function startthreadservice()
 						vRP.playAnim(true,{"amb@prop_human_movie_bulb@base","base"},true)
 						SetEntityHeading(ped,collect[coSelected][4])
 						SetEntityCoords(ped,collect[coSelected][1],collect[coSelected][2],collect[coSelected][3]-1)
-						Citizen.Wait(10000)
+						Wait(10000)
 						TriggerEvent("player:blockCommands",false)
 						TriggerEvent("inventory:blockButtons",false)
 						TriggerEvent("cancelando",false)
@@ -127,7 +127,7 @@ function startthreadservice()
 				end
 			end
 			
-			Citizen.Wait(timeDistance)
+			Wait(timeDistance)
 		end
 	end)
 end
@@ -135,13 +135,13 @@ end
 -- TIMESECONDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function startthreadserviceseconds()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			if timeSeconds > 0 then
 				timeSeconds = timeSeconds - 1
 			end
 			
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end)
 end

@@ -61,7 +61,7 @@ local collect = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -103,14 +103,14 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function startmineservice()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			local timeDistance = 500
 			if serviceStatus then
@@ -139,7 +139,7 @@ function startmineservice()
 				end
 			end
 
-			Citizen.Wait(timeDistance)
+			Wait(timeDistance)
 		end
 	end)
 end
@@ -147,12 +147,12 @@ end
 -- TIMESECONDS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function startmineserviceseconds()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			if timeSeconds > 0 then
 				timeSeconds = timeSeconds - 1
 			end
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end)
 end

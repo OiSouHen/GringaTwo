@@ -310,7 +310,7 @@ local runners = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADRUNNERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -389,13 +389,13 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if inRunners then
@@ -403,13 +403,13 @@ Citizen.CreateThread(function()
 			inTimers = inTimers + 1
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADRACETIME
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if inRunners then
 			if raceTime > 0 then
@@ -424,14 +424,14 @@ Citizen.CreateThread(function()
 					inRunners = false
 					SendNUIMessage({ show = false })
 
-					Citizen.Wait(3000)
+					Wait(3000)
 					
 					AddExplosion(GetEntityCoords(GetPlayersLastVehicle()),2,1.0,true,true,true)
 				end
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -468,7 +468,7 @@ function makeObjects()
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	raceTyres[1] = CreateObjectNoOffset(mHash,runners[inSelected]["coords"][inCheckpoint][1],runners[inSelected]["coords"][inCheckpoint][2],runners[inSelected]["coords"][inCheckpoint][3],false,false,false)

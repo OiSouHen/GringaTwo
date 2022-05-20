@@ -49,7 +49,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id, source)
 
 		vRPclient.playerReady(source)
 
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		local playerData = vRP.getUData(user_id,"Clothings")
 		local resultData = json.decode(playerData)

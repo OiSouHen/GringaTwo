@@ -57,7 +57,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -125,7 +125,7 @@ Citizen.CreateThread(function()
 
 							RequestModel(mHash)
 							while not HasModelLoaded(mHash) do
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							if HasModelLoaded(mHash) then
@@ -136,7 +136,7 @@ Citizen.CreateThread(function()
 								NetworkRegisterEntityAsNetworked(packageVehicle)
 								while not NetworkGetEntityIsNetworked(packageVehicle) do
 									NetworkRegisterEntityAsNetworked(packageVehicle)
-									Citizen.Wait(1)
+									Wait(1)
 								end
 					
 								if NetworkDoesNetworkIdExist(netveh) then
@@ -165,19 +165,19 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSECONDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if inSeconds > 0 then
 			inSeconds = inSeconds - 1
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

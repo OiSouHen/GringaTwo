@@ -102,7 +102,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADENTER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
 					vSERVER.setNetwork(tostring(k))
 					vSERVER.applyHouseOpen(tostring(k))
 					TriggerEvent("sounds:source","enterhouse",0.7)
-					Citizen.Wait(1000)
+					Wait(1000)
 					
 					if v[1] == "Middle" then
 						createMiddle(ped,v[5],v[6],1500.0)
@@ -163,7 +163,7 @@ Citizen.CreateThread(function()
 					end
 					
 					SetTimecycleModifier("AmbientPUSH")
-					Citizen.Wait(1000)
+					Wait(1000)
 					
 					if v[1] == "Middle" then
 						SetEntityCoords(ped,v[5] + 1.36,v[6] - 14.23,1500.0 - 1,1,0,0,0)
@@ -228,7 +228,7 @@ Citizen.CreateThread(function()
 					TriggerEvent("homes:Hours",true)
 					FreezeEntityPosition(ped,true)
 					SetEntityInvincible(ped,true)
-					Citizen.Wait(3000)
+					Wait(3000)
 					FreezeEntityPosition(ped,false)
 					SetEntityInvincible(ped,false)
 					DoScreenFadeIn(1000)
@@ -236,7 +236,7 @@ Citizen.CreateThread(function()
 			end
 		end
 	
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -255,7 +255,7 @@ AddEventHandler("homes:setInvade", function()
 			vSERVER.setNetwork(tostring(k))
 			vSERVER.applyHouseOpen(tostring(k))
 			TriggerEvent("sounds:source","enterhouse",0.7)
-			Citizen.Wait(1000)
+			Wait(1000)
 
 			if v[1] == "Middle" then
 				createMiddle(ped,v[5],v[6],1500.0)
@@ -298,7 +298,7 @@ AddEventHandler("homes:setInvade", function()
 			end
 					
 			SetTimecycleModifier("AmbientPUSH")
-			Citizen.Wait(1000)
+			Wait(1000)
 					
 			if v[1] == "Middle" then
 				SetEntityCoords(ped,v[5] + 1.36,v[6] - 14.23,1500.0 - 1,1,0,0,0)
@@ -363,7 +363,7 @@ AddEventHandler("homes:setInvade", function()
 			TriggerEvent("homes:Hours",true)
 			FreezeEntityPosition(ped,true)
 			SetEntityInvincible(ped,true)
-			Citizen.Wait(3000)
+			Wait(3000)
 			FreezeEntityPosition(ped,false)
 			SetEntityInvincible(ped,false)
 			DoScreenFadeIn(1000)
@@ -373,7 +373,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADNETWORK
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if houseOpen ~= "" then
 			for k,v in ipairs(GetActivePlayers()) do
@@ -383,19 +383,19 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADUPDATENETWORK
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if houseOpen ~= "" then
 			houseNetwork = vSERVER.getNetwork(tostring(houseOpen))
 		end
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -621,7 +621,7 @@ function cRP.enterHomesTheft(homeName)
 		vSERVER.applyHouseOpen(tostring(homeName))
 		TriggerEvent("sounds:source","enterhouse",0.7)
 
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		createMiddle(ped,theftHomesX,theftHomesY,1500.0)
 		SetTimecycleModifier("AmbientPUSH")
@@ -637,7 +637,7 @@ function cRP.enterHomesTheft(homeName)
 			RequestModel(mHash)
 			while not HasModelLoaded(mHash) do
 				RequestModel(mHash)
-				Citizen.Wait(10)
+				Wait(10)
 			end
 
 			theftLocker = CreateObjectNoOffset(mHash,theftHomesX+7.17,theftHomesY-2.52,1501.8,false,false,false)
@@ -648,7 +648,7 @@ function cRP.enterHomesTheft(homeName)
 			theftPlayers["LOCKER"] = true
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		SetEntityCoords(ped,theftHomesX,theftHomesY,1500.0)
 		table.insert(internHouses,{ theftHomesX + 1.36,theftHomesY - 14.23,1499.5,"exit","SAIR" })
@@ -656,7 +656,7 @@ function cRP.enterHomesTheft(homeName)
 		TriggerEvent("homes:Hours",true)
 		FreezeEntityPosition(ped,true)
 
-		Citizen.Wait(3000)
+		Wait(3000)
 
 		FreezeEntityPosition(ped,false)
 		DoScreenFadeIn(1000)
@@ -665,7 +665,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADENTERHOMETHEFT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if theftOpen then
@@ -712,13 +712,13 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWTEXT3D
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -735,13 +735,13 @@ Citizen.CreateThread(function()
 							vSERVER.removeNetwork(tostring(houseOpen))
 							TriggerEvent("sounds:source","outhouse",0.5)
 							DoScreenFadeOut(1000)
-							Citizen.Wait(1000)
+							Wait(1000)
 
 							SetEntityCoords(ped,homesList[houseOpen][5],homesList[houseOpen][6],homesList[houseOpen][7]+0.1)
 							TriggerEvent("homes:Hours",false)
 							FreezeEntityPosition(ped,true)
 
-							Citizen.Wait(3000)
+							Wait(3000)
 							FreezeEntityPosition(ped,false)
 							removeObjectHomes()
 							DoScreenFadeIn(1000)
@@ -767,7 +767,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

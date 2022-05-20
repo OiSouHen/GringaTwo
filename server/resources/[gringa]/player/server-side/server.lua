@@ -217,9 +217,9 @@ function cRP.deleteChar()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		vRP.execute("vRP/remove_characters",{ id = parseInt(user_id) })
-		Citizen.Wait(1000)
+		Wait(1000)
 		vRP.rejoinServer(source)
-		Citizen.Wait(1000)
+		Wait(1000)
 		TriggerClientEvent("spawn:setupChars",source)
 	end
 end
@@ -315,7 +315,7 @@ end
 -- THREADFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
 local shotFired = {}
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(shotFired) do
 			if shotFired[k] > 0 then
@@ -326,7 +326,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

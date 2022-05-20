@@ -157,12 +157,12 @@ AddEventHandler("barbershop:setCustomization", function(dbCharacter)
     canStartTread = 20
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		if canStartTread > 0 then
 			while not IsPedModel(PlayerPedId(),"mp_m_freemode_01") and not IsPedModel(PlayerPedId(),"mp_f_freemode_01") do
-				Citizen.Wait(10)
+				Wait(10)
 			end
             updateHead()
             updateFace()
@@ -212,7 +212,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false)
 	SendNUIMessage({ openBarbershop = false })
 end)
@@ -231,7 +231,7 @@ local locations = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local innerTable = {}
 	for k,v in pairs(locations) do
 		table.insert(innerTable,{ v[1],v[2],v[3],2.5,"E","Barbearia","Pressione para abrir" })
@@ -242,7 +242,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 
 	while true do
@@ -264,7 +264,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

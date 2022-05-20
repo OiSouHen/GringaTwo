@@ -640,26 +640,26 @@ function cRP.functionCrafting(shopItem,shopType,shopAmount,slot)
 				if vRP.getInventoryItemAmount(user_id,k) < parseInt(v*shopAmount) then
 					return
 				end
-				Citizen.Wait(1)
+				Wait(1)
 			end
 
 			for k,v in pairs(craftList[shopType]["list"][shopItem]["require"]) do
 				vRP.removeInventoryItem(user_id,k,parseInt(v*shopAmount))
-				Citizen.Wait(1)
+				Wait(1)
 			end
 
 			if string.sub(shopItem,1,9) == "toolboxes" then
 				local advAmount = 0
 
 				repeat
-					Citizen.Wait(1)
+					Wait(1)
 					advAmount = advAmount + 1
 					local advFile = LoadResourceFile("logsystem","toolboxes.json")
 					local advDecode = json.decode(advFile)
 					local number = 0
 
 					repeat
-						Citizen.Wait(1)
+						Wait(1)
 						number = number + 1
 					until advDecode[tostring("toolboxes"..number)] == nil
 
@@ -694,7 +694,7 @@ function cRP.functionDestroy(shopItem,shopType,shopAmount,slot)
 						else
 							vRP.giveInventoryItem(user_id,k,v/2)
 						end
-						Citizen.Wait(1)
+						Wait(1)
 					end
 				end
 			end

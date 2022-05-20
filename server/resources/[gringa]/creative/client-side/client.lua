@@ -25,7 +25,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DRIFT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
@@ -45,14 +45,14 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYREBURST
 -----------------------------------------------------------------------------------------------------------------------------------------
 local oldSpeed = 0
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -84,7 +84,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ function vehicleTyreBurst(vehicle)
 	end
 
 	if math.random(100) < 30 then
-		Citizen.Wait(500)
+		Wait(500)
 		vehicleTyreBurst(vehicle)
 	end
 end
@@ -261,7 +261,7 @@ local blips = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for _,v in pairs(blips) do
 		local blip = AddBlipForCoord(v[1],v[2],v[3])
 		SetBlipSprite(blip,v[4])
@@ -303,7 +303,7 @@ local alphas = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADALPHA
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for _,v in pairs(alphas) do
 		local blip = AddBlipForRadius(v[1],v[2],v[3],v[4] + 0.0)
 		SetBlipAlpha(blip,v[6])
@@ -313,7 +313,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISPATCH
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for i = 1,25 do
 		EnableDispatchService(i,false)
 	end
@@ -321,7 +321,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADINIT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetRelationshipBetweenGroups(1,GetHashKey("PRISONER"),GetHashKey("PLAYER"))
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
 	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
@@ -352,7 +352,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		N_0xf4f2c0d4ee209e20()
 		N_0x9e4cfff989258472()
@@ -375,13 +375,13 @@ Citizen.CreateThread(function()
 		SetPedModelIsSuppressed(GetHashKey("u_m_y_prisoner_01"),true)
 		SetPedModelIsSuppressed(GetHashKey("s_m_y_prisoner_01"),true)
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if IsPedArmed(PlayerPedId(),6) then
 			DisableControlAction(1,140,true)
@@ -438,7 +438,7 @@ Citizen.CreateThread(function()
 		SetGarbageTrucks(false)
 		SetRandomBoats(false)
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -543,7 +543,7 @@ local ipList = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADIPLOADER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for _k,_v in pairs(ipList) do
 		local interiorCoords = GetInteriorAtCoords(_v["coords"][1],_v["coords"][2],_v["coords"][3])
 		LoadInterior(interiorCoords)
@@ -551,7 +551,7 @@ Citizen.CreateThread(function()
 		if _v["props"] ~= nil then
 			for k,v in pairs(_v["props"]) do
 				EnableInteriorProp(interiorCoords,v)
-				Citizen.Wait(1)
+				Wait(1)
 			end
 		end
 
@@ -562,7 +562,7 @@ end)
 -- TASERTIME
 -----------------------------------------------------------------------------------------------------------------------------------------
 local tasertime = false
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -579,12 +579,12 @@ Citizen.CreateThread(function()
 			ShakeGameplayCam("FAMILY5_DRUG_TRIP_SHAKE",1.0)
 		elseif not IsPedBeingStunned(ped) and tasertime then
 			tasertime = false
-			Citizen.Wait(7500)
+			Wait(7500)
 			StopGameplayCamShaking()
 			TriggerEvent("cancelando",false)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -609,7 +609,7 @@ local teleport = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local innerTable = {}
 
 	for k,v in pairs(teleport) do
@@ -621,7 +621,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -639,13 +639,13 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENOBJECTS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -684,20 +684,20 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	TriggerEvent("hoverfy:insertTable",{{ 254.01,225.21,101.87,1.5,"E","Porta do Cofre","Pressione para abrir/fechar" }})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUNNYHOP
 -----------------------------------------------------------------------------------------------------------------------------------------
 local bunnyHope = GetGameTimer()
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -712,7 +712,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -727,7 +727,7 @@ local fov = (fov_max + fov_min) * 0.5
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCAMERA
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local waitPacket = 500
 		local ped = PlayerPedId()
@@ -754,7 +754,7 @@ Citizen.CreateThread(function()
 
 				local scaleform = RequestScaleformMovie("HELI_CAM")
 				while not HasScaleformMovieLoaded(scaleform) do
-					Citizen.Wait(1)
+					Wait(1)
 				end
 
 				local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA",true)
@@ -784,7 +784,7 @@ Citizen.CreateThread(function()
 					PopScaleformMovieFunctionVoid()
 					DrawScaleformMovieFullscreen(scaleform,255,255,255,255)
 
-					Citizen.Wait(1)
+					Wait(1)
 				end
 
 				ClearTimecycleModifier()
@@ -797,7 +797,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(waitPacket)
+		Wait(waitPacket)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -835,7 +835,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECOIL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 
@@ -843,9 +843,9 @@ Citizen.CreateThread(function()
 			DisableControlAction(1,140,true)
 			DisableControlAction(1,141,true)
 			DisableControlAction(1,142,true)
-			Citizen.Wait(1)
+			Wait(1)
 		else
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 
 		if IsPedShooting(ped) then

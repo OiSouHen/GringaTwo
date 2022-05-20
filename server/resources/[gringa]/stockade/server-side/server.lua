@@ -72,7 +72,7 @@ function cRP.withdrawMoney(vehPlate,vehNet)
 				vRPclient._playAnim(source,false,{ task = "PROP_HUMAN_BUM_BIN" },true)
 				
 				TriggerClientEvent("Progress",source,5000,"Roubando...")
-				Citizen.Wait(5000)
+				Wait(5000)
 
 				vRPclient._stopAnim(source,false)
 				vCLIENT.freezePlayers(source,false)

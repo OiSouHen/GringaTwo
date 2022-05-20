@@ -107,7 +107,7 @@ local locateShops = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHOVERFY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local innerTable = {}
 	for k,v in pairs(locateShops) do
 		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Loja de Roupas","Pressione para abrir" })
@@ -118,7 +118,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 
 	while true do
@@ -144,7 +144,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -588,11 +588,11 @@ RegisterNetEvent("skinshop:setMask")
 AddEventHandler("skinshop:setMask",function()
 	if GetPedDrawableVariation(PlayerPedId(),1) == skinData["mask"]["item"] then
 		vRP.playAnim(true,{"missfbi4","takeoff_mask"},true)
-		Citizen.Wait(900)
+		Wait(900)
 		SetPedComponentVariation(PlayerPedId(),1,0,0,1)
 	else
 		vRP.playAnim(true,{"mp_masks@on_foot","put_on_mask"},true)
-		Citizen.Wait(700)
+		Wait(700)
 		SetPedComponentVariation(PlayerPedId(),1,skinData["mask"]["item"],skinData["mask"]["texture"],1)
 	end
 
@@ -605,7 +605,7 @@ RegisterNetEvent("skinshop:setHat")
 AddEventHandler("skinshop:setHat",function()
 	vRP.playAnim(true,{"mp_masks@standard_car@ds@","put_on_mask"},true)
 
-	Citizen.Wait(900)
+	Wait(900)
 
 	if GetPedPropIndex(PlayerPedId(),0) == skinData["hat"]["item"] then
 		ClearPedProp(PlayerPedId(),0)
@@ -622,7 +622,7 @@ RegisterNetEvent("skinshop:setGlasses")
 AddEventHandler("skinshop:setGlasses",function()
 	vRP.playAnim(true,{"clothingspecs","take_off"},true)
 
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	if GetPedPropIndex(PlayerPedId(),1) == skinData["glass"]["item"] then
 		ClearPedProp(PlayerPedId(),1)
@@ -650,7 +650,7 @@ RegisterNetEvent("skinshop:setTorso2")
 AddEventHandler("skinshop:setTorso2", function()
 	vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
 
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	if GetPedDrawableVariation(PlayerPedId(),11) == skinData["torso2"]["item"] then
 		SetPedComponentVariation(PlayerPedId(),11,15,0,2)

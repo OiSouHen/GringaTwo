@@ -730,7 +730,7 @@ function cRP.vehicleLock()
 
 				if not vRPclient.inVehicle(source) then
 					vRPclient.playAnim(source,true,{"anim@mp_player_intmenu@key_fob@","fob_click"},false)
-					Citizen.Wait(500)
+					Wait(500)
 					vRPclient.stopAnim(source)
 				end
 			end
@@ -887,7 +887,7 @@ RegisterCommand("vehs",function(source,args,rawCommand)
 			local vehicle = vRP.query("vRP/get_vehicle",{ user_id = parseInt(user_id) })
 			for k,v in ipairs(vehicle) do
 				TriggerClientEvent("Notify",source,"default","<b>Modelo:</b> "..vRP.vehicleName(v.vehicle).." ( "..v.vehicle.." )",10000)
-				Citizen.Wait(1)
+				Wait(1)
 			end
 		end
 	end

@@ -11,7 +11,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADREADY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	NetworkSetFriendlyFireOption(true)
 	SetCanAttackFriendly(PlayerPedId(),true,true)
 
@@ -21,20 +21,20 @@ Citizen.CreateThread(function()
 			vRPS._updatePositions(coords.x,coords.y,coords.z)
 		end
 
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADREADY
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if playerReady then
 			vRPS._updateHealth(GetEntityHealth(PlayerPedId()))
 			vRPS._updateArmour(GetPedArmour(PlayerPedId()))
 		end
 
-		Citizen.Wait(30000)
+		Wait(30000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -85,9 +85,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		if IsPlayerPlaying(PlayerId()) and playerReady then
 			vRPS._updateWeapons(tvRP.getWeapons())
 		end

@@ -150,7 +150,7 @@ local machines = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTARGET
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	for k,v in pairs(machines) do
 		exports["target"]:AddCircleZone("eletronics:"..k,vector3(v[1],v[2],v[3]),0.5,{
 			name = "eletronics:"..k,
@@ -194,7 +194,7 @@ AddEventHandler("eletronics:openSystem",function(shopId)
 							SetEntityCoords(ped,v[1],v[2],v[3]-1)
 							vRP._playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
 							
-							Citizen.Wait(10000)
+							Wait(10000)
 							
 							machineStart = true
 							vRP.removeObjects()
@@ -210,7 +210,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MACHINETIMER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if machineStart and machineTimer > 0 then
 			machineTimer = machineTimer - 1
@@ -220,6 +220,6 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)

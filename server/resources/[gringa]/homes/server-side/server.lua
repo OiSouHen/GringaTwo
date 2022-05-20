@@ -1184,7 +1184,7 @@ end)
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	Citizen.Wait(1000)
+	Wait(1000)
 	vCLIENT.updateHomes(source,homes)
 	vCLIENT.updateHomesTheft(source,homesTheft)
 	vCLIENT.updateHoverfy(source,homesList)
@@ -1192,8 +1192,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADPLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	Citizen.Wait(1000)
+CreateThread(function()
+	Wait(1000)
 	vCLIENT.updateHomes(-1,homes)
 	vCLIENT.updateHomesTheft(-1,homesTheft)
 	vCLIENT.updateHoverfy(-1,homesList)
@@ -1389,7 +1389,7 @@ RegisterCommand("wardrobe",function(source,args,rawCommand)
 				else
 					for k,v in pairs(result) do
 						TriggerClientEvent("Notify",source,"importante","<b>Outfit:</b> "..k,20000)
-						Citizen.Wait(1)
+						Wait(1)
 					end
 				end
 			end
@@ -1649,7 +1649,7 @@ local theftTimers = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BANDAGE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(theftTimers) do
 			if theftTimers[k] > 0 then
@@ -1657,7 +1657,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

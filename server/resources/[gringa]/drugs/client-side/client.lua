@@ -20,7 +20,7 @@ local legalHasStart = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		if hasStart then
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
 
 										while not NetworkHasControlOfEntity(hasPed) and DoesEntityExist(hasPed) do
 											NetworkRequestControlOfEntity(hasPed)
-											Citizen.Wait(100)
+											Wait(100)
 										end
 
 										PlayAmbientSpeech1(hasPed,"GENERIC_HI","SPEECH_PARAMS_STANDARD")
@@ -83,7 +83,7 @@ Citizen.CreateThread(function()
 												break
 											end
 
-											Citizen.Wait(1)
+											Wait(1)
 										end
 									else
 										PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
@@ -102,7 +102,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		if legalHasStart then
@@ -146,7 +146,7 @@ Citizen.CreateThread(function()
 
 										while not NetworkHasControlOfEntity(hasPed) and DoesEntityExist(hasPed) do
 											NetworkRequestControlOfEntity(hasPed)
-											Citizen.Wait(100)
+											Wait(100)
 										end
 
 										PlayAmbientSpeech1(hasPed,"GENERIC_HI","SPEECH_PARAMS_STANDARD")
@@ -184,7 +184,7 @@ Citizen.CreateThread(function()
 												break
 											end
 
-											Citizen.Wait(1)
+											Wait(1)
 										end
 									else
 										PlayAmbientSpeech1(hasPed,"GENERIC_NO","SPEECH_PARAMS_STANDARD")
@@ -203,7 +203,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -243,21 +243,21 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if hasTimer > 0 then
 			hasTimer = hasTimer - 1
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 --------------------------------------------------------------------------------------------------------------
 -- THREADCLEARLIST
 --------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(30*60000)
+		Wait(30*60000)
 		TriggerEvent("drugs:clearList",source,false)
 	end
 end)
@@ -284,7 +284,7 @@ end
 -- THREADACTIONROBBERY
 -----------------------------------------------------------------------------------------------------------------------------------------
 local actionRobbery = false
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -312,14 +312,14 @@ Citizen.CreateThread(function()
 							SetEntityAsMissionEntity(target,true,false)
 
 							while IsPedInAnyVehicle(target) do
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
-							Citizen.Wait(250)
+							Wait(250)
 
 							while not NetworkHasControlOfEntity(target) and DoesEntityExist(target) do
 								NetworkRequestControlOfEntity(target)
-								Citizen.Wait(100)
+								Wait(100)
 							end
 
 							TaskSetBlockingOfNonTemporaryEvents(target,true)
@@ -331,7 +331,7 @@ Citizen.CreateThread(function()
 
 							RequestAnimDict("random@arrests@busted")
 							while not HasAnimDictLoaded("random@arrests@busted") do
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							TaskPlayAnim(target,"random@arrests@busted","idle_a",3.0,3.0,-1,49,0,0,0,0)
@@ -347,13 +347,13 @@ Citizen.CreateThread(function()
 									break
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							if timeAim >= 1000 then
 								RequestAnimDict("mp_common")
 								while not HasAnimDictLoaded("mp_common") do
-									Citizen.Wait(1)
+									Wait(1)
 								end
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
@@ -389,12 +389,12 @@ Citizen.CreateThread(function()
 
 							while not NetworkHasControlOfEntity(target) and DoesEntityExist(target) do
 								NetworkRequestControlOfEntity(target)
-								Citizen.Wait(100)
+								Wait(100)
 							end
 
 							RequestAnimDict("random@arrests@busted")
 							while not HasAnimDictLoaded("random@arrests@busted") do
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							TaskPlayAnim(target,"random@arrests@busted","idle_a",3.0,3.0,-1,49,0,0,0,0)
@@ -416,13 +416,13 @@ Citizen.CreateThread(function()
 									break
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							if timeAim >= 1000 then
 								RequestAnimDict("mp_common")
 								while not HasAnimDictLoaded("mp_common") do
-									Citizen.Wait(1)
+									Wait(1)
 								end
 
 								TaskPlayAnim(target,"mp_common","givetake1_a",3.0,3.0,-1,48,0,0,0,0)
@@ -441,6 +441,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)

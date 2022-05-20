@@ -3155,7 +3155,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 local actived = {}
 local activedAmount = {}
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local slyphe = 500
 		if actived then
@@ -3170,7 +3170,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		
-		Citizen.Wait(slyphe)
+		Wait(slyphe)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

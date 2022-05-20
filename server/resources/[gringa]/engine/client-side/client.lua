@@ -104,7 +104,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONSUMEFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
@@ -119,13 +119,13 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREDREFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -300,7 +300,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -320,9 +320,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADVEHICLEFUEL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		local ped = PlayerPedId()
 		if IsPedInAnyVehicle(ped) then
 			local vehicle = GetVehiclePedIsUsing(ped)
@@ -357,7 +357,7 @@ end
 function loadAnim(dict)
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -453,7 +453,7 @@ local benCoords = { -56.47,-1096.97,26.42 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -591,14 +591,14 @@ RegisterNUICallback("requestDrive",function(data,cb)
 			TriggerEvent("player:blockCommands",true)
 			TriggerEvent("Notify","azul","Teste iniciado, para finalizar saia do veículo.",5000)
 
-			Citizen.Wait(1000)
+			Wait(1000)
 
 			vehCreate(data["name"],vehPlate)
 			local plate = GetVehicleNumberPlateText(vehDrive)
 			local modelName = vRP.vehicleModel(GetEntityModel(vehDrive))
 			TriggerServerEvent("setPlateEveryone",plate,modelName)
 
-			Citizen.Wait(1000)
+			Wait(1000)
 
 			SetPedIntoVehicle(ped,vehDrive,-1)
 			benDrive = true
@@ -615,7 +615,7 @@ function vehCreate(vehName,vehPlate)
 
 	RequestModel(mHash)
 	while not HasModelLoaded(mHash) do
-		Citizen.Wait(1)
+		Wait(1)
 	end
 
 	if HasModelLoaded(mHash) then
@@ -627,7 +627,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 999
 		if benDrive then
@@ -636,7 +636,7 @@ Citizen.CreateThread(function()
 
 			local ped = PlayerPedId()
 			if not IsPedInAnyVehicle(ped) then
-				Citizen.Wait(1000)
+				Wait(1000)
 
 				benDrive = false
 				vSERVER.removeDrive()
@@ -647,6 +647,6 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)

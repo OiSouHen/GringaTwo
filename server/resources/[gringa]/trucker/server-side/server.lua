@@ -77,7 +77,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         if timer[k] ~= nil then
             timer[k] = timer[k] - 1
@@ -86,6 +86,6 @@ Citizen.CreateThread(function()
             end
         end
         
-        Citizen.Wait(1000)
+        Wait(1000)
     end
 end)

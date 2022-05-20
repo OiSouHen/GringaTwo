@@ -74,7 +74,7 @@ AddEventHandler('chat:init', function()
 end)
 
 AddEventHandler('onServerResourceStart', function(resName)
-    Citizen.Wait(1)
+    Wait(1)
 
     for _, player in ipairs(GetPlayers()) do
         refreshCommands(player)
